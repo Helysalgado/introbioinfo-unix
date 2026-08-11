@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Introducción a la Bioinformática</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.18/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/hygge.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Introducción a la Bioinformática
+]
+.institute[
+### Licenciatura en Ciencias Genómicas,UNAM
+]
+.date[
+### First version: yyy-mm-dd; Last update: 2024-10-11
+]
+
+---
+
+
+
+
+&lt;style type="text/css"&gt;
+/* From https://github.com/yihui/xaringan/issues/147  */
+.scroll-output {
+  height: 80%;
+  overflow-y: scroll;
+}
+
+.noinverse {
+  background-color: #272822;
+  color: #d6d6d6;
+  text-shadow: 0 0 20px #333;
+}
+
+/* https://stackoverflow.com/questions/50919104/horizontally-scrollable-output-on-xaringan-slides */
+pre {
+  max-width: 100%;
+  overflow-x: scroll;
+}
+
+
+&lt;/style&gt;
+
+
+## Objetivo
+
+Lxs alumnxs deberán ser capaces de aplicar filtros con `grep` y conocer las expresiones regulares.
+---
+
+## Contenido de la unidad
+
+1. Recordando los comandos básicos de análisis.
+
+2. Ejercicios.
+
+3. Expresiones regulares.
+
+
+---
+## Algunos comandos básicos de análisis
+
+Revisemos los comandos que hemos aprendido:
+
+--
+
+|Comando |   Función básica   |
+|----    |---                 |
+|`sort`    | Ordena una serie de líneas (o records). |
+|`cut`     |Corta porciones seleccionadas de cada línea. |
+|`uniq`    |Reporta o filtra las líneas repetidas de un archivo. |
+|`wc`      |Reporta la cuenta de líneas, caracteres y bytes. |
+|`grep`    |Busca patrones. |
+|`man`     |Imprime la descripción y opciones de un comando.  |
+
+
+---
+## Funcionalidades del comando uniq
+
+Algunas funcionalidades del comando `uniq`
+
+--
+
+|Opción |   Comportamiento |
+|----    |---                 |
+|-d    | Sólo imprime las líneas repetidas. |
+|-u    | Sólo imprime las líneas NO repetidas.|
+|-i    | Realiza la comparación case-insensitive.|
+|-c    | Precede cada línea output con la cuenta del número de veces que esa línea ocurrió.|
+
+---
+## Funcionalidades del comando grep
+
+Algunas funcionalidades del comando `grep`
+
+--
+
+|Opción |   Comportamiento |
+|----    |---                 |
+|--color | Resalta el texto que corresponde al patrón. |
+|-E |Interpreta el patrón como una expresión regular extendida, tipo POSIX.|
+|-P |Interpreta el patrón como una expresión regular extendida, tipo Perl.|
+|-f |Lee uno o más patrones a partir de un archivo.|
+|-i |Ignora mayúsculas/minúsculas.|
+|-n |Imprime el número de línea donde se encontró el patrón.|
+|-v |Selecciona las líneas en donde no ocurre el patrón.|
+
+---
+## Acerca de POSIX
+
+.content-box-yellow[
+
+**POSIX** (acrónimo de Portable Operating System Interface) es un **conjunto de estándares** definidos por IEEE (Institute of Electrical and Electronics Engineers) para mantener **compatibilidad** entre sistemas operativos. 
+]
+
+**Características Clave de POSIX**
+
+**Interoperabilidad**: Permite que el software sea portado entre sistemas que cumplen con POSIX sin necesidad de modificaciones significativas.
+
+---
+## Relación entre POSIX y Expresiones Regulares
+
+POSIX es relevante para las expresiones regulares porque define un estándar para **cómo deben comportarse las expresiones regulares** en sistemas compatibles con POSIX. 
+
+.content-box-yellow[
+
+**Estándares de Consistencia**: POSIX proporciona especificaciones detalladas sobre el comportamiento de las expresiones regulares, asegurando que las implementaciones en diferentes sistemas operativos sean consistentes y predecibles. Esto **significa que una expresión regular diseñada para una herramienta en un sistema POSIX debería funcionar de manera similar en otro sistema POSIX**.
+
+]
+---
+## Categorías de Expresiones Regulares
+
+- **BRE (Basic Regular Expressions)**: Es la forma más simple de regex en POSIX. Herramientas como `grep` utilizan BRE por defecto. Características como paréntesis y operadores de repetición tienen un **significado literal** a menos que se precedan de una barra invertida (`\`).
+
+- **ERE (Extended Regular Expressions)**: Más avanzado que BRE, utilizado por herramientas como `egrep`. En ERE, los metacaracteres como `+`, `?`, `|`, y `()` son tratados como operadores sin necesidad de barra invertida.
+
+- **PCRE** Expresiones regulares Perl, que ofrecen una funcionalidad más rica y flexible en comparación con las estándar BRE y ERE. En PCRE (`grep -P`), `\s` coincide con cualquier espacio en blanco, mientras que `\t` se usa específicamente para tabuladores.
+
+---
+
+**Funcionalidad**|**BRE**|**ERE**|**PCRE**(grep -P)
+---|---|---|---
+.tiny[Inicio de línea]|`^`|`^`|`^`
+.tiny[Fin de línea]|`$`|`$`|`$`
+.tiny[Cualquier carácter]|`.`|`.`|`.`
+.tiny[Cero o más repeticiones]|`*`|`*`|`*`
+.tiny[Una o más repeticiones]|`\+` .tiny[(requiere escape con `\`)]|`+`|`+`
+.tiny[Cero o una repetición]|`\?`.tiny[ (requiere escape con `\`)]|`?`|`?`
+.tiny[Repeticiones exactas]|`\{n\}` .tiny[(requiere escape con `\`)]|`{n}`|`{n}`
+.tiny[Repeticiones mínimas y máximas]|`\{n,m\}` .tiny[(requiere escape con `\`)]|`{n,m}`|`{n,m}`
+.tiny[Conjunto de caracteres]|`[abc]`|`[abc]`|`[abc]`
+.tiny[Negación en conjuntos]|`[^abc]`|`[^abc]`|`[^abc]`
+.tiny[Rango en conjuntos]|`[a-z]`|`[a-z]`|`[a-z]`
+.tiny[Agrupación]|`\(`abc`\)` .tiny[(requiere escape con `\`)]|`(abc)`|`(abc)`
+
+---
+
+**Funcionalidad**|**BRE**|**ERE**|**PCRE**(grep -P)
+---|---|---|---
+.tiny[Alternancia (OR)]|No nativo en BRE| `a\|b` | `a\|b`
+.tiny[Cabecera de línea vacía]|`^$`|`^$`|`^$`
+.tiny[Espacio en blanco]|`[[:space:]]`|`[[:space:]]`|`\s`
+.tiny[Tabulador]|Parte de `[[:space:]]`|Parte de `[[:space:]]`|`\t`
+.tiny[Mirar hacia adelante]|No soportado|No soportado|`(?=abc)` (lookahead)
+.tiny[Mirar hacia atrás]|No soportado|No soportado|`(?&lt;=abc)` (lookbehind)
+.tiny[Grupos no capturadores]|No soportado|No soportado|`(?:abc)`
+.tiny[Referencias inversas fuera del grupo]|`\1` requiere escapar|`\1`|`\1`
+.tiny[Rangos Unicode|No soportado]|No soportado|`\p{L}` para unicode letters
+
+---
+## Buenas prácticas
+
+Las siguientes recomendaciones te ayudarán a construir flujos de trabajo más robustos y reproducibles:
+
+1. **Piensa en los pasos necesarios** para obtener la respuesta que buscas ANTES de ejecutar tu primer comando.
+
+2. Documenta tus códigos describiendo la funcionalidad de cada sección.
+
+3. Analiza el OUTPUT de CADA PARTE de la TUBERIA para encontrar fallas lógicas o comportamientos inesperados.
+
+4. Recuerda que siempre puedes acceder al manual de un comando o buscar ayuda en internet para entender su funcionamiento.
+
+---
+## Analizando otros organismos
+
+.pull-left[
+*Vibrio cholerae*
+
+- Bacteria gram negativa.
+
+- Gamma proteobacteria.
+
+- Produce colera en humanos.
+
+&lt;img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Cholera_bacteria_SEM.jpg/440px-Cholera_bacteria_SEM.jpg" width="300px" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+
+*Bacillus anthracis*
+
+- Bacteria gram positiva.
+
+- Es un bacilo formador de endoesporas.
+
+- Es el agente que produce antrax en humanos.
+
+
+&lt;img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Bacillus_anthracis.png/654px-Bacillus_anthracis.png" width="300px" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+## Preparando el área de trabajo
+
+Preparando nuestro directorio de trabajo
+
+- Muévete a tu directorio `home` en el servidor.
+
+- Crea la carpeta `practica5`.
+
+- Entra a la carpeta `practica5`.
+
+- Crea las carpetas de un proyecto.
+
+&lt;!--Copia los archivos ubicados en `/home/compu2/WelcomeBioinfo/datos/practica5` a tu carpeta `data`.--&gt;
+
+- Descarga los datos de los genomas desde NCBI (.gff, .fna, .faa)
+
+- Abre un nuevo archivo - protocolo para el análisis de éstos genomas (stackedit o la herramienta que uses).
+
+---
+## Familiarizándonos con los datos de trabajo
+
+- Visualiza y explora cada uno de los archivos.
+
+- Los archivos llamados `cholerae*` son anotaciónes de la bacteria *Vibrio cholerae*.
+
+- Los archivos llamados `anthracis*` son anotaciónes de la bacteria *Bacillus anthracis*.
+
+- Indaga un poco más sobre estos organismos para elaborar la introducción.
+
+---
+## Ejercicio 1: Pregunta
+
+**¿Cuál es la fuente de datos más común para los datos de anotación de
+*Vibrio cholerae* y de *Bacillus anthracis*?**
+
+.content-box-blue[
+Recuerda: En el caso de *Escherichia coli* todos los datos provenían de
+RefSeq, un recurso altamente curado y detallado.
+]
+
+--
+
+**¿Cuál es el algoritmo que debemos seguir?**
+
+.content-box-red[ 
+Recuerda, la LOGICA de cómo abordar el problema y encontrar la solución es PRIMERO antes de saber que comando vas a usar. 
+
+]
+---
+## Ejercicio 1: Algoritmo
+
+.content-box-yellow[
+
+Para cada organismo:
+
+- Eliminar el encabezado, porque son comentarios.
+
+- Acceder a la columna 2, ya que es la que nos indica el origen de los datos, la fuente. El resto de datos no nos sirve para abordar la respuesta.
+
+- Ordenar la columna 2 para que todas las fuentes de datos queden juntas.
+
+- Contar cuantas veces se repite cada fuente ( las repeticiones nos indican cuantos features estan anotadas en esa fuente.)
+
+]
+
+---
+## Ejercicio 1: Código
+
+Una forma de hacerlo:
+
+```bash
+## Fuente de los datos para V. cholerae
+grep -v "#" data/cholerae.gff | cut -f2 | \
+sort | uniq -c
+```
+
+--
+
+```bash
+## Fuente de los datos para B. anthracis
+grep -v "#" data/anthracis.gff | cut -f2 | \
+sort | uniq -c
+```
+
+---
+## Ejercicio 1: Respuesta
+
+
+.content-box-green[
+*V. cholerae*: Fuentes de datos más comunes:
+  - 3771 RefSeq.
+  
+  - 3609 **Protein Homology**.
+
+*B. anthracis*: Fuentes de datos más comunes:
+  - 5530 RefSeq.
+  
+  - 5332 **Protein Homology**.
+]
+
+Para ambos organismos la fuente de casi la mitad de las anotaciónes es la
+inferencia de homología para los genes o proteínas.
+
+---
+## Ejercicio 2: Pregunta
+
+**¿Cuántos de los genes de *Vibrio cholerae* existen en *Bacillus anthracis*?**
+
+.content-box-blue[
+
+Para fines de este ejercicio, un gene será considerado como el mismo si
+tiene el mismo nombre.
+
+]
+
+**¿Cuál es el algoritmo que debemos seguir?**
+
+---
+## Ejercicio 2: Algoritmo
+
+
+**¿Cuántos de los genes de *Vibrio cholerae* existen en *Bacillus anthracis*?**
+
+.content-box-yellow[
+
+- Obtener los genes únicos de *V. cholerae*.
+
+- Contar el número de genes únicos de *V. cholerae*.
+
+- Buscar estos genes *B. anthracis*.
+
+- Obtener el nombre de los genes compartidos en *V. cholerae* y *B. anthracis*.
+
+- Obtener el número de genes únicos compartidos.
+
+]
+
+---
+## Ejercicio 2: Código
+
+Una forma de hacerlo:
+
+```bash
+## Obtener los genes únicos de V. cholerae
+grep -v "#" data/cholerae.gff | grep -P "RefSeq\tgene" | cut -f9 | \
+cut -d ';' -f2 | sort -u &gt; cholerae_genes.txt
+
+## Contar el número de genes únicos de V. cholerae
+wc -l cholerae_genes.txt
+
+## Buscarlos en B. anthracis
+grep -w -f cholerae_genes.txt data/anthracis.gff \
+&gt; cholerae_anthracis_genes.gff
+
+## Obtener número de genes únicos compartidos
+grep -P "RefSeq\tgene" cholerae_anthracis_genes.gff \
+| cut -f 9 | cut -d ';' -f2 | sort -u | wc -l
+
+```
+---
+## Ejercicio 2: Respuesta
+
+.content-box-green[
+- *V. cholerae* tiene 3620 genes únicos.
+
+- 506 también existen en *B. anthracis*.
+]
+
+---
+## Ejercicio 3: Pregunta
+
+**¿Cuántas de las proteínas de *Vibrio cholerae* también existen en *Bacillus anthracis*?**
+
+.content-box-blue[
+
+Para fines de este ejercicio, una proteína será considerada la misma si tiene
+la misma descripción en el campo `product`.
+
+]
+
+**¿Cuál es el algoritmo que debemos seguir?**
+
+---
+## Ejercicio 3: Algoritmo
+
+**¿Cuántas de las proteínas de *Vibrio cholerae* también existen en *Bacillus anthracis*?**
+
+.content-box-yellow[
+
+- Obtener los productos únicos de *V. cholerae*.
+
+- Contar el número de productos únicos de *V. cholerae*.
+
+- Buscar estos productos en *B. anthracis*.
+
+- Obtener el nombre de los productos en *B. anthracis*.
+
+- Obtener el número de productos únicos compartidos.
+
+]
+
+**El campo `product` se encuentra disperso en varias columnas**.
+
+
+---
+## Ejercicio 3: Código
+
+Una forma de hacerlo:
+
+```bash 
+## El campo product esta disperso en varias columnas
+grep -v "#" data/cholerae.gff | grep -P "\tCDS\t" | cut -f9 | \
+cut -d ';' -f7 | grep "product=" &gt; cholerae_products.txt
+
+grep -v "#" data/cholerae.gff | grep -P "\tCDS\t" | cut -f9 | \
+cut -d ';' -f8 | grep "product=" &gt;&gt; cholerae_products.txt
+
+grep -v "#" data/cholerae.gff | grep -P "\tCDS\t" | cut -f9 | \
+cut -d ';' -f9 | grep "product=" &gt;&gt; cholerae_products.txt
+
+grep -v "#" data/cholerae.gff | grep -P "\tCDS\t" | cut -f9 | \
+cut -d ';' -f10 | grep "product=" &gt;&gt; cholerae_products.txt
+
+grep -v "#" data/cholerae.gff | grep -P "\tCDS\t" | cut -f9 | \
+cut -d ';' -f11 | grep "product=" &gt;&gt; cholerae_products.txt
+
+## Productos únicos
+sort -u cholerae_products.txt &gt; cholerae_products_uniq.txt
+wc -l cholerae_products_uniq.txt
+```
+
+**Recuerda verificar que tu respuesta sea la correcta**.
+
+---
+## Ejercicio 3: Código
+
+La segunda parte de la respuesta:
+
+```bash
+## Buscarlos en B. anthracis
+grep -wiFf cholerae_products_uniq.txt data/anthracis.gff \
+&gt; cholerae_anthracis_products.gff
+
+## Obtener productos compartidos
+grep -P "\tCDS\t" cholerae_anthracis_products.gff | cut -f9 | \
+cut -d ';' -f7 | grep "product=" &gt; anthracis_shared_products.txt
+grep -P "\tCDS\t" cholerae_anthracis_products.gff | cut -f9 | \
+cut -d ';' -f8 | grep "product=" &gt;&gt; anthracis_shared_products.txt
+grep -P "\tCDS\t" cholerae_anthracis_products.gff | cut -f9 | \
+cut -d ';' -f9 | grep "product=" &gt;&gt; anthracis_shared_products.txt
+grep -P "\tCDS\t" cholerae_anthracis_products.gff | cut -f9 | \
+cut -d ';' -f10 | grep "product=" &gt;&gt; anthracis_shared_products.txt
+grep -P "\tCDS\t" cholerae_anthracis_products.gff | cut -f9 | \
+cut -d ';' -f11 | grep "product=" &gt;&gt; anthracis_shared_products.txt
+
+## Número de productos únicos
+sort -u anthracis_shared_products.txt | wc -l
+```
+
+---
+## Ejercicio 3: Respuesta
+
+.content-box-green[
+
+- *V. cholerae* tiene 2430 productos proteicos (de acuerdo a la descripción del producto).
+
+- 1024 también existen en *B. anthracis*.
+]
+
+---
+## Ejercicio 4: Pregunta
+
+**¿Cuál es la longitud aproximada de los genomas de *Vibrio cholerae* y de *Bacillus anthracis*? ¿Cuántos cromosomas tiene cada bacteria?**
+
+.content-box-blue[
+
+**HINT**: Una longitud estimada incluyendo saltos de línea pero sin incluir el
+header.
+
+]
+
+**¿Cuál es el algoritmo que debemos seguir?**
+
+---
+## Ejercicio 4: Algoritmo
+
+**¿Cuál es la longitud aproximada de los genomas de *Vibrio cholerae* y de *Bacillus anthracis*? ¿Cuántos cromosomas tiene cada bacteria?** 
+
+.content-box-yellow[
+
+Para cada organismo:
+
+- Obtener las líneas de encabezado del fasta genómico y contarlas.
+
+- Excluir las líneas de encabezado del fasta genómico y contar los caracteres.
+
+]
+
+---
+## Ejercicio 4: Código
+
+Una forma de hacerlo:
+
+```bash
+## Numero de cromosomas V. cholerae
+grep "&gt;" data/cholerae_genomic.fna
+
+## Longitud aprox de genoma V. cholerae
+grep -v "&gt;" data/cholerae_genomic.fna | wc
+
+## Numero de cromosomas B. anthracis
+grep "&gt;" data/anthracis_genomic.fna
+
+## Longitud aprox de genoma B. anthracis
+grep -v "&gt;" data/anthracis_genomic.fna | wc
+```
+
+---
+## Ejercicio 4: Respuesta
+
+.content-box-green[
+
+*V. cholerae*:
+  - 2 cromosomas.
+  - Aprox 4,083,883 pares de bases en su genoma.
+  
+*B. anthracis*:
+  - 1 cromosoma.
+  - aprox 5292635 pares de bases en su genoma.
+]
+
+---
+## Ejercicio 5: Pregunta
+
+**¿Cuál de las siguientes bacterias: *Escherichia coli*, *Vibrio cholerae* y *Bacillus anthracis* tiene:**
+
+- Una proporción mayor de pseudogenes/genes en su genoma.
+- Un número mayor de ncRNA anotados.
+- Un número mayor de riboswitches anotados?
+
+
+**¿Cuál es el algoritmo que debemos seguir?**
+
+---
+## Ejercicio 5: Algoritmo
+
+.content-box-yellow[
+
+Para cada organismo:
+
+- Excluir el encabezado del archivo de anotación.
+
+- Acceder a la columna de feature type.
+
+- Obtener los valores únicos y contar las ocurrencias para cada uno.
+
+]
+
+---
+## Ejercicio 5: Código
+
+Una forma de hacerlo:
+
+```bash
+## Obtener numero de elementos por feature E. coli
+grep -v "#" data/coli.gff | cut -f3 | sort | uniq -c
+
+## Obtener numero de elementos por feature V. cholerae
+grep -v "#" data/cholerae.gff | cut -f3 | sort | uniq -c
+
+## Obtener numero de elementos por feature B. anthracis
+grep -v "#" data/anthracis.gff | cut -f3 | sort | uniq -c
+
+```
+---
+## Ejercicio 5: Respuesta
+
+.content-box-green[
+
+Proporción pseudogenes/genes:
+  - *E. coli*: 166/4419 = 0.037
+  - *V. cholerae*: 80/3657 = 0.21
+  - *B. anthracis*: 273/5204 = 0.052 | La proporción más alta pseudogenes/genes.
+  
+Número de ncRNA anotados:
+  - *E. coli*: 72 | El número más alto de ncRNA anotados.
+  - *V. cholerae*: 1
+  - *B. anthracis*: 2
+  
+Número de riboswitches anotados:
+  - *E. coli*: 0
+  - *V. cholerae*: 8
+  - *B. anthracis*: 37 | El número más alto de riboswitches.
+
+]
+---
+
+## Ejercicio 6: Pregunta
+
+**Genera un archivo en el cual todos los features del mismo tipo se encuentren juntos y ordenados por posición genómica.**
+
+.content-box-blue[
+
+Repite el proceso para *Vibrio cholerae* y *Bacillus anthracis*.
+
+]
+
+**¿Cuál es el algoritmo que debemos seguir?**
+
+---
+## Ejercicio 6: Algoritmo
+
+**Genera un archivo en el cual todos los features del mismo tipo se encuentren juntos y ordenados por posición genómica.**
+
+.content-box-yellow[
+
+Para cada organismo:
+
+- Ordenar alfabéticamente con base en feature type.
+
+- Ordenar numéricamente por posición de inicio.
+
+]
+---
+## Ejercicio 6: Código
+
+```bash
+## Ordenar por feature_type y posición V. cholerae
+sort -k3,3 -k4,4n data/cholerae.gff | less -S
+
+## Ordenar por feature_type y posición B. anthracis
+sort -k3,3 -k4,4n data/anthracis.gff | less -S
+
+```
+
+Esto no da el resultamos que esperamos. :(
+
+El archivo de inicio tiene espacios en algunos de los campos lo cual confunde al comando `sort`, debemos indicarle cuál es el separador apropiado.
+
+---
+## Ejercicio 6: Código
+
+Otra forma de hacerlo:
+
+```bash
+## Debemos indicar que las columnas son separadas por TAB
+## Ordenar por feature_type y posición V. cholerae
+sort -t$'\t' -k3,3 -k4,4n data/cholerae.gff \
+&gt; cholerae_feature_sort.gff
+
+## Ordenar por feature_type y posición B. anthracis
+sort -t$'\t' -k3,3 -k4,4n data/anthracis.gff \
+&gt; anthracis_feature_sort.gff
+
+```
+
+---
+## Ejercicio 6: Respuesta
+
+.content-box-green[
+
+*V. cholerae*:
+  - Primer línea: CDS 372 806
+  - Última línea: tmRNA 914291 914657
+  
+*B. anthracis*:
+  - Primer línea: CDS 407 1747
+  - Última línea: tmRNA 4834383 4834737
+
+]
+
+---
+## Ejercicio 7: Pregunta
+
+**¿Para cuántos pseudogenes se tiene anotado el nombre del gene de origen en *Vibrio cholerae* y *Bacillus anthracis*? ¿Cuáles son los genes de origen? ¿Se conoce el gene de origen para todos los pseudogenes?**
+
+
+**¿Cuál es el algoritmo que debemos seguir?**
+
+---
+## Ejercicio 7: Algoritmo
+
+**¿Para cuántos pseudogenes se tiene anotado el nombre del gene de origen
+Vibrio cholerae y Bacillus anthracis? ¿Cuáles son los genes de origen? ¿Se
+conoce el gene de origen para todos los pseudogenes?**
+
+.content-box-yellow[
+
+Para cada organismo:
+- Obtener los registros correspondientes a pseudogenes y contarlos.
+
+- Obtener cuantos de esos registros tienen un nombre de gene asociado.
+
+- Obtener los nombres de los genes asociados y contarlos.
+
+
+]
+
+---
+## Ejercicio 7: Código
+
+Una forma de hacerlo, *V. cholerae*:
+
+```bash
+## Numero de pseudogenes V. cholerae
+grep -P "\tpseudogene\t" data/cholerae.gff | wc -l
+
+## Obtener cuantos tienen un nombre de gene asociado
+grep -P "\tpseudogene\t" data/cholerae.gff | grep "gene=" | wc -l
+
+## Nombre de los genes de origen V. cholerae
+grep -P "\tpseudogene\t" data/cholerae.gff | grep "gene=" | \
+cut -f9 | cut -d';' -f4 | cut -d'=' -f2 | sort -u
+
+## Cuantos son V. cholerae
+grep -P "\tpseudogene\t" data/cholerae.gff | grep "gene=" | \
+cut -f9 | cut -d';' -f4 | cut -d'=' -f2 | sort -u | wc -l
+```
+---
+## Ejercicio 7: Código
+
+Una forma de hacerlo, *B. anthracis*:
+
+```bash
+## Numero de pseudogenes B. anthracis
+grep -P "\tpseudogene\t" data/anthracis.gff | wc -l
+
+## Obtener cuantos tienen un nombre de gene asociado
+grep -P "\tpseudogene\t" data/anthracis.gff | grep "gene=" | wc -l
+
+## Nombre de los genes de origen B. anthracis
+grep -P "\tpseudogene\t" data/anthracis.gff | grep "gene=" | \
+cut -f9 | cut -d';' -f4 | cut -d'=' -f2 | sort -u
+
+## Cuantos son B. anthracis
+grep -P "\tpseudogene\t" data/anthracis.gff | grep "gene=" | \
+cut -f9 | cut -d';' -f4 | cut -d'=' -f2 | sort -u | wc -l
+```
+
+---
+## Ejercicio 7: Respuesta
+
+.content-box-green[
+
+*V. cholerae*:
+
+- 80 pseudogenes.
+
+  - 13 con gene de origen conocido: dnaG, tsaD, oadA, uvrB, fabB, hldE, pulA, gspD, glgB, gcvP, gcvT, secF, hchA
+
+*B. anthracis*:
+
+- 273 pseudogenes.
+
+  - 20 con gene de origen conocido: abc-f, brnQ, dprA, flhF, fliF, fliM, gntK, hflX, iolE,
+
+]
+
+---
+## Ejercicio 8: Pregunta
+
+El archivo FASTA con las secuencias proteicas de un organismo específico (el cual descargaste de NCBI) tiene secuencias que han sido asigndas a distintos niveles taxonómicos. Esta información se encuentra en el header de cada secuencia, entre corchetes, ¿cuáles son los distintos niveles
+taxonómicos a los que se han asignado secuencias en los FASTA de *Escherichia coli*, *Vibrio cholerae* y *Bacillus anthracis*?
+
+.content-box-blue[
+
+HINT: El comando `rev` revierte una cadena de texto.
+
+]
+
+**¿Cuál es el algoritmo que debemos seguir?**
+
+---
+## Ejercicio 8: Algoritmo
+
+**¿Cuáles son los distintos niveles taxonómicos a los que se han asignado secuencias en los FASTA de *Escherichia coli*, *Vibrio cholerae* y *Bacillus anthracis*?**
+
+.content-box-yellow[
+
+- Obtener los identificadores del archivo FASTA.
+
+- Obtener la palabra o palabras entre corchetes.
+
+]
+---
+## Ejercicio 8: Código
+
+Una forma INCORRECTA de hacerlo: 
+
+```bash
+## ESTO NO FUNCIONA
+grep "&gt;" data/cholerae_protein.fna | cut -d '[' -f 2 | \
+cut -d ']' -f1 | sort -u
+
+grep --color "acetyl-CoA-carboxylase" data/cholerae_protein.fna
+```
+
+Existen otros elementos en el identificador que podrían estar entre corchetes. Sin embargo, el nivel taxonómico siempre está en el último. 
+
+
+---
+## Ejercicio 8: Código
+
+Una forma CORRECTA de hacerlo:
+
+```bash
+## Niveles taxonómicos proteínas E. coli
+grep "&gt;" data/coli_protein.fna | rev | cut -d '[' -f 1 | rev | \
+cut -d ']' -f1 | sort -u
+
+## Niveles taxonómicos proteínas V. cholerae
+grep "&gt;" data/cholerae_protein.fna | rev | cut -d '[' -f 1 | rev | \
+cut -d ']' -f1 | sort -u
+
+## Niveles taxonómicos proteínas B. anthracis
+grep "&gt;" data/anthracis_protein.fna | rev | cut -d '[' -f 1 | rev | \
+cut -d ']' -f1 | sort -u
+```
+
+---
+## Ejercicio 8: Respuesta
+
+.pull-left[
+
+- *E.coli*:
+  - Escherichia coli str. K-12 substr. MG1655
+
+- *V. cholerae*:
+  - Bacteria
+  - Gammaproteobacteria
+  - Vibrio
+  - Vibrio cholerae
+  - Vibrionaceae
+
+]
+
+.pull-right[
+
+- *B. anthracis*:
+  - Bacillaceae
+  - Bacillales
+  - Bacilli
+  - Bacillus
+  - Bacillus anthracis
+  - Bacillus cereus group
+  - Bacteria
+  - Firmicutes
+]
+
+.content-box-green[
+
+.tiny[
+“ A non-redundant protein record that provides organism information at the level of a genus,
+family, or even super-kingdom does not mean that the protein is found in all RefSeq genomes
+below that taxonomic classification. It only indicates that the protein is found in more than one
+genome of different species for which the genus, family, or super-kingdom classification is the
+lowest common taxonomic node.’
+]
+]
+---
+
+## Ejercicio 9: Pregunta
+
+**¿Existe alguna proteína en los archivos FASTA de secuencias proteicas que no se encuentre en el gff de la anotación para *Escherichia coli*, *Vibrio cholerae* y *Bacillus anthracis*?**
+
+
+**¿Cuál es el algoritmo que debemos seguir?**
+
+---
+## Ejercicio 9: Algoritmo
+
+**¿Existe alguna proteína en los archivos FASTA de secuencias proteicas que no se encuentre en el gff de la anotación para *Escherichia coli*, *Vibrio cholerae* y *Bacillus anthracis*?**
+
+.content-box-yellow[
+
+- Obtener los ID de las proteína del archivo FASTA y contarlos.
+
+- Obtener los ID del archivo gff de anotación.
+
+- Obtener la intersección de ambas listas.
+
+- Contar los IDs únicos.
+
+]
+
+---
+## Ejercicio 9: Código
+
+Para *E.coli*:
+
+```bash
+## Obtener los ID de las proteínas E. coli
+grep "&gt;" data/coli_protein.fna | cut -d " " -f1 | \
+cut -d "&gt;" -f2 | sort -u &gt; coli_protein_id.txt
+
+## Contarlos
+wc -l coli_protein_id.txt
+
+## Obtener los ID de la anotación E. coli
+cut -f9 data/coli.gff | cut -d ';' -f1 | sort -u &gt; coli_id_fromgff.txt
+
+## Obtener la intersección de ambas listas
+grep -Ff coli_protein_id.txt coli_id_fromgff.txt &gt; coli_protein_id.gff
+
+## Contar los IDs únicos
+sort -u coli_protein_id.gff | wc -l
+
+```
+
+---
+## Ejercicio 9: Código
+
+Para *V. cholerae*:
+
+```bash
+## Obtener los ID de las proteínas V. cholerae
+grep "&gt;" data/cholerae_protein.fna | cut -d " " -f1 | \
+cut -d "&gt;" -f2 | sort -u &gt; cholerae_protein_id.txt
+
+## Contarlos
+wc -l cholerae_protein_id.txt
+
+## Obtener los ID de la anotación V. cholerae
+cut -f9 data/cholerae.gff | cut -d ';' -f1 | sort -u \
+&gt; cholerae_id_fromgff.txt
+
+## Obtener la intersección de ambas listas
+grep -Ff cholerae_protein_id.txt cholerae_id_fromgff.txt \
+&gt; cholerae_protein_id.gff
+
+## Contar los IDs únicos
+cut -d "-" -f2 cholerae_protein_id.gff | sort -u | wc -l
+```
+
+---
+## Ejercicio 9: Código
+
+Para *B. anthracis*:
+
+```bash
+## Obtener los ID de las proteínas B. anthracis
+grep "&gt;" data/anthracis_protein.fna | cut -d " " -f1 | \
+cut -d "&gt;" -f2 | sort -u &gt; anthracis_protein_id.txt
+
+## Contarlos
+wc -l anthracis_protein_id.txt
+
+## Obtener los ID de la anotación B. anthracis
+cut -f9 data/anthracis.gff | cut -d ';' -f1 | sort -u \
+&gt; anthracis_id_fromgff.txt
+
+## Obtener la intersección de ambas listas
+grep -Ff anthracis_protein_id.txt anthracis_id_fromgff.txt \
+&gt; anthracis_protein_id.gff
+
+## Contar los IDs únicos
+cut -d "-" -f2 anthracis_protein_id.gff | sort -u | wc -l
+```
+
+---
+## Ejercicio 9: Respuesta
+
+.content-box-green[
+
+*E.coli*:
+- 4242 protein id del archivo FASTA de proteínas.
+- 4242 protein id en el archivo GFF de anotación.
+
+*V. cholerae*:
+- 3492 protein id.
+- 3492 protein id en el archivo GFF de anotación.
+
+*B. anthracis*:
+- 5071 protein id.
+- 5071 protein id en el archivo GFF de anotación.
+
+]
+
+---
+## Ejercicio 10: Pregunta
+
+**Genera un archivo FASTA con la secuencia de la proteína FNR de *Vibrio cholerae* y *Bacillus anthracis*. Un archivo por organismo.**
+
+
+
+**¿Cuál es el algoritmo que debemos seguir?**
+
+---
+## Ejercicio 10: Algoritmo
+
+**Genera un archivo FASTA con la secuencia de la proteína FNR de *Vibrio cholerae* y *Bacillus anthracis*. Un archivo por organismo.**
+
+.content-box-yellow[
+
+- Obtener los IDs del archivo FASTA de proteínas.
+
+- Obtener la posición para la proteína FNR.
+
+- Obtener el siguiente ID.
+
+- Obtener el número de línea del archivo FASTA donde se encuentra el siguiente ID.
+
+- Obtener el número de línea del archivo FASTA donde se encuentra el ID de FNR.
+
+- Extraer el header y la secuencia para FNR.
+
+]
+
+---
+## Ejercicio 10: Código
+
+Para *Vibrio cholerae*:
+
+```bash
+## Posición del header para la proteína FNR
+grep "&gt;" cholerae/cholerae_protein.fna | grep -in fnr
+
+## Obtener el siguiente ID
+grep "&gt;" cholerae/cholerae_protein.fna | head -2803 | tail -2
+
+## Número de línea del siguiente ID
+grep -n "WP_001177584.1" cholerae/cholerae_protein.fna
+
+## Número de línea del header para FNR
+grep -n "WP_001177523.1" cholerae/cholerae_protein.fna
+
+## Extraer el header y la secuencia para FNR
+head -15502 cholerae/cholerae_protein.fna | tail -4 &gt; cholerae/FNR.fna
+```
+---
+## Ejercicio 10. Código
+
+Para *Bacillus anthracis*:
+
+```bash
+## Posición del header para la proteína FNR
+grep "&gt;" cholerae/cholerae_protein.fna | grep -in fnr
+
+## Obtener el siguiente ID
+grep "&gt;" anthracis/anthracis_protein.fna | head -2071 | tail -2
+
+## Número de línea del siguiente ID
+grep -n "WP_000600649.1" anthracis/anthracis_protein.fna
+
+## Número de línea del header para FNR
+grep -n "WP_000600586.1" anthracis/anthracis_protein.fna
+
+## Extraer el header y la secuencia para FNR
+head -10042 anthracis/anthracis_protein.fna | tail -4 &gt; anthracis/FNR.fna
+```
+
+---
+## Ejercicio 10:  Respuesta
+
+.content-box-green[
+
+*V. cholerae*:
+  - 4 líneas
+  - 304 caracteres
+  
+*B. anthracis*:
+  - 4 líneas
+  - 255 caracteres
+
+]
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+  .logo {
+    background-image: url(logos/LCG-UNAM.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    width: 110px;
+    height: 128px;
+    z-index: 0;
+  }
+  </style>
+  
+  <script>
+  document
+    .querySelectorAll(
+      '.remark-slide-content' +
+      ':not(.title-slide)' +
+      // add additional classes to exclude here, e.g.
+      // ':not(.inverse)' +
+      ':not(.hide-logo)'
+    )
+    .forEach(el => {
+      el.innerHTML += '<div class="logo"></div>';
+    });
+  </script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

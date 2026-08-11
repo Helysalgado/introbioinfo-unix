@@ -1,0 +1,131 @@
+---
+title: "Introducción a la Bioinformática"
+--subtitle: ""
+--author: ''
+institute: "Licenciatura en Ciencias Genómicas,UNAM"
+date: 'First version: yyy-mm-dd; Last update: `r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    css: ["default", "default-fonts", "hygge"]
+    lib_dir: libs
+    includes:
+      after_body: insert-logo.html
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "macros.js"
+--distill::distill_article: default
+
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{css, echo = FALSE}
+/* From https://github.com/yihui/xaringan/issues/147  */
+.scroll-output {
+  height: 80%;
+  overflow-y: scroll;
+}
+
+.noinverse {
+  background-color: #272822;
+  color: #d6d6d6;
+  text-shadow: 0 0 20px #333;
+}
+
+/* https://stackoverflow.com/questions/50919104/horizontally-scrollable-output-on-xaringan-slides */
+pre {
+  max-width: 100%;
+  overflow-x: scroll;
+}
+```
+
+## Tarea
+
+El objetivo de la tarea es que aprendas a moverte en la estructura de directorios de unix e ir aprendiendo sobre las buenas prácticas de la organización de proyectos.
+
+Las actividades a realizar se listan a continuación. Recuerda que los pasos son secuenciales, por lo que no podrás realizar los pasos de manera aleatoria sino secuencial como estan descritos.
+
+En cada uno de los pasos te recomendamos verificar que el comando haya sido exitoso.
+
+Recuerda que tu reporte debe ser **REPRODUCIBLE**. Debes indicar la fuentes de datos, las instrucciones y algunos otros datos que consideres necesarios.
+
+
+---
+## Problema
+
+El proyecto **genómico de variantes** se centra en identificar y analizar las **variaciones genéticas** en un conjunto de muestras. El objetivo principal es comprender las diferencias genéticas entre individuos y cómo estas variantes pueden influir en la predisposición a enfermedades, la respuesta a medicamentos o cualquier otro rasgo fenotípico de interés.
+
+Se utilizan **técnicas de secuenciación** de próxima generación y se aplican **análisis bioinformáticos y estadísticos** para obtener información valiosa sobre las variantes genéticas y su relación con los fenotipos de interés.
+
+Supongamos que estas colaborando en un proyecto para determinar las variantes genéticas de un conjunto de muestras. Tu le entregaste el resultado de la secuenciación de las muestras y tu colaborador se encargó de todo el análisis bioinformático. Ahora, te comparte todo el proyecto, pero resulta que no esta nada organizado.
+
+---
+## Problema
+
+Antes de seguir con tu proyecto, tienes que **organices** lo que tienes hasta ahora:
+
+Es necesario tener todo en un directorio llamado `genomics` éste contiene tres subdirectorios: `raw-data`, `alignment`, y `results`. 
+
+Dentro de `raw-data`, tienes varios archivos de secuencias de ADN en formato FASTQ.   
+Dentro de `alignment`, tienes archivos de alineamiento en formato SAM.   
+Y dentro de `results`, tienes archivos de resultados en formato VCF.  
+
+Los archivos de secuencias de ADN en formato FASTQ generalmente se generan utilizando secuenciadores de próxima generación y contienen las secuencias nucleotídicas y las correspondientes calidades de cada base.
+
+---
+
+## Problema
+
+Los archivos de **alineamiento** en formato SAM (Sequence Alignment/Map) contienen las secuencias de ADN alineadas a una referencia genómica y proporcionan información sobre la posición de cada secuencia en el genoma de referencia y las diferencias entre la secuencia de referencia y las secuencias alineadas.
+
+Bowtie es la herramienta que se usó para realizar el alineamiento de secuencias de ADN de alta calidad contra un genoma de referencia. El comando para realizar el alineamiento con Bowtie es:
+
+```
+bowtie -q referencia.fasta -q secuencias.fastq alineamiento.sam
+```
+
+Donde `referencia.fasta` es el archivo en formato FASTA que contiene la secuencia de referencia y `secuencias.fastq` es el archivo en formato FASTQ que contiene las secuencias a alinear. El resultado del alineamiento se guarda en el archivo `alineamiento.sam`.
+
+---
+
+## Problema
+
+Los archivos de resultados en formato VCF (Variant Call Format) se utilizan para almacenar variantes genéticas identificadas durante el análisis del genoma, como polimorfismos de un solo nucleótido (SNPs) y variantes de inserción o deleción (indels).
+
+GATK (Genome Analysis Toolkit) es la suite de herramientas que se utilizó para el análisis de datos de secuenciación de ADN y ARN. El comando para realizar el llamado de variantes y generar un archivo en formato VCF con GATK es:
+
+```
+gatk Mutect2 -R referencia.fasta -I alineamiento.bam -O variantes.vcf
+```
+
+   Donde `referencia.fasta` es el archivo en formato FASTA que contiene la secuencia de referencia, `alineamiento.bam` es el archivo en formato BAM que contiene el alineamiento de las secuencias y `variantes.vcf` es el archivo de salida en formato VCF que contendrá las variantes identificadas.
+
+Nota: no te preocupes sino entiendes todos los términos, los verémos mas adelante con más detalle.
+
+---
+
+## Instrucciones
+
+En un documento markdown (reporte_variantes.md) usando el formato de `Reporte de Investigación` explica a tu colaborador lo que hiciste para organizar el proyecto, y cómo él podría replicarlo. Aquí una guía :
+
+1. Genera la estructura de directorios descrita en el *problema*, dentro de la carpeta `proyectos` del servidor de trabajo.
+
+2. En la siguiente ruta `/home/compu2/WelcomeBioinfo/datos/tarea3` estan los archivos que tu colaborador te entregó. Colocalos en las carpetas que les corresponde.
+
+3. Queremos corroborar que se copiaron todos los archivos. Para eso, debes estar colocado en el directorio de `genomics` y desde ahí, lista los archivos del directorio de `tarea3` y los de `genomics`.  Para listar `tarea3` usa rutas absolutas.
+
+4. También en el `reporte_variantes.md` puedes describir de lo que se trata el proyecto.
+
+
+
+
+
+
+
+
+
+

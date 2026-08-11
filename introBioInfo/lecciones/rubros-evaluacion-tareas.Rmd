@@ -1,0 +1,118 @@
+---
+title: "Introducción a la Bioinformática"
+--subtitle: ""
+--author: ''
+institute: "Licenciatura en Ciencias Genómicas,UNAM"
+date: 'First version: yyy-mm-dd; Last update: `r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    css: ["default", "default-fonts", "hygge"]
+    lib_dir: libs
+    includes:
+      after_body: insert-logo.html
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "macros.js"
+--distill::distill_article: default
+
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{css, echo = FALSE}
+/* From https://github.com/yihui/xaringan/issues/147  */
+.scroll-output {
+  height: 80%;
+  overflow-y: scroll;
+}
+
+.noinverse {
+  background-color: #272822;
+  color: #d6d6d6;
+  text-shadow: 0 0 20px #333;
+}
+
+/* https://stackoverflow.com/questions/50919104/horizontally-scrollable-output-on-xaringan-slides */
+pre {
+  max-width: 100%;
+  overflow-x: scroll;
+}
+```
+
+## Rubros para la evaluación de Tareas
+
+### Buenas prácticas
+
+#### El reporte 
+
+Todas las tareas a entregar, deberan estar en formato Reporte que incluyan las siguientes secciones :
+
+- Breve introducción. 
+
+- Metodología. Debe incluir el código comentado que describa tu procedimiento.
+
+- Resultados obtenidos. Debe incluir una captura de pantalla de la estructura del proyecto al finalizar el ejercicio
+
+- Análisis y conclusiones. Redactar una pequeña conclusión de lo aprendido en clase
+
+- Bibliografía. Sólo en caso de haber utilizado alguna otra fuente.
+
+Este **Reporte** debe estar descrito en **formato markdown** con el nombre de archivo **README.md**
+
+---
+#### Estructura del proyecto
+
+La tarea debe tratarse como si fuera un proyecto, por lo que deberá seguir la **estructura** de directorios vista en clase, por lo que debera tener una carpeta bin, una de datos donde se guardan los datos de entrada y una carpeta de resultados. El archivo **README.md** deberá tener el reporte solicitado.
+
+Por ejemplo, supongamos que la práctica o tarea al final queda con los siguientes resultados:
+
+```
+practica/
+├── README.md
+├── bin
+├── data
+│   └── secuencia.txt
+└── results
+    └── seq-head-10.txt
+```  
+    
+---
+#### Nombrado de archivos y directorios
+
+Apegados a las buenas prácticas, los NOMBRES de archivos y directorios
+
+- no deben incluir espacios, puedes agregar - o _ 
+
+- no deben incluir caracteres especiales, de preferencia debe ser alfabeticos y números. 
+
+- el nombre debe ser significativo es decir debe tener relación con su contenido
+
+
+---
+#### Puntaje
+
+La calificación inicial de la TAREA es de 10. Y ese valor puede disminuir en base a los rubros y penalizaciones que se muestran en la tabla.
+
+
+| Sección      | Puntaje | Penalización* |
+|---           |----     |---          |
+| Introducción | 1       | -0.5  |
+| Metodología. | 3       | -2  |
+| Resultados   | 2       | -0.5  |
+| Conclusiones | 2       | -0.5  |
+| Estructura del proyecto   | 1       | -2  |
+| Nombrado de archivos y directorios        | 1      |  -1   |
+| Total        | 10      |     |
+
+La **penalización** se aplica cuando una sección no venga en el reporte. 
+El **puntaje** pueden asignarse valores decimales como 1.5, 0.5 en base a la calidad de lo descrito o reportado.
+
+Por ejemplo, si la sección de *resultados* no viene en el Reporte de Tarea, se restarían 2.5 puntos a la calificación de 10, 2 puntos menos por faltar la sección y un 0.5 menos de penalización. Por lo que tendríamos una calificación de 7.5.
+
+
+---
+

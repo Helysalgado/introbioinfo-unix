@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Introducción a la Bioinformática</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.14/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/hygge.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Introducción a la Bioinformática
+### Licenciatura en Ciencias Genómicas,UNAM
+### First version: yyy-mm-dd; Last update: 2022-09-20
+
+---
+
+
+
+
+&lt;style type="text/css"&gt;
+/* From https://github.com/yihui/xaringan/issues/147  */
+.scroll-output {
+  height: 80%;
+  overflow-y: scroll;
+}
+
+.noinverse {
+  background-color: #272822;
+  color: #d6d6d6;
+  text-shadow: 0 0 20px #333;
+}
+
+/* https://stackoverflow.com/questions/50919104/horizontally-scrollable-output-on-xaringan-slides */
+pre {
+  max-width: 100%;
+  overflow-x: scroll;
+}
+
+
+&lt;/style&gt;
+
+
+
+## Objetivo
+
+El alumno debe ser capaz de aplicar filtros con awk.
+
+---
+
+## Contenido de la unidad
+
+1. Bases de datos biológicas
+
+2. Comando awk
+
+---
+## Big data... y su consecuencia: necesidad de integración
+
+&lt;img src="https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fnrg3868/MediaObjects/41576_2015_Article_BFnrg3868_Fig1_HTML.jpg?as=webp" width="750px" style="display: block; margin: auto;" /&gt;
+
+.tiny[[Lectura recomendada: Methods of integrating data to uncover genotype–phenotype
+interactions. Nature Reviews. 2015](https://pubmed.ncbi.nlm.nih.gov/25582081/)]
+
+---
+## Una base de datos muy útil: ENSEMBL
+
+&lt;img src="img/ensembl_web.png" width="800px" style="display: block; margin: auto;" /&gt;
+
+[https://www.ensembl.org/index.html](https://www.ensembl.org/index.html)
+
+---
+## Contiene muchas tipos de información
+
+&lt;img src="img/ensembl-mouse.png" width="800px" style="display: block; margin: auto;" /&gt;
+
+---
+## Además de un genome browser para algunas de las especies
+
+&lt;img src="img/ensembl-genome-browser.png" width="800px" style="display: block; margin: auto;" /&gt;
+
+---
+## Y una API para hacer consulta a la base de datos: Biomart
+
+&lt;img src="img/biomart.png" width="800px" style="display: block; margin: auto;" /&gt;
+
+---
+## Filtros y atributos
+
+Filtros: Podemos elegir cuáles objetos vamos a descargar
+
+Atributos: Podemos elegir las propiedades que se descargaran de los objetos seleccionados
+
+
+&lt;img src="img/biomart-results.png" width="800px" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: inverse, center, middle
+
+# awk command
+
+---
+## Preparando nuestro directorio de trabajo
+
+- Muévete a tu directorio home en el servidor
+- Crea la carpeta practica6
+- Entra a la carpeta practica6
+- Crea la carpeta data
+- Copia los archivos ubicados en /home/lgomez/WelcomeBioinfo/datos/practica6 a tu carpeta data
+- Descomprime el archivo mirna human ensembl hg38.txt.gz
+
+---
+## Familiarizándonos con los datos de trabajo
+
+- Visualiza y explora cada uno de los archivos
+
+- El archivo tabular.txt ¿qué tipo de archivo es? ¿cuál es el separador de sus columnas?
+
+- El archivo mirna human ensembl hg38.txt.gz fue descargado de Biomart, contiene la anotación de los miRNAs humanos
+
+---
+## Diseño de la herramienta awk
+
+- Esta diseñada para manejar archivos de texto de formato tabular
+
+- Procesa una línea a la vez e imprime un resultado
+
+- Automáticamente asigna la línea completa a la variable $0
+
+- Automáticamente asigna la primer columna a la variable $1, la segunda columna a la variable $2, y así.
+
+- Procesa cada línea siguiendo la siguiente estructura:
+
+      **condición {acción}**
+
+---
+## Awk puede _no recibir_ una condición
+
+```bash
+## awk sin condicion
+awk '{print $0}' data/tabular.txt
+```
+
+**¿Qué pasó?**
+
+--
+
+.content-box-green[
+
+awk imprime para todas las líneas del archivo simulando el comportamiento del comando cat
+
+]
+
+---
+## Awk puede _no recibir_ una condición
+
+```bash
+## awk sin condicion
+awk '{print $1}' data/tabular.txt
+```
+
+**¿Qué pasó?**
+
+--
+
+.content-box-green[
+
+awk imprime para todas las líneas únicamente la primer columna simulando el comportamiento del comando cut
+
+]
+
+---
+## Awk puede _no recibir_ una condición
+
+```bash
+## awk sin condicion
+awk '{print $1 "\t" $2}' data/tabular.txt
+```
+
+**¿Qué pasó?**
+
+--
+
+.content-box-green[
+
+awk imprime para todas las líneas la primer columna, seguida de tabulador, seguida de la segunda columna simulando el comportamiento del comando cut -f1,2
+
+]
+
+---
+## Aplicando una condición en awk, sin acción
+
+```bash
+## awk sin accion
+awk '$2 == 25 ' data/tabular.txt
+```
+
+**¿Qué pasó?**
+
+--
+
+.content-box-green[
+
+- la acción por default de awk es imprimir la línea completa 
+- simulando el comportamiento del comando grep
+- aplica la condición a cada línea e imprime las líneas que cumplen con la condición
+
+]
+
+---
+## Aplicando una condición en awk, sin acción
+
+```bash
+## awk sin accion
+awk '$2 &gt;= 25 ' data/tabular.txt
+```
+
+**¿Qué pasó?**
+
+--
+
+.content-box-green[
+
+- la acción por default de awk es imprimir la línea completa 
+- aplica la condición a cada línea e imprime las líneas que cumplen con la condición
+- grep no tiene esta capacidad
+
+]
+
+---
+## Aplicando una condición compleja en awk, sin acción
+
+```bash
+## awk condicion compleja
+awk '$2 &gt;= 25 &amp;&amp; $3 &lt;=30' data/tabular.txt
+```
+
+**¿Qué pasó?**
+
+--
+
+.content-box-green[
+
+- la acción por default de awk es imprimir la línea completa
+- ambas condiciones se deben de cumplir para que awk imprima la línea
+
+]
+
+---
+## Aplicando una condición compleja en awk, sin acción
+
+```bash
+## awk condicion compleja y accion
+awk '$2 &gt;= 25 &amp;&amp; $3 &lt;=30 {print $1}' data/tabular.txt
+```
+
+**¿Qué pasó?**
+
+--
+
+.content-box-green[
+
+- awk únicamente imprime la columna número 1
+- ambas condiciones se deben de cumplir para que awk imprima el resultado
+
+]
+
+---
+## awk permite hacer operaciones aritméticas
+
+```bash
+## awk operaciones artimeticas
+awk '$2 + $3 &lt;= 50' data/tabular.txt
+```
+
+**¿Qué pasó?**
+
+--
+
+.content-box-green[
+
+- awk sumó la columna 2 y la columna 3 para cada línea
+- awk imprimió la línea completa para las líneas que cumplían con la condición
+
+]
+
+---
+## Operaciones aritméticas, patrón y acción
+
+```bash
+## awk operaciones artimeticas, patron y accion
+awk '$2 + $3 &lt;= 50 {print $1}' data/tabular.txt
+```
+
+**¿Qué pasó?**
+
+--
+
+.content-box-green[
+
+- awk sumó la columna 2 y la columna 3 para cada línea
+- awk imprimió la primer columna para las líneas que cumplían con la condición
+
+]
+
+---
+## Condicionales disponibles para awk
+
+&lt;img src="img/conditionals.png" width="350px" style="display: block; margin: auto;" /&gt;
+
+
+.tiny[Imagen tomada de Bionformatics Data Skills]
+
+---
+
+class: inverse, center, middle
+
+# Ejercicios
+
+Tienes una batería de comandos que te pueden ser útiles
+Siempre hay más de una forma correcta de llegar al resultado correcto
+
+---
+## Ejercicio
+
+- ¿Qué tipos de evidencia existen para los miRNAs?
+- ¿Cuántos miRNAs tienen evidencia experimental?
+- ¿Cuántos miRNAs tienen cualquier otro tipo de evidencia?
+
+.content-box-blue[
+
+Para fines de este ejercicio, vamos a utilizar al menos una vez awk para responder cada una de estas preguntas
+
+]
+
+--
+**¿Cuál es el algoritmo que debemos seguir?**
+
+---
+## Ejercicio Algoritmo
+
+**¿Qué tipos de evidencia existen para los miRNAs?**
+
+
+File: mirna_human_ensembl_hg38.txt 
+
+No de líneas: 311,595
+
+No de columnas: 7
+
+```
+Chromosome/scaffold name	Start (bp)	End (bp)	Feature type class	
+Strand	Evidence	Ensembl gene ID
+17    38921341    38921364    RNA   1   Experimental    ENSG00000002834
+12    8943479   8943500   RNA   -1    Experimental    ENSG00000003056
+```
+
+--
+
+**Algoritmo**
+
+.content-box-yellow[
+\#\# Acceder a la columna de evidencia
+
+\#\# Eliminar el encabezado
+
+\#\# Obtener los valores únicos
+]
+
+---
+## Ejercicio  Código
+
+
+```bash
+## Acceder a la columna de evidencia. 
+awk '{print $6}' data/mirna_human_ensembl_hg38.txt | head
+```
+
+¿Que pasa con el encabezado?
+
+--
+
+```bash
+## Acceder a la columna de evidencia
+awk -F "\t" '{print $6}' data/mirna_human_ensembl_hg38.txt | head
+```
+
+Hay que quedarnos sólo con los datos
+
+--
+
+```bash
+## Eliminar el encabezado
+awk -F "\t" '$6 != "Evidence" {print $6}' data/mirna_human_ensembl_hg38.txt \
+| head
+```
+
+```bash
+## Obtener los valores únicos
+awk -F "\t" '$6 != "Evidence" {print $6}' data/mirna_human_ensembl_hg38.txt \
+| sort -u
+```
+
+** Todos tienen evidencia experimental **
+---
+
+## Ejercicio Algoritmo
+
+**¿Cuántos miRNAs tienen evidencia experimental? ¿Cuàntos miRNAs tienen cualquier otro tipo de evidencia?**
+
+
+File: mirna_human_ensembl_hg38.txt 
+
+```
+Chromosome/scaffold name	Start (bp)	End (bp)	Feature type class	
+Strand	Evidence	Ensembl gene ID
+17    38921341    38921364    RNA   1   Experimental    ENSG00000002834
+12    8943479   8943500   RNA   -1    Experimental    ENSG00000003056
+```
+
+--
+
+**Algoritmo**
+
+.content-box-yellow[
+
+A partir de la respuesta anterior: contar las apariciones de cada
+resultado
+
+]
+
+---
+## Ejercicio Código
+
+**¿Cuántos miRNAs tienen evidencia experimental? ¿Cuàntos miRNAs tienen cualquier otro tipo de evidencia?**
+
+```bash
+
+## Obtener los valores unicos
+awk -F "\t" '$6 != "Evidence" {print $6}' \
+data/mirna_human_ensembl_hg38.txt | \
+sort -u
+
+## Contar las apariciones de cada resultado
+awk -F "\t" '$6 != "Evidence" {print $6}' \
+data/mirna_human_ensembl_hg38.txt | \
+sort | uniq -c
+
+```
+**311,594 miRNAs humanos con evidencia experimental**
+
+---
+## Ejercicio miRNAs de un cromosoma específico
+
+- ¿Cuántos miRNAs existen en el cromosoma X o en el Y?
+- ¿Cuántos miRNAs existen en el cromosoma 1 o en el 21?
+- ¿Cuántos miRNAs existen en el cromosoma 15 en cada una de las cadenas?
+
+.content-box-blue[
+
+Para fines de este ejercicio, vamos a utilizar al menos una vez awk para responder cada una de estas preguntas
+
+]
+
+--
+**¿Cuál es el algoritmo que debemos seguir?**
+
+---
+## Ejercicio Algoritmo
+
+**¿Cuántos miRNAs existen en el cromosoma X o en el Y?**
+
+
+**Algoritmo**
+
+.content-box-yellow[
+
+- Acceder a la columna de cromosoma
+
+- Obtener los registros que sean iguales al cromosoma de interés
+
+- Contar los registros
+
+
+]
+
+---
+
+## Ejercicio Código
+
+**¿Cuántos miRNAs existen en el cromosoma X o en el Y?**
+
+```bash
+## Acceder a la columna de cromosoma
+awk -F "\t" '{print $1}' data/mirna_human_ensembl_hg38.txt | head
+
+## Obtener los registros que sean iguales al cromosoma de interes
+## Contar los registros
+awk -F "\t" '$1 == "X" {print $1}' data/mirna_human_ensembl_hg38.txt | \
+wc -l
+
+awk -F "\t" '$1 == "Y" {print $1}' data/mirna_human_ensembl_hg38.txt | \
+wc -l
+
+awk -F "\t" '$1 == "Y" || $1 == "X" {print $1}' \
+data/mirna_human_ensembl_hg38.txt | wc -l
+```
+
+**9,284 miRNAs humanos en el cromosoma X o en el cromosoma Y**
+
+
+---
+## Ejercicio Algoritmo y Código
+
+**¿Cuántos miRNAs existen en el cromosoma 1 o en el 21?**
+
+
+**Algoritmo**
+
+.content-box-yellow[
+
+\#\# Acceder a la columna de cromosoma
+
+\#\# Obtener los registros que sean iguales al cromosoma de interes
+
+\#\# Contar los registros
+
+]
+
+--
+
+```bash
+## Acceder a la columna de cromosoma
+## Obtener los registros que sean iguales al cromosoma de interes
+## Contar los registros
+awk -F "\t" '$1 == "1" || $1 == "21" {print $1}' \
+data/mirna_human_ensembl_hg38.txt | wc -l
+```
+
+**38,261 miRNAs humanos en el cromosoma 1 o cromosoma 21**
+
+---
+## Ejercicio Algoritmo 
+
+**¿Cuántos miRNAs existen en el cromosoma 15 en cada una de las cadenas?**
+
+**Algoritmo**
+
+.content-box-yellow[
+
+\#\# Acceder a la columna de cromosoma
+
+\#\# Obtener los registros que sean iguales al cromosoma de interés
+
+\#\# Imprimir la columna de la cadena
+
+\#\# Contar las ocurrencias de cada valor
+
+]
+
+---
+## Ejercicio Código 
+
+**¿Cuántos miRNAs existen en el cromosoma 15 en cada una de las cadenas?**
+
+```bash
+##Acceder a la columna de cromosoma
+## Obtener los registros que sean iguales al cromosoma de inter´es
+awk -F "\t" '$1 == "15" {print $0}' data/mirna_human_ensembl_hg38.txt | \
+head
+
+## Imprimir la columna de la cadena
+awk -F "\t" '$1 == "15" {print $5}' data/mirna_human_ensembl_hg38.txt | \
+head
+
+## Contar las ocurrencias de cada valor
+awk -F "\t" '$1 == "15" {print $5}' data/mirna_human_ensembl_hg38.txt | \
+sort | uniq -c
+```
+
+
+**4,885 cadena reverse**
+**4,962 cadena forward+**
+
+
+---
+
+## Ejercicio tamaños de los miRNAs anotados
+
+
+.content-box-blue[
+
+- ¿Cuál es el miRNAs más pequeño anotado?
+
+- ¿Cuál es el miRNAs más grande anotado?
+
+- ¿Cuál es el tamaño promedio de un miRNA humano?
+
+]
+
+--
+**¿Cuál es el algoritmo que debemos seguir?**
+
+
+---
+
+## Ejercicio tamaños de los miRNAs anotados
+
+**¿Cuál es el miRNAs más pequeño anotado?**
+
+.content-box-yellow[
+
+\#\# Acceder a las columnas de inicio y fin
+
+\#\# Obtener el tamaño
+
+\#\# Ordenar los tamaños ascendentemente
+
+\#\# Mostrar el primero
+
+]
+
+---
+## Ejercicio tamaños de los miRNAs anotados
+
+**¿Cuál es el miRNAs más pequeño anotado?**
+
+```bash
+## Acceder a las columnas de inicio y fin
+awk -F "\t" '{print $2 "-" $3}' data/mirna_human_ensembl_hg38.txt | head
+
+## Acceder a las columnas de inicio y fin, ELIMINANDO ENCABEZADO
+awk -F "\t" '$6 != "Evidence" {print $2 "-" $3}' \
+data/mirna_human_ensembl_hg38.txt | head
+
+## Obtener el tama~no
+awk -F "\t" '$6 != "Evidence" {print $3 - $2}' \
+data/mirna_human_ensembl_hg38.txt | head
+
+## Ordenar los tama~nos ascendentemente
+## Mostrar el primero
+awk -F "\t" '$6 != "Evidence" {print $3 - $2}' \
+data/mirna_human_ensembl_hg38.txt | sort -n | head
+
+```
+
+**¡Existe un miRNA anotado de 5bp!**
+
+
+---
+## Ejercicio tamaños de los miRNAs anotados
+
+**¿Cuál es el miRNAs más grande anotado??**
+
+.content-box-yellow[
+
+\#\# Acceder a las columnas de inicio y fin
+
+\#\# Obtener el tamaño
+
+\#\# Ordenar los tamaños DESCENDENTEMENTE
+
+\#\# Mostrar el primero
+
+]
+
+---
+## Ejercicio tamaños de los miRNAs anotados
+
+**¿Cuál es el miRNAs más grande anotado??**
+
+```bash
+## Acceder a las columnas de inicio y fin
+awk -F "\t" '{print $2 "-" $3}' data/mirna_human_ensembl_hg38.txt | head
+
+## Acceder a las columnas de inicio y fin, ELIMINANDO ENCABEZADO
+awk -F "\t" '$6 != "Evidence" {print $2 "-" $3}' \
+data/mirna_human_ensembl_hg38.txt | head
+
+## Obtener el tamaño
+awk -F "\t" '$6 != "Evidence" {print $3 - $2}' \
+data/mirna_human_ensembl_hg38.txt | head
+
+## Ordenar los tama~nos ascendentemente
+## Mostrar el primero
+awk -F "\t" '$6 != "Evidence" {print $3 - $2}' \
+data/mirna_human_ensembl_hg38.txt | sort -rn | head
+```
+
+**¡Existe un miRNA anotado de 41,218 bp!**
+
+
+---
+## Ejercicio tamaños de los miRNAs anotados
+
+Awk es un lenguaje de programación y tiene funcionalidades muy interesantes.
+
+Tiene variables internas muy útiles:
+
+  - $0 = todo el renglón
+  - $1 = primer columna
+  - NR = número de registro
+  
+Además tiene estructuras de control:
+
+  - BEGIN = bloque de código que se ejecutará ANTES de leer el archivo
+  
+  - END = bloque de código que se ejecutará AL TERMINAR de leer el archivo
+
+
+---
+## Ejercicio tamaños de los miRNAs anotados
+
+**¿Cuál es el tamaño promedio de un miRNA humano?**
+
+.content-box-yellow[
+
+\#\# Acceder a las columnas de inicio y fin
+
+\#\# Obtener el tamaño
+
+\#\# Obtener el promedio: sumar y dividir entre el número de miRNAs
+
+]
+
+---
+## Ejercicio tamaños de los miRNAs anotados
+
+**¿Cuál es el tamaño promedio de un miRNA humano?**
+
+
+```bash
+## Obtener el tamaño
+awk -F "\t" '$6 != "Evidence" {print $3 - $2}' \
+data/mirna_human_ensembl_hg38.txt | head
+
+## Imprimir numero de registros
+awk -F "\t" '{ print $3 - $2 }; END{ print NR };' \
+data/mirna_human_ensembl_hg38.txt | tail
+
+## Obtener el promedio: sumar y dividir entre el número de miRNAs
+awk -F "\t" 'BEGIN{ s = 0 }; { s += ($3-$2) }; END{ print "mean: " s/NR };' \
+data/mirna_human_ensembl_hg38.txt
+```
+
+El tamaño promedio de un miRNA humano es de 25.16bp
+
+
+---
+## Ejercicio distribución de los miRNAs en los genes humanos
+
+
+.content-box-blue[
+
+¿Cuál es el gene que contiene el MENOR número de miRNAs?¿Cuántos miRNAs contiene?
+
+¿Cuál es el gene que contiene el MAYOR número de miRNAs?¿Cuántos miRNAs contiene?
+
+¿Cuál es el número promedio de miRNAs por gene?
+
+]
+
+---
+## Ejercicio distribución de los miRNAs en los genes humanos
+
+**¿Cuál es el gene que contiene el MENOR número de miRNAs?¿Cuántos miRNAs contiene?**
+
+
+.content-box-yellow[
+
+\#\# Acceder a la columna gene
+
+\#\# Obtener el número de repeticiones para cada gene
+
+\#\# Ordenar las cuentas ascendentemente
+
+\#\# Mostrar el gene con la cuenta menor
+
+]
+
+---
+## Ejercicio distribución de los miRNAs en los genes humanos
+
+**¿Cuál es el gene que contiene el MENOR número de miRNAs?¿Cuántos miRNAs contiene?**
+
+```bash
+## Acceder a la columna gene
+awk -F "\t" '{print $7}' data/mirna_human_ensembl_hg38.txt | head
+
+## Obtener el numero de repeticiones para cada gene
+awk -F "\t" '{print $7}' data/mirna_human_ensembl_hg38.txt | sort | \
+uniq -c | head
+
+## Ordenar los tama~nos ascendentemente
+awk -F "\t" '{print $7}' data/mirna_human_ensembl_hg38.txt | sort | \
+uniq -c | sort | head
+
+## Mostrar el primero
+awk -F "\t" '{print $7}' data/mirna_human_ensembl_hg38.txt | sort | \
+uniq -c | sort | grep -w "1" | wc -l
+```
+
+
+1513 líneas, una corresponde al encabezado, por lo tanto:
+
+**Existen 1512 genes que contienen únicamente 1 miRNA**
+
+
+---
+## Ejercicio distribución de los miRNAs en los genes humanos
+
+**¿Cuál es el gene que contiene el MAYOR número de miRNAs?¿Cuántos miRNAs contiene?**
+
+
+.content-box-yellow[
+
+\#\# Acceder a la columna gene
+
+\#\# Obtener el número de repeticiones para cada gene
+
+\#\# Ordenar las cuentas DESCENDENTEMENTE
+
+\#\# Mostrar el gene con la cuenta MAYOR
+
+]
+---
+## Ejercicio distribución de los miRNAs en los genes humanos
+
+**¿Cuál es el gene que contiene el MAYOR número de miRNAs?¿Cuántos miRNAs contiene?**
+
+```bash
+## Obtener el numero de repeticiones para cada gene
+awk -F "\t" '{print $7}' data/mirna_human_ensembl_hg38.txt | sort | \
+uniq -c | head
+
+## Ordenar las cuentas DESCENDENTEMENTE
+awk -F "\t" '{print $7}' data/mirna_human_ensembl_hg38.txt | sort | \
+uniq -c | sort -r | head
+
+## Mostrar el gene con la cuenta MAYOR
+awk -F "\t" '{print $7}' data/mirna_human_ensembl_hg38.txt | sort | \
+uniq -c | sort -r | head -1
+```
+
+**El gene ENSG00000124942 contiene 572 miRNAs**
+
+---
+## Ejercicio distribución de los miRNAs en los genes humanos
+
+**¿¿Cuál es el número promedio de miRNAs por gene ?**
+
+
+.content-box-yellow[
+
+\#\# Acceder a la columna gene
+
+\#\# Obtener el número de repeticiones para cada gene
+
+\#\# Acceder únicamente a la cuenta
+
+\#\# Obtener el promedio: sumar y dividir entre el número de genes
+
+]
+
+
+---
+## Ejercicio distribución de los miRNAs en los genes humanos
+
+**¿¿Cuál es el número promedio de miRNAs por gene ?**
+
+```bash
+## Obtener el numero de repeticiones para cada gene
+awk -F "\t" '{print $7}' data/mirna_human_ensembl_hg38.txt | sort | \
+uniq -c | head
+
+## Acceder unicamente a la cuenta
+awk -F "\t" '{print $7}' data/mirna_human_ensembl_hg38.txt | sort | \
+uniq -c | awk '{print $1}' | head
+
+## Obtener el promedio: sumar y dividir entre el numero de genes
+awk -F "\t" '{print $7}' data/mirna_human_ensembl_hg38.txt | \
+sort | uniq -c | \
+
+awk 'BEGIN{ s = 0 }; { s += ($1) }; END{ print "mean: " s/NR };'
+```
+
+**En promedio, cada gene contiene 22.19 miRNAs**
+
+---
+## Tarea ¿Y para otros organismos?
+
+
+.content-box-blue[
+
+Descarguen la anotación de los miRNAs de ratón utilizando BioMart.
+Respondan las siguientes preguntas:
+
+¿Qué tipos de evidencia existen para los miRNAs? ¿Cuántos hay de cada tipo?
+
+¿Cuál es el cromosoma con el mayor número de miRNAs y cuántos tiene?
+
+¿Cuál es el miRNA más pequeño y el más grande en el genoma completo de tu organismo?
+
+¿Cuál es el miRNA más pequeño y el más grande para el cromosoma con el mayor número de miRNAs?
+
+¿Cuál es el número promedio de miRNAs por gene?
+
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+  .logo {
+    background-image: url(logos/LCG-UNAM.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    width: 110px;
+    height: 128px;
+    z-index: 0;
+  }
+  </style>
+  
+  <script>
+  document
+    .querySelectorAll(
+      '.remark-slide-content' +
+      ':not(.title-slide)' +
+      // add additional classes to exclude here, e.g.
+      // ':not(.inverse)' +
+      ':not(.hide-logo)'
+    )
+    .forEach(el => {
+      el.innerHTML += '<div class="logo"></div>';
+    });
+  </script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

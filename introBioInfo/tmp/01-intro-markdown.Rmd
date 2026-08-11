@@ -1,0 +1,213 @@
+## Objetivo
+
+Conocer y usar el lenguaje de marcado markdown
+
+
+---
+## ¿Qué haremos en el curso?
+
+.content-box-yellow[El objetivo del curso es familiarizar al alumno con las herramientas bioinformáticas básicas más importantes y de uso más frecuente en el área: el sistema operativo Linux y los conceptos básicos de bioinformática como son las bases de datos biológicas, formatos y manejo de secuencias y genomas.
+]
+
+Durante el curso  
+- Usaremos casos de estudio* para aplicar los comandos unix y conocer los conceptos de biología.  
+- Los ejercicios y tareas se pediran en forma de Reportes de Lectura y/o Reporte de Investigación.    
+
+.tiny[Caso de estudio: Un estudio de caso es un diseño de investigación adecuado cuando se desea obtener un conocimiento concreto, contextual y a profundidad sobre un tema específico.]
+
+---
+## Overview
+
+```{r, out.width = "350px",fig.align='center'}
+knitr::include_graphics("img/overview.png")
+```
+
+---
+## Reporte de investigación
+
+.content-box-blue[
+Un reporte de investigación es un documento donde se presenta el resultado de un estudio en
+torno a un tema específico. Dicho estudio pretende dar respuesta a una(s) pregunta(s) de indagación y
+con ello ampliar el conocimiento respecto a dicho tema.
+
+Es el “último” paso en el proceso de investigación. Los formatos seguidos para hacerlo son diversos y
+dependen de las finalidades mismas de los estudios.
+]
+
+.tiny[[Ver Fuente: Reporte de investigación](http://ri.uaemex.mx/bitstream/handle/20.500.11799/70832/secme-2549_2.pdf?sequence=2&isAllowed=y)]
+
+---
+## Reporte de investigación
+
+ TITULO  
+ METADATA (Nombre de autor, Email, fecha)  
+ RESUMEN (ABSTRACT)  
+ INTRODUCCIÓN  
+ METODOLOGIA  
+   - Adquisición de datos (Fuente de datos, versión, fecha de descarga)  
+   - Descubrimiento de inconsistencias  
+   - Limpieza de datos  
+   - Mejora de los datos  
+   
+ RESULTADOS  
+ CONCLUSIONES  
+ REFERENCIAS  
+
+
+
+---
+## Reporte de investigación
+
+**Resúmen**. En el resumen se redacta brevemente el problema de investigación, el diseño,  el o los resultados y la o las conclusiones más importantes.
+
+**Introducción**. Debe describir de manera clara y precisa el propósito de la investigación, la
+teoría o teorías en las que se apoya y los antecedentes más importantes, teorías y trabajos de
+investigación con los que se relaciona.
+
+**Metodología**. Esta parte del reporte describe cómo fue llevada a cabo la investigación, las herramientas usadas, algoritmos, procedimientos y la descripción de los datos a usar.
+
+**Resultados**. Descripción detallada de los procedimientos de análisis utilizados, es decir, toda la manipulación estadística que se hizo de los datos y pruebas que se aplicaron, incluyendo representaciones gráficas, cuadros, tablas, etc.
+
+**Discusión**. Se incluye información sobre la relación entre los resultados y el problema de
+investigación; si se confirmaron o no las hipótesis y las implicaciones y generalización de los resultados.
+
+**Referencias**. En formato APA.
+
+---
+
+## Ejemplo
+
+Reporte sobre el genoma de *E. coli*
+
+- [Archivo markdown](https://lcg-cursos.github.io/material/introbioinfo/ejemplos/ReporteGenomaEcoli.md)
+
+- [Archivo html](https://lcg-cursos.github.io/material/introbioinfo/ejemplos/ReporteGenomaEcoli.html)
+
+---
+## Reporte de lectura
+
+.content-box-blue[
+Un reporte de lectura es un tipo de informe en el cual se plasman las ideas principales de un texto en conjunto con un análisis personal del mismo.
+]
+
+Secciones sugeridas para el reporte:
+
+  * Título
+  * Metadatos (Nombre de autor, Email, fecha)
+  * Introducción
+  * Resúmen
+  * Opinión
+
+.tiny[[Ver Fuente](https://reportedelectura.org/que-es?expand_article=1)]
+
+---
+## Reporte de lectura
+
+**Portada del reporte**. Debe indicar tus datos personales, el nombre del curso y los datos del texto analizado.  
+
+**Introducción**. Debes realizar una breve introducción que funcione como presentación de tu reporte y de todo lo que dirás en él.
+
+**Resúmen**. Debes realizar una breve reseña del texto en conjunto con tu análisis crítico del mismo. En esta parte puedes colocar citas textuales para brindarle un mayor soporte a tu reporte.
+
+**Aportación personal**. Tu opinión también debe de quedar plasmada en el reporte. No importa si te gustó o no te gustó el texto, es importante que hables sobre ello.
+
+---
+
+## Ejemplo
+
+Reporte de Capítulo 1 del libro Bioinformatics Data Skills.
+
+- [Archivo markdown](https://lcg-cursos.github.io/material/introbioinfo/ejemplos/ReporteLectura.md)
+
+- [Archivo html](https://lcg-cursos.github.io/material/introbioinfo/ejemplos/ReporteLectura.html)
+
+---
+## ¿Qué uso para hacer los Reportes?
+
+Nos olvidaremos de editores como word. 
+
+**Usaremos editores de texto plano,** pero verás que tus documentos estarán presentables.
+
+.pull-left[
+```{r , echo=FALSE, out.width='90%', fig.align='center', fig.cap=''}
+knitr::include_graphics("https://s3.stackabuse.com/media/articles/1237c9cca61b5cd3424c5fffbf46b411.jpg")
+```
+]
+
+.pull-right[
+```{r , echo=FALSE, out.width='90%', fig.align='center', fig.cap=''}
+knitr::include_graphics("https://posit.co/wp-content/uploads/2016/03/BLOG-r-markdown-custom-formats.jpg")
+```
+]
+
+---
+
+## Markdown
+
+.content-box-blue[
+Markdown es un **lenguaje de marcado ligero** que puede usar para agregar **elementos de formato** a documentos de texto sin formato. El creador de Markdown es John Gruber y nació en 2004, Markdown es ahora uno de los lenguajes de marcado más populares del mundo.
+]
+
+Markdown es una excelente fórmula de escribir texto sin formato para la web.
+
+“La sintaxis de Markdown está diseñada para ser discreta y legible, por lo que el texto de los archivos de Markdown se pueden leer incluso sin la necesidad de que sean procesados”.
+
+
+---
+## Markdown ventajas
+
+- **Markdown se puede utilizar para todo**. La gente lo usa para crear sitios web , documentos , notas , libros , presentaciones , mensajes de correo electrónico y documentación técnica.
+
+- **Markdown es transportable**. Los archivos que contienen texto con formato Markdown se pueden abrir utilizando prácticamente cualquier aplicación.
+
+- **Markdown es independiente de la plataforma**. Puede crear textos con formato Markdown en cualquier dispositivo y con cualquier sistema operativo.
+
+- **Markdown está preparado para el futuro**. Incluso si la aplicación que estás usando deja de funcionar en algún momento en el futuro, aún podrás leer tu texto con formato Markdown usando una aplicación de edición de textos, normal y corriente.
+
+- **Markdown está en todas partes**. Los sitios web como Reddit y GitHub son compatibles con Markdown, y muchas aplicaciones de escritorio y basadas en la web lo admiten.
+
+
+.tiny[[Fuente](https://ciberninjas.com/markdown/#google_vignette)]
+
+---
+
+
+## Markdown
+
+
+
+**Markdown** es un lenguaje de marcado sencillo que sirve para agregar formato, vínculos e imágenes con facilidad al texto simple. 
+
+[Guía de markdown](https://www.markdownguide.org/basic-syntax/)
+
+---
+## Práctica
+
+Genera 2 archivos templates que te serviran para generar los reportes de lectura y de análisis de datos. El formato de salida debe ser en markdown.
+
+- Reporte de Lectura `Reporte_Lectura.md`
+
+  * Título
+  * Metadatos (Nombre de autor, Email, fecha)
+  * Introducción
+  * Resúmen
+  * Opinión
+
+---
+## Práctica
+
+- Reporte de análisis de datos `Reporte_Analisis.md`
+
+  * Título  
+  * Metadata (Autor, Email, fecha)  
+  * Introducción  
+  * Metodología  
+    - Adquisición de datos (Fuente de datos, versión, fecha de descarga)  
+    - Descubrimiento de inconsistencias  
+    - Limpieza de datos  
+    - Mejora de los datos  
+  * Resultados
+  * Conclusiones
+  * Referencias
+
+

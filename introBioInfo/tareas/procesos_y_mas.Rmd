@@ -1,0 +1,74 @@
+---
+title: "Introducción a la Bioinformática"
+--subtitle: ""
+--author: ''
+institute: "Licenciatura en Ciencias Genómicas,UNAM"
+date: 'First version: yyy-mm-dd; Last update: `r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    css: ["default", "default-fonts", "hygge"]
+    lib_dir: libs
+    includes:
+      after_body: insert-logo.html
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "macros.js"
+--distill::distill_article: default
+
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{css, echo = FALSE}
+/* From https://github.com/yihui/xaringan/issues/147  */
+.scroll-output {
+  height: 80%;
+  overflow-y: scroll;
+}
+
+.noinverse {
+  background-color: #272822;
+  color: #d6d6d6;
+  text-shadow: 0 0 20px #333;
+}
+
+/* https://stackoverflow.com/questions/50919104/horizontally-scrollable-output-on-xaringan-slides */
+pre {
+  max-width: 100%;
+  overflow-x: scroll;
+}
+```
+
+
+## Objetivo
+
+Practicar redireccionamientos y tuberias
+
+---
+## Tarea 
+
+Cada **proceso** en **ejecución** en el servidor (de todos los usuarios) tiene un subdirectorio en `/proc` nombrado por su Process ID (PID). Cada subdirectorio relacionado a un proceso contiene diversos archivos y subdirectorios que proporcionan un montón de información y estadísticas sobre el proceso correspondiente. 
+
+Vamos a generar un archivo que contenga los procesos que empiecen con números pares.
+
+1. Dentro de tu carpeta `intro-bioinfo`, crea un directorio que se llame `tareas` y dentro de ésta, una carpeta llamada `procesosymas`
+
+2. Como cada directorio en `/proc` esta relacionado a un proceso en ejecución, manda a un archivo todos los nombres de directorios que **empiecen** con el número 2,4,6 u 8 (no olvides usar la opción -d con ls, y el comodin \*). Lista los directorios que empiecen con 2\*, luego con 4* y asi sucesivamente, redirecciona la salida a un archivo llamado `procesos_pares_proc.txt`.
+
+3. Toma los primeros 10 nombres de procesos que empiecen con 1,3,5, 7 y 9 del directorio `/proc` y mandalos a un archivo llamado `top10_procesos_impares.txt`. Primero tienes que listarlos, despues tomar los 10 primeros de cada número. Si todos tienen procesos con esa numeración inicial tendrías 50 nombres de archivos en tu archivo final.
+
+**Entregable**
+
+- Resultados en la carpeta `procesosymas`
+
+- Un README markdown donde venga esta tarea y los comandos que solucionan cada pregunta. Recuerda que dentro del bloque de código, solo viene el código, no resultados ni texto.
+
+
+
+
+
+

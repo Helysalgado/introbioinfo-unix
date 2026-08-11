@@ -1,0 +1,638 @@
+---
+title: "Introducción a la Bioinformática"
+--subtitle: ""
+--author: ''
+institute: "Licenciatura en Ciencias Genómicas,UNAM"
+#date: 'First version: yyy-mm-dd; Last update: `r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    css: ["default", "default-fonts", "hygge"]
+    lib_dir: libs
+    includes:
+      after_body: insert-logo.html
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "macros.js"
+--distill::distill_article: default
+
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{css, echo = FALSE}
+/* From https://github.com/yihui/xaringan/issues/147  */
+.scroll-output {
+  height: 80%;
+  overflow-y: scroll;
+}
+
+.noinverse {
+  background-color: #272822;
+  color: #d6d6d6;
+  text-shadow: 0 0 20px #333;
+}
+
+/* https://stackoverflow.com/questions/50919104/horizontally-scrollable-output-on-xaringan-slides */
+pre {
+  max-width: 100%;
+  overflow-x: scroll;
+}
+```
+
+
+## Objetivo
+
+Lxs alumnxs serán capaces de comprender la importancia de la bioinformática y el uso de buenas prácticas en el desarrollo de software.
+
+---
+
+## Contenido
+
+1. ¿Por qué aprender bioinformática?
+
+2. Buenas prácticas.
+
+
+---
+
+## ¿Por qué aprender bioinformática?
+
+Hace algunos años cuando la bioinformática no existía...
+
+
+```{r , echo=FALSE, out.width='30%', fig.align='center', fig.cap='DNA sequence of the araBAD promoter in Escherichia coli'}
+knitr::include_graphics("https://cdn.ncbi.nlm.nih.gov/pmc/blobs/8776/336192/d9cb89c5734d/pnas00669-0100-a.jpg")
+```
+
+.tiny[Fuente: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC336192/bin/pnas00669-0100.tif]
+
+---
+## ¿Por qué aprender bioinformática?
+
+Determinar a través de miles de experimentos los elementos genéticos en el genoma de _E. coli_ necesitó muchísimos años. Actualmente, una base de datos llamada RegulonDB almacena información de alrededor de 5 mil publicaciones de experimentos de un mecanismo llamado regulación transcripcional.
+
+```{r, out.width = "700px",fig.align='center', fig.cap=''}
+knitr::include_graphics(rep("img/micF-gene.png"))
+```
+
+.content-box-blue[
+Pero las cosas han cambiado...
+
+   Hay nuevas ideas y tecnologías
+   
+]
+
+---
+
+## ¿Por qué aprender bioinformática?
+
+.pull-left[
+* La cantidad de datos generados cada día en las ciencias biológicas es masiva [Buffalo, 2015].
+
+* La única forma de acceder y analizar todos estos datos es a través de herramientas
+computacionales.
+
+* Nos permite ahorrar tiempo y esfuerzo al automatizar tareas y procesos.
+]
+
+.pull-right[
+```{r rmarkdown, echo=FALSE, out.width='100%', fig.align='center', fig.cap='The SRA’s growth rate is greatly increasing over time.'}
+knitr::include_graphics("https://i0.wp.com/ncbiinsights.ncbi.nlm.nih.gov/wp-content/uploads/2020/06/Sra_growth.png?w=1599&ssl=1")
+```
+]
+
+
+---
+
+## Haciendo bioinformática
+
+.content-box-blue[
+"La solución es abordar la bioinformática como lo hace un bioinformático: probar cosas y evaluar los resultados. De esta manera, la bioinformática se trata solo de **tener las habilidades para experimentar con datos usando una computadora y comprender sus resultados**".
+
+--- Bioinformatics Data Skills
+]
+
+--
+
+.content-box-yellow[
+"Entonces, ¿qué son las habilidades de datos?  
+Son el conjunto de **habilidades computacionales** que te dan la **capacidad** de improvisar rápidamente una forma de ver conjuntos de datos complejos, utilizando un conocido **conjunto de herramientas.**"  
+
+--- Bioinformatics Data Skills
+]
+
+---
+## Ejemplo 1: Similaridad entre secuencias
+
+Tenemos un gene llamado `ntpM` en `Escherichia coli` y conocemos su coordenada de inicio y fin en el genoma, por lo tanto tenemos su secuencia de DNA
+
+
+```
+gene ntpM  TCCCAGTTATGTCAGGGGACACGAGCATGCATGCAGAGAC
+```
+
+--
+
+Tenemos otra región de DNA de otro organismo, como un posible gene, pero **no conocemos su función** y queremos buscar si se parece a alguno de los genes de E.coli.
+
+```
+¿idK?  AATTGCCGCCGTCGTTTTCAGCAGTTATGTCAGATC
+```
+
+--
+
+**¿Qué hacemos?** 
+
+.tiny[Vamos a suponer que 2 genes estan relacionados si su secuencia de DNA es muy parecida. ¿Cuánto parecida? primero veamos ¿cómo comparamos ambas secuencias? ]
+
+---
+## Alineamientos
+
+
+```{r, echo=FALSE, out.width='85%', fig.align='center', fig.cap=''}
+knitr::include_graphics("https://www.researchgate.net/profile/Jeongkyu-Kim-5/publication/347266558/figure/fig2/AS:1003714143850505@1616315508601/Example-of-global-and-local-alignment-in-two-sequence-In-the-figure-A-is-an-example-of.png")
+```
+
+---
+# ¿Cómo lo resolvemos?
+
+Habilidades:
+
+- unix  
+- blast  
+- estadística  
+- conocimientos en genética
+
+---
+## Ejemplo 2. Tolerancia a sequía en Maíz
+
+.content-box-blue[
+Mediante análisis de RNAseq en la hoja, tallo y raíz bajo condiciones de riego y
+de sequía, identificar los genes  diferencialmente expresados que responden al estrés por sequía.
+
+[40,000 genes que contiene el genoma del maíz](https://www.cimmyt.org/es/uncategorized/estudio-revela-un-mapa-genetico-de-la-diversidad-que-permitira-al-maiz-adaptarse-al-cambio-climatico/)
+
+]
+.tiny[Fuente: https://www.somecta.org.mx/wp-content/uploads/2023/01/art-revision-sequia-maiz.pdf]
+
+--
+
+Habilidades:
+
+- Unix
+- R / Python (Paquetes de análisis de expresión diferencial)
+- Genética
+- Estadística
+
+---
+
+class: noinverse, center, middle
+
+# Las habilidades no son suficientes
+
+---
+## A Scientist's Nightmare: carelessness and hubris in the drive to make a historic discovery
+
+.pull-left[
+```{r, out.width = "400px",fig.align='center', fig.cap=''}
+knitr::include_graphics(rep("img/ProblemasInvestigacion.png"))
+```
+.tiny[[Source: The Guardian Feb 18 2015 ](https://www.theguardian.com/science/2015/feb/18/haruko-obokata-stap-cells-controversy-scientists-lie)]
+
+.tiny[checar tambien [esta referencia](
+https://www.japantimes.co.jp/news/2024/04/09/japan/science-health/10-years-since-stap/)
+]
+
+]
+
+.pull-right[
+
+.content-box-blue[
+**Non-reproducible** single occurrences are of no significance to science"
+
+--- Karl Popper, the Logic of Scientific, 1959
+]
+
+.content-box-green[
+La pesadilla de un científico: descuido y arrogancia
+]
+
+]
+
+---
+
+## A Scientist's Nightmare: Software Problem Leads to Five Retractions
+
+```{r, out.width = "400px",fig.align='center', fig.cap='Flipping fiasco. The structures of MsbA (purple) and Sav1866 (green) overlap little (left) until MsbA is inverted (right). CREDIT: R. J. P. DAWSON AND K. P. LOCHER, NATURE 443, 180 (2006)'}
+knitr::include_graphics("https://www.science.org/cms/10.1126/science.314.5807.1856/asset/a4962e92-57aa-4dbe-8888-9ffffe339def/assets/graphic/1856-1.gif")
+```
+
+---
+
+## Actividad: ¿Soluciones?
+
+Tiempo: 10 min.
+
+Trabaja con un compañero y aborda las siguientes preguntas:
+
+.content-box-blue[
+¿Cuáles son los problemas en ambas situaciones?
+
+
+¿Cómo podrían haberse evitado?
+ ]
+
+Anota las respuestas en nuestra bitácora del curso para compartirlas con el grupo.
+
+---
+
+class: inverse, center, middle
+
+# Algunos conceptos y Buenas Prácticas
+
+---
+
+class: center, middle
+
+# Los Datos
+
+---
+
+## Datos en investigación
+
+Como científico puedes:
+
+- **Crear datos**.  Resultado de tus experimentos, de muestreos, de curación de datos, etc.
+- **Usar datos de terceros**. Puedes a partir de éstos datos, analizarlos y descubrir nuevo conocimiento.
+  - **Datos primarios o sin procesar**: Datos originales que han sido recolectados pero aún no han sido procesados o analizados. Algunos ejemplos son los registros sonoros, observaciones, notas de campo o datos de experimentos.
+  - **Datos procesados**: Datos que han sido digitalizados, traducidos, transcritos, limpiados, validados y verificados.
+  - **Datos analizados**: Modelos, gráficos, tablas, textos u otros, que han sido creados a partir de los datos primarios y procesados, y que se pretende sean de ayuda en el descubrimiento de información útil, la presentación de conclusiones y la toma de decisiones.
+
+.tiny[https://biblioguias.cepal.org/gestion-de-datos-de-investigacion/tipos-datos]
+
+---
+## Formatos
+
+Los datos pueden venir en distintos formatos:
+
+- Textuales (TXT, Microsoft Wod, PDF, RTF, ODT, etc.)
+- Numéricos (Excel, CSV, etc.)
+- Multimedia (JPEG, MPEG, WAV, etc.)
+- Estructurados (XML, base de datos MySQL, etc.)
+- Código de software (Java, C, etc.)
+- Específicos de un software (Mesh, 3D CAD, modelo estadístico, etc.)
+- Específicos de una disciplina (FITS en astronomía, CIF en química, etc.)
+
+---
+
+## Gestión de Datos de Investigación
+
+.content-box-blue[
+Una buena gestión de los datos de investigación es fundamental, para garantizar que los datos de la investigación sean de **calidad, estén bien organizados, documentados, preservados y accesibles**. Una buena gestión de los datos, da como resultado una investigación eficiente y excelente. 
+]
+
+
+Fuente: https://biblioguias.uva.es/datos-investigacion/gestion
+
+---
+
+## Lectura de Gestión de datos -- FAIR Data
+
+Tiempo: 10 min.
+
+Con tu compañero discute lo siguiente:
+
+.content-box-blue[
+
+Cueles son las fases en la gestión de datos ?
+
+Qué son los Principios FAIR y para que sirve?
+
+ ]
+ 
+ 
+Anota las respuestas en nuestra bitácora del curso para compartirlas con el grupo.
+
+---
+
+## 🧭 ¿Qué son los metadatos?
+
+Son **“datos sobre los datos”**. Describen el contenido, estructura, contexto y condiciones de uso de un conjunto de datos, permitiendo que sean:
+    
+- Encontrables (Findable)
+- Accesibles (Accessible)
+- Interoperables (Interoperable)
+- Reutilizables (Reusable)    
+
+---
+
+## 📚 Recomendaciones y estándares más relevantes
+
+#### 1. Dublin Core Metadata Initiative (DCMI)
+
+Uno de los estándares más simples y generalizados. Usa 15 elementos clave:
+***📌 Título, creador, descripción, fecha, formato, identificador, fuente, tipo, tema, derechos, etc.***
+
+➡️ Muy útil para datasets simples, documentos, imágenes, artículos.
+
+--
+
+#### 2. DataCite Metadata Schema
+
+Desarrollado para identificar, citar y compartir datos científicos.
+Incluye campos como:
+📌 Autores, título, editor, año, tipo de recurso, versión, DOI, palabras clave, descripción técnica.
+
+➡️ Recomendado para datos que serán depositados en repositorios académicos o científicos.
+
+---
+## FAIRsharing.org
+
+Un catálogo actualizado de estándares y modelos de metadatos para distintas disciplinas.
+🔗 https://fairsharing.org
+
+➡️ Te permite buscar qué estándar usar según el tipo de datos (biomédicos, sociales, ambientales, etc.)
+
+---
+## Principios FAIR
+
+
+Los **Principios FAIR** buscan solucionar la ausencia de buenas prácticas para la **publicación** de datos científicos que sean ampliamente compartidas, claramente articuladas y ampliamente aplicadas.
+
+--
+
+.content-box-blue[
+Los **datos** podrían ser considerados como la **producción principal** de la investigación científica y su publicación y reutilización es necesaria para garantizar su validez, reproducibilidad y para conducir nuevos descubrimientos. 
+]
+
+--
+
+[Video FAIR principles](https://www.youtube.com/watch?v=5OeCrQE3HhE)
+
+- Findable. 
+- Accesible.
+- Interoperable.
+- Reusable.
+
+---
+
+## FAIR Data
+
+```{r, out.width = "800px",fig.align='center', fig.cap=''}
+knitr::include_graphics(rep("img/fair-data.png"))
+```
+
+[FAIR DATA Publishing cheatsheet](https://github.com/UtrechtUniversity/FAIR-Cheatsheets/blob/main/cheatsheets/FAIR_data_publishing/cheatsheet_FAIR_data_publishing.pdf)
+
+---
+## Organizar y documentar los datos
+
+Sea que vayas a usar o publicar datos, sigue estas recomendaciones:
+
+► **Nombres de ficheros y estructura de archivos** Una estructura de ficheros bien organizada y coherente, archivos con nombres definidos, claros y significativos ayudan a encontrar la información de forma rápida y precisa. Es muy importante pensar bien la jerarquía, la estructura, nombres y versiones de los archivos, sobre todo cuando se trabaja en equipo.
+
+► **Describir los datos de investigación** La descripción de los datos debe incluir información necesaria para conocer: Quién creó los datos, o la fuente de los datos en el caso de haber sido recolectados. Tipología y formato de los datos, datos relacionados, quién los puede utilizar, Cuándo pueden utilizarse…; Esta documentación debe estar accesible junto con sus datos para cuando se requiera interpretarlos.Esta descripción detallada, "metadatos", es fundamental para una correcta interpretación de los datos. 
+
+Fuente: https://biblioguias.uva.es/datos-investigacion/gestion
+
+---
+
+## Ejemplos
+
+Ejemplo de publicación de datos de un proyecto de investigación
+
+- [Datos de: Un ensayo para investigar los factores que influyen en la orientación inicial en aves marinas que emprenden el vuelo nocturno.](https://zenodo.org/record/4281409)
+
+- [Estimación sólida de las proporciones de cáncer y tipos de células inmunitarias a partir de datos ATAC-Seq de tumores masivos](https://zenodo.org/records/13132868)
+
+
+.content-box-blue[
+Zenodo es un repositorio de datos de investigación abierto, creado por el proyecto OpenAire y el CERN en el año 2013 con el apoyo de la Comisión Europea, para la preservación y puesta a disposición de contenidos de investigación, tanto publicaciones como datos de investigación.
+]
+
+---
+## Actividad
+
+- `datos_pacientes.csv`  
+  Archivo con datos simulados de pacientes (peso, altura, edad, etc.) **sin documentación ni descripciones**.
+
+
+- Analizar el contenido del archivo.
+   - Redactar un archivo `metadatos_datos_pacientes.md` que contenga:
+     - Título y descripción del dataset
+     - Información de autoría y fuente
+     - Formato y número de columnas
+     - Diccionario de variables: nombre, descripción, tipo, unidad
+     - Fecha, licencia y palabras clave
+     - Consideraciones éticas (anonimización, uso responsable)
+     - Observaciones adicionales
+
+
+---
+
+class: center, middle
+
+# El Software
+
+---
+
+## 5 Recomendaciones para FAIR Software 
+
+Si tu investigación tiene como producto de trabajo un software, un protocolo de investigación que tenga comandos o código, sigue estas recomendaciones:
+
+1. Usar un repositorio público accesible con control de versiones.
+
+2. Agregar una licencia de uso.
+
+3. Para hacer tu código _Findable_, regístralo en alguna comunidad. Ahí te pedirán metadatos para describir tu programa.
+
+4. Indica cómo citar tu software. 
+
+5. Apégate a las buenas prácticas de desarrollo de software, que incluye documentar tu código, seguir un estándar de codificación, hacer pruebas, etc.
+
+
+[FAIR Software](https://fair-software.nl/recommendations/checklist)
+
+
+---
+
+## Código reproducible es buen código
+
+¿Qué necesitamos para **REPRODUCIR** el resultado de un análisis computacional?
+
+--
+
+* Los datos
+
+--
+
+  * La fuente de donde se descargaron.
+  * La versión de la fuente asociada a ellos.
+  
+--
+
+* Los programas utilizados para analizar los datos
+
+--
+
+    * La versión de cada un de los programas.
+    * Los valores de cada uno de los argumentos utilizados.
+
+---
+
+## Recuerda: Todo lo que puede salir mal, saldrá mal... eventualmente
+
+* Las bases de datos no son actualizadas o dejan detener mantenimiento.  
+
+* Siempre existirán excepciones o casos límite que no cumplen con las suposiciones de tu código. 
+
+* Que un programa genere un resultado no significa que el resultado sea correcto.  
+
+* Todo lo que se te puede olvidar, se te va a olvidar:
+  * ¿De dónde descargaste los datos?
+  * ¿Cuáles son las suposiciones acerca de los datos iniciales?
+  * ¿Qué hacia esa función compleja y rebuscada que pensaste era una joya en su momento?
+
+
+---
+## Escenario: Replicar analisis
+
+.content-box-green[
+**EJEMPLO**
+
+Después de analizar los resultados de secuenciación que has esperado
+ansiosamente por meses compartes tus resultados con unx colega que los quiere
+replicar, pero para sorpresa de ambos los resultados no son
+los mismos.
+
+**¿Cómo podemos saber qué pasó?**
+
+]
+
+---
+
+## Documentación, documentación
+
+
+* ¿Todos los datos se descargaron de la misma fuente y pertenecen a la misma versión?
+
+* ¿Se utilizó la misma versión para todos los programas?
+
+* ¿Se corrieron los programas con los mismos parámetros?
+
+
+
+La respuesta a todas estas preguntas forma parte de la documentación
+
+---
+## Escenario: Correr programa con mis datos
+
+.content-box-green[
+
+**EJEMPLO**
+
+Desarrollaste un algoritmo capaz de automatizar una tarea que se lleva a
+cabo rutinariamente en tu laboratorio. Unx colega te pide que se la pases
+para utilizarla en sus datos. Al correr tu programa, truena.
+
+** ¿Cómo podemos saber qué pasó?**
+
+]
+---
+
+## Documentación, documentación
+
+* ¿El programa arroja un mensaje de error útil para entender qué sucedió?
+
+* ¿Qué hace la parte del código qué está fallando?
+
+* ¿El formato de los datos de entrada es correcto?
+
+* ¿Los datos de entrada deberían cumplir con alguna suposición?
+
+* ¿Los valores numéricos deben ser enteros y no flotantes?
+
+* ¿Alguna columna debe estar ordenada numéricamente?
+
+
+La respuesta a todas estas preguntas (y muchas más...) forma parte
+de la documentación. 
+
+---
+
+class: center, middle
+
+# Cómo empezamos?
+
+---
+
+## Empezando por la organización
+
+Es importante mantener una **estructura de directorios organizada**: un directorio de trabajo por proyecto. Dentro de este directorio, los pasos del proyecto se organizarán en subdirectorios.
+
+Organización propuesta:
+
+* Archivo de texto **README**: Describe de que trata el proyecto y todo lo que se realiza con los datos. Contiene todos los comandos necesarios para reproducir los resultados. (Este README es lo que nosotros tenemos como `protocolo de investigación`).
+
+* Carpeta **data**: Con los **datos** con los que arranca el proyecto y sus respectivos **metadatos**. Los datos fuente no se modifican, si los formateas o filtras debes describirlo en el README y tener una fase (resultados) en el proyecto que se llame limpieza de datos.
+
+* Carpeta **bin**: Con los scripts utilizados durante esta fase del proyecto.
+
+* Carpeta **resultados**: Con los resultados generados por el proyecto.
+
+---
+## Organización de los proyectos
+
+
+Un proyecto sencillo:
+
+```
+nombre_proyecto/
+├── bin/        # Scripts ejecutables o binarios del proyecto
+├── data/       # Archivos de datos originales o de entrada
+├── doc/        # Documentación, manuales o reportes
+├── results/    # Resultados generados (tablas, gráficas, informes)
+└── src/        # Código fuente del proyecto
+└── README.md
+```
+
+<br>
+
+Proyecto con múltiples etapas:
+```{r, out.width = "800px",fig.align='center', fig.cap=''}
+knitr::include_graphics(rep("img/estructura-proyecto.png"))
+```
+
+
+---
+## Importante
+
+* Los nombres de las carpetas y de los archivos deben ser informativos.
+
+* No deben contener espacios, acentos, ñ's.
+
+* Los nombres de directorios y archivos son case-sensitive en unix, así que procura no mezclar mucho mayúsculas o minúsculas. Recomendable todo minúsculas.
+
+
+
+---
+# Actividad 
+
+Esta actividad tiene como objetivo a que el alumno comprenda la importancia de organizar e identificar donde colocar los archivos de un proyecto.
+
+Indicaciones:
+
+1. Se te mostrarán una lista de tarjetas.
+2. Arrastra las tarjetas a las categorías que tu pienses que encaja mejor o pertenece. Guíate por los nombres. La categoría Otros sirve para tarjetas que no pertenecen a ninguna categoría.
+3. Si cambias de opinión, mueve las tarjetas de categorías hasta que estés satisfecho.
+4. Cuando termines, da Click en Finish para terminar. 
+
+Da click en el siguiente link:
+
+https://study.uxtweak.com/cardsort/BkEEcvwbK5Lqm9Uei2fQ2
+
+

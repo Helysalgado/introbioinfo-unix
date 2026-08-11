@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Introducción a la Bioinformática</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.18/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/hygge.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Introducción a la Bioinformática
+]
+.institute[
+### Licenciatura en Ciencias Genómicas,UNAM
+]
+.date[
+### First version: yyy-mm-dd; Last update: 2024-10-18
+]
+
+---
+
+
+
+
+&lt;style type="text/css"&gt;
+/* From https://github.com/yihui/xaringan/issues/147  */
+.scroll-output {
+  height: 80%;
+  overflow-y: scroll;
+}
+
+.noinverse {
+  background-color: #272822;
+  color: #d6d6d6;
+  text-shadow: 0 0 20px #333;
+}
+
+/* https://stackoverflow.com/questions/50919104/horizontally-scrollable-output-on-xaringan-slides */
+pre {
+  max-width: 100%;
+  overflow-x: scroll;
+}
+
+
+&lt;/style&gt;
+
+
+
+---
+
+class: inverse, center, middle
+
+# Sed y tr
+
+---
+
+## Comando tr en Unix
+
+### Transformaciones simples de texto
+
+.content-box-green[
+
+`tr` es un comando en Unix utilizado para traducir o eliminar caracteres de un texto.
+
+Permite realizar operaciones de sustitución, eliminación y compresión de caracteres.
+
+]
+
+**Sintáxis básica**
+
+```
+tr [opciones] SET1 [SET2]
+```
+
+
+```bash
+# Convertir minúsculas a mayúsculas
+echo "hola mundo" | tr 'a-z' 'A-Z'
+```
+
+---
+## Opciones del comando tr
+
+
+Comando | Función
+-- | ---
+-d | Elimina caracteres
+-s | Comprime m´ultiples ocurrencias de los caracteres listados
+
+
+Nota: el comando `tr` puede procesar un archivo, pero no directamente como argumento de línea de comandos como lo hacen otros comandos (por ejemplo, grep o sed). En lugar de eso, `tr` toma su entrada desde la entrada estándar (stdin), lo que significa que normalmente se utiliza junto con la redirección de archivos o en una tubería.
+
+---
+## Aplicaciones comunes
+
+
+**Eliminar Caracteres**: Quitar dígitos de un texto.
+
+```bash
+echo "abc123" | tr -d '0-9'
+```
+
+**Sustituir Caracteres**: Reemplazar espacios por guiones bajos.
+
+```bash
+echo "hola mundo" | tr ' ' '_'
+```
+
+
+**Comprimir Repeticiones** Comprimir múltiples espacios en uno.
+
+```bash
+echo "hola    mundo" | tr -s ' '
+```
+
+
+
+---
+
+---
+## Comando sed en Unix
+
+### Editor de flujo de texto
+
+.content-box-green[
+`sed` es un editor de flujo que aplica transformaciones a cada línea de un archivo o entrada estándar.
+Funcionalidad: Permite buscar, reemplazar, insertar y borrar texto.
+]
+
+**Sintáxis**
+
+```
+sed [opciones] 'comando' archivo
+```
+
+```bash
+# Reemplazar "mundo" por "Unix":
+echo "hola mundo" | sed 's/mundo/Unix/'
+```
+
+&lt;!--
+Notas del Profesor:
+
+    Explica que sed es más poderoso que tr para manipulaciones complejas de texto.
+    Muestra cómo sed se puede usar en scripts para automatizar tareas de edición de texto.
+
+--&gt;
+
+---
+## Ejemplos Prácticos de sed
+
+### Transformaciones avanzadas de texto
+
+Reemplazo Simple: Cambiar "hola" por "adiós".
+
+```bash
+echo "hola mundo. Hola como estas?" | sed 's/hola/adiós/'
+```
+
+Reemplazo Global: Reemplazar todas las apariciones de "a" por "o".
+
+```bash
+echo "banana" | sed 's/a/o/g'
+```
+
+Usando archivos
+
+```bash
+sed 's/A/a/g'  secuencias_ejemplo.txt
+```
+
+Eligiendo el numero de linea
+
+```bash
+sed '2s/A/a/g'  secuencias_ejemplo.txt
+```
+
+---
+## Ejemplos Prácticos de sed
+
+.content-box-yellow[
+sed toma una instrucción y la aplica en cada línea del input, imprimiendo
+una línea de output por cada línea del input
+]
+
+Un rango de líneas
+```bash
+sed '2,4s/A/a/g'  secuencias_ejemplo.txt
+
+```
+
+Para inhabilitar este comportamiento default existe la opción -n `-n, --quiet, --silent`
+
+- Al usar -n, sed no imprimirá nada a menos que se le indique explícitamente que lo haga.
+- Cuando usas -n, debes utilizar el comando p (print) junto con una expresión de selección para especificar qué líneas deseas imprimir. 
+
+```bash
+sed -n '2,4p' secuencias_ejemplo.txt 
+```
+---
+## Ejemplos Prácticos de sed
+
+Imprimir las lineas que contienen un patron
+```bash
+sed -n '/ATA/p' secuencias_ejemplo.txt 
+```
+
+Imprimir las lineas que NO contienen un patron
+
+```bash
+sed -n '/ATA/!p' secuencias_ejemplo.txt 
+```
+
+Buscando un patrón con grupos y backreferences
+
+```bash
+sed -E 's/^([a-z]+) ([a-z]+) /\2-\1/' sed.txt
+
+sed -n -E 's/^([a-z]+) ([a-z]+) /\2-\1/p' sed.txt
+```
+
+
+
+---
+## Eliminar líneas 
+
+Eliminar Líneas: Eliminar la primera línea de un archivo.
+
+```bash
+sed '1d' secuencias_ejemplo.txt 
+```
+
+Un rango de lineas
+
+```bash
+sed '5,10d' secuencias_ejemplo.txt 
+```
+
+eliminar todas las líneas que contienen un patrón específico,
+
+```bash
+sed '/ATG/d' secuencias_ejemplo.txt 
+```
+
+&lt;!--
+Notas del Profesor:
+
+    Explica la diferencia entre reemplazo simple y global.
+    Anima a los estudiantes a usar sed para tareas de procesamiento de texto más complejas.
+
+--&gt;
+
+
+---
+
+&lt;!--
+Notas del Profesor:
+
+    Explica que tr es ideal para transformaciones simples y rápidas de texto.
+    Muestra cómo tr puede ser útil en scripts de shell para manipular datos.
+
+--&gt;
+
+---
+## Uso en Bioinformática
+
+### Convertir Secuencias de ADN a ARN:
+
+Cambiar todas las "T" por "U" en una secuencia de ADN para obtener la secuencia de ARN correspondiente.
+
+`ATGCTAGCTAG`
+
+--
+
+```bash
+echo "ATGCTAGCTAG" | tr 'T' 'U'
+```
+
+--
+
+### Eliminar Caracteres No Deseados
+
+Quitar caracteres no nucleotídicos de una secuencia de ADN `ATGCTAGC-NNN-CTAG`
+
+
+```bash
+echo "ATGCTAGC-NNN-CTAG" | tr -d '-'
+```
+
+---
+## Uso en Bioinformática
+
+### Convertir a Minúsculas:
+
+Convertir una secuencia de ADN a minúsculas para uniformidad.
+
+--
+
+```bash
+echo "ATGCTAGCTAG" | tr 'A-Z' 'a-z'
+```
+
+--
+
+### Reemplazar Nucleótidos:
+
+Reemplazar todas las "A" por "T" en una secuencia de ADN.
+
+```bash
+echo "ATGCTAGCTAG" | sed 's/A/T/g'
+```
+
+---
+## Formateo de Datos
+
+Convertir el archivo de sitios de unión de LexA al formato de "feature map" requerido por RSAT tools, usando herramientas de línea de comandos básicas.
+
+Archivo: `LexA_tfbs_info.txt`
+
+```
+Feature map format
+In the standard input format, each feature is represented by a single line, which must contain the following information:
+
+    - map name (eg: gene name),
+    - feature type (site, ORF),
+    - identifier(ex: GATA_box, Abf1_site)
+    - strand (D for Direct, R for Reverse),
+    - start position (may be negative)
+    - end position (may be negative)
+    - (optional) sequence (ex: AAGATAAGCG)
+    - (optional) score (a real value)
+```
+
+Revisa el archivo y haz los ajustes: 
+- map gene  = promotor
+- feature type = cabiar sitio por TFBs
+- strand = cambiar forward por D y reverse por R
+- Eliminar Líneas Incompletas
+
+---
+## Uso en Bioinformática
+
+### Extraer Secuencias de FASTA:
+
+Extraer solo las secuencias (sin encabezados) de un archivo FASTA.
+
+--
+
+```bash
+sed '/^&gt;/d' archivo.fasta
+```
+
+Elimina todas las líneas que comienzan con &gt;, dejando solo las secuencias.
+
+--
+
+### Añadir Anotaciones
+
+Añadir un comentario al final de cada línea de secuencia en un archivo.
+
+--
+
+```bash
+sed 's/$/ # Anotación/' archivo.txt
+```
+
+Descripción: Añade " # Anotación" al final de cada línea.
+
+---
+## Uso en Bioinformática
+
+### Eliminar Líneas Vacías:
+
+Quitar líneas vacías de un archivo de secuencias.
+
+--
+
+```bash
+sed '/^$/d' archivo.txt
+```
+
+Descripción: Elimina todas las líneas vacías.
+
+--
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+  .logo {
+    background-image: url(logos/LCG-UNAM.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    width: 110px;
+    height: 128px;
+    z-index: 0;
+  }
+  </style>
+  
+  <script>
+  document
+    .querySelectorAll(
+      '.remark-slide-content' +
+      ':not(.title-slide)' +
+      // add additional classes to exclude here, e.g.
+      // ':not(.inverse)' +
+      ':not(.hide-logo)'
+    )
+    .forEach(el => {
+      el.innerHTML += '<div class="logo"></div>';
+    });
+  </script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

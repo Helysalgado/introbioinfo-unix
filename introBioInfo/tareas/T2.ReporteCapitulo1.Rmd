@@ -1,0 +1,66 @@
+---
+title: "Introducción a la Bioinformática"
+--subtitle: ""
+--author: ''
+institute: "Licenciatura en Ciencias Genómicas,UNAM"
+date: 'First version: yyy-mm-dd; Last update: `r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    css: ["default", "default-fonts", "hygge"]
+    lib_dir: libs
+    includes:
+      after_body: insert-logo.html
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "macros.js"
+--distill::distill_article: default
+
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{css, echo = FALSE}
+/* From https://github.com/yihui/xaringan/issues/147  */
+.scroll-output {
+  height: 80%;
+  overflow-y: scroll;
+}
+
+.noinverse {
+  background-color: #272822;
+  color: #d6d6d6;
+  text-shadow: 0 0 20px #333;
+}
+
+/* https://stackoverflow.com/questions/50919104/horizontally-scrollable-output-on-xaringan-slides */
+pre {
+  max-width: 100%;
+  overflow-x: scroll;
+}
+
+
+```
+
+## Tarea 2. Reporte de Capítulo 1
+
+El objetivo de la tarea es que comprendas la importancia de la Bioinformática  
+
+---
+## Instrucciones
+
+- Lee el Capítulo 1 del libro Bioinformatics Data Skills (pp 1 - pp 18)
+
+- Haz un Reporte usando el Formato para Reportes en markdow (Se revisarán exclusivamente archivos markdown, no otro formato)
+
+- Usa al menos 5 elementos del lenguaje markdown ( títlos, subtítulos, negritas, tablas, figuras, etc)
+
+
+## Entregable
+
+- Archivo markdown con Reporte de Lectura.
+ 
+ 

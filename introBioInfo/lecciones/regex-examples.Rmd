@@ -1,0 +1,926 @@
+---
+title: "Introducción a la Bioinformática"
+--subtitle: ""
+--author: ''
+institute: "Licenciatura en Ciencias Genómicas,UNAM"
+#date: 'First version: yyy-mm-dd; Last update: `r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    css: ["default", "default-fonts", "hygge"]
+    lib_dir: libs
+    includes:
+      after_body: insert-logo.html
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "macros.js"
+--distill::distill_article: default
+
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{css, echo = FALSE}
+/* From https://github.com/yihui/xaringan/issues/147  */
+.scroll-output {
+  height: 80%;
+  overflow-y: scroll;
+}
+/* https://stackoverflow.com/questions/50919104/horizontally-scrollable-output-on-xaringan-slides */
+pre {
+  max-width: 100%;
+  overflow-x: scroll;
+}
+```
+
+# ¿Qué aprenderás hoy?
+
+- Cómo usar expresiones regulares (regex) en bioinformática
+- Detectar patrones como codones, sitios de restricción y regiones repetidas
+- Probar tus expresiones en [regex101.com](https://regex101.com)
+
+---
+## 🖥️ Introducción a regex101.com
+
+[regex101.com](https://regex101.com/) es una herramienta interactiva para **escribir, probar y depurar expresiones regulares** en distintos lenguajes.
+
+### 🔍 Secciones principales de la interfaz
+
+1. **Regular Expression** (parte superior central):
+   - Aquí escribes tu patrón de búsqueda.
+   - Se activa la opción `/gm` (global y multiline) por defecto.
+
+2. **Test String** (panel grande abajo):
+   - Zona donde escribes tu texto de prueba, como secuencias de ADN o líneas de archivo.
+   - Puedes usar varias líneas para simular archivos FASTA, GFF, etc.
+
+3. **Explanation** (panel derecho superior):
+   - Muestra una explicación automática de tu regex en tiempo real.
+
+---
+## 🖥️ Introducción a regex101.com
+
+4. **Match Information** (derecha inferior):
+   - Indica qué partes coinciden, cuántas veces y en qué posiciones.
+
+5. **Flavor (izquierda)**:
+   - Selecciona el lenguaje de destino (sugerimos **PCRE2** o **Python**).
+
+6. **Quick Reference** (abajo a la derecha):
+   - Tabla útil con todos los **metacaracteres**, sus funciones y ejemplos (`^`, `$`, `\b`, `\w`, etc).
+
+7. **Substitution / Unit Tests / List** (opcional):
+   - Funciones avanzadas para sustituir texto o probar múltiples entradas.
+
+
+---
+
+# Archivo base de secuencias 🔬
+
+Estas secuencias se usarán en varios ejercicios del curso, aqui las numeramos porque en el texto haremos referencia al número para facilitar su referencia:
+
+```text
+1. ATGCGTAC
+2. AATTGGCCAATTGGCC
+3. GCTAGCTGATCGATC
+4. ATGATGATG
+5. AAAAAA
+6. CGTATGCGTAGCTAGCGT
+7. AGCTTCTGAAGCT
+8. TGACCTGAAGCTTAGC
+9. ATCGTACGTAGCTACGATCG
+10. GATCGATCGATCGATCGATC
+11. GAGAGA
+12. ATATAT
+13. gene1    100    ATGCGT
+14. atgtaa
+15. >seq1 description of sequence
+```
+
+---
+
+## Preparandonos para la práctica
+
+Pega este texto en TEST STRING en https://regex101.com/
+
+```text
+ATGCGTAC
+ATGATGATGAAATA
+AATTGGCCAATTGGCC
+GCTAGCTGATCGATC
+ATGATGATG
+AAAAAA
+CGTATGCGTAGCTAGCGT
+AGCTTCTGAAGCT
+TGACCTGAAGCTTAGC
+ATCGTACGTAGCTACGATCG
+GATCGATCGATCGATCGATC
+GAGAGA
+ATATAT
+gene1    100    ATGCGT
+atgtaa
+>seq1 description of sequence
+```
+
+---
+
+## Metacaracteres de RegEx
+
+Vamos a revisar en esta clase:
+
+1. **Caracteres literales**
+2. `.` punto
+3. `*`, `+`, `?`, `{m,n}` (cuantificadores)
+4. `^` y `$` (anclas de inicio/fin)
+5. `[ ]` y `[^ ]` (clases y negaciones)
+6. `|` (alternancia lógica)
+7. `( ... )` (agrupamiento)
+8. `\1` (retroreferencia)
+9. `(?=X)` (lookahead)
+10. `(?<=X)` (lookbehind)
+11. `(?i)` (modificador: case-insensitive)
+12. `\w`, `\b`, `\t` (palabras, límites, tabulador)
+13. **Integración final**: ORF completo con codones de inicio y parada
+
+---
+
+# Ejemplo 1: Caracteres literales
+
+Buscar exactamente `ATG`
+
+```regex
+ATG
+```
+
+✅ Coincide en: `ATGCGTAC`
+
+
+❓ Intenta:  
+
+- Buscar `GCC`
+- Ver si coincide `TTT`
+
+---
+
+# Ejemplo 2: Punto `.`
+
+Cualquier letra entre A y G
+
+```regex
+A.G
+```
+
+✅ Coincide en: `ATG` de `ATGCGTAC`
+
+
+❓ Intenta:
+
+- `G.T` ¿coincide?
+- `A..T` ¿funciona?
+
+---
+
+# Ejemplo 3: Cuantificadores `+`, `*`, `{}`
+
+Los cuantificadores nos dicen **cuántas veces debe repetirse un patrón** para que haya coincidencia.
+
+### 🔹 `+` — Uno o más.  
+Coincide con **al menos una** repetición del carácter o grupo.
+
+- `A+` → una o más A seguidas.
+
+**Ejemplos en las secuencias:**
+
+- `A+` → coincide en: `AAAAAA` (sec. 5)
+
+---
+# Ejemplo 3: Cuantificadores `+`, `*`, `{}`
+
+#### 🔸 `*` — Cero o más
+Coincide con **cero o más** repeticiones (es decir, incluso si no aparece).
+
+- `T*G` → cualquier número de T seguidas de una G.
+
+**Ejemplos en las secuencias:**
+- `T*G` → coincide en: `ATGCGTAC` (sec. 1)
+
+---
+# Ejemplo 3: Cuantificadores `+`, `*`, `{}`
+
+#### 🔹 `{n}` — Exactamente n repeticiones
+- `A{3}` → exactamente tres A seguidas.
+
+#### 🔸 `{n,}` — Al menos n repeticiones
+- `G{2,}` → dos o más G seguidas.
+
+#### 🔸 `{n,m}` — Entre n y m repeticiones
+- `C{2,4}` → entre dos y cuatro C.
+
+**Ejemplos en las secuencias:**
+- `A{3}` → coincide en: `AAAAAA` (sec. 5)
+- `G{2,}` → coincide en: `AATTGGCCAATTGGCC` (sec. 2)
+
+---
+
+# Ejemplo 4: Anclas ^ y $
+
+Solo si está al principio.
+
+```regex
+^ATG
+```
+
+✅ Coincide en: `ATGCGTAC`
+
+❓ Intenta:
+
+- Buscar `^GAT`
+- Probar `^TGA` en medio
+
+---
+# Ejemplo 4: Anclas ^ y $
+
+Solo si está **al final** de la secuencia.
+
+```regex
+TGA$
+```
+
+✅ Coincide en: `ATGCGTACTGA`   
+❌ No coincide en: `GGCATCTAGGAC`
+
+❓ Intenta:
+
+-   Modificar una secuencia que termine en `TAA` o `TAG`.  
+-   ¿Qué pasa si pones `$` al inicio por error?
+    
+
+**Recuerda:**.  
+-   `^` significa "empieza con..."
+-   `$` significa "termina con..."
+
+
+---
+
+## Ejemplo 5: Clases `[ ]` y negaciones `[^ ]`
+
+Una **clase de caracteres** permite definir un **conjunto de letras o símbolos válidos** para una posición en la secuencia. 
+
+- Los corchetes [ ] indican que **una sola posición** puede coincidir con **varias opciones**.
+- El símbolo `^` dentro del grupo **niega** (excepto).
+
+Ejemplo: G precedida de A o T.
+
+```regex
+[AT]G
+```
+
+✅ Coincide en: `ATG` y `TGA`
+
+❓ Intenta:   
+
+- `[CT]C`
+- `[^AG]T`
+
+---
+
+# Ejemplo 6: Alternancia `|`
+
+Coincide con ATG o GTG.
+
+```regex
+ATG|GTG
+```
+
+✅ Coincide en: `ATGATGATG`
+
+
+❓ Intenta:  
+- `TAG|TAA`
+- `CTG|AAC`
+
+---
+
+# Ejemplo 7: Agrupamiento `(...)`
+
+Un **grupo** se define entre paréntesis `()` y sirve para:
+
+1. **Agrupar varios caracteres como una sola unidad.**
+2. Aplicar **cuantificadores** al grupo completo.
+3. Capturar lo que coincide, para usarlo después (como en retroreferencias).
+
+
+Por ejemplo: Uno o más repeticiones del grupo.
+
+```regex
+(ATG)+
+```
+
+✅ Coincide en: `ATGATG`
+
+❓ Intenta:   
+- `(GC)+`
+- `(TA)+`
+
+---
+
+# Ejemplo 8: Retroreferencia `\1`
+
+Una **retroreferencia** te permite **volver a usar un grupo que ya hiciste coincidir antes** en la misma expresión.
+
+Cuando usas paréntesis `( )` en una regex, estás **capturando** lo que coincidió.
+
+Luego puedes referirte a ese grupo con:
+
+- `\1` para el **primer grupo**
+- `\2` para el segundo, y así sucesivamente
+
+Ejemplo: Busca repeticiones exactas.
+
+```regex
+(GA)\1
+```
+
+✅ Coincide en: `GAGAGA`
+
+❓ Intenta:    
+
+- `(AT)\1`
+- `(CG)\1`
+
+---
+
+# Ejemplo 9: Lookahead `(?=X)`
+
+Un **lookahead** se escribe así: `X(?=Y)`
+
+Significa: **"Encuentra X solo si está seguido por Y"**, pero **sin incluir Y** en la coincidencia.
+
+Ejemplo: A que venga antes de T.
+
+```regex
+A(?=T)
+```
+
+✅ Coincide en: `AGCTTCTGAAGCT`
+
+❓ Intenta:
+
+- `G(?=C)`
+- `T(?=A)`
+
+---
+
+# Ejemplo 10: Lookbehind `(?<=X)`
+
+Un **lookbehind** se escribe así: `(?<=Y)X`
+
+Significa: **"Encuentra X solo si está precedido por Y"**, pero **sin incluir Y** en la coincidencia.
+
+
+Por ejemplo: A precedido por G.
+
+
+```regex
+(?<=G)A
+```
+
+✅ Coincide en: `TGACCTGAAGCTTAGC`
+
+❓ Intenta:   
+- `(?<=T)C`
+- `(?<=C)T`
+
+---
+
+# Modificadores `(?i)`
+
+Los **modificadores** permiten alterar cómo funciona una expresión regular. Se escriben al inicio con `(?...)`, o se activan con casillas en regex101.
+
+### 🔧 Modificadores más comunes:
+
+| Modificador | Qué hace                      | Ejemplo                   |
+|-------------|-------------------------------|---------------------------|
+| `(?i)`      | Ignora mayúsculas/minúsculas  | `(?i)atg` → ATG o atg     |
+| `(?m)`      | Modo multilínea (`^` y `$`)    | `^>` en FASTA multilinea  |
+| `(?s)`      | `.` también incluye saltos de línea | útil con secuencias largas |
+| `(?x)`      | Ignora espacios en la regex y permite comentarios (modo extendido) | para expresiones legibles |
+
+---
+
+**🧠 ¿Dónde se usan?**
+
+- (?i) es útil cuando no sabes si el texto está en mayúsculas o minúsculas.
+- (?m) se usa para analizar archivos con varias líneas como .fasta.
+- (?s) permite que . incluya saltos de línea (por defecto no lo hace).
+
+
+**✅ En regex101:**
+
+Puedes activarlos con las casillas:
+
+- i (insensitive)
+- m (multiline)
+- s (dotall)
+
+---
+
+# Ejemplo 11: Modificadores `(?i)`
+
+Ignora mayúsculas/minúsculas.
+
+```regex
+(?i)atg
+```
+
+
+✅ Coincide en: `atgtaa`, `ATGCGTAC`
+
+❓ Intenta:  
+- `(?i)taa`
+- `atg` sin `(?i)`
+
+---
+
+# Ejemplo 12: Palabras y tabuladores
+
+`ATG` como palabra aislada.
+
+```regex
+\bATG\b
+```
+
+✅ Coincide en: `gene1    100    ATGCGT`
+
+❓ Intenta:    
+- `\w{4}`
+- `\bTGA\b`
+
+---
+
+# Ejemplo 13: ORF completo
+
+Un marco abierto de lectura completo.
+
+```regex
+^ATG[ATGC]{3,}(TAA|TAG|TGA)$
+```
+
+✅ Coincide en: `ATGCGTAGCTAA`
+
+❓ Intenta:   
+- Uno sin codón de parada
+
+---
+
+---
+
+# Probemos las regex con `grep`
+
+```bash
+grep 'REGEX' secuencias.txt
+```
+
+Para que los metacaracteres funcionen correctamente, debes usar comillas simples `' '`.
+
+También puedes añadir:
+
+-   `-E` para usar **extended regex**.  
+-   `-i` para **ignorar mayúsculas**.  
+-   `-n` para ver el **número de línea**
+
+---
+##  Las regex y la familia de `grep`
+
+Cuando hablamos de expresiones regulares en la terminal, no todas funcionan igual. Dependiendo de la herramienta o la opción que uses (`grep`, `egrep`, `grep -P`...), estás usando una **versión diferente** del "lenguaje regex".
+
+
+---
+
+## 🧩 Tipos de expresiones regulares
+
+### 1. 🔹 BRE – Basic Regular Expressions
+- Usado por defecto en `grep`.
+- Los metacaracteres permitidos: . ^ $ * [ ] [^ ]  
+- Metacaracteres como `+`, `?`, `|`, `()` **no tienen efecto especial** a menos que se escapen con `\`.
+- Ejemplo:
+
+  ```bash
+  grep 'A\{3\}' secuencias.txt
+  ```
+
+---
+
+### 2. 🔸 ERE – Extended Regular Expressions
+
+- Se activa con `grep -E` o usando `egrep`.
+- **Permite usar directamente** los básicos: . ^ $ * [ ] [^ ]  
+      `+`, `?`, `|`, `()`, `{}` 
+
+Ejemplos:
+
+```bash
+grep -E 'A{3}' secuencias.txt
+grep -E '(ATG)+' secuencias.txt
+```
+
+---
+
+### 3. 🔮 PCRE – Perl-Compatible Regular Expressions
+
+- Se activa con `grep -P` (si está disponible en tu sistema).
+- Soporta muchas funciones avanzadas:   
+  - `\b`, `\s`, `\t`
+  - Lookahead `(?=...)`
+  - Lookbehind `(?<=...)`
+  - Retroreferencias `\1`, `\2`, ...
+- Ejemplos:
+
+```bash
+grep -P '(?<=G)A' secuencias.txt
+grep -P '\bATG\b' secuencias.txt
+grep -P '(GA)\1' secuencias.txt
+```
+
+---
+
+## 📊 Comparación rápida
+
+| Elemento             | BRE (`grep`) | ERE (`grep -E`) | PCRE (`grep -P`) |
+|----------------------|--------------|------------------|------------------|
+| . ^ $ * [ ] [^ ]     |  ✅          |  ✅               | ✅               |   
+| `+`, `?`, Alternativas, `()`  | ❌ (usa `\`) |  ✅ (directo)     | ✅ (directo)     |
+| `\b`, `\s`, `\t`     | ❌           | ❌                | ✅               |
+| Lookahead/lookbehind | ❌           | ❌                | ✅               |
+| Retroreferencias     | ❌           | ❌                | ✅               |
+| Legibilidad/Potencia | 🔸 Básica    | 🔹 Media         | 🔮 Avanzada      |
+
+---
+
+## 🧪 Recomendación práctica
+
+| Si quieres...                                  | Usa...        |
+|------------------------------------------------|---------------|
+| Coincidencias simples o archivos planos        | `grep` (BRE)  |
+| Cuantificadores o agrupaciones complejas       | `grep -E`     |
+| Potencia total para bioinformática avanzada    | `grep -P`     |
+
+---
+
+# Práctica
+
+Vamos a resolver los ejercicios con grep, para ello necesitamos:
+
+1. Crear un directorio llamado `regex` en intro-bioinfo.   
+2. generar un archivo llamado `secuencias.txt` y pega las secuencias que usaste en la practica anterior con regex101.
+
+---
+
+## Resolviendo los ejemplos con `grep` 
+
+1. Buscar exactamente la subcadena `ATG`
+
+```bash
+grep 'ATG' secuencias.txt
+```
+
+2. **Buscar una letra A seguida de cualquier carácter y luego una G.**
+
+```bash
+grep -E 'A.G' secuencias.txt
+```
+
+3. **Buscar una o más letras A seguidas.**
+
+```bash
+grep -E 'A+' secuencias.txt
+```
+---
+## Ejemplos 
+
+**Buscar cero o más T seguidas de una G.**
+```bash
+grep -E 'T*G' secuencias.txt
+```
+
+**Buscar exactamente tres A consecutivas.**
+```bash
+grep -E 'A{3}' secuencias.txt
+```
+
+---
+## Ejemplos 
+
+4. Anclas
+
+**Buscar secuencias que comienzan con `ATG`.**
+
+```bash
+grep '^ATG' secuencias.txt
+```
+
+**Buscar secuencias que terminan con `TGA`.**
+
+```bash
+grep 'TGA$' secuencias.txt
+```
+
+---
+
+## 5. Clases `[ ]` y negaciones `[^ ]`
+
+**Buscar una G precedida por A o T.**
+
+```bash
+grep -E '[AT]G' secuencias.txt
+```
+
+**Buscar una T precedida por algo que NO sea A ni G.**
+
+```bash
+grep -E '[^AG]T' secuencias.txt
+```
+
+---
+
+## 6. Alternancia `|`
+
+**Buscar secuencias que contengan `ATG` o `GTG`.**
+
+```bash
+grep -E 'ATG|GTG' secuencias.txt
+```
+
+---
+
+## 7. Agrupamiento `( ... )`
+
+**Buscar una o más repeticiones del motivo `ATG`.**
+
+```bash
+grep -E '(ATG)+' secuencias.txt
+```
+
+Ejemplo con mas de un grupo:
+
+```bash
+grep -E '(ATG)+.*(TA)+' secuencias.txt
+```
+
+---
+
+## 8. Retroreferencia `\1`
+
+**Buscar una repetición exacta del grupo `GA`.**
+
+```bash
+grep -P '(GA)\1' secuencias.txt
+
+# alternativa con el lenguaje perl ( más avanzado)
+perl -ne 'print if /(GA)\1/' secuencias.txt
+```
+
+---
+## 8. Retroreferencia `\1`
+
+Ejemplo para cualquier repeticion 
+
+```bash
+grep -P 'T(..)\1' secuencias.txt 
+
+grep -P '(...).{1,4}\1' secuencias.txt 
+```
+
+Retroreferencia para invertidos
+
+```bash
+grep -E '(ATG)+.*(TA)+\2\1' secuencias.txt
+```
+
+¿Qué matches habría?
+
+---
+
+## 9. Lookahead `(?=...)`
+
+**Buscar una A que esté seguida de una T.**
+
+```bash
+grep -P 'A(?=T)' secuencias.txt
+
+# alternativa con el lenguaje perl ( más avanzado)
+perl -ne 'print if /A(?=T)/' secuencias.txt
+```
+
+---
+
+## 10. Lookbehind `(?<=...)`
+
+**Buscar una A que esté precedida por una G.**
+
+```bash
+
+grep -P '(?<=G)A' secuencias.txt
+grep -P '(?<=G{1,3})A' secuencias.txt  # ❌ Error: lookbehind no fijo
+
+# alternativa con el lenguaje perl ( más avanzado)
+perl -ne 'print if /(?<=G)A/' secuencias.txt
+```
+
+
+---
+
+## 10. Lookbehind `(?<=...)`
+
+Más de un caracter(fijos) a evaluar
+
+```bash
+grep -P '(?<=TG)A' secuencias.txt 
+grep -P '(?<=CTG)A' secuencias.txt 
+
+# error -- no fijo
+grep -P '(?<=G{1,2})A' secuencias.txt 
+```
+
+---
+
+## 11. Modificadores `(?i)`
+
+**Buscar `ATG` sin importar mayúsculas o minúsculas.**
+
+```bash
+grep -i 'atg' secuencias.txt
+```
+
+
+---
+
+## 12. Palabras y tabuladores
+
+`\b` es un **metacaracter de “límite de palabra”** ( NO representa un caracter) 
+Marca la frontera **entre un carácter de palabra** (`\w`: letras, números, guion bajo) **y uno que no lo es** (`\W`: espacios, signos, etc.).
+
+
+**Buscar la palabra aislada `ATG`.**
+
+```bash
+grep -P '\bATG\b' secuencias.txt
+```
+
+### Tabuladores
+
+**Buscar líneas que contengan tabuladores.**
+
+```bash
+grep -P '\t' secuencias.txt
+```
+
+---
+
+## 13. ORF completo
+
+**Buscar un marco abierto de lectura que empiece en ATG, tenga un mínimo de codones y termine con TAA, TAG o TGA.**
+
+```bash
+grep -E '^ATG[ATGC]{3,}(TAA|TAG|TGA)$' secuencias.txt
+```
+
+
+---
+
+# Ejercicios de aplicación en biología real 🧬
+
+En esta sección aplicaras expresiones regulares para identificar motivos biológicos comunes. Cada ejercicio incluye:
+
+- Una **descripción del motivo**.
+- Una **secuencia ejemplo**.
+- Vamos a encontrar una **regex sugerida**.
+- Lo que se espera **encontrar en la secuencia** si la expresión funciona correctamente.
+
+Puedes trabajar individual o en equipo de 2 y resuelve los ejercicios.
+
+---
+
+# Caja TATA (promotor eucariota)
+
+**¿Qué buscamos?**
+Una **caja TATA** es una secuencia promotora rica en T y A que marca el inicio de transcripción en genes eucariotas. Su forma canónica es `TATAAA`, pero puede variar ligeramente.
+
+**Se espera encontrar:** una subcadena como `TATAAA`, `TATATA`, `TATATT`, etc.
+
+```text
+ACGTATATAAAGCT
+```
+
+Regex:
+
+```regex
+
+```
+
+---
+
+# Codones de inicio
+
+**¿Qué buscamos?**
+Codones como `ATG`, `GTG` o `TTG`, que pueden servir como **inicio de traducción** en distintos contextos genéticos.
+
+**Se esperan:** coincidencias exactas con uno de esos tres codones, al inicio de un ORF o dentro de un marco de lectura.
+
+Secuencias ejemplo:
+
+```text
+GCCATGCGTACTG
+TTGGTCGTGACC
+AAGTTGGGCTTGATC
+```
+
+Regex:
+
+```regex
+
+```
+
+---
+
+# Codones de parada
+
+**¿Qué buscamos?**
+Los codones `TAA`, `TAG` y `TGA` indican el **fin de un marco de lectura** (ORF). Suelen encontrarse después de una región codificante.
+
+**Se espera encontrar:** cada vez que uno de estos codones aparece en la secuencia al final de un ORF.
+
+Secuencia ejemplo 1:
+```text
+ATGCGTACCTAA
+GGCATCTAGGAC
+AAGGGTGACTGAATC
+```
+
+Regex:
+
+```regex
+
+```
+
+---
+
+# Región GC rica
+
+**¿Qué buscamos?**
+Zonas con muchas **guaninas (G)** y **citosinas (C)** juntas, comunes en promotores bacterianos o regiones reguladoras.
+
+**Se espera encontrar:** secuencias como `GGCC`, `GGGCCC`.
+
+Secuencia ejemplo:
+
+```text
+GGCCATGGGCCT
+```
+
+Regex:
+```regex
+
+```
+
+---
+
+# Microsatélites (repeticiones CA)
+
+**¿Qué buscamos?**
+Repeticiones de **CA** como motivo **microsatélite**, útiles en estudios poblacionales y genómicos.
+
+**Se espera encontrar:** al menos 5 repeticiones consecutivas de `CA`.
+
+
+```text
+CACACACACACAATG
+```
+
+Regex:
+```regex
+
+```
+
+---
+
+# Sitio de splicing (intrones eucariotas)
+
+**¿Qué buscamos?**
+Los intrones eucariotas típicamente inician con `GT` y terminan con `AG`, separados por una secuencia variable.
+
+**Se espera encontrar:** patrones que comiencen con `GT`, tengan entre 3 y 100 nucleótidos, y terminen en `AG`.
+
+
+```text
+GTACGTAGCTAG
+```
+
+Regex:
+```regex
+
+```
+

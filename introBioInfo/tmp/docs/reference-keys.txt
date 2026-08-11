@@ -1,0 +1,17 @@
+overview
+objetivo
+qué-haremos-en-el-curso
+overview-1
+reporte-de-investigación
+reporte-de-investigación-1
+reporte-de-investigación-2
+ejemplo
+reporte-de-lectura
+reporte-de-lectura-1
+ejemplo-1
+qué-uso-para-hacer-los-reportes
+markdown
+markdown-ventajas
+markdown-1
+práctica
+práctica-1

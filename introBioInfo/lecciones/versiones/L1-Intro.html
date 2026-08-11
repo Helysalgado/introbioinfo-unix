@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Introducción a la Bioinformática</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.18/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/hygge.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Introducción a la Bioinformática
+]
+.institute[
+### Licenciatura en Ciencias Genómicas,UNAM
+]
+
+---
+
+
+
+
+&lt;style type="text/css"&gt;
+/* From https://github.com/yihui/xaringan/issues/147  */
+.scroll-output {
+  height: 80%;
+  overflow-y: scroll;
+}
+
+.noinverse {
+  background-color: #272822;
+  color: #d6d6d6;
+  text-shadow: 0 0 20px #333;
+}
+
+/* https://stackoverflow.com/questions/50919104/horizontally-scrollable-output-on-xaringan-slides */
+pre {
+  max-width: 100%;
+  overflow-x: scroll;
+}
+&lt;/style&gt;
+
+
+## Objetivo
+
+Lxs alumnxs serán capaces de comprender la importancia de la bioinformática y el uso de buenas prácticas en el desarrollo de software.
+
+---
+
+## Contenido de la unidad
+
+1. ¿Por qué aprender bioinformática?
+
+2. Buenas prácticas.
+
+3. ¿Qué es el shell?
+
+4. Conexión remota a un servidor.
+
+5. Operaciones básicas en la consola de comandos.
+
+6. Tipos de archivos.
+
+---
+
+## ¿Por qué aprender bioinformática?
+
+Hace algunos años cuando la bioinformática no existía...
+
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC336192/bin/pnas00669-0100.tif" alt="DNA sequence of the araBAD promoter in Escherichia coli" width="60%" /&gt;
+&lt;p class="caption"&gt;DNA sequence of the araBAD promoter in Escherichia coli&lt;/p&gt;
+&lt;/div&gt;
+
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC336192/bin/pnas00669-0100.tif
+
+---
+## ¿Por qué aprender bioinformática?
+
+Determinar a través de miles de experimentos los elementos genéticos en el genoma de _E. coli_ necesitó muchísimos años. Actualmente, una base de datos llamada RegulonDB almacena información de alrededor de 5 mil publicaciones de experimentos de un mecanismo llamado regulación transcripcional.
+
+&lt;img src="img/micF-gene.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+.content-box-blue[
+Pero las cosas han cambiado...
+
+   Hay nuevas ideas y tecnologías
+   
+]
+
+---
+
+## ¿Por qué aprender bioinformática?
+
+.pull-left[
+* La cantidad de datos generados cada día en las ciencias biológicas es masiva [Buffalo, 2015].
+
+* La única forma de acceder y analizar todos estos datos es a través de herramientas
+computacionales.
+
+* Nos permite ahorrar tiempo y esfuerzo al automatizar tareas y procesos.
+]
+
+.pull-right[
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="https://i0.wp.com/ncbiinsights.ncbi.nlm.nih.gov/wp-content/uploads/2020/06/Sra_growth.png?w=1599&amp;ssl=1" alt="The SRA’s growth rate is greatly increasing over time." width="100%" /&gt;
+&lt;p class="caption"&gt;The SRA’s growth rate is greatly increasing over time.&lt;/p&gt;
+&lt;/div&gt;
+]
+
+
+---
+
+## Haciendo bioinformática
+
+.content-box-blue[
+"La solución es abordar la bioinformática como lo hace un bioinformático: probar cosas y evaluar los resultados. De esta manera, la bioinformática se trata solo de **tener las habilidades para experimentar con datos usando una computadora y comprender sus resultados**".
+
+--- Bioinformatics Data Skills
+]
+
+--
+
+.content-box-yellow[
+"Entonces, ¿qué son las habilidades de datos?  
+Son el conjunto de **habilidades computacionales** que te dan la **capacidad** de improvisar rápidamente una forma de ver conjuntos de datos complejos, utilizando un conocido **conjunto de herramientas.**"  
+
+--- Bioinformatics Data Skills
+]
+
+---
+## Ejemplo
+
+Tenemos un gene llamado `ntpM` en `Escherichia coli` y conocemos su coordenada de inicio y fin en el genoma, por lo tanto tenemos su secuencia de DNA
+
+
+```
+gene ntpM  TCCCAGTTATGTCAGGGGACACGAGCATGCATGCAGAGAC
+```
+
+--
+
+Tenemos otra región de DNA de otro organismo, como un posible gene, pero **no conocemos su función** y queremos buscar si se parece a alguno de los genes de E.coli.
+
+```
+¿idK?  AATTGCCGCCGTCGTTTTCAGCAGTTATGTCAGATC
+```
+
+--
+
+**¿Qué hacemos?** 
+
+.tiny[Vamos a suponer que 2 genes estan relacionados si su secuencia de DNA es muy parecida. ¿Cuánto parecida? primero veamos ¿cómo comparamos ambas secuencias? ]
+
+---
+## Alineamientos
+
+
+&lt;img src="https://slideplayer.es/slide/4255221/14/images/4/Tipos+de+alineamiento+de+dos+secuencias.jpg" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+# ¿Cómo lo resolvemos?
+
+Habilidades:
+
+- unix  
+- blast  
+- estadística  
+- conocimientos en genética
+
+
+---
+
+class: noinverse, center, middle
+
+# Las habilidades no son suficientes
+
+---
+## A Scientist's Nightmare: carelessness and hubris in the drive to make a historic discovery
+
+.pull-left[
+&lt;img src="img/ProblemasInvestigacion.png" width="400px" style="display: block; margin: auto;" /&gt;
+.tiny[[Source: The Guardian Feb 18 2015 ](https://www.theguardian.com/science/2015/feb/18/haruko-obokata-stap-cells-controversy-scientists-lie)]
+
+]
+
+.pull-right[
+
+.content-box-blue[
+Non-reproducible single occurrences are of no significance to science"
+
+--- Karl Popper, the Logic of Scientific, 1959
+]
+
+]
+
+---
+
+## A Scientist's Nightmare: Software Problem Leads to Five Retractions
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="https://www.science.org/cms/10.1126/science.314.5807.1856/asset/a4962e92-57aa-4dbe-8888-9ffffe339def/assets/graphic/1856-1.gif" alt="Flipping fiasco. The structures of MsbA (purple) and Sav1866 (green) overlap little (left) until MsbA is inverted (right). CREDIT: R. J. P. DAWSON AND K. P. LOCHER, NATURE 443, 180 (2006)" width="400px" /&gt;
+&lt;p class="caption"&gt;Flipping fiasco. The structures of MsbA (purple) and Sav1866 (green) overlap little (left) until MsbA is inverted (right). CREDIT: R. J. P. DAWSON AND K. P. LOCHER, NATURE 443, 180 (2006)&lt;/p&gt;
+&lt;/div&gt;
+
+---
+
+## ¿Soluciones?
+
+.content-box-blue[
+¿Cuáles son los problemas en ambas situaciones?
+
+
+¿Cómo podrían haberse evitado?
+ ]
+
+
+---
+
+class: inverse, center, middle
+
+# Buenas Prácticas
+
+---
+
+## Principios FAIR
+
+
+Los **Principios FAIR** buscan solucionar la ausencia de buenas prácticas para la publicación de datos científicos que sean ampliamente compartidas, claramente articuladas y ampliamente aplicadas.
+
+--
+
+Los datos podrían ser considerados como la producción principal de la investigación científica y su publicación y reutilización es necesaria para garantizar su validez, reproducibilidad y para conducir nuevos descubrimientos. 
+
+--
+
+[Video FAIR principles](https://www.youtube.com/watch?v=5OeCrQE3HhE)
+
+- Findable. 
+- Accesible.
+- Interoperable.
+- Reusable.
+
+---
+## FAIR Data
+
+&lt;img src="img/fair-data.png" width="800px" style="display: block; margin: auto;" /&gt;
+
+---
+
+https://zenodo.org/record/4281409
+
+Ejemplo de archivo de datos
+
+Ejemplo de software
+
+---
+
+## 5 Recomendaciones para FAIR Software 
+
+1. Usar un repositorio público accesible con control de versiones.
+
+2. Agregar una licencia de uso.
+
+3. Para hacer tu código _Findable_, regístralo en alguna comunidad. Ahí te pedirán metadatos para describir tu programa.
+
+4. Indica cómo citar tu software. 
+
+5. Apégate a las buenas prácticas de desarrollo de software, que incluye documentar tu código, seguir un estándar de codificación, hacer pruebas, etc.
+
+[FAIR Software](https://fair-software.nl/recommendations/checklist)
+
+
+---
+
+## Código reproducible es buen código
+
+¿Qué necesitamos para reproducir el resultado de un análisis computacional?
+
+--
+
+* Los datos
+
+--
+
+  * La fuente de donde se descargaron.
+  * La versión de la fuente asociada a ellos.
+  
+--
+
+* Los programas utilizados para analizar los datos
+
+--
+
+    * La versión de cada un de los programas.
+    * Los valores de cada uno de los argumentos utilizados.
+
+---
+
+## Todo lo que puede salir mal, saldrá mal... eventualmente
+
+* Las bases de datos no son actualizadas o dejan detener mantenimiento.  
+
+* Siempre existirán excepciones o casos límite que no cumplen con las suposiciones de tu código. 
+
+* Que un programa genere un resultado no significa que el resultado sea correcto.  
+
+* Todo lo que se te puede olvidar, se te va a olvidar:
+  * ¿De dónde descargaste los datos?
+  * ¿Cuáles son las suposiciones acerca de los datos iniciales?
+  * ¿Qué hacia esa función compleja y rebuscada que pensaste era una joya en su momento?
+  
+---
+
+## Documentación, documentación
+
+.content-box-green[
+**EJEMPLO**
+
+Haces una cochinita pibil y te quedó deliciosa, y le presumes a tu mejor amigx
+y le dices que la haga. Tu amigx llega una semana después diciéndote que la
+cochinita pibil es la cosa más espantosa que ha comido en su vida!!!
+
+
+**¿Qué pasó?**
+
+]
+---
+## Documentación, documentación
+
+.content-box-green[
+**EJEMPLO**
+
+Después de analizar los resultados de secuenciación que has esperado
+ansiosamente por meses compartes tus resultados con unx colega que los quiere
+replicar, pero para sorpresa de ambos los resultados no son
+los mismos.
+
+**¿Cómo podemos saber qué pasó?**
+
+]
+
+---
+
+## Documentación, documentación
+
+
+* ¿Todos los datos se descargaron de la misma fuente y pertenecen a la misma versión?
+
+* ¿Se utilizó la misma versión para todos los programas?
+
+* ¿Se corrieron los programas con los mismos parámetros?
+
+
+
+La respuesta a todas estas preguntas forma parte de la documentación
+
+---
+## Documentación, documentación
+
+.content-box-green[
+
+**EJEMPLO**
+
+Desarrollaste un algoritmo capaz de automatizar una tarea que se lleva a
+cabo rutinariamente en tu laboratorio. Unx colega te pide que se la pases
+para utilizarla en sus datos. Al correr tu programa, truena.
+
+** ¿Cómo podemos saber qué pasó?**
+
+]
+---
+
+## Documentación, documentación
+
+* ¿El programa arroja un mensaje de error útil para entender qué sucedió?
+
+* ¿Qué hace la parte del código qué está fallando?
+
+* ¿El formato de los datos de entrada es correcto?
+
+* ¿Los datos de entrada deberían cumplir con alguna suposición?
+
+* ¿Los valores numéricos deben ser enteros y no flotantes?
+
+* ¿Alguna columna debe estar ordenada numéricamente?
+
+
+La respuesta a todas estas preguntas (y muchas más...) forma parte
+de la documentación. 
+
+---
+
+## Empezando por la organización
+
+Es importante mantener una estructura de directorios organizada: un directorio de trabajo por proyecto. Dentro de este directorio, los pasos del proyecto se organizarán en subdirectorios.
+
+Organización propuesta:
+
+* Archivo de texto **README**: Con todos los comandos necesarios para reproducir los
+resultados.
+* Carpeta **data**: Con los datos iniciales de esta fase del proyecto.
+* Carpeta **bin**: Con los scripts utilizados durante esta fase del proyecto.
+* Carpeta **resultados**: Con los resultados generados por esta fase del proyecto.
+
+--
+
+&lt;img src="img/estructura-proyecto.png" width="800px" style="display: block; margin: auto;" /&gt;
+
+---
+## Importante
+
+* Los nombres de las carpetas y de los archivos deben ser informativos.
+
+* No deben contener espacios, acentos, ñ's.
+
+* Los nombres de directorios y archivos son case-sensitive.
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+  .logo {
+    background-image: url(logos/LCG-UNAM.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    width: 110px;
+    height: 128px;
+    z-index: 0;
+  }
+  </style>
+  
+  <script>
+  document
+    .querySelectorAll(
+      '.remark-slide-content' +
+      ':not(.title-slide)' +
+      // add additional classes to exclude here, e.g.
+      // ':not(.inverse)' +
+      ':not(.hide-logo)'
+    )
+    .forEach(el => {
+      el.innerHTML += '<div class="logo"></div>';
+    });
+  </script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

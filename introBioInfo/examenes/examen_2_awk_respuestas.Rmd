@@ -1,0 +1,253 @@
+---
+title: "LCG-BioInfo"
+author: ''
+date: "First version: 2022-09-19; Last update: `r Sys.Date()`"
+output:
+  html_document: default
+  pdf_document: default
+subtitle: ''
+institute: Licenciatura en Ciencias Genómicas,UNAM
+---
+
+# EXAMEN 2 DE INTRODUCCIÓN A LA BIOINFORMÁTICA
+
+#### Objetivo
+
+El objetivo de éste examen es evaluar lo aprendido en unix desde comandos básicos, expresiones regulares, y awk.
+
+#### Entregables
+
+- Archivo markdown con las respuestas.
+
+
+#### Instrucciones
+
+- Para cada pregunta, agrega una breve descripción.
+
+- La respuesta agregala en un bloque de código [Si el bloque trae otros elementos además de código y comentarios, no será evaluado]. 
+
+- Agrega comentarios o algoritmo que describa lo que se esta haciendo.
+
+#### Criterio de Evaluación
+
+*Buenas prácticas*
+
+- Archivos y directorios. 
+
+  - Nombrado. Se evaluará que los archivos y directorios sean nombrados de acuerdo al contenido.
+  
+  - Nombres aceptables. Los nombres NO deben tener espacios ni caracteres especiales. Solo carcateres alfanumericos y - o _
+  
+- Organización. La estructura de directorios que se ha usado durante las clases deberá implementarse para éste exámen. Cada archivo deberá estar en su carpeta correspondiente.
+
+- Código legible y reproducible.
+
+- Incluye las instrucciones de transferencia de archivos al servidor.
+
+**Importante**. Puedes hacer uso de internet, checar tus apuntes. Pero, no puedes preguntar o copiar. Nuestro interés es conocer tus habilidades y lo que necesitamos reforzar.
+
+<br>
+
+## Preguntas
+
+R1: Drespuesta corta y directa
+
+1. ¿Que es un patrón y una expresión regular?
+
+R1: Un patrón se puede definir como una sucesión de elementos que siguen una ciertas reglas, como de repetición o recurrencia,  y un regex o expresión regular es un patrón, que usa una serie de metacaracteres para describirlo.
+
+
+R2: RESPUESTA LARGA 
+
+Patrón: Es una secuencia específica de caracteres que se utiliza para describir conjuntos de cadenas de texto. Estos patrones pueden contener caracteres literales (que coinciden exactamente) y caracteres especiales (que representan conjuntos más amplios de caracteres). Los patrones se utilizan comúnmente en la búsqueda y manipulación de texto para encontrar o coincidir con cadenas que sigan un formato específico.
+
+Expresión regular (regex): De a cuerdo a lo presentado en clase, las expresiones regulares son cadenas de texto especialmente codificadas que se utilizan como patrones para hacer coincidir con conjuntos de cadenas. Son una herramienta poderosa para el procesamiento de cadenas pues permite buscar, coincidir, y manipular texto basándose en patrones. Además son ampliamente utilizadas en la programación y la manipulación de archivos de texto. Pueden incluir caracteres literales, clases de caracteres, cuantificadores, y otros constructores que permiten describir patrones de texto de manera concisa.
+
+En bioinformática, las expresiones regulares (regex) y los patrones desempeñan un papel crucial debido a la naturaleza de los datos biológicos, que a menudo son grandes conjuntos de secuencias de ADN, ARN o proteínas. Estas herramientas son fundamentales para buscar patrones en secuencias biológicas, validar el formato de las secuencias, manipular datos, analizar conjuntos masivos de información, y extraer datos de archivos de formato específico.
+
+R3: RESPUESTA LARGA 
+
+En el contexto de la bioinformática, un "patrón" se refiere a una secuencia específica de nucleótidos en el ADN, ARN o proteínas que se utiliza como una unidad reconocible para buscar similitudes o características específicas en conjuntos de datos biológicos. Los patrones son esenciales para realizar análisis de secuencias y búsqueda de información en grandes bases de datos biológicas y su uso implica el empleo de herramientas especificas y especializadas que permitan realizar analisis y caracterizacion de datos con gran eficiencia.
+
+Algunas aplicaciones fundamentales de los patrones en ambito de la bioinformática son:
+
+Alineamiento de secuencias: El alineamiento de secuenciases un proceso fundamental en bioinformática que implica el procedimiento de comparar distintas secuencias de DNA RNA o proteinas , buscando similitudes en los patrones de caracteres y estableciendo correspondencias entre los residuos de secuencias relacionadas que puedan ser consecuencia funcional, estructural o evolutiva de relaciones entre secuencias.
+
+Análisis de Motivos: Los motivos son patrones más cortos y conservados en secuencias biológicas que desempeñan funciones específicas, como sitios de unión a proteínas o elementos reguladores. Identificar y analizar estos motivos es crucial para comprender la regulación génica y las interacciones proteína-ADN.
+
+Predicción de Estructuras de Proteínas: Los patrones se utilizan para predecir la estructura y función de proteínas mediante la identificación de secuencias conservadas que pueden indicar una función biológica específica.
+
+EXPRESION REGULAR:
+
+Las expresiones regulares son patrones que se utilizan para hacer coincidir combinaciones de caracteres en cadenas, permitiendo identificar determinada combinación de caracteres dentro de una cadena de texto. Estas herramientas son esenciales para el análisis de datos y permiten extraer información valiosa de secuencias biológicas, como se menciono con anterioridad.
+
+
+2. Lista al menos 5 elementos que se usan para construir una expresión regular e indica para qué sirven.
+
+1. **Literales:**
+		-  **Ejemplo:** "707-827-7019"
+	    - **Descripción:** Los literales son caracteres que deben coincidir exactamente con la cadena que estás buscando. 
+2. **Metacaracteres:**
+		 - **Ejemplo:** .`(.)` 
+		 - **Descripción :** Significa que el patron coincide con cualquier carácter individual excepto una nueva línea.
+3. **Clases de caracteres:**
+		 -  **Ejemplo:** `[0-9]` y `` [1234]
+	    - **Descripción:** Definen un conjunto de caracteres posibles para la posición en la expresión regular. 
+	    En el ejemplo, `[0-9]` tomara en cuenta a cualquier dígito en un intervalo del 0 al 9.
+	    En el ejemplo `[1234]` tomara e cuenta ese conjunto especifico de caracteres.
+4. **Cuantificadores:**
+	      - **Ejemplo:** `*` , `+` , `?`
+	    - **Descripción:** Los cuantificadores indican cuántas veces debe aparecer el elemento anterior. 
+	    El asterisco (`*`) significa cero o más veces. 
+	    El (`+`)  significa 1 o mas veces.
+	    EL (`?`) significa cero o una aparición del guion.
+5. **Anclas:*
+	    - **Ejemplo:** `^`  y `$` 
+	    - **Descripción:** Las anclas especifican la posición en la cadena donde debe ocurrir un patrón. 
+	    El (`^`) indica el inicio de la línea, y  (`$`) indica el final.
+
+
+
+3. ¿Qué hace el siguiente código? 
+
+```bash
+awk 'BEGIN{seq = "" }; /^[ATGCatgc]+$/ { seq += length($0)}; END{ print seq}' seq.fasta
+```
+
+Si la función *length* obtiene el tamaño de un string, y si el **archivo seq.fasta**, contiene
+
+```
+> IDTest gene:unkown
+catcgactgatcagcattgca
+gcagtcatcatcacgatcgta
+ggcaggcgcatcggcgcgatt
+cgcagt
+
+//
+```
+
+
+A grandes rasgos , el código mostrado nos permite calcular la LONGITUD total de secuencias de DNA  presentes en un archivo en formato fasta; a continuación explicare brevemente cada parte del comando y la función que desempeña:
+
+a. Esta primera parte del comando esta indicando que antes de procesar las lineas del archivo, se va inicializar una variable "seq" vacia, donde se estaran guardando los datos de cada una de las lineas. 
+
+		awk 'BEGIN{seq = "" };
+
+b. Esta sección del comando nos dice que se estará ejecutando para cada linea que contenga  solo caracteres de ADN (A, T, G, C, a, t, g, c), de inicio a fin "/^[ATGCatgc]+$/", para cada linea que tenga estos caracteres se aplicara la función _length_, que determina la longitud de la linea y que se ira guardando en la variable "seq"  
+
+		/^[ATGCatgc]+$/ { seq += length($0)};
+
+c. En la parte final del comando, se procesan todas las lineas del archivo y se imprime la suma acumulativa de las longitudes de las líneas que cumplen con el patrón de caracteres de ADN.
+
+		END{ print seq}' seq.fasta
+
+
+
+5. Desde RegulonDB (https://regulondb.ccg.unam.mx/datasets)  baja el archivo asociado a "GeneProductSet". Pasa los datos de los genes a formato GFF.
+
+El formato GFF tiene el sig formato  https://www.ensembl.org/info/website/upload/gff.html
+
+```
+seqname - name of the chromosome or scaffold; chromosome names can be given with or without the 'chr' prefix. Important note: the seqname must be one used within Ensembl, i.e. a standard chromosome name or an Ensembl identifier such as a scaffold ID, without any additional content such as species or assembly. See the example GFF output below.
+source - name of the program that generated this feature, or the data source (database or project name)
+feature - feature type name, e.g. Gene, Variation, Similarity
+start - Start position* of the feature, with sequence numbering starting at 1.
+end - End position* of the feature, with sequence numbering starting at 1.
+score - A floating point value.
+strand - defined as + (forward) or - (reverse).
+frame - One of '0', '1' or '2'. '0' indicates that the first base of the feature is the first base of a codon, '1' that the second base is the first base of a codon, and so on..
+attribute - A semicolon-separated list of tag-value pairs, providing additional information about each feature.
+```
+
+Revisamos el archivo de datos GeneProductSet.tsv, y decidimos que columnas vamos a usar para el formato GFF:
+
+```
+seqname : "U00096.3" usaremos este identificador que hace referencia al genoma de Ecoli, o podemos usar simplemente "ecoli".
+source:  RegulonDB, como fuente de donde se bajaron los datos
+feature: gene  - porque es un archivo de genes con sus productos
+start:  usaremos la columna (4) Gene left end position del archivo
+end : usaremos la columna (5) Gene right end position del archivo
+score: este archivo no tiene escores, por lo que dejaremos "." un punto.
+strand: tomaremos la columna (6) DNA strand
+frame:  usaremos 0, segun la descripción.
+attribute: vamos a poner el id: valor de columna1; name: valor de col 2; locus-tag: columna 3 y product name: col 7
+```
+
+Algoritmo:
+
+a. Todas las lineas que no empiecen con el identificador RDBECOLI se dejaran igual, se imprimen tal y como estan.
+b. Totas las lineas que empiecen con RDBECOLI, son genes y se van a formatear en formato GFF
+c. Sustituimos la palabra forward por +, y reverse por -, por que asi es el formato GFF
+d. La salida se manda a un archivo
+
+```
+# Se descarga archivo en computadora local y se copia al servidor 
+scp GeneProductSet.tsv usuario@132.248.220.14:/home/usuario/examen2/data
+
+awk -F "\t" '!/^RDBECOLIG/{print $0}; /^RDBECOLIG/ { print "U00096.3\tRegulonDB\tgene\t" $4 "\t" $5 "\t.\t" $6 "\t0\tid:" $1 "; name:" $2 "; locus_tag:" $3 "; productName:" $7 ";" }; ' | sed 's/forward/\+/; s/reverse/\-/;' > GeneProductSet.tsv > GeneProductSet.gff
+```
+
+
+6. Usando el archivo Gene_sequence.tsv (https://regulondb.ccg.unam.mx/datasets) Genera un archivo a formato fastA. En la linea de comentarios debe ir el identificador, nombre y posiciones genómicas del gene, y calcula el tamaño como se muestra en el ejemplo:
+
+```
+> RDBECOLIGNC01250 thrL(b0001) 190..255 size:65
+ATGAAACGCATTAGCACCACCATTACCACCACCATCACCATTACCACAGGTAACGGTGCGGGCTGA
+
+> RDBECOLIGNC00987 thrB(b0003) 2801..3733  size: 932
+ATGGTTAAAGTTTATGCCCCGGCTTCCAGTGCCAATATGAGCGTCGGGTTTGATGTGCTCGGGGCGGCG..
+```
+
+No es necesario poner la secuencia en varios renglones, puedes dejarla en un solo renglón.
+
+Hasta el final del archivo pon una linea de comentario con el número de genes procesados, por ejemplo:
+
+```
+#  4600 genes convertidos a formato fastA
+```
+
+```
+awk -F "\t" 'BEGIN{total=0}; /^RDBECOLIG/ { print ">" $1,$2,$3 ".." $4 " size:" $4-$3 "\n" $10; total++ } END{print "# Total de genes procesados " total } ' Gene_sequence.tsv  > Gene_sequence.fasta
+
+```
+
+
+7. Usando el archivo `E_coli_K12.S_typhi.bdbh`, Si las columnas 13)QueryLength	14)TargetLength que representan el tamaño de la secuencia del gene Query y del Target (son ortólogos bidireccionales),  reporta cuántos ortólogos tienen el mismo tamaño de la secuencia.
+
+
+```
+# Se filtran los comentarios del archivo 
+# Se especifica que el separador de campos es un tabulador 
+# Para cada línea, se  verifica si el valor en la columna 13 es igual al valor en la columna 14. Si es así, incrementa la variable `total` en uno. Esto cuenta el número de líneas donde el contenido de ambas columnas es igual.
+# Se imprime el valor acumulado de `total`, que representa el número total de líneas donde las columnas 13 y 14 son iguales.
+
+grep -v "#" E_coli_K12.S_typhi.bdbh | awk -F "\t" 'BEGIN{total=0}; $13 == $14{total++} END{print total}'
+```
+
+
+8. Usando el mismo archivo de la pregunta anterior y las mismas columnas, obtener aquellos ortólogos que no tienen el mismo tamaño, e imprime los GIs de los genes ortólogos, sus tamaños y una columna adicional de la resta de sus tamaños, para saber que tanta diferencia hay entre ellos en tamaño.
+
+
+```
+#El comando seleccionara  las líneas del archivo donde los valores en las columnas 13 y 14 son diferentes, esto lo redirigira a un nuevo archivo en el que se imprimen columnas especificas y la diferencia entre los valores de esas dos columnas.
+
+awk -F "\t" '($13 != $14) {print $1 "\t" $2 "\t" $13 "\t" $14 "\t" $13-$14}' E_coli_K12.S_typhi.bdbh > ortologos_diferentes.tsv
+
+```
+
+
+9. Queremos modificar el archivo `E_coli_K12.list` para que  la columna del strand, venga como forward cuando sea F, y reverse en caso de R. Además las posiciones deben estar en columnas separadas y no tener los ".."
+
+
+```bash
+sed 's/\tF\t/\tforward\t/g; s/\tR\t/\treverse\t/; s/\.\./\t/;'  data/E_coli_K12.list >  data/E_coli_K12_list.tsv
+
+
+sed 's/\tF\t/\tforward\t/g' data/E_coli_K12.list  | sed 's/\tR\t/\treverse\t/' | sed 's/\.\./\t/'
+```
+
+
+
+10. FeebBack. Piensa en algo que pudiera CONTRIBUIR a mejorar el CONTENIDO del curso. O si piensas que el contenido es correcto, podrías darnos la experiencia o tu proceso de aprendizaje durante el curso.
+
+

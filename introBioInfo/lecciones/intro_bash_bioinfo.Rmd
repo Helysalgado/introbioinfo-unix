@@ -1,0 +1,396 @@
+---
+title: "Introducción a la Bioinformática"
+--subtitle: ""
+--author: ''
+institute: "Licenciatura en Ciencias Genómicas,UNAM"
+#date: 'First version: yyy-mm-dd; Last update: `r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    css: ["default", "default-fonts", "hygge"]
+    lib_dir: libs
+    includes:
+      after_body: insert-logo.html
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "macros.js"
+--distill::distill_article: default
+
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{css, echo = FALSE}
+/* From https://github.com/yihui/xaringan/issues/147  */
+.scroll-output {
+  height: 80%;
+  overflow-y: scroll;
+}
+/* https://stackoverflow.com/questions/50919104/horizontally-scrollable-output-on-xaringan-slides */
+pre {
+  max-width: 100%;
+  overflow-x: scroll;
+}
+```
+
+
+# 🎯 ¿Qué aprenderás hoy?
+
+- Qué son las variables en Bash y cómo usarlas
+- Cómo automatizar tareas con bucles `for`
+- Cómo crear scripts reutilizables para análisis bioinformáticos
+- Cómo usar parámetros y buenas prácticas al crear proyectos
+
+---
+
+## Variables en Bash
+
+### 🧠 ¿Qué hace una variable?
+Guarda un valor que puede usarse más adelante.
+
+### 📌 ¿Para qué sirve?
+- Reutilizar rutas o nombres
+- Parametrizar scripts
+- Hacer tu código más limpio y flexible
+
+---
+
+### 🛠️ Sintaxis
+
+```bash
+nombre=valor
+echo $nombre
+```
+
+
+### ✏️ Ejemplo
+
+```bash
+archivo="genes.gff"
+echo $archivo
+```
+
+---
+
+## 🧰 Variables especiales del sistema
+
+```bash
+echo $PATH
+# Lista de carpetas donde busca comandos
+
+echo $HOME
+# Tu carpeta personal
+
+echo $USER
+# Tu nombre de usuario
+
+echo $PWD
+# Tu carpeta actual
+```
+
+---
+
+## Bucles `for`
+
+### 🧠 ¿Qué hace un bucle?
+Repite comandos para una lista de elementos
+
+### 🛠️ Sintaxis
+
+```bash
+for x in lista; do
+  comando $x
+done
+```
+
+### ✏️ Ejemplo básico
+
+```bash
+for fruta in manzana banana uva; do
+  echo "Me gusta la $fruta"
+done
+```
+
+---
+
+## 🔬 Ejemplo bioinformático
+
+```bash
+for archivo in *.fasta; do
+  grep ">" $archivo | wc -l
+done
+```
+
+Cuenta encabezados (secuencias) en cada archivo FASTA.
+
+```bash
+for file in *.fastq; do
+  seqtk seq -A $file > ${file%.fastq}.fasta
+done
+```
+Convierte múltiples archivos FASTQ a FASTA.
+
+---
+
+## 🛠️ Scripts en Bash
+
+### 🧠 ¿Qué es un script?
+Un archivo con comandos Bash, como un pequeño programa.
+
+### 🛠️ Sintaxis
+```bash
+#!/bin/bash
+# Comentario
+comandos
+```
+
+---
+
+### ✏️ Ejemplo básico
+
+Archivo: `saludo.sh`
+
+```bash
+#!/bin/bash
+nombre="Estudiante"
+echo "Hola $nombre, bienvenido a Bioinformática"
+```
+
+---
+
+## 🗂️ Crear proyecto con variables del sistema
+
+Archivo: `crear_proyecto.sh`
+
+```bash
+#!/bin/bash
+usuario=$USER
+fecha=$(date +%Y%m%d)
+proyecto=$1
+
+if [ -z "$proyecto" ]; then
+  echo "Uso: $0 <nombre_proyecto>"
+  exit 1
+fi
+
+ruta_base="$HOME/proyectos/${proyecto}-${fecha}"
+mkdir -p $ruta_base/{{datos,scripts,resultados,notas}}
+
+echo "Proyecto creado en: $ruta_base"
+echo "Usuario: $usuario"
+echo "Fecha: $fecha"
+```
+
+---
+
+## ⚙️ Paso de parámetros
+
+### 📌 ¿Cómo se usan?
+
+```bash
+./script.sh valor1 valor2
+```
+
+Dentro del script:
+
+```bash
+$1  # Primer parámetro
+$2  # Segundo
+$@  # Todos
+```
+
+### ✏️ Ejemplo
+
+```bash
+#!/bin/bash
+archivo=$1
+gen=$2
+grep "$gen" $archivo
+```
+
+```bash
+./buscar_gen.sh genes.gff3 AT1G01010
+```
+
+---
+
+## 📘 Resumen general
+
+| Concepto         | Sintaxis                      | Qué hace                        |
+|------------------|-------------------------------|----------------------------------|
+| Variable         | `x=valor`                     | Guarda texto o número           |
+| Usar variable    | `$x`                          | Accede al valor                 |
+| Bucle `for`      | `for i in ..; do ...; done`   | Repite comandos                 |
+| Script Bash      | `#!/bin/bash` + comandos      | Automatiza tareas               |
+| Parámetros       | `$1`, `$2`, `$@`              | Argumentos desde terminal       |
+
+---
+
+## 🧪 Ejercicios propuestos
+
+1. Declara una variable `fasta` y cuenta sus encabezados.
+2. Haz un bucle que diga "Procesando muestra X" para tres muestras.
+3. Crea un script que cuente genes por archivo `.gff`.
+4. Crea un script que cree una estructura de proyecto personalizada.
+5. Modifica un script para guardar el resultado solo si se pasa el argumento `guardar`.
+
+---
+
+## ✅ Respuestas a ejercicios
+
+### 1. Variable `fasta`
+
+```bash
+fasta="archivo.fasta"
+grep ">" $fasta | wc -l
+```
+
+### 2. Bucle
+
+```bash
+for i in muestra1 muestra2 muestra3; do
+  echo "Procesando $i"
+done
+```
+---
+
+### 3. Script contar genes
+
+```bash
+#!/bin/bash
+for f in *.gff; do
+  echo "$f"
+  grep -w "gene" $f | wc -l
+done
+```
+
+### 4. Script estructura
+(Ver slide anterior sobre `crear_proyecto.sh`)
+
+
+---
+
+### 5. Condicional
+
+```bash
+#!/bin/bash
+archivo=$1
+gen=$2
+salida=$3
+
+resultado=$(grep "$gen" $archivo)
+
+if [ "$salida" == "guardar" ]; then
+  echo "$resultado" > resultado.txt
+else
+  echo "$resultado"
+fi
+```
+
+---
+
+# Expansión de comandos en Bash (Command Substitution)
+
+### 🧠 ¿Qué es?
+
+La **expansión de comandos** (command substitution) permite **capturar la salida de un comando** y usarla como texto dentro de otro comando o asignarla a una variable.
+
+### 📌 ¿Para qué sirve?
+
+- Guardar la salida de un comando en una variable
+- Usar la salida como parte de otro comando
+- Automatizar procesos en scripts
+
+---
+
+## 🛠️ Sintaxis
+
+Forma moderna (recomendada):
+
+```bash
+resultado=$(comando)
+```
+
+Forma antigua (menos recomendada):
+
+```bash
+resultado=`comando`
+```
+
+---
+
+## ✏️ Ejemplos simples
+
+### Guardar la fecha actual
+
+```bash
+fecha=$(date)
+echo "La fecha es: $fecha"
+```
+
+### Guardar cuántas líneas tiene un archivo
+
+```bash
+lineas=$(wc -l < archivo.txt)
+echo "Líneas: $lineas"
+```
+
+---
+
+## 🔬 Ejemplos bioinformáticos
+
+### Contar secuencias en un archivo FASTA
+
+```bash
+fasta="secuencias.fasta"
+conteo=$(grep ">" $fasta | wc -l)
+echo "Número de secuencias: $conteo"
+```
+
+### Buscar un gen en un archivo GFF
+
+```bash
+gen="AT1G01010"
+archivo="arabidopsis.gff3"
+resultado=$(grep "$gen" $archivo)
+
+if [ -n "$resultado" ]; then
+  echo "Gen encontrado: $resultado"
+else
+  echo "Gen no encontrado."
+fi
+```
+
+---
+
+## 🧪 Práctica guiada
+
+Crea un script `contar_lineas.sh`:
+
+```bash
+#!/bin/bash
+archivo=$1
+num=$(wc -l < $archivo)
+echo "El archivo $archivo tiene $num líneas."
+```
+
+Ejecútalo con:
+
+```bash
+./contar_lineas.sh datos.fasta
+```
+
+---
+
+## 📘 Resumen
+
+| Sintaxis          | ¿Qué hace?                         |
+|-------------------|------------------------------------|
+| `$(comando)`      | Captura la salida de un comando    |
+| `variable=$(...)` | Guarda la salida en una variable   |
+| `echo $(cmd)`     | Imprime la salida directamente     |
+
+

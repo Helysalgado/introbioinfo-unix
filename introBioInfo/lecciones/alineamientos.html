@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Introducción a la Bioinformática</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.18/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/hygge.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Introducción a la Bioinformática
+]
+.institute[
+### Licenciatura en Ciencias Genómicas,UNAM
+]
+.date[
+### First version: yyy-mm-dd; Last update: 2024-10-25
+]
+
+---
+
+
+
+
+&lt;style type="text/css"&gt;
+/* From https://github.com/yihui/xaringan/issues/147  */
+.scroll-output {
+  height: 80%;
+  overflow-y: scroll;
+}
+
+.noinverse {
+  background-color: #272822;
+  color: #d6d6d6;
+  text-shadow: 0 0 20px #333;
+}
+
+/* https://stackoverflow.com/questions/50919104/horizontally-scrollable-output-on-xaringan-slides */
+pre {
+  max-width: 100%;
+  overflow-x: scroll;
+}
+
+
+&lt;/style&gt;
+
+
+
+## Objetivo
+
+El alumno debe ser capaz de entender el concepto de similitud entre secuencias.
+---
+
+## Contenido de la unidad
+
+1. Implicaciones de la similitud entre secuencias
+
+2. Alineamientos
+
+3. Matriz de puntos: Dot plot
+
+4. Alineamientos Globales
+
+5. Alineamientos locales
+
+6. Otros tipo de alineamientos
+
+---
+# Reloj molecular 
+
+&lt;img src="https://www.mun.ca/biology/scarr/Molecular_clock2.gif" width="300px" style="display: block; margin: auto;" /&gt;
+
+.content-box-green[
+"The strong linear relationship suggests that molecular differences between pairs of species are
+proportional to the time of their separation, not the degree of organismal difference. Therefore,
+measures of genetic divergence can be used to date the time of divergence for species pairs for
+which no fossil data are available: genes function as Molecular Clocks"
+]
+https://www.mun.ca/biology/scarr/Molecular_Clock.html
+
+---
+# Reloj molecular 
+
+&lt;img src="https://evolution.berkeley.edu/wp-content/uploads/2021/10/molecular_clocks-4.png" width="480px" style="display: block; margin: auto;" /&gt;
+
+.content-box-yellow[
+.tiny[ “Imagine that a length of DNA found in two species differs by four bases (as shown below) and
+we know that this entire length of DNA changes at a rate of approximately one base per 25
+million years. That means that the two DNA versions differ by 100 million years of evolution
+and that their common ancestor lived 50 million years ago. Since each lineage experienced its
+own evolution, the two species must have descended from a common ancestor that lived at least
+50 million years ago. ]
+]
+
+https://evolution.berkeley.edu/molecular-clocks/
+
+---
+## ¿Qué nos dice el grado de similitud entre dos secuencias?
+
+- En general, mientras más similitud compartan dos secuencias más parecida será su función.
+
+- Las secuencias para el mismo gene en un grupo de especies serán más diferentes mientras la distancia filogenética aumente.
+
+- Las secuencias acumulan mutaciones con el paso del tiempo.
+
+- Mientras más tiempo haya pasado desde que dos especies divirgieron más mutaciones se habrán acumulado en sus genes.
+
+---
+## Ancestro común
+
+
+### ¿Qué  estamos asumiendo?
+
+Que existe un ancestro común
+
+.content-box-green[
+DEFINICION: Dos secuencias que comparten un ancestro común son **homólogos**
+]
+
+---
+
+class: inverse, center, middle
+
+# Alineamientos
+
+---
+## Alineamientos
+
+Un alineamiento entre dos secuencias puede ser utilizado para:
+
+- Calcular el grado de similitud entre dos secuencias / calcular la distancia filogenética
+
+- Buscar dominios funcionales
+
+- Comparar un mRNA con su DNA de origen
+
+- Identificar polimorfismos y mutaciones entre secuencias
+
+---
+## Tipos de mutaciones
+
+Mutaciones puntuales: cambios de un sólo nucleótido.
+
+&lt;img src="http://image.slidesharecdn.com/sci14bioeptx1303-141208112426-conversion-gate02/95/mutations-5-638.jpg?cb=1418037905" width="400px" style="display: block; margin: auto;" /&gt;
+
+**Una mutación puntual a nivel de DNA puede tener efectos catastróficos a nivel de proteína.**
+
+
+.tiny[https://socratic.org/questions/how-does-mutation-affect-dna-replication]
+
+---
+## Tipos de mutaciones
+
+
+Existen otro tipo de mutaciones
+
+&lt;img src="https://microbenotes.com/wp-content/uploads/2018/10/Types-of-Mutations.jpg" width="700px" style="display: block; margin: auto;" /&gt;
+
+.tiny[https://microbenotes.com/types-of-mutations/]
+
+---
+## Comparación de dos secuencias
+
+Una forma de comparar dos secuencias sería escribir una debajo de otra y contar las diferencias: 
+
+3 identidades en nuestro ejemplo  ( `|` )
+
+&lt;br&gt;
+
+&lt;img src="img/no-aln.png" width="500px" style="display: block; margin: auto;" /&gt;
+
+
+---
+## Comparación de dos secuencias
+
+Una forma de comparar dos secuencias sería escribir una debajo de otra y contar las diferencias: 
+3 identidades en nuestro ejemplo
+
+&lt;img src="img/no-aln.png" width="400px" style="display: block; margin: auto;" /&gt;
+
+Sin embargo, este no es un alineamiento óptimo
+Si agregamos un gap al inicio, y algunos otros cambios obtenemos: 27 identidades
+
+&lt;img src="img/aln.png" width="400px" style="display: block; margin: auto;" /&gt;
+
+---
+## No existe un alineamiento único entre secuencias
+
+Dada la gran variedad de cambios que pueden ocurrir entre dos secuencias no
+existe un alineamiento único entre ellas
+
+&lt;img src="img/multiple-aln.png" width="250px" style="display: block; margin: auto;" /&gt;
+
+**¿Cuál es el correcto?**  No sabemos    
+**¿Cuál es el mejor?**  Depende del sistema de puntaje que elijamos
+
+---
+## Tipos de alineamientos
+
+**Globales**: Crean un alineamiento que cubra completamente ambas secuencias, agregando los gaps que sean necesarios.
+
+**Locales**: Alinean únicamente los segmentos de alta identidad.
+
+**Glocal**: Un alineamiento global que permite rearreglos de la secuencia (desarrollado para alinear genomas completos).
+
+**Semi-globales**: Tratan de crear un alineamiento que cubra completamente ambas secuencias, sin penalizar por los gaps al inicio y al final del alineamiento.
+
+---
+
+
+class: center, middle
+
+# Matriz de puntos
+
+---
+## Matriz de puntos
+
+**Una secuencia** se representa en el **eje horizontal** y **otra secuencia** en el **eje vertical**. Los **matches** entre las dos secuencias se representan como **puntos** en la posición correspondiente. Un alineamiento se forma al conectar los puntos de la matriz.
+
+
+
+&lt;img src="img/dotplot.png" width="350px" style="display: block; margin: auto;" /&gt;
+
+&lt;!--
+https://qph.cf2.quoracdn.net/main-qimg-ed4c8897d45ab05b7e0471321b2d5c55-lq
+--&gt;	
+
+---
+## Representación gráfica de un alineamiento
+
+
+&lt;img src="img/dotplot-aln.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+&lt;br&gt;
+
+
+   **¿Cuál es mejor?** 
+
+
+---
+## Sistema de puntaje
+
+- Asignemos a cada tipo de cambio un puntaje
+
+- Calculemos el score de cada alineamiento
+
+
+&lt;img src="img/score.png" width="750px" style="display: block; margin: auto;" /&gt;
+
+---
+## El score cambia si cambiamos el sistema de puntaje
+
+- Asignemos a cada tipo de cambio un puntaje
+- Calculemos el score de cada alineamiento
+
+**¡Su turno!**
+
+.pull-left[
+&lt;img src="img/score-table.png" width="300px" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+
+&lt;font color="blue"&gt;
+&lt;pre&gt;
+ACAGT-AGGG 
+ACCGTCAGGG   
+&lt;/pre&gt;
+&lt;/font&gt;
+
+&lt;br&gt;
+
+&lt;font color="orange"&gt;
+&lt;pre&gt;
+A----CAG--TAGGG 
+ACCGTCAGGG-----
+&lt;/pre&gt;
+&lt;/font&gt;
+]
+
+
+---
+## El score cambia si cambiamos el sistema de puntaje
+
+- Asignemos a cada tipo de cambio un puntaje
+- Calculemos el score de cada alineamiento
+
+&lt;img src="img/score2.png" width="800px" style="display: block; margin: auto;" /&gt;
+
+---
+## Variación estructural: inserciones o deleciones
+
+### Inserciones o deleciones
+
+&lt;img src="img/indel.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+
+&lt;br&gt;
+https://bioinf.comav.upv.es/courses/biotech3/_images/dotplots.png
+
+
+---
+## Variación estructural: duplicaciones
+
+### Duplicaciones
+
+&lt;img src="img/duplication.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+
+&lt;br&gt;
+https://bioinf.comav.upv.es/courses/biotech3/_images/dotplots.png
+
+
+---
+## Variación estructural: inversiones
+
+### Inversiones
+
+&lt;img src="img/inversion.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+
+&lt;br&gt;
+https://bioinf.comav.upv.es/courses/biotech3/_images/dotplots.png
+
+---
+## Comparaciones genómicas: humano vs chimpancé
+
+
+&lt;img src="img/chimp.jpg" width="400px" style="display: block; margin: auto;" /&gt;
+
+https://genomevolution.org/wiki/index.php/Synteny:_Getting_the_Big_Picture
+
+
+---
+
+
+class: center, middle
+
+# Alineamientos Globales
+
+---
+## Alineamiento Global
+
+**¿Qué es un alineamiento global?** Es un alineamiento que cubre completamente ambas secuencias, agregando los gaps que sean necesarios.
+
+**¿Cuándo usarlo?** Sólo se recomienda su uso cuando se sospecha que dos secuencias son similares en toda su extensión
+
+&lt;img src="https://bio.libretexts.org/@api/deki/files/28393/page66image65266832.png?revision=1" width="300px" style="display: block; margin: auto;" /&gt;
+
+
+https://bio.libretexts.org/@api/deki/files/28393/page66image65266832.png?revision=1
+
+---
+## Algoritmo Needleman–Wunsch
+
+- Desarrollado por Saul B. Needleman and Christian D. Wunsch en 1970.
+
+- Una de las primeras aplicaciones de la programación dinámica.
+
+- El algoritmo divide un problema grande en problemas más pequeños y usa las soluciones de los problemas pequeños para encontrar la solución óptima del problema grande.
+
+- El propósito del algoritmo es **encontrar el alineamiento global con el mejor score** de entre todos los alineamientos posibles.
+	
+---
+## Algoritmo Needleman–Wunsch
+
+.pull-left[
+
+Estas serán nuestras secuencia problema de ejemplo:
+
+- GCATGCU
+- GATTACA
+
+Y este nuestro sistema de puntaje:
+
+- Match: +1
+- Mismatch o indel: -1
+
+]
+
+.pull-right[
+
+Inicialización de la matriz
+
+&lt;img src="img/grid.png" width="300px" style="display: block; margin: auto;" /&gt;
+	
+]
+
+
+---
+## Algoritmo Needleman–Wunsch
+
+.pull-left[
+
+Reglas del juego
+
+- El camino desde la celda superior o de la celda de la izquierda representan un indel. Por lo tanto, toma los scores de las celdas superior o izquierda y suma el score del indel.
+
+- El camino en diagonal representa un match o mismatch, por lo tanto toma el score de la celda arriba-izquierda (diagonal) y agrega el score que corresponda (match o mismatch).
+
+- La celda extrema superior izquierda se inicializa en 0.
+
+]
+
+.pull-right[
+
+Inicialización de la matriz
+
+&lt;img src="img/grid.png" width="300px" style="display: block; margin: auto;" /&gt;
+	
+]
+
+---
+## Algoritmo Needleman–Wunsch
+
+.pull-left[
+
+Reglas del juego
+
+- El camino desde la celda superior o de la celda de la izquierda representan un indel. Por lo tanto, toma los scores de las celdas superior o izquierda y suma el score del indel.
+
+- El camino en diagonal representa un match o mismatch, por lo tanto toma el score de la celda arriba-izquierda (diagonal) y agrega el score que corresponda
+
+]
+
+.pull-right[
+
+Rellenando la primer fila y la primer columna
+
+&lt;img src="img/grid-first.png" width="300px" style="display: block; margin: auto;" /&gt;
+	
+]
+
+---
+## Algoritmo Needleman–Wunsch
+
+.pull-left[
+
+Reglas del juego
+
+- El camino desde la celda superior o de la celda de la izquierda representan un indel. Por lo tanto, toma los scores de las celdas superior o izquierda y suma el score del indel.
+
+- El camino en diagonal representa un match o mismatch, por lo tanto toma el score de la celda arriba-izquierda (diagonal) y agrega el score que corresponda.
+
+]
+
+.pull-right[
+
+Primer subproblema
+
+&lt;img src="img/subproblem1.png" width="150px" style="display: block; margin: auto;" /&gt;
+
+- Camino desde la celda diagonal: match: `0 + 1 = 1`
+
+- Camino desde la celda superior: indel: `-1 + (-1) = -2`
+
+- Camino desde la celda izquierda: indel: `-1 + (-1) = -2`
+	
+]
+
+---
+## Algoritmo Needleman–Wunsch
+
+.pull-left[
+
+Reglas del juego
+
+- El camino desde la celda superior o de la celda de la izquierda representan un indel. Por lo tanto, toma los scores de las celdas superior o izquierda y suma el score del indel.
+
+- El camino en diagonal representa un match o mismatch, por lo tanto toma el score de la celda arriba-izquierda (diagonal) y agrega el score que corresponda.
+
+]
+
+.pull-right[
+
+Primer subproblema
+
+&lt;img src="img/subproblem1-sol.jpeg" width="150px" style="display: block; margin: auto;" /&gt;
+
+- Se almacena el score más alto.
+
+- Se almacena el camino de donde vino.
+	
+]
+
+
+---
+## Algoritmo Needleman–Wunsch
+
+.pull-left[
+
+**X** 
+
+&lt;img src="img/subproblem2.png" width="150px" style="display: block; margin: auto;" /&gt;
+
+- Camino desde la celda diagonal: mismatch: `-1 + (-1) = -1`
+
+- Camino desde la celda superior: indel: `-2 + (-1) = -3`
+
+- Camino desde la celda izquierda: indel: `1 + (-1) = 0`
+]
+
+.pull-right[
+
+**Y**
+
+&lt;img src="img/subproblem2.png" width="150px" style="display: block; margin: auto;" /&gt;
+
+- Camino desde la celda diagonal: mismatch: `-1 + (-1) = -2`
+
+- Camino desde la celda superior: indel: `1 + (-1) = 0`
+
+- Camino desde la celda izquierda: indel: `-2 + (-1) = -3`
+
+]
+
+---
+## Algoritmo Needleman–Wunsch
+
+.pull-left[
+
+**X** 
+
+&lt;img src="img/subproblem2-sol1.jpeg" width="150px" style="display: block; margin: auto;" /&gt;
+
+- Camino desde la celda diagonal: mismatch: `-1 + (-1) = -1`
+
+- Camino desde la celda superior: indel: `-2 + (-1) = -3`
+
+- **Camino desde la celda izquierda: indel:** `1 + (-1) = 0`
+
+]
+
+.pull-right[
+
+**Y**
+
+&lt;img src="img/subproblem2-sol2.jpeg" width="150px" style="display: block; margin: auto;" /&gt;
+
+- Camino desde la celda diagonal: mismatch: `-1 + (-1) = -2`
+
+- **Camino desde la celda superior: indel:** `1 + (-1) = 0`
+
+- Camino desde la celda izquierda: indel: `-2 + (-1) = -3`
+
+]
+
+
+---
+## Algoritmo Needleman–Wunsch
+
+Cada camino de la celda extrema derecha inferior hacia la celda extrema izquierda superior representan alineamientos igualmente válidos.
+
+
+&lt;img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Needleman-Wunsch_pairwise_sequence_alignment.png/440px-Needleman-Wunsch_pairwise_sequence_alignment.png" width="400px" style="display: block; margin: auto;" /&gt;
+
+
+.tiny[https://en.wikipedia.org/wiki/Needleman%E2%80%93Wunsch_algorithm]
+
+---
+## Algoritmo Needleman–Wunsch
+
+.pull-left[
+
+&lt;img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Needleman-Wunsch_pairwise_sequence_alignment.png/440px-Needleman-Wunsch_pairwise_sequence_alignment.png" width="400px" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+.pull-right[
+
+&lt;br&gt;
+
+- Una flecha diagonal representa un match o mismatch.
+
+- Flechas horizontales generan un gap en la secuencia lateral.
+
+- Flechas verticales generan un gap en la secuencia encabezado.
+
+- Múltiples flechas representan opciones de alineamientos
+
+]
+
+
+---
+## Algoritmo Needleman–Wunsch
+
+.pull-left[
+
+&lt;img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Needleman-Wunsch_pairwise_sequence_alignment.png/440px-Needleman-Wunsch_pairwise_sequence_alignment.png" width="400px" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+.pull-right[
+
+&lt;br&gt;
+
+- Una flecha diagonal representa un match o mismatch
+
+- Flechas horizontales generan un gap en la secuencia lateral
+
+- Flechas verticales generan un gap en la secuencia encabezado
+
+- Múltiples flechas representan opciones de alineamientos
+
+&lt;img src="img/needle-alg-aln.png" width="350px" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+## Existen distintos sistemas de puntaje
+
+.pull-left[
+
+&lt;br&gt;
+
+- Match = 1
+
+- Mismatch = -1
+
+- Indel = -1
+
+&lt;br&gt;
+
+Mientras más grande el score, más parecidas las secuencias
+
+]
+
+
+.pull-right[
+
+&lt;br&gt;
+
+- Match = 0
+
+- Mismatch = 1
+
+- Indel = 1
+
+&lt;br&gt;
+
+**¿Y en este caso?**
+
+]
+
+---
+## Existen distintos sistemas de puntaje
+
+.pull-left[
+
+&lt;br&gt;
+
+- Match = 1
+
+- Mismatch = -1
+
+- Indel = -1
+
+&lt;br&gt;
+
+Mientras más grande el score, más parecidas las secuencias
+
+]
+
+
+.pull-right[
+
+&lt;br&gt;
+
+- Match = 0
+
+- Mismatch = 1
+
+- Indel = 1
+
+&lt;br&gt;
+
+**Mientras más grande el score más diferentes las secuencias**
+
+]
+
+---
+## Matrices de sustitución
+
+
+.pull-left[
+
+&lt;br&gt;
+
+&lt;img src="img/ss1.png" width="150px" style="display: block; margin: auto;" /&gt;
+
+- Match = 1
+
+- Mismatch = -1
+
+]
+
+
+.pull-right[
+
+&lt;br&gt;
+
+&lt;img src="img/ss2.png" width="150px" style="display: block; margin: auto;" /&gt;
+
+- Match `A-A, G-G o C-C = 1`
+
+- Match `T-T = 4`
+
+- Mismatch = `-1`
+
+
+]
+
+
+---
+## Matrices de sustitución: PAM y BLOSUM
+
+- Existen aminoácidos químicamente más similares entre ellos.
+
+- Una forma de pesar una sustitución de un aminoácido por otro es contar cuántas veces ocurre cada sustitución en posiciones homólogas en alineamientos de proteínas homólogas.
+
+- Sustituciones neutrales o con poco impacto funcional ocurrirán más frecuentemente que sustituciones con un alto impacto funcional.
+
+---
+## Matrices de sustitución: PAM 
+
+Existen varias matrices PAM
+
+- Su nombre se deriva de la cantidad de mutaciones cada 100 aminoácidos que diferencian las secuencias comparadas para crear las matrices.
+
+- PAM60 significa que existen 60 mutaciones por cada 100 aminoácidos de secuencia.
+
+- Es importante notar que cada posición de la secuencia puede estar involucrada en más de una mutación (sustituciones hacia distintos aminoácidos), por lo que existen matrices PAM160 o incluso PAM200.
+
+
+---
+## Matrices de sustitución: BLOSUM
+
+- Las matrices BLOSUM se construyen a partir de segmentos altamente conservados cubriendo rangos evolutivos más distantes que las matrices PAM.
+
+- El nombre de estas matrices deriva del mínimo porcentaje de identidad permitido entre las secuencias utilizadas.
+
+- BLOSUM70 se construyó a partir de secuencias más similares que BLOSUM50.
+
+---
+## Herramienta online: EMBOSS Needle 
+
+&lt;img src="img/needle-online.png" width="850px" style="display: block; margin: auto;" /&gt;
+
+---
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+  .logo {
+    background-image: url(logos/LCG-UNAM.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    width: 110px;
+    height: 128px;
+    z-index: 0;
+  }
+  </style>
+  
+  <script>
+  document
+    .querySelectorAll(
+      '.remark-slide-content' +
+      ':not(.title-slide)' +
+      // add additional classes to exclude here, e.g.
+      // ':not(.inverse)' +
+      ':not(.hide-logo)'
+    )
+    .forEach(el => {
+      el.innerHTML += '<div class="logo"></div>';
+    });
+  </script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

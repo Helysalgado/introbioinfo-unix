@@ -1,0 +1,825 @@
+---
+title: "Introducción a la Bioinformática"
+--subtitle: ""
+--author: ''
+institute: "Licenciatura en Ciencias Genómicas,UNAM"
+date: 'First version: yyy-mm-dd; Last update: `r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    css: ["default", "default-fonts", "hygge"]
+    lib_dir: libs
+    includes:
+      after_body: insert-logo.html
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "macros.js"
+--distill::distill_article: default
+
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{css, echo = FALSE}
+/* From https://github.com/yihui/xaringan/issues/147  */
+.scroll-output {
+  height: 80%;
+  overflow-y: scroll;
+}
+
+.noinverse {
+  background-color: #272822;
+  color: #d6d6d6;
+  text-shadow: 0 0 20px #333;
+}
+
+/* https://stackoverflow.com/questions/50919104/horizontally-scrollable-output-on-xaringan-slides */
+pre {
+  max-width: 100%;
+  overflow-x: scroll;
+}
+
+
+```
+
+
+
+## Objetivo
+
+El alumno debe ser capaz de entender el concepto de similitud entre secuencias.
+---
+
+## Contenido de la unidad
+
+1. Implicaciones de la similitud entre secuencias
+
+2. Alineamientos
+
+3. Matriz de puntos: Dot plot
+
+4. Alineamientos Globales
+
+5. Alineamientos locales
+
+6. Otros tipo de alineamientos
+
+---
+# Reloj molecular 
+
+```{r, out.width = "300px",fig.align='center', fig.cap=''}
+knitr::include_graphics("https://www.mun.ca/biology/scarr/Molecular_clock2.gif")
+```
+
+.content-box-green[
+"The strong linear relationship suggests that molecular differences between pairs of species are
+proportional to the time of their separation, not the degree of organismal difference. Therefore,
+measures of genetic divergence can be used to date the time of divergence for species pairs for
+which no fossil data are available: genes function as Molecular Clocks"
+]
+https://www.mun.ca/biology/scarr/Molecular_Clock.html
+
+---
+# Reloj molecular 
+
+```{r, out.width = "480px",fig.align='center', fig.cap=''}
+knitr::include_graphics("https://evolution.berkeley.edu/wp-content/uploads/2021/10/molecular_clocks-4.png")
+```
+
+.content-box-yellow[
+.tiny[ “Imagine that a length of DNA found in two species differs by four bases (as shown below) and
+we know that this entire length of DNA changes at a rate of approximately one base per 25
+million years. That means that the two DNA versions differ by 100 million years of evolution
+and that their common ancestor lived 50 million years ago. Since each lineage experienced its
+own evolution, the two species must have descended from a common ancestor that lived at least
+50 million years ago. ]
+]
+
+https://evolution.berkeley.edu/molecular-clocks/
+
+---
+## ¿Qué nos dice el grado de similitud entre dos secuencias?
+
+- En general, mientras más similitud compartan dos secuencias más parecida será su función.
+
+- Las secuencias para el mismo gene en un grupo de especies serán más diferentes mientras la distancia filogenética aumente.
+
+- Las secuencias acumulan mutaciones con el paso del tiempo.
+
+- Mientras más tiempo haya pasado desde que dos especies divirgieron más mutaciones se habrán acumulado en sus genes.
+
+---
+## Ancestro común
+
+
+### ¿Qué  estamos asumiendo?
+
+Que existe un ancestro común
+
+.content-box-green[
+DEFINICION: Dos secuencias que comparten un ancestro común son **homólogos**
+]
+
+---
+
+class: inverse, center, middle
+
+# Alineamientos
+
+---
+## Alineamientos
+
+Un alineamiento entre dos secuencias puede ser utilizado para:
+
+- Calcular el grado de similitud entre dos secuencias / calcular la distancia filogenética
+
+- Buscar dominios funcionales
+
+- Comparar un mRNA con su DNA de origen
+
+- Identificar polimorfismos y mutaciones entre secuencias
+
+---
+## Tipos de mutaciones
+
+Mutaciones puntuales: cambios de un sólo nucleótido.
+
+```{r, out.width = "400px",fig.align='center', fig.cap=''}
+knitr::include_graphics("http://image.slidesharecdn.com/sci14bioeptx1303-141208112426-conversion-gate02/95/mutations-5-638.jpg?cb=1418037905")
+```
+
+**Una mutación puntual a nivel de DNA puede tener efectos catastróficos a nivel de proteína.**
+
+
+.tiny[https://socratic.org/questions/how-does-mutation-affect-dna-replication]
+
+---
+## Tipos de mutaciones
+
+
+Existen otro tipo de mutaciones
+
+```{r, out.width = "700px",fig.align='center', fig.cap=''}
+knitr::include_graphics("https://microbenotes.com/wp-content/uploads/2018/10/Types-of-Mutations.jpg")
+```
+
+.tiny[https://microbenotes.com/types-of-mutations/]
+
+---
+## Comparación de dos secuencias
+
+Una forma de comparar dos secuencias sería escribir una debajo de otra y contar las diferencias: 
+
+3 identidades en nuestro ejemplo  ( `|` )
+
+<br>
+
+```{r, out.width = "500px",fig.align='center', fig.cap=''}
+knitr::include_graphics(rep("img/no-aln.png"))
+```
+
+
+---
+## Comparación de dos secuencias
+
+Una forma de comparar dos secuencias sería escribir una debajo de otra y contar las diferencias: 
+3 identidades en nuestro ejemplo
+
+```{r, out.width = "400px",fig.align='center', fig.cap=''}
+knitr::include_graphics(rep("img/no-aln.png"))
+```
+
+Sin embargo, este no es un alineamiento óptimo
+Si agregamos un gap al inicio, y algunos otros cambios obtenemos: 27 identidades
+
+```{r, out.width = "400px",fig.align='center', fig.cap=''}
+knitr::include_graphics(rep("img/aln.png"))
+```
+
+---
+## No existe un alineamiento único entre secuencias
+
+Dada la gran variedad de cambios que pueden ocurrir entre dos secuencias no
+existe un alineamiento único entre ellas
+
+```{r, out.width = "250px",fig.align='center', fig.cap=''}
+knitr::include_graphics(rep("img/multiple-aln.png"))
+```
+
+**¿Cuál es el correcto?**  No sabemos    
+**¿Cuál es el mejor?**  Depende del sistema de puntaje que elijamos
+
+---
+## Tipos de alineamientos
+
+**Globales**: Crean un alineamiento que cubra completamente ambas secuencias, agregando los gaps que sean necesarios.
+
+**Locales**: Alinean únicamente los segmentos de alta identidad.
+
+**Glocal**: Un alineamiento global que permite rearreglos de la secuencia (desarrollado para alinear genomas completos).
+
+**Semi-globales**: Tratan de crear un alineamiento que cubra completamente ambas secuencias, sin penalizar por los gaps al inicio y al final del alineamiento.
+
+---
+
+
+class: center, middle
+
+# Matriz de puntos
+
+---
+## Matriz de puntos
+
+**Una secuencia** se representa en el **eje horizontal** y **otra secuencia** en el **eje vertical**. Los **matches** entre las dos secuencias se representan como **puntos** en la posición correspondiente. Un alineamiento se forma al conectar los puntos de la matriz.
+
+
+
+```{r, out.width = "350px",fig.align='center', fig.cap=''}
+knitr::include_graphics(rep("img/dotplot.png"))
+```
+
+<!--
+https://qph.cf2.quoracdn.net/main-qimg-ed4c8897d45ab05b7e0471321b2d5c55-lq
+-->	
+
+---
+## Representación gráfica de un alineamiento
+
+
+```{r, out.width = "700px",fig.align='center', fig.cap=''}
+knitr::include_graphics(rep("img/dotplot-aln.png"))
+```
+
+<br>
+
+
+   **¿Cuál es mejor?** 
+
+
+---
+## Sistema de puntaje
+
+- Asignemos a cada tipo de cambio un puntaje
+
+- Calculemos el score de cada alineamiento
+
+<br>
+
+
+```{r, out.width = "750px",fig.align='center', fig.cap=''}
+knitr::include_graphics(rep("img/score.png"))
+```
+
+---
+## El score cambia si cambiamos el sistema de puntaje
+
+- Asignemos a cada tipo de cambio un puntaje
+- Calculemos el score de cada alineamiento
+
+**¡Su turno!**
+
+.pull-left[
+```{r, out.width = "300px",fig.align='center', fig.cap=''}
+knitr::include_graphics(rep("img/score-table.png"))
+```
+]
+
+.pull-right[
+
+<font color="blue">
+<pre>
+ACAGT-AGGG 
+ACCGTCAGGG   
+</pre>
+</font>
+
+<br>
+
+<font color="orange">
+<pre>
+A----CAG--TAGGG 
+ACCGTCAGGG-----
+</pre>
+</font>
+]
+
+
+---
+## El score cambia si cambiamos el sistema de puntaje
+
+- Asignemos a cada tipo de cambio un puntaje
+- Calculemos el score de cada alineamiento
+
+```{r, out.width = "800px",fig.align='center', fig.cap=''}
+knitr::include_graphics(rep("img/score2.png"))
+```
+
+---
+## Variación estructural: inserciones o deleciones
+
+### Inserciones o deleciones
+
+```{r, out.width = "700px",fig.align='center', fig.cap=''}
+knitr::include_graphics(rep("img/indel.png"))
+```
+
+
+<br>
+https://bioinf.comav.upv.es/courses/biotech3/_images/dotplots.png
+
+
+---
+## Variación estructural: duplicaciones
+
+### Duplicaciones
+
+```{r, out.width = "700px",fig.align='center', fig.cap=''}
+knitr::include_graphics(rep("img/duplication.png"))
+```
+
+
+<br>
+https://bioinf.comav.upv.es/courses/biotech3/_images/dotplots.png
+
+
+---
+## Variación estructural: inversiones
+
+### Inversiones
+
+```{r, out.width = "700px",fig.align='center', fig.cap=''}
+knitr::include_graphics(rep("img/inversion.png"))
+```
+
+
+<br>
+https://bioinf.comav.upv.es/courses/biotech3/_images/dotplots.png
+
+---
+## Comparaciones genómicas: humano vs chimpancé
+
+
+```{r, out.width = "400px",fig.align='center', fig.cap=''}
+knitr::include_graphics(rep("img/chimp.jpg"))
+```
+
+https://genomevolution.org/wiki/index.php/Synteny:_Getting_the_Big_Picture
+
+
+---
+
+
+class: center, middle
+
+# Alineamientos Globales
+
+---
+## Alineamiento Global
+
+**¿Qué es un alineamiento global?** Es un alineamiento que cubre completamente ambas secuencias, agregando los gaps que sean necesarios.
+
+**¿Cuándo usarlo?** Sólo se recomienda su uso cuando se sospecha que dos secuencias son similares en toda su extensión
+
+```{r, out.width = "300px",fig.align='center', fig.cap=''}
+knitr::include_graphics("https://bio.libretexts.org/@api/deki/files/28393/page66image65266832.png?revision=1")
+```
+
+
+https://bio.libretexts.org/@api/deki/files/28393/page66image65266832.png?revision=1
+
+---
+## Algoritmo Needleman–Wunsch
+
+- Desarrollado por Saul B. Needleman and Christian D. Wunsch en 1970.
+
+- Una de las primeras aplicaciones de la programación dinámica.
+
+- El algoritmo divide un problema grande en problemas más pequeños y usa las soluciones de los problemas pequeños para encontrar la solución óptima del problema grande.
+
+- El propósito del algoritmo es **encontrar el alineamiento global con el mejor score** de entre todos los alineamientos posibles.
+	
+---
+## Algoritmo Needleman–Wunsch
+
+.pull-left[
+
+Estas serán nuestras secuencia problema de ejemplo:
+
+- GCATGCU
+- GATTACA
+
+Y este nuestro sistema de puntaje:
+
+- Match: +1
+- Mismatch o indel: -1
+
+]
+
+.pull-right[
+
+Inicialización de la matriz
+
+```{r, out.width = "300px",fig.align='center', fig.cap=''}
+knitr::include_graphics(rep("img/grid.png"))
+```
+	
+]
+
+
+---
+## Algoritmo Needleman–Wunsch
+
+.pull-left[
+
+Reglas del juego
+
+- El camino desde la celda superior o de la celda de la izquierda representan un indel. Por lo tanto, toma los scores de las celdas superior o izquierda y suma el score del indel.
+
+- El camino en diagonal representa un match o mismatch, por lo tanto toma el score de la celda arriba-izquierda (diagonal) y agrega el score que corresponda (match o mismatch).
+
+- La celda extrema superior izquierda se inicializa en 0.
+
+]
+
+.pull-right[
+
+Inicialización de la matriz
+
+```{r, out.width = "300px",fig.align='center', fig.cap=''}
+knitr::include_graphics(rep("img/grid.png"))
+```
+	
+]
+
+---
+## Algoritmo Needleman–Wunsch
+
+.pull-left[
+
+Reglas del juego
+
+- El camino desde la celda superior o de la celda de la izquierda representan un indel. Por lo tanto, toma los scores de las celdas superior o izquierda y suma el score del indel.
+
+- El camino en diagonal representa un match o mismatch, por lo tanto toma el score de la celda arriba-izquierda (diagonal) y agrega el score que corresponda
+
+]
+
+.pull-right[
+
+Rellenando la primer fila y la primer columna
+
+```{r, out.width = "300px",fig.align='center', fig.cap=''}
+knitr::include_graphics(rep("img/grid-first.png"))
+```
+	
+]
+
+---
+## Algoritmo Needleman–Wunsch
+
+.pull-left[
+
+Reglas del juego
+
+- El camino desde la celda superior o de la celda de la izquierda representan un indel. Por lo tanto, toma los scores de las celdas superior o izquierda y suma el score del indel.
+
+- El camino en diagonal representa un match o mismatch, por lo tanto toma el score de la celda arriba-izquierda (diagonal) y agrega el score que corresponda.
+
+]
+
+.pull-right[
+
+Primer subproblema
+
+```{r, out.width = "150px",fig.align='center', fig.cap=''}
+knitr::include_graphics(rep("img/subproblem1.png"))
+```
+
+- Camino desde la celda diagonal: match: `0 + 1 = 1`
+
+- Camino desde la celda superior: indel: `-1 + (-1) = -2`
+
+- Camino desde la celda izquierda: indel: `-1 + (-1) = -2`
+	
+]
+
+---
+## Algoritmo Needleman–Wunsch
+
+.pull-left[
+
+Reglas del juego
+
+- El camino desde la celda superior o de la celda de la izquierda representan un indel. Por lo tanto, toma los scores de las celdas superior o izquierda y suma el score del indel.
+
+- El camino en diagonal representa un match o mismatch, por lo tanto toma el score de la celda arriba-izquierda (diagonal) y agrega el score que corresponda.
+
+]
+
+.pull-right[
+
+Primer subproblema
+
+```{r, out.width = "150px",fig.align='center', fig.cap=''}
+knitr::include_graphics(rep("img/subproblem1-sol.jpeg"))
+```
+
+- Se almacena el score más alto.
+
+- Se almacena el camino de donde vino.
+	
+]
+
+
+---
+## Algoritmo Needleman–Wunsch
+
+.pull-left[
+
+**X** 
+
+```{r, out.width = "150px",fig.align='center', fig.cap=''}
+knitr::include_graphics(rep("img/subproblem2.png"))
+```
+
+- Camino desde la celda diagonal: mismatch: `-1 + (-1) = -1`
+
+- Camino desde la celda superior: indel: `-2 + (-1) = -3`
+
+- Camino desde la celda izquierda: indel: `1 + (-1) = 0`
+]
+
+.pull-right[
+
+**Y**
+
+```{r, out.width = "150px",fig.align='center', fig.cap=''}
+knitr::include_graphics(rep("img/subproblem2.png"))
+```
+
+- Camino desde la celda diagonal: mismatch: `-1 + (-1) = -2`
+
+- Camino desde la celda superior: indel: `1 + (-1) = 0`
+
+- Camino desde la celda izquierda: indel: `-2 + (-1) = -3`
+
+]
+
+---
+## Algoritmo Needleman–Wunsch
+
+.pull-left[
+
+**X** 
+
+```{r, out.width = "150px",fig.align='center', fig.cap=''}
+knitr::include_graphics(rep("img/subproblem2-sol1.jpeg"))
+```
+
+- Camino desde la celda diagonal: mismatch: `-1 + (-1) = -1`
+
+- Camino desde la celda superior: indel: `-2 + (-1) = -3`
+
+- **Camino desde la celda izquierda: indel:** `1 + (-1) = 0`
+
+]
+
+.pull-right[
+
+**Y**
+
+```{r, out.width = "150px",fig.align='center', fig.cap=''}
+knitr::include_graphics(rep("img/subproblem2-sol2.jpeg"))
+```
+
+- Camino desde la celda diagonal: mismatch: `-1 + (-1) = -2`
+
+- **Camino desde la celda superior: indel:** `1 + (-1) = 0`
+
+- Camino desde la celda izquierda: indel: `-2 + (-1) = -3`
+
+]
+
+
+---
+## Algoritmo Needleman–Wunsch
+
+Cada camino de la celda extrema derecha inferior hacia la celda extrema izquierda superior representan alineamientos igualmente válidos.
+
+
+```{r, out.width = "400px",fig.align='center', fig.cap=''}
+knitr::include_graphics("https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Needleman-Wunsch_pairwise_sequence_alignment.png/440px-Needleman-Wunsch_pairwise_sequence_alignment.png")
+```
+
+
+.tiny[https://en.wikipedia.org/wiki/Needleman%E2%80%93Wunsch_algorithm]
+
+---
+## Algoritmo Needleman–Wunsch
+
+.pull-left[
+
+```{r, out.width = "400px",fig.align='center', fig.cap=''}
+knitr::include_graphics("https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Needleman-Wunsch_pairwise_sequence_alignment.png/440px-Needleman-Wunsch_pairwise_sequence_alignment.png")
+```
+
+]
+
+
+.pull-right[
+
+<br>
+
+- Una flecha diagonal representa un match o mismatch.
+
+- Flechas horizontales generan un gap en la secuencia lateral.
+
+- Flechas verticales generan un gap en la secuencia encabezado.
+
+- Múltiples flechas representan opciones de alineamientos
+
+]
+
+
+---
+## Algoritmo Needleman–Wunsch
+
+.pull-left[
+
+```{r, out.width = "400px",fig.align='center', fig.cap=''}
+knitr::include_graphics("https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Needleman-Wunsch_pairwise_sequence_alignment.png/440px-Needleman-Wunsch_pairwise_sequence_alignment.png")
+```
+
+]
+
+
+.pull-right[
+
+<br>
+
+- Una flecha diagonal representa un match o mismatch
+
+- Flechas horizontales generan un gap en la secuencia lateral
+
+- Flechas verticales generan un gap en la secuencia encabezado
+
+- Múltiples flechas representan opciones de alineamientos
+
+```{r, out.width = "350px",fig.align='center', fig.cap=''}
+knitr::include_graphics(rep("img/needle-alg-aln.png"))
+```
+
+]
+
+---
+## Existen distintos sistemas de puntaje
+
+.pull-left[
+
+<br>
+
+- Match = 1
+
+- Mismatch = -1
+
+- Indel = -1
+
+<br>
+
+Mientras más grande el score, más parecidas las secuencias
+
+]
+
+
+.pull-right[
+
+<br>
+
+- Match = 0
+
+- Mismatch = 1
+
+- Indel = 1
+
+<br>
+
+**¿Y en este caso?**
+
+]
+
+---
+## Existen distintos sistemas de puntaje
+
+.pull-left[
+
+<br>
+
+- Match = 1
+
+- Mismatch = -1
+
+- Indel = -1
+
+<br>
+
+Mientras más grande el score, más parecidas las secuencias
+
+]
+
+
+.pull-right[
+
+<br>
+
+- Match = 0
+
+- Mismatch = 1
+
+- Indel = 1
+
+<br>
+
+**Mientras más grande el score más diferentes las secuencias**
+
+]
+
+---
+## Matrices de sustitución
+
+
+.pull-left[
+
+<br>
+
+```{r, out.width = "150px",fig.align='center', fig.cap=''}
+knitr::include_graphics(rep("img/ss1.png"))
+```
+
+- Match = 1
+
+- Mismatch = -1
+
+]
+
+
+.pull-right[
+
+<br>
+
+```{r, out.width = "150px",fig.align='center', fig.cap=''}
+knitr::include_graphics(rep("img/ss2.png"))
+```
+
+- Match `A-A, G-G o C-C = 1`
+
+- Match `T-T = 4`
+
+- Mismatch = `-1`
+
+
+]
+
+
+---
+## Matrices de sustitución: PAM y BLOSUM
+
+- Existen aminoácidos químicamente más similares entre ellos.
+
+- Una forma de pesar una sustitución de un aminoácido por otro es contar cuántas veces ocurre cada sustitución en posiciones homólogas en alineamientos de proteínas homólogas.
+
+- Sustituciones neutrales o con poco impacto funcional ocurrirán más frecuentemente que sustituciones con un alto impacto funcional.
+
+---
+## Matrices de sustitución: PAM 
+
+Existen varias matrices PAM
+
+- Su nombre se deriva de la cantidad de mutaciones cada 100 aminoácidos que diferencian las secuencias comparadas para crear las matrices.
+
+- PAM60 significa que existen 60 mutaciones por cada 100 aminoácidos de secuencia.
+
+- Es importante notar que cada posición de la secuencia puede estar involucrada en más de una mutación (sustituciones hacia distintos aminoácidos), por lo que existen matrices PAM160 o incluso PAM200.
+
+
+---
+## Matrices de sustitución: BLOSUM
+
+- Las matrices BLOSUM se construyen a partir de segmentos altamente conservados cubriendo rangos evolutivos más distantes que las matrices PAM.
+
+- El nombre de estas matrices deriva del mínimo porcentaje de identidad permitido entre las secuencias utilizadas.
+
+- BLOSUM70 se construyó a partir de secuencias más similares que BLOSUM50.
+
+---
+## Herramienta online: EMBOSS Needle 
+
+```{r, out.width = "850px",fig.align='center', fig.cap=''}
+knitr::include_graphics(rep("img/needle-online.png"))
+```
+
+---
+
+
+

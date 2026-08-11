@@ -1,0 +1,81 @@
+---
+title: "Introducción a la Bioinformática"
+--subtitle: ""
+--author: ''
+institute: "Licenciatura en Ciencias Genómicas,UNAM"
+date: 'First version: yyy-mm-dd; Last update: `r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    css: ["default", "default-fonts", "hygge"]
+    lib_dir: libs
+    includes:
+      after_body: insert-logo.html
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "macros.js"
+--distill::distill_article: default
+
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{css, echo = FALSE}
+/* From https://github.com/yihui/xaringan/issues/147  */
+.scroll-output {
+  height: 80%;
+  overflow-y: scroll;
+}
+/* https://stackoverflow.com/questions/50919104/horizontally-scrollable-output-on-xaringan-slides */
+pre {
+  max-width: 100%;
+  overflow-x: scroll;
+}
+```
+
+## Presentación
+
+- Profesores y ayudantes
+
+- Programa
+
+- Evaluación
+
+---
+## Código de conducta
+
+Recuerda que todos estamos aprendiendo, por lo tanto te animamos a:
+
+- Ser respetuoso con los diferentes puntos de vista y experiencias.
+
+- Acepta con gracia las críticas constructivas.
+
+- Centrarse en lo que es mejor para el grupo.
+
+- Mostrar cortesía y respeto.
+
+---
+## Durante la clase
+
+- Puedes interrumpir en cualquier momento para hacer preguntas
+- Lenguaje no hablado
+  - Coloca **el reloj** cuando estas trabajando en las sesiones de prácticas.
+  - Cuando termines un ejercicio quitas el reloj y pones tu nombre
+  - postip de color en caso de dudas durante prácticas.
+  
+- No te quedes con dudas, ¡pregunta!.
+
+---
+
+## Crear tu área de trabajo
+
+- En tu computadora
+  - carpeta llamada `lcg`
+  - dentro de ella, otra carpeta llamada `2025-1`
+  - dentro de ésta, otra carpeta llamada `intro-bioinfo`
+  - Todo lo que hagamos durante el semestre puedes colocarlo en `intro-bioinfo`
+  
+

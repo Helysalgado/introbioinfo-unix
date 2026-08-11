@@ -1,0 +1,81 @@
+---
+title: "Introducción a la Bioinformática"
+--subtitle: ""
+--author: ''
+institute: "Licenciatura en Ciencias Genómicas,UNAM"
+date: 'First version: yyy-mm-dd; Last update: `r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    css: ["default", "default-fonts", "hygge"]
+    lib_dir: libs
+    includes:
+      after_body: insert-logo.html
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "macros.js"
+--distill::distill_article: default
+
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{css, echo = FALSE}
+/* From https://github.com/yihui/xaringan/issues/147  */
+.scroll-output {
+  height: 80%;
+  overflow-y: scroll;
+}
+
+.noinverse {
+  background-color: #272822;
+  color: #d6d6d6;
+  text-shadow: 0 0 20px #333;
+}
+
+/* https://stackoverflow.com/questions/50919104/horizontally-scrollable-output-on-xaringan-slides */
+pre {
+  max-width: 100%;
+  overflow-x: scroll;
+}
+
+
+```
+
+## Tarea 4. Conteos
+
+El objetivo de la tarea es practicar los comandos de transferencia de archivos de bases de datos remotas, y comandos de conteos de datos.
+
+Las actividades a realizar se listan a continuación. Recuerda que los pasos son secuenciales, por lo que no podrás realizar los pasos de manera aleatoria sino secuencial como estan descritos.
+
+En cada uno de los pasos te recomendamos verificar que el comando haya sido exitoso.
+
+---
+## Instrucciones
+
+0. Crea una carpeta dentro de la carpeta tareas, llamada tarea4, y dentro de ella crea la estructura de buenas prácticas: bin, data, results. Asegurate que los archivos de esta práctica esten en las carpetas que les corresponde.
+
+1. De la base de datos de NCBI descarga el archivo de anotación (gff) del genoma del organismo de tu interés (utilizando comandos). 
+
+Además responde las siguientes preguntas, utilizando los comandos vistos en clase. IMPORTANTE: Ningún conteo lo debes realizar a mano:
+
+2. ¿Cuántos cromosomas tiene? ¿Cómo se llaman?
+
+3. ¿Cuántos features genómicos están anotados como parte del genoma de tu organismo? ¿Cuáles son?
+
+4. ¿Cuántos CDS existen en cada cadena?
+
+5. Transfiere el archivo README.md a este proyecto.
+
+6. Incluye en el reporte la estructura de la carpeta.
+
+---
+## Entregable
+
+- Reporte de la tarea en formato markdown. El archivo debe llamarse README.txt
+ 
+  Te recordamos consultar la [guía y rubros](https://lcg-cursos.github.io/material/introbioinfo/rubros-evaluacion-tareas.html#1) que se van a evaluar.  
+

@@ -1,0 +1,65 @@
+---
+title: "Introducción a la Bioinformática"
+--subtitle: ""
+--author: ''
+institute: "Licenciatura en Ciencias Genómicas,UNAM"
+date: 'First version: yyy-mm-dd; Last update: `r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    css: ["default", "default-fonts", "hygge"]
+    lib_dir: libs
+    includes:
+      after_body: insert-logo.html
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "macros.js"
+--distill::distill_article: default
+
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{css, echo = FALSE}
+/* From https://github.com/yihui/xaringan/issues/147  */
+.scroll-output {
+  height: 80%;
+  overflow-y: scroll;
+}
+
+.noinverse {
+  background-color: #272822;
+  color: #d6d6d6;
+  text-shadow: 0 0 20px #333;
+}
+
+/* https://stackoverflow.com/questions/50919104/horizontally-scrollable-output-on-xaringan-slides */
+pre {
+  max-width: 100%;
+  overflow-x: scroll;
+}
+
+
+```
+
+## Tarea 1. Templates
+
+El objetivo de la tarea es tener los 2 formatos o templates que serán usados para entrega de Reportes y Protocolos.
+
+---
+## Instrucciones
+
+1.- El formato de Protocolo en markdown que vimos en Clase debes terminarlo y generar un archivo que servirá como template o formato para todos los Protocolos que se pidan durante el curso. A este archivo ponle de nombre `formato_protocolo.md`.
+
+2. El formato de Reporte de Lecturas que vimos en clase debes terminarlo y generar el archivo que servira para reportar las lecturas que se pidan durante el curso. Puedes llamar a este archivo lectura_formato.md
+
+---
+## Entregable
+
+- formato_protocolo.md.
+- lectura_formato.md
+ 
+ 

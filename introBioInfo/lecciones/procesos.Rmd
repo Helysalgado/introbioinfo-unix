@@ -1,0 +1,18 @@
+---
+title: "Untitled"
+author: "Hely"
+date: "2024-08-27"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Procesos
+
+https://codigofacilito.com/articulos/unix-process
+
+https://www.hostinger.mx/tutoriales/ver-procesos-en-linux
+https://ocw.ehu.eus/pluginfile.php/48902/mod_resource/content/13/html/Recursos/P03/Resumen_procesos.html
+

@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Introducción a la Bioinformática</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.18/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/hygge.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Introducción a la Bioinformática
+]
+.institute[
+### Licenciatura en Ciencias Genómicas,UNAM
+]
+.date[
+### First version: yyy-mm-dd; Last update: 2024-09-13
+]
+
+---
+
+
+
+
+&lt;style type="text/css"&gt;
+/* From https://github.com/yihui/xaringan/issues/147  */
+.scroll-output {
+  height: 80%;
+  overflow-y: scroll;
+}
+
+.noinverse {
+  background-color: #272822;
+  color: #d6d6d6;
+  text-shadow: 0 0 20px #333;
+}
+
+/* https://stackoverflow.com/questions/50919104/horizontally-scrollable-output-on-xaringan-slides */
+pre {
+  max-width: 100%;
+  overflow-x: scroll;
+}
+
+
+&lt;/style&gt;
+
+
+## Objetivo
+
+Lxs alumnxs deberán ser capaces de realizar conteos de datos usando comandos de unix y seguir haciendo uso de tuberias y redireccionamientos.
+---
+
+## Contenido de la unidad
+
+1. Conteos y análisis con el shell.
+
+2. Uso de tuberías.
+
+
+---
+
+class: inverse, center, middle
+
+# Conteos
+
+---
+# Comandos que ya hemos visto
+
+| Comando |        | Comando | |
+|:----   |:--- |:--- |:--- |
+| `ls`     | Listar.           | `mkdir`  | Crear directorio. |
+| `mv`     | Mover/Renombrar.  | `cd`     | Cambiar de directorio. |
+| `rm`     | Borrar.           | `pwd`    | Mostrar dir. actual. |
+| `cp`     | Copiar.           | `scp`    | Copiar archivos entre hosts. |
+| `more`   | Mostrar.          | `less`   | Mostrar. |
+| `cat`    | Concatenar/Imprimir.|        |
+| `head`   | Display first lines. | `tail`   | Display last lines. |
+| `curl`   | Transferir/Descargar un URL. | `wget`   | Transferir/Descargar un URL.|
+| `gzip`   | Comprimir. | `gunzip` | Descomprimir. |
+| .      | Directorio actual. |  ..    | Directorio padre. |
+| ~      | User home.  |        |
+|  &gt;     | Redireccionar. |   &gt;&gt;   | Redireccionar agregar. |
+
+---
+## Algunos comandos básicos de *análisis*
+
+|Comando |   Función básica   |
+|----    |---                 |
+|`sort`    |Ordena una serie de líneas (o records). |
+|`cut`     |Corta porciones seleccionadas de cada línea. |
+|`uniq`    |Reporta o filtra las líneas repetidas de un archivo. |
+|`wc`      |Reporta la cuenta de líneas, caracteres y bytes. |
+|`man`     |Imprime la descripción y opciones de un comando. |
+
+
+&lt;br&gt;
+&lt;br&gt;
+
+--
+
+.content-box-red[
+       **¿Qué implica realizar un análisis de datos?**
+]
+
+---
+##  El Proceso de Análisis de Datos
+
+.content-box-yellow[
+
+"El **Proceso de Análisis de Datos** conlleva la **recolección**, **transformación**, **limpieza** y **modelado** de datos para **descubrir/conocer** la *información útil* y de interés.
+
+Todos los datos obtenidos se transforman en conclusiones y se usan para la toma de decisiones. 
+]
+
+---
+##  El proceso de análisis de datos
+
+Para nuestros ejemplos de ahora en adelante, seguiremos los siguientes pasos:
+
+- **Conocer el problema o el escenario**. En lo posible, en nuestro documento de Reporte de Investigación, describir el problema en la Introducción.
+
+- **Recolectar/descargar/copiar los datos**. Los puedes descargar de una base de datos, o de otro servidor, pero siempre es necesario anotar la fuente. De preferencia hay que guardarlos en un directorio. Puedes llamarlo `input_data`, `data`, `data_source` o de alguna otra manera que resulte informativa.
+
+- **Explorar/entender los datos**. ANTES de usar los datos, investiga su contenido, qué hay en cada columna, qué tipo de datos son (números, reales, caracteres, etc). Revisa si hay valores vacios. Determina el tipo de formato.
+
+- **Limpiar/filtrar los datos** (¡Mas adelante cuando aprendamos a filtrar!). Los datos ORIGINALES que descargas NO SE TOCAN. Si es necesario limpiar (eliminar renglones, columnas o algún dato), crea otra carpeta donde guardes los archivos modificados.
+
+---
+
+##  El proceso de análisis de datos
+
+- **Analizar los datos y responder las preguntas**. Analiza primero los pasos que vas a seguir para responder la pregunta, y descríbelos (algoritmo). Un algoritmo NO SON LOS COMANDOS, sino la LÓGICA que vas a seguir usando el archivo de datos. 
+
+&gt; Por ejemplo, si usáramos el archivo de anotaciones del genoma de *E. coli* (.gff), para saber cuántos genes tiene el genoma, el algoritmo sería el siguiente:
+
+&gt; 1. **Obtener/filtrar** los renglones de la columna 3 cuya feature sea "gene".
+
+&gt; 2. **Contar** el número de renglones. 
+
+&gt; Ojo: Siempre iniciamos con un verbo.
+
+- **Sacar conclusiones**. Una vez que respondas las preguntas, observa los resultados y describe lo que observas.
+
+---
+# Entendiendo el problema 
+
+El genoma de *Escherichia coli* K12 se publicó en 1997, y a través de los años se ha ido anotando información sobre sus genes u otros elementos genéticos. Vamos a explorar el genoma y contestar algunas preguntas que nos ayudarán a entender mejor este organismo.
+
+
+1. Vamos a prepar el repositorio para el proyecto.
+
+2. Vamos a copiar el documento `README.txt`.
+
+3. Lee con cuidado el `README.txt` de inicio a fin.
+
+---
+
+## Preparando nuestro directorio de trabajo
+
+- Muévete a tu directorio `home`.
+
+- Crea la carpeta `practica4`.
+
+- Entra a la carpeta `practica4`.
+
+- Crea la carpeta `data` y `doc` dentro de `practica4`.
+
+- Copia los archivos ubicados en:
+`/home/compu2/WelcomeBioinfo/datos/practica4` a tu carpeta `data`.
+
+- Copia el template de reporte a tu directorio `doc` (puedes utilizar `scp` o abrir nano y copiar el formato). 
+
+---
+## Preparando nuestro directorio de trabajo
+
+Nuestro directorio debe estar organizado de la siguiente manera:
+
+```
+practica4
+|-- data
+|   |-- coli_genomic.fna
+|   |-- coli.gff
+|   |-- coli_protein.fna
+|   |-- directorio.txt
+|   `-- flagella_genes.txt
+`-- doc
+    `-- README.txt
+
+```
+
+**NOTA**: El archivo README si lo quieres editar en el web o usando alguna aplicación markdown, puedes copiarlo después a éste directorio en el servidor.
+
+---
+
+## Algunas preguntas biológicas relevantes
+
+1. ¿De qué tamaño es el genoma de *Escherichia coli*?
+
+2. ¿Cuántos cromosomas tiene *Escherichia coli*?
+
+3. ¿Qué tipos de features tiene el genoma de *Escherichia coli*?
+
+4. ¿Cuántos tipos de features se encuentran anotadas como parte del genoma de *Escherichia coli*?
+
+5. ¿Cuáles son las fuentes de los datos de anotación?
+
+6. ¿Cuántos genes y cuántas CDS tiene el genoma de *Escherichia coli*?
+
+7. ¿Cuántos orígenes de replicación tiene el genoma de *Escherichia coli*?
+
+8. ¿Cuántos genes hay en cada una de la cadenas del genoma de *Escherichia coli*?
+
+9. Escribe un archivo ordenado por cadena y región genómica.
+
+---
+
+## P1: ¿De qué tamaño es el genoma de *Escherichia coli*?
+
+.content-box-blue[
+¿Cuál es el archivo de datos que utilizaremos para responder esta pregunta?
+
+¿Qué pasos vamos a seguir?
+]
+
+--
+
+Ya sabemos el problema, y tenemos los datos... Ahora vamos a explorarlos.
+
+```bash
+## Explorando los datos:
+ls data
+head data/coli_genomic.fna
+head data/coli_protein.fna
+head data/coli.gff
+
+## Explorando un comando
+man wc
+```
+
+---
+## P1: ¿De qué tamaño es el genoma de *Escherichia coli*?
+
+Archivo: data/coli_genomic.fna
+
+&gt; El archivo tiene un renglón de anotación, y cada línea tiene un caracter que es el salto de línea que se cuenta pero no se ve.
+
+Algoritmo: 
+
+&gt; 1. Contar el número de líneas del archivo `coli_genomic.fna` que tiene la secuencia de nucleotidos del genoma.
+
+&gt; 2. Restar al total la linea de encabezado y todos los saltos de línea.
+
+
+```bash
+## Numero de ineas, palabras, bytes de un archivo
+wc data/coli_genomic.fna
+
+## Output: lineas, palabras, bytes
+```
+
+---
+## P1: ¿De qué tamaño es el genoma de *Escherichia coli*?
+
+.content-box-blue[
+**R**: Aproximadamente 4.6Mb
+
+Esto nos da una respuesta aproximada.
+]
+
+El número de bytes incluye:
+- Los bytes utilizados en el header.
+
+- Los bytes utilizados para los saltos de línea.
+
+---
+## P2. ¿Cuántos cromosomas tiene *Escherichia coli*?
+
+.content-box-blue[
+¿Cuál es el archivo de datos que utilizaremos para responder esta pregunta?
+
+¿Cuál es el algoritmo o pasos a seguir para encontrar la respuesta?
+]
+
+---
+## P2. ¿Cuántos cromosomas tiene *Escherichia coli*?
+
+.content-box-blue[
+¿Cuál es el archivo de datos que utilizaremos para responder esta pregunta?
+]
+
+Archivo:  `data/coli.gff`
+       
+&gt; Tiene la anotación de todos los elementos genéticos (features) hasta ahora conocidos.
+
+--
+
+.content-box-blue[
+¿Cuál es el algoritmo o pasos a seguir para encontrar la respuesta?
+]
+
+
+&gt; 1. Obtener la primer columna, que indica en qué cromosoma se encuentra cada feature.
+
+&gt; 2. Quitar las repeticiones para quedarnos con los valores únicos.
+
+&gt; 3. Contar el número de cromosomas.
+
+---
+## P2. ¿Cuántos cromosomas tiene *Escherichia coli*?
+
+```bash
+## Necesito acceder a la primer columna
+man cut
+
+## Necesito obtener los valores unicos
+man uniq
+```
+--
+
+Utilicemos tuberías:
+
+```bash
+## Accediendo a la primer columna
+cut -f1 data/coli.gff | head
+
+## Necesito obtener los valores unicos
+cut -f1 data/coli.gff | uniq
+```
+
+Nota que el output incluye las 8 líneas del header (empiezan con #).
+
+--
+
+.content-box-blue[
+**R**: Sólo uno: NC 000913.3
+]
+
+---
+## 3. ¿Qué tipos de features tiene el genoma de *Escherichia coli*?
+
+.content-box-blue[
+¿Cuál es el archivo de datos que utilizaremos para responder esta pregunta?
+
+¿Cuál es el algoritmo o pasos a seguir para encontrar la respuesta?
+]
+
+Archivo:  `data/coli.gff`
+
+Algoritmo: 
+
+&gt; 1. Obtener la tercer columna, que contiene la anotación del tipo de feature.
+
+&gt; 2. Quitar repeticiones para quedarnos con los valores únicos
+
+---
+
+## P3. ¿Qué tipos de features tiene el genoma de *Escherichia coli*?
+
+
+```bash
+## Acceder a la tercer columna
+cut -f3 data/coli.gff | head
+
+## Obtener los valores unicos
+cut -f3 data/coli.gff | uniq
+```
+
+Esto no genera el resultado que esperábamos...
+
+---
+## P3. ¿Qué tipos de features tiene el genoma de *Escherichia coli*?
+
+```bash
+## Imprimiendo la descripcion del comando uniq
+man uniq
+```
+
+.content-box-blue[
+“The uniq utility reads the specified input file comparing adjacent lines, and
+writes a copy of each unique input line to the output file... The second and
+succeeding copies of identical adjacent input lines are not written. Repeated lines
+in the input will not be detected if they are not adjacent, so it may be necessary
+to sort the files first.
+
+.tiny[— Descripción del comando uniq]
+]
+
+---
+## P3. ¿Qué tipos de features tiene el genoma de *Escherichia coli*?
+
+¿Qué comandos voy a ocupar?
+
+--
+
+- **`cut`** - Necesito acceder a la tercer columna.
+
+- **`sort`** - Necesito ordenar los valores de la tercer columna.
+
+- **`uniq`** - Necesito obtener los valores únicos.
+
+--
+
+```bash
+## Acceder a la tercer columna
+cut -f3 data/coli.gff | head
+
+## Ordenar los valores de la tercer columna
+cut -f3 data/coli.gff | sort | head -20
+
+## Obtener los valores unicos
+cut -f3 data/coli.gff | sort | uniq
+```
+--
+
+```bash
+## Otra opcion
+cut -f3 data/coli.gff | sort -u
+```
+---
+## P3. ¿Qué tipos de features tiene el genoma de *Escherichia coli*?
+
+NCBI clasifica a los elementos del genoma de *E. coli* en las siguientes categorías:
+
+.content-box-blue[
+1. CDS
+2. exon
+3. gene
+4. mobile genetic element
+5. ncRNA
+6. origin of replication
+7. pseudogene
+8. rRNA
+9. recombination feature
+10. region
+11. repeat region
+12. sequence feature
+13. tRNA
+]
+---
+## P4. ¿Cuántos tipos de features se encuentran anotadas como parte del genoma de *Escherichia coli*?
+
+En este caso, ya tenemos la respuesta, son 13. Pero ¿y si fueran cientos?
+
+```bash
+## Numero de features unicas, numero de lineas
+cut -f3 data/coli.gff | sort -u | wc -l
+```
+
+Este comando nos da 21, tenemos que restarle las 8 lineas del header.
+En la seccion busqueda de patrones lo automatizaremos.
+
+---
+## P5. ¿Cuáles son las fuentes de los datos anotados?
+
+**¿Qué archivo usamos?**  
+
+**¿Cuáles serían los pasos?**
+
+Archivo: data/coli.gff 
+
+Algoritmo:
+
+&gt; 1. Obtener la columna 2, que tiene la fuente de la anotación del feature.
+
+&gt; 2. Ordenar la columna.
+
+&gt; 3. Quitar repeticiones.
+
+---
+## P5. ¿Cuáles son las fuentes de los datos anotados?
+
+
+```bash
+## Valores unicos para las fuentes de datos
+cut -f2 data/coli.gff | sort | uniq
+```
+--
+```bash
+## Otra opcion
+cut -f2 data/coli.gff | sort -u
+```
+--
+
+.content-box-blue[
+**R**: Solo existe una fuente de datos: **RefSeq**.]
+
+---
+## P6. ¿Cuántos genes y cuántas CDS tiene el genoma de *Escherichia coli*?
+
+**¿Hay alguna combinación comando-parámetro para los comandos
+listados en esta tabla que nos ayude a responder la pregunta?**
+
+¿Cuántos hay?
+
+|Comando |   Función básica   |
+|----    |---                 |
+|`sort`    | Ordena una serie de líneas (o records). |
+|`cut`     |Corta porciones seleccionadas de cada línea. |
+|`uniq`    |Reporta o filtra las líneas repetidas de un archivo. |
+|`wc`      |Reporta la cuenta de líneas, caracteres y bytes. |
+|`man`     |Imprime la descripción y opciones de un comando. |
+
+
+---
+## P6. ¿Cuántos genes y cuántas CDS tiene el genoma de *Escherichia coli*?
+
+Funcionalidades del comando `uniq`:
+
+|Opción  |Comportamiento      |
+|----    |---                 |
+|`-d`      |Sólo imprime las líneas repetidas.|
+|`-u`      |Sólo imprime las líneas no repetidas.|
+|`-i`      |Realiza la comparación case-insensitive.|
+|`-c`      |Precede cada línea output con la cuenta del número de veces que esa línea ocurrió.|
+
+---
+## P6. ¿Cuántos genes y cuántas CDS tiene el genoma de *Escherichia coli*?
+
+¿Qué tenemos que hacer?
+
+```bash
+# Acceder a la columna 3 de la anotación.
+
+# Contar cuántas veces ocurre cada elemento.
+```
+--
+
+Analicemos la solución:
+
+```bash
+# Acceder a la columna 3 de la anotación
+cut -f3 data/coli.gff | head
+
+# Contar cuántas veces ocurre cada elemento:
+## Ordenar los elementos
+## Obtener los únicos
+## Contar número de ocurrencias
+cut -f3 data/coli.gff | sort | uniq -c
+```
+---
+## P6. ¿Cuántos genes y cuántas CDS tiene el genoma de *Escherichia coli*?
+
+**¡LISTO!**
+
+.content-box-blue[
+**R**:
+
+- 4379 CDS.
+- 4419 genes.
+]
+--
+
+.content-box-blue[
+¿Seguros?
+
+¿No estamos contando de más?
+
+¿Qué suposiciones implícitas hace nuestro programa?
+
+¿No tenemos genes o CDSs repetidos en nuestro archivo?
+]
+
+---
+## P6. ¿Cuántos genes y cuántas CDS tiene el genoma de *Escherichia coli*?
+
+Vamos a incluir las posiciones para asegurarnos de que cada gene sea único. 
+
+¿Cómo cortamos más de una columna?
+
+```bash
+# De regreso a la documentacion
+man cut
+```
+
+---
+## P6. ¿Cuántos genes y cuántas CDS tiene el genoma de *Escherichia coli*?
+
+.content-box-blue[
+**¿Cuál es el algoritmo que debemos aplicar?**
+
+¿Cuáles son los pasos necesarios para resolver nuestra pregunta?
+]
+
+--
+
+1. Cortar las columnas feature, inicio y final.
+
+2. Obtener las lineas únicas.
+
+3. Acceder a la columna 3.
+
+4. Contar cuantas veces ocurre cada elemento.
+
+
+---
+## P6. ¿Cuántos genes y cuántas CDS tiene el genoma de *Escherichia coli*?
+
+```bash
+## Cortar las columnas feature, inicio y final
+cut -f3-5 data/coli.gff | head
+
+## Obtener las lineas ´unicas
+cut -f3-5 data/coli.gff | sort -u | head
+
+## Acceder a la columna feature
+cut -f3-5 data/coli.gff | sort -u | cut -f1 | head
+
+## Contar cuantas veces ocurre cada elemento
+cut -f3-5 data/coli.gff | sort -u | cut -f1 \
+| sort | uniq -c
+```
+
+--
+
+**¡AHORA SÍ ESTAMOS SEGUROS!**
+
+.content-box-blue[
+- 4379 CDS
+- 4419 genes
+]
+---
+## P7. ¿Cuántos orígenes de replicación tiene el genoma de *Escherichia coli*?
+
+.content-box-blue[
+**¿Cuál es el algoritmo que debemos aplicar?**
+
+¿Cuáles son los pasos necesarios para resolver nuestra pregunta?
+]
+--
+
+Debemos aplicar el mismo algoritmo que en el ejercicio anterior.  
+
+Revisa el output de tu tubería anterior.
+
+
+--
+
+.content-box-blue[
+**R**: 1 origen de replicación]
+
+---
+## P8. ¿Cuántos genes hay en cada una de la cadenas del genoma de *Escherichia coli*?
+
+**¡TE TOCA!**
+
+Antes de intentarlo, dime cómo resolverías el problema si no supieras de la existencia de las herramientas que hemos visto en clase.
+
+--
+
+```bash
+## Cortar las columnas feature, cadena
+cut -f3,7 data/coli.gff | head
+
+## Ordenar las líneas
+cut -f3,7 data/coli.gff | sort | head
+
+## Contar cuantas veces ocurre cada elemento
+cut -f3,7 data/coli.gff | sort | uniq -c
+
+```
+
+--
+
+.content-box-blue[
+**R**:
+
+- 2173 genes en la cadena +
+- 2246 genes en la cadena -
+]
+---
+## P9. Escribe un archivo ordenado por cadena y región genómica
+
+.content-box-blue[
+**¿Cuál es el algoritmo que debemos aplicar?**
+
+¿Cuáles son los pasos necesarios para resolver nuestra pregunta?
+]
+
+---
+## P9. Escribe un archivo ordenado por cadena y región genómica
+
+**¿Cuál es el algoritmo que debemos aplicar?**
+
+--
+
+- Acceder a la columna de la cadena y de las posiciones genómicas.
+
+- Ordenar por la cadena, y después por posición genómica ascendente.
+
+--
+
+¿Cómo?
+
+
+```bash
+## Pidamos ayuda
+man sort
+```
+
+---
+## P9. Escribe un archivo ordenado por cadena y región genómica
+
+Veamos cómo se ve ordenado:
+
+```bash
+## Podemos hacer todo con un solo comando
+sort -k7,7 -k4,4 data/coli.gff | less -S
+
+```
+--
+Sin embargo, el output no es exactamente lo que necesitamos... el ordenamiento no es correcto.
+
+**¿Por qué?**
+
+--
+
+Cuando necesitamos ordenar numéricamente una columna:
+
+```bash
+## Debemos especificar
+## cuando necesitamos ordenar numericamente
+sort -k7,7 -k4,4n data/coli.gff | less -s
+```
+--
+
+Redireccionamos la salida a un archivo.
+
+---
+
+## P9. Escribe un archivo ordenado por cadena y región genómica
+
+```bash
+## Escribir archivo de resultados
+sort -k7,7 -k4,4n data/coli.gff &gt; coli_strand.gff
+
+```
+
+---
+
+## Cuando llevas estudiando un rato sin parar ...
+&lt;img src="https://areajugones.sport.es/wp-content/uploads/2017/05/Goku_Kaio-Ken_Coolers_Revenge.jpg" width="800px" style="display: block; margin: auto;" /&gt;
+
+.pull-right[.tiny[["Goku:Kaio-Ken"](https://areajugones.sport.es/wp-content/uploads/2017/05/Goku_Kaio-Ken_Coolers_Revenge.jpg)]]
+
+### El conocimiento es poder
+---
+
+
+
+
+----
+Para llevar a cabo un proyecto de Análisis de Datos existen varias metodologías a seguir. Aunque KDD, SEMMA y CRISP-DM son las tres más utilizadas.
+
+- **KDD**: Knowledge Discover Database.
+- **SEMMA**: Sample, Explore, Modify, Model and Assess.
+- **CRISP-DM**: Cross Industry Standard Process for Data Mining.
+
+---
+##  Procesos de Análisis de Datos 
+
+| KDD     |  SEMMA   | CRISP  |
+|:--      |:---      |:---     |
+| Selección    | Muestrear | Entendimiento del Negocio |
+| Preprocesamiento    | Explorar | Entendimiento de los datos |
+| Transformación | Modificar | Preparación de los datos |
+| Minería de datos | Modelar | Modelado|
+| Interpretación / Evaluación | Evaluar | Evaluación|
+|     |     | Despliegue |
+
+
+Aunque son metodologías para descubrir conocimiento aplicando mineria de datos, podemos aplicar algunas fases en nuestros análisis.
+
+&lt;img src="https://learn.microsoft.com/es-es/azure/architecture/data-science-process/media/lifecycle/tdsp-lifecycle2.png" width="300px" style="display: block; margin: auto;" /&gt;
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+  .logo {
+    background-image: url(logos/LCG-UNAM.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    width: 110px;
+    height: 128px;
+    z-index: 0;
+  }
+  </style>
+  
+  <script>
+  document
+    .querySelectorAll(
+      '.remark-slide-content' +
+      ':not(.title-slide)' +
+      // add additional classes to exclude here, e.g.
+      // ':not(.inverse)' +
+      ':not(.hide-logo)'
+    )
+    .forEach(el => {
+      el.innerHTML += '<div class="logo"></div>';
+    });
+  </script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

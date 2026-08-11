@@ -1,0 +1,22 @@
+/*************************************************
+ *  Footer
+ **************************************************/
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+h1 {
+    color: #2c3e50;
+}
+
+footer {
+  margin: 4rem 0 0;
+  padding: 2rem 0;
+  width: 100%;
+}
+
+footer p {
+  font-size: 0.75rem;
+  text-align: center;
+}

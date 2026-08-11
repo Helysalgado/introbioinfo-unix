@@ -1,0 +1,106 @@
+---
+title: "LCG-BioInfo"
+author: ''
+date: "First version: 2022-09-19; Last update: `r Sys.Date()`"
+output:
+  html_document: default
+  pdf_document: default
+subtitle: ''
+institute: Licenciatura en Ciencias Genómicas,UNAM
+---
+
+# EXAMEN 2 DE INTRODUCCIÓN A LA BIOINFORMÁTICA
+
+#### Objetivo
+
+El objetivo de éste examen es evaluar lo aprendido en unix desde comandos básicos, expresiones regulares, y awk.
+
+#### Entregables
+
+- Archivo markdown con las respuestas.
+
+
+#### Instrucciones
+
+- Para cada pregunta, agrega una breve descripción.
+
+- La respuesta agregala en un bloque de código [Si el bloque trae otros elementos además de código y comentarios, no será evaluado]. 
+
+- Agrega comentarios o algoritmo que describa lo que se esta haciendo.
+
+#### Criterio de Evaluación
+
+*Buenas prácticas*
+
+- Archivos y directorios. 
+
+  - Nombrado. Se evaluará que los archivos y directorios sean nombrados de acuerdo al contenido.
+  
+  - Nombres aceptables. Los nombres NO deben tener espacios ni caracteres especiales. Solo carcateres alfanumericos y - o _
+  
+- Organización. La estructura de directorios que se ha usado durante las clases deberá implementarse para éste exámen. Cada archivo deberá estar en su carpeta correspondiente.
+
+- Código legible y reproducible.
+
+- Incluye las instrucciones de transferencia de archivos al servidor.
+
+**Importante**. Puedes hacer uso de internet, checar tus apuntes. Pero, no puedes preguntar o copiar. Nuestro interés es conocer tus habilidades y lo que necesitamos reforzar.
+
+<br>
+
+## Preguntas
+
+1. ¿Que es un patrón y una expresión regular?
+
+2. Lista al menos 5 elementos que se usan para construir una expresión regular e indica para qué sirven.
+
+3. ¿Qué hace el siguiente código? 
+
+```bash
+awk 'BEGIN{seq = "" }; /^[ATGCatgc]+$/ { seq += length($0)}; END{ print seq}' seq.fasta
+```
+
+Si la función *length* obtiene el tamaño de un string, y si el **archivo seq.fasta**, contiene
+
+```
+> IDTest gene:unkown
+catcgactgatcagcattgca
+gcagtcatcatcacgatcgta
+ggcaggcgcatcggcgcgatt
+cgcagt
+
+//
+```
+
+5. Desde RegulonDB (https://regulondb.ccg.unam.mx/datasets)  baja el archivo asociado a "GeneProductSet". Pasa los datos de los genes a formato GFF.
+
+
+6. Usando el archivo Gene_sequence.tsv (https://regulondb.ccg.unam.mx/datasets) Genera un archivo a formato fastA. En la linea de comentarios debe ir el identificador, nombre y posiciones genómicas del gene, y calcula el tamaño como se muestra en el ejemplo:
+
+```
+> RDBECOLIGNC01250 thrL(b0001) 190..255 size:65
+ATGAAACGCATTAGCACCACCATTACCACCACCATCACCATTACCACAGGTAACGGTGCGGGCTGA
+
+> RDBECOLIGNC00987 thrB(b0003) 2801..3733  size: 932
+ATGGTTAAAGTTTATGCCCCGGCTTCCAGTGCCAATATGAGCGTCGGGTTTGATGTGCTCGGGGCGGCG..
+```
+
+No es necesario poner la secuencia en varios renglones, puedes dejarla en un solo renglón.
+
+Hasta el final del archivo pon una linea de comentario con el número de genes procesados, por ejemplo:
+
+```
+#  4600 genes convertidos a formato fastA
+```
+
+7. Usando el archivo `E_coli_K12.S_typhi.bdbh`, Si las columnas 13)QueryLength	14)TargetLength que representan el tamaño de la secuencia del gene Query y del Target (son ortólogos bidireccionales),  reporta cuántos ortólogos tienen el mismo tamaño de la secuencia.
+
+
+8. Usando el mismo archivo de la pregunta anterior y las mismas columnas, obtener aquellos ortólogos que no tienen el mismo tamaño, e imprime los GIs de los genes ortólogos, sus tamaños y una columna adicional de la resta de sus tamaños, para saber que tanta diferencia hay entre ellos en tamaño.
+
+
+9. Queremos modificar el archivo `E_coli_K12.list` para que  la columna del strand, venga como forward cuando sea F, y reverse en caso de R. Además las posiciones deben estar en columnas separadas y no tener los ".."
+
+10. FeebBack. Piensa en algo que pudiera CONTRIBUIR a mejorar el CONTENIDO del curso. O si piensas que el contenido es correcto, podrías darnos la experiencia o tu proceso de aprendizaje durante el curso.
+
+

@@ -1,0 +1,20 @@
+---
+title: "Introducción a la Bioinformática"
+author: "Heladia Salgado"
+site: bookdown::bookdown_site
+#apple-touch-sin: "icon_192.png"
+#apple-touch-icon-size: 192
+#favicon: "icon_32.png"
+#github-repo: "https://github.com/lcg-cursos/unix"
+documentclass: book
+output:
+  bookdown::gitbook:
+    includes:
+      after_body: extra.html
+    css: "style.css"
+    
+---
+
+
+<!--chapter:end:index.Rmd-->
+

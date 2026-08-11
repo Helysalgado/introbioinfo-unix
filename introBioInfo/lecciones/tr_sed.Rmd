@@ -1,0 +1,387 @@
+---
+title: "Introducción a la Bioinformática"
+--subtitle: ""
+--author: ''
+institute: "Licenciatura en Ciencias Genómicas,UNAM"
+date: 'First version: yyy-mm-dd; Last update: `r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    css: ["default", "default-fonts", "hygge"]
+    lib_dir: libs
+    includes:
+      after_body: insert-logo.html
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "macros.js"
+--distill::distill_article: default
+
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{css, echo = FALSE}
+/* From https://github.com/yihui/xaringan/issues/147  */
+.scroll-output {
+  height: 80%;
+  overflow-y: scroll;
+}
+
+.noinverse {
+  background-color: #272822;
+  color: #d6d6d6;
+  text-shadow: 0 0 20px #333;
+}
+
+/* https://stackoverflow.com/questions/50919104/horizontally-scrollable-output-on-xaringan-slides */
+pre {
+  max-width: 100%;
+  overflow-x: scroll;
+}
+
+
+```
+
+
+
+---
+
+class: inverse, center, middle
+
+# Sed y tr
+
+---
+
+## Comando tr en Unix
+
+### Transformaciones simples de texto
+
+.content-box-green[
+
+`tr` es un comando en Unix utilizado para traducir o eliminar caracteres de un texto.
+
+Permite realizar operaciones de sustitución, eliminación y compresión de caracteres.
+
+]
+
+**Sintáxis básica**
+
+```
+tr [opciones] SET1 [SET2]
+```
+
+
+```bash
+# Convertir minúsculas a mayúsculas
+echo "hola mundo" | tr 'a-z' 'A-Z'
+```
+
+---
+## Opciones del comando tr
+
+
+Comando | Función
+-- | ---
+-d | Elimina caracteres
+-s | Comprime m´ultiples ocurrencias de los caracteres listados
+
+
+Nota: el comando `tr` puede procesar un archivo, pero no directamente como argumento de línea de comandos como lo hacen otros comandos (por ejemplo, grep o sed). En lugar de eso, `tr` toma su entrada desde la entrada estándar (stdin), lo que significa que normalmente se utiliza junto con la redirección de archivos o en una tubería.
+
+---
+## Aplicaciones comunes
+
+
+**Eliminar Caracteres**: Quitar dígitos de un texto.
+
+```bash
+echo "abc123" | tr -d '0-9'
+```
+
+**Sustituir Caracteres**: Reemplazar espacios por guiones bajos.
+
+```bash
+echo "hola mundo" | tr ' ' '_'
+```
+
+
+**Comprimir Repeticiones** Comprimir múltiples espacios en uno.
+
+```bash
+echo "hola    mundo" | tr -s ' '
+```
+
+
+
+---
+
+---
+## Comando sed en Unix
+
+### Editor de flujo de texto
+
+.content-box-green[
+`sed` es un editor de flujo que aplica transformaciones a cada línea de un archivo o entrada estándar.
+Funcionalidad: Permite buscar, reemplazar, insertar y borrar texto.
+]
+
+**Sintáxis**
+
+```
+sed [opciones] 'comando' archivo
+```
+
+```bash
+# Reemplazar "mundo" por "Unix":
+echo "hola mundo" | sed 's/mundo/Unix/'
+```
+
+<!--
+Notas del Profesor:
+
+    Explica que sed es más poderoso que tr para manipulaciones complejas de texto.
+    Muestra cómo sed se puede usar en scripts para automatizar tareas de edición de texto.
+
+-->
+
+---
+## Ejemplos Prácticos de sed
+
+### Transformaciones avanzadas de texto
+
+Reemplazo Simple: Cambiar "hola" por "adiós".
+
+```bash
+echo "hola mundo. Hola como estas?" | sed 's/hola/adiós/'
+```
+
+Reemplazo Global: Reemplazar todas las apariciones de "a" por "o".
+
+```bash
+echo "banana" | sed 's/a/o/g'
+```
+
+Usando archivos
+
+```bash
+sed 's/A/a/g'  secuencias_ejemplo.txt
+```
+
+Eligiendo el numero de linea
+
+```bash
+sed '2s/A/a/g'  secuencias_ejemplo.txt
+```
+
+---
+## Ejemplos Prácticos de sed
+
+.content-box-yellow[
+sed toma una instrucción y la aplica en cada línea del input, imprimiendo
+una línea de output por cada línea del input
+]
+
+Un rango de líneas
+```bash
+sed '2,4s/A/a/g'  secuencias_ejemplo.txt
+
+```
+
+Para inhabilitar este comportamiento default existe la opción -n `-n, --quiet, --silent`
+
+- Al usar -n, sed no imprimirá nada a menos que se le indique explícitamente que lo haga.
+- Cuando usas -n, debes utilizar el comando p (print) junto con una expresión de selección para especificar qué líneas deseas imprimir. 
+
+```bash
+sed -n '2,4p' secuencias_ejemplo.txt 
+```
+---
+## Ejemplos Prácticos de sed
+
+Imprimir las lineas que contienen un patron
+```bash
+sed -n '/ATA/p' secuencias_ejemplo.txt 
+```
+
+Imprimir las lineas que NO contienen un patron
+
+```bash
+sed -n '/ATA/!p' secuencias_ejemplo.txt 
+```
+
+Buscando un patrón con grupos y backreferences
+
+```bash
+sed -E 's/^([a-z]+) ([a-z]+) /\2-\1/' sed.txt
+
+sed -n -E 's/^([a-z]+) ([a-z]+) /\2-\1/p' sed.txt
+```
+
+
+
+---
+## Eliminar líneas 
+
+Eliminar Líneas: Eliminar la primera línea de un archivo.
+
+```bash
+sed '1d' secuencias_ejemplo.txt 
+```
+
+Un rango de lineas
+
+```bash
+sed '5,10d' secuencias_ejemplo.txt 
+```
+
+eliminar todas las líneas que contienen un patrón específico,
+
+```bash
+sed '/ATG/d' secuencias_ejemplo.txt 
+```
+
+<!--
+Notas del Profesor:
+
+    Explica la diferencia entre reemplazo simple y global.
+    Anima a los estudiantes a usar sed para tareas de procesamiento de texto más complejas.
+
+-->
+
+
+---
+
+<!--
+Notas del Profesor:
+
+    Explica que tr es ideal para transformaciones simples y rápidas de texto.
+    Muestra cómo tr puede ser útil en scripts de shell para manipular datos.
+
+-->
+
+---
+## Uso en Bioinformática
+
+### Convertir Secuencias de ADN a ARN:
+
+Cambiar todas las "T" por "U" en una secuencia de ADN para obtener la secuencia de ARN correspondiente.
+
+`ATGCTAGCTAG`
+
+--
+
+```bash
+echo "ATGCTAGCTAG" | tr 'T' 'U'
+```
+
+--
+
+### Eliminar Caracteres No Deseados
+
+Quitar caracteres no nucleotídicos de una secuencia de ADN `ATGCTAGC-NNN-CTAG`
+
+
+```bash
+echo "ATGCTAGC-NNN-CTAG" | tr -d '-'
+```
+
+---
+## Uso en Bioinformática
+
+### Convertir a Minúsculas:
+
+Convertir una secuencia de ADN a minúsculas para uniformidad.
+
+--
+
+```bash
+echo "ATGCTAGCTAG" | tr 'A-Z' 'a-z'
+```
+
+--
+
+### Reemplazar Nucleótidos:
+
+Reemplazar todas las "A" por "T" en una secuencia de ADN.
+
+```bash
+echo "ATGCTAGCTAG" | sed 's/A/T/g'
+```
+
+---
+## Formateo de Datos
+
+Convertir el archivo de sitios de unión de LexA al formato de "feature map" requerido por RSAT tools, usando herramientas de línea de comandos básicas.
+
+Archivo: `LexA_tfbs_info.txt`
+
+```
+Feature map format
+In the standard input format, each feature is represented by a single line, which must contain the following information:
+
+    - map name (eg: gene name),
+    - feature type (site, ORF),
+    - identifier(ex: GATA_box, Abf1_site)
+    - strand (D for Direct, R for Reverse),
+    - start position (may be negative)
+    - end position (may be negative)
+    - (optional) sequence (ex: AAGATAAGCG)
+    - (optional) score (a real value)
+```
+
+Revisa el archivo y haz los ajustes: 
+- map gene  = promotor
+- feature type = cabiar sitio por TFBs
+- strand = cambiar forward por D y reverse por R
+- Eliminar Líneas Incompletas
+
+---
+## Uso en Bioinformática
+
+### Extraer Secuencias de FASTA:
+
+Extraer solo las secuencias (sin encabezados) de un archivo FASTA.
+
+--
+
+```bash
+sed '/^>/d' archivo.fasta
+```
+
+Elimina todas las líneas que comienzan con >, dejando solo las secuencias.
+
+--
+
+### Añadir Anotaciones
+
+Añadir un comentario al final de cada línea de secuencia en un archivo.
+
+--
+
+```bash
+sed 's/$/ # Anotación/' archivo.txt
+```
+
+Descripción: Añade " # Anotación" al final de cada línea.
+
+---
+## Uso en Bioinformática
+
+### Eliminar Líneas Vacías:
+
+Quitar líneas vacías de un archivo de secuencias.
+
+--
+
+```bash
+sed '/^$/d' archivo.txt
+```
+
+Descripción: Elimina todas las líneas vacías.
+
+--
+
+

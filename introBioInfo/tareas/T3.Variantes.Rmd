@@ -1,0 +1,144 @@
+---
+title: "Introducción a la Bioinformática"
+--subtitle: ""
+--author: ''
+institute: "Licenciatura en Ciencias Genómicas,UNAM"
+date: 'First version: yyy-mm-dd; Last update: `r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    css: ["default", "default-fonts", "hygge"]
+    lib_dir: libs
+    includes:
+      after_body: insert-logo.html
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "macros.js"
+--distill::distill_article: default
+
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{css, echo = FALSE}
+/* From https://github.com/yihui/xaringan/issues/147  */
+.scroll-output {
+  height: 80%;
+  overflow-y: scroll;
+}
+
+.noinverse {
+  background-color: #272822;
+  color: #d6d6d6;
+  text-shadow: 0 0 20px #333;
+}
+
+/* https://stackoverflow.com/questions/50919104/horizontally-scrollable-output-on-xaringan-slides */
+pre {
+  max-width: 100%;
+  overflow-x: scroll;
+}
+```
+
+## Tarea
+
+El objetivo de la tarea es que aprendas a moverte en la estructura de directorios de unix e ir aprendiendo sobre las buenas prácticas de la organización de proyectos.
+
+
+Recuerda que tu documentación debe ser lo suficiente para que los resultados sean **REPRODUCIBLES**.
+
+---
+## Problema
+
+El proyecto **genómico de variantes** se centra en identificar y analizar las **variaciones genéticas** en un conjunto de muestras. El objetivo principal es comprender las diferencias genéticas entre individuos y cómo estas variantes pueden influir en la predisposición a enfermedades, la respuesta a medicamentos o cualquier otro rasgo fenotípico de interés.
+
+Se utilizan **técnicas de secuenciación** de próxima generación y se aplican **análisis bioinformáticos y estadísticos** para obtener información valiosa sobre las variantes genéticas y su relación con los fenotipos de interés.
+
+Supongamos que estas colaborando en ese proyecto para determinar las variantes genéticas de un conjunto de muestras. Tu le entregaste el resultado de la secuenciación de las muestras* y tu colaborador se encargó de todo el análisis bioinformático. Ahora, te comparte todo los resultados del proyecto.
+
+* nota: Los archivos resultado de la secuenciación reporta secuencias de ADN en formato FASTQ generalmente se generan utilizando secuenciadores de próxima generación y contienen las secuencias nucleotídicas y las correspondientes calidades de cada base.
+
+---
+
+## Los resultados del análisis bioinformático
+
+Archivos resultado de **alineamientos** (los archivos que tienen extensión .sam) en formato SAM (Sequence Alignment/Map) contienen las secuencias de ADN alineadas a una referencia genómica y proporcionan información sobre la posición de cada secuencia en el genoma de referencia y las diferencias entre la secuencia de referencia y las secuencias alineadas.
+
+Bowtie es la herramienta que se usó para realizar el alineamiento de secuencias de ADN de alta calidad contra un genoma de referencia. El comando para realizar el alineamiento con Bowtie es:
+
+```
+bowtie -q referencia.fasta -q secuencias.fastq alineamiento.sam
+```
+
+Donde `referencia.fasta` es el archivo en formato FASTA que contiene la secuencia de referencia y `secuencias.fastq` es el archivo en formato FASTQ que contiene las secuencias a alinear. El resultado del alineamiento se guarda en el archivo `alineamiento.sam`.
+
+---
+
+## Los resultados del análisis bioinformático
+
+**Identificación de Variantes**. Los archivos de resultados en formato VCF (Variant Call Format) se utilizan para almacenar variantes genéticas identificadas durante el análisis del genoma, como polimorfismos de un solo nucleótido (SNPs) y variantes de inserción o deleción (indels).
+
+GATK (Genome Analysis Toolkit) es la suite de herramientas que se utilizó para el análisis de datos de secuenciación de ADN y ARN. El comando para realizar el llamado de variantes y generar un archivo en formato VCF con GATK es:
+
+```
+gatk Mutect2 -R referencia.fasta -I alineamiento.bam -O variantes.vcf
+```
+
+   Donde `referencia.fasta` es el archivo en formato FASTA que contiene la secuencia de referencia, `alineamiento.bam` es el archivo en formato BAM que contiene el alineamiento de las secuencias y `variantes.vcf` es el archivo de salida en formato VCF que contendrá las variantes identificadas.
+
+Nota: no te preocupes sino entiendes todos los términos, los verémos mas adelante con más detalle.
+
+---
+## Problema
+
+Los archivos y todos los resultados fueron entregados, pero todo viene revuelto. Es necesario organizarlo.
+
+Los archivos de éste proyecto estan en la siguiente ruta `/home/compu2/WelcomeBioinfo/datos/tarea3`.
+
+1. El proyecto lo llamaremos `genomics-var`, genera ese directorio dentro de `intro-bioinfo`. [ 5 puntos]
+
+2. De acuerdo a los descrito en el proyecto, copia los archivos y organizalos siguiendo la estructura de un proyecto ( data, bin results, doc).  [45 puntos]
+
+Recuerda que tenemos 
+- Archivos de secuencias de ADN en formato FASTQ. Son los archivos con los que iniciamos el análisis.
+- Archivos de alineamiento en formato SAM. Es el resultado de los alineamientos.
+- Archivos de resultados en formato VCF, resultado del análisis de variantes.
+- Archivo .sh que contiene las instrucciones del análisis.
+
+4. Si te quieres preparar para publicar el proyecto y compartir todos éstos datos, genera la documentación necesaria para presumir tu proyecto. [50 puntos]
+Puede ser :
+
+  - README.md : puede describir la estructura de directorios y los archivos, o bien
+  - Puede ser un documento reporte_variantes.md, usando el formato de `Reporte de Investigación` donde se describa el proyecto y los resultados, asi como los archivos.
+
+---
+
+## Entregable
+
+- Estructura de directorios del proyecto organizado, junto con la documentación en formato markdown.
+
+En la plataforma donde se sube la tarea, sólo se indicará el PATH o ruta absoluta donde se encuentra la carpeta del proyecto.
+
+
+
+
+
+---
+
+---
+
+## Rubríca para Evaluación
+
+Puedes consultar la [rúbrica para la evaluación](https://lcg-cursos.github.io/material/introbioinfo/rubros-evaluacion-tareas.html) del reporte. En algunos casos se pedirá que el archivo markdown se llame README.md o como en este caso, se pide un nombre diferente (ambos casos son correctos)
+
+
+
+
+
+
+
+
+

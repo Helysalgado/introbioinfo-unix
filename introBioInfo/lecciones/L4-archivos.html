@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Introducción a la Bioinformática</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.18/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/hygge.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Introducción a la Bioinformática
+]
+.institute[
+### Licenciatura en Ciencias Genómicas,UNAM
+]
+.date[
+### First version: yyy-mm-dd; Last update: 2024-08-28
+]
+
+---
+
+
+
+
+&lt;style type="text/css"&gt;
+/* From https://github.com/yihui/xaringan/issues/147  */
+.scroll-output {
+  height: 80%;
+  overflow-y: scroll;
+}
+
+.noinverse {
+  background-color: #272822;
+  color: #d6d6d6;
+  text-shadow: 0 0 20px #333;
+}
+
+/* https://stackoverflow.com/questions/50919104/horizontally-scrollable-output-on-xaringan-slides */
+pre {
+  max-width: 100%;
+  overflow-x: scroll;
+}
+&lt;/style&gt;
+
+
+## Objetivo
+
+Lxs alumnxs deberán ser capaces de comprender el dogma central de la biología, los formatos de secuencias biológicas y las bases de datos biológicas. Además, conocerán los comandos para descargar secuencias, ver los archivos de secuencias y generar nuevos archivos.
+
+---
+
+## Contenido de la unidad
+
+1. Dogma Central de la Biología
+
+2. Secuencias biológicas.
+
+3. Bases de datos.
+
+4. Transferencia de archivos.
+
+5. Contenidos de un archivo.
+
+6. Escritura de un archivo.
+
+7. Streams en unix.
+
+---
+
+class: inverse, center, middle
+
+# Secuencias Biológicas
+
+---
+
+### Genoma
+
+.content-box-blue[
+Un **genoma** es el conjunto completo de **material genético** de un **organismo**, incluyendo todos sus **genes y secuencias no codificantes**. Los genomas pueden variar en tamaño y complejidad. 
+]
+
+&lt;img src="https://i0.wp.com/compass.rauias.com/wp-content/uploads/2023/04/image-67.png?w=800&amp;ssl=1" width="200px" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+## Dogma Central de la Biología
+
+&lt;img src="img/dogma_central.jpg" width="500px" style="display: block; margin: auto;" /&gt;
+
+El dogma central de la biología molecular es un concepto fundamental que describe **el flujo de información genética dentro de una célula**. Fue propuesto por Francis Crick en 1958 y establece cómo la información genética se transfiere de ADN a ARN y finalmente a proteínas. 
+
+---
+### Componentes Principales
+
+1. **ADN (Ácido Desoxirribonucleico)**:
+   - Es la molécula que almacena la información genética en los organismos vivos.
+   - Consiste en una doble hélice formada por nucleótidos, que incluyen una base nitrogenada (adenina, timina, citosina, guanina -ATGC), un azúcar (desoxirribosa) y un grupo fosfato.
+
+2. **ARN (Ácido Ribonucleico)**:
+   - Es una molécula similar al ADN pero generalmente de cadena simple.
+   - Contiene ribosa en lugar de desoxirribosa y uracilo en lugar de timina.
+   - Existen varios tipos de ARN, incluyendo ARN mensajero (ARNm), ARN de transferencia (ARNt) y ARN ribosómico (ARNr).
+
+3. **Proteínas**:
+   - Son moléculas formadas por cadenas de aminoácidos.
+   - Realizan una amplia variedad de funciones en la célula, incluyendo catálisis de reacciones (enzimas), transporte, estructura y señalización.
+   
+---
+### Flujo de Información
+
+El dogma central describe tres procesos principales:
+
+1. **Replicación**:
+   - El ADN se duplica para asegurar que cada célula hija reciba una copia completa del material genético durante la división celular.
+   - La enzima ADN polimerasa es responsable de la síntesis de la nueva cadena de ADN.
+
+2. **Transcripción**:
+   - La información genética en el ADN se transfiere a una molécula de ARN.
+   - La ARN polimerasa sintetiza una cadena de ARN complementaria a una de las cadenas de ADN.
+   - El resultado es una molécula de ARN mensajero (ARNm) que lleva la información genética desde el núcleo (en células eucariotas) al citoplasma.
+
+3. **Traducción**:
+   - La información en el ARNm se utiliza para sintetizar una proteína.
+   - Los ribosomas, junto con el ARN de transferencia (ARNt), leen la secuencia de nucleótidos en el ARNm y ensamblan los aminoácidos en la secuencia correcta para formar una proteína.
+   - Cada triplete de nucleótidos en el ARNm, conocido como codón, especifica un aminoácido particular.
+   
+---
+## Diferencias entre las secuencias biológicas
+
+.pull-left[
+**Estructura de un gene eucariote**
+&lt;img src="img/gene_eukaryote.png" width="600px" style="display: block; margin: auto;" /&gt;
+
+La estructura de un **gen eucariota** incluye **regiones promotoras**, **exones**, **intrones**, **sitios de inicio** y **terminación** de la transcripción, y secuencias de poliadenilación. Además, los elementos reguladores distales como **enhancers**, **silencers** e insulators juegan roles cruciales en la regulación de la expresión génica. 
+
+.tiny[[Source:Gene_structure_eukaryote](https://en.wikipedia.org/wiki/File:Gene_structure_eukaryote_2_annotated.svg#metadata)]
+
+]
+
+.pull-right[
+**Estructura de un gene procariote**
+&lt;img src="https://assets.coursehero.com/study-guides/lumen/images/wmopen-biology1/outcome-prokaryotic-gene-regulation/OSC_Microbio_11_07_Operon-1024x4241.jpg" width="600px" style="display: block; margin: auto;" /&gt;
+
+La estructura de un **gen procariota** incluye una **región promotora**, un **sitio de inicio de la transcripción**, una **región codificante** y un **sitio de terminación de la transcripción**. En muchos casos, los genes procariotas están organizados en **operones**, que permiten la transcripción coordinada de múltiples genes bajo el control de un único promotor. 
+
+.tiny[[Source: OSC_Microbio_11_07_Operon]( https://assets.coursehero.com/study-guides/lumen/images/wmopen-biology1/outcome-prokaryotic-gene-regulation/OSC_Microbio_11_07_Operon-1024x4241.jpg)]
+]
+
+
+.tiny[[Lectura recomendada: Genome and Gene Structure](https://www.sciencedirect.com/science/article/pii/B9780128125373000044)]
+
+---
+## Hablemos de números
+
+|Especie|Tamaño genoma|No.cromosomas| No. de genes |No. de transcritos|No. de proteínas|
+|----    |----  |----  |----  |----  |----  |
+| Humano |3 mil millones|24 |∼60,000 |∼400,000 (Ensembl)|0.62 - 6.13 millones de especies proteicas (basado en PTMs)|
+|Ratón   |2.5 mil millones| 20 | ∼50,000 |142,000 (Gencode) | 55,000 (Uniprot)|
+|Ajolote |30 mil millones | 14 | ∼23,000 codificantes para proteína | 1.5 millones (ensamble de novo) | NA |
+|*E. coli* |4.6 millones |1 |∼4,400 |∼361 |∼4,285|
+
+---
+## ¿Cómo se ve una secuencia biológica?
+
+
+
+.content-box[
+Genoma
+```
+&gt;NC 000913.3 Escherichia coli str. K-12 substr. MG1655, complete genome
+AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGCTTCTGAACTG
+GTTACCTGCCGTGAGTAAATTAAAATTTTATTGACTTAGGTCACTAAATACTTTAACCAATATAGGCATAGCGCACAGAC
+AGATAAAAATTACAGAGTACACAACATCCATGAAACGCATTAGCACCACCATTACCACCACCATCACCATTACCACAGGT
+```
+]
+
+.content-box[
+Gene
+```
+&gt;NC 000913.3:c1399526-1398774 Escherichia coli str. K-12 substr. MG1655, complete genome
+ATGATCCCGGAAAAGCGAATTATACGGCGCATTCAGTCTGGCGGTTGTGCTATCCATTGCCAGGATTGCA
+GCATCAGCCAGCTTTGCATCCCGTTCACACTCAACGAACATGAGCTTGATCAGCTTGATAATATCATTGA
+GCGGAAGAAGCCTATTCAGAAAGGCCAGACGCTGTTTAAGGCTGGTGATGAACTTAAATCGCTTTATGCC
+```
+]
+
+.content-box[
+Proteína
+```
+&gt;NP 415850.1 DNA-binding transcriptional dual regulator FNR [Escherichia coli str. K-12 substr. MG1655]
+MIPEKRIIRRIQSGGCAIHCQDCSISQLCIPFTLNEHELDQLDNIIERKKPIQKGQTLFKAGDELKSLYA
+IRSGTIKSYTITEQGDEQITGFHLAGDLVGFDAIGSGHHPSFAQALETSMVCEIPFETLDDLSGKMPNLR
+QQMMRLMSGEIKGDQDMILLLSKKNAEERLAAFIYNLSRRFA
+```
+]
+
+**Encuentra las diferencias**
+
+---
+## Formato FASTA
+
+Definición
+.content-box[
+```
+&gt;ID de la secuencia, metadatos de identificación
+AAAAAAAAATTTTTTTTTTTCCCCCCCCGGGGGGGG ....
+```
+]
+
+- Se recomienda que las líneas de secuencia sean a lo más de 80 caracteres por línea
+- Cada nucleótido o aminoácido es representado por UNA letra
+- No se permiten d´ıgitos en la secuencia
+- La secuencia debe apegarse a los códigos estándar IUPAC para aminoácidos o nucleótidos
+
+---
+## Código para nucleótidos
+
+&lt;img src="img/iupac_nt.png" width="350px" style="display: block; margin: auto;" /&gt;
+
+|Símbolo|Significado|
+|----    |----  |
+|-  |Gap de longitud indeterminada|
+
+---
+## Código de aminoácidos
+
+&lt;img src="img/iupac_aa.jpg" width="600px" style="display: block; margin: auto;" /&gt;
+
+
+|Símbolo|Significado|
+|----    |----  |
+|-      |Gap de longitud indeterminada|
+|X      |Cualquiera|
+|*      |Final de traducción|
+
+
+---
+## Archivos de anotación
+
+- Formatos tabulares
+  - GTF  
+  - GFF  
+  - GFF3  
+  
+- Formatos de texto estructurado
+  - GenBank
+
+---
+
+## Formatos Tabulares
+
+.content-box-blue[
+
+Los formatos **GTF** (Gene Transfer Format), **GFF** (General Feature Format) y **GFF3** (General Feature Format version 3) son formatos de archivo utilizados para describir **anotaciones de genes y otras características genómicas**. Estos formatos son ampliamente utilizados en bioinformática para almacenar y compartir información sobre la estructura y función de los genes en un genoma.
+]
+
+---
+## Formatos tabulares GFF
+
+Una línea por cada elemento. Cada línea DEBE contener 9 campos. Los campos
+DEBEN estar separados por ***tabuladores***. Todos los campos DEBEN contener un valor,
+los campos vacíos se denotan con ’.’
+
+1. **seqname**. Nombre de la secuencia (por ejemplo, un cromosoma o un contig).
+2. **source**. Fuente de la anotación (por ejemplo, una base de datos o un programa de predicción).
+3. **feature**. Tipo de característica (por ejemplo, gene, exon, CDS).
+4. **start**. Posición de inicio de la característica (1-based).
+5. **end**. Posición de fin de la característica (inclusive).
+6. **score**. Valor de puntuación (puede ser un punto "." si no está disponible).
+7. **strand**. Cadena en la que se encuentra la característica (+ o -).
+8. **frame**. Marco de lectura (0, 1, 2 o un punto "." si no aplica).
+9. **attribute**. Pares tag-value, separados por coma, que proveen información adicional
+
+---
+
+#### Ejemplo de Archivo GFF
+
+```plaintext
+chr1    .   gene    11869   14409   .   +   .   ID=gene1;Name=DDX11L1
+chr1    .   mRNA    11869   14409   .   +   .   ID=transcript1;Parent=gene1;Name=DDX11L1-001
+chr1    .   exon    11869   12227   .   +   .   ID=exon1;Parent=transcript1
+chr1    .   exon    12613   12721   .   +   .   ID=exon2;Parent=transcript1
+chr1    .   exon    13221   14409   .   +   .   ID=exon3;Parent=transcript1
+```
+---
+## Formatos de texto estructurado: GenBank
+
+.pull-left[
+&lt;img src="img/genebank1.png" width="600px" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;img src="img/genebank2.png" width="600px" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+# Veamos los archivos
+
+- Ve al directorio ~compu2/WelcomeBioinfo/datos/practica3 y explora ambos archivos
+
+- Nota la extensión de los archivos
+
+- Visualiza los archivos con `less`
+
+---
+
+class: inverse, center, middle
+
+# Bases de datos
+
+---
+## ¿Qué es una base de datos?
+
+--
+
+.content-box-blue[
+“A database is an organized collection of structured information, or data, typically
+stored electronically in a computer system. A database is usually controlled by a
+database management system (DBMS). Together, the data and the DBMS, along
+with the applications that are associated with them, are referred to as a database
+system, often shortened to just database.”
+
+.tiny[— ORACLE]
+]
+
+.content-box-green[
+Un conjunto de datos de varios tipos, organizados para optimizar su almacenamiento y agilizar su consulta.
+]
+
+---
+## Algunos ejemplos
+
+--
+
+- El sistema de clientes de los bancos
+
+- El sistema de clientes de la compañia de teléfonos
+
+- Los sistemas de inventario de los supermercados
+
+- Los sistemas de nómina de las secretarias de gobierno
+
+---
+## Conceptos en Bases de datos
+
+Al usar una base de datos en bioinformática, un usuario debe considerar varios factores clave para asegurar que los datos sean utilizados de manera eficiente y correcta. 
+
+**Registro**. Un **registro** en una base de datos es una fila de datos en una tabla que contiene información relacionada sobre una única entidad. En bioinformática, un registro podría representar datos sobre un gen, una proteína, una secuencia de ADN, una muestra de pacientes, etc.
+
+**Identificador**. Un **identificador** es un campo o conjunto de campos que permite identificar de manera única un registro dentro de una tabla. Los identificadores son esenciales para la integridad y eficiencia en la recuperación de datos.
+
+**Versión**. La **versión** de datos o de la base de datos es crucial en bioinformática porque las anotaciones y secuencias genómicas pueden actualizarse con nueva información. Utilizar la versión correcta asegura la reproducibilidad y la coherencia en los estudios.
+
+---
+## Conceptos en Bases de datos
+
+**Metadatos** son datos que proporcionan información sobre otros datos. En bioinformática, los metadatos son esenciales para contextualizar las secuencias y anotaciones.
+
+#### Elementos Comunes de Metadatos:
+- **Fuente**: Procedencia de los datos (por ejemplo, base de datos, experimento).
+- **Fecha de Creación**: Cuándo fueron generados o publicados los datos.
+- **Propósito**: Para qué se recolectaron los datos.
+- **Formato**: Cómo están estructurados los datos (por ejemplo, FASTA, GenBank).
+
+
+**Integridad y Calidad de los Datos** son cruciales para asegurar la veracidad y aplicabilidad de los datos en bioinformática. Consistencia, precisión, Completitud y Actualización.
+
+
+**Acceso y Privacidad** 
+
+**Interoperabilidad** La capacidad de una base de datos para interactuar con otros sistemas y bases de datos es crucial en bioinformática, donde a menudo es necesario integrar y comparar datos de múltiples fuentes. Estándares y Formatos Abiertos, APIs y Servicios Web, etc.
+
+---
+## En el campo de la bioinformática
+
+Existen cientos de bases de datos de corte biologico: (www.oxfordjournals.org/nar/database/c) http://www.oxfordjournals.org/nar/database/c
+
+- NCBI
+- ENSEMBL
+- UCSC Table Browser
+- Bases de datos dedicadas a organismos específicos:
+
+  - Ecocyc
+  - Flybase
+  - Wormbase
+
+- Bases de datos especializadas en un tema particular:
+
+  - ENCODE: Elementos funcionales del genoma humano
+  - RegulonDB: Regulación transcripcional en _Escherichia coli_
+  - Pfam: Familias proteícas
+  - miRBase: Secuencias de miRNA y sus blancos
+
+
+---
+## NCBI https://www.ncbi.nlm.nih.gov/
+
+- Es una base de datos de bases de datos.
+- Contiene una base de datos de genomas, genes, proteínas, homólogos,literatura, taxonomía, variantes genéticas, etc.
+
+&lt;img src="img/ncbi.png" width="600px" style="display: block; margin: auto;" /&gt;
+
+---
+## NCBI Databases
+
+**GenBank**. GenBank is an NIH genetic sequence database, an annotated collection of all publicly available DNA sequences. GenBank is part of the International Nucleotide Sequence Database Collaboration, which comprises the DNA DataBank of Japan (DDBJ), the European Molecular Biology Laboratory (EMBL), and GenBank at NCBI. These three organizations exchange data on a daily basis. GenBank consists of several divisions, most of which can be accessed through the Nucleotide database. The exceptions are the EST and GSS divisions, which are accessed through the Nucleotide EST and Nucleotide GSS databases, respectively.
+
+**Gene**. A searchable database of genes, focusing on genomes that have been completely sequenced and that have an active research community to contribute gene-specific data. 
+
+**Gene Expression Omnibus (GEO) Datasets**. Stores curated gene expression and molecular abundance DataSets assembled from the Gene Expression Omnibus (GEO) repository. 
+
+**Genome** Contains sequence and map data from the whole genomes of over 1000 organisms. 
+
+---
+## Bases de datos biológicas
+
+**Nucleotide Database** A collection of nucleotide sequences from several sources, including GenBank, RefSeq, the Third Party Annotation (TPA) database, and PDB. 
+
+**PubMed** A database of citations and abstracts for biomedical literature from MEDLINE and additional life science journals. Links are provided when full text versions of the articles are available via PubMed Central (described below) or other websites.
+
+**PubMed Central (PMC)** A digital archive of full-text biomedical and life sciences journal literature, including clinical medicine and public health.
+
+---
+## Base de Datos: GenBank
+
+.content-box-blue[
+Cada entrada en GenBank, conocida como un **registro de GenBank**, proporciona detalles sobre una secuencia de ADN o ARN, incluyendo su origen, características y anotaciones.
+
+Search GenBank for sequence identifiers and annotations with Entrez Nucleotide.
+
+]
+
+&lt;img src="img/genbank_record2.png" width="600px" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Base de Datos: GenBank
+
+Naveguemos en GenBank.
+
+- Abre un navegador.  
+- Ve a NCBI y selecciona la base de datos `Nucleotide`
+- Busca: araC gene regulator escherichia coli K12
+- Revisa todo el registro.
+- Checa otros formatos.
+- Salva el registro.
+- Checa la información relacionada.
+
+---
+## Base de Datos: Genome
+
+.content-box-blue[
+
+Contiene datos de secuencias y mapas de genomas completos de más de 1000 organismos. Los genomas representan tanto organismos completamente secuenciados como aquellos cuya secuenciación está en curso. Están representados los tres dominios principales de la vida (bacterias, arqueas y eucariotas), así como muchos virus, fagos, viroides, plásmidos y orgánulos.
+
+]
+
+[NCBI: Genome](https://www.ncbi.nlm.nih.gov/datasets/genome/)
+
+---
+## Base de Datos: Genome
+
+- Selecciona la base de datos `Genome`
+- Busca: Escherichia coli K12
+- Selecciona el genoma de referencia (tiene una palomita verde)
+- Explora las opciones, sobre todo el link `FTP`
+- Explora ambos registros tanto de GenBank como de RefSeq : U00096.3	NC_000913.3
+- Revisa todo el registro.  
+- Checa otros formatos.  
+- Salva el registro.  
+
+---
+## Base de Datos: PubMed
+
+.content-box-blue[
+PubMed® comprises more than 37 million citations for biomedical literature from MEDLINE, life science journals, and online books.
+]
+
+&lt;img src="img/pubmed_record.png" width="600px" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Base de Datos: PubMed
+
+- Abre un navegador.  
+- Busca: "FAIR principles for data"
+- Revisa todo el registro.  
+- Checa otros formatos.  
+- Salva el registro.  
+- Checa la información relacionada.  
+
+---
+## Todo un arsenal de ayuda
+
+[NCBI KnowledgeBase](https://support.nlm.nih.gov/knowledgebase/)
+
+---
+## DownLoad de NCBI
+
+.content-box-blue[
+"The majority of NCBI data are available for downloading, either directly from the NCBI FTP site or by using software tools to download custom datasets." --  NCBI
+
+]
+
+- DownLoad https://www.ncbi.nlm.nih.gov/home/download/  
+  -  [FTP Site](https://ftp.ncbi.nlm.nih.gov/)
+  -  Aspera
+
+---
+## ENSEMBL https://www.ensembl.org/index.html
+
+.content-box-blue[
+“Ensembl is a genome browser for vertebrate genomes that supports research in
+comparative genomics, evolution, sequence variation and transcriptional
+regulation. Ensembl annotate genes, computes multiple alignments, predicts
+regulatory function and collects disease data. Ensembl tools include BLAST,
+BLAT, BioMart and the Variant Effect Predictor (VEP) for all supported species.”
+
+.tiny[— ENSEMBL]
+]
+
+
+&lt;img src="img/ensembl.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: inverse, center, middle
+
+# Transferencia de archivos
+
+---
+## ¿Cómo descargamos un archivo de una base de datos al servidor remoto?
+
+&lt;img src="img/why.jpeg" width="250px" style="display: block; margin: auto;" /&gt;
+
+---
+## ¿Cómo descargamos un archivo de una base de datos en el servidor?
+
+.pull-left[
+&lt;img src="https://upload.wikimedia.org/wikipedia/commons/7/73/Suite_de_Protocolos_TCPIP.png" width="400px" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+
+Escenario: Estamos en un servidor unix usando el shell (tepeu por ejemplo) o en nuestra computadora en una terminal, y necesitamos descargar/transferir un archivo disponible en otro servidor que tiene archivos públicos.
+
+Los comandos para recuperar archivos usando HTTP (páginas web), HTTPS, FTP(archivos) y FTPS son:
+
+- `wget`
+
+- `curl`
+
+]
+
+---
+## Directorio de trabajo
+
+Genera un directorio de trabajo para esta sesión y ubícate en él.
+
+```bash
+### Muévete a tu directorio home
+cd ~
+
+### Genera el directorio de trabajo
+mkdir practica3
+
+### Ubícate en él
+cd practica3
+```
+
+---
+## wget
+
+Descarga el **genoma** de la bacteria _Escherichia coli_ de NCBI.
+
+```bash
+### Descargando el genoma de E.coli de NCBI
+wget \
+https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/005/845/\
+GCF_000005845.2_ASM584v2/\
+GCF_000005845.2_ASM584v2_genomic.fna.gz
+```
+---
+## wget
+
+Descarga el **fasta** con todas las secuencias protéicas de la bacteria
+_Escherichia coli_ de NCBI.
+
+```bash
+### Descargando las proteínas de E.coli de NCBI
+wget \
+https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/005/845/\
+GCF_000005845.2_ASM584v2/\
+GCF_000005845.2_ASM584v2_protein.faa.gz
+```
+
+---
+## wget
+
+Descarga la **anotación** del genoma de la bacteria _Escherichia coli_ de
+NCBI.
+
+
+```bash
+### Descargando la anotación del genoma de E.coli de NCBI
+wget -O e_coli_anotacion.gff.gz \
+https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/005/845/\
+GCF_000005845.2_ASM584v2/\
+GCF_000005845.2_ASM584v2_genomic.gff.gz
+```
+
+**¿Qué cambió con respecto a los comandos anteriores?**
+
+---
+## wget
+
+Opciones útiles:
+
+|Comando        | Función   |
+|----           |----       |
+|-O             |Nombrar el archivo de salida. |
+|--user         |Usuario para la autentificación de la conexión. |
+|--ask-password |Para la autentificación de la conexión.|
+|--recursive    |Descargará TODO a una profundidad máxima de --level.|
+|--accept       |Tipo de archivo a descargar.|
+|--no-parent    |Para no moverse hacia arriba del directorio padre.|
+
+---
+## Ejercicio...
+
+Vuelve a descargar el genoma de _Escherichia coli_ pero ahora
+asegúrate de guardar la secuencia en un archivo llamado
+`e_coli_genome.fasta`
+
+
+```bash
+### Descargando el genoma de E.coli de NCBI
+### Y renombrándolo
+```
+
+---
+## Respuesta
+
+Vuelve a descargar el genoma de _Escherichia coli_ pero ahora
+asegúrate de guardar la secuencia en un archivo llamado
+`e_coli_genome.fasta`.
+
+```bash
+### Descargando el genoma de E.coli de NCBI
+### Y renombrándolo
+wget -O e_coli_genome.fasta.gz \
+https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/005/845/\
+GCF_000005845.2_ASM584v2/\
+GCF_000005845.2_ASM584v2_genomic.fna.gz
+```
+
+---
+## ¿Cómo comprobar que dos archivos son idénticos?
+
+Hemos descargado dos veces la secuencia genómica de _Escherichia coli_.
+
+
+Comprobemos que ambos archivos son idénticos.
+
+```bash
+### Comprobando que ambos archivos son idénticos
+diff GCF_000005845.2_ASM584v2_genomic.fna.gz \
+e_coli_genome.fasta.gz
+```
+
+---
+## curl
+
+Este comando realiza la misma función básica que `wget`.
+
+Las diferencias principales son:
+
+- El output lo imprime a standard output.
+
+- Imprime varias estadísticas útiles sobre la descarga.
+
+
+```bash
+### Descargando el genoma de E.coli de NCBI
+curl \
+https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/005/845/\
+GCF_000005845.2_ASM584v2/\
+GCF_000005845.2_ASM584v2_genomic.fna.gz
+```
+
+**¿Qué acaba de pasar?**
+
+---
+## curl, redirección del output
+
+Redirigiendo la salida a un archivo:
+
+
+```bash
+### Descargando el genoma de E.coli de NCBI
+curl \
+https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/005/845/\
+GCF_000005845.2_ASM584v2/\
+GCF_000005845.2_ASM584v2_genomic.fna.gz &gt; \
+e_coli_genome_curl.fasta.gz
+```
+
+---
+## Verificando la integridad de los datos
+
+Es una buena práctica verificar la integridad de los datos después de haber
+realizado una descarga.
+
+Los dos algoritmos más comunes son:
+
+- SHA checksum.
+
+- MD5 checksum.
+
+Estos programas generan una suma encriptada que será  única para cada
+archivo. Muchos recursos genómicos cuentan con las sumas de
+confirmación para cada descargable.
+
+---
+## Verificando la integridad de los datos
+
+Es una buena práctica verificar la integridad de los datos después de haber
+realizado una descarga.
+
+Los dos algoritmos más comunes son:
+
+- SHA checksum.
+
+- MD5 checksum.
+
+Estos programas generan una suma encriptada que será  única para cada
+archivo. Muchos recursos genómicos cuentan con las sumas de
+confirmación para cada descargable.
+
+Dado que no sabemos la suma encriptada para nuestro genoma, **¿cómo verificamos la integridad de los datos descargados?**
+
+
+
+---
+## Verificando el éxito de nuestra transferencia
+
+
+```bash
+## Descargando el genoma de E.coli por cuarta vez
+wget -O prueba.fasta.gz \
+https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/005/845/\
+GCF_000005845.2_ASM584v2/\
+GCF_000005845.2_ASM584v2_genomic.fna.gz
+
+## Obtener las sumas de confirmación
+shasum e_coli_genome.fasta.gz
+shasum prueba.fasta.gz
+```
+
+---
+## ¿Cómo transferimos un archivo desde nuestra computadora al servidor remoto?
+
+¿Podremos usar los mismos protocolos?
+
+
+&lt;img src="img/why.jpeg" width="250px" style="display: block; margin: auto;" /&gt;
+
+---
+## ¿Cómo transferimos un archivo desde nuestra computadora al servidor remoto?
+
+Existen comandos específicos para realizar esta tarea:
+
+- `scp`
+
+- `rsync`
+
+---
+## scp
+
+Sintaxis básica
+
+.content-box-gray[
+```
+## Sintaxis básica scp
+scp [$SOURCE] [$DESTINATION]
+```
+]
+
+
+**SOURCE**: De donde vienen los datos.
+
+**DESTINATION**: A donde van los datos.
+
+---
+## Copiemos un archivo desde MI COMPUTADORA --&gt; SERVIDOR 
+
+.content-box-red[
+DESDE mi computadora, me coloco en el directorio donde esta el archivo a copiar
+]
+
+
+```bash
+## Copiando el archivo prueba.txt que esta en  MI COMPUTADORA
+## a mi carpeta practica3 en el SERVIDOR
+
+scp prueba.txt miusuario@tepeu.lcg.unam.mx:/home/miusuario/practica3/
+
+# o puedo usar el IP del servidor
+scp prueba.txt miusuario@132.248.220.14:/home/miusuario/practica3/
+```
+
+.tiny[
+prueba.txt es el archivo que esta en mi computadora  
+miusuario es el nombre de mi usuario,  
+@tepeu.lcg.unam.mx luego @ y despues el nombre del servidor  
+:/home/miusuario/practica3/  vienen : puntos y luego el path a donde quiero copiar el archivo  
+]
+---
+## Copiando un archivo desde el SERVIDOR  ---&gt; MI COMPU
+
+.content-box-red[
+SIGO ESTANDO EN MI COMPUTADORA, EN EL DIRECTORIO donde quiero copiar el archivo
+
+]
+
+
+```bash
+## Copiando el archivo e_coli_genome.fasta.gz
+## desde el servidor a mi computadora
+scp miusuario@tepeu.lcg.unam.mx:/home/miusuario/practica3/ .
+
+```
+
+---
+## rsync
+
+Este comando sigue la misma sintaxis básica.
+
+.content-box-gray[
+```
+## Sintaxis básica rsync
+rsync -e ssh [$SOURCE] [$DESTINATION]
+```
+]
+
+
+- -e ssh: Indica que nos conectaremos al servidor a través de una
+conexión de tipo ssh
+
+- **source**: De donde vienen los datos.
+
+- **destination**: A donde van los datos.
+
+---
+
+class: inverse, center, middle
+
+# Contenido de un archivo
+
+---
+## ¿Cómo vemos el contenido de un archivo?
+
+
+**¡Pues lo abrimos en Word!**
+
+¿No?
+
+
+---
+## Comandos y más comandos
+
+Necesitamos acceder a los contenidos del archivo utilizando comandos
+específicos:
+
+- `head`
+
+- `tail`
+
+- `more`
+
+- `less`
+
+Sólo funcionarán con **ARCHIVOS DE TEXTO**.
+
+---
+## Un archivo comprimido NO es un archivo de texto
+
+Comandos útiles:
+
+- `gunzip` (Para descomprimir).
+
+- `zmore` (Como more pero funciona en archivos comprimidos).
+
+- `zless` (Como less pero funciona en archivos comprimidos).
+
+
+---
+## head
+
+Para ver las **primeras** líneas de un archivo.
+
+```bash
+## Primero lo vamos a descomprimir
+gunzip e_coli_genome.fasta.gz
+
+## Te muestra las primeras 10 lineas de un archivo
+head e_coli_genome.fasta
+```
+
+---
+## head, parámetros
+
+¿Y si quiero ver las primeras 20?
+
+```bash
+## Desplegando la ayuda sobre el comando head
+man head
+```
+
+Recuerda: Sólo tienes que presionar q para salir del menú de ayuda. 
+
+
+---
+## head, parámetros
+
+¿Y si quiero ver las primeras 20?
+
+
+```bash
+## Desplegando la ayuda sobre el comando head
+man head
+
+## Te muestra las primeras 20 líneas de un archivo
+head -n 20 e_coli_genome.fasta
+```
+
+---
+## tail
+
+
+Para ver las **últimas** líneas de un archivo.
+
+
+```bash
+## Te muestra las ultimas 10 líneas de un archivo
+tail e_coli_genome.fasta
+```
+
+---
+## more
+
+Para navegar a través de los contenidos de un archivo.
+
+```bash
+## Primero lo vamos a descomprimir
+gunzip e_coli_anotacion.gff.gz
+
+## Visualizando los contenidos de un archivo
+more e_coli_anotacion.gff
+```
+
+Sólo tienes que presionar q para salir.
+
+---
+## more, navegación
+
+Para navegar a través de los contenidos de un archivo.
+
+|Tecla     |Función     |
+|---       |---         |
+|Enter     |Navegar hacia abajo de línea en línea.|
+|Espacio   |Navegar hacia abajo de pantalla en pantalla.|
+
+
+---
+## less
+
+El comando `less` permite visualizar/navegar los contenidos de un archivo.  
+Es un `more` en esteroides.
+
+|Tecla     |Función     |
+|---       |---         |
+|Espacio OR Enter   |Navegar hacia abajo.|
+|b OR flecha arriba |Navegar hacia arriba.|
+|/WORD              |Búsqueda forward.|
+|n                  |Siguiente.|
+|?WORD              |Búsqueda backward.|
+|N                  |Anterior.|
+|G                  |Ir al final del archivo.|
+|g                  |Ir al inicio del archivo.|
+|-S                 |Mostrar una línea por renglón.|
+
+
+---
+
+## less
+
+
+```bash
+## Visualizando los contenidos de un archivo
+less e_coli_anotacion.gff
+```
+
+---
+## Ejercicios: visualización de archivos
+
+- Abre el archivo de anotación utilizando el comando less de manera que veas una línea por renglón.
+
+- Navega por el archivo.
+
+- Navega al final del archivo.
+
+- Navega al inicio del archivo.
+
+- ¿Cuál gene inicia en la posición 1403255?
+
+- ¿Cuál gene termina en la posición 2712042?
+
+
+---
+## Respuestas: visualización de archivos
+
+--
+
+```bash
+## Visualizando los contenidos de un archivo
+less e_coli_anotacion.gff
+```
+
+--
+
+--
+Las respuestas serán desde adentro de less:
+
+```bash
+## Navega por el archivo
+# ESPACIO, FLECHA ARRIBA Y ABAJO
+```
+--
+
+--
+
+```bash
+## Navega al final del archivo
+G
+```
+--
+
+---
+## Respuestas: visualización de archivos
+
+```bash
+## Navega al inicio del archivo
+g
+```
+--
+
+--
+
+```bash
+## Gene que inicia en 1403255
+/1403255
+```
+--
+
+--
+
+```bash
+## Gene que termina en 2712042
+/2712042
+```
+--
+
+
+---
+
+class: inverse, center, middle
+
+# Contenido de un archivo
+
+---
+## ¿Cómo escribimos dentro de un archivo en un servidor?
+
+
+&lt;img src="img/meme-grito.jpeg" width="400px" style="display: block; margin: auto;" /&gt;
+
+---
+## Sublime Text, para sus computadoras personales
+
+Para sus computadoras personales recomiendo
+Sublime Text https://www.sublimetext.com/download
+
+
+&lt;img src="img/sublime.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+---
+## Editores de texto
+
+Existe una gran variedad de editores de texto con diversas funcionalidades
+que pueden instalarse en un ambiente linux.
+
+- nano
+
+- vi
+
+---
+## nano
+
+
+```bash
+## Para crear archivo llamado escribir.txt
+## O para abrir un archivo existente llamado escribir.txt
+nano escribir.txt
+
+## Para abrir un archivo nuevo sin nombre
+nano
+```
+
+.pull-left[
+
+|Combinación  |Función  |
+|---- |---      |
+|ˆo   |Escribir. |
+|ˆw   |Buscar.   |
+|ˆc   |Cortar.   |
+|ˆ    |Ir a línea.|
+
+]
+
+.pull-right[
+
+&lt;img src="img/nano.png" width="400px" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+---
+## vi
+
+
+
+```bash
+## Para crear archivo llamado escribir.txt
+## O para abrir un archivo existente llamado escribir.txt
+vi escribir.txt
+
+## Para abrir un archivo nuevo sin nombre
+vi
+```
+
+---
+## vi
+
+.pull-left[
+
+Para cambiar de modo
+
+|Tecla | Función   |          
+|---- |---      |             
+|i   |Modo escritura.|     
+|v   |Modo visual.|
+|Esc |Para salir del modo.|
+
+En modo visual
+
+|Tecla | Función   |
+|---- |---      |
+|c |Cortar. |
+|p |Pegar.  |
+|y |Copiar. |
+
+]
+
+.pull-right[
+
+En modo default
+
+|Tecla | Función   |
+|---- |---      |
+|u  |Deshacer. |
+|:/ |Buscar. |
+|n  |Buscar siguiente. |
+|:  |Ir a ese número de línea. |
+|:w |Escribir.|
+|:q |Salir.|
+
+]
+
+
+Un pequeño manual https://staff.washington.edu/rells/R110/
+
+
+---
+## A practicar, nano
+
+1. Abre el editor de texto nano.
+
+2. Escribe tu nombre en la primer línea.
+
+3. Escribe dos líneas vacías.
+
+4. Escribe una línea con 20 a’s.
+
+5. Escribe una línea con 20 b’s.
+
+6. Escribe el nombre de tu mascota.
+
+7. Elimina las dos líneas vacías, y las líneas de a’s y b’s utilizando el shortcut para cortar una línea cuatro veces.
+
+8. Guarda ese archivo con el nombre: personal_info.txt
+
+
+---
+## A practicar, vi
+
+1. Abre el archivo personal info.txt con el editor de texto vi.
+
+2. Entra a modo visual.
+
+3. Copia y pega las dos líneas del archivo dos veces (en total tendrás tres repeticiones de la
+misma información.
+
+4. Sal de modo visual y entra a modo de escritura.
+
+5. Escribe el nombre de tu papá y de tu mamá en las líneas subsecuentes.
+
+6. Sal de modo escritura.
+
+7. Utilizando un shortcut ve a la línea 1.
+
+8. Entra a modo inserción y agrega el título: PERSONAL INFO
+
+9. Sal de modo inserción.
+
+10. Sobre escribe los cambios en el mismo archivo personal_info.txt
+
+11. Sal del editor vi.
+
+---
+## De nuevo...
+
+1. Borra el archivo.
+
+2. Sigue las instrucciones en nano una vez más.
+
+3. Sigue las instrucciones en vi una vez más.
+
+---
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+  .logo {
+    background-image: url(logos/LCG-UNAM.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    width: 110px;
+    height: 128px;
+    z-index: 0;
+  }
+  </style>
+  
+  <script>
+  document
+    .querySelectorAll(
+      '.remark-slide-content' +
+      ':not(.title-slide)' +
+      // add additional classes to exclude here, e.g.
+      // ':not(.inverse)' +
+      ':not(.hide-logo)'
+    )
+    .forEach(el => {
+      el.innerHTML += '<div class="logo"></div>';
+    });
+  </script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

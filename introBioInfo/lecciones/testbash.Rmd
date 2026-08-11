@@ -1,0 +1,34 @@
+---
+title: "TestShell"
+author: "Heladia Salgado"
+date: "8/31/2022"
+output: html_document
+---
+
+```{bash, engine.opts='-l'}
+echo $PATH
+
+mkdir tareas
+cd tareas
+mkdir tarea2
+cd tarea2/
+mkdir tercer-nivel
+cd tercer-nivel/
+mkdir cuarto-nivel
+cd ../../../tareas/tarea2/
+cp /home/lgomez/WelcomeBioinfo/datos/tarea3/original.txt .
+ls
+mv original.txt original-nuevo-nombre.txt
+ls
+cp original-nuevo-nombre.txt tercer-nivel/original-nivel3.txt
+ls
+cd tecer-nivel/
+cp original-nivel3.txt cuarto-nivel/
+
+cd
+tree
+tree ../../../tareas/tarea2 > resultados_practica1.txt
+
+```
+
+

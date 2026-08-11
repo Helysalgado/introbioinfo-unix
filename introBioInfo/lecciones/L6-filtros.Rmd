@@ -1,0 +1,878 @@
+---
+title: "Introducción a la Bioinformática"
+--subtitle: ""
+--author: ''
+institute: "Licenciatura en Ciencias Genómicas,UNAM"
+date: 'First version: yyy-mm-dd; Last update: `r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    css: ["default", "default-fonts", "hygge"]
+    lib_dir: libs
+    includes:
+      after_body: insert-logo.html
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "macros.js"
+--distill::distill_article: default
+
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{css, echo = FALSE}
+/* From https://github.com/yihui/xaringan/issues/147  */
+.scroll-output {
+  height: 80%;
+  overflow-y: scroll;
+}
+
+.noinverse {
+  background-color: #272822;
+  color: #d6d6d6;
+  text-shadow: 0 0 20px #333;
+}
+
+/* https://stackoverflow.com/questions/50919104/horizontally-scrollable-output-on-xaringan-slides */
+pre {
+  max-width: 100%;
+  overflow-x: scroll;
+}
+
+
+```
+
+
+## Objetivo
+
+Lxs alumnxs deberán ser capaces de hacer filtros con `grep`.
+---
+
+## Contenido de la unidad
+
+1. Patrones.
+
+2. Filtros con comandos de la familia `grep`.
+
+
+---
+
+class: inverse, center, middle
+
+# Patrones y Filtros
+
+---
+## Patrones
+
+Cuando nos referimos a patrones hablamos de regularidades.
+
+Un patrón es una sucesión de elementos (auditivos, gestuales, textuales, gráficos, etc.) que se construye siguiendo una regla al observar las regularidades. Esa regla puede ser de repetición o de recurrencia.
+
+a) Una palabra o string es un patrón simple:
+
+```bash
+  araC
+  Human Genome
+  CGAGTACTGGAAAACTAA
+```
+--
+
+b) Un teléfono de diez cifras:
+
+```bash
+    777-1234-2345 
+    555-2904-2746 
+   `nnn-nnnn-nnnn`: Patrón que representa los números telefónicos.
+```
+---
+## Patrones
+
+c) Fecha de nacimiento:
+
+```bash
+    18-01-1989 
+    29-05-1997 
+   `dd-mm-aaaa`: Patrón que representa las fechas de nacimiento.
+```
+
+---
+## Patrones en biología
+
+¿Qué patrones en biología conoces?
+---
+
+## Patrones en biología
+
+**ATG**: Codón de inicio de los genes.
+
+```
+ATGGTTAAAGTTTATGCCCCGGCTTCCAGTGC...CGAGTACTGGAAAACTAA
+ATGAAACTCTACAATCTGAAAGATCACAACGA...AAAATGAATCATCAGTAA
+ATGAAGCAGCATAAGGCGATGATTGTCGCCCT...GCTTACGAATCCGAGTAA
+ATGAGCCAGCAAGTCATTATTTTCGATACCAC...AACAAGGAAACCGTGTGA
+ATG...............................................TAA
+                                                   G
+```
+---
+## Patrones en bioinformática
+
+Sitios de unión al DNA de reguladores transcripcionales:
+
+--
+```
+TACTGTTTTTATATACAGTATA
+TACTGTTTATTTATACAGTAAA
+TACTGTTTTTATATACAGTAGT
+AACTGGTTTTATATACAGTAAA
+AACTGTTTTTTTATCCAGTATA
+AACTGTGATTTTATACAGTATA
+TACTGGTTATTTATACAGGTAA
+AACTGTATTTATATACAGTTGT
+CCCTGGGTGTATATACAGTTAT
+TGCTGTGAGTATATACAGCAAA
+TGCTGGTTATCTATCCAGTGTA
+AGCTGTTTATTTATACAGTGAG
+TACTGTTATTGTGTACAGTATA
+CCCTGTAATTTTATCCAGTTGA
+CGCTGGATATCTATCCAGCATT
+TACTGTATGATTATCCAGTTAG
+TGCTGTATATTTATTCAGCTTG 
+```
+--
+```
+taCTGttttTatataCAGtaaa:  Consenso - Patrón que representa a los TFBS.
+```
+---
+## Preparando nuestro directorio de trabajo
+
+Seguimos trabajando en el directorio `practica4`. 
+
+---
+## El comando grep
+
+El comando **`grep`** tiene como función principal la búsqueda de patrones:
+
+
+
+```bash
+man grep
+```
+
+---
+## El comando grep
+
+Algunos ejemplos de sus funcionalidades:
+
+|Opción |   Comportamiento   |
+|----  |---                 |
+|--colour|Marca el texto que corresponde al patrón.                 |
+|-E    | Interpreta el patrón como una expresión regular extendida tipo POSIX. |
+|-p    |Interpreta el patrón como una expresión regular extendida tipo Perl. |
+|-f    |Lee uno o más patrones a partir de un archivo.|
+|-i    |Ignora mayúsculas/minúsculas. |
+|-n    |Imprime el número de línea donde se encontró el patrón.|
+|-v    |Selecciona las líneas en donde no ocurre el patrón. |
+
+---
+## Algunos ejemplos usando grep
+
+Sintaxis:
+
+```bash
+grep [OPTIONS] PATTERN [FILE...]
+```
+
+Buscando un patrón simple:
+
+```bash
+grep araC data/coli.gff
+
+```
+Nota cómo se resalta el patrón en las líneas donde fue encontrado.
+
+Otros ejemplos:
+
+```bash
+grep tRNA data/coli.gff
+
+## patrón compuesto
+grep "homoserine kinase" data/coli.gff
+```
+
+---
+## Algunas preguntas biológicas relevantes
+
+1. ¿Cuántos cromosomas tiene *Escherichia coli*?
+
+2. ¿Cuántos genes (con nombre diferente) existen en *E. coli*?
+
+3. ¿Cuántos genes (ID distinto) existen en *Escherichia coli*?
+
+4. ¿Cuántas secuencias proteicas se conocen para *Escherichia coli*?
+
+5. ¿Los IDs (NP##) de las secuencias proteicas son únicos?
+
+6. ¿Cuál es el tipo de feature de la anotación asociado con los protein_id del archivo FASTA
+de proteínas?
+
+7. ¿Cuál es la posición de inicio, de final y la cadena de los genes listados en `flagella_genes.txt`?
+
+---
+## P1: ¿Cuántos cromosomas tiene *Escherichia coli*?
+
+Esta pregunta ya la sabemos contestar... casi
+
+Las líneas de comentarios nos ensucian los conteos :(
+
+```bash
+## Imprime nombres de cromosomas y encabezado
+cut -f1 data/coli.gff | uniq
+```
+--
+
+**`grep`** tiene esta opción:
+
+`-v`:  Selecciona las líneas en donde **no ocurre el patrón**.
+
+Si queremos eliminar las líneas que tienen `#`, entonces...
+
+--
+
+```bash
+# Imprime nombres de cromosomas sin encabezado
+## Elimina las lineas del encabezado
+## Obtiene los nombres de los cromosomas
+grep -v "#" data/coli.gff | cut -f1 | uniq
+```
+
+---
+## P2. ¿Cuántos genes (con nombre diferente) existen en *E. coli*?
+
+¿Dónde está la información que necesitamos? 
+--
+
+.content-box-blue[Archivo GFF.]
+
+
+Columna 9 **attribute**: Pares tag-value, separados por coma, que proveen información adicional.
+
+```
+## more, less o head de data/coli.gff
+NC_000913.3 RefSeq gene 190 255 . + . \
+ID=gene-b0001;Dbxref=ASAP:ABE-0000006,ECOCYC:EG11277,\
+EcoGene:EG11277,GeneID:944742;Name=thrL;gbkey=Gene;\
+gene=thrL;gene_biotype=protein_coding;\
+gene_synonym=ECK0001;locus_tag=b0001
+```
+
+---
+## P2. ¿Cuántos genes (con nombre diferente) existen en *E. coli*?
+
+Lo que necesitamos hacer:
+
+--
+
+```bash
+## Obtener únicamente con renglones que sean de tipo gene
+## Acceder a la columna 9
+## Separar esa información, que esta separada por ";"
+## Quedarnos con la columna 3
+## Obtener los valores únicos
+## Contar el número de valores únicos
+```
+
+---
+## P2. ¿Cuántos genes (con nombre diferente) existen en *E. coli*?
+
+```bash
+## Quedarnos únicamente con renglones que sean de tipo gene
+grep "gene" data/coli.gff
+```
+--
+
+.center[**¿Funcionó?¿El output es lo que necesitamos?**]
+
+--
+
+.content-box-blue[
+Podemos ver que no sólo los records de tipo gene están siendo conservados.
+]
+
+**Averigua por qué**
+
+--
+.content-box-blue[
+`grep` busca el patrón en todo el renglón... Si necesitamos que únicamente tome en cuenta el valor de la columna 3 necesitamos ser más específicos... Hay que agregar un poco de contexto.
+]
+
+---
+## P2. ¿Cuántos genes (con nombre diferente) existen en *E. coli*?
+
+
+Una lección para recordar:
+
+.content-box-red[
+“Que un programa genere output no significa que el output sea correcto”.
+]
+
+---
+## P2. ¿Cuántos genes (con nombre diferente) existen en *E. coli*?
+
+Sabemos que la columna 2 es idéntica para todos los registros del archivo GFF. Entre la columna 2 y 3 hay un tabulador, generalmente se representa como `\t`
+
+Viéndolo de otra forma, necesitamos filtrar los renglones que tengan RefSeq + tabulador + gene
+
+```bash
+## Quedarnos unicamente con los genes
+grep "RefSeq\tgene" data/coli.gff 
+```
+
+.center[**¿Funcionó?**]
+
+--
+
+.content-box-blue[
+`grep` is using regular expressions as defined by [POSIX](https://muylinux.xyz/que-es-posix-por-que-es-importante-para-los-usuarios-de-linux-unix/). For whatever reasons POSIX have not defined `\t` as tab.
+]
+
+Pero hay alternativas...
+
+---
+## P2. ¿Cuántos genes (con nombre diferente) existen en *E. coli*?
+
+- Podemos decirle a `grep` que use las expresiones regulares definidas por el lenguaje Perl, porque Perl sí tiene "`\t`" definido como tabulador.
+
+```bash
+## Quedarnos únicamente con los genes
+grep -P "RefSeq\tgene" data/coli.gff
+```
+
+--
+
+- Usa de manera literal el caracter tabulador: puedes imprimirlo usando las teclas `^V<tab>`:
+control + V y después control + tecla tab
+
+```bash
+## Quedarnos únicamente con los genes
+grep -P "RefSeq       gene" data/coli.gff
+```
+
+--
+
+Entonces, comprobemos que solo tenemos registros de tipo gene.
+
+```bash
+## Quedarnos únicamente con los genes
+grep -P "RefSeq\tgene" data/coli.gff | cut -f3 | sort -u
+```
+
+---
+## P2. ¿Cuántos genes (con nombre diferente) existen en *E. coli*?
+
+Continuemos con nuestro flujo... 
+
+```bash
+## Quedarnos únicamente con los genes
+grep -P "RefSeq\tgene" data/coli.gff
+````
+--
+
+```bash
+## Acceder a la columna 9
+grep -P "RefSeq\tgene" data/coli.gff | cut -f9
+```
+--
+
+```bash
+## Quedarnos con la columna 3
+man cut
+
+## Obtener los valores únicos
+## Contar el numero de valores únicos
+```
+
+---
+## P2. ¿Cuántos genes (con nombre diferente) existen en *E. coli*?
+
+`cut` tiene la siguiente opción:
+
+```
+      -d, --delimiter=DELIM
+              use DELIM instead of TAB for field delimiter
+```
+
+--
+
+```bash
+## Separar esa información por ";"
+## Quedarnos con la columna 3
+grep -P "RefSeq\tgene" data/coli.gff | cut -f9 | \
+        cut -d ';' -f3 
+```
+
+Finalmente:
+
+```bash
+## Obtener los valores únicos
+grep -P "RefSeq\tgene" data/coli.gff | cut -f9 | \
+cut -d ';' -f3 | sort -u | head
+```
+---
+## P2. ¿Cuántos genes (con nombre diferente) existen en *E. coli*?
+
+Y contarlos:
+
+```bash
+## Contar el número de valores únicos
+grep -P "RefSeq\tgene" data/coli.gff | cut -f9 | \
+        cut -d ';' -f3 | sort -u | wc -l
+```
+
+---
+## P3. ¿Cuántos genes (ID distinto) existen en *Escherichia coli*?
+
+¿Dónde está la información que necesitamos?
+
+--
+
+```bash
+## more, less o head de data/coli.gff
+NC_000913.3 RefSeq gene 190 255 . + . \
+ID=gene-b0001;Dbxref=ASAP:ABE-0000006,ECOCYC:EG11277,\
+EcoGene:EG11277,GeneID:944742;Name=thrL;gbkey=Gene;\
+gene=thrL;gene_biotype=protein_coding;\
+gene_synonym=ECK0001;locus_tag=b0001
+
+```
+---
+## P3. ¿Cuántos genes (ID distinto) existen en *Escherichia coli*?
+
+Lo que necesitamos hacer:
+
+```bash
+## - Quedarnos únicamente con las features de tipo gene
+
+## - Acceder a la columna 9
+
+## -Separar esa información por ";" y quedarnos con la columna 2 
+
+## -Separar esa información por "," y quedarnos con la columna 2 (ECOCYC-ID?)
+
+## - Obtener los valores únicos
+
+## - Contar el numero de valores únicos
+
+```
+
+---
+## P3. ¿Cuántos genes (ID distinto) existen en *Escherichia coli*?
+
+```bash
+## Quedarnos únicamente con las features de tipo gene
+grep -P "RefSeq\tgene" data/coli.gff 
+
+```
+
+--
+
+```bash
+## Acceder a la columna 9
+grep -P "RefSeq\tgene" data/coli.gff | cut -f9 
+```
+
+--
+
+```bash
+## Separar esa información por ";" y quedarnos con la columna 2
+grep -P "RefSeq\tgene" data/coli.gff | cut -f9 | \
+cut -d ';' -f2 
+
+```
+
+--
+
+```bash
+## Separar esa información por "," y quedarnos con la columna 2
+grep -P "RefSeq\tgene" data/coli.gff | cut -f9 | \
+cut -d ';' -f2 | cut -d ',' -f2
+```
+---
+## P3. ¿Cuántos genes (ID distinto) existen en *Escherichia coli*?
+
+```bash
+## Obtener los valores únicos
+## Contar el número de valores únicos
+```
+
+---
+## P3. ¿Cuántos genes (ID distinto) existen en *Escherichia coli*?
+
+.center[**¿Funcionó?¿El output es lo que necesitamos?**]
+
+--
+
+.content-box-blue[
+El EcocycID no está en la misma posición, no podemos cortar los identificadores porque estarían mezclados. ]
+
+Lo más que podemos hacer, por el momento, es quedarnos con las líneas que tienen el patrón "ECOCYC".
+--
+
+```bash
+## Separar esa información por "," y quedarnos con la columna 2
+grep -P "RefSeq\tgene" data/coli.gff | cut -f9 | \
+cut -d ';' -f2 | grep ECOCYC
+```
+
+---
+## P3. ¿Cuántos genes (ID distinto) existen en *Escherichia coli*?
+
+Si usamos otro identificador, como el locus_tag:
+
+--
+
+```bash
+## Separar esa información por "," y quedarnos con la columna 2
+grep -P "RefSeq\tgene" data/coli.gff | cut -f9 |  \
+cut -d ';' -f8 | wc -l
+```
+
+Asegurarnos que todas las líneas son el locus_tag:
+
+```bash
+## Separar esa información por "," y quedarnos con la columna 2
+grep -P "RefSeq\tgene" data/coli.gff | cut -f9 |  \
+cut -d ';' -f8 | cut -c1-5 | sort |uniq -c
+```
+
+---
+## P3. ¿Cuántos genes (ID distinto) existen en *Escherichia coli*?
+
+```bash
+## Quedarnos únicamente con los genes
+grep -P "RefSeq\tgene" data/coli.gff 
+
+## Acceder a la columna 9
+grep -P "RefSeq\tgene" data/coli.gff | cut -f9 
+
+## Separar esa información por ";" y quedarnos con la columna 1
+grep -P "RefSeq\tgene" data/coli.gff | cut -f9 | \
+cut -d ';' -f8
+
+## Obtener los valores únicos
+grep -P "RefSeq\tgene" data/coli.gff | cut -f9 | \
+cut -d ';' -f8 | sort -u | head
+
+## Contar el número de valores únicos
+grep -P "RefSeq\tgene" data/coli.gff | cut -f9 | \
+cut -d ';' -f8 | sort -u | wc -l
+```
+
+---
+## P3. ¿Cuántos genes (ID distinto) existen en *Escherichia coli*?
+
+
+**¡LISTO!**
+**4419 genes con ID diferente**.
+
+No existe ningún gene (features anotadas como gene) en E. coli (al menos
+en lo que se refiere a esta versión de la anotación)...
+
+- Que tenga el mismo nombre y distinto ID.
+
+- Que tenga el mismo ID y distinto nombre.
+
+- Que tenga el mismo nombre y distintas posiciones genómicas.
+
+- Que tenga el mismo ID y distintas posiciones genómicas.
+
+---
+## P4. ¿Cuántas secuencias proteicas se conocen para *Escherichia coli*?
+
+¿Dónde esta la información que necesitamos?
+
+.content-box-blue[
+```
+     ## Archivo de proteinas
+    head data/coli_protein.fna
+```
+]
+
+--
+
+```
+>NP 414542.1 thr operon leader peptide [Escherichia coli str. K-12 substr. MG1655]
+MKRISTTITTTITITTGNGAG
+>NP 414543.1 fused aspartate kinase/homoserine dehydrogenase 1 [Escherichia coli str. K-12 substr. MG1655]
+MRVLKFGGTSVANAERFLRVADILESNARQGQVATVLSAPAKITNHLVAMIEKTISGQDALPNISDAERIFAELLTGLAA
+AQPGFPLAQLKTFVDQEFAQIKHVLHGISLLGQCPDSINAALICRGEKMSIAIMAGVLEARGHNVTVIDPVEKLLAVGHY
+LESTVDIAESTRRIAASRIPADHMVLMAGFTAGNEKGELVVLGRNGSDYSAAVLAACLRADCCEIWTDVDGVYTCDPRQV
+PDARLLKSMSYQEAMELSYFGAKVLHPRTITPIAQFQIPCLIKNTGNPQAPGTLIGASRDEDELPVKGISNLNNMAMFSV
+SGPGMKGMVGMAARVFAAMSRARISVVLITQSSSEYSISFCVPQSDCVRAERAMQEEFYLELKEGLLEPLAVTERLAIIS
+VVGDGMRTLRGISAKFFAALARANINIVAIAQGSSERSISVVVNNDDATTGVRVTHQMLFNTDQVIEVFVIGVGGVGGAL
+LEQLKRQQSWLKNKHIDLRVCGVANSKALLTNVHGLNLENWQEELAQAKEPFNLGRLIRLVKEYHLLNPVIVDCTSSQAV
+```
+---
+## P4. ¿Cuántas secuencias proteicas se conocen para *Escherichia coli*?
+
+Lo que necesitamos hacer:
+
+--
+
+```bash
+## Extraer las líneas con identificadores, NO SECUENCIAS
+## Contar el numero de líneas
+```
+
+--
+
+```bash
+## Extraer las líneas con identificadores
+grep ">" data/coli_protein.fna | head
+```
+--
+
+```bash
+## Contar el numero de líneas
+grep ">" data/coli_protein.fna | wc -l
+```
+
+---
+## P5. ¿Los IDs (NP##) de las secuencias proteicas son únicos?
+
+¿Dónde esta lo que necesitamos?
+
+`data/coli protein.fna`
+```
+>NP_414542.1 thr operon leader peptide [Escherichia coli str. K-12 substr. MG1655]
+MKRISTTITTTITITTGNGAG
+>NP_414543.1 fused aspartate kinase/homoserine dehydrogenase 1 [Escherichia coli str. K-12 substr. MG1655]
+MRVLKFGGTAVANAERFLRVADILESNARQGQVATVLSAPAKITNHLVAMIEKTISGQDALPNISDAERIFAELLTGLAA
+AQPGFPLAQLKTFVDQEFAQIKHVLHGISLLGQCPDSINAALICRGEKMSIAIMAGVLEARGHNVTVIDPVEKLLAVGHY
+LESTVDIAESTRRIAASRIPADHMVLMAGFTAGNEKGELVVLGRNGSDYSAAVLAACLRADCCEIWTDVDGVYTCDPRQV
+PDARLLKSMSYQEAMELSYFGAKVLHPRTITPIAQFQIPCLIKNTGNPQAPGTLIGASRDEDELPVKGISNLNNMAMFSV
+SGPGMKGMVGMAARVFAAMSRARISVVLITQSSSEYSISFCVPQSDCVRAERAMQEEFYLELKEGLLEPLAVTERLAIIS
+VVGDGMRTLRGISAKFFAALARANINIVAIAQGSSERSISVVVNNDDATTGVRVTHQMLFNTDQVIEVFVIGVGGVGGAL
+LEQLKRQQSWLKNKHIDLRVCGVANSKALLTNVHGLNLENWQEELAQAKEPFNLGRLIRLVKEYHLLNPVIVDCTSSQAV
+```
+
+---
+## P5. ¿Los IDs (NP##) de las secuencias proteicas son únicos?
+
+Lo que necesitamos hacer:
+
+```bash
+## Extraer las líneas con identificadores
+## Extraer la columna 1, delimitada por SPACE
+## Contar líneas únicas
+
+```
+
+---
+## P5. ¿Los IDs (NP##) de las secuencias proteicas son únicos?
+
+Lo que necesitamos hacer:
+
+```bash
+## Extraer las líneas con identificadores
+grep ">" data/coli_protein.fna | head
+```
+
+--
+
+```bash
+## Extraer la columna 1, delimitada por SPACE
+grep ">" data/coli_protein.fna | cut -d " " -f1 | head
+```
+--
+
+```bash
+## Contar líneas únicas
+grep ">" data/coli_protein.fna | cut -d " " -f1 | \
+sort -u | wc -l
+```
+
+---
+## P5. ¿Los IDs (NP##) de las secuencias proteicas son únicos?
+
+**¡LISTO!**
+**4242 IDs únicos de proteinas**.
+
+
+Conclusiones adicionales:
+- Cada secuencia tiene un ID único.
+
+- No existen dos secuencias con el mismo ID.
+
+
+---
+
+Revisemos los comandos que hemos aprendido:
+
+|Comando |   Función básica   |
+|----    |---                 |
+|`sort`    | Ordena una serie de líneas (o records). |
+|`cut`     |Corta porciones seleccionadas de cada línea. |
+|`uniq`    |Reporta o filtra las líneas repetidas de un archivo. |
+|`wc`      |Reporta la cuenta de líneas, caracteres y bytes. |
+|`grep`    |Busca patrones. |
+
+---
+## P6. ¿Cuál es el tipo de feature de la anotación asociado con los protein_id del archivo FASTA de proteínas?
+
+Busquemos los archivos que nos pueden ayudar.
+
+El *protein_id* es el identificador de las secuencias
+
+`data/coli_protein.fna`
+```bash
+>NP_414542.1 thr operon leader peptide [Escherichia coli str. K-12 substr. MG1655]
+MKRISTTITTTITITTGNGAG
+>NP_414543.1 fused aspartate kinase/homoserine dehydrogenase 1 [Escherichia coli str. K-12 substr. MG1655]
+MRVLKFGGTSVANAERFLRVADILESNARQGQVATVLSAPAKITNHLVAMIEKTISGQDALPNISDAERIFAELLTGLAA
+AQPGFPLAQLKTFVDQEFAQIKHVLHGISLLGQCPDSINAALICRGEKMSIAIMAGVLEARGHNVTVIDPVEKLLAVGHY
+LESTVDIAESTRRIAASRIPADHMVLMAGFTAGNEKGELVVLGRNGSDYSAAVLAACLRADCCEIWTDVDGVYTCDPRQV
+```
+
+---
+## P6. ¿Cuál es el tipo de feature de la anotación asociado con los protein_id del archivo FASTA de proteínas?
+
+El *protein_id* está en la columna 9 del archivo GFF.
+
+`data/coli.gff`
+
+```bash
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=511145
+NC_000913.3	RefSeq	CDS	190	255	.	+	0	ID=cds-NP_414542.1;Parent=gene-b0001;Dbxref=UniProtKB/Swiss-Prot:P0AD86,Genbank:NP_414542.1,ASAP:ABE-0000006,ECOCYC:EG11277,EcoGene:EG11277,GeneID:944742;Name=NP_414542.1;gbkey=CDS;gene=thrL;locus_tag=b0001;orig_transcript_id=gnl|b0001|mrna.b0001;product=thr operon leader peptide;protein_id=NP_414542.1;transl_table=11
+```
+---
+## P6. ¿Cuál es el tipo de feature de la anotación asociado con los protein_id del archivo FASTA de proteínas?
+
+¿Cómo lo haremos?
+
+--
+
+```bash
+## Extraer los protein_id del archivo FASTA
+
+## Guardarlos en un archivo 
+
+## Buscar todos estos IDs en el archivo de anotación
+
+## Acceder al campo feature type de estas líneas
+
+## Obtener la cuenta para cada uno de los valores únicos
+
+```
+
+---
+## P6. ¿Cuál es el tipo de feature de la anotación asociado con los protein_id del archivo FASTA de proteínas?
+
+```bash
+## Extraer los protein_id del archivo FASTA
+grep ">" data/coli_protein.fna | cut -d " " -f1 | head
+```
+
+--
+
+```bash
+## Eliminar el simbolo '>'
+grep ">" data/coli_protein.fna | cut -d " " -f1 | cut -d ">" -f2 | head
+
+### Esto tambien puede funcionar
+grep ">" data/coli_protein.fna | cut -d " " -f1 | cut -c2-  | head
+```
+
+--
+
+```bash
+## Guardarlos en un archivo
+grep ">" data/coli_protein.fna | cut -d " " -f1 | \
+cut -d ">" -f2 > protein_id.txt
+```
+
+
+
+---
+## P6. ¿Cuál es el tipo de feature de la anotación asociado con los protein_id del archivo FASTA de proteínas?
+
+Patrones en un archivo para ser usados con `grep`.
+
+```bash
+man grep
+```
+
+Sigamos...
+
+```bash
+## Buscar todos estos IDs en el archivo de anotación
+## Este paso es computacionalmente demandante
+grep -f protein_id.txt data/coli.gff > protein_id.gff
+```
+--
+
+```bash
+## Acceder al campo feature type de estas líneas
+## Obtener valores únicos y contarlos
+cut -f3 protein_id.gff | sort | uniq -c
+
+```
+
+**4245 CDS. ¿Cuántos IDs de proteínas teníamos originalmente?**
+
+---
+## P6. ¿Cuál es el tipo de feature de la anotación asociado con los protein_id del archivo FASTA de proteínas?
+
+¿Cuántos IDs de proteínas teníamos originalmente?
+
+```bash
+## Comparar con numero original de IDs
+wc -l protein_id.txt
+```
+--
+
+- 4242 IDs iniciales.
+
+- 4245 CDS asociados a esos protein_id.
+
+- Existe algún protein_id asociado a más de un CDS.
+
+---
+## P7. ¿Cuál es la posición de inicio, de final y la cadena de los genes listados en flagella_genes.txt?
+
+**Te toca**
+
+¿Cuáles IDs se encuentran asociados a más de un CDS? 
+
+Código comentado: Algoritmo.  
+
+Solución.
+
+
+---
+## P7. ¿Cuál es la posición de inicio, de final y la cadena de los genes listados en flagella_genes.txt?
+
+```bash
+## Buscar los genes en el archivo de anotacion
+grep -f data/flagella_genes.txt data/coli.gff
+## No hemos terminado
+grep -f data/flagella_genes.txt data/coli.gff | \
+grep -P --color "RefSeq\tgene"
+## Extraer las posiciones de inicio, de final y la cadena
+grep -f data/flagella_genes.txt data/coli.gff
+```
+
+
+---
+
+## Cuando llevas estudiando un rato sin parar...
+```{r, out.width = "800px",fig.align='center', fig.cap=''}
+knitr::include_graphics("https://areajugones.sport.es/wp-content/uploads/2017/10/maxresdefault-9.jpg.webp")
+```
+
+.pull-right[.tiny[["Goku:Kaio-Ken"](https://areajugones.sport.es/wp-content/uploads/2017/10/maxresdefault-9.jpg.webp)]]
+
+### El conocimiento es poder
+---

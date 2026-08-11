@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Introducción a la Bioinformática</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.18/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/hygge.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Introducción a la Bioinformática
+]
+.institute[
+### Licenciatura en Ciencias Genómicas,UNAM
+]
+.date[
+### First version: yyy-mm-dd; Last update: 2024-09-11
+]
+
+---
+
+
+
+
+&lt;style type="text/css"&gt;
+/* From https://github.com/yihui/xaringan/issues/147  */
+.scroll-output {
+  height: 80%;
+  overflow-y: scroll;
+}
+
+.noinverse {
+  background-color: #272822;
+  color: #d6d6d6;
+  text-shadow: 0 0 20px #333;
+}
+
+/* https://stackoverflow.com/questions/50919104/horizontally-scrollable-output-on-xaringan-slides */
+pre {
+  max-width: 100%;
+  overflow-x: scroll;
+}
+&lt;/style&gt;
+
+
+## Objetivo
+
+Lxs alumnxs deberán ser capaces de comprender los redireccionamientos y las tuberías.
+
+---
+
+## Contenido de la unidad
+
+1. Redireccionamientos.
+
+2. Tuberías.
+
+
+---
+
+class: inverse, center, middle
+
+# Redireccionamientos / Flujos
+
+---
+## Resumen de comandos
+
+
+---
+## Procesos
+
+Un proceso es la instancia de un programa. Y como instancia, podemos crear la n cantidad que deseemos. 
+
+Por ejemplo, cuando ejecutamos el comando ls, para listar todo el contenido de un directorio , estaremos creando un nuevo proceso, ya que estaremos ejecutando un programa. 
+
+todos los procesos poseen 4 atributos que nos permitirán gestionarlos: PID, PPID, TTY, UID
+
+Veamos los procesos para los siguientes ejemplos:
+
+```
+less  GCF_000005845.2_ASM584v2_feature_table.txt
+nano  hola.txt
+```
+---
+## Streams o flujos de datos
+
+.content-box-yellow[
+
+Todos los programas informáticos siguen el mismo principio general: los **datos recibidos** de alguna fuente **se transforman** para generar **un resultado**. A ésto se le llama **flujo de datos**.
+
+]
+
+- Fuente de datos: un archivo local, un archivo remoto, un dispositivo (como un teclado).
+
+- La salida del programa generalmente se representa en una pantalla, pero también es común almacenar los datos de salida en un archivo local, enviarlo a un dispositivo remoto, etc.
+
+---
+## Streams o flujos de datos
+
+.content-box-gray[
+```
+cat   mi_archivo.txt
+```
+]
+
+- Entrada o fuente de datos: `mi_archivo.txt`
+- Salida: Imprime en pantalla el contenido de `mi_archivo.txt` 
+
+--
+
+&lt;img src="https://bioinf.comav.upv.es/courses/unix/_images/cli_program.png" width="250px" style="display: block; margin: auto;" /&gt;
+.pull-right[ .tiny[Fuente: https://bioinf.comav.upv.es/courses/unix/pipes.html]]
+
+--
+
+Otros ejemplos:  `mkdir`, `less`. 
+
+---
+## Streams o flujos de datos
+
+Los sistemas operativos inspirados en Unix, como Linux, ofrecen una gran variedad de métodos de **entrada/salida para los procesos**.
+
+¿Qué es un proceso?
+
+.content-box-blue[
+- Un proceso no es más que un **entorno especial** creado para la **ejecución de un programa**.
+
+- Una vez el programa finaliza, el proceso lo hará de igual manera.
+
+- Un proceso es la instancia de un programa. Y como instancia, podemos crear la cantidad que deseemos.
+
+]
+
+Por ejemplo, cuando **ejecutamos el comando `ls`**, para listar todo el contenido de un directorio, estaremos **creando un nuevo proceso**, ya que estaremos ejecutando un programa. 
+
+---
+## Streams o flujos de datos
+
+Los **procesos estándar de Linux** tienen **tres canales de comunicación** abiertos de forma predeterminada:
+
+- Standard input | `stdin` : Es el flujo a través del cual un programa *lee* sus
+datos de entrada.
+- Standard output | `stdout`: Es el flujo a través del cual un programa *escribe* su
+salida.
+- Standard error | `stederr`: Es el flujo a través del cual un programa *escribe* los
+mensajes de error.
+
+
+&lt;img src="https://3.bp.blogspot.com/-ymegYlOErB8/W_Zj8O-YM8I/AAAAAAAAD9g/jN4gkmtgdYsLG_GATONPejb5tVsn0aAhACLcBGAs/s1600/std-out.jpg" width="600px" style="display: block; margin: auto;" /&gt;
+
+.tiny[[Image source: Linux Standard input, output, and error explained](https://techinfoeasy.blogspot.com/2018/11/linux-standard-input-output-and-error.html)]
+
+---
+## Streams o flujos de datos
+
+A cada **archivo asociado con un proceso** se le asigna un número único para identificarlo. Esto se llama **descriptor de archivo**. Siempre que sea necesario realizar una acción en un archivo, el descriptor de archivo se utiliza para identificar el archivo.
+
+|Number |Channel Name |Description | Default Connection | Usage |
+|---    |---          |---         |---                 |---    |
+|0 	    |stdin 	      |Standard input  |Keyboard 	|Read only.   |
+|1 	    |stdout 	    |Standard output |Terminal 	|Write only.  |  
+|2 	    |stderr 	    |Standard error  |Terminal 	|Write only.  |
+|3+ 	 |filename 	    |Other files 	   |none 	    |Read and/or write.|
+
+.tiny[Se construye una estructura de proceso con canales numerados (descriptores de archivo) para administrar archivos abiertos. Los **procesos se conectan a los archivos para llegar al contenido de los datos** o a los dispositivos que estos archivos representan. Los procesos se crean con **conexiones predeterminadas para los canales 0, 1 y 2, conocidas como entrada estándar, salida estándar y error estándar**. Los procesos usan los canales 3 y superiores para conectarse a otros archivos.]
+
+---
+## Streams en Unix
+
+
+&lt;img src="img/streams.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+.pull-right[ .tiny[Fuente: Imagen tomada de Bioinformatics Data Skills]]
+
+
+
+El **standard output** y el **standard error** generalmente se imprimen a
+pantalla, a menos que sean redirigidos.
+
+
+.pull-left[ .tiny[[Definiciòn y Ejemplos de  Streams](https://ubuntinux.blogspot.com/2019/10/definicion-y-ejemplos-de-entrada.html)]]
+
+
+
+---
+## Stream stdout y stderr
+
+¿Cuál es el standard input, output y error en este ejemplo?
+
+.content-box-blue[
+
+En el directorio actual existen los archivos `personal_info.txt` y `hola.txt`, pero el archivo `NA.txt` no.
+
+]
+
+```bash
+## cat despliega el contenido de un arhivo sin pausar, todo de jalón.
+## El canal de entrada (stdin) del comando cat recibe el archivo personal_info.txt
+cat personal_info.txt
+
+## Cat puede recibir N archivos por su canal stdin
+cat personal_info.txt  hola.txt
+```
+
+---
+## Stream stdout y stderr
+
+¿Cuál es el standard input, output y error en este ejemplo?
+
+En el directorio actual existen los archivos `personal_info.txt` y `hola.txt`, pero el archivo `NA.txt` no.
+
+
+```bash
+## Concatenemos el archivo personal_info.txt y NA.txt:
+## El canal de entrada recibe 2 archivos: uno de ellos existe, el otro no.
+## El estándar output y el estándar error se imprimen en pantalla por default.
+cat personal_info.txt NA.txt
+```
+
+---
+## Redireccionando el std output y el std error
+
+Podemos redireccionar la respuesta de un comando para que no se imprima en pantalla. 
+
+Usando `&gt;` podemos redireccionar el std output y el std error a un archivo.
+
+
+```bash
+## Concatenar el archivo personal_info.txt y NA.txt
+## Redireccionar solo el std output  &gt; output.txt o 1&gt; output.txt
+## Pero el error se imprime en pantalla
+cat personal_info.txt NA.txt &gt; output.txt   
+
+## Redireccionar solo el std error. El comando marca un eror porque NA.txt no existe
+## En la salida del comando cat, el std output se manda a pantalla
+cat personal_info.txt NA.txt 2&gt; error.txt   
+
+## Redireccionar el std output y el std error
+cat personal_info.txt NA.txt &gt; output.txt 2&gt; error.txt
+```
+
+Si el archivo que guarda la salida existe, se sobrescibe; si no existe, se crea.
+
+
+---
+## Otro tipo de redireccionamiento
+
+```bash
+## Concatenar archivo personal_info.txt y NA.txt
+## Redireccionar solo el std output, utilizando &gt;&gt;
+cat personal_info.txt NA.txt &gt;&gt; output.txt
+```
+
+---
+## Otro tipo de redireccionamiento
+
+
+```bash
+## Concatenar archivo personal_info.txt y NA.txt
+## Redireccionar solo el std output, utilizando &gt;&gt;
+cat personal_info.txt NA.txt &gt;&gt; output.txt
+```
+
+**¿Qué cambió?**
+
+---
+## Otro tipo de redireccionamiento
+
+```bash
+## Concatenar archivo personal_info.txt y NA.txt
+## Redireccionar solo el std output, utilizando &gt;&gt;
+cat personal_info.txt NA.txt &gt;&gt; output.txt
+```
+
+**¿Qué cambió?**
+
+|Comando | Función   |
+|---- |---      |
+|&gt;  |Crea el archivo si no existe y lo sobrescribe si existe. |
+|&gt;&gt; |Crea el archivo si no existe y agrega el nuevo contenido al final si existe.|
+
+---
+## Redireccionando std input
+
+Este tipo de redireccionamiento no es tan común. 
+
+```bash
+## El input  file es redireccionado para ser el std input del programa
+## El std output del programa es redireccionado hacia el archivo outputfile
+programa &lt; inputfile &gt; outpufile
+```
+
+---
+
+## Ejercicio
+
+Queremos tener en un archivo, los 3 primeros nombres de archivos o directorios,  y los 3 últimos del directorio raíz `/`. En total el archivo de salida debe tener 6 nombres de archivos o directorios.
+
+0. Crea un directorio llamado `practica3b`en intro-bioinfo. Y copia el archivo `personal_info` a esta carpeta.
+
+1. Lista el contenido del directorio `/` y mándalo a un archivo llamado `archivos_raiz.txt`. Recuerda que para guardar el archivo debe ser en tu home, donde tienes permisos de escritura.
+
+2. Obtén los 3 primeros archivos del directorio raíz usando el archivo `archivos_raiz.txt` y manda la salida a `archivos_raiz_top_last.txt`.
+
+3. Obtén los 3 últimos archivos del directorio raíz usando el archivo `archivos_raiz.txt` y manda la salida a `archivos_raiz_top_last.txt`. Recuerda no sobreescribir el resultado.
+
+
+---
+## Redireccionamientos
+
+.content-box-blue[
+
+"Esta es la filosofía de Unix: escribir programas que hagan una cosa y la hagan bien.
+Escribir programas para trabajar juntos. Escribir programas para manejar flujos de texto,
+porque esa es una interfaz universal".
+
+.pull-right[ .tiny[-- Doug McIlory, Computer Scientist]]
+
+]
+
+--
+
+Unix fue diseñado como un sistema altamente modular. La existencia
+de distintos flujos (*streams*), cada uno con un propósito único, facilita la
+comunicación entre los módulos.
+
+---
+
+class: inverse, center, middle
+
+# Tuberías
+
+---
+## Tuberías
+
+
+&lt;img src="img/tuberia.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+**¿Cuáles son las principales diferencias?**
+
+---
+## Tuberías
+
+Para que el direccionamiento del canal stdout de un comando lo recoja el canal stdin del siguiente comando escribiremos los dos comandos separados por este signo:  "**|**".
+
+Podemos ir enlazando comandos hasta conseguir una cadena verdaderamente larga, de ahí el nombre de **tubería**.
+
+.content-box-gray[
+```
+comando1 | comando2 | ... | comandoN
+```
+]
+
+---
+## Tuberías
+
+
+&lt;img src="img/tuberia.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+
+- El std output de un programa se vuelve std input de otro programa.
+
+- Se evita la lectura/escritura de archivos.
+
+- Los análisis se ejecutan en RAM.
+
+---
+## Nuestra primera tubería de datos
+
+- Lista los contenidos de tu directorio raíz.
+
+- Utilizando `less` busca si existe un folder llamado home.
+
+
+---
+## Nuestra primera tubería de datos
+
+
+```bash
+## Lista los contenidos de tu directorio raíz
+ls /
+## Utilizando less
+## busca si existe un folder llamado home
+ls / | less
+
+## Una vez dentro de less: 
+/home
+```
+
+El símbolo "|" (**pipe**) nos permite crear tuberías de procesamiento de datos. 
+
+---
+## Nuestras primeras tuberías de datos
+
+- Lista únicamente los primeros 10 archivos o directorios del directorio raíz.
+
+- Lista únicamente los últimos 5 archivos o directorios del directorio raíz.
+
+---
+## Nuestra primera tubería de datos
+
+
+```bash
+## Lista los primeros 10 archivos o directorios
+## del directorio raíz
+ls / | head
+
+## Lista los ´ultimos 5 archivos o directorios
+## del directorio raíz
+ls / | tail -n 5
+```
+
+Los comandos utilizados dentro de una tubería de datos tienen a su disposición
+todas las opciones propias de cada comando independiente. 
+
+---
+## Tuberías
+
+La salida de una tuberia se puede redireccionar
+
+
+```bash
+ls / | tail -n 5  &gt; salida.txt
+
+```
+
+---
+
+## Referencias
+
+Para más detalle de los redireccionamientos pueden consultar los siguientes manuales:
+
+https://denovatoanovato.net/redireccionamientos/
+https://www.linuxtotal.com.mx/index.php?cont=redireccionamiento-en-linux
+https://rm-rf.es/stdin-stdout-y-stderr-redirigir-en-unixlinux/
+
+Libro: https://www.ediciones-eni.com/open/mediabook.aspx?idR=57d9b7519e2839bb557468f07a17b165
+https://www.amazon.com.mx/Programaci%C3%B3n-shell-ejercicios-corregidos-edici%C3%B3n/dp/240900802X
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+  .logo {
+    background-image: url(logos/LCG-UNAM.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    width: 110px;
+    height: 128px;
+    z-index: 0;
+  }
+  </style>
+  
+  <script>
+  document
+    .querySelectorAll(
+      '.remark-slide-content' +
+      ':not(.title-slide)' +
+      // add additional classes to exclude here, e.g.
+      // ':not(.inverse)' +
+      ':not(.hide-logo)'
+    )
+    .forEach(el => {
+      el.innerHTML += '<div class="logo"></div>';
+    });
+  </script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

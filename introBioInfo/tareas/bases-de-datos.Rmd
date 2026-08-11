@@ -1,0 +1,78 @@
+---
+title: "Introducción a la Bioinformática"
+--subtitle: ""
+--author: ''
+institute: "Licenciatura en Ciencias Genómicas,UNAM"
+date: 'First version: yyy-mm-dd; Last update: `r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    css: ["default", "default-fonts", "hygge"]
+    lib_dir: libs
+    includes:
+      after_body: insert-logo.html
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "macros.js"
+--distill::distill_article: default
+
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{css, echo = FALSE}
+/* From https://github.com/yihui/xaringan/issues/147  */
+.scroll-output {
+  height: 80%;
+  overflow-y: scroll;
+}
+
+.noinverse {
+  background-color: #272822;
+  color: #d6d6d6;
+  text-shadow: 0 0 20px #333;
+}
+
+/* https://stackoverflow.com/questions/50919104/horizontally-scrollable-output-on-xaringan-slides */
+pre {
+  max-width: 100%;
+  overflow-x: scroll;
+}
+
+
+```
+
+## Tarea. Bases de datos
+
+El objetivo de la tarea que sigas explorando el sitio de NCBI y las distintas bases de datos con las que cuenta.
+
+---
+## Instrucciones
+
+1. Selecciona 2 bases de datos del sitio de NCBI, diferentes a las que se vieron en clase.
+
+2. Explora cada base de datos seleccionada y dinos
+
+  a) Qué tipo de información almacena ?
+  
+  b) Qué formato usa para mostrar los datos ?
+  
+  c) Qué formatos para exportar datos tiene ?
+  
+  d) Qué tipo de identificadores usan para cada registro?
+  
+3. Genera un Reporte (usando el template) que explique sobre esas 2 bases de datos que seleccionaste. Recuerda guardar este reporte en la carpeta que creaste en tu computadora para guardar los documentos de la materia. Si usas StackEdit descargalo y guardalo en esa carpeta.
+
+Sube el reporte (archivo markdown) en la plataforma. 
+
+
+---
+## Entregable
+
+- Reporte markdown subido a la plataforma
+ 
+  Te recordamos consultar la [guía y rubros](https://lcg-cursos.github.io/material/introbioinfo/rubros-evaluacion-tareas.html#1) que se van a evaluar.  
+

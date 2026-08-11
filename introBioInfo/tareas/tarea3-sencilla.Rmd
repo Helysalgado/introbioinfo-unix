@@ -1,0 +1,41 @@
+---
+title: "Tarea. El sistema de Archivos"
+author: "Hely"
+date: "2024-08-22"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Tarea 3
+
+1. Tenemos una lista de archivos en el directorio `/home/compu2/WelcomeBioinfo/datos/tarea3`
+
+2. En el directorio ìntro-bioinfo` de tu usuario, genera la siguiente estructura, tomando los archivos indicados en el punto1.
+
+```
+variacion_genetica/
+├── asociaciones
+│   ├── estudio1.txt
+│   └── estudio2.txt
+├── mutaciones
+│   ├── mutacion1.txt
+│   └── mutacion2.txt
+└── polimorfismos
+    ├── SNP1.txt
+    └── SNP2.txt
+```
+
+3. Hay un archivo `nose.txt` en `/home/compu2/WelcomeBioinfo/datos/tarea3`, copialo en mutaciones con el nombre de `mutacion3.txt`
+
+4. Hay otro archivo llamada `tampocose.txt`, lo vamos a copiar en el directorio polimorfismos.
+
+5. Le vamos a cambiar de nombre al archivo como `estudio3.txt`
+
+6. Nos damos cuenta que el archivo `estudio3.txt`lo copiamos en la carpeta incorrecta, hay que moverlo al directorio `asociaciones`. 
+
+En la tarea sube la ruta ABSOLUTA donde esta el directorio `variacion_genetica` en el servidor tepeu.
+
+

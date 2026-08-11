@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Introducción a la Bioinformática</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.18/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/hygge.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Introducción a la Bioinformática
+]
+.institute[
+### Licenciatura en Ciencias Genómicas,UNAM
+]
+.date[
+### First version: yyy-mm-dd; Last update: 2024-10-16
+]
+
+---
+
+
+
+
+&lt;style type="text/css"&gt;
+/* From https://github.com/yihui/xaringan/issues/147  */
+.scroll-output {
+  height: 80%;
+  overflow-y: scroll;
+}
+
+.noinverse {
+  background-color: #272822;
+  color: #d6d6d6;
+  text-shadow: 0 0 20px #333;
+}
+
+/* https://stackoverflow.com/questions/50919104/horizontally-scrollable-output-on-xaringan-slides */
+pre {
+  max-width: 100%;
+  overflow-x: scroll;
+}
+
+
+&lt;/style&gt;
+
+
+## Objetivo
+
+### Lxs alumnxs deberán ser capaces de conocer y aplicar las expresiones regulares.
+
+![](https://koenig-media.raywenderlich.com/uploads/2018/09/NSRegularExpression-twitter.png)
+.tiny[source: https://koenig-media.raywenderlich.com/uploads/2018/09/NSRegularExpression-twitter.png ]
+---
+
+class: inverse, center, middle
+
+# Expresiones Regulares
+
+---
+
+## ¿Qué son las Expresiones Regulares?
+
+### La magia detrás de la búsqueda de patrones
+
+.content-box-green[
+ Las expresiones regulares son **secuencias de caracteres** que definen un **patrón de búsqueda**. Se utilizan para encontrar y manipular texto de manera eficiente.
+ 
+ **Utilidad**: Permiten realizar búsquedas complejas y precisas en grandes volúmenes de datos. Son esenciales para tareas como filtrar secuencias genómicas, validar formatos de datos, y más. 
+
+]
+
+&lt;font color="green"&gt;  
+"¡Son como el GPS de los datos, siempre te llevan al patrón correcto!"
+&lt;/font&gt;  
+
+&lt;!-- 
+- Explica que las expresiones regulares son como un lenguaje secreto que los ordenadores entienden para buscar patrones en texto. - Menciona que su utilidad se extiende más allá de la bioinformática, siendo usadas en programación, análisis de datos, y más. - Puedes hacer un pequeño chascarrillo: "¡Son como el GPS de los datos, siempre te llevan al patrón correcto!"
+--&gt;
+
+---
+## Patrones usando expresiones regulares
+
+    ATG
+    A.C
+    ^ATG
+    TGA$
+    A*
+    C+
+    G?
+    [ATGC]
+    [^ATGC]
+    A{2,3}
+    ATG|TGA
+    (ATG)+
+    (?=.*ATG)(?=.*TGA)[ATGC]{100,}
+    (AT)\1
+    (.)(.)\2\1
+    ^(ACGT)+\1$
+    (ATCGG)\1{2}
+
+
+---
+##  Metacaracteres en Expresiones Regulares
+
+###  Los bloques de construcción de tus patrones
+
+
+.content-box-green[
+
+Los **metacaracteres** son **caracteres especiales** utilizados en las expresiones regulares para definir patrones complejos. Son como las piezas de un rompecabezas que, al unirse, permiten crear búsquedas precisas y detalladas.
+
+Importancia:
+Gracias a los metacaracteres, las expresiones regulares pueden **realizar búsquedas** que van **más allá de simples coincidencias de texto**. 
+
+]
+
+&lt;!--
+Notas del Profesor:
+
+Explica que los metacaracteres son como herramientas mágicas en el mundo de las expresiones regulares. Cada uno tiene un significado especial que permite realizar búsquedas más específicas y poderosas.
+Puedes hacer una comparación divertida: "¡Son como los superhéroes de las expresiones regulares, cada uno con su propio poder especial para encontrar patrones!"
+
+--&gt;
+---
+## Herramienta para probar nuestras regex
+
+Vamos a trabajar primero en unos ejemplos para ver que es una expresión regular usando una herramienta que nos facilitará entender las expresiones regulares 
+
+- https://www.regexpal.com/
+- https://regex101.com/
+
+Veamos la interfaz!!
+
+---
+## Metacaracteres Básicos: Anclas
+
+### Comenzando con los fundamentos
+
+- `^` : Coincide con el inicio de una línea. 
+- `$` : Coincide con el final de una línea. 
+
+- `.` : Representa cualquier carácter excepto un salto de línea. 
+
+
+Usa el archivo `secuencias_dna.txt` y carga las secuencias en la interfaz de regex.
+
+- `^A` : Buscar `A` al inicio de la línea
+- `A$` : Buscar `A` al final de la línea
+- `^A.G` : Buscar `A` al inicio de la linea, después cualquier caracter, y despues una `G`.
+- `^A$` : Buscar cualquier línea que contenga una `A`.
+
+
+&lt;font color="red"&gt;  
+Crea otros ejemplos
+&lt;/font&gt;  
+
+&lt;!--
+Notas del Profesor:
+- Proporciona ejemplos en vivo usando "grep" para mostrar cómo funcionan estos metacaracteres básicos.
+--&gt;
+
+---
+## Metacaracteres Intermedios
+
+### Construyendo patrones más complejos
+
+- `*` : Coincide con cero o más repeticiones del carácter anterior. 
+- `[]` : Coincide con cualquier carácter dentro de los corchetes. 
+- `\` : Escapa un metacaracter para tratarlo como un carácter literal. 
+
+Ejemplos
+
+- `AT*C` : `A` seguida de cero o más `T` y luego `C`. 
+- `TGC*A` : `T` seguida de `C` seguida de cero o más `C` y luego `A`
+- `A[TG]*C` : `A` seguida de cero o más `T` o `G` y luego `C`.
+- `A[TAG]*C` : `A` seguida de cero o más `T` o `G` o `A` y luego `C`.
+- `AT\*C` : `A` seguida de `T` seguido de `*` y luego `C`. 
+
+&lt;font color="red"&gt;  
+Crea otros ejemplos
+&lt;/font&gt;  
+
+&lt;!--
+Notas del Profesor:
+- Anima a los estudiantes a experimentar con combinaciones de estos metacaracteres para ver diferentes resultados.
+--&gt;
+
+---
+## Metacaracteres Avanzados : Cuantificadores
+
+### Domina la complejidad  
+
+- `+` : Coincide con una o más repeticiones del carácter anterior.
+- `?` : Coincide con cero o una repetición del carácter anterior.
+- `{}` : Especifica un número exacto de repeticiones.
+
+**Ejemplos:** 
+
+- `A+` : `A` repetida una o más veces.
+- `TA+` : `T`seguido de `A` repetida una o más veces.
+- `TA?` : `T`seguido de `A` repetida cero o una vez.
+- `A{2}` : `A` repetida dos veces.
+- `GA{2}` : `G` seguido de dos `A`.
+- `AT{2,3}` : `T`seguido de `A` repetida al menos dos y máximo tres.
+- `A{2,}` : `A` al menos dos veces.
+
+&lt;!--
+**Notas del Profesor:**  
+  - Explica que estos metacaracteres permiten un control preciso sobre las búsquedas, lo cual es crucial en bioinformática.
+--&gt;
+
+---
+## Alternancia
+
+### Buscando múltiples patrones a la vez
+
+Uso de | para Alternancia:
+        Permite buscar múltiples patrones en una sola expresión.
+        Ejemplo: ATG|TGA busca "ATG" o "TGA".
+
+Ejemplos
+
+- 'ATG\|TGA' : Busca líneas que contengan "ATG" o "TGA".
+- '^GCT\|CGA$' : Busca líneas que comiencen con "GCT" o terminen con "CGA".
+
+Ejemplos Prácticos con grep:
+
+```bash
+grep 'ATG\|TGA' archivo.txt
+grep '^GCT\|CGA$' archivo.txt
+```
+
+&lt;font color="red"&gt;  
+Nota: Usa grep -E para evitar escapar la barra vertical.
+&lt;/font&gt;  
+
+&lt;!--
+Notas del Profesor:
+
+    Explica que la alternancia es útil para simplificar búsquedas múltiples en un solo comando.
+    Puedes hacer un chascarrillo: "¡Es como el buffet de las búsquedas, puedes elegir todo lo que quieras!"
+
+--&gt;
+---
+## Negación en expresiones regulares
+
+`[^ ]` : Los corchetes [] se utilizan para definir un conjunto de caracteres que deseas coincidir. Cuando el primer carácter dentro de los corchetes es un acento circunflejo ^,** el conjunto se niega**, lo que significa que coincidirá con cualquier carácter que no esté listado dentro de los corchetes.
+
+ `[^ATGC]`: Cualquier carácter excepto "A", "T", "G", "C". Esto es útil, por ejemplo, para encontrar caracteres no estándar en una secuencia de ADN.
+ 
+ `[^0-9]` : Busca cualquier carácter que no sea un dígito (0-9).
+ 
+ `[^a-z]`: Busca cualquier carácter que no sea una letra minúscula. 
+ 
+
+---
+##  Grupos y Backreferences en Expresiones Regulares
+
+### Capturando y reutilizando patrones
+
+- **Grupos con Paréntesis `()`**:
+
+  - Agrupación: Permiten aplicar operadores a un conjunto de caracteres.
+  - Captura: Almacenan la subcadena coincidente para su uso posterior.
+  
+Ejemplos:
+
+   `(ATG)+`  : Coincide con una o más repeticiones de `ATG`.   
+   `(TA)+TG` : Coincide con una o más repeticiones de `TA` y después `TG`
+
+---
+##  Grupos y Backreferences en Expresiones Regulares
+
+**Backreferences `\1`**:
+
+Permiten referenciar una subcadena capturada previamente en la misma expresión regular.
+
+  - Repetición de un Motivo
+  
+    `(AT)\1` : Coincide con `ATAT`, donde `\1` se refiere a la subcadena capturada `AT`.
+
+- Grupos No Capturantes:
+
+    Uso de `(?:...)` para agrupar sin capturar.
+    Ejemplo: `(?:ATG)+` agrupa `ATG` sin capturarlo.
+
+
+&lt;!--
+Notas del Profesor:
+
+    Explica que los grupos son esenciales para estructurar las expresiones regulares y que las backreferences permiten patrones más complejos al referenciar coincidencias previas.
+    Puedes hacer una comparación divertida: "¡Es como tener una máquina del tiempo en tus búsquedas, puedes volver a usar lo que ya encontraste!"
+    
+Mostrar en https://regex101.com/ como se muestra el grupo y el match.
+
+--&gt;
+
+---
+## Ejemplos de Grupos y Backreferences
+
+`(ATG)\1`: **Repetición de un Motivo**. El grupo `ATG` captura la secuencia `ATG`, y `\1` busca su repetición inmediata. 
+
+`(.)(.)\2\1`: **Secuencia Palindrómica Simple**. Busca secuencias de cuatro nucleótidos que sean palíndromas, como `AGGA` o `TAAT`. Aquí, `(.)(.)` captura dos caracteres, y `\2\1` busca esos mismos caracteres en orden inverso.
+
+`(CG)\1`: **Duplicación de Pares de Nucleótidos**. Busca `CGCG`. El grupo `(CG)` captura `CG`, y `\1` busca su repetición.
+
+`(GAT){2}`: **Repetición de Tripletes. Busca "GATGAT"**. El grupo `(GAT)` se repite exactamente dos veces.
+
+`^(ACGT)+\1$`: **Repetición Completa de una Secuencia**. Busca una secuencia que es una repetición completa de `ACGT`, como `ACGTACGT`. Aquí, `\1` se refiere a toda la secuencia capturada por el grupo `(ACGT)+`.
+
+`(AT|CG)\1`: **Alternancia con Captura y Repetición**. Busca `ATAT` o `CGCG`. El grupo `(AT|CG)` captura `AT` o `CG`, y `\1` busca su repetición.
+
+
+---
+## Grupos y Lookaround en Expresiones Regulares
+
+### Controlando el contexto de tus búsquedas
+
+**Grupos**:
+
+- Uso de paréntesis () para agrupar y capturar subcadenas.
+  Ejemplo: `(ATG)+` coincide con una o más repeticiones de `ATG`.
+
+- Lookaround:
+
+Lookarounds son útiles cuando necesitas verificar el contexto de un patrón sin incluir ese contexto en el resultado de la coincidencia.
+
+   Lookahead: Verifica si un patrón es seguido por otro.
+            Positivo: `(?=...)`
+            Negativo: `(?!...)`
+            
+            `ATG(?=C)` busca `ATG` solo si es seguido por `C`.
+            `ATG(?!C)` Busca "ATG" solo si no es seguido por "C".
+
+---
+## Grupos y Lookaround en Expresiones Regulares
+
+### Controlando el contexto de tus búsquedas
+
+   Lookbehind: Verifica si un patrón es precedido por otro.
+            Positivo: `(?&lt;=...)`
+            Negativo: `(?&lt;!...)`
+
+   Ejemplo de Lookahead:
+
+   `(?&lt;=A)TG` : Busca `TG` solo si es precedido por `A`. No incluye `A` en la coincidencia final.
+   `(?&lt;!A)TG` : Busca `TG` solo si no es precedido por `A`.
+   
+Nota: " " o ' '. Expansión de Variables y Comandos o  Literalidad Completa. 
+
+&lt;!--
+Notas del Profesor:
+Este ejemplo `(?&lt;!A)TG`, si en lugar de comillas simples se usan dobles "", marcara un error "-bash: !A: event not found"
+El shell intenta buscar un comando anterior en el historial que coincida con el patrón después de !, lo que no es lo que deseas en este caso.
+Por eso en regex es recomendable usar comillas simples.
+--&gt;
+   
+---
+
+class: inverse, center, middle
+
+# Expresiones Regulares: digitos y texto
+
+---
+## REGEX EJEMPLO DE NUMERO TELEFONICO
+
+* En la interfaz en la sección de TEXT STRING, vamos a poner la información que contendría un archivo, vamos a poner números telefónicos. Primero pongamos este `707-827-7019`
+
+* Podemos poner en la caja de `Regular Expression` el mismo número. Lo que has hecho al colocar el número en la caja de expresión regular es usar algo llamado **literal de cadena**, para que coincida con una cadena en el texto de destino. Un literal de cadena es una representación literal de una cadena.
+
+* En la caja de `Regular Expression` borra el número y deja sólo un número 7. Observa la caja de Test String. El carácter literal (número) 7 en la expresión regular coincide con las cuatro instancias del número 7 en la texto que estás haciendo coincidir.
+
+ - Qué pasa si le quitas el `flag g` ?
+
+---
+### REGEX : Match con dígitos usando conjuntos de caracter
+
+Si queremos que la `Regular Expression` identifique a todos los números del String ?
+
+```
+[0-9]
+```
+
+"Haga coincidir cualquier dígito que encuentre en el rango del 0 al 9".
+
+
+Los `[]` corchetes no coinciden literalmente porque se tratan especialmente como **metacaracteres**. Un metacarácter tiene un significado especial en expresiones regulares y está **reservado**. Una expresión regular en la forma [0-9] se llama **clase de carácter** o, a veces,
+un **conjunto de caracteres**.
+
+Si queremos ciertos digitos específicos, podemos indicarlo
+
+```
+[012789]
+```
+
+
+---
+
+### REGEX : Match con dígitos usando conjuntos de caracter
+
+Para hacer coincidir cualquier número de teléfono de 10 dígitos, cuyas partes están separadas por guiones, qué podríamos hacer??
+
+--
+
+```
+[0-9][0-9][0-9]-[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]
+```
+
+Esto parece demasiado, no? Hay una forma más sencilla de representar este patrón, llamada `shorthand`.
+
+Usando un `Shorthand` de caracteres, `\d` el cual hace match con cualquier digito como lo hace `[0-9]`
+
+```
+\d\d\d-\d\d\d-\d\d\d\d
+```
+
+El `-` en este caso es un caracter literal.
+
+&lt;!-- shorthand solo trabaja con -P, demuestralo con -E en grep ]  --&gt;
+
+--
+
+Pero con D `\D`, podemos hacer match con cualquier caracter que no sea un dígito.  Reemplacemos los  `-` por `\D`
+
+```
+\d\d\d\D\d\d\d\D\d\d\d\d
+```
+
+---
+
+## REGEX : Match con cualquier caracter
+
+También podemos hacer match con el `-` si usamos el punto `.`
+
+```
+\d\d\d.\d\d\d.\d\d\d\d
+```
+
+El punto actúa esencialmente como un comodín y coincidirá con cualquier carácter (excepto,
+en determinadas situaciones, un final de línea).
+
+De hecho, si en lugar de `-` tuvieramos `%` o `=` o cualquier otro caracter nuestra expresión regular tomaría esos casos.
+
+Pega en el Test String, lo siguientes casos ( archivo: `telefonos.txt`)
+ 
+```
+707-827-7017
+707-929-7017
+707-827%7029
+707:827:3019
+808-838-8068
+30-12-2024
+```
+
+¿Qué observas?
+
+---
+## REGEX : Captura de grupos y referencias anteriores
+
+Ahora vamos a hacer lo siguiente:
+
+-Vamos a coincidir solo una parte del número de teléfono utilizando lo que se conoce como **grupo de captura**. 
+- Luego harás **referencia** al contenido del grupo con una referencia retrospectiva. Para crear un grupo de captura, incluya `\d` entre paréntesis para colocarlo en un grupo.
+- y luego siga con un `\1` para hacer referencia a lo que se capturó.
+
+```
+(\d)\d\1
+```
+
+• (\d) coincide con el primer dígito y lo captura/guarda (el número 7)  
+• \d coincide con el siguiente dígito (el número 0) pero no lo captura porque no es
+encerrado entre paréntesis  
+• \1 hace referencia al dígito capturado (el número 7)  
+
+--
+
+¿Qué hace lo siguiente ?
+
+```
+(\d)0\1\D\d\d\1\D\1\d\d\d
+```
+
+---
+## Usemos grep
+
+1. Copia los archivos de `/home/compu2/WelcomeBioinfo/datos/regex` a tu directorio de practicas.
+
+2. Conjuntos: 
+
+```
+# literal
+grep "7" phone.txt
+
+# conjunto de caracteres
+grep '[0123456789]'  phone.txt
+
+# intervalo de conjuntos
+grep "[0-9]" phone.txt
+grep '[0-9]'  phone.txt
+
+# un formato de número usando intervalos
+grep "[0-9][0-9][0-9]-[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]" phone.txt
+````
+
+---
+## Usando grep
+
+3. Haciendo uso de shorthands
+
+```
+# podemos usar shorhand
+grep "\d" phone.txt      # pero qué pasa??
+grep -E "\d" phone.txt   # pero qué pasa??
+grep -P "\d" phone.txt   # pero qué pasa??
+
+# los shorthand forman parte de las PCRE
+grep -P "\d\d\d-\d\d\d-\d\d\d\d" phone.txt
+grep -P "\d\d\d\D\d\d\d\D\d\d\d\d" phone.txt
+
+grep -P "\d\d\d.\d\d\d.\d\d\d\d" phone.txt
+```
+
+---
+## Usando de grep
+
+Haciendo uso de grupos y referencias
+
+```
+grep -P "(\d)\d\1" phone.txt
+grep -P "(\d)0\1\D\d\d\1\D\1\d\d\d" phone.txt
+```
+
+¿Puedes darme 2 ejemplos más que cumplan con la expresión `(\d)0\1\D\d\d\1\D\1\d\d\d`
+
+
+.tiny[ https://www.arubanetworks.com/techdocs/ArubaOS_63_Web_Help/Content/ArubaFrameStyles/ESI/Basic_Regular_Expression.htm , 
+https://juncotic.com/grep-y-las-expresiones-regulares-basicas-y-extendidas/]
+
+---
+## REGEX : Usando cuantificadores
+
+Otra  forma de hacer match con el número telefónico, es la siguiente:
+
+```
+\d?
+\d+
+\d*
+\d{3}
+\d{3,4}
+\d{3}-?\d{3}-?\d{4}
+```
+
+- Los **números** entre **llaves** le dicen al procesador de expresiones regulares exactamente **cuántas ocurrencias** de esos dígitos que desea que busque. Las **llaves con números** son una especie de **cuantificador**. Las llaves mismas se consideran **metacaracteres**.
+
+- El signo de interrogación `?` es otro tipo de `cuantificador`. Sigue el guión en el formato normal y significa que el guión es opcional, es decir, que puede haber **cero o una** aparición del guión (uno o ninguno). 
+
+- Existen otros cuantificadores como el el signo más `+`, que significa `uno o más`, o el asterisco `*` que significa `cero o más`.
+
+---
+## REGEX : Usando cuantificadores
+
+Usando cuantificadores, nuestra **expresion regular** puede ser más concisa
+
+```
+(\d{3,4}[.-]?)+
+```
+
+La expresión regular paso a paso:
+
+```
+• ( open a capturing group  
+• \ start character shorthand (escape the following character)  
+• d end character shorthand (match any digit in the range 0 through 9 with \d)  
+• { open quantifier  
+• 3 minimum quantity to match  
+• , separate quantities  
+• 4 maximum quantity to match  
+• } close quantifier  
+• [ open character class  
+• . dot or period (matches literal dot)  
+• - literal character to match hyphen   
+• ] close character class  
+• ? zero or one quantifier  
+• ) close capturing group  
+• + one or more quantifier  
+```
+
+---
+## REGEX : Usando cuantificadores
+
+El problema de la expresión regular `(\d{3,4}[.-]?)+` si queremos ser estrictos con un número telefónico, es que si aceptamos 4 números al inicio y en medio, ya no sería un número telefónico en el formato que estamos procesando.
+
+Podríamos corregirlo de la siguiente manera:
+
+```
+(\d{3}[.-]?){2}\d{4}
+```
+
+---
+## Usemos grep
+
+Cuantificadores
+
+
+```
+grep  "\d{3}-?\d{3}-?\d{4}" phone.txt # porque no funciona??
+
+grep -P "\d{3}-?\d{3}-?\d{4}" phone.txt
+grep -P "(\d{3,4}[.-]?)+" phone.txt
+grep -P "(\d{3}[.-]?){2}\d{4}" phone.txt
+```
+
+---
+
+## REGEX : Inicio y fin
+
+Que tal si queremos filtrar sólo las líneas que tengan el número telefónico **al inicio** ?
+
+```
+^(\d{3}[.-]?){2}\d{4}
+```
+
+**^ matches the beginning of a line**
+
+--
+
+Y si quisieramos que solo filtre todas aquellas líneas que solo tengan el número telefónico de inicio a fin de línea.
+
+```
+^(\d{3}[.-]?){2}\d{4}$
+```
+
+**$ matches the end of a line.**
+
+---
+
+## Resumen
+
+What a regular expression is
+
+• How to use regex, a simple regular expression processor   
+--
+
+• How to match string literals   
+--
+
+• How to match digits with a character class  
+--
+
+• How to match a digit with a character shorthand  
+--
+
+• How to match a non-digit with a character shorthand  
+--
+
+• How to use a capturing group and a backreference  
+--
+
+• How to match an exact quantity of a set of strings  
+--
+
+• How to match a character optionally (zero or one) or one or more times  
+--
+
+• How to match strings at either the beginning or the end of a line  
+
+---
+
+## Vocabulario básico para formar una expresión regular
+
+|Caracter   | Significado  |
+|-----------|--------------------------------|
+| .         | Identifica cualquier caracter. |
+| ^         | Identifica el inicio de la cadena.|
+| $         | Identifica el final de la cadena. |
+| *         | Cero o más repticiones. |
+| +         | Una o más repeticiones. |
+| ?         | Cero o una repetición. |
+| {m}       | Exactamente m repeticiones. |
+| {m,n}     | Entre m y n repeticiones. |
+| pipe      | Identifica la expresión regular antes y después el símbolo. |
+| [ ]       | Cualquier caracter dentro de los brackets. |
+| \d        | Cualquier caracter numérico. |
+| \w        | Cualquier caracter alfanumérico. |
+
+---
+# Expresiones regulares: Caracteres
+
+Copia el contenido del archivo `rima.txt` en  [https://regex101.com/](https://regex101.com/) en la caja de TEST STRING.
+
+Veremos algunos metacaracteres y opciones relacionados con strings.
+
+---
+## Conjuntos de caracteres
+
+Conjuntos de caracteres e intervalos.
+
+Prueba estas expresiones regulares y observa como hace match
+
+```
+# solo vocales
+[aeiou]
+
+# caracteres entre la a-z
+[a-z]
+
+# caracteres entre a y f
+[a-f]
+
+# mayusculas
+[A-Z]
+
+# mayusculas y minusculas
+[a-zA-Z]
+```
+---
+## Conjuntos de caracteres
+
+También puedes usar shorhands dentro de una clase de caracteres. 
+
+`\w` : Matches any letter, digit or underscore. Equivalent to [a-zA-Z0-9_]
+`\s` : Matches any space, tab or newline character.
+
+Probemos
+
+```
+\w
+\s
+````
+
+Por ejemplo, para combinar con el espacio en blanco y caracteres alfabéticos, podrías crear una clase de carácter como esta:
+
+```
+# to match white-space and word characters
+[\w\s]
+
+# es lo mismo que esto guión y espacio incluidos
+[_a-zA-Z \t\n\r]
+```
+
+---
+## Negar conjuntos y clases de caracteres con *nombre* (POSIX)
+
+Portable Operating System Interface is a family of standards maintained by
+IEEE. It includes a regular expression standard, (ISO/IEC/IEEE 9945:2009), which
+provides a set of named character classes that have the form
+
+[[:xxxx:]]    where xxxx is a name.
+
+````
+# I don’t want these characters.
+[^aeiou]
+
+# For alphabetic characters in either upper- or lowercase, use:
+[[:alpha:]]
+
+# if you wanted to match non-alphabetic characters
+[[:^alpha:]]
+
+# To match space and tab characters
+[[:space:]]
+
+# to match all whitespace characters
+[[:blank:]]
+```
+---
+# Usemos grep
+
+
+```
+# Probemos estos conjuntos de caracteres, que se marca?
+grep --color '[aeiou]' rima.txt 
+grep --color '[a-z]' rima.txt 
+grep --color '[a-zA-Z]' rima.txt 
+grep --color '[a-zA-Z0-9_]' rima.txt 
+
+# shorhands
+grep --color '\w' rima.txt 
+# shorthand con conjunto, solo con -P
+grep --color '[\w\s]' rima.txt 
+
+
+# usemos una clase con nombre
+# buscando solo letras
+grep --color '[[:alpha:]]' rima.txt 
+```
+
+---
+
+```
+# queremos caracteres alfanuméricos
+# letras, numeros y _
+grep --color '[[:word:]]' rima.txt   # Qué ocurre? ... grep: Invalid character class name
+
+grep -E --color '[[:word:]]' rima.txt # Qué ocurre?
+
+# No todas las clases con nombre estan en Exp basicas o Extendidas
+# solo disponibles con -Perl Exp
+grep -P --color '[[:word:]]' rima.txt 
+
+# Qué caracteres reconocen estas ?
+grep -P --color '[[:punct:]]' rima.txt 
+grep -P --color '[[:space:]]' rima.txt 
+
+# Negación con clases con nombre, solo con -P
+grep -P --color '[[:^alpha:]]' rima.txt 
+```
+
+---
+## Límites de palabras y no palabras
+
+Checa que este marcado `insensitive case` en https://regex101.com/
+
+`b` : Marcar el límite de una palabra. Como, ^ o $, \b es una afirmación de ancho cero. Solo limita no hace match con algún caracter.
+
+Observa como no hay un caracter match para  `\b`
+
+```
+# buscando literalmente THE
+THE
+
+# boundary - perimetro - limite 
+# Observa los the al inicio y final de linea, qué caracteres reconoce como limite ?
+\bTHE\b
+
+# Para hacer coincidir un límite que no es una palabra
+\Be\B
+
+# que pasa con la expresión anterior si unes "from thence" en el texto ?
+```
+
+---
+## Alternation, Groups, and Backreferences
+
+La alternancia le ofrece la opción de elegir patrones alternativos para combinar.
+
+```
+(the|The|THE)
+```
+
+Podemos acortar este grupo aplicando una opción. Las opciones le permiten especificar la forma
+le gustaría buscar un patrón. En la interfaz puedes activar el `insensitive case` o en grep con la opció -i, pero también puedes indicarlo en la expresión regular usando `(?i)`
+
+```
+'(?i)the'
+```
+
+**Alternancia y Subpatrones **
+
+```
+# Qué selecciona esta expressión
+(t|T)h(e|eir)
+
+# y estas ? cuantos match hay ?
+(t|T)h(e|eir)+
+(t|T)h(e|eir)*
+
+# subpatrones y boundary
+\b[tT]h[ceinry]*\b
+```
+
+---
+## Grupos y referencias
+
+Los grupos guardan en memoria, recuerdo como \1 \2 etc..
+Observa los 2 grupos de esta expresión 
+
+```
+(It is) (an ancyent Marinere)
+```
+
+Si no necesitas aplicar una  backreference en tu expresión regular, no tiene caso guardar en memoria. Podrías escribir un no-captura de grupo con `(?:)`
+
+```
+(?:the|The|THE)
+```
+
+Que pasó en el resultado con los grupos ?
+
+Y si quiers agregar la opción de insensitive case
+
+```
+# los 3 son lo mismo
+(?i)(?:the)
+(?:(?i)the)
+(?i:the)
+
+```
+---
+
+## Usemos grep
+
+```
+# boundary
+grep  '\bTHE\b' rima.txt 
+
+# observa "manner the" porque no  la marca ?
+grep '\Be\B' rima.txt
+```
+
+Alternativas
+
+```
+# todas las opciones de The
+grep "(the|The|THE)" rima.txt   # que pasa?
+
+# alternativas solo en extendidas o Perl exp
+grep -E "(the|The|THE)" rima.txt
+
+# alternativas y patrones
+grep -E "(t|T)h(e|eir)" rima.txt
+grep -E "(t|T)h(e|eir)+" rima.txt
+grep -E "(t|T)h(e|eir)*" rima.txt
+
+# alternativa con conjuntos, pero solo carcateres independientes
+grep -E "\b[tT]h[ceinry]*\b" rima.txt
+```
+---
+## Usemos grep
+
+grep y las opciones -c y -o 
+```
+grep -Ec "(the|The|THE)" rima.txt
+grep -Eo "(the|The|THE)" rima.txt | wc -l 
+```
+¿Por qué hay diferencia en los totales ? 
+
+Porque -c te da un recuento de coincidencias líneas, pero puede haber más de una coincidencia en cada línea. Si usa -o con wc -l, entonces cada aparición de las diversas formas de la palabra aparecerá en una línea separada y se cuentan.
+
+---
+## Usemos grep
+
+```
+# busca sin importar mayusculas o minusculas
+grep -P  '(?i)the' rima.txt 
+
+# lo mismo - insensitive case con opción de grep -i
+grep -P -i  'the' rima.txt 
+
+# sin guardar el grupo
+grep -P  '(?i:the)' rima.txt 
+
+grep -P  '(?i:the)\1' rima.txt  # que pasa
+
+```
+
+---
+
+## Ejercicio
+
+1. ¿Cómo definirías una o más expresiones regulares que describan a todas las siguientes líneas?
+
+```
+YP_588464.1
+YP_588465.1
+YP_588466.1
+YP_588467.1
+YP_588468.1
+YP_588469.1
+YP_588470.1
+```
+
+---
+## Ejercicio
+
+Genera una expresión regular que permita extraer todos los gene con sus coordenadas genómicas. Deben tomarse en cuenta genes en forward o en la cadena complementaria. Usa el archivo `NC_000913.3.gbk `
+
+```
+     gene            337..2799
+     gene            5234..5530
+     gene            complement(5683..6459)
+     gene            complement(6529..7959)
+     gene            8238..9191
+```
+
+---
+## Ejercicio
+
+2. ¿Cómo definirías una o más expresiones regulares que describan a todas las siguientes líneas?
+
+Sitios de unión del Factor de Transcripción LexA (File: LexA_tfbs.txt)
+
+```
+TACTGTTTTTATATACAGTATA
+TACTGTTTATTTATACAGTAAA
+TACTGTTTTTATATACAGTAGT
+AACTGGTTTTATATACAGTAAA
+AACTGTTTTTTTATCCAGTATA
+AACTGTGATTTTATACAGTATA
+TACTGGTTATTTATACAGGTAA
+AACTGTATTTATATACAGTTGT
+CCCTGGGTGTATATACAGTTAT
+TGCTGTGAGTATATACAGCAAA
+TGCTGGTTATCTATCCAGTGTA
+AGCTGTTTATTTATACAGTGAG
+TACTGTTATTGTGTACAGTATA 
+```
+
+Checa si tu expresión regular, puede encontrar todos los sitios.
+
+---
+## Ejercicios
+
+3. Hacer una o más expresiones regulares que permitan hacer match con los renglones donde el feature es gene y traigan nombre de gene (Name=)
+
+```
+NC_000913.3     RefSeq  gene    190     255     .       +       .      
+ID=gene-b0001;Dbxref=ASAP:ABE-0000006,ECOCYC:EG11277,EcoGene:EG11277,GeneID:944742;Name=thrL;gbkey=Gene;gene=thrL;gene_biotype=protein_coding;gene_synonym=ECK0001;locus_tag=b0001
+NC_000913.3     RefSeq  gene    337     2799    .       +       .      
+ID=gene-b0002;Dbxref=ASAP:ABE-0000008,ECOCYC:EG10998,EcoGene:EG10998,GeneID:945803;Name=thrA;gbkey=Gene;gene=thrA;gene_biotype=protein_coding;gene_synonym=ECK0002,Hs,thrA1,thrA2,thrD;locus_tag=b0002
+```
+
+&lt;br&gt;
+
+4. Extender la anterior expresión regular, para que además el mismo nombre del gene este en la etiqueta de gene=
+
+---
+## Ejercicio: archivos FastA
+
+Usando el archivo `../practica5/cholerae_protein.fna` obten lo siguiente:
+
+- Extraer Identificadores de Secuencias
+- Extraer Descripciones de Secuencias
+- Extraer la especie
+
+---
+## Ejercicio: Enzimas de restricción
+
+El objetivo de este ejercicio es identificar los sitios de corte para varias enzimas de restricción en una secuencia de ADN dada.
+
+Instrucciones:
+
+- Usa los archivos `enzimas.txt` que contiene la lista de patrones de las enzimas más comunes. Usa la secuencia `secuencia_enzimas.txt`.
+
+- Utilizar Expresiones Regulares:
+
+Usa expresiones regulares para buscar cada uno de los patrones de reconocimiento en la secuencia de ADN proporcionada. 
+
+- Identificar las Posiciones:
+
+Anota las posiciones de inicio de cada sitio de restricción encontrado en la secuencia. Esto te ayudará a determinar dónde las enzimas cortarán la secuencia.
+
+---
+## Ejercicio: Archivos PubMed
+
+Se tienen las referencias de 2 regulones `AraC` y `CRP` en formato PubMed, obten lo siguiente:
+
+- Extraer el año de publicación de las referencias de de alguno de los regulones `AraC` o `CRP`.
+- Extraer el PubMedID.
+- Extraer el ORCID de los autores, sin repeticiones.
+- Extraer el DOI de las publicaciones de cualquiera de los regulones (Cuidado porque se repite)
+
+---
+## Ejercicio: Motivo de unión de TFs
+
+Los Reguladores Transcripcionales se unen al DNA en la región reguladora de los genes. De esta forman controlan la expresión de los genes. En RegulonDB se han documentado los sitios de unión para los reguladores hasta ahora conocidos. 
+
+Usa el archivo `TyrR_binding.txt`
+
+Genera el motivo de unión, usando expresiones regulares, para obtener el mayor número posible de sus sitios.
+
+
+
+---
+
+---
+
+&lt;!--
+```
+# hat is, grep knows where the ends of the lines are, but sees the input as one big line. 
+# -o print only matching. 
+grep -zo "^THE.*\?$"  rime_marinere.txt 
+
+^THE.*
+```
+
+grep -P --color "\tgene\t.+gene=[^;]{3,10};" coli.gff
+
+Expresion para seleccionar el ombre del organismo
+grep -o -P "\[[^\]]+\]" anthracis_protein.fna
+--&gt;
+
+
+
+
+---
+
+Dispositivas previas ... 
+
+&lt;!--
+
+## ¿Qué es una expresión regular?
+
+Las expresiones regulares son **cadenas de texto** especialmente **codificadas** que se utilizan como **patrones** para hacer ***coincidir** con conjuntos de cadenas. Comenzaron a surgir en la década de 1940 como una forma de describir lenguajes regulares, pero realmente comenzaron a aparecer en el mundo de la programación durante la década de 1970. 
+
+El primer lugar donde pude encontrarlos fue en el editor de texto QED escrito por Ken. Thompson.
+
+Entonces, 
+
+- Una expresión regular es una secuencia de caracteres que definen un patrón de búsqueda.
+
+- Se utilizan para hacer coincidir combinaciones de caracteres en cadenas.
+
+---
+## Expresiones Regulares
+
+Las expresiones regulares se convirtieron en una parte importante del conjunto de herramientas que surgió de el sistema operativo Unix: los editores ed, sed y vi (vim), grep, AWK, entre otros, las incluyen.
+
+Las expresiones regulares (regex) se utilizan para identificar, hacer coincidir o administrar el texto.
+
+Sin embargo, Regex es capaz de mucho más que realizar búsquedas de palabras clave. Se puede utilizar para encontrar cualquier tipo de patrón imaginable.
+
+Los patrones se pueden encontrar más fácilmente usando **META CARACTERES** Esos caracteres especiales que hacen que esta herramienta de búsqueda sea mucho más poderosa.
+
+---
+## Expresiones Regulares
+
+The grep command offers three regex syntax options:
+
+1. Basic Regular Expression (BRE)
+
+2. **Extended Regular Expressions (ERE)**  ( Option -E)
+
+3. Perl Compatible Regular Expressions (PCRE)  ( Option -P)
+
+By default, grep uses the BRE syntax.
+
+---
+## Expresiones Regulares
+
+Esta herramienta puede resultar intimidante tanto para los novatos como para los usuarios más experimentados de Linux.
+
+Desafortunadamente, incluso un patrón relativamente simple como un número de teléfono puede dar como resultado una cadena de expresiones regulares de aspecto aterrador.
+
+Es bueno que sepas, que no existe la necesidad de entrar en pánico cuando veas expresiones como esa.
+
+Una vez que te familiarices con los conceptos básicos de las expresiones regulares, puedes abrir un nuevo mundo de posibilidades para tu día a día.
+
+
+source: https://ciberninjas.com/linux-que-es-grep/
+
+---
+## Expresiones Regulares
+
+Vamos a trabajar primero en unos ejemplos para ver que es una expresión regular usando una herramienta que nos facilitará entender las expresiones regulares 
+
+- https://www.regexpal.com/
+- https://regex101.com/
+
+Veamos la interfaz!!
+
+--&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+  .logo {
+    background-image: url(logos/LCG-UNAM.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    width: 110px;
+    height: 128px;
+    z-index: 0;
+  }
+  </style>
+  
+  <script>
+  document
+    .querySelectorAll(
+      '.remark-slide-content' +
+      ':not(.title-slide)' +
+      // add additional classes to exclude here, e.g.
+      // ':not(.inverse)' +
+      ':not(.hide-logo)'
+    )
+    .forEach(el => {
+      el.innerHTML += '<div class="logo"></div>';
+    });
+  </script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

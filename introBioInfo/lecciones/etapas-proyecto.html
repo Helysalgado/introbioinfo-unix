@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Introducción a la Bioinformática</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.18/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/hygge.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Introducción a la Bioinformática
+]
+.institute[
+### Licenciatura en Ciencias Genómicas,UNAM
+]
+
+---
+
+
+
+
+&lt;style type="text/css"&gt;
+/* From https://github.com/yihui/xaringan/issues/147  */
+.scroll-output {
+  height: 80%;
+  overflow-y: scroll;
+}
+/* https://stackoverflow.com/questions/50919104/horizontally-scrollable-output-on-xaringan-slides */
+pre {
+  max-width: 100%;
+  overflow-x: scroll;
+}
+&lt;/style&gt;
+
+
+## Objetivo
+
+Lxs alumnxs serán capaces de comprender 
+
+---
+
+class: center, middle
+
+# Un proyecto de investigación
+
+
+---
+## Esfuerzos por poner orden en la investigación
+
+https://elixir-europe.org/
+ELIXIR: ELIXIR is an intergovernmental organisation that brings together life science resources from across Europe. These resources include databases, software tools, training materials, cloud storage and supercomputers.
+
+https://www.rd-alliance.org/
+The Research Data Alliance (RDA) is a global forum to enable open sharing of scientific data across disciplines, technologies and countries.  The RDA provides a neutral space where its members can come together to develop and adopt infrastructure that promotes data-sharing and data-driven research
+
+https://fairsharing.org/
+FAIRSharing : A curated, informative and educational resource on data and metadata standards, inter-related to databases and data policies. 
+
+---
+## Principios FAIR
+
+FAIRsoft - A practical implementation of FAIR principles for research software
+Eva Martin del Pico, Josep Lluis Gelpi and Salvador Capella-Gutiérrez
+
+
+---
+## Etapas en un proyecto de investigación
+
+&lt;img src="img/etapas-proyecto.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+---
+## Buenas prácticas para un proyecto de investigación
+
+1. **Carpeta del Proyecto**. Crear una estructura de directorios para el proyecto (data, bin, results, doc). O si es muy grande y complejo, dividelo por fases del proyecto.
+
+2. **Bitácora**. Es recomendable llevar una bitácora digital donde anotes todo lo que hagas en el proyecto. Puedes poner las etapas y lo que vas haciendo en cada una, funcione o no. 
+
+En la realidad, a través del tiempo se generan varios documentos como el Plan de Trabajo, Cronograma, Estado del Arte, etc... Pero para simplificar podemos usar un solo archivo bitácora.
+
+---
+## Buenas prácticas para un proyecto de investigación
+
+3. **Metadatos de los datos**. En la fase de *Desarrollo* en la *colecta de datos*, si tu proyecto usará datos de terceros, descárgalos, pero adjunta un archivo de metadatos que los describa, incluye la fecha de descarga, el título, URL, DOI o un ID, los creadores, versión, formato, etc. 
+
+Si la fuente donde los descargas no viene el metadato, tienes que generarlo tú. Puedes generar un archivo de metadatos por cada dataset, sugerimos poner el mismo nombre agregando metadata. Por ejemplo si tu archivo se llama ecoli_network.txt, el metadato seria ecoli_network_metadata.md o .txt.
+
+Si es un archivo de metadatos para todos los datasets que vas a usar, puedes llamarlo simplemente metadata.md o README dentro de la carpeta de data. 
+
+Puedes usar el este [formato](https://github.com/UtrechtUniversity/FAIR-Cheatsheets/blob/main/cheatsheets/FAIR_data_publishing/README_FAIR_data_publishing.md) donde hay mas detalles.
+
+---
+## Buenas prácticas para un proyecto de investigación
+
+4. **Publicación de datos**. La última fase es la divulgación de resultados.
+
+si eso incluye datasets tienes que documentarlos. Usa el [formato](https://github.com/UtrechtUniversity/FAIR-Cheatsheets/blob/main/cheatsheets/FAIR_data_publishing/README_FAIR_data_publishing.md) recomendado para datasets.
+
+Esto también incluye la licencia de uso de los datos, puedes usar las [Creative Commons](https://creativecommons.org/share-your-work/cclicenses/), selecciona la que sea adecuada.
+
+En esta etapa hay una selección de aquellos productos de trabajo que quieres compartir. Porque no todo lo que has generado durante todo el proyecto, es necesario compartirlo. Puedes generar una carpeta de divulgación y copiar todo lo que vas a compartir.
+
+Puedes generar un documento tipo protocolo de investigación (que ya generamos) que resuma lo que se hizo en el proyecto. Recuerda que servirá para que cualquier pueda entender como reproducir los resultados que estas reportando. PAra generar este archivo, puedes usar el archivo de Bitácora.
+
+Para publicar tus datasets puedes usar repositorios que te asignan un DOI (identificador único persistente) y subir n versiones de tus datasets, como Zenodo, FAIRSharing, etc.
+
+---
+## Buenas prácticas para un proyecto de investigación
+
+5. Los nombres de archivos y directorios deben ser significativos. 
+
+No usar espacios y no caracteres NO ALFANUMERICOS.
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+  .logo {
+    background-image: url(logos/LCG-UNAM.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    width: 110px;
+    height: 128px;
+    z-index: 0;
+  }
+  </style>
+  
+  <script>
+  document
+    .querySelectorAll(
+      '.remark-slide-content' +
+      ':not(.title-slide)' +
+      // add additional classes to exclude here, e.g.
+      // ':not(.inverse)' +
+      ':not(.hide-logo)'
+    )
+    .forEach(el => {
+      el.innerHTML += '<div class="logo"></div>';
+    });
+  </script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

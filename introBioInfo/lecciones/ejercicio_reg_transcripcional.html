@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Introducción a la Bioinformática</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.18/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/hygge.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Introducción a la Bioinformática
+]
+.institute[
+### Licenciatura en Ciencias Genómicas,UNAM
+]
+.date[
+### First version: yyy-mm-dd; Last update: 2024-10-26
+]
+
+---
+
+
+
+
+&lt;style type="text/css"&gt;
+/* From https://github.com/yihui/xaringan/issues/147  */
+.scroll-output {
+  height: 80%;
+  overflow-y: scroll;
+}
+
+.noinverse {
+  background-color: #272822;
+  color: #d6d6d6;
+  text-shadow: 0 0 20px #333;
+}
+
+/* https://stackoverflow.com/questions/50919104/horizontally-scrollable-output-on-xaringan-slides */
+pre {
+  max-width: 100%;
+  overflow-x: scroll;
+}
+
+
+&lt;/style&gt;
+
+
+
+## Objetivo
+
+El alumno debe ser capaz de aplicar los conocimientos de variables, ciclos y scripts.
+
+---
+
+
+class: inverse, center, middle
+
+# Regulación Transcripcional
+
+---
+## Nuestro modelo de estudio: regulación transcripcional
+
+&lt;img src="img/operon.png" width="600px" style="display: block; margin: auto;" /&gt;
+
+.tiny[Imagen tomada de: Overview: Gene regulation in bacteria. Khan Academy]
+
+---
+## Regulación transcripcional: represión
+
+&lt;img src="img/repressor.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+&lt;br&gt;
+
+.tiny[Imagen tomada de: Overview: Gene regulation in bacteria. Khan Academy]
+
+---
+## Regulación transcripcional: activación
+
+
+&lt;img src="img/activator.png" width="800px" style="display: block; margin: auto;" /&gt;
+
+
+&lt;br&gt;
+
+.tiny[Imagen tomada de: Overview: Gene regulation in bacteria. Khan Academy]
+
+---
+
+class: inverse, center, middle
+
+# Ejercicio
+
+---
+## Los datos
+
+
+- En tu home crea el proyecto `practica10` (con toda su estructura de directorios)
+
+- Muévete a tu carpeta `practica10`
+
+- Copia los archivos que se encuentran en
+/home/compu2/WelcomeBioinfo/datos/practica10
+
+
+---
+## TFs y factores Sigma
+
+.content-box-gray[
+
+Para cada uno de los **TFs** con **evidencia fuerte** obtén todos **sus promotores regulados** y para cada promotor el **factor sigma asociado**.
+
+]
+
+&lt;br&gt;
+
+
+**Algoritmo**: 
+
+- Obtener los TFs con evidencia fuerte
+
+- Para cada TF obtener los promotores
+
+- Para cada promotor de un TF obtener el factor sigma
+
+- Imprimir TF, promotor y factorSigma (separados por tabuladores)
+
+---
+## TFs con evidencia fuerte
+
+
+**¿Cuántos TFs con evidencia fuerte existen? ¿Cuáles son? **
+
+
+&lt;br&gt;
+
+```bash
+## Cuales
+awk -F '\t' '$8 == "Strong" {print $2}' TFSet.txt 
+
+
+## Cuantos 
+awk -F '\t' '$8 == "Strong" {print $2}' TFSet.txt  | wc -l
+```
+
+&lt;br&gt;
+
+81 TFs con evidencia fuerte
+
+---
+## Promotores regulados por el TF AcrR
+
+**¿Cuáles con los promotores regulados por el TF AcrR?**
+
+```bash
+## Cuales
+awk -F '\t' '$2 == "AcrR" {print $12}' BindingSiteSet.txt
+```
+
+marRp, flhDp, micFp, soxRp, soxSp, acrAp, acrRp
+
+---
+## Factor Sigma del promotor marRp 
+
+**¿Cuál es el factor Sigma del promotor marRp?**
+
+```bash
+## Cual
+awk -F '\t' '$2 == "marRp" {print $5}' PromoterSet.txt
+```
+
+Sigma70
+
+---
+## Ejercicio: TFs y factores Sigma 
+
+Para cada uno de los TFs con evidencia fuerte obtén todos los promotores regulados y para cada promotor el factor sigma asociado.
+
+PROCEDIMIENTO
+
+- Obtener los TFs con evidencia fuerte
+- Para cada TF obtener los promotores
+- Para cada promotor de un TF obtener el factor Sigma
+- Imprimir TF promotor factorSigma (separados por tabuladores)
+
+
+---
+## Ejercicio: TFs y factores Sigma 
+
+Creando un script de bash y ejecutándolo
+
+```bash
+## Crear script
+nano tf_sigma.sh
+
+## Cambiar permisos
+chmod +x tf_sigma.sh
+
+## Ejecutarlo
+./tf_sigma.sh
+```
+
+---
+## Paso 1: Obtener los TFs con evidencia fuerte
+
+```bash
+#!/bin/bash
+
+TFS=$(awk -F '\t' '$8 == "Strong" {print $2}' TFSet.txt)
+
+echo $TFS
+```
+
+
+---
+## Paso 2: Promotores por TF
+
+
+```bash
+#!/bin/bash
+
+TFS=$(awk -F '\t' '$8 == "Strong" {print $2}' TFSet.txt)
+
+for TF in ${TFS[@]}; do
+
+        PROMOTERS=$(awk -F '\t' -v TF="$TF" '$2 == TF {print $12}'  \
+        				BindingSiteSet.txt)
+        
+        echo $PROMOTERS
+done
+```
+
+---
+## Paso 3: Factor sigma por promotor
+
+
+```bash
+#!/bin/bash
+
+TFS=$(awk -F '\t' '$8 == "Strong" {print $2}' TFSet.txt)
+
+for TF in ${TFS[@]}; do
+        PROMOTERS=$(awk -F '\t' -v TF="$TF" '$2 == TF {print $12}' \
+        				BindingSiteSet.txt)
+
+        for PROMOTER in ${PROMOTERS[@]}; do
+                SIGMA=$(awk -F '\t' -v PROMOTER="$PROMOTER" \
+                	'$2 == PROMOTER {print $5}' PromoterSet.txt)
+			
+                SIGMA=$(echo $SIGMA | sed -e 's/ //'g)
+                echo $TF $PROMOTER $SIGMA
+        done
+done
+
+```
+
+---
+## Regulación transcripcional: conformaciones Apo y Holo
+
+
+&lt;img src="img/apo-holo.png" width="800px" style="display: block; margin: auto;" /&gt;
+
+Transcription Factors in Escherichia coli Prefer the Holo Conformation, PLOS ONE, Balderas-Martinez, et al. 2013. 
+
+---
+## Ejercicio: TFs en apo y TUs
+
+¿Cuál es el número de activadores y represores que tienen como conformación activa las conformaciones apo u holo?
+
+
+PROCEDIMIENTO}
+
+- Obtener una lista de todos los TFs
+- Para cada TF obtener su efecto
+- Para cada TF obtener su conformación
+- Contar el número de ocurrencias para cada combinación
+
+---
+## Todos los TFs
+
+**¿Cuáles TFs existen?**
+
+```bash
+## Cuales 
+awk -F '\t' '{print $2}' TFSet.txt | sort -u 
+
+## Cuantos 
+awk -F '\t' '{print $2}' TFSet.txt  | sort -u | wc -l
+
+```
+
+221 TFs
+
+---
+## Efecto del TF Zur
+
+```bash
+## Efecto 
+awk -F '\t' '$1 == "Zur" {print $3}' network_tf_gene.txt | sort -u
+```
+
+Zur es un represor
+
+---
+## Efectos
+
+**¿Existe algún TF con más de un efecto?**
+
+```bash
+## Numero de efectos por TF 
+grep -v "#" network_tf_gene.txt | cut -f1,3 | sort -u | \
+	cut -f1 | uniq -c | sort | tail
+
+##Ejemplo
+cut -f1,3 network_tf_gene.txt | sort -u | grep "NagC"
+
+```
+
+Si, varios TFs tienen más de un efecto
+
+---
+## Conformación activa del TF Zur
+
+**¿Cuál es la conformación activa del TF Zur?**
+
+
+```bash
+## Efecto 
+awk -F '\t' '$2 == "Zur" &amp;&amp; $7 == "Active"  {print $9}' \
+	Conformation_active_inactive_Set.txt | sort -u 
+
+```
+
+La conformación activa de Zur es la conformación Holo
+
+---
+## Conformaciones activas
+
+**¿Existe algún TF con más de una conformación activa?**
+
+```bash
+## Numero de conformaciones activas 
+cut -f2,7,9 Conformation_active_inactive_Set.txt | grep "Active" \
+	| sort -u | cut -f1 | sort | uniq -c | sort | tail
+
+
+##Ejemplo
+cut -f2,7,9 Conformation_active_inactive_Set.txt | grep "Active" | \
+	grep "TyrR"
+
+```
+
+Si, más de un TF tiene más de una conformación activa
+
+---
+## Ejercicio: TFs en apo y TUs 
+
+
+¿Cuál es el número de activadores y represores que tienen como conformación activa las conformaciones apo u holo?
+
+PROCEDIMIENTO}
+
+- Obtener una lista de todos los TFs
+- Para cada TF obtener su efecto
+- Para cada TF obtener su conformación
+- Contar el número de ocurrencias para cada combinación
+
+---
+## Ejercicio: TFs en apo y TUs
+
+
+Creando un script de bash y ejecutándolo
+
+```bash
+## Crear script
+vi tf_apo.sh
+
+## Cambiar permisos
+chmod +x tf_apo.sh
+
+## Ejecutarlo
+./tf_apo.sh
+
+```
+
+**TU TURNO**
+
+---
+## Distancias a TSS y primer gene
+
+Regulación transcripcional: elementos genómicos
+
+&lt;img src="img/tss.png" width="800px" style="display: block; margin: auto;" /&gt;
+
+.tiny[Imagen tomada de: https://www.addgene.org/mol-bio-reference/promoters/]
+
+---
+## Ejercicio: Distancia a TSS y distancia a primer gene
+
+
+Para cada TF, ¿cuál es la distancia promedio al TSS y la distancia promedio al primer gene?
+
+PROCEDIMIENTO}
+
+- Obtener una lista de todos los TFs
+- Para cada TF obtener la distancia promedio al TSS
+- Para cada TF obtener la distancia promedio al primer gene
+
+---
+## Distancia al TSS
+
+¿Cuál es la distancia al TSS para todos los sitios de pegado del TF Zur?
+
+```bash
+## Distancia al TSS 
+awk -F '\t' '$2 == "Zur" {print $13}' BindingSiteSet.txt
+```
+
+---
+## Distancia promedio al TSS
+
+¿Cuál es la distancia promedio al TSS tomando en cuenta todos los sitios de pegado del TF Zur?
+
+```bash
+## Distancia promedio al TSS 
+awk -F '\t' '$2 == "Zur" {print $13}' BindingSiteSet.txt | \
+     awk 'BEGIN{ s = 0 }; { s += ($1) }; END{ print "mean: " s/NR };'
+     
+```
+
+La distancia promedio al TSS es: 5.75
+
+
+---
+## Distancia al primer gene
+
+
+¿Cuál es la distancia al primer gene para todos los sitios de pegado del TF Zur?
+
+
+```bash
+## Distancia al TSS 
+awk -F '\t' '$2 == "Zur" {print $15}' BindingSiteSet.txt
+
+```
+
+---
+## Distancia promedio al primer gene
+
+¿Cuál es la distancia promedio al primer gene tomando en cuenta todos los sitios de pegado del TF Zur?
+
+```bash
+## Distancia promedio al TSS 
+awk -F '\t' '$2 == "Zur" {print $15}' BindingSiteSet.txt | \
+    awk 'BEGIN{ s = 0 }; { s += ($1) }; END{ print "mean: " s/NR };'
+
+```
+
+La distancia promedio al primer gene es: -35.5
+
+---
+## Ejercicio: Distancia a TSS y distancia a primer gene 
+
+Para cada TF, ¿cuál es la distancia promedio al TSS y la distancia promedio al primer gene?
+
+PROCEDIMIENTO}
+
+- Obtener una lista de todos los TFs
+- Para cada TF obtener la distancia promedio al TSS
+- Para cada TF obtener la distancia promedio al primer gene
+
+
+---
+## Ejercicio: Distancia a TSS y distancia a primer gene 
+
+Creando un script de bash y ejecutándolo
+
+```bash
+## Crear script
+vi distances.sh
+
+## Cambiar permisos
+chmod +x distances.sh
+
+## Ejecutarlo
+./distances.sh
+```
+
+---
+## Paso 1: Obtener una lista de todos los TFs
+
+```bash
+#!/bin/bash
+
+TFS=$(awk -F '\t' '{print $2}' TFSet.txt | sort -u)
+
+echo $TFS
+
+```
+
+---
+## Paso 2: Obtener la distancia promedio al TSS por TF
+
+
+```bash
+#!/bin/bash
+
+TFS=$(awk -F '\t' '{print $2}' TFSet.txt | sort -u)
+
+for TF in ${TFS[@]}; do
+    echo $TF
+    TSS=$(awk -F '\t' -v TF="$TF" \
+        '$2 == TF {print $13}' BindingSiteSet.txt | \
+        awk 'BEGIN{ s = 0 }; { s += ($1) }; END{ print "m: " s/NR };')
+        
+        echo $TSS
+done
+
+```
+
+No todos los TFs del archivo TFSet.txt tienen sitios de pegado en el archivo BindingSiteSet.txt
+
+---
+## Paso 1: Obtener una lista de todos los TFs
+
+```bash
+## TFs en BindingSiteSte
+awk -F '\t' '{print $2}' BindingSiteSet.txt | sort -u | wc -l
+
+## TFs en TFSet
+awk -F '\t' '{print $2}' TFSet.txt | sort -u | wc -l
+
+```
+
+212 de los 221 TFs tienen sitios de pegado
+
+---
+## Paso 2: Distancia promedio al TSS por TF
+
+
+```bash
+#!/bin/bash
+
+TFS=$(awk -F '\t' '{print $2}' BindingSiteSet.txt | sort -u)
+
+for TF in ${TFS[@]}; do
+    echo $TF
+    TSS=$(awk -F '\t' -v TF="$TF" \
+        '$2 == TF {print $13}' BindingSiteSet.txt | \
+        awk 'BEGIN{ s = 0 }; { s += ($1) }; END{ print "m: " s/NR };')  
+              
+        echo $TSS
+done
+
+```
+
+---
+## Paso 3: Distancia promedio al primer gene por TF
+
+
+```bash
+#!/bin/bash
+
+TFS=$(awk -F '\t' '{print $2}' BindingSiteSet.txt | sort -u)
+
+for TF in ${TFS[@]}; do
+    echo $TF
+    TSS=$(awk -F '\t' -v TF="$TF" \
+        '$2 == TF {print $13}' BindingSiteSet.txt | \
+        awk 'BEGIN{ s = 0 }; { s += ($1) }; END{ print "m: " s/NR };')  
+
+    echo $TSS
+    
+    GENE=$(awk -F '\t' -v TF="$TF" \
+        '$2 == TF {print $15}' BindingSiteSet.txt | \
+        awk 'BEGIN{ s = 0 }; { s += ($1) }; END{ print "m: " s/NR };')
+        
+    echo $GENE
+done
+```
+
+---
+## Distancia a TSS y primer gene por TF
+
+
+```bash
+#!/bin/bash
+
+TFS=$(awk -F '\t' '{print $2}' BindingSiteSet.txt | sort -u)
+
+for TF in ${TFS[@]}; do
+    TSS=$(awk -F '\t' -v TF="$TF" '$2 == TF {print $13}' \
+        BindingSiteSet.txt | \
+        awk 'BEGIN{ s = 0 }; { s += ($1) }; END{ print s/NR };')        
+    GENE=$(awk -F '\t' -v TF="$TF" '$2 == TF {print $15}' \
+        BindingSiteSet.txt | \
+        awk 'BEGIN{ s = 0 }; { s += ($1) }; END{ print s/NR };')
+        
+    echo $TF $TSS $GENE
+done
+
+```
+
+---
+## ¿Casos reales? distancia de cero
+
+Algunos TFs tienen una distancia promedio al TSS igual a 0 y una distancia al primer gene igual a cero, ¿son reales estos casos?
+
+```bash
+
+## Ejemplo 1
+grep YeiL BindingSiteSet.txt
+
+## Ejemplo 2
+grep StpA BindingSiteSet.txt
+
+## Ejemplo 3
+grep MatA BindingSiteSet.txt
+
+```
+
+---
+## Obtener una lista de los TFs con posición
+
+Necesitamos conservar aquellos TFS que tienen sitios de pegado asociados a una posición genómica definida
+
+```bash
+## Lista de TFs
+awk -F '\t' '$5 != "NA" {print $2}' BindingSiteSet.txt | \
+	sort -u | wc -l 
+	
+```
+
+187 de los 212 TFs tienen sitios de pegado con posición
+
+
+---
+## Distancia a TSS y primer gene por TF
+
+
+```bash
+#!/bin/bash
+
+## Lista de TFs corregida (187 TFs)
+TFS=$(awk -F '\t' '$5 != "NA" {print $2}' BindingSiteSet.txt | \
+	sort -u)
+
+for TF in ${TFS[@]}; do
+    TSS=$(awk -F '\t' -v TF="$TF" '$2 == TF {print $13}' \
+        BindingSiteSet.txt | \
+        awk 'BEGIN{ s = 0 }; { s += ($1) }; END{ print s/NR };')        
+    GENE=$(awk -F '\t' -v TF="$TF" '$2 == TF {print $15}' \
+        BindingSiteSet.txt | \
+        awk 'BEGIN{ s = 0 }; { s += ($1) }; END{ print s/NR };')
+        
+    echo $TF $TSS $GENE
+done
+```
+
+---
+## Regulación transcripcional positiva y negativa
+
+
+&lt;img src="img/positive-negative.jpg" width="800px" style="display: block; margin: auto;" /&gt;
+
+
+.tiny[Imagen tomada de: Gene regulation in prokaryotes, SlideShare]
+
+---
+## Ejercicio: Distancia a TSS: activación vs represión 
+
+Para cada TF, ¿cuál es la distancia promedio al TSS para los sitios de cada uno de los posibles efectos?
+
+PROCEDIMIENTO}
+
+- Obtener una lista de todos los TFs
+- Obtener una lista de posibles efectos
+- Para cada TF, para cada efecto, obtener la distancia promedio al TSS 
+	
+---
+## Obtener una lista de los TFs con posición
+
+Necesitamos conservar aquellos TFS que tienen sitios de pegado asociados a una posición genómica definida
+
+```bash
+## Lista de TFs
+awk -F '\t' '$5 != "NA" {print $2}' BindingSiteSet.txt | \
+	sort -u | wc -l 
+	
+```
+
+Los mismos 187 TFs del ejercicio anterior
+
+---
+## Obtener una lista de posibles efectos
+
+
+Para los mismos TFs obtener todos los posibles efectos
+
+```bash
+## Renglones con TFs de interes
+awk -F '\t' '$5 != "NA" {print $2}' BindingSiteSet.txt 
+
+## Efectos
+awk -F '\t' '$5 != "NA" {print $11}' BindingSiteSet.txt | sort -u
+ 
+## Error
+awk -F '\t' '$5 != "NA" &amp;&amp; $11 == "" {print $0}' \
+    BindingSiteSet.txt | sort -u
+ 
+ ## Efectos correctos
+grep -v "#" BindingSiteSet.txt | \
+    awk -F '\t' '$5 != "NA" {print $11}' | \
+    sort -u
+    
+```
+
+3 posibles efectos: + activación, - represión, ? desconocido
+
+---
+## Ejercicio: Distancia a TSS: activación vs represión
+
+Para cada TF, ¿cuál es la distancia promedio al TSS para los sitios de cada uno de los posibles efectos?
+
+PROCEDIMIENTO
+
+- Obtener una lista de todos los TFs
+- Obtener una lista de posibles efectos
+- Para cada TF, para cada efecto, obtener la distancia promedio al TSS 
+	
+---
+## Ejercicio: Distancia a TSS: activación vs represión
+
+Creando un script de bash y ejecutándolo
+
+```bash
+## Crear script
+vi effect.sh
+
+## Cambiar permisos
+chmod +x effect.sh
+
+## Ejecutarlo
+./effect.sh
+
+```
+
+---
+## Distancia promedio al TSS por TF y efecto
+
+Para cada TF, para cada efecto, obtener la distancia promedio al TSS 
+
+```bash
+#!/bin/bash
+
+TFS=$(awk -F '\t' '$5 != "NA" {print $2}' BindingSiteSet.txt | \
+    sort -u)
+EFFECTS=$(grep -v "#" BindingSiteSet.txt | \
+    awk -F '\t' '$5 != "NA" {print $11}' | sort -u)
+
+for TF in ${TFS[@]}; do
+    for EFFECT in ${EFFECTS[@]}; do
+        TSS=$(awk -F '\t' -v TF="$TF" -v EFFECT="$EFFECT" \
+            '$2 == TF &amp;&amp; $11 == EFFECT {print $13}' \
+            BindingSiteSet.txt |  \
+            awk 'BEGIN{ s = 0 }; { s += ($1) }; \
+            END{ print (NR == 0 ? "NA" : s/NR) };')
+
+        echo $TF $EFFECT $TSS
+    done
+done
+```
+
+---
+## Distancia promedio al TSS por TF y efecto
+
+
+&lt;img src="img/positive-negative.jpg" width="800px" style="display: block; margin: auto;" /&gt;
+
+
+
+CONCLUSIÓN: Los sitios de represión tienden a estar más cerca del TSS
+
+---
+## Regulación transcripcional positiva y negativa
+
+&lt;img src="img/positive-negative.jpg" width="800px" style="display: block; margin: auto;" /&gt;
+
+.tiny[Imagen tomada de: Gene regulation in prokaryotes, SlideShare]
+
+---
+## Ejercicio: Interacciones de activación vs represión por TF
+
+
+Para cada TF, ¿cuántas interacciones de activación vs represión existen?. Generar un archivo con un renglón por TF-efecto con la siguiente información: número de interacciones con ese efecto, genes asociados a estas interacciones. 
+
+PROCEDIMIENTO}
+
+- Obtener una lista de todos los TFs
+- Obtener una lista de posibles efectos
+- Para cada TF, para cada efecto, obtener los conteos
+- Para cada TF, para cada efecto, obtener los genes asociados
+	
+---
+## Obtener la lista de los TFs a estudiar
+
+Necesitamos conservar aquellos TFs que tienen interacciones definidas
+
+```bash
+## Lista de TFs
+grep -v "#" network_tf_gene.txt |  cut -f1 | sort -u 
+
+```
+
+Ahora trabajaremos con 211 TFs
+
+---
+## Obtener una lista de posibles efectos
+
+Para los mismos TFs obtener todos los posibles efectos
+
+```bash
+## Posibles efectos
+grep -v "#" network_tf_gene.txt |  cut -f3 | sort -u
+
+```
+
+3 posibles efectos:  activación: activator, represión: repressor, desconocido: unknown
+
+---
+## Conteo y genes: TF Zur, efecto: repressor
+
+```bash
+## Conteos
+awk -F '\t' '$1 == "Zur" &amp;&amp; $3 == "repressor" {print $2}' \
+    network_tf_gene.txt  | sort -u | wc -l
+
+## Genes 
+awk -F '\t' '$1 == "Zur" &amp;&amp; $3 == "repressor" {print $2}' \
+    network_tf_gene.txt  | sort -u | wc -l
+
+```
+
+6 genes: ykgM, ykgO, zinT, znuA, znuB, znuC
+
+---
+## Ejercicio: Interacciones de activación vs represión por TF 
+
+Para cada TF, ¿cuántas interacciones de activación vs represión existen?. Generar un archivo con un renglón por TF-efecto con la siguiente información: número de interacciones con ese efecto, genes asociados a estas interacciones. 
+
+PROCEDIMIENTO}
+
+- Obtener una lista de todos los TFs
+- Obtener una lista de posibles efectos
+- Para cada TF, para cada efecto, obtener los conteos
+- Para cada TF, para cada efecto, obtener los genes asociados
+
+---
+## Ejercicio: Interacciones de activación vs represión por TF 
+
+Creando un script de bash y ejecutándolo
+
+```bash
+## Crear script
+vi interacciones.sh
+
+## Cambiar permisos
+chmod +x interacciones.sh
+
+## Ejecutarlo
+./interacciones.sh
+
+```
+
+---
+## Paso1: Lista de TFs 
+
+```bash
+#!/bin/bash
+
+TFS=$(grep -v "#" network_tf_gene.txt |  cut -f1 | sort -u )
+
+echo $TFS
+
+```
+
+---
+## Paso2: Lista de efectos
+
+```bash
+#!/bin/bash
+
+TFS=$(grep -v "#" network_tf_gene.txt |  cut -f1 | sort -u )
+
+EFFECTS=$(grep -v "#" network_tf_gene.txt |  cut -f3 | sort -u)
+
+echo $EFFECTS
+```
+
+---
+## Paso3:  Para cada TF, para cada efecto, obtener los conteos
+
+```bash
+#!/bin/bash
+
+TFS=$(grep -v "#" network_tf_gene.txt |  cut -f1 | sort -u )
+EFFECTS=$(grep -v "#" network_tf_gene.txt |  cut -f3 | sort -u)
+
+for TF in ${TFS[@]}; do
+    echo $TF
+    for EFFECT in ${EFFECTS[@]}; do
+        echo $EFFECT
+        COUNT=$(awk -F '\t' -v TF="$TF" -v EFFECT="$EFFECT" \
+            '$1 == TF &amp;&amp; $3 == EFFECT {print $2}' \
+            network_tf_gene.txt  | sort -u | wc -l)
+        echo $COUNT
+                
+    done
+done
+
+```
+
+---
+## Paso4:  Para cada TF, para cada efecto, obtener los genes
+
+```bash
+#!/bin/bash
+TFS=$(grep -v "#" network_tf_gene.txt |  cut -f1 | sort -u )
+EFFECTS=$(grep -v "#" network_tf_gene.txt |  cut -f3 | sort -u)
+
+for TF in ${TFS[@]}; do
+    echo $TF
+    for EFFECT in ${EFFECTS[@]}; do
+        echo $EFFECT
+        COUNT=$(awk -F '\t' -v TF="$TF" -v EFFECT="$EFFECT" \
+            '$1 == TF &amp;&amp; $3 == EFFECT {print $2}' \
+            network_tf_gene.txt  | sort -u | wc -l)
+        echo $COUNT
+        GENES=$(awk -F '\t' -v TF="$TF" -v EFFECT="$EFFECT" \
+            '$1 == TF &amp;&amp; $3 == EFFECT {print $2}' \
+            network_tf_gene.txt  | sort -u)
+        echo $GENES         
+    done
+done
+
+```
+
+---
+## Formateando salida
+
+```bash
+#!/bin/bash
+
+TFS=$(grep -v "#" network_tf_gene.txt |  cut -f1 | sort -u )
+EFFECTS=$(grep -v "#" network_tf_gene.txt |  cut -f3 | sort -u)
+
+for TF in ${TFS[@]}; do    
+    for EFFECT in ${EFFECTS[@]}; do
+        COUNT=$(awk -F '\t' -v TF="$TF" -v EFFECT="$EFFECT" \
+            '$1 == TF &amp;&amp; $3 == EFFECT {print $2}' \
+            network_tf_gene.txt  | sort -u | wc -l)
+        GENES=$(awk -F '\t' -v TF="$TF" -v EFFECT="$EFFECT" \
+            '$1 == TF &amp;&amp; $3 == EFFECT {print $2}' \
+            network_tf_gene.txt  | sort -u)
+        GENES=$(echo $GENES | tr ' ' ',')
+        
+        echo $TF $EFFECT $COUNT $GENES            
+    done
+done
+
+```
+
+---
+## Ejercicio: Interacciones de activación vs represión por TF
+
+Para cada TF, ¿cuántas interacciones de activación vs represión existen?. Generar un archivo con un renglón por TF-efecto con la siguiente información: número de interacciones con ese efecto, genes asociados a estas interacciones. 
+
+**¡LISTO!**
+
+---
+## Nuestro modelo de estudio: regulación transcripcional
+
+
+&lt;img src="img/operon.png" width="800px" style="display: block; margin: auto;" /&gt;
+
+
+.tiny[ Imagen tomada de: Overview: Gene regulation in bacteria. Khan Academy]
+
+---
+## Ejercicio: Información sobre genes regulados
+
+Para cada interacción TF-gene, queremos agregarle la siguiente información: ¿a qué TU o TUs pertenece ese gene? ¿cuales son las posiciones de inicio y de final del gene regulado?
+
+PROCEDIMIENTO}
+
+- Obtener una lista de todos los TFs
+- Para cada gene regulado por un TF
+   -  Obtener a que TU o TUs pertenece
+   - Obtener posiciones de inicio y de final
+
+---
+## Lista de TFs
+
+Trabajaremos con el archivo network_tf_gene.txt
+
+```bash
+## Lista de TFs
+grep -v "#" network_tf_gene.txt | cut -f1 | sort -u | wc -l
+```
+
+211 TFs tienen alguna interacción asociada
+
+---
+
+
+
+
+
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+  .logo {
+    background-image: url(logos/LCG-UNAM.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    width: 110px;
+    height: 128px;
+    z-index: 0;
+  }
+  </style>
+  
+  <script>
+  document
+    .querySelectorAll(
+      '.remark-slide-content' +
+      ':not(.title-slide)' +
+      // add additional classes to exclude here, e.g.
+      // ':not(.inverse)' +
+      ':not(.hide-logo)'
+    )
+    .forEach(el => {
+      el.innerHTML += '<div class="logo"></div>';
+    });
+  </script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

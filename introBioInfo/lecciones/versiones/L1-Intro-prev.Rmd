@@ -1,0 +1,496 @@
+---
+title: "Introducción a la Bioinformática"
+--subtitle: ""
+--author: ''
+institute: "Licenciatura en Ciencias Genómicas,UNAM"
+date: 'First version: yyy-mm-dd; Last update: `r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    css: ["default", "default-fonts", "hygge"]
+    lib_dir: libs
+    includes:
+      after_body: insert-logo.html
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "macros.js"
+--distill::distill_article: default
+
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{css, echo = FALSE}
+/* From https://github.com/yihui/xaringan/issues/147  */
+.scroll-output {
+  height: 80%;
+  overflow-y: scroll;
+}
+/* https://stackoverflow.com/questions/50919104/horizontally-scrollable-output-on-xaringan-slides */
+pre {
+  max-width: 100%;
+  overflow-x: scroll;
+}
+```
+
+
+## Objetivo
+
+El alumnx debe ser capaz de comprender la importancia de la bioinformática y el uso de buenas prácticas en el desarrollo de software.
+
+---
+
+## Contenido de la unidad
+
+1. ¿Porqué aprender bioinformática?
+
+2. Buenas prácticas
+
+3. ¿Qué es el shell?
+
+4. Conexión remota a un servidor.
+
+5. Operaciones básicas en la consola de comandos
+
+6. Tipos de archivos
+
+---
+## ¿Qué es la bioinformática?
+
+.content-box-blue[
+
+1. Aplicación de la informática para el estudio de la Biología.
+
+2. Es el uso de técnicas computacionales, matemáticas y estadísticas para el análisis, interpretación y generación de datos biológicos.
+]
+
+```{r , echo=FALSE, out.width='75%', fig.align='center', fig.cap='Source:ShuterStock'}
+knitr::include_graphics("https://img.freepik.com/vector-premium/ilustracion-concepto-vector-bioinformatica-o-banner-estilo-linea-fina-sobre-fondo-blanco_104589-1.jpg")
+```
+
+---
+## ¿Porqué aprender bioinformática?
+
+Hace algunos años .. análisis de un gene, una región ...
+
+```{r , echo=FALSE, out.width='50%', fig.align='center', fig.cap='DNA sequence of the araBAD promoter in Escherichia coli'}
+knitr::include_graphics("https://www.ncbi.nlm.nih.gov/pmc/articles/PMC336192/bin/pnas00669-0100.tif")
+```
+
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC336192/bin/pnas00669-0100.tif
+
+---
+## ¿Por qué aprender bioinformática?
+
+Determinar a través de miles de experimentos los elementos genéticos en el genoma de _E. coli_ necesitó muchísimos años. Actualmente, una base de datos llamada RegulonDB almacena información de alrededor de 5 mil publicaciones de experimentos de un mecanismo llamado regulación transcripcional.
+
+```{r, out.width = "700px",fig.align='center', fig.cap=''}
+knitr::include_graphics(rep("img/micF-gene.png"))
+```
+
+.content-box-blue[
+Pero las cosas han cambiado...
+
+   Hay nuevas ideas y tecnologías
+   
+]
+
+---
+## ¿Porqué aprender bioinformática?
+
+.pull-left[
+* La cantidad de datos generados cada día en las ciencias biológicas es masiva [Buffalo, 2015]
+
+* La única forma de acceder y analizar todos estos datos es a través de herramientas
+computacionales.
+
+* Nos permite ahorrar tiempo y esfuerzo al automatizar tareas y procesos
+]
+
+.pull-right[
+```{r rmarkdown, echo=FALSE, out.width='100%', fig.align='center', fig.cap='The SRA’s growth rate is greatly increasing over time.'}
+knitr::include_graphics("https://i0.wp.com/ncbiinsights.ncbi.nlm.nih.gov/wp-content/uploads/2020/06/Sra_growth.png?w=1599&ssl=1")
+```
+]
+
+
+---
+## Haciendo bioinformática
+
+.content-box-blue[
+"La solución es abordar la bioinformática como lo hace un bioinformático: probar cosas y evaluar los resultados. De esta manera, la bioinformática se trata solo de **tener las habilidades para experimentar con datos usando una computadora y comprender sus resultados**".
+
+--- Bioinformatics Data Skills
+]
+
+--
+
+.content-box-yellow[
+"Entonces, ¿qué son las habilidades de datos?  
+Son el conjunto de **habilidades computacionales** que te dan la **capacidad** de improvisar rápidamente una forma de ver conjuntos de datos complejos, utilizando un conocido **conjunto de herramientas.**"  
+
+--- Bioinformatics Data Skills
+]
+
+---
+## Ejemplo
+
+Tenemos un gene llamado `ntpM` en `Escherichia coli` y conocemos su coordenada de inicio y fin en el genoma, por lo tanto tenemos su secuencia de DNA
+
+
+```
+gene ntpM  TCCCAGTTATGTCAGGGGACACGAGCATGCATGCAGAGAC
+```
+
+--
+
+Tenemos otra región de DNA de otro organismo, como un posible gene, pero **no conocemos su función** y queremos buscar si se parece a alguno de los genes de E.coli.
+
+```
+¿idK?  AATTGCCGCCGTCGTTTTCAGCAGTTATGTCAGATC
+```
+
+--
+
+**¿Qué hacemos?** 
+
+.tiny[Vamos a suponer que 2 genes estan relacionados si su secuencia de DNA es muy parecida. ¿Cuánto parecida? primero veamos ¿cómo comparamos ambas secuencias? ]
+
+---
+## Alineamientos
+
+
+```{r, echo=FALSE, out.width='85%', fig.align='center', fig.cap=''}
+knitr::include_graphics("https://slideplayer.es/slide/4255221/14/images/4/Tipos+de+alineamiento+de+dos+secuencias.jpg")
+```
+
+---
+# ¿Cómo lo resolvemos?
+
+Habilidades:
+
+- unix  
+- blast  
+- estadística  
+- conocimientos en genética
+
+
+---
+
+class: noinverse, center, middle
+
+# Las habilidades no son suficientes
+
+---
+
+## A Scientist's Nightmare: carelessness and hubris in the drive to make a historic discovery
+
+.pull-left[
+```{r, out.width = "400px",fig.align='center', fig.cap=''}
+knitr::include_graphics(rep("img/ProblemasInvestigacion.png"))
+```
+.tiny[[Source: The Guardian Feb 18 2015 ](https://www.theguardian.com/science/2015/feb/18/haruko-obokata-stap-cells-controversy-scientists-lie)]
+
+]
+
+.pull-right[
+
+.content-box-blue[
+Non-reproducible single occurrences are of no significance to science"
+
+--- Karl Popper, the Logic of Scientific, 1959
+]
+
+]
+
+---
+
+## A Scientist's Nightmare: Software Problem Leads to Five Retractions
+
+```{r, out.width = "400px",fig.align='center', fig.cap='Flipping fiasco. The structures of MsbA (purple) and Sav1866 (green) overlap little (left) until MsbA is inverted (right). CREDIT: R. J. P. DAWSON AND K. P. LOCHER, NATURE 443, 180 (2006)'}
+knitr::include_graphics("https://www.science.org/cms/10.1126/science.314.5807.1856/asset/a4962e92-57aa-4dbe-8888-9ffffe339def/assets/graphic/1856-1.gif")
+```
+
+---
+
+## ¿Soluciones?
+
+.content-box-blue[
+¿Cuales son los problemas en ambas situaciones?
+
+
+¿Cómo podrian haberse evitado?
+ ]
+
+.content-box-red[
+Discute con tu equipo y haz algunas propuestas.
+ ]
+---
+
+class: inverse, center, middle
+
+# Buenas Prácticas
+
+---
+## Qué hacer con los datos?
+
+.content-box-blue[
+
+El 80% del tiempo de un científico de datos se dedica a preparar sus datos, y sólo el 20% a trabajar en ellos, especialmente en su visualización.
+
+]
+
+Preparación de los datos:
+
+.content-box-yellow[
+
+preparación de los datos = las operaciones que se realizan sobre los datos brutos para hacerlos analizables
+
+]
+
+---
+## Etapas de preparación de los datos
+
+1. **Importar o adquirir datos**. Estos datos pueden proceder de diferentes lugares, tener diferentes formatos (.csv, .json, etc). 
+
+2. **Descubrimiento**. En esta etapa, el objetivo no es analizar las correlaciones, sino buscar los errores que puedan haberse colado. Es esencial identificar los campos vacíos, los formatos de los datos. Detectar problemas antes de seguir.
+
+3. **Limpieza de datos**. Organizar y limpiar los datos. En esta etapa, hay que reorganizar y renombrar las columnas y eliminar las redundantes cuando sea el caso. Ahora es el momento de sacar a la luz los problemas menos evidentes. Por ejemplo, las dificultades de los duplicados (deduplicación), la separación de datos. 
+
+4. **Mejora de datos**. «Data wrangling» o «data munging» consiste en «aumentar» su conjunto de datos con datos externos. Para ello, es necesario crear una combinación. Hay diferentes tipos de combinaciones (uniones).
+
+5. **Publicación**. Una vez terminados los procesos de organización, limpieza y mejora, lo único que queda por hacer es publicar el conjunto de datos final. La mayoría de las veces, los datos se «suben» a la nube o se exportan. 
+
+Source: https://www.intotheminds.com/blog/es/data-preparacion-datos/
+
+---
+## Problemas frecuentes
+
+- **Duplicados**. Los datos están duplicados en el conjunto de datos, lo que puede inducir errores de análisis.
+
+- **Combinaciones**. Datos en columnas con más de un dato.
+
+- **Diferencias ortográficas**. Se han introducido los datos (nombre, apellido, ciudad) de forma diferente, lo que imposibilita el análisis.
+
+- **Diferencias de formatos**.
+
+- **Números almacenados como texto**. Error a menudo debido a la presencia de espacios u otros signos que impiden el reconocimiento del formato.
+
+- **Espacios en las celdas**.  Se trata de un problema muy común pero difícil de detectar porque no todas las celdas pueden tener espacios en ellas.
+
+---
+## Publicación de resultados
+
+La creciente disponibilidad de recursos en línea significa que los datos deben crearse teniendo en cuenta la longevidad. Proporcionar a otros investigadores acceso a sus datos facilita el descubrimiento de conocimientos y mejora la transparencia de la investigación.
+
+```{r, out.width = "500px",fig.align='center', fig.cap=''}
+knitr::include_graphics(rep("img/make-fair-data.png"))
+```
+
+---
+## Principios FAIR
+
+
+Los **Principios FAIR** buscan solucionar la ausencia de buenas prácticas para la publicación de datos científicos que sean ampliamente compartidas, claramente articuladas y ampliamente aplicadas.
+
+--
+
+Los datos podrían ser considerados como la producción principal de la investigación científica y su publicación y reutilización es necesaria para garantir su validez, reproductibilidad y para conducir nuevos descubrimientos. 
+
+
+- FAIR data
+
+- FAIR Software
+
+--
+
+[Video FAIR principles](https://www.youtube.com/watch?v=5OeCrQE3HhE)
+
+- Findable. 
+- Accesible
+- Interoperable
+- Reusable
+
+---
+
+## 5 Recomendaciones para FAIR Software 
+
+1. Usar un repositorio público accesible con control de versiones
+
+2. Agregar una licencia de uso
+
+3. Para ser tu código Findable, registralo en alguna comunidad.Ahí te pediran metadatos para describir tu programa.
+
+4. Indica como citar tu software. 
+
+5. Apégate a las buenas prácticas de desarrollo de software, que incluye documentar tu código, seguir un estándar de codificación, hacer pruebas, etc.
+
+[FAIR Software](https://fair-software.nl/recommendations/checklist)
+
+
+---
+
+## Código reproducible es buen código
+
+¿Qué necesitamos para reproducir el resultado de un análisis computacional?
+
+* Los datos
+
+--
+
+  * la fuente de donde se descargaron
+  * la versión de la fuente asociada a ellos
+  
+--
+
+* Los programas utilizados para analizar los datos
+
+--
+
+    * la versión de cada un de los programas
+    * los valores de cada uno de los argumentos utilizados.
+
+---
+
+## Todo lo que puede salir mal, saldrá mal... eventualmente
+
+* Las bases de datos son actualizadas o dejan detener mantenimiento
+* Siempre existirán excepciones o casos límite que no cumplen con las suposiciones de tu código
+* Que un programa genere un resultado no significa que el resultado sea correcto
+* Todo lo que se te puede olvidar, se te va a olvidar:
+  * De donde descargaste los datos?
+  * Cuáles son las suposiciones acerca de los datos iniciales?
+  * Que hacia esa función compleja y rebuscada que pensaste era una joya en su momento?
+  
+---
+
+## Empezando por la organización
+
+Es importante mantener una estructura de directorios organizada: un directorio de trabajo por
+proyecto. Dentro de este directorio, los pasos del proyecto se organizarán en subdirectorios.
+
+Organización propuesta:
+
+* Archivo de texto **README**: Con todos los comandos necesarios para reproducir los
+resultados
+* Carpeta **data**: Con los datos iniciales de esta fase del proyecto
+* Carpeta **bin**: Con los scripts utilizados durante esta fase del proyecto
+* Carpeta **resultados**: Con los resultados generados por esta fase del proyecto
+
+--
+
+```{r, out.width = "800px",fig.align='center', fig.cap=''}
+knitr::include_graphics(rep("img/estructura-proyecto.png"))
+```
+
+---
+## Importante
+
+* Los nombres de las carpetas y de los archivos deben ser informativos
+
+* No deben contener espacios, acentos, ~n's
+
+* Los nombres de directorios y archivos son case-sensitive
+
+---
+## Práctica
+
+1. Genera en tu computadora una carpeta llamada `introBioInfo` ahí vamos a guardar lo que hagamos en el curso.
+
+2. Dentro de `introBioInfo` crea otra carpeta llamada `templates`.
+
+3. Mueve los archivos de la práctica 1, los documentos markdown, dentro de la carpeta `templates`.
+
+
+
+
+---
+
+---
+
+---
+
+## Documentación, documentación
+
+.content-box-green[
+**EJEMPLO**
+
+Pruebas una cochinita pibil deliciosa, y le recomiendas a tu mejor amigo
+que la haga Tu amigo llega una semana después diciéndote que la
+cochinita pibil es la cosa más espantosa que ha comido en su vida!!!
+
+
+**¿Qué pasó?**
+
+]
+---
+## Documentación, documentación
+
+.content-box-green[
+**EJEMPLO**
+
+Después de analizar los resultados de secuenciación que has esperado
+ansiosamente por meses compartes tus resultados con un colega. El quiere
+replicar tus resultados, pero para sorpresa de ambos los resultados no son
+los mismos.
+
+**¿Cómo podemos saber qué pasó?**
+
+]
+
+---
+
+## Documentación, documentación
+
+
+* ¿Todos los datos se descargaron de la misma fuente y pertenecen a la misma versión?
+
+* ¿Se utilizó la misma versión para todos los programas?
+
+* ¿Se corrieron los programas con los mismos parámetros?
+
+
+
+La respuesta a todas estas preguntas forma parte de la documentación
+
+---
+## Documentación, documentación
+
+.content-box-green[
+
+**EJEMPLO**
+
+Desarrollaste un algoritmo capaz de automatizar una tarea que se lleva a
+cabo rutinariamente en tu laboratorio. Un colega te pide que se la pases
+para utilizarlas en sus datos. Al correr tu programa, truena.
+
+** ¿Cómo podemos saber qué pasó?**
+
+]
+---
+
+## Documentación, documentación
+
+* ¿El programa arroja un mensaje de error útil para entender qué sucedió?
+
+* ¿Qué hace la parte del código qué está fallando?
+
+* ¿El formato de los datos de entrada es correcto?
+
+* ¿Los datos de entrada deberán cumplir con alguna suposición?
+
+* ¿Los valores numéricos deben ser enteros y no flotantes ?
+
+* ¿Alguna columna debe estar ordenada numéricamente?
+
+
+La respuesta a todas estas preguntas (y muchas más...) forma parte
+de la documentación
+
+
+---
+
+https://www.openaire.eu/how-to-make-your-data-fair

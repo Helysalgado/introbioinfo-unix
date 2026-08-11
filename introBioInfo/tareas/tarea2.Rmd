@@ -1,0 +1,79 @@
+---
+title: "Introducción a la Bioinformática"
+--subtitle: ""
+--author: ''
+institute: "Licenciatura en Ciencias Genómicas,UNAM"
+date: 'First version: yyy-mm-dd; Last update: `r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    css: ["default", "default-fonts", "hygge"]
+    lib_dir: libs
+    includes:
+      after_body: insert-logo.html
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "macros.js"
+--distill::distill_article: default
+
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{css, echo = FALSE}
+/* From https://github.com/yihui/xaringan/issues/147  */
+.scroll-output {
+  height: 80%;
+  overflow-y: scroll;
+}
+
+.noinverse {
+  background-color: #272822;
+  color: #d6d6d6;
+  text-shadow: 0 0 20px #333;
+}
+
+/* https://stackoverflow.com/questions/50919104/horizontally-scrollable-output-on-xaringan-slides */
+pre {
+  max-width: 100%;
+  overflow-x: scroll;
+}
+```
+
+## Tarea
+
+El objetivo de la tarea es reforzar el uso de comandos de navegación y creación de directorios en unix.
+Se espera que al final sepas navegar por la estructura de directorios de unix, crear nuevas directorios y borrar lo que no necesitas.
+
+Las actividades a realizar se listan a continuación. Recuerda que los pasos son secuenciales, por lo que no podrás realizar los pasos de manera aleatoria sino secuencial como estan descritos.
+
+En cada uno de los pasos te recomendamos verificar que el comando haya sido exitoso.
+
+---
+## Instrucciones
+
+- Posiciónate en tu directorio home
+- Crea el directorio tareas
+- Crea un directorio llamado tarea2
+- Muévete al directorio tarea2 y crea el directorio tercer-nivel
+- Dentro del directorio tercer-nivel crea el directorio cuarto-nivel
+- Muévete a la carpeta tarea2, usando rutas absolutas
+- Copia el archivo original.txt (ubicado en /home/lgomez/WelcomeBioinfo/datos/tarea3/) a la carpeta tarea2, usando rutas relativas
+- Renombra el archivo original.txt a original-nuevo-nombre.txt
+- Crea una copia del archivo original-nuevo-nombre.txt dentro de la carpeta tercer-nivel, esa copia debe llamarse original-nivel3.txt. Comprueba tu resultado
+- Si no lo has hecho, muévete a la carpeta tarea2
+- Crea una copia del archivo original-nivel3.txt en la carpeta cuarto-nivel conservando el nombre original.
+- Finalmente lista el estado actual de la carpeta tarea2, es decir toda la estructura de la carpeta.
+
+
+---
+## Entregable
+
+- Reporte de la tarea en formato markdown. El archivo debe llamarse README.txt
+  
+  Te recordamos consultar la [guía y rubros](https://lcg-cursos.github.io/material/introbioinfo/rubros-evaluacion-tareas.html#1) que se van a evaluar.  
+
+

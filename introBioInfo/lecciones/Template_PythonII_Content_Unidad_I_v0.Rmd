@@ -1,0 +1,91 @@
+---
+title: "Python II y GitHub"
+--subtitle: ""
+--author: ''
+institute: "Licenciatura en Ciencias Genómicas,UNAM"
+date: 'First version: yyy-mm-dd; Last update: `r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    css: ["default", "default-fonts", "hygge"]
+    lib_dir: libs
+    includes:
+      after_body: insert-logo.html
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "macros.js"
+
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{css, echo = FALSE}
+/* From https://github.com/yihui/xaringan/issues/147  */
+.scroll-output {
+  height: 80%;
+  overflow-y: scroll;
+}
+/* https://stackoverflow.com/questions/50919104/horizontally-scrollable-output-on-xaringan-slides */
+pre {
+  max-width: 100%;
+  overflow-x: scroll;
+}
+```
+
+
+## Objetivo
+
+
+---
+
+## Contenido de la unidad
+
+1. tema
+
+
+---
+
+## Introducción
+_[Antes de dar una unidad o lección, dar el antecedente o el problema. Por ejemplo, si la lección fuera de ciclos, dar un ejemplo del problema o la situación que no se puede resolver o es complicado resolverla sin los ciclos. Mostrar como tenemos que leer linea por linea un archivo y llenarnos de instrucciones.]_
+
+
+.full-width[.content-box-red[[Puntos relevantes para la audiencia.]]]
+
+
+---
+
+### Tema 
+
+ejemplo de código
+
+```{python,  python.reticulate = FALSE}
+ejemplo = "seccion de codigo"
+
+```
+
+```{python echo=TRUE, python.reticulate = FALSE}
+ancho = 20
+alto = 5 * 9
+ancho * alto
+```
+
+imagenes 
+```{r, out.width = "750px",fig.align='center'}
+knitr::include_graphics("logos/LCG-UNAM.png")
+```
+
+
+---
+
+## Resumen
+
+
+---
+
+## Bibliografía
+
+1. Imelda Avalos Flores. (2010). I. Introducción a la programación. Junio 14, 2017, de Universidad Autónoma de Nayarit Sitio web: http://correo.uan.edu.mx/~iavalos/FP/FP1.html
+

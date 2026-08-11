@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Introducción a la Bioinformática</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.18/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/hygge.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Introducción a la Bioinformática
+]
+.institute[
+### Licenciatura en Ciencias Genómicas,UNAM
+]
+.date[
+### First version: yyy-mm-dd; Last update: 2024-10-25
+]
+
+---
+
+
+
+
+&lt;style type="text/css"&gt;
+/* From https://github.com/yihui/xaringan/issues/147  */
+.scroll-output {
+  height: 80%;
+  overflow-y: scroll;
+}
+
+.noinverse {
+  background-color: #272822;
+  color: #d6d6d6;
+  text-shadow: 0 0 20px #333;
+}
+
+/* https://stackoverflow.com/questions/50919104/horizontally-scrollable-output-on-xaringan-slides */
+pre {
+  max-width: 100%;
+  overflow-x: scroll;
+}
+
+
+&lt;/style&gt;
+
+
+
+## Objetivo
+
+El alumno debe ser capaz de entender el uso de blast y el uso de variables, ciclos y scripts en unix.
+
+---
+
+
+class: inverse, center, middle
+
+# blast
+
+---
+## BLAST Command Line User Manual
+
+BLAST puede ser ejecutado desde la línea de comandos. El manual de usuario se encuentra en:
+
+https://www.ncbi.nlm.nih.gov/books/NBK279690/
+
+
+&lt;img src="img/blast-command-line.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+---
+## Qué hacer para usar blast ?
+
+
+- Instalar BLAST
+
+- Descargar/construir una base de datos
+
+- Correr BLAST usando la base de datos.
+
+
+---
+## Instalar blast
+
+En `tepeu` ya se encuentra instalado este programa 
+
+¿Cómo lo sabemos?
+
+- Escribe la palabra blast en la terminal
+- Presiona tabulador dos veces
+
+&lt;br&gt;
+
+&lt;img src="img/blast-available.png" width="800px" style="display: block; margin: auto;" /&gt;
+
+&lt;br&gt;
+
+Tenemos varias versiones: blastn, blastp, blastx
+
+---
+## Descargar/construir una base de datos
+
+Para ver las instrucciones de los desarrolladores: 
+
+https://www.ncbi.nlm.nih.gov/books/NBK537770/}
+
+&lt;br&gt;
+
+**¿Cuáles bases de datos necesitamos?**
+
+&lt;br&gt;
+
+```bash
+## Ayuda sobre el comando
+update_blastdb.pl --help
+
+## Para ver todas las bases de datos disponibles para descargar
+update_blastdb.pl --showall [*]
+```
+
+---
+## Descargar bases de datos de NCBI
+
+
+**¿Cuáles bases de datos necesitamos?**
+
+- ref_euk_rep_genomes
+
+- refseq_rna
+
+- refseq_protein
+
+---
+# Descargar bases de datos de NCBI
+
+
+**¿Cuáles bases de datos necesitamos?**
+
+&lt;br&gt;
+
+```bash
+## Reference RNA sequences
+update_blastdb.pl --decompress refseq_rna 
+
+## RefSeq Genome Database
+update_blastdb.pl --decompress ref_prok_rep_genomes 
+
+## Reference proteins
+update_blastdb.pl --decompress refseq_protein 
+
+```
+
+---
+## Descargar bases de datos de NCBI
+
+Así se ve el proceso
+
+&lt;br&gt;
+
+&lt;img src="img/blast-download.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+---
+## Base de datos customizada
+
+
+También se puede crear una base de datos personalizada a partir de un archivo multi-fasta
+
+&lt;br&gt;
+
+```bash
+## Crear una base de datos a partir de un archivo multi-fasta
+makeblastdb -in mydb.fsa -dbtype nucl -parse_seqids	
+```
+
+- `mydb.fsa` : archivo multi.fasta
+- `nucl` : tipo de secuencias, opciones [nucl, prot]
+- `-parse_seqids` : para parsear los IDs de las secuencias a partir del archivo FASTA
+
+
+
+---
+## Base de datos de BLAST en tepeu
+
+
+En tepeu las bases de datos de BLAST las descarga el administrador y las encontramos en:  
+
+**/export/storage/data/blast/db/**
+
+
+&lt;img src="img/tepeu-blastdb.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+&lt;br&gt;
+
+No queremos tener 700Gb de información en el `$HOME` de cada usuario.
+
+---
+## Correr BLAST
+
+
+```bash
+## Sintaxis básica
+blastn -db nt -query nt.fsa -out results.out -remote 
+
+## Todas las opciones
+blastn -help
+```
+
+&lt;br&gt;
+
+- `db`  : Nombre de la base de datos 
+
+- `query` : Secuencia problema
+
+- `out` : Archivo de resultados
+
+- `remote` : Para mandar a ejecutar la búsqueda en los servidores y bases de datos de NCBI
+	
+---
+## Configurando nuestro directorio de trabajo
+
+
+Antes de empezar, asegurémonos de tener todo listo
+
+&lt;br&gt;
+
+```bash
+## Crea el directorio practica9 y posicionate ahí
+mkdir practica9
+cd practica9
+
+## Crea una liga simbolica al directorio con 
+## las bases de datos de NCBI
+ln -s  /export/storage/data/blast/db/ db
+
+## Crea una liga simbolica a los datos de la practica8 en WelcomeBioInfo
+ln -s ~compu2/WelcomeBioinfo/datos/practica8/ data
+```
+
+---
+## Enviando un BLAST a NCBI
+
+
+```bash
+## Nuestro primer blast
+blastn -db refseq_rna \
+	-query data/TP53a.fasta \
+	-out TP53a_refseq_rna.blastn \
+	-remote 
+```
+
+&lt;br&gt;
+
+- `db` : Base de datos refseq\_rna
+
+- `query` : La secuencia TP53a.fasta
+
+- `out` : Los resultados se escribirán en TP53a\_refseq\_rna.blastn
+
+- `remote` : Lo mandaremos ejecutar en los servidores y bases de datos de NCBI
+
+---
+## Corriendo un BLAST en nuestros servidores
+
+```bash
+## Enviando el mismo blast utilizando una base de datos local
+
+blastn -db db/refseq_rna \
+	-query data/TP53a.fasta \
+	-out TP53a_refseq_rna_local.blastn 
+```
+
+&lt;br&gt;
+
+- `db` :  Base de datos db/refseq rna (LOCAL)
+
+- `query` : La secuencia TP53a.fasta
+
+- `out` :  Los resultados se escribir´an en TP53a refseq rna local.blastn
+
+&lt;br&gt;
+
+**¡Esto es mucho más rápido!**
+
+---
+## Formatos de salida: default
+
+.pull-left[
+
+Información general de los alineamientos:
+
+&lt;img src="img/info-general.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+.pull-right[
+
+Los alineamientos:
+
+&lt;img src="img/info-aln.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+## Formatos de salida: varios
+
+Todos los formatos de BLAST contienen casi la misma información. Sin embargo, las herramientas para parsearlos son diferentes. 
+
+
+&lt;img src="img/outfmt.png" width="450px" style="display: block; margin: auto;" /&gt;
+
+
+---
+## Formatos de salida: tabular y XML
+
+```bash
+## Formato de salida XML
+blastn -db db/refseq_rna \
+	-query data/TP53a.fasta -outfmt 5 \
+	-out TP53a_refseq_rna_local.xml 
+
+## Formato de salida tabular
+blastn -db db/refseq_rna \
+	-query data/TP53a.fasta -outfmt 6 \
+	-out TP53a_refseq_rna_local.txt
+
+```
+
+&lt;br&gt;
+
+- `db` : Base de datos db/refseq_rna (LOCAL)
+
+- `query` : La secuencia TP53a.fasta
+
+- `out` : Archivo para escribir los resultados (atención en la extensión)
+
+- `outfmt` :  **5 para XML, 6 para tabular**
+
+
+---
+## ¿Y si tenemos mil archivos iniciales?
+
+Escribamos los **comandos** que corrimos **en un archivo** de texto
+
+```bash
+## Crear y abrir un archivo de texto
+nano comandos.sh
+```
+
+Dentro del archivo
+```
+blastn -db db/refseq_rna -query data/TP53a.fasta -outfmt 6 -out TP53a_refseq_rna_local_script.txt
+blastn -db db/refseq_rna -query data/TP53a.fasta -outfmt 5 -out TP53a_refseq_rna_local_script.xml
+```
+
+---
+## Scripts
+
+.content-box-gray[
+
+Cuando tienes varios comandos en un archivo, estás creando **un script** o un conjunto de instrucciones que el sistema puede ejecutar. Aquí tienes algunas buenas prácticas para nombrar archivos de scripts:  
+
+- Usa nombres descriptivos
+- Indica el tipo de script o la tecnología usada
+- Incluye el contexto o el objetivo del archivo
+- Utiliza extensiones adecuadas.  `.sh` : para scripts de shell (bash)
+- Evita espacios y caracteres especiales 
+
+
+`analisis_secuencias_blast_pipeline.sh`
+
+]
+
+---
+## Convirtiendo un archivo de texto en un ejecutable
+
+
+Cualquier archivo de texto puede convertirse en un archivo ejecutable y ejecutarse
+
+&lt;br&gt;
+
+```bash
+## Cambiando los permisos (+ejecucion) a todos ugo
+chmod +x comandos.sh   # o bien chmod ugo+x comandos
+
+## Ejecutando los comandos
+./comandos.sh
+```
+
+&lt;br&gt;
+
+Hemos convertido el archivo de texto comandos en un script de shell.
+
+
+---
+
+class: inverse, center, middle
+
+# v a r i a b l e s
+
+---
+## Una variable en matemáticas
+
+.content-box-green[
+
+A variable is a quantity that may change within the context of a mathematical problem or experiment. Typically, we use a single letter to represent a variable.
+
+]
+
+.tiny[— Nykamp DQ, “Variable definition.” From Math Insight. http://mathinsight.org/definition/variable]
+
+
+---
+## Una variable en programación
+
+.content-box-gray[
+
+**A variable** is a **symbolic name** for (or reference to) information. The variable's name represents what information the variable contains. They are called variables because the represented **information can change** but the operations on the variable remain the same. In general, a program should be written with "Symbolic" notation, such that a statement is always true symbolically. 
+
+For example if I want to know the average of two grades, We can write "average = (grade_1 + grade_2) / 2.0;" and the variable average will then contain the average grade regardless of the scores stored in the variables, grade_1 and grade_2.
+
+]
+
+.tiny[https://users.cs.utah.edu/~germain/PPS/Topics/variables.html]
+
+---
+## Nuestra primer variable en bash
+
+**Declarando y utilizando nuestra primer variable en bash**
+
+```bash
+## Declarando una variable
+DIR='prueba-dir'    # Sin $ al asignar valor
+
+## Viendo el contenido de nuestra variable
+echo $DIR           # con $ al usarla
+
+## Utilizando nuestra variable
+mkdir $DIR
+
+```
+
+.content-box-blue[
+
+.tiny[
+
+Usar `set` o `env` para listar todas las variables
+
+Puedes listar todas las variables y buscar DIR:
+
+`set | grep DIR`
+
+Esto mostrará cualquier variable que contenga "DIR" en su nombre y te ayudará a verificar que existe y tiene un valor.
+
+]
+]
+
+
+---
+## La interpretación de una variable depende de su contexto
+
+&lt;br&gt;
+
+La variable `$DIR` es una cadena de texto, la interpretación de esta cadena de texto dependerá del contexto de los comandos utilizados
+
+
+```bash
+## Declarando una variable
+DIR='prueba-dir-2'
+
+## Utilizando nuestra variable
+vi $DIR   # o nano $DIR
+```
+
+---
+## Podemos utilizar variables dentro de scripts
+
+&lt;br&gt;
+
+Creamos el archivo
+
+```bash
+## Nuestro script
+vi variables    # nano variables
+```
+
+Agregamos estas lineas en el archivo
+
+```
+VAR="hola mundo"
+echo $VAR
+```
+
+Ejecutando el script
+
+```bash
+## Cambiando permisos de ejecución
+chmod +x variables
+
+## Ejecutandolo
+./variables
+
+```
+
+---
+
+class: inverse, center, middle
+
+# P r á c t i c a
+
+---
+## Preparando el directorio de trabajo
+
+&lt;br&gt;
+
+```bash
+## Crea una copia identica de la carpeta practica9
+cp -r practica9 practica9-bis
+
+## Verificando
+ls practica9
+ls practica9-bis
+
+```
+
+---
+## Tu primer script de shell
+
+
+En la carpeta practica9, diseña un script de shell que ejecute las siguientes acciones (una acción por comando, un comando por línea):
+
+
+- Crear la carpeta `results`
+
+- Crear la carpeta `data`
+
+- Mover los archivos con la extensión blastn a la carpeta `data`
+
+- Mover el resto de los archivos a la carpeta `results`
+
+---
+## Tu primer script de shell
+
+En la carpeta practica9-bis, diseña un script de shell que ejecute las siguientes acciones (una acción por comando, un comando por línea)
+
+**IMPORTANTE: Define los nombres de las carpetas como variables al inicio del script.**
+
+- Crear la carpeta `results`
+
+- Crear la carpeta `data`
+
+- Mover los archivos con la extensión blastn a la carpeta `data`
+
+- Mover el resto de los archivos a la carpeta `results`
+
+
+Si no te funciona, crea otra carpeta y vuelve a intentarlo.
+
+---
+
+
+class: inverse, center, middle
+
+# Acciones repetitivas
+
+---
+## Ejercicio
+
+
+Para cada una de las siguientes secuencias: 
+
+- TP53a.fasta
+- TP53b.fasta
+- TP53c.fasta
+
+
+Realiza un BLAST contra las siguientes bases de datos:
+
+- Reference RNA sequences
+- RefSeq Genome Database
+- Reference proteins
+
+¿Qué puedes concluir de las distintas secuencias FASTA? ¿Cómo interpretas los valores de identidad, cobertura y e.valor para cada BLAST?
+
+
+---
+## Vectores en bash
+
+```bash
+#!/bin/bash
+
+## Creemos el siguiente script (vectores)
+declare -a VECTOR=("10" "20" "30")
+
+for NUMBER in ${VECTOR[@]}; do
+	echo $NUMBER
+done
+```
+
+---
+## Vectores en bash por partes
+
+Indica cual es el comando que ejecutara el script
+
+```bash
+#!/bin/bash
+
+## Se declara un vector de cadenas
+## Los elementos estan delimitados por comas, separados por espacios
+## La variable se llama VECTOR
+declare -a VECTOR=("10" "20" "30")
+
+## Se accede a cada elemento en VECTOR
+## Cada elemento se almacena en la variable NUMBER
+## Se imprime la variable NUMBER
+for NUMBER in ${VECTOR[@]}; do
+	echo $NUMBER
+done
+
+```
+
+---
+## Acciones dentro del ciclo
+
+
+```bash
+## Creemos el siguiente script (acciones)
+
+#!/bin/bash
+
+declare -a VECTOR=("10" "20" "30")
+
+for NUMBER in ${VECTOR[@]}; do
+	FILE=$NUMBER'.txt'
+	touch $FILE
+done
+
+```
+
+---
+## Acciones dentro del ciclo, por partes
+
+
+```bash
+
+#!/bin/bash
+
+declare -a VECTOR=("10" "20" "30")
+
+## Se accede a cada elemento en VECTOR
+## Se crea una variable nueva formada por:
+##            la variable NUMBER y la extension txt
+## Se ejecuta el comando touch con la variable FILE como argumento
+for NUMBER in ${VECTOR[@]}; do
+	FILE=$NUMBER'.txt'
+	touch $FILE
+done
+
+```
+
+---
+## Acciones dentro del ciclo, por partes
+
+
+```bash
+#!/bin/bash
+
+declare -a VECTOR=("10" "20" "30")
+
+## Antes de ejecutar directamente los comandos finales
+## es buena idea imprimir el comando a ejecutar para verificarlo
+for NUMBER in ${VECTOR[@]}; do
+	FILE=$NUMBER'.txt'
+	echo "touch $FILE"
+done
+
+```
+
+---
+## Ejercicio: solución automatizada
+
+Creen un bash script que ejecute todos los BLAST necesarios para resolver este ejercicio:
+
+Para cada una de las siguientes secuencias: 
+
+- TP53a.fasta
+- TP53b.fasta
+- TP53c.fasta
+
+
+Realiza un BLAST contra las siguientes bases de datos:
+
+- Reference RNA sequences
+- RefSeq Genome Database
+- Reference proteins
+
+
+**Por ahora no ejecutes los comandos de blast solo imprime el texto que se ejecutaría.**
+
+
+---
+
+class: inverse, center, middle
+
+# Homología: Bidirectional Best Hit
+
+---
+## Homología
+
+Cuando dos instancias biológicas provienen del mismo ancestro común ?
+
+
+Existen:
+
+- Genes homólogos
+
+- Nucleótidos homólogos
+
+- Partes corporales
+
+
+---
+## Homología
+
+.pull-left[
+
+&lt;img src="img/homology.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+
+.tiny[ Imagen tomada de https://bitesizebio.com/26762/homology-terminology-never-say-wrong-word/]
+
+]
+
+.pull-right[
+Todos los genes en esta imagen son homólogos
+
+]
+
+---
+## Ortólogos
+
+
+.pull-left[
+
+&lt;img src="img/homology.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+
+.tiny[ Imagen tomada de https://bitesizebio.com/26762/homology-terminology-never-say-wrong-word/]
+
+]
+
+.pull-right[
+
+Los genes ortólogos:
+
+- Provienen de un evento de especiación
+
+- Generalmente mantienen la misma función
+
+]
+
+---
+## Parálogos
+
+
+.pull-left[
+
+&lt;img src="img/homology.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+
+.tiny[ Imagen tomada de https://bitesizebio.com/26762/homology-terminology-never-say-wrong-word/]
+
+]
+
+.pull-right[
+
+**Los genes parálogos**:
+
+- Provienen de un evento de duplicación
+
+- Generalmente sus funciones son diferentes pero relacionadas
+
+]
+
+
+---
+## Inferencia funcional basada en ortología
+
+
+.pull-left[
+
+&lt;img src="img/bbh-q.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+
+.tiny[ Imagen tomada de]
+
+]
+
+.pull-right[
+
+Imagina el siguiente escenario
+
+- Sucedió un evento de duplicación y un evento de especiación en la historia evolutiva de un gene para los linajes de ratón y humano
+- En la modernidad, sólo se conservan tres de las copias que algunas vez existieron de ese gene: 2 en ratón y 1 en humano
+- Se sabe la función de ambas copias del gene de ratón y se quiere hacer una inferencia funcional de dicho gene en humano
+
+]
+
+---
+## Inferencia funcional basada en ortología
+
+
+.pull-left[
+
+&lt;img src="img/bbh-q.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+
+.tiny[ Imagen tomada de]
+
+]
+
+.pull-right[
+
+- Se sabe la función de ambas copias del gene de ratón y se quiere hacer una inferencia funcional de dicho gene en humano
+
+
+Recordando:
+
+- Ortólogos: tienden a mantener la misma función
+- Parálogos: tienden a tener funciones ligeramente diferentes pero relacionadas
+
+]
+
+---
+## Bidirectional best hit
+
+.content-box-green[
+
+"One simple and widespread approach to identifying orthology is the bidirectional best hit (BBH) method (also known as reciprocal best hit or reciprocal Blast hit): call as orthologs all pairs of genes between two species that are more similar (i.e., with highest alignment score) to one another than to any other gene in the other species".
+
+]
+
+
+---
+## Inferencia funcional basada en ortología
+
+
+.pull-left[
+
+&lt;img src="img/bbh.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+
+.tiny[ Imagen tomada de]
+
+]
+
+.pull-right[
+
+Bidirectional best hit:
+
+- 3 es el mejor alineamiento de 2 en ratón
+- 2 es el mejor alineamiento de 3 en humano
+
+Por lo tanto:
+
+- Ortólogos: Gene 2 y 3 tendrán la misma función
+- Parálogos: Gene 1 tendrá una función ligeramente diferente pero relacionada a la función de Gene 2 y 3
+	
+	
+]
+
+---
+## Práctica: obtener  grupos de proteínas ortólogas
+
+Preparando el directorio de trabajo:
+
+- Crear el directorio `practica9-blast`
+
+- Crear el directorio `practica9-blast/fasta`
+
+- Copiar las secuencias problema de: `/home/compu2/WelcomeBioinfo/datos/practica9` a `practica9-blast/data`
+
+- Entra al directorio `practica9-blast`
+
+---
+## Práctica: obtener  grupos de proteínas ortólogas
+
+Procedimiento:
+
+- Obtener los organismos con los que estamos trabajando.
+
+- Realizar un blast de cada proteína query contra la base de datos proteínas para cada organismo en nuestro conjunto de datos, seleccionando un formato de output que permita realizar el siguiente paso de manera ágil.
+
+- Analizar cuáles parejas de secuencias corresponden a **Bidirectional Best Hits**.
+
+&lt;br&gt;
+
+**
+Recuerda automatizar procesos. Haz uso de variables de bash y shell scripts.
+
+Recuerda que correr un blast de manera local es mucho más rápido
+**
+
+---
+## BLAST contra un organismo específico
+
+
+Para obtener el taxid consulta la base de datos de Taxonomy de NCBI 
+
+El Tax ID de Homo sapiens es 9606.
+
+&lt;br&gt;
+
+```blast
+## Limitar la busqueda de BLAST por taxid
+blastn -db $DB -query $SEQ -taxids $TAXID -outfmt $OUTFMT -out $OUT
+```
+
+
+
+
+---
+## Presentación de tabla de análisis
+
+
+El análisis debe incluir una tabla como la siguiente:
+
+&lt;img src="img/reporte.jpeg" width="700px" style="display: block; margin: auto;" /&gt;
+
+
+NP_000508 es una proteína de humano por lo tanto se buscan ortólogos en el resto de los organismos, por eso se reporta como NA.
+
+
+---
+## Ejemplo de un par de proteínas homólogas
+
+Query: NP_00508.1 (human, 9606). Database: 9544
+
+&lt;img src="img/9606-vs-9544.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+
+Query: NP_001253705.1 (macaca, 9544). Database: 9696
+
+&lt;img src="img/9544-vs-9606.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+
+---
+## Ejemplo de un par de proteínas homólogas
+
+
+&lt;img src="img/reporte-homologas.jpeg" width="700px" style="display: block; margin: auto;" /&gt;
+
+NP_000508.1 y NP_001253705.1 son proteínas homólogas.
+
+---
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+  .logo {
+    background-image: url(logos/LCG-UNAM.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    width: 110px;
+    height: 128px;
+    z-index: 0;
+  }
+  </style>
+  
+  <script>
+  document
+    .querySelectorAll(
+      '.remark-slide-content' +
+      ':not(.title-slide)' +
+      // add additional classes to exclude here, e.g.
+      // ':not(.inverse)' +
+      ':not(.hide-logo)'
+    )
+    .forEach(el => {
+      el.innerHTML += '<div class="logo"></div>';
+    });
+  </script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
