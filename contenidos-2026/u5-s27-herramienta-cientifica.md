@@ -206,6 +206,40 @@ plantilla.
 > convierte un resultado tuyo en un resultado **verificable por otros** — que es la definición
 > operativa de un resultado científico.
 
+### Práctica 1 — El experimento del compañero mudo *(antes de clase, primer intento)*
+
+**Pregunta metodológica.** ¿En qué punto exacto mi proyecto deja de poder usarse sin mí?
+
+**Objetivo.** Obtener el diagnóstico de alguien que no puede engañarse sobre lo que entiende.
+
+> **IMPORTANTE:** Haz esta práctica **antes** de leer las secciones 2 a 7. Si las lees primero, ya
+> sabrás qué te va a pasar y el experimento pierde su valor.
+
+**Antes de clase.**
+
+1. **Entrega tu proyecto** a un compañero: los archivos y nada más. Ni un mensaje de contexto.
+2. **Pídele una tarea concreta:** *«analiza esta colección de genomas con mi herramienta y dime cuántos
+   genes tiene cada organismo»*.
+3. **Guarda silencio.** No expliques, no señales, no corrijas. Si te pregunta, anota la pregunta y
+   responde que no puedes contestar.
+4. **Registra el recorrido**, sin interpretarlo todavía:
+
+   | # | Qué intentaba hacer | Dónde se detuvo | Qué pregunta iba a hacerme | ¿Dónde debería haber estado esa respuesta? |
+   | --- | --- | --- | --- | --- |
+
+5. **Anota cuánto tardó** en detenerse la primera vez. Ese dato suele ser humillante y es el más útil.
+6. **Clasifica cada barrera** en una de estas tres: *no sabía qué hace*, *no sabía cómo usarlo*, *no
+   sabía si estaba bien*.
+7. **Responde por escrito:** de todas las cosas que tu compañero no sabía, ¿cuántas te parecían
+   obvias antes del experimento?
+
+**Producto esperado.** La tabla de barreras, con al menos cuatro filas reales.
+
+**Criterio de logro:** el registro es de lo que **ocurrió**, no de lo que crees que falta; y hay al
+menos una barrera que no habías previsto.
+
+---
+
 ## 2. Documentar es escribir el contrato [Indispensable]
 
 **Concepto esencial**
@@ -248,6 +282,39 @@ debilidad: es lo que impide que alguien publique ese número.
 > reutilización tiene un requisito previo y bastante prosaico: que esté descrito. Un código
 > disponible pero indescifrable cumple con «accesible» y falla en todo lo demás. Es la misma lógica
 > con la que en U3 rechazabas un archivo sin procedencia.
+
+### Práctica 2 — Escribir el contrato *(antes de clase, primer intento)*
+
+**Pregunta metodológica.** ¿Qué necesita mi herramienta, qué garantiza a cambio y qué no hace?
+
+**Objetivo.** Redactar el contrato antes de redactar ninguna documentación.
+
+**Antes de clase.** En `doc/s27-primer-intento.md`:
+
+1. **Escribe los tres apartados** del contrato (Sección 2), con el detalle suficiente para que alguien
+   pueda cumplirlos sin verte:
+
+   | Qué necesita | Qué garantiza | Qué NO hace |
+   | --- | --- | --- |
+   | … | … | … |
+
+2. **Comprueba la cobertura.** Recorre las barreras de la Práctica 1 una por una: ¿el contrato
+   resuelve cada una? Las que no, o falta declararlas, o no son del contrato sino de la ayuda.
+3. **Busca al menos tres límites reales** para el tercer apartado. Pistas: ¿qué pasa si el FASTA y el
+   GFF3 son de organismos distintos? ¿Y si la anotación viene de otra versión? ¿Interpreta la
+   herramienta algo, o solo cuenta?
+4. **Redacta el diccionario de columnas** de tu `resumen-global.tsv`, con las cuatro columnas de la
+   Sección 5.2 —incluida **cómo se obtuvo**—.
+5. **Reparte la información** entre los tres documentos de la Sección 3: para cada dato de tu
+   contrato, di si va al `README`, al protocolo o a los mensajes, y por qué.
+
+**Producto esperado.** El contrato en tres apartados, el diccionario de columnas y el reparto entre
+documentos.
+
+**Criterio de logro:** el apartado *qué no hace* tiene al menos tres límites reales, y cada barrera de
+la Práctica 1 tiene un sitio asignado.
+
+---
 
 ## 3. Tres documentos, tres lectores [Indispensable]
 
@@ -360,6 +427,37 @@ proyecto/
 Que el `README` esté en la raíz no es una convención arbitraria: es el primer archivo que alguien ve
 al abrir el proyecto, y por eso es el único sitio donde tiene sentido poner la puerta de entrada.
 
+### Práctica 3 — Preparar el proyecto para entregarlo *(durante el taller)*
+
+**Pregunta metodológica.** ¿Qué es exactamente lo que se entrega, y qué se describe en su lugar?
+
+**Objetivo.** Dejar el proyecto en un estado en el que quepa en un correo y siga siendo reproducible.
+
+**Pasos.**
+
+1. **Revisa la estructura** contra la de la Sección 4.2 y corrige lo que se haya desviado desde U1.
+2. **Decide, archivo por archivo, qué se entrega.** Construye la tabla:
+
+   | Elemento | ¿Se entrega? | Si no, ¿cómo se obtiene? |
+   | --- | --- | --- |
+   | `data/source/genomas/` | no | Ficha de procedencia: recurso, versión, fecha, checksum |
+   | … | … | … |
+
+3. **Comprueba que la ficha de procedencia basta.** Toma un organismo al azar y sigue tu propia ficha:
+   ¿podrías volver a descargar **exactamente** ese archivo? Si te falta la versión, la fecha o el
+   identificador, la ficha está incompleta.
+4. **Limpia el proyecto** de archivos temporales, pruebas rotas y copias de trabajo. Todo lo que no
+   sea código, documentación o resultados declarados **estorba** a quien lo reciba.
+5. **Comprueba que la herramienta sigue funcionando** después de la limpieza. Es el momento clásico
+   para haber borrado algo necesario.
+
+**Producto esperado.** El proyecto reorganizado y la tabla de qué se entrega.
+
+**Criterio de logro:** el proyecto no contiene datos originales duplicados, la ficha permite
+recuperarlos y la herramienta sigue ejecutándose.
+
+---
+
 ## 5. El README, escrito para quien tiene prisa [Indispensable]
 
 **Concepto esencial**
@@ -438,6 +536,42 @@ número de genes del organismo», sino «el número de registros anotados como g
 > **IDEA CLAVE.** Una tabla de resultados sin diccionario no se puede citar. Y algo que no se puede
 > citar no ha entrado todavía en la conversación científica.
 
+### Práctica 4 — El README *(durante el taller)*
+
+**Pregunta metodológica.** ¿Puede alguien saber, en dos minutos, si esta herramienta le sirve y cómo
+usarla?
+
+**Objetivo.** Escribir el documento que cierra las barreras del experimento.
+
+**Parte A — Escribir**
+
+1. **Crea `README.md`** en la raíz del proyecto, con los ocho apartados de la Sección 5.
+2. **Empieza por el final:** escribe primero *qué no hace*, con los límites de la Práctica 2. Es el
+   apartado que más cuesta y el que da el tono honesto al resto.
+3. **Escribe el ejemplo de ejecución copiando de tu terminal**, no de memoria. Y añade cuánto tarda.
+4. **Incluye el diccionario de columnas** de la Práctica 2.
+5. **Añade el apartado de comprobación**: los controles de cardinalidad de S26, explicados para quien
+   no los diseñó.
+
+**Parte B — Podar**
+
+6. **Relee el README con una sola pregunta:** *¿esta frase le sirve a alguien que quiere ejecutar la
+   herramienta?* Si la respuesta es «no, pero es interesante», va al protocolo.
+7. **Busca duplicaciones con el protocolo** y sustitúyelas por un enlace.
+8. **Cuenta las líneas.** Si supera las cien, casi seguro que estás explicando el método.
+
+**Parte C — Comprobar contra el experimento**
+
+9. **Recorre la tabla de barreras** de la Práctica 1 y marca, para cada una, en qué apartado del
+   README queda resuelta. Las que no queden resueltas en ninguno, resuélvelas ahora.
+
+**Producto esperado.** `README.md` completo, y la tabla de barreras con su apartado asignado.
+
+**Criterio de logro:** cada barrera del experimento tiene una respuesta escrita, y el README no
+contiene razonamiento metodológico.
+
+---
+
 ## 6. La ayuda que viaja con la herramienta [Indispensable]
 
 **Concepto esencial**
@@ -508,6 +642,42 @@ mirar**. Compara:
 El segundo dice qué corregir. El tercero dice de quién es el problema, dónde queda constancia y que
 no hace falta alarmarse por el resto — que es exactamente lo que S26 estableció y hasta ahora solo
 sabías tú.
+
+### Práctica 5 — La ayuda y los mensajes *(durante el taller)*
+
+**Pregunta metodológica.** ¿Cómo sabe quien ejecuta mi herramienta qué está pasando y de quién es el
+problema?
+
+**Objetivo.** Poner la información en el momento en que hace falta.
+
+**Parte A — Ayuda integrada**
+
+1. **Añade el bloque `-h` / `--help`** a `procesar-lote.sh`, con lo que cabe en una pantalla.
+2. **Comprueba las dos formas** y verifica que el código de salida es **0**. Explica en una línea por
+   qué no debe ser 1.
+3. **Añádelo también a `analizar-genoma.sh`.** Las dos herramientas se pueden invocar por separado.
+
+**Parte B — Mensajes que orientan**
+
+4. **Clasifica todos tus mensajes de error** en las tres clases de la Sección 6.1: error de uso,
+   problema de los datos, fallo de la herramienta.
+5. **Reescribe los que no dejen clara su clase.** Un mensaje útil dice **qué pasó**, **con qué valor**
+   y **qué hacer ahora**.
+6. **Comprueba que el aviso de un organismo fallido tranquiliza**: debe decir que queda registrado y
+   que el lote continúa. Quien no diseñó el flujo no tiene por qué saberlo.
+
+**Parte C — Probar en frío**
+
+7. **Cierra el README y ejecuta tu herramienta usando solo la ayuda integrada.** ¿Te bastó? Lo que te
+   faltó, o va a la ayuda, o la ayuda debe decir dónde encontrarlo.
+8. **Pásale una entrada mala a propósito** y lee el mensaje como si no fueras tú. ¿Sabrías qué hacer?
+
+**Producto esperado.** Ayuda integrada en las dos herramientas y la tabla de mensajes clasificados.
+
+**Criterio de logro:** la ayuda cabe en una pantalla, termina con código 0, y cada mensaje de error
+permite saber de quién es el problema.
+
+---
 
 ## 7. Probar la documentación, no la herramienta [Indispensable]
 
@@ -580,207 +750,6 @@ evidente.
 > revelar un supuesto que todavía no estaba documentado. No es un defecto del trabajo — es lo que
 > significa mantener un instrumento que otras personas usan.
 
-## 8. Documentado no es todavía demostrado [Consulta]
-
-Al terminar tendrás una herramienta que otra persona puede usar. Es un logro real y el objetivo de la
-sesión.
-
-Y queda una última cosa, que no es técnica:
-
-```text
-tienes  →  una herramienta que funciona          (S24–S26)
-        →  documentada y probada por otros       (S27)
-
-falta   →  reunirlo todo y sostenerlo ante otras personas
-```
-
-En S28 no vas a construir nada nuevo. Vas a **integrar** el recorrido completo —de los comandos
-sueltos de la Unidad 4 a la herramienta de hoy—, ejecutarlo con datos que no has visto y explicar por
-qué cada decisión es como es. Es la evidencia integradora de la unidad, y sustituye al examen
-práctico.
-
-| Hoy | En S28 |
-| --- | --- |
-| La herramienta se puede usar | La herramienta se **demuestra** |
-| Se prueba con la colección de un compañero | Se ejecuta con **datos nuevos** |
-| La documentación responde preguntas escritas | Tú respondes preguntas en directo |
-| El protocolo registra las decisiones | Tú las **justificas** |
-
-> **IDEA CLAVE.** La diferencia entre S27 y S28 es la que hay entre *tener* un resultado y *sostenerlo*.
-> Lo primero se escribe; lo segundo se argumenta.
-
----
-
-### Práctica 1 — El experimento del compañero mudo *(antes de clase, primer intento)*
-
-**Pregunta metodológica.** ¿En qué punto exacto mi proyecto deja de poder usarse sin mí?
-
-**Objetivo.** Obtener el diagnóstico de alguien que no puede engañarse sobre lo que entiende.
-
-> **IMPORTANTE:** Haz esta práctica **antes** de leer las secciones 2 a 7. Si las lees primero, ya
-> sabrás qué te va a pasar y el experimento pierde su valor.
-
-**Antes de clase.**
-
-1. **Entrega tu proyecto** a un compañero: los archivos y nada más. Ni un mensaje de contexto.
-2. **Pídele una tarea concreta:** *«analiza esta colección de genomas con mi herramienta y dime cuántos
-   genes tiene cada organismo»*.
-3. **Guarda silencio.** No expliques, no señales, no corrijas. Si te pregunta, anota la pregunta y
-   responde que no puedes contestar.
-4. **Registra el recorrido**, sin interpretarlo todavía:
-
-   | # | Qué intentaba hacer | Dónde se detuvo | Qué pregunta iba a hacerme | ¿Dónde debería haber estado esa respuesta? |
-   | --- | --- | --- | --- | --- |
-
-5. **Anota cuánto tardó** en detenerse la primera vez. Ese dato suele ser humillante y es el más útil.
-6. **Clasifica cada barrera** en una de estas tres: *no sabía qué hace*, *no sabía cómo usarlo*, *no
-   sabía si estaba bien*.
-7. **Responde por escrito:** de todas las cosas que tu compañero no sabía, ¿cuántas te parecían
-   obvias antes del experimento?
-
-**Producto esperado.** La tabla de barreras, con al menos cuatro filas reales.
-
-**Criterio de logro:** el registro es de lo que **ocurrió**, no de lo que crees que falta; y hay al
-menos una barrera que no habías previsto.
-
----
-
-### Práctica 2 — Escribir el contrato *(antes de clase, primer intento)*
-
-**Pregunta metodológica.** ¿Qué necesita mi herramienta, qué garantiza a cambio y qué no hace?
-
-**Objetivo.** Redactar el contrato antes de redactar ninguna documentación.
-
-**Antes de clase.** En `doc/s27-primer-intento.md`:
-
-1. **Escribe los tres apartados** del contrato (Sección 2), con el detalle suficiente para que alguien
-   pueda cumplirlos sin verte:
-
-   | Qué necesita | Qué garantiza | Qué NO hace |
-   | --- | --- | --- |
-   | … | … | … |
-
-2. **Comprueba la cobertura.** Recorre las barreras de la Práctica 1 una por una: ¿el contrato
-   resuelve cada una? Las que no, o falta declararlas, o no son del contrato sino de la ayuda.
-3. **Busca al menos tres límites reales** para el tercer apartado. Pistas: ¿qué pasa si el FASTA y el
-   GFF3 son de organismos distintos? ¿Y si la anotación viene de otra versión? ¿Interpreta la
-   herramienta algo, o solo cuenta?
-4. **Redacta el diccionario de columnas** de tu `resumen-global.tsv`, con las cuatro columnas de la
-   Sección 5.2 —incluida **cómo se obtuvo**—.
-5. **Reparte la información** entre los tres documentos de la Sección 3: para cada dato de tu
-   contrato, di si va al `README`, al protocolo o a los mensajes, y por qué.
-
-**Producto esperado.** El contrato en tres apartados, el diccionario de columnas y el reparto entre
-documentos.
-
-**Criterio de logro:** el apartado *qué no hace* tiene al menos tres límites reales, y cada barrera de
-la Práctica 1 tiene un sitio asignado.
-
----
-
-### Práctica 3 — Preparar el proyecto para entregarlo *(durante el taller)*
-
-**Pregunta metodológica.** ¿Qué es exactamente lo que se entrega, y qué se describe en su lugar?
-
-**Objetivo.** Dejar el proyecto en un estado en el que quepa en un correo y siga siendo reproducible.
-
-**Pasos.**
-
-1. **Revisa la estructura** contra la de la Sección 4.2 y corrige lo que se haya desviado desde U1.
-2. **Decide, archivo por archivo, qué se entrega.** Construye la tabla:
-
-   | Elemento | ¿Se entrega? | Si no, ¿cómo se obtiene? |
-   | --- | --- | --- |
-   | `data/source/genomas/` | no | Ficha de procedencia: recurso, versión, fecha, checksum |
-   | … | … | … |
-
-3. **Comprueba que la ficha de procedencia basta.** Toma un organismo al azar y sigue tu propia ficha:
-   ¿podrías volver a descargar **exactamente** ese archivo? Si te falta la versión, la fecha o el
-   identificador, la ficha está incompleta.
-4. **Limpia el proyecto** de archivos temporales, pruebas rotas y copias de trabajo. Todo lo que no
-   sea código, documentación o resultados declarados **estorba** a quien lo reciba.
-5. **Comprueba que la herramienta sigue funcionando** después de la limpieza. Es el momento clásico
-   para haber borrado algo necesario.
-
-**Producto esperado.** El proyecto reorganizado y la tabla de qué se entrega.
-
-**Criterio de logro:** el proyecto no contiene datos originales duplicados, la ficha permite
-recuperarlos y la herramienta sigue ejecutándose.
-
----
-
-### Práctica 4 — El README *(durante el taller)*
-
-**Pregunta metodológica.** ¿Puede alguien saber, en dos minutos, si esta herramienta le sirve y cómo
-usarla?
-
-**Objetivo.** Escribir el documento que cierra las barreras del experimento.
-
-**Parte A — Escribir**
-
-1. **Crea `README.md`** en la raíz del proyecto, con los ocho apartados de la Sección 5.
-2. **Empieza por el final:** escribe primero *qué no hace*, con los límites de la Práctica 2. Es el
-   apartado que más cuesta y el que da el tono honesto al resto.
-3. **Escribe el ejemplo de ejecución copiando de tu terminal**, no de memoria. Y añade cuánto tarda.
-4. **Incluye el diccionario de columnas** de la Práctica 2.
-5. **Añade el apartado de comprobación**: los controles de cardinalidad de S26, explicados para quien
-   no los diseñó.
-
-**Parte B — Podar**
-
-6. **Relee el README con una sola pregunta:** *¿esta frase le sirve a alguien que quiere ejecutar la
-   herramienta?* Si la respuesta es «no, pero es interesante», va al protocolo.
-7. **Busca duplicaciones con el protocolo** y sustitúyelas por un enlace.
-8. **Cuenta las líneas.** Si supera las cien, casi seguro que estás explicando el método.
-
-**Parte C — Comprobar contra el experimento**
-
-9. **Recorre la tabla de barreras** de la Práctica 1 y marca, para cada una, en qué apartado del
-   README queda resuelta. Las que no queden resueltas en ninguno, resuélvelas ahora.
-
-**Producto esperado.** `README.md` completo, y la tabla de barreras con su apartado asignado.
-
-**Criterio de logro:** cada barrera del experimento tiene una respuesta escrita, y el README no
-contiene razonamiento metodológico.
-
----
-
-### Práctica 5 — La ayuda y los mensajes *(durante el taller)*
-
-**Pregunta metodológica.** ¿Cómo sabe quien ejecuta mi herramienta qué está pasando y de quién es el
-problema?
-
-**Objetivo.** Poner la información en el momento en que hace falta.
-
-**Parte A — Ayuda integrada**
-
-1. **Añade el bloque `-h` / `--help`** a `procesar-lote.sh`, con lo que cabe en una pantalla.
-2. **Comprueba las dos formas** y verifica que el código de salida es **0**. Explica en una línea por
-   qué no debe ser 1.
-3. **Añádelo también a `analizar-genoma.sh`.** Las dos herramientas se pueden invocar por separado.
-
-**Parte B — Mensajes que orientan**
-
-4. **Clasifica todos tus mensajes de error** en las tres clases de la Sección 6.1: error de uso,
-   problema de los datos, fallo de la herramienta.
-5. **Reescribe los que no dejen clara su clase.** Un mensaje útil dice **qué pasó**, **con qué valor**
-   y **qué hacer ahora**.
-6. **Comprueba que el aviso de un organismo fallido tranquiliza**: debe decir que queda registrado y
-   que el lote continúa. Quien no diseñó el flujo no tiene por qué saberlo.
-
-**Parte C — Probar en frío**
-
-7. **Cierra el README y ejecuta tu herramienta usando solo la ayuda integrada.** ¿Te bastó? Lo que te
-   faltó, o va a la ayuda, o la ayuda debe decir dónde encontrarlo.
-8. **Pásale una entrada mala a propósito** y lee el mensaje como si no fueras tú. ¿Sabrías qué hacer?
-
-**Producto esperado.** Ayuda integrada en las dos herramientas y la tabla de mensajes clasificados.
-
-**Criterio de logro:** la ayuda cabe en una pantalla, termina con código 0, y cada mensaje de error
-permite saber de quién es el problema.
-
----
-
 ### Práctica 6 — La prueba cruzada *(después del taller)*
 
 **Pregunta metodológica.** ¿Puede otra persona obtener exactamente mi mismo resumen global usando
@@ -831,6 +800,37 @@ documentación corregida y la sección S27 del protocolo.
 
 **Criterio de logro:** la prueba está registrada con su resultado —llegó al final, llegó con otro
 resultado, o se detuvo— y cada tropiezo del informe recibido tiene una corrección concreta.
+
+---
+
+## 8. Documentado no es todavía demostrado [Consulta]
+
+Al terminar tendrás una herramienta que otra persona puede usar. Es un logro real y el objetivo de la
+sesión.
+
+Y queda una última cosa, que no es técnica:
+
+```text
+tienes  →  una herramienta que funciona          (S24–S26)
+        →  documentada y probada por otros       (S27)
+
+falta   →  reunirlo todo y sostenerlo ante otras personas
+```
+
+En S28 no vas a construir nada nuevo. Vas a **integrar** el recorrido completo —de los comandos
+sueltos de la Unidad 4 a la herramienta de hoy—, ejecutarlo con datos que no has visto y explicar por
+qué cada decisión es como es. Es la evidencia integradora de la unidad, y sustituye al examen
+práctico.
+
+| Hoy | En S28 |
+| --- | --- |
+| La herramienta se puede usar | La herramienta se **demuestra** |
+| Se prueba con la colección de un compañero | Se ejecuta con **datos nuevos** |
+| La documentación responde preguntas escritas | Tú respondes preguntas en directo |
+| El protocolo registra las decisiones | Tú las **justificas** |
+
+> **IDEA CLAVE.** La diferencia entre S27 y S28 es la que hay entre *tener* un resultado y *sostenerlo*.
+> Lo primero se escribe; lo segundo se argumenta.
 
 ---
 

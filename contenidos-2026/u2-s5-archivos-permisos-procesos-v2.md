@@ -227,7 +227,7 @@ Antes de abrir la respuesta, predice:
 3. ¿`file` modifica el archivo que inspecciona?
 
 <details>
-<summary>Ver respuestas orientativas</summary>
+<summary>Ver retroalimentación</summary>
 
 1. Se espera `-` para el archivo regular `README.md` y `d` para el directorio `data/`.
 2. Normalmente `file` seguirá describiendo la copia como texto porque examina su contenido y no solo
@@ -274,7 +274,7 @@ Quieres comprobar si la última parte de un archivo de metadatos contiene un dic
 sin abrir un editor. ¿Qué herramienta elegirías y por qué?
 
 <details>
-<summary>Ver respuesta orientativa</summary>
+<summary>Ver retroalimentación</summary>
 
 `tail` es un primer acercamiento razonable porque muestra las líneas finales. Si el archivo es más
 largo o necesitamos navegar, `less` permite recorrerlo y buscar visualmente sin modificarlo. La
@@ -397,7 +397,7 @@ Predice qué nombres existirán después de cada operación sobre una **copia** 
    separado o crear un paquete con `tar`?
 
 <details>
-<summary>Ver respuesta orientativa</summary>
+<summary>Ver retroalimentación</summary>
 
 1. Existe `README-copia.md`.
 2. Existe `README-copia.md.gz` y, con el comportamiento normal de `gzip`, ya no existe la copia sin
@@ -550,7 +550,7 @@ Un script muestra `-rw-r-----` y solo su dueño necesita ejecutarlo.
 3. ¿Por qué `chmod 777` sería excesivo?
 
 <details>
-<summary>Ver respuestas orientativas</summary>
+<summary>Ver retroalimentación</summary>
 
 1. `chmod u+x script.sh`.
 2. El bloque del dueño cambia de `rw-` a `rwx`; grupo y otros deben conservarse como estaban.
@@ -660,7 +660,7 @@ presupone que esté instalado.
 Si ejecutas `sleep 300`, ¿esperas que consuma CPU continuamente? ¿Qué estado es razonable observar?
 
 <details>
-<summary>Ver respuesta orientativa</summary>
+<summary>Ver retroalimentación</summary>
 
 No. `sleep` espera durante el tiempo indicado y normalmente aparece con estado `S`. Es útil para
 practicar porque permanece activo sin realizar un análisis pesado. Si `jobs` dice `Running`, eso
@@ -775,7 +775,7 @@ Indica qué herramienta corresponde a cada propósito:
 5. solicitar la terminación ordenada de un proceso propio.
 
 <details>
-<summary>Ver respuestas orientativas</summary>
+<summary>Ver retroalimentación</summary>
 
 1. `jobs -l`.
 2. `bg` seguido del número de trabajo correspondiente, por ejemplo `bg %1`.
@@ -865,7 +865,7 @@ Lleva al taller:
 - al menos una duda o un resultado inesperado.
 
 <details>
-<summary>Ver criterios orientativos del primer intento</summary>
+<summary>Ver retroalimentación</summary>
 
 El primer intento se considera preparado si se comprobó el contexto, se inspeccionaron los archivos
 sin modificarlos, se creó una copia dentro de `results/s5-pruebas/`, se generó `prueba.sh` con el

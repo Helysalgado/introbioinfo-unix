@@ -233,206 +233,6 @@ sobre la función de esos genes.
 Decir esto en voz alta no debilita la defensa: la vuelve creíble. Quien te escucha sabe que esas
 limitaciones existen; la pregunta que tiene en la cabeza es si tú también lo sabes.
 
-## 3. La prueba con datos nuevos [Indispensable]
-
-**Concepto esencial**
-
-De las cuatro afirmaciones, la de reproducibilidad tiene una prueba que hoy se hace en directo:
-ejecutar la herramienta sobre una **colección que no has visto**.
-
-Es distinto de todo lo anterior. En S26 la probaste con tu colección; en S27, con la de un compañero,
-que estaba organizada como la tuya porque seguía el mismo curso. Hoy los datos llegan de fuera.
-
-### 3.1 Qué se está probando exactamente
-
-**Concepto esencial**
-
-No se prueba que el resultado sea «bonito» ni que los números salgan redondos. Se prueba una sola
-cosa:
-
-> **¿Se comporta la herramienta como su contrato dice que se comporta?**
-
-Y por eso hay más de un desenlace aceptable:
-
-| Lo que ocurre | ¿Es un buen resultado? | Por qué |
-| --- | --- | --- |
-| Procesa todo y produce el resumen | Sí | El caso previsto |
-| Falla un organismo, lo anota y continúa | **Sí, y es mejor** | Demuestra en directo lo que el contrato promete |
-| Se detiene porque la colección no cumple el contrato | **Sí** | Detectó una entrada inválida y avisó, como debe |
-| Produce un resumen sin haber procesado todo | **No** | Es el fallo silencioso de S26 |
-| Falla y no queda constancia de por qué | **No** | El problema no es el fallo: es la falta de rastro |
-
-Fíjate en las filas segunda y tercera. Que tu herramienta **rechace** unos datos y explique por qué es
-una demostración de calidad, no un accidente. Si eso ocurre hoy, no lo vivas como un desastre:
-enséñalo.
-
-> **ADVERTENCIA — la tentación del último minuto.** Si con los datos nuevos algo no sale, la reacción
-> instintiva es abrir el script y «arreglarlo» ahí mismo. No lo hagas. Modificar la herramienta
-> durante su propia prueba invalida la prueba, y además rompe la comparabilidad con todo lo que
-> hiciste antes. Anota qué pasó, diagnostícalo y **defiéndelo**: un diagnóstico correcto vale más que
-> un parche.
-
-### 3.2 Comprobar antes de interpretar
-
-**Concepto esencial**
-
-Antes de mirar ningún número, se aplican los controles de S26. En este orden, siempre:
-
-```text
-1. ¿Se procesaron todos?        correctos + fallidos = organismos de la colección
-2. ¿Están todos en el resumen?  filas del resumen = correctos + 1
-3. ¿Hay una carpeta por cada uno? carpetas de resultados = correctos
-4. Y solo entonces:             ¿qué dicen los números?
-```
-
-Interpretar antes de comprobar es el error más caro que se puede cometer hoy, porque conduce a
-defender con convicción un resultado incompleto.
-
-## 4. Anatomía de una defensa [Indispensable]
-
-**Concepto esencial**
-
-Una defensa tiene dos partes: lo que cuentas y lo que respondes. La primera se prepara; la segunda,
-no del todo.
-
-### 4.1 Lo que cuentas: cinco minutos, cinco cosas
-
-**Concepto esencial**
-
-| Momento | Qué se dice | Cuánto |
-| --- | --- | --- |
-| **La pregunta** | Qué problema biológico resuelve la herramienta | 30 s |
-| **El recorrido** | De dónde viene: protocolo → script → herramienta → colección | 1 min |
-| **La demostración** | Se ejecuta, y se muestran los controles cuadrando | 1.5 min |
-| **El resultado** | Qué se observa en la colección, y qué significa | 1.5 min |
-| **Los límites** | Qué no demuestra, y qué cambiarías | 30 s |
-
-Cinco minutos. Y una regla que ahorra mucho tiempo: **no se lee el código en voz alta**. Si alguien
-quiere ver una línea, la pedirá.
-
-> **TIP:** Empieza por la pregunta biológica, nunca por la herramienta. *«Quería saber cómo se
-> distribuye el número de genes anotados entre organismos emparentados»* sitúa a quien escucha en dos
-> segundos. *«Hice un script que recorre un directorio»* no le dice nada a nadie.
-
-### 4.2 Lo que respondes: tres respuestas válidas
-
-**Concepto esencial**
-
-Aquí está lo que más cuesta de esta sesión, y lo que más se aprende.
-
-![Ante una pregunta durante la defensa hay tres respuestas legítimas y una que no lo es. La primera muestra la evidencia: se responde señalando el archivo donde está escrito. La segunda reconoce un límite declarado de antemano. La tercera admite que no se sabe y añade qué haría falta para averiguarlo. La que no es válida es afirmar algo sin poder mostrar dónde está registrado. Una franja inferior señala que reconocer un límite suma y afirmar de más resta.](images/figura-u5-s28-tres-respuestas.png)
-
-**Figura 28.3.** Las tres respuestas válidas. Defender no es tener razón en todo: es saber dónde termina
-tu evidencia. Elaboración propia.
-
-| Respuesta | Cuándo | Por qué es válida |
-| --- | --- | --- |
-| **«Sí, y está aquí»** | Cuando la evidencia existe | Quien pregunta puede comprobarla |
-| **«No puede: es una limitación»** | Cuando está declarada de antemano | Un método con su rango de validez es más utilizable |
-| **«No lo sé, y haría falta…»** | Cuando no lo sabes | La segunda mitad es lo que se evalúa |
-
-Y una sola respuesta inválida: **afirmar algo sin poder mostrar dónde está escrito**. Presentar una
-suposición como si fuera un resultado es el único error grave de una defensa.
-
-> **IDEA CLAVE.** Reconocer un límite **suma**; afirmar de más **resta**. Quien pregunta no busca
-> sorprenderte: busca comprobar si sabes dónde termina tu evidencia. Y eso, a diferencia de la
-> sintaxis, se aprende de una vez y sirve para toda la carrera.
-
-## 5. Las decisiones de diseño [Indispensable]
-
-**Concepto esencial**
-
-En S27 registraste las decisiones de diseño en el protocolo. Hoy se defienden en voz alta, y la
-estructura de una buena justificación tiene tres partes:
-
-```text
-qué decidí   →   qué descarté   →   por qué
-```
-
-La segunda es la que falta casi siempre. Decir *«el lote continúa cuando un organismo falla»* describe;
-decir *«continúa en vez de detenerse, porque un dato incompleto no invalida a los otros diecinueve»*
-justifica.
-
-Tres que casi con seguridad te van a preguntar:
-
-| Decisión | Alternativa descartada | El argumento |
-| --- | --- | --- |
-| La definición de gen no es un parámetro | Hacerla configurable | Un procedimiento que admite cualquier criterio no responde una pregunta concreta (S25) |
-| El lote continúa ante un fallo | Detenerse | La herramienta se detiene ante un dato inválido; el lote no, porque los demás siguen siendo válidos (S26) |
-| Los datos originales no se entregan | Copiarlos al proyecto | Ya tienen procedencia propia; duplicar sin ficha rompe la trazabilidad (U3, S27) |
-
-> **COMENTARIO — no hay una única respuesta correcta.** Si tomaste otra decisión y puedes justificarla
-> con un argumento científico, es igual de defendible. Lo que no se sostiene es *«lo hice así porque
-> me salió así»*.
-
-## 6. La declaración de uso de IA [Indispensable]
-
-**Concepto esencial**
-
-Forma parte de la evidencia que se entrega, y no es un trámite: es una cuestión de autoría y de
-trazabilidad, exactamente igual que la procedencia de un dato.
-
-Tu `doc/bitacora-ia.md` lleva registrando desde U1. Hoy se destila en una declaración breve, con
-cuatro columnas:
-
-| Dónde la usé | Qué me propuso | Qué modifiqué | Qué validé, y cómo |
-| --- | --- | --- | --- |
-| S26, el ciclo | Una versión con `xargs` | La rehíce con `for` | Comprobé que procesaba los 12 organismos, contando |
-| S27, el README | Un texto completo | Quité dos requisitos inventados | Se lo di a un compañero y lo ejecutó |
-| … | … | … | … |
-
-La columna que importa es la última. **Usar IA no resta**; entregar algo generado por IA que no
-puedes explicar ni validar, sí — y hoy se nota, porque hay preguntas.
-
-> **IDEA CLAVE.** La regla de todo el curso —*primero a mano, después con IA*— tiene su prueba final
-> aquí: si puedes explicar cada línea de tu herramienta y decir cómo la comprobaste, da igual quién la
-> escribió primero. Si no puedes, tampoco importa quién la escribió: no es tuya.
-
-## 7. Reproducible no es todavía escalable [Consulta]
-
-Al terminar tendrás una herramienta construida, documentada, probada por otros y defendida con
-evidencia. Es el objetivo de la Unidad 5 y está cumplido.
-
-Y aparece un problema **completamente distinto**, que no es de método sino de infraestructura.
-
-Todo lo que has hecho se ejecutó en una computadora: la tuya, o el servidor del curso, en una sesión
-de terminal que estaba abierta mientras esperabas. Con doce genomas, funciona. Ahora imagina:
-
-```text
-¿y si fueran doce mil genomas?
-¿y si cada análisis tardara horas en vez de segundos?
-¿y si veinte personas quisieran usar la misma máquina a la vez?
-```
-
-Fíjate en que ninguna de esas preguntas cuestiona tu procedimiento. Tu herramienta es exactamente la
-que hace falta; lo que no da abasto es **dónde** se ejecuta y **quién** espera a que termine.
-
-| Hoy | En S29 |
-| --- | --- |
-| El análisis corre en tu sesión de terminal | El trabajo se **entrega** a un planificador |
-| Si cierras la conexión, se pierde | Se ejecuta aunque te desconectes |
-| Esperas mirando la pantalla | Consultas su estado cuando quieras |
-| La máquina es tuya mientras la uses | Los recursos se comparten y se piden |
-
-> **IDEA CLAVE.** La pregunta de la sesión siguiente es esta: **¿cómo se ejecuta exactamente la misma
-> herramienta en un clúster de cómputo, sin modificar el procedimiento científico?** Y la respuesta
-> importa precisamente porque el procedimiento **no** debe cambiar: si cambiara, todo lo que hoy
-> defendiste dejaría de aplicarse.
-
----
-
-## La unidad de un vistazo, antes de empezar
-
-![Cinco pasos encadenados que resumen la unidad. Construir, en las sesiones veinticuatro a veintiséis: la herramienta existe y funciona. Documentar, en la veintisiete: el contrato queda por escrito. Compartir, también en la veintisiete: otra persona la usa sin ayuda. Defender, en la veintiocho: la evidencia se muestra y se sostiene. Y como resultado de los cuatro anteriores, confiar: los resultados se pueden usar, citar, discutir y corregir. Una franja inferior señala que el último paso no es una sesión ni una tarea, sino la consecuencia de los otros cuatro, y que ninguno puede saltarse.](images/figura-u5-s28-construir-confiar.png)
-
-**Figura 28.4.** La Unidad 5 en cinco verbos. El quinto no se hace: se gana. Elaboración propia.
-
-Las seis prácticas de hoy recorren el cuarto eslabón. Ten el encadenamiento entero delante mientras
-las haces: explica por qué ninguna de las sesiones anteriores podía saltarse, y por qué la confianza
-en un resultado no se pide — se construye.
-
----
-
 ### Práctica 1 — Auditar la evidencia *(antes de clase, primer intento)*
 
 **Pregunta metodológica.** ¿Dónde está registrada cada cosa que voy a afirmar sobre mi herramienta?
@@ -501,6 +301,61 @@ menos una respuesta del tipo «no lo sé, y haría falta…».
 
 ---
 
+## 3. La prueba con datos nuevos [Indispensable]
+
+**Concepto esencial**
+
+De las cuatro afirmaciones, la de reproducibilidad tiene una prueba que hoy se hace en directo:
+ejecutar la herramienta sobre una **colección que no has visto**.
+
+Es distinto de todo lo anterior. En S26 la probaste con tu colección; en S27, con la de un compañero,
+que estaba organizada como la tuya porque seguía el mismo curso. Hoy los datos llegan de fuera.
+
+### 3.1 Qué se está probando exactamente
+
+**Concepto esencial**
+
+No se prueba que el resultado sea «bonito» ni que los números salgan redondos. Se prueba una sola
+cosa:
+
+> **¿Se comporta la herramienta como su contrato dice que se comporta?**
+
+Y por eso hay más de un desenlace aceptable:
+
+| Lo que ocurre | ¿Es un buen resultado? | Por qué |
+| --- | --- | --- |
+| Procesa todo y produce el resumen | Sí | El caso previsto |
+| Falla un organismo, lo anota y continúa | **Sí, y es mejor** | Demuestra en directo lo que el contrato promete |
+| Se detiene porque la colección no cumple el contrato | **Sí** | Detectó una entrada inválida y avisó, como debe |
+| Produce un resumen sin haber procesado todo | **No** | Es el fallo silencioso de S26 |
+| Falla y no queda constancia de por qué | **No** | El problema no es el fallo: es la falta de rastro |
+
+Fíjate en las filas segunda y tercera. Que tu herramienta **rechace** unos datos y explique por qué es
+una demostración de calidad, no un accidente. Si eso ocurre hoy, no lo vivas como un desastre:
+enséñalo.
+
+> **ADVERTENCIA — la tentación del último minuto.** Si con los datos nuevos algo no sale, la reacción
+> instintiva es abrir el script y «arreglarlo» ahí mismo. No lo hagas. Modificar la herramienta
+> durante su propia prueba invalida la prueba, y además rompe la comparabilidad con todo lo que
+> hiciste antes. Anota qué pasó, diagnostícalo y **defiéndelo**: un diagnóstico correcto vale más que
+> un parche.
+
+### 3.2 Comprobar antes de interpretar
+
+**Concepto esencial**
+
+Antes de mirar ningún número, se aplican los controles de S26. En este orden, siempre:
+
+```text
+1. ¿Se procesaron todos?        correctos + fallidos = organismos de la colección
+2. ¿Están todos en el resumen?  filas del resumen = correctos + 1
+3. ¿Hay una carpeta por cada uno? carpetas de resultados = correctos
+4. Y solo entonces:             ¿qué dicen los números?
+```
+
+Interpretar antes de comprobar es el error más caro que se puede cometer hoy, porque conduce a
+defender con convicción un resultado incompleto.
+
 ### Práctica 3 — Ejecución con datos nuevos *(durante el taller)*
 
 **Pregunta biológica.** ¿Qué contiene la anotación de una colección de organismos que no había visto?
@@ -534,6 +389,56 @@ inesperado está diagnosticado en términos del contrato, no parcheado.
 
 ---
 
+## 4. Anatomía de una defensa [Indispensable]
+
+**Concepto esencial**
+
+Una defensa tiene dos partes: lo que cuentas y lo que respondes. La primera se prepara; la segunda,
+no del todo.
+
+### 4.1 Lo que cuentas: cinco minutos, cinco cosas
+
+**Concepto esencial**
+
+| Momento | Qué se dice | Cuánto |
+| --- | --- | --- |
+| **La pregunta** | Qué problema biológico resuelve la herramienta | 30 s |
+| **El recorrido** | De dónde viene: protocolo → script → herramienta → colección | 1 min |
+| **La demostración** | Se ejecuta, y se muestran los controles cuadrando | 1.5 min |
+| **El resultado** | Qué se observa en la colección, y qué significa | 1.5 min |
+| **Los límites** | Qué no demuestra, y qué cambiarías | 30 s |
+
+Cinco minutos. Y una regla que ahorra mucho tiempo: **no se lee el código en voz alta**. Si alguien
+quiere ver una línea, la pedirá.
+
+> **TIP:** Empieza por la pregunta biológica, nunca por la herramienta. *«Quería saber cómo se
+> distribuye el número de genes anotados entre organismos emparentados»* sitúa a quien escucha en dos
+> segundos. *«Hice un script que recorre un directorio»* no le dice nada a nadie.
+
+### 4.2 Lo que respondes: tres respuestas válidas
+
+**Concepto esencial**
+
+Aquí está lo que más cuesta de esta sesión, y lo que más se aprende.
+
+![Ante una pregunta durante la defensa hay tres respuestas legítimas y una que no lo es. La primera muestra la evidencia: se responde señalando el archivo donde está escrito. La segunda reconoce un límite declarado de antemano. La tercera admite que no se sabe y añade qué haría falta para averiguarlo. La que no es válida es afirmar algo sin poder mostrar dónde está registrado. Una franja inferior señala que reconocer un límite suma y afirmar de más resta.](images/figura-u5-s28-tres-respuestas.png)
+
+**Figura 28.3.** Las tres respuestas válidas. Defender no es tener razón en todo: es saber dónde termina
+tu evidencia. Elaboración propia.
+
+| Respuesta | Cuándo | Por qué es válida |
+| --- | --- | --- |
+| **«Sí, y está aquí»** | Cuando la evidencia existe | Quien pregunta puede comprobarla |
+| **«No puede: es una limitación»** | Cuando está declarada de antemano | Un método con su rango de validez es más utilizable |
+| **«No lo sé, y haría falta…»** | Cuando no lo sabes | La segunda mitad es lo que se evalúa |
+
+Y una sola respuesta inválida: **afirmar algo sin poder mostrar dónde está escrito**. Presentar una
+suposición como si fuera un resultado es el único error grave de una defensa.
+
+> **IDEA CLAVE.** Reconocer un límite **suma**; afirmar de más **resta**. Quien pregunta no busca
+> sorprenderte: busca comprobar si sabes dónde termina tu evidencia. Y eso, a diferencia de la
+> sintaxis, se aprende de una vez y sirve para toda la carrera.
+
 ### Práctica 4 — Revisión cruzada *(durante el taller)*
 
 **Pregunta metodológica.** ¿Obtiene otra persona el mismo resultado que yo, con los mismos datos?
@@ -565,6 +470,33 @@ inesperado está diagnosticado en términos del contrato, no parcheado.
 causa identificada o, al menos, una hipótesis comprobable.
 
 ---
+
+## 5. Las decisiones de diseño [Indispensable]
+
+**Concepto esencial**
+
+En S27 registraste las decisiones de diseño en el protocolo. Hoy se defienden en voz alta, y la
+estructura de una buena justificación tiene tres partes:
+
+```text
+qué decidí   →   qué descarté   →   por qué
+```
+
+La segunda es la que falta casi siempre. Decir *«el lote continúa cuando un organismo falla»* describe;
+decir *«continúa en vez de detenerse, porque un dato incompleto no invalida a los otros diecinueve»*
+justifica.
+
+Tres que casi con seguridad te van a preguntar:
+
+| Decisión | Alternativa descartada | El argumento |
+| --- | --- | --- |
+| La definición de gen no es un parámetro | Hacerla configurable | Un procedimiento que admite cualquier criterio no responde una pregunta concreta (S25) |
+| El lote continúa ante un fallo | Detenerse | La herramienta se detiene ante un dato inválido; el lote no, porque los demás siguen siendo válidos (S26) |
+| Los datos originales no se entregan | Copiarlos al proyecto | Ya tienen procedencia propia; duplicar sin ficha rompe la trazabilidad (U3, S27) |
+
+> **COMENTARIO — no hay una única respuesta correcta.** Si tomaste otra decisión y puedes justificarla
+> con un argumento científico, es igual de defendible. Lo que no se sostiene es *«lo hice así porque
+> me salió así»*.
 
 ### Práctica 5 — La defensa *(durante el taller)*
 
@@ -604,6 +536,29 @@ sin respuesta se reconocieron indicando qué haría falta.
 
 ---
 
+## 6. La declaración de uso de IA [Indispensable]
+
+**Concepto esencial**
+
+Forma parte de la evidencia que se entrega, y no es un trámite: es una cuestión de autoría y de
+trazabilidad, exactamente igual que la procedencia de un dato.
+
+Tu `doc/bitacora-ia.md` lleva registrando desde U1. Hoy se destila en una declaración breve, con
+cuatro columnas:
+
+| Dónde la usé | Qué me propuso | Qué modifiqué | Qué validé, y cómo |
+| --- | --- | --- | --- |
+| S26, el ciclo | Una versión con `xargs` | La rehíce con `for` | Comprobé que procesaba los 12 organismos, contando |
+| S27, el README | Un texto completo | Quité dos requisitos inventados | Se lo di a un compañero y lo ejecutó |
+| … | … | … | … |
+
+La columna que importa es la última. **Usar IA no resta**; entregar algo generado por IA que no
+puedes explicar ni validar, sí — y hoy se nota, porque hay preguntas.
+
+> **IDEA CLAVE.** La regla de todo el curso —*primero a mano, después con IA*— tiene su prueba final
+> aquí: si puedes explicar cada línea de tu herramienta y decir cómo la comprobaste, da igual quién la
+> escribió primero. Si no puedes, tampoco importa quién la escribió: no es tuya.
+
 ### Práctica 6 — La siguiente versión *(después del taller)*
 
 **Pregunta metodológica.** Después de todo esto, ¿qué haría distinto?
@@ -641,6 +596,51 @@ sin respuesta se reconocieron indicando qué haría falta.
 
 **Criterio de logro:** las mejoras están ordenadas con un criterio explícito, hay al menos una mejora
 descartada con su motivo, y el cierre del protocolo rastrea sus afirmaciones hasta la evidencia.
+
+---
+
+## 7. Reproducible no es todavía escalable [Consulta]
+
+Al terminar tendrás una herramienta construida, documentada, probada por otros y defendida con
+evidencia. Es el objetivo de la Unidad 5 y está cumplido.
+
+Y aparece un problema **completamente distinto**, que no es de método sino de infraestructura.
+
+Todo lo que has hecho se ejecutó en una computadora: la tuya, o el servidor del curso, en una sesión
+de terminal que estaba abierta mientras esperabas. Con doce genomas, funciona. Ahora imagina:
+
+```text
+¿y si fueran doce mil genomas?
+¿y si cada análisis tardara horas en vez de segundos?
+¿y si veinte personas quisieran usar la misma máquina a la vez?
+```
+
+Fíjate en que ninguna de esas preguntas cuestiona tu procedimiento. Tu herramienta es exactamente la
+que hace falta; lo que no da abasto es **dónde** se ejecuta y **quién** espera a que termine.
+
+| Hoy | En S29 |
+| --- | --- |
+| El análisis corre en tu sesión de terminal | El trabajo se **entrega** a un planificador |
+| Si cierras la conexión, se pierde | Se ejecuta aunque te desconectes |
+| Esperas mirando la pantalla | Consultas su estado cuando quieras |
+| La máquina es tuya mientras la uses | Los recursos se comparten y se piden |
+
+> **IDEA CLAVE.** La pregunta de la sesión siguiente es esta: **¿cómo se ejecuta exactamente la misma
+> herramienta en un clúster de cómputo, sin modificar el procedimiento científico?** Y la respuesta
+> importa precisamente porque el procedimiento **no** debe cambiar: si cambiara, todo lo que hoy
+> defendiste dejaría de aplicarse.
+
+---
+
+## La unidad de un vistazo, antes de empezar
+
+![Cinco pasos encadenados que resumen la unidad. Construir, en las sesiones veinticuatro a veintiséis: la herramienta existe y funciona. Documentar, en la veintisiete: el contrato queda por escrito. Compartir, también en la veintisiete: otra persona la usa sin ayuda. Defender, en la veintiocho: la evidencia se muestra y se sostiene. Y como resultado de los cuatro anteriores, confiar: los resultados se pueden usar, citar, discutir y corregir. Una franja inferior señala que el último paso no es una sesión ni una tarea, sino la consecuencia de los otros cuatro, y que ninguno puede saltarse.](images/figura-u5-s28-construir-confiar.png)
+
+**Figura 28.4.** La Unidad 5 en cinco verbos. El quinto no se hace: se gana. Elaboración propia.
+
+Las seis prácticas de hoy recorren el cuarto eslabón. Ten el encadenamiento entero delante mientras
+las haces: explica por qué ninguna de las sesiones anteriores podía saltarse, y por qué la confianza
+en un resultado no se pide — se construye.
 
 ---
 

@@ -73,6 +73,8 @@ Al terminar S33 podrás:
 - [ ] Leí (o tengo a mano) Fitch (1970) o Koonin (2005).
 - [ ] Sé dónde están las globinas en `data/source/` (copiadas desde `ejemplos/datos-alineamientos/`).
 
+> **NOTA — dónde guardar.** Guarda todo en `results/s33/`.
+
 ## Ruta de la sesión
 
 | Momento | Qué hacer | Tiempo estimado |
@@ -149,6 +151,23 @@ un caso abierto.
 > **IMPORTANTE.** Afirmar homología no es «subir el tono» de un porcentaje. Es **cambiar de tipo de
 > afirmación**: de lo medible a lo histórico.
 
+### Práctica 1 — Separar observación de inferencia *(antes de clase, primer intento)*
+
+**Antes de clase.**
+
+Toma **un** candidato de tu ranking de S32 y llena esta tabla **antes** de leer las secciones 3–4 si
+puedes:
+
+| Tipo | Tu texto |
+| --- | --- |
+| Observación (solo lo que está en el `.tsv` o el alineamiento) | |
+| Evidencia (métricas + contexto de la base/anotación) | |
+| Inferencia (lo que crees que significan) | |
+| Hipótesis (una frase revisable) | |
+| Lo que **no** afirmas todavía | |
+
+**Entrega.** La tabla. No la reescribas hasta el taller.
+
 ## 3. El contraejemplo que obliga a pensar en historias [Indispensable]
 
 Supón que alguien te dice:
@@ -179,6 +198,30 @@ Ahí nace la pregunta que define ortólogos y parálogos —no al revés—.
 ![Tres barras de identidad. La más alta une alfa humana con alfa de ratón (~87 por ciento). La media une alfa humana con zeta humana (~60 por ciento). La baja une alfa humana con beta (~46 por ciento). Un pie: la similitud no sigue la especie; sigue la historia del gen.](images/figura-u6-s33-globinas-historia-del-gen.png)
 
 **Figura 33.3.** El dato que desmonta la intuición «mismo organismo ⇒ misma historia».
+
+### Práctica 2 — Globinas: la similitud no sigue la especie *(durante el taller)*
+
+**Durante el taller.**
+
+1. **Inspecciona** encabezados y longitudes:
+
+   ```bash
+   grep '^>' data/source/globinas/*.fasta | head -20
+   ```
+
+2. **Contrasta** (puedes usar Clustal Omega sobre pares, o las identidades reportadas en la sección 3
+   si el tiempo aprieta —en ese caso **verifica** al menos un par tú):
+
+   - α humana (`NP_000508`) frente a α de ratón (`NP_032244`);
+   - α humana frente a ζ humana (`NP_005323`);
+   - α humana frente a HBA2 (`NP_000549`).
+
+3. **Interpreta.** En un párrafo: ¿qué comparación apoya mejor una hipótesis de **ortología**? ¿Cuál
+   sugiere **paralogía**? ¿Qué problema crea HBA1 = HBA2 para alguien que cree que «100 % = mismo
+   gen»?
+4. **Documenta** en el protocolo: «La similitud siguió la historia del gen, no la especie, porque…».
+
+**Entrega.** El párrafo y, si los generaste, los archivos de alineamiento en `results/s33/globinas/`.
 
 ## 4. Dos historias detrás de un parecido [Indispensable]
 
@@ -214,6 +257,20 @@ función** con el tiempo. Son **parálogas**: se separaron por duplicación, no 
 > **ADVERTENCIA.** Con un solo BLAST no «demuestras» ortología. En la práctica se usan criterios
 > adicionales (mejor hit recíproco, sintenia, filogenia…). Hoy aprendes a **nombrar la hipótesis y
 > dudar en voz alta**; los métodos finos son de cursos posteriores.
+
+### Práctica 3 — Ortología frente a paralogía como historias *(durante el taller)*
+
+**Durante el taller.**
+
+1. Dibuja (a mano o en Markdown) los dos paneles de la figura 33.4 aplicados a **tu** caso: un escenario
+   en el que tu hit favorito sería ortólogo y otro en el que sería parálogo.
+2. Para cada escenario escribe: qué evidencia **tienes**, qué evidencia **falta**, y qué harías
+   experimental o computacionalmente después (sin inventar métodos que no conoces: basta con
+   «buscar el mejor hit recíproco», «revisar anotación», «mirar cobertura otra vez»).
+3. Elige cuál escenario te parece **más simple** hoy y por qué. Si no puedes decidir, **eso también
+   es un resultado** —escríbelo.
+
+**Entrega.** Los dos escenarios y la decisión (o la no decisión) argumentada.
 
 ## 5. Cuando el parecido es solo un pedazo [Indispensable]
 
@@ -262,91 +319,7 @@ Razones frecuentes —sin convertirlas en una lista para memorizar—:
 
 **Figura 33.6.** Principio 6: una hipótesis declara sus límites.
 
-## 7. Otra historia posible: transferencia horizontal [Consulta]
-
-A veces un gen se parece mucho al de otro linaje porque **viajó** (transferencia horizontal), no solo
-por especiación o duplicación clásica. Esas copias se llaman a veces **xenólogas**.
-
-Para esta unidad basta con saber que **existe** una tercera familia de relatos. No vamos a
-diagnosticarla: diagnosticarla exige más que un BLAST. Si en tu informe aparece un hit «demasiado
-parecido» en un taxón inesperado, la respuesta correcta no es forzar ortología: es **anotar la
-rareza** y pedir evidencia adicional.
-
-## 8. Lo que hoy ya puedes llevar a S34 [Indispensable]
-
-Al terminar esta sesión tienes el vocabulario y el criterio que faltaban para el cierre de la unidad:
-
-| Llevas a S34 | Todavía no es S34 |
-| --- | --- |
-| Distinguir similitud de homología | El informe completo de una secuencia desconocida |
-| Nombrar ortología/paralogía como **historias** | Integrar S30–S33 en un solo documento defendible |
-| Decidir con argumentos si transferirías función | La evidencia integradora calificada como cierre |
-
-> **IMPORTANTE.** Hoy levantamos la prohibición del vocabulario evolutivo **con condiciones**. En S34
-> no aprenderás conceptos nuevos: **integrarás** lo que ya sabes sobre una pregunta completa.
-
----
-
-## Prácticas
-
-Guarda todo en `results/s33/`.
-
-### Práctica 1 — Separar observación de inferencia
-
-**Antes de clase.**
-
-Toma **un** candidato de tu ranking de S32 y llena esta tabla **antes** de leer las secciones 3–4 si
-puedes:
-
-| Tipo | Tu texto |
-| --- | --- |
-| Observación (solo lo que está en el `.tsv` o el alineamiento) | |
-| Evidencia (métricas + contexto de la base/anotación) | |
-| Inferencia (lo que crees que significan) | |
-| Hipótesis (una frase revisable) | |
-| Lo que **no** afirmas todavía | |
-
-**Entrega.** La tabla. No la reescribas hasta el taller.
-
-### Práctica 2 — Globinas: la similitud no sigue la especie
-
-**Durante el taller.**
-
-1. **Inspecciona** encabezados y longitudes:
-
-   ```bash
-   grep '^>' data/source/globinas/*.fasta | head -20
-   ```
-
-2. **Contrasta** (puedes usar Clustal Omega sobre pares, o las identidades reportadas en la sección 3
-   si el tiempo aprieta —en ese caso **verifica** al menos un par tú):
-
-   - α humana (`NP_000508`) frente a α de ratón (`NP_032244`);
-   - α humana frente a ζ humana (`NP_005323`);
-   - α humana frente a HBA2 (`NP_000549`).
-
-3. **Interpreta.** En un párrafo: ¿qué comparación apoya mejor una hipótesis de **ortología**? ¿Cuál
-   sugiere **paralogía**? ¿Qué problema crea HBA1 = HBA2 para alguien que cree que «100 % = mismo
-   gen»?
-4. **Documenta** en el protocolo: «La similitud siguió la historia del gen, no la especie, porque…».
-
-**Entrega.** El párrafo y, si los generaste, los archivos de alineamiento en `results/s33/globinas/`.
-
-### Práctica 3 — Ortología frente a paralogía como historias
-
-**Durante el taller.**
-
-1. Dibuja (a mano o en Markdown) los dos paneles de la figura 33.4 aplicados a **tu** caso: un escenario
-   en el que tu hit favorito sería ortólogo y otro en el que sería parálogo.
-2. Para cada escenario escribe: qué evidencia **tienes**, qué evidencia **falta**, y qué harías
-   experimental o computacionalmente después (sin inventar métodos que no conoces: basta con
-   «buscar el mejor hit recíproco», «revisar anotación», «mirar cobertura otra vez»).
-3. Elige cuál escenario te parece **más simple** hoy y por qué. Si no puedes decidir, **eso también
-   es un resultado** —escríbelo.
-
-**Entrega.** Los dos escenarios y la decisión (o la no decisión) argumentada.
-
-### Práctica 4 — ¿Se puede transferir la función?
+### Práctica 4 — ¿Se puede transferir la función? *(durante el taller)*
 
 **Durante el taller.**
 
@@ -363,7 +336,17 @@ puedes:
 
 **Entrega.** Los dos párrafos y la frase final.
 
-### Práctica 5 — La IA salta peldaños
+## 7. Otra historia posible: transferencia horizontal [Consulta]
+
+A veces un gen se parece mucho al de otro linaje porque **viajó** (transferencia horizontal), no solo
+por especiación o duplicación clásica. Esas copias se llaman a veces **xenólogas**.
+
+Para esta unidad basta con saber que **existe** una tercera familia de relatos. No vamos a
+diagnosticarla: diagnosticarla exige más que un BLAST. Si en tu informe aparece un hit «demasiado
+parecido» en un taxón inesperado, la respuesta correcta no es forzar ortología: es **anotar la
+rareza** y pedir evidencia adicional.
+
+### Práctica 5 — La IA salta peldaños *(taller y entrega posterior)*
 
 **Durante el taller (discusión) y después (entrega).**
 
@@ -380,7 +363,22 @@ Una IA responde:
 
 **Entrega.** La tabla, la reescritura y la entrada de bitácora.
 
-### Práctica 6 — Anticipar la integración (puente a S34)
+## 8. Lo que hoy ya puedes llevar a S34 [Indispensable]
+
+Al terminar esta sesión tienes el vocabulario y el criterio que faltaban para el cierre de la unidad:
+
+| Llevas a S34 | Todavía no es S34 |
+| --- | --- |
+| Distinguir similitud de homología | El informe completo de una secuencia desconocida |
+| Nombrar ortología/paralogía como **historias** | Integrar S30–S33 en un solo documento defendible |
+| Decidir con argumentos si transferirías función | La evidencia integradora calificada como cierre |
+
+> **IMPORTANTE.** Hoy levantamos la prohibición del vocabulario evolutivo **con condiciones**. En S34
+> no aprenderás conceptos nuevos: **integrarás** lo que ya sabes sobre una pregunta completa.
+
+---
+
+### Práctica 6 — Anticipar la integración (puente a S34) *(cierre del taller)*
 
 **Durante los últimos minutos del taller.**
 

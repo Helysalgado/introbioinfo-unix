@@ -194,7 +194,7 @@ ls -l pacientes.md
 - C. `ls` es el servidor, `-l` es el protocolo y `pacientes.md` es el comando.
 
 <details>
-<summary>Ver respuesta y retroalimentación</summary>
+<summary>Ver retroalimentación</summary>
 
 **Respuesta correcta: B.** `ls` es el programa que se ejecuta, `-l` modifica su comportamiento para
 producir una lista detallada y `pacientes.md` es el archivo sobre el que actúa. Reconocer estas partes
@@ -211,7 +211,7 @@ Cuando escribes un comando, ¿qué relación existe entre la terminal y el shell
 - C. Son dos nombres para el mismo protocolo de internet.
 
 <details>
-<summary>Ver respuesta y retroalimentación</summary>
+<summary>Ver retroalimentación</summary>
 
 **Respuesta correcta: A.** La terminal es la interfaz o ventana donde escribes. Dentro de ella se
 ejecuta el shell, que interpreta el comando y solicita su ejecución al sistema operativo. Cuando te
@@ -228,7 +228,7 @@ Necesitas enviar `pacientes.md` y sus metadatos al servidor del curso. ¿Qué op
 - C. HTTP, porque cualquier protocolo de la web protege automáticamente los archivos.
 
 <details>
-<summary>Ver respuesta y retroalimentación</summary>
+<summary>Ver retroalimentación</summary>
 
 **Respuesta correcta: B.** SFTP utiliza el canal seguro proporcionado por SSH. Esto protege durante
 la transferencia tanto las credenciales como el contenido transmitido. FTP plano no cifra la
@@ -245,7 +245,7 @@ comunicación y HTTP no implica cifrado; cuando la web usa cifrado, el protocolo
 - C. Porque la instrucción exacta puede registrarse, revisarse, compartirse y ejecutarse nuevamente.
 
 <details>
-<summary>Ver respuesta y retroalimentación</summary>
+<summary>Ver retroalimentación</summary>
 
 **Respuesta correcta: C.** Un comando no garantiza por sí mismo que el procedimiento sea correcto.
 Su ventaja es que deja una instrucción explícita que puede registrarse en la bitácora, revisarse y

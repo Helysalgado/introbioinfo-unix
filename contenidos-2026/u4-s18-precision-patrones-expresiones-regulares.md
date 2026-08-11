@@ -448,6 +448,41 @@ categoría**, no solo cuantificada.
 explicación de la diferencia da cuenta de **todos** los registros sobrantes, no solo de los
 pseudogenes.
 
+
+<details>
+<summary>Ver retroalimentación</summary>
+
+Las cinco cadenas de prueba son las mismas para todo el mundo, así que estas respuestas son exactas.
+
+**Pasos 2 y 3.** Con el patrón `gene` coinciden **tres**: `gene`, `pseudogene` e
+`ID=gene-b0001;Name=thrL`. No coinciden `CDS` ni `sequence_feature`. Fíjate en *dónde* queda el
+resaltado: en `pseudogene` ilumina solo el final; en `ID=gene-b0001`, un fragmento en medio. El
+patrón nunca dijo «la palabra completa»; dijo «estas cuatro letras, en algún sitio».
+
+**Paso 4.** Con `^gene$` sobrevive **una sola**: `gene`. Caen `pseudogene` —tiene algo antes— e
+`ID=gene-b0001;Name=thrL` —tiene algo antes y algo después—.
+
+**Paso 5.** Las anclas no son intercambiables: cada una elimina una familia distinta de falso
+positivo.
+
+| Patrón | Coincide | Elimina | Sigue colándose |
+| --- | --- | --- | --- |
+| `^gene` | `gene` | lo que lleva algo **antes**: `pseudogene` | lo que lleva algo **después**: `gene_biotype` |
+| `gene$` | `gene`, `pseudogene` | lo que lleva algo **después** | lo que lleva algo **antes**: `pseudogene` |
+| `^gene$` | `gene` | ambas | — |
+
+Si respondiste que hacen «lo mismo pero al revés», la tabla muestra por qué no: `gene$` sigue
+contando los pseudogenes, que es exactamente el error que arrastras desde S13.
+
+</details>
+
+> **TIP — el paso 7 no tiene una cifra única.** La diferencia entre ambos conteos son los registros
+> que contienen `gene` sin **ser** `gene`, y depende de tu genoma y de quién lo anotó. Lo esperable
+> es que iguale a la frecuencia de `pseudogene` de tu inventario de S13. Si sobra diferencia, hay
+> otra categoría en la columna 3 que también contiene esa cadena: localízala en tu catálogo y
+> nómbrala. No compares la cifra con la de un equipo que trabaja otro genoma —lo que debe coincidir
+> es el razonamiento: cada unidad de la diferencia tiene un nombre y una categoría—.
+
 ---
 
 ## 4. Describir caracteres: clases, comodín y escape [Indispensable]

@@ -555,6 +555,14 @@ ausencia.
 3. **Compara los dos números.** ¿Coinciden? Si coinciden, todos tus genes tienen `locus_tag`. Si no,
    la diferencia es el número de registros que carecen de él.
 
+> **TIP — qué esperar de la diferencia.** El resultado depende de tu genoma y de quién lo anotó, así
+> que no hay una cifra única. En un ensamblado de referencia bien curado lo habitual es que **todos**
+> los `gene` declaren `locus_tag` y la diferencia sea cero. Si te sale distinta de cero, no supongas
+> que te equivocaste al contar: mira las líneas concretas que faltan antes de concluir nada. Las
+> causas frecuentes son que el registro pertenezca a una categoría de gen no codificante anotada de
+> otro modo, o que provenga de una región añadida después. Una diferencia explicada vale más que una
+> diferencia de cero sin comprobar.
+
 **Parte B — Investigar las ausencias**
 
 4. **Localízalos.** Cambia el último eslabón por `grep -v 'locus_tag='` y mira esas líneas completas.

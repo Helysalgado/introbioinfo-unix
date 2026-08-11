@@ -470,6 +470,44 @@ descubrirlas.
 **Criterio de logro:** las cuatro predicciones están escritas antes del taller. Que acierten es
 irrelevante; lo que se evalúa es haberlas formulado.
 
+<details>
+<summary>Ver retroalimentación</summary>
+
+**Ábrelo solo después de haber escrito tus cuatro predicciones.** Estas respuestas no dependen de tu
+genoma ni de tu proyecto: son el comportamiento del sistema, y es el mismo para todo el mundo.
+
+| # | Qué responde el sistema | Código de salida |
+| --- | --- | ---: |
+| 1 | `bash: ./analizar-genoma.sh: Permission denied` | 126 |
+| 2 | `bash: analizar-genoma.sh: command not found` | 127 |
+| 3 | `bash: ./analizar-genoma.sh: /bin/basj: bad interpreter: No such file or directory` | 126 |
+| 4 | Arranca sin problema; fallan los comandos de dentro, uno a uno | 0 |
+
+**Caso 2 — por qué «no encontrado» y no «permiso denegado».** El shell solo busca ejecutables en los
+directorios de `PATH`, y el directorio actual **no** está en `PATH`. Al escribir el nombre a secas, no
+busca en la carpeta donde estás: busca en `/usr/bin`, `/bin` y compañía. El `./` no es decorativo;
+es la ruta.
+
+**Caso 3 — el mensaje nombra al culpable.** `bad interpreter` señala que la ruta del `#!` no existe.
+Es el error más fácil de diagnosticar de los cuatro, porque el sistema te dice exactamente qué
+archivo no encontró.
+
+**Caso 4 — el importante, y el del punto 3.** El script **no falla como script**: el sistema lo
+ejecuta perfectamente. Lo que falla es cada comando de dentro que usa rutas relativas, porque el
+punto de partida cambió. Y como Bash **no se detiene ante un comando que falla**, el script sigue
+adelante hasta el final y termina con código 0.
+
+Lo que casi nadie predice: **los archivos de salida sí se crean, y vacíos.** La redirección `>` crea
+el archivo *antes* de ejecutar el comando. Al terminar tendrás resultados de cero bytes con nombre
+correcto, que es la peor forma de fallo: la que parece éxito.
+
+**Punto 4 — ¿demuestra algo el mensaje «Análisis terminado»?** No. Ese `echo` se ejecuta pase lo que
+pase, porque está en la última línea y nada comprueba lo anterior. Un script sin comprobaciones
+demuestra que **terminó**, no que **funcionó**. Por eso los puntos de control de S23 se trasladan al
+script en la Práctica 5: sin ellos, «terminado» es una afirmación sin evidencia.
+
+</details>
+
 ---
 
 ## 4. Un script que se explica solo [Indispensable]

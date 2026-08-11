@@ -31,6 +31,8 @@ el parecido entre proteínas que no tienen absolutamente nada que ver.
 Hoy resolvemos eso. Pero conviene entender bien qué clase de problema tenemos delante, porque **no es
 el mismo problema de S30 en versión grande**.
 
+> **NOTA — dónde guardar.** Guarda todo en `results/s31/`.
+
 ## 1. Buscar no es comparar muchas veces [Indispensable]
 
 Parece que sí. Parece que buscar en una base de datos es simplemente repetir la comparación de S30
@@ -99,6 +101,28 @@ Para que funcione hace falta un filtro con dos propiedades que están en tensió
 >
 > Ese equilibrio tiene nombre: **velocidad frente a sensibilidad**. No hay una respuesta correcta
 > universal; hay una decisión que se toma según la pregunta, y que **debe quedar registrada**.
+
+### Práctica 1 — Diseñar la búsqueda antes de ejecutarla *(antes de clase, primer intento)*
+
+**Antes de clase.** Sin abrir la terminal. Este es tu primer intento.
+
+Escribe media página respondiendo:
+
+1. ¿Qué pregunta biológica quieres responder sobre `ubiE` de *R. conorii*?
+2. ¿Contra qué buscarías? Describe la colección ideal para **tu** pregunta.
+3. ¿Usarías la versión de proteína o la de nucleótidos? **Justifícalo con lo que viste en S30.**
+4. Si tuvieras que descartar rápidamente millones de secuencias sin alinearlas, **¿qué mirarías
+   primero?** Propón algo concreto, aunque te parezca ingenuo.
+5. ¿Cómo sabrías que tu búsqueda funcionó? ¿Qué esperarías encontrar y qué no?
+
+**Durante el taller.** Guarda el texto sin tocarlo.
+
+**Entrega.** El original y una corrección argumentada: en qué se pareció tu idea del punto 4 a la de
+las semillas, y en qué se diferenció.
+
+> **NOTA.** El punto 4 es el importante y no se espera que aciertes. Respuestas como *«miraría si
+> tienen longitudes parecidas»* o *«buscaría trozos iguales»* son buenos primeros intentos —la
+> segunda, de hecho, es la idea correcta.
 
 ## 3. Semillas: en qué consiste el filtro [Indispensable]
 
@@ -297,51 +321,7 @@ por adelantado.
 > tocarse. Los archivos de la base son **derivados**: van a `results/`, y si se pierden se
 > reconstruyen con un comando. La distinción original/derivado es la misma desde la Unidad 1.
 
-## 8. Lo que hoy NO puedes afirmar [Indispensable]
-
-Al terminar tendrás una lista de aciertos. Y la tentación va a ser enorme.
-
-| Puedes afirmarlo — es una **observación** | No puedes afirmarlo todavía |
-| --- | --- |
-| «La búsqueda devolvió 19 aciertos» | «Encontré 19 ortólogos» |
-| «Ninguna proteína `era` apareció en el resultado» | «`era` no está emparentada con `ubiE`» |
-| «El primer acierto es el de *R. africae*» | «*R. africae* es el pariente más cercano» |
-| «Usé `blastp` sobre una base de 57 secuencias» | «Busqué en todas las proteínas conocidas» |
-| «Este acierto tiene la puntuación más alta» | «Este acierto es el más informativo» |
-
-> **IMPORTANTE — siguen prohibidas las mismas palabras.** «Homólogo», «ortólogo» y «parálogo» no
-> aparecen todavía en tus entregas. Hoy solo has aprendido a **encontrar candidatos**. Ordenarlos e
-> interpretar sus métricas es S32; el vocabulario evolutivo, S33.
-
----
-
-## Prácticas
-
-Seis prácticas. La primera se hace **antes de clase**. Guarda todo en `results/s31/`.
-
-### Práctica 1 — Diseñar la búsqueda antes de ejecutarla
-
-**Antes de clase.** Sin abrir la terminal. Este es tu primer intento.
-
-Escribe media página respondiendo:
-
-1. ¿Qué pregunta biológica quieres responder sobre `ubiE` de *R. conorii*?
-2. ¿Contra qué buscarías? Describe la colección ideal para **tu** pregunta.
-3. ¿Usarías la versión de proteína o la de nucleótidos? **Justifícalo con lo que viste en S30.**
-4. Si tuvieras que descartar rápidamente millones de secuencias sin alinearlas, **¿qué mirarías
-   primero?** Propón algo concreto, aunque te parezca ingenuo.
-5. ¿Cómo sabrías que tu búsqueda funcionó? ¿Qué esperarías encontrar y qué no?
-
-**Durante el taller.** Guarda el texto sin tocarlo.
-
-**Entrega.** El original y una corrección argumentada: en qué se pareció tu idea del punto 4 a la de
-las semillas, y en qué se diferenció.
-
-> **NOTA.** El punto 4 es el importante y no se espera que aciertes. Respuestas como *«miraría si
-> tienen longitudes parecidas»* o *«buscaría trozos iguales»* son buenos primeros intentos —la
-> segunda, de hecho, es la idea correcta.
-
-### Práctica 2 — Construir una base de datos con procedencia
+### Práctica 2 — Construir una base de datos con procedencia *(durante el taller)*
 
 **Durante el taller.** En `chaac`.
 
@@ -392,7 +372,7 @@ las semillas, y en qué se diferenció.
 > pides `ubiE` y aparecen `hemE`, sabrás que algo va mal — y podrás demostrarlo. Casi nunca vas a
 > tener ese lujo; aprovéchalo hoy.
 
-### Práctica 3 — La primera búsqueda
+### Práctica 3 — La primera búsqueda *(durante el taller)*
 
 **Durante el taller.**
 
@@ -444,7 +424,7 @@ frases sobre las diferencias entre lo que esperabas y lo que salió.
 > tienes que volver a unir tú, desde los datos originales, con las herramientas de la Unidad 4. Si
 > alguna vez te preguntas para qué sirvió aprender `cut` y `grep`, esta es la respuesta.
 
-### Práctica 4 — Mover el filtro y ver qué se pierde
+### Práctica 4 — Mover el filtro y ver qué se pierde *(durante el taller)*
 
 **Durante el taller.** Aquí vas a provocar el fallo silencioso de la sección 3.
 
@@ -489,7 +469,7 @@ frases sobre las diferencias entre lo que esperabas y lo que salió.
 > pierdes ninguno, la conclusión **no** es «7 es seguro»: es «en esta base concreta, con esta consulta
 > concreta, 7 no perdió nada». Con proteínas más distantes, el resultado sería otro.
 
-### Práctica 5 — La misma pregunta en el otro alfabeto
+### Práctica 5 — La misma pregunta en el otro alfabeto *(durante el taller)*
 
 **Durante el taller.**
 
@@ -525,7 +505,25 @@ frases sobre las diferencias entre lo que esperabas y lo que salió.
 
 **Entrega.** La comparación de aciertos, el mensaje de error literal y las dos frases.
 
-### Práctica 6 — ¿Qué respondería la IA y cómo lo verificarías?
+## 8. Lo que hoy NO puedes afirmar [Indispensable]
+
+Al terminar tendrás una lista de aciertos. Y la tentación va a ser enorme.
+
+| Puedes afirmarlo — es una **observación** | No puedes afirmarlo todavía |
+| --- | --- |
+| «La búsqueda devolvió 19 aciertos» | «Encontré 19 ortólogos» |
+| «Ninguna proteína `era` apareció en el resultado» | «`era` no está emparentada con `ubiE`» |
+| «El primer acierto es el de *R. africae*» | «*R. africae* es el pariente más cercano» |
+| «Usé `blastp` sobre una base de 57 secuencias» | «Busqué en todas las proteínas conocidas» |
+| «Este acierto tiene la puntuación más alta» | «Este acierto es el más informativo» |
+
+> **IMPORTANTE — siguen prohibidas las mismas palabras.** «Homólogo», «ortólogo» y «parálogo» no
+> aparecen todavía en tus entregas. Hoy solo has aprendido a **encontrar candidatos**. Ordenarlos e
+> interpretar sus métricas es S32; el vocabulario evolutivo, S33.
+
+---
+
+### Práctica 6 — ¿Qué respondería la IA y cómo lo verificarías? *(taller y entrega posterior)*
 
 **Durante el taller (discusión) y después (entrega).**
 

@@ -294,6 +294,35 @@ arriba:
 > reunido «porque estaban a mano» no permite preguntar nada: cualquier patrón que aparezca podría ser
 > del muestreo. Declara tu criterio **antes** de mirar los resultados.
 
+### Práctica 1 — Organizar la colección *(antes de clase, primer intento)*
+
+**Pregunta metodológica.** ¿Qué conjunto de organismos voy a analizar, por qué esos, y cómo tienen que
+estar organizados para que un recorrido pueda visitarlos?
+
+**Objetivo.** Convertir un montón de descargas en una colección con criterio y con ficha.
+
+**Antes de clase.** En `doc/s26-primer-intento.md`, y en `data/source/`:
+
+1. **Declara el criterio de selección** antes de tocar nada: por qué estos organismos y no otros, y
+   qué pregunta biológica esperas poder plantearle al conjunto. Dos o tres líneas.
+2. **Organiza la colección** con la estructura de la Sección 2.1: una carpeta por organismo, con
+   `genome.fna` y `annotation.gff3` dentro. Renombra los archivos si hace falta —copiando, nunca
+   moviendo el original de su descarga—.
+3. **Escribe la ficha de procedencia de la colección** con los cinco elementos de la Sección 2.2.
+4. **Comprueba la regularidad.** Sin ejecutar nada complicado: recorre las carpetas mirando que
+   **todas** tengan los dos archivos con el mismo nombre. Anota las que no.
+5. **Anota el número de organismos.** Ese número es la línea base de todos los controles de hoy.
+6. **Responde por escrito:** si un organismo tuviera su anotación con otro nombre, ¿qué pasaría al
+   recorrer la colección? ¿Fallaría todo, o solo él?
+
+**Producto esperado.** La colección organizada en `data/source/genomas/`, su ficha de procedencia y el
+número de organismos.
+
+**Criterio de logro:** todas las carpetas tienen la misma forma, el criterio de selección está
+declarado y la ficha permitiría a otra persona reconstruir la colección.
+
+---
+
 ## 3. Describir un recorrido [Indispensable]
 
 **Concepto esencial**
@@ -368,6 +397,47 @@ llama `DIRgenome`. Es la forma que aprendiste en S25 y aquí se vuelve necesaria
 > **IDEA CLAVE.** Ninguna ruta se escribe a mano. Todas se **construyen** a partir de la variable de
 > la vuelta. Ese es el mecanismo por el que veinte organismos reciben un tratamiento idéntico: nadie
 > teclea nada veinte veces.
+
+### Práctica 2 — Describir el recorrido *(antes de clase, primer intento)*
+
+**Pregunta metodológica.** ¿Qué debe ocurrir exactamente, y en qué orden, para analizar una colección
+entera?
+
+**Objetivo.** Escribir el recorrido en español antes de escribirlo en shell.
+
+**Antes de clase.** En el mismo documento, **sin código**:
+
+1. **Escribe el recorrido en español**, con la estructura de la Sección 3: qué ocurre en cada vuelta y
+   qué ocurre solo al final.
+2. **Separa las tres clases de cosas** en una tabla:
+
+   | Cambia en cada vuelta | Es igual en todas | Solo ocurre al final |
+   | --- | --- | --- |
+   | … | … | … |
+
+3. **Predice** qué ocurriría en cada uno de estos casos:
+
+   | # | Situación | Mi predicción |
+   | --- | --- | --- |
+   | 1 | A un organismo le falta el GFF3 | … |
+   | 2 | La ruta de la colección está mal escrita | … |
+   | 3 | El resumen global se escribe con `>` dentro del ciclo | … |
+   | 4 | Todos los organismos escriben en `results/s26/inventario.tsv` | … |
+   | 5 | Hay una carpeta que no es un organismo (por ejemplo, `notas/`) | … |
+
+4. **Marca cuál de los cinco es el más peligroso** y explica por qué. Pista: los tres primeros dan
+   señales; dos de ellos no.
+5. **Diseña la bitácora**: qué columnas necesitas para poder responder, un mes después, qué
+   organismos se procesaron y cuáles no.
+6. **Escribe los controles** que aplicarás al terminar, con su igualdad esperada (Sección 5.2).
+
+**Producto esperado.** El recorrido en español, la tabla de tres columnas, las cinco predicciones y el
+diseño de la bitácora.
+
+**Criterio de logro:** tu descripción distingue lo que se repite de lo que cambia, y tienes escritos
+los controles antes de haber ejecutado nada.
+
+---
 
 ## 4. Lo que hace el recorrido en cada vuelta [Indispensable]
 
@@ -468,253 +538,6 @@ awk -F'\t' '$2=="fallo"' results/s26/ejecuciones.tsv | wc -l
 > **IDEA CLAVE.** Un lote sin bitácora no es un experimento: es un montón de carpetas. La bitácora es
 > lo que convierte «ejecuté el análisis sobre la colección» en una afirmación verificable.
 
-## 5. El error que borra diecinueve resultados [Indispensable]
-
-**Concepto esencial**
-
-Este es el fallo más frecuente de la sesión, y merece una sección propia porque **no produce ningún
-error**.
-
-![Comparación de dos formas de escribir dentro de un ciclo. A la izquierda, el error: cada vuelta redirige su resultado con la flecha sencilla, que vacía el archivo antes de escribir, de modo que cada organismo borra al anterior y al terminar las veinte vueltas solo sobrevive el último; el mismo efecto se produce cuando el nombre del archivo de salida no depende de la variable de la vuelta. A la derecha, la forma correcta: el encabezado se escribe una sola vez antes del ciclo con la flecha sencilla, y dentro del ciclo cada vuelta añade su fila con la flecha doble, de modo que al terminar hay veinte filas; además, cada organismo escribe sus resultados en una carpeta cuyo nombre se deriva de la variable de la vuelta. Una franja inferior advierte que este fallo no produce ningún aviso y que la única forma de detectarlo es contar las filas.](images/figura-u5-s26-un-archivo-o-veinte.png)
-
-**Figura 26.3.** Un archivo o veinte. El ciclo termina, el archivo existe y su contenido parece correcto.
-Elaboración propia.
-
-### 5.1 Dos formas de perder diecinueve resultados
-
-**Forma 1 — la flecha sencilla dentro del ciclo.** `>` **vacía** el archivo antes de escribir. Dentro
-de un ciclo eso significa que cada vuelta borra a la anterior:
-
-```bash
-for DIR in genomas/*/ ; do
-    ...  > results/s26/resumen-global.tsv     # ✗ solo sobrevive el último
-done
-```
-
-La forma correcta separa las dos cosas: el encabezado, **una vez y fuera**; las filas, **añadidas
-dentro**.
-
-```bash
-printf 'organismo\ttipos\tgenes\tcds\n' > results/s26/resumen-global.tsv   # ✓ una vez
-for DIR in genomas/*/ ; do
-    ...  >> results/s26/resumen-global.tsv                                  # ✓ añade
-done
-```
-
-**Forma 2 — un nombre de salida que no depende de la vuelta.** Si las veinte iteraciones escriben en
-`results/s26/inventario.tsv`, da igual que uses `>>`: los resultados se mezclan sin poder atribuirse
-a nadie. El nombre tiene que llevar dentro la variable:
-
-```bash
-results/s26/"$ORGANISMO"/inventario-features.tsv
-```
-
-### 5.2 El control obligatorio de esta sesión
-
-Como el fallo no avisa, hay que buscarlo. Y la comprobación es de las que aprendiste en S23: **una
-cardinalidad que tiene que cuadrar**.
-
-| Cantidad | Cómo se obtiene | Relación esperada |
-| --- | --- | --- |
-| Organismos en la colección | `ls -d data/source/genomas/*/ \| wc -l` | Línea base |
-| Filas de la bitácora | `wc -l < results/s26/ejecuciones.tsv` | organismos **+ 1** (encabezado) |
-| Ejecuciones correctas | `awk -F'\t' '$2=="ok"' … \| wc -l` | — |
-| Ejecuciones fallidas | `awk -F'\t' '$2=="fallo"' … \| wc -l` | correctas + fallidas = organismos |
-| Filas del resumen global | `wc -l < results/s26/resumen-global.tsv` | correctas **+ 1** (encabezado) |
-| Carpetas de resultados | `ls -d results/s26/*/ \| wc -l` | igual a las correctas |
-
-Si alguna de esas igualdades no se cumple, **detente**: es un control bloqueante, en el sentido exacto
-de S23. Los dos desajustes más habituales son el `>` dentro del ciclo y un organismo que falló sin
-que te dieras cuenta.
-
-> **IDEA CLAVE.** En un análisis por lotes, la primera pregunta nunca es «¿salió bien?», sino
-> **«¿salieron todos?»**. Y esa pregunta se responde contando, no mirando.
-
-## 6. La pregunta que solo existe cuando existe el conjunto [Indispensable]
-
-**Concepto esencial**
-
-Aquí llega lo que justifica toda la sesión, y no es informático.
-
-Cuando el recorrido termina, tienes veinte carpetas de resultados. Cada una responde las preguntas de
-la Unidad 4 **sobre su organismo**: cuántos genes, cuántas CDS, qué tipos de *feature*. Nada nuevo.
-
-Pero al reunir una fila por organismo aparece una tabla que **ninguna de las veinte ejecuciones
-contenía**:
-
-```text
-organismo      tipos   genes    cds
-ecoli             18    4401   4298
-salmonella        17    4632   4501
-shigella          19    4210   3789
-...
-```
-
-Y con ella, preguntas biológicas que hasta hoy no podías ni formular:
-
-- ¿Cómo se reparte el número de genes entre organismos emparentados?
-- ¿Hay alguno que se salga claramente de la norma?
-- ¿La proporción CDS/gen es parecida en todos, o alguno destaca?
-- ¿Los tipos de *feature* anotados son los mismos en toda la colección?
-
-> **IDEA CLAVE.** Cuántos genes tiene tu genoma lo sabías desde S13. **Cómo se reparten entre veinte
-> organismos, cuál es atípico y por qué** no está dentro de ningún análisis individual: solo aparece
-> cuando existe el conjunto. Eso es lo que has ganado hoy, y no es una comodidad: es una pregunta
-> nueva.
-
-### 6.1 Cómo se lee un resumen así
-
-**Concepto de apoyo**
-
-Con el resumen delante, el análisis es el de siempre —el de S13 y S22, ahora aplicado a organismos en
-vez de a registros—: ordenar, mirar la distribución, buscar lo que se sale.
-
-```bash
-sort -k3,3nr results/s26/resumen-global.tsv | head
-```
-
-Y la interpretación exige la misma cautela de S21 y S25. Antes de atribuir una diferencia a la
-biología, hay que descartar que venga de la anotación:
-
-| Lo que observas | Posible causa biológica | Posible causa técnica |
-| --- | --- | --- |
-| Un organismo con muchos menos genes | Genoma reducido; especies de vida intracelular tienden a perder genes | Ensamblado incompleto o anotación parcial |
-| Proporción CDS/gen baja | Más genes no codificantes de proteína, o muchos pseudogenes | Criterio distinto para anotar pseudogenes |
-| Tipos de *feature* que solo aparecen en uno | El organismo tiene esos elementos | Anotado con otra versión del vocabulario |
-| Un organismo con muchos más genes | Genoma mayor, plásmidos | El ensamblado incluye contigs no depurados |
-
-> **ADVERTENCIA — el riesgo de tener muchos datos.** Con veinte filas es tentador buscar tendencias y
-> declararlas. Recuerda de dónde salen esos números: son **conteos de anotación**, no medidas
-> experimentales, y la anotación de veinte organismos rara vez proviene del mismo criterio. Una
-> observación honesta se escribe como *«en esta colección, y con esta anotación, se observa…»*, y
-> declara lo que no puede distinguir.
-
-## 7. Automático todavía no es entregable [Consulta]
-
-Al terminar tendrás algo que funciona bien: una orden analiza una colección entera, organiza los
-resultados y produce un resumen del conjunto.
-
-Ahora hazte la pregunta de S27: **¿podría usarlo alguien que no seas tú?**
-
-Repasa honestamente:
-
-```text
-¿sabe esa persona cómo se llama al script y qué espera recibir?
-¿sabe cómo tiene que estar organizada la colección?
-¿sabe dónde van a aparecer los resultados y qué significa cada columna?
-¿sabe qué hacer si la bitácora dice que tres organismos fallaron?
-¿sabría instalarlo en su propio proyecto?
-```
-
-| Un flujo automatizado *(hoy)* | Una herramienta científica *(S27)* |
-| --- | --- |
-| Funciona en **tu** proyecto, con tus convenciones | Declara qué necesita y se instala en otro |
-| Sabes lo que hace porque lo escribiste | Está documentado para quien no lo escribió |
-| Los mensajes los entiendes tú | Los mensajes guían a quien no sabe qué pasó |
-| Sabes qué columnas tiene el resumen | El resumen viene con su diccionario |
-| Se ha probado con tu colección | Se ha probado también con lo que no está previsto |
-
-> **IDEA CLAVE.** Tu análisis ya es automático y reproducible **para ti**. Lo que falta no es
-> potencia: es que otra persona pueda usarlo, entenderlo y confiar en él. Esa distancia —entre un
-> script que funciona y una herramienta que se entrega— es el contenido de S27.
-
-Y conviene ver el cambio de pregunta, porque no es un matiz:
-
-```text
-hasta hoy   →   ¿puede analizar toda la colección?
-en S27      →   ¿puede otra persona utilizar esta herramienta sin que yo esté presente?
-```
-
-Son preguntas de naturaleza distinta. La primera se responde ejecutando; la segunda, solo se responde
-cuando alguien más lo intenta.
-
-### 7.1 Y una pregunta para más adelante [Consulta]
-
-Hoy analizaste doce organismos. La orden tardó unos minutos y la ejecutaste en tu sesión de terminal,
-esperando a que terminara.
-
-> **¿Qué cambiaría si fueran doce mil?**
-
-No respondas todavía. Solo anota la pregunta: el recorrido sería el mismo, pero tu terminal tendría
-que quedarse abierta durante horas o días, y una sola computadora tendría que hacerlo todo. Ahí es
-donde el análisis deja de caber en tu sesión —y ahí empieza **S29**.
-
-> **NOTA:** No confundas «más rápido» con «más grande». Lo que cambia a esa escala no es solo el
-> tiempo: es **dónde** se ejecuta el trabajo y **quién** se encarga de esperarlo. Esa es exactamente
-> la razón de ser de un clúster de cómputo, y por eso la sesión de HPC va después de esta y no antes.
-
----
-
-### Práctica 1 — Organizar la colección *(antes de clase, primer intento)*
-
-**Pregunta metodológica.** ¿Qué conjunto de organismos voy a analizar, por qué esos, y cómo tienen que
-estar organizados para que un recorrido pueda visitarlos?
-
-**Objetivo.** Convertir un montón de descargas en una colección con criterio y con ficha.
-
-**Antes de clase.** En `doc/s26-primer-intento.md`, y en `data/source/`:
-
-1. **Declara el criterio de selección** antes de tocar nada: por qué estos organismos y no otros, y
-   qué pregunta biológica esperas poder plantearle al conjunto. Dos o tres líneas.
-2. **Organiza la colección** con la estructura de la Sección 2.1: una carpeta por organismo, con
-   `genome.fna` y `annotation.gff3` dentro. Renombra los archivos si hace falta —copiando, nunca
-   moviendo el original de su descarga—.
-3. **Escribe la ficha de procedencia de la colección** con los cinco elementos de la Sección 2.2.
-4. **Comprueba la regularidad.** Sin ejecutar nada complicado: recorre las carpetas mirando que
-   **todas** tengan los dos archivos con el mismo nombre. Anota las que no.
-5. **Anota el número de organismos.** Ese número es la línea base de todos los controles de hoy.
-6. **Responde por escrito:** si un organismo tuviera su anotación con otro nombre, ¿qué pasaría al
-   recorrer la colección? ¿Fallaría todo, o solo él?
-
-**Producto esperado.** La colección organizada en `data/source/genomas/`, su ficha de procedencia y el
-número de organismos.
-
-**Criterio de logro:** todas las carpetas tienen la misma forma, el criterio de selección está
-declarado y la ficha permitiría a otra persona reconstruir la colección.
-
----
-
-### Práctica 2 — Describir el recorrido *(antes de clase, primer intento)*
-
-**Pregunta metodológica.** ¿Qué debe ocurrir exactamente, y en qué orden, para analizar una colección
-entera?
-
-**Objetivo.** Escribir el recorrido en español antes de escribirlo en shell.
-
-**Antes de clase.** En el mismo documento, **sin código**:
-
-1. **Escribe el recorrido en español**, con la estructura de la Sección 3: qué ocurre en cada vuelta y
-   qué ocurre solo al final.
-2. **Separa las tres clases de cosas** en una tabla:
-
-   | Cambia en cada vuelta | Es igual en todas | Solo ocurre al final |
-   | --- | --- | --- |
-   | … | … | … |
-
-3. **Predice** qué ocurriría en cada uno de estos casos:
-
-   | # | Situación | Mi predicción |
-   | --- | --- | --- |
-   | 1 | A un organismo le falta el GFF3 | … |
-   | 2 | La ruta de la colección está mal escrita | … |
-   | 3 | El resumen global se escribe con `>` dentro del ciclo | … |
-   | 4 | Todos los organismos escriben en `results/s26/inventario.tsv` | … |
-   | 5 | Hay una carpeta que no es un organismo (por ejemplo, `notas/`) | … |
-
-4. **Marca cuál de los cinco es el más peligroso** y explica por qué. Pista: los tres primeros dan
-   señales; dos de ellos no.
-5. **Diseña la bitácora**: qué columnas necesitas para poder responder, un mes después, qué
-   organismos se procesaron y cuáles no.
-6. **Escribe los controles** que aplicarás al terminar, con su igualdad esperada (Sección 5.2).
-
-**Producto esperado.** El recorrido en español, la tabla de tres columnas, las cinco predicciones y el
-diseño de la bitácora.
-
-**Criterio de logro:** tu descripción distingue lo que se repite de lo que cambia, y tienes escritos
-los controles antes de haber ejecutado nada.
-
----
-
 ### Práctica 3 — Construir el recorrido *(durante el taller)*
 
 **Pregunta biológica de fondo.** ¿Qué contiene la anotación de **cada uno** de los organismos de mi
@@ -783,6 +606,68 @@ resultado de un organismo conocido es idéntico al de S25.
 
 ---
 
+## 5. El error que borra diecinueve resultados [Indispensable]
+
+**Concepto esencial**
+
+Este es el fallo más frecuente de la sesión, y merece una sección propia porque **no produce ningún
+error**.
+
+![Comparación de dos formas de escribir dentro de un ciclo. A la izquierda, el error: cada vuelta redirige su resultado con la flecha sencilla, que vacía el archivo antes de escribir, de modo que cada organismo borra al anterior y al terminar las veinte vueltas solo sobrevive el último; el mismo efecto se produce cuando el nombre del archivo de salida no depende de la variable de la vuelta. A la derecha, la forma correcta: el encabezado se escribe una sola vez antes del ciclo con la flecha sencilla, y dentro del ciclo cada vuelta añade su fila con la flecha doble, de modo que al terminar hay veinte filas; además, cada organismo escribe sus resultados en una carpeta cuyo nombre se deriva de la variable de la vuelta. Una franja inferior advierte que este fallo no produce ningún aviso y que la única forma de detectarlo es contar las filas.](images/figura-u5-s26-un-archivo-o-veinte.png)
+
+**Figura 26.3.** Un archivo o veinte. El ciclo termina, el archivo existe y su contenido parece correcto.
+Elaboración propia.
+
+### 5.1 Dos formas de perder diecinueve resultados
+
+**Forma 1 — la flecha sencilla dentro del ciclo.** `>` **vacía** el archivo antes de escribir. Dentro
+de un ciclo eso significa que cada vuelta borra a la anterior:
+
+```bash
+for DIR in genomas/*/ ; do
+    ...  > results/s26/resumen-global.tsv     # ✗ solo sobrevive el último
+done
+```
+
+La forma correcta separa las dos cosas: el encabezado, **una vez y fuera**; las filas, **añadidas
+dentro**.
+
+```bash
+printf 'organismo\ttipos\tgenes\tcds\n' > results/s26/resumen-global.tsv   # ✓ una vez
+for DIR in genomas/*/ ; do
+    ...  >> results/s26/resumen-global.tsv                                  # ✓ añade
+done
+```
+
+**Forma 2 — un nombre de salida que no depende de la vuelta.** Si las veinte iteraciones escriben en
+`results/s26/inventario.tsv`, da igual que uses `>>`: los resultados se mezclan sin poder atribuirse
+a nadie. El nombre tiene que llevar dentro la variable:
+
+```bash
+results/s26/"$ORGANISMO"/inventario-features.tsv
+```
+
+### 5.2 El control obligatorio de esta sesión
+
+Como el fallo no avisa, hay que buscarlo. Y la comprobación es de las que aprendiste en S23: **una
+cardinalidad que tiene que cuadrar**.
+
+| Cantidad | Cómo se obtiene | Relación esperada |
+| --- | --- | --- |
+| Organismos en la colección | `ls -d data/source/genomas/*/ \| wc -l` | Línea base |
+| Filas de la bitácora | `wc -l < results/s26/ejecuciones.tsv` | organismos **+ 1** (encabezado) |
+| Ejecuciones correctas | `awk -F'\t' '$2=="ok"' … \| wc -l` | — |
+| Ejecuciones fallidas | `awk -F'\t' '$2=="fallo"' … \| wc -l` | correctas + fallidas = organismos |
+| Filas del resumen global | `wc -l < results/s26/resumen-global.tsv` | correctas **+ 1** (encabezado) |
+| Carpetas de resultados | `ls -d results/s26/*/ \| wc -l` | igual a las correctas |
+
+Si alguna de esas igualdades no se cumple, **detente**: es un control bloqueante, en el sentido exacto
+de S23. Los dos desajustes más habituales son el `>` dentro del ciclo y un organismo que falló sin
+que te dieras cuenta.
+
+> **IDEA CLAVE.** En un análisis por lotes, la primera pregunta nunca es «¿salió bien?», sino
+> **«¿salieron todos?»**. Y esa pregunta se responde contando, no mirando.
+
 ### Práctica 4 — Provocar los fallos que no avisan *(durante el taller)*
 
 **Pregunta metodológica.** ¿Cómo detecto un error que no produce ningún mensaje?
@@ -816,6 +701,34 @@ resultado de un organismo conocido es idéntico al de S25.
 
 6. **Responde por escrito:** de los cuatro, ¿cuáles se detectan mirando la pantalla y cuáles solo
    contando? Esa distinción es el contenido de la sesión.
+
+<details>
+<summary>Ver retroalimentación</summary>
+
+**Ábrelo después de haber ejecutado los cuatro.** Son comportamientos del shell, idénticos para
+cualquier colección.
+
+| # | ¿Da error? | Qué queda al final | Por qué |
+| --- | --- | --- | --- |
+| 1 | **No** | El resumen contiene **solo el último organismo** | `>` trunca el archivo en cada vuelta. Los diecinueve anteriores se escribieron y se borraron |
+| 2 | **No** | Un único `inventario.tsv`, el del último organismo | Mismo mecanismo: el nombre no deriva de la entrada, así que cada vuelta pisa a la anterior |
+| 3 | Depende | **Una** vuelta, con el patrón literal como valor | Si el patrón no encuentra nada, Bash **no** devuelve una lista vacía: entrega el patrón sin expandir, tal cual, como si fuera un nombre |
+| 4 | Sí, por comando | Un directorio de resultados con salidas vacías o a medias | El ciclo no distingue una carpeta de organismo de cualquier otra; procesa lo que le den y **continúa** tras cada fallo |
+
+**Paso 6 — la respuesta que importa.** Los casos **3 y 4 gritan**: verás mensajes en pantalla, aunque
+haya que leerlos. Los casos **1 y 2 son mudos**: terminan con código 0, sin una sola línea de error, y
+solo se detectan **contando**. Si esperabas diecinueve resultados y hay uno, el error está en el
+número, no en la pantalla.
+
+Ese es el fallo característico del procesamiento por lotes, y la razón de que la bitácora de la
+Práctica 5 no sea burocracia: cuando el error no avisa, el recuento es la única alarma.
+
+**Sobre el caso 3.** Es el más contraintuitivo. Mucha gente predice «el ciclo no dará ninguna vuelta»;
+da exactamente una, con un valor que no existe. Por eso la comprobación de que la colección existe va
+**antes** del ciclo, no dentro.
+
+</details>
+
 
 **Producto esperado.** La tabla de los cuatro fallos provocados con su resultado real.
 
@@ -861,6 +774,65 @@ seis controles.
 resultados a medias, y todos los controles cuadran.
 
 ---
+
+## 6. La pregunta que solo existe cuando existe el conjunto [Indispensable]
+
+**Concepto esencial**
+
+Aquí llega lo que justifica toda la sesión, y no es informático.
+
+Cuando el recorrido termina, tienes veinte carpetas de resultados. Cada una responde las preguntas de
+la Unidad 4 **sobre su organismo**: cuántos genes, cuántas CDS, qué tipos de *feature*. Nada nuevo.
+
+Pero al reunir una fila por organismo aparece una tabla que **ninguna de las veinte ejecuciones
+contenía**:
+
+```text
+organismo      tipos   genes    cds
+ecoli             18    4401   4298
+salmonella        17    4632   4501
+shigella          19    4210   3789
+...
+```
+
+Y con ella, preguntas biológicas que hasta hoy no podías ni formular:
+
+- ¿Cómo se reparte el número de genes entre organismos emparentados?
+- ¿Hay alguno que se salga claramente de la norma?
+- ¿La proporción CDS/gen es parecida en todos, o alguno destaca?
+- ¿Los tipos de *feature* anotados son los mismos en toda la colección?
+
+> **IDEA CLAVE.** Cuántos genes tiene tu genoma lo sabías desde S13. **Cómo se reparten entre veinte
+> organismos, cuál es atípico y por qué** no está dentro de ningún análisis individual: solo aparece
+> cuando existe el conjunto. Eso es lo que has ganado hoy, y no es una comodidad: es una pregunta
+> nueva.
+
+### 6.1 Cómo se lee un resumen así
+
+**Concepto de apoyo**
+
+Con el resumen delante, el análisis es el de siempre —el de S13 y S22, ahora aplicado a organismos en
+vez de a registros—: ordenar, mirar la distribución, buscar lo que se sale.
+
+```bash
+sort -k3,3nr results/s26/resumen-global.tsv | head
+```
+
+Y la interpretación exige la misma cautela de S21 y S25. Antes de atribuir una diferencia a la
+biología, hay que descartar que venga de la anotación:
+
+| Lo que observas | Posible causa biológica | Posible causa técnica |
+| --- | --- | --- |
+| Un organismo con muchos menos genes | Genoma reducido; especies de vida intracelular tienden a perder genes | Ensamblado incompleto o anotación parcial |
+| Proporción CDS/gen baja | Más genes no codificantes de proteína, o muchos pseudogenes | Criterio distinto para anotar pseudogenes |
+| Tipos de *feature* que solo aparecen en uno | El organismo tiene esos elementos | Anotado con otra versión del vocabulario |
+| Un organismo con muchos más genes | Genoma mayor, plásmidos | El ensamblado incluye contigs no depurados |
+
+> **ADVERTENCIA — el riesgo de tener muchos datos.** Con veinte filas es tentador buscar tendencias y
+> declararlas. Recuerda de dónde salen esos números: son **conteos de anotación**, no medidas
+> experimentales, y la anotación de veinte organismos rara vez proviene del mismo criterio. Una
+> observación honesta se escribe como *«en esta colección, y con esta anotación, se observa…»*, y
+> declara lo que no puede distinguir.
 
 ### Práctica 6 — El resumen del conjunto *(durante el taller)*
 
@@ -938,6 +910,62 @@ S26 del protocolo.
 
 **Criterio de logro:** cada afirmación sobre el conjunto puede rastrearse hasta una fila del resumen,
 y hay al menos una observación declarada como no distinguible entre biología y anotación.
+
+---
+
+## 7. Automático todavía no es entregable [Consulta]
+
+Al terminar tendrás algo que funciona bien: una orden analiza una colección entera, organiza los
+resultados y produce un resumen del conjunto.
+
+Ahora hazte la pregunta de S27: **¿podría usarlo alguien que no seas tú?**
+
+Repasa honestamente:
+
+```text
+¿sabe esa persona cómo se llama al script y qué espera recibir?
+¿sabe cómo tiene que estar organizada la colección?
+¿sabe dónde van a aparecer los resultados y qué significa cada columna?
+¿sabe qué hacer si la bitácora dice que tres organismos fallaron?
+¿sabría instalarlo en su propio proyecto?
+```
+
+| Un flujo automatizado *(hoy)* | Una herramienta científica *(S27)* |
+| --- | --- |
+| Funciona en **tu** proyecto, con tus convenciones | Declara qué necesita y se instala en otro |
+| Sabes lo que hace porque lo escribiste | Está documentado para quien no lo escribió |
+| Los mensajes los entiendes tú | Los mensajes guían a quien no sabe qué pasó |
+| Sabes qué columnas tiene el resumen | El resumen viene con su diccionario |
+| Se ha probado con tu colección | Se ha probado también con lo que no está previsto |
+
+> **IDEA CLAVE.** Tu análisis ya es automático y reproducible **para ti**. Lo que falta no es
+> potencia: es que otra persona pueda usarlo, entenderlo y confiar en él. Esa distancia —entre un
+> script que funciona y una herramienta que se entrega— es el contenido de S27.
+
+Y conviene ver el cambio de pregunta, porque no es un matiz:
+
+```text
+hasta hoy   →   ¿puede analizar toda la colección?
+en S27      →   ¿puede otra persona utilizar esta herramienta sin que yo esté presente?
+```
+
+Son preguntas de naturaleza distinta. La primera se responde ejecutando; la segunda, solo se responde
+cuando alguien más lo intenta.
+
+### 7.1 Y una pregunta para más adelante [Consulta]
+
+Hoy analizaste doce organismos. La orden tardó unos minutos y la ejecutaste en tu sesión de terminal,
+esperando a que terminara.
+
+> **¿Qué cambiaría si fueran doce mil?**
+
+No respondas todavía. Solo anota la pregunta: el recorrido sería el mismo, pero tu terminal tendría
+que quedarse abierta durante horas o días, y una sola computadora tendría que hacerlo todo. Ahí es
+donde el análisis deja de caber en tu sesión —y ahí empieza **S29**.
+
+> **NOTA:** No confundas «más rápido» con «más grande». Lo que cambia a esa escala no es solo el
+> tiempo: es **dónde** se ejecuta el trabajo y **quién** se encarga de esperarlo. Esa es exactamente
+> la razón de ser de un clúster de cómputo, y por eso la sesión de HPC va después de esta y no antes.
 
 ---
 

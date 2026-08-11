@@ -184,6 +184,40 @@ probarlo y a defenderlo. La respuesta —y es el mensaje de la sesión— es que
 > **IDEA CLAVE.** Un análisis reproducible no se rehace para cambiar de máquina. Si hay que rehacerlo,
 > es que no era tan reproducible como creías.
 
+### Práctica 1 — La línea base local *(antes de clase, primer intento)*
+
+**Pregunta metodológica.** ¿Cuánto tarda mi análisis, y qué pasaría si cerrara la terminal a mitad?
+
+**Objetivo.** Tener el resultado local contra el que se comparará todo lo de hoy.
+
+**Antes de clase.**
+
+1. **Ejecuta tu herramienta localmente** sobre la colección, tal como la documentaste, y **mide cuánto
+   tarda**. Anota la hora de inicio y de fin, o usa `time` si lo conoces.
+2. **Guarda el resultado como línea base**: copia `results/` a un sitio aparte, con la fecha. Es con
+   lo que compararás el resultado remoto.
+3. **Calcula el checksum** de tu `resumen-global.tsv`. Ese número es la prueba de la Práctica 5.
+4. **Predice, por escrito**, qué ocurriría en cada caso:
+
+   | # | Situación | Mi predicción |
+   | --- | --- | --- |
+   | 1 | Cierro la terminal a mitad del análisis | … |
+   | 2 | Se cae la red mientras corre | … |
+   | 3 | El análisis tardara seis horas y me fuera a casa | … |
+
+5. **Responde:** con tu colección actual, ¿tu análisis **necesita** un clúster? Usa los criterios de
+   la Sección 7 y sé honesto: la respuesta correcta probablemente sea que no, y decirlo es parte del
+   criterio que se evalúa.
+6. **Y responde también:** ¿a partir de qué tamaño de colección sí lo necesitaría? Estima, con el
+   tiempo que mediste.
+
+**Producto esperado.** El tiempo medido, el checksum de la línea base y las tres predicciones.
+
+**Criterio de logro:** tienes una línea base guardada y verificable, y tu respuesta sobre la necesidad
+de clúster está argumentada con la medición, no con una intuición.
+
+---
+
 ## 2. ¿Qué es realmente un clúster de cómputo? [Indispensable]
 
 **Concepto esencial**
@@ -584,6 +618,41 @@ haciendo:
 > En esta sesión **no** se enseñan `-q`, `-pe` ni *array jobs* (`-t`): pertenecen a cursos
 > posteriores.
 
+### Práctica 2 — El envoltorio *(antes de clase, primer intento)*
+
+**Pregunta metodológica.** ¿Qué parte de todo esto es análisis y qué parte es infraestructura?
+
+**Objetivo.** Escribir el *job script* **sin enviarlo**, y comprobar que no contiene análisis.
+
+**Antes de clase.** En `doc/s29-primer-intento.md` y en tu proyecto:
+
+1. **Clasifica**, con la pregunta de la Sección 4:
+
+   | Elemento | ¿Cambiaría el resultado del análisis? | ¿Dónde va? |
+   | --- | --- | --- |
+   | El criterio de qué es un gen | sí | la herramienta |
+   | El nombre del trabajo | no | el job script |
+   | … | … | … |
+
+2. **Escribe `prueba-cluster.jdl`**, el trabajo trivial de la Sección 5.1.
+3. **Escribe `lote-genomas.jdl`**, el que llama a tu herramienta.
+4. **Cuenta sus líneas útiles.** Si el segundo tiene más de tres o cuatro líneas que no sean
+   directivas, revísalo: probablemente estés reimplementando algo.
+5. **Comprueba que no hay análisis dentro.** Busca en tu *job script* cualquier `grep`, `awk`, `cut` o
+   `sort`. Si aparece alguno, ese comando pertenece a la herramienta.
+6. **Responde:** si mañana el curso cambiara de clúster y el planificador fuera otro, ¿qué archivos
+   tendrías que tocar? ¿Y cuántos **no**?
+7. **Y responde también, con la Sección 2 delante:** ¿por qué tu análisis no se ejecuta en el nodo al
+   que te conectas? ¿Y cómo puede el nodo de cómputo ver tu proyecto si nunca te conectaste a él? Dos
+   frases cada una.
+
+**Producto esperado.** Los dos *job scripts* y la tabla de clasificación.
+
+**Criterio de logro:** el *job script* del análisis tiene **una** línea que hace el trabajo, y esa
+línea es idéntica a la que documentaste en el `README`.
+
+---
+
 ## 6. El ciclo de vida de un trabajo [Indispensable]
 
 **Concepto esencial**
@@ -720,6 +789,100 @@ Léela de arriba abajo y fíjate en la proporción: **tres capas intactas y una 
 exactamente, la razón por la que el checksum coincide — y la razón por la que hoy no hubo que rehacer
 nada.
 
+### Práctica 3 — Enviar y monitorear *(durante el taller)*
+
+**Pregunta metodológica.** ¿Cómo entrego un trabajo y cómo sé en qué estado está?
+
+**Objetivo.** Recorrer el ciclo de vida completo, incluida una cancelación deliberada.
+
+**Parte A — Llegar y mirar**
+
+1. **Conéctate a `chaac`** por SSH, como en U2, y ubícate en tu espacio de trabajo.
+2. **Mira el clúster antes de usarlo**: `qhost` para ver los nodos, `qstat -g c` para ver las colas.
+   Anota cuántos nodos hay y qué ocupación tienen. No es trámite: es saber dónde estás.
+3. **Lleva tu proyecto** al espacio de trabajo, con `scp` o `rsync` (U2, S3), y **comprueba que la
+   herramienta sigue siendo ejecutable** (`ls -l src/`). Si perdió el permiso al copiarse, `chmod +x`.
+
+**Parte B — El trabajo trivial**
+
+4. **Crea el directorio `registros/`** y envía `prueba-cluster.jdl` con `qsub`. Anota el **JOBID** que
+   devuelve.
+5. **Consúltalo con `qstat`** varias veces y anota los estados que ves y en qué momento. Si nunca lo
+   ves en `qw`, es que la cola estaba libre: anótalo igual.
+6. **Espera a que desaparezca** y lee sus dos archivos. ¿En qué nodo corrió? ¿Cuánto tardó?
+
+**Parte C — Cancelar a propósito**
+
+7. **Vuelve a enviarlo** y, esta vez, **cancélalo con `qdel`** mientras está en la cola o corriendo.
+8. **Comprueba qué quedó**: ¿desapareció de `qstat`? ¿se crearon los archivos? ¿qué contienen?
+9. **Responde:** vistos desde `qstat`, ¿en qué se distingue un trabajo que terminó de uno que
+   cancelaste? Es una pregunta con truco, y la respuesta importa.
+
+<details>
+<summary>Ver retroalimentación</summary>
+
+**Ábrelo después de haber hecho las tres partes.** Esto no depende de tu análisis: es cómo funciona
+el planificador.
+
+**La respuesta al paso 9: desde `qstat`, en nada.** `qstat` solo muestra trabajos **en cola o en
+ejecución**. Un trabajo que terminó bien y uno que cancelaste con `qdel` desaparecen los dos de la
+lista, exactamente igual. La ausencia no distingue el éxito del fracaso.
+
+Es un caso más de lo que vienes viendo desde S24: **«ya no está» no significa «salió bien»**. Para
+saber qué ocurrió hay que mirar otra cosa:
+
+| Dónde mirar | Qué te dice |
+| --- | --- |
+| `.out` | Lo que el análisis escribió en la salida estándar. Si está vacío, no produjo nada |
+| `.err` | Los mensajes de error. **Vacío no siempre es buena señal**: un trabajo cancelado pronto tampoco alcanza a escribir |
+| Los resultados en disco | La evidencia real: existen, y con el tamaño esperado |
+
+**Sobre el paso 8.** Al cancelar, lo habitual es que los dos archivos **sí existan** —el planificador
+los crea al arrancar el trabajo— y estén vacíos o a medias. Reconoce el patrón: es el mismo de S24,
+cuando la redirección creaba el archivo de salida antes de ejecutar el comando. Un archivo con el
+nombre correcto y cero bytes no es un resultado.
+
+**Sobre el paso 5.** Si nunca viste el estado `qw`, no falló nada: significa que había recursos
+libres y el trabajo pasó directo a ejecución. Anotarlo también es un dato del entorno.
+
+</details>
+
+**Producto esperado.** El registro de los dos envíos, con JOBID, estados observados y qué quedó tras
+cancelar.
+
+**Criterio de logro:** recorriste el ciclo completo y puedes explicar por qué la desaparición de
+`qstat` no distingue el éxito del fracaso.
+
+---
+
+### Práctica 4 — El análisis en el clúster *(durante el taller)*
+
+**Pregunta biológica de fondo.** ¿Qué contiene la anotación de mi colección? — la misma de siempre,
+ejecutada hoy en otro sitio.
+
+**Objetivo.** Enviar el análisis real y recuperar sus resultados.
+
+**Pasos.**
+
+1. **Envía `lote-genomas.jdl`** y anota el JOBID y la hora.
+2. **Desconéctate.** En serio: cierra la sesión SSH mientras el trabajo corre. Es el experimento
+   central de la sesión y hay que vivirlo.
+3. **Vuelve a conectarte** y consulta el estado. Anota qué encontraste.
+4. **Cuando termine, lee `.out`**: ahí están los mensajes de avance de tu herramienta, los controles
+   impresos y las dos fechas. Calcula cuánto tardó.
+5. **Lee `.err`.** Si está vacío, dilo —es un resultado—. Si no, clasifica cada línea: ¿es un aviso de
+   tu herramienta (un organismo fallido, S26) o un mensaje del sistema?
+6. **Aplica los controles del análisis**, los de S26: correctos + fallidos = organismos, filas del
+   resumen = correctos + 1. El registro del planificador **no** los sustituye.
+7. **Recupera los resultados** a tu computadora con `scp` o `rsync`.
+
+**Producto esperado.** Los resultados remotos recuperados, con `.out` y `.err` leídos y clasificados.
+
+**Criterio de logro:** el trabajo se completó sin que tu sesión estuviera abierta, y comprobaste el
+análisis con tus propios controles además del estado del trabajo.
+
+---
+
 ## 7. Cuándo hace falta un clúster [Indispensable]
 
 **Concepto esencial**
@@ -751,6 +914,44 @@ encontrarte en un laboratorio.
 
 > **IDEA CLAVE.** Saber cuándo **no** hace falta un clúster es tan parte del oficio como saber usarlo.
 > Es el mismo criterio que aplicaste en S27 al decidir qué mejoras no valían su coste.
+
+### Práctica 5 — ¿Cambió algo? *(durante el taller)*
+
+**Pregunta metodológica.** ¿El resultado remoto es el mismo que el local?
+
+**Objetivo.** Demostrar, y no suponer, que solo cambió la infraestructura.
+
+**Pasos.**
+
+1. **Compara el `resumen-global.tsv`** local con el remoto, con la estrategia que corresponde: es un
+   archivo determinista, así que **checksum**.
+2. **Compara la bitácora de ejecuciones**: ¿los mismos organismos correctos y fallidos?
+3. **Registra el resultado:**
+
+   | Producto | Local | Remoto | ¿Coincide? |
+   | --- | --- | --- | --- |
+   | `resumen-global.tsv` (checksum) | … | … | … |
+   | Ejecuciones correctas | … | … | … |
+   | Ejecuciones fallidas | … | … | … |
+
+4. **Si coinciden**, escribe explícitamente qué acabas de demostrar, con la cadena de la Sección 6.4:
+   misma herramienta → infraestructura distinta → mismo checksum → mismo procedimiento → **la
+   infraestructura no alteró el análisis**. No es «que funcionó»: es que todo lo que defendiste en S28
+   sigue siendo válido en las dos máquinas.
+5. **Si NO coinciden, es el hallazgo más valioso del día.** Diagnostícalo: ¿una versión distinta de una
+   herramienta del sistema? ¿un archivo que no se copió? ¿un paso manual que hacías sin darte cuenta?
+   Cualquiera de las tres revela un supuesto que no estaba declarado.
+6. **Responde por escrito, en una frase cada una:**
+   - ¿Cambió el procedimiento?
+   - ¿Cambió únicamente la infraestructura?
+   - ¿Qué habría significado que los resultados difirieran?
+
+**Producto esperado.** La tabla de comparación y las tres respuestas.
+
+**Criterio de logro:** la comparación se hizo con checksum —no a ojo— y sabes decir qué demuestra la
+coincidencia.
+
+---
 
 ## 8. El cierre de la Unidad 5 [Consulta]
 
@@ -799,178 +1000,6 @@ hasta hoy    →  ¿cómo construyo una herramienta reproducible?
 de aquí en   →  ¿qué preguntas biológicas puedo responder ahora que sé construirlas?
 adelante
 ```
-
----
-
-### Práctica 1 — La línea base local *(antes de clase, primer intento)*
-
-**Pregunta metodológica.** ¿Cuánto tarda mi análisis, y qué pasaría si cerrara la terminal a mitad?
-
-**Objetivo.** Tener el resultado local contra el que se comparará todo lo de hoy.
-
-**Antes de clase.**
-
-1. **Ejecuta tu herramienta localmente** sobre la colección, tal como la documentaste, y **mide cuánto
-   tarda**. Anota la hora de inicio y de fin, o usa `time` si lo conoces.
-2. **Guarda el resultado como línea base**: copia `results/` a un sitio aparte, con la fecha. Es con
-   lo que compararás el resultado remoto.
-3. **Calcula el checksum** de tu `resumen-global.tsv`. Ese número es la prueba de la Práctica 5.
-4. **Predice, por escrito**, qué ocurriría en cada caso:
-
-   | # | Situación | Mi predicción |
-   | --- | --- | --- |
-   | 1 | Cierro la terminal a mitad del análisis | … |
-   | 2 | Se cae la red mientras corre | … |
-   | 3 | El análisis tardara seis horas y me fuera a casa | … |
-
-5. **Responde:** con tu colección actual, ¿tu análisis **necesita** un clúster? Usa los criterios de
-   la Sección 7 y sé honesto: la respuesta correcta probablemente sea que no, y decirlo es parte del
-   criterio que se evalúa.
-6. **Y responde también:** ¿a partir de qué tamaño de colección sí lo necesitaría? Estima, con el
-   tiempo que mediste.
-
-**Producto esperado.** El tiempo medido, el checksum de la línea base y las tres predicciones.
-
-**Criterio de logro:** tienes una línea base guardada y verificable, y tu respuesta sobre la necesidad
-de clúster está argumentada con la medición, no con una intuición.
-
----
-
-### Práctica 2 — El envoltorio *(antes de clase, primer intento)*
-
-**Pregunta metodológica.** ¿Qué parte de todo esto es análisis y qué parte es infraestructura?
-
-**Objetivo.** Escribir el *job script* **sin enviarlo**, y comprobar que no contiene análisis.
-
-**Antes de clase.** En `doc/s29-primer-intento.md` y en tu proyecto:
-
-1. **Clasifica**, con la pregunta de la Sección 4:
-
-   | Elemento | ¿Cambiaría el resultado del análisis? | ¿Dónde va? |
-   | --- | --- | --- |
-   | El criterio de qué es un gen | sí | la herramienta |
-   | El nombre del trabajo | no | el job script |
-   | … | … | … |
-
-2. **Escribe `prueba-cluster.jdl`**, el trabajo trivial de la Sección 5.1.
-3. **Escribe `lote-genomas.jdl`**, el que llama a tu herramienta.
-4. **Cuenta sus líneas útiles.** Si el segundo tiene más de tres o cuatro líneas que no sean
-   directivas, revísalo: probablemente estés reimplementando algo.
-5. **Comprueba que no hay análisis dentro.** Busca en tu *job script* cualquier `grep`, `awk`, `cut` o
-   `sort`. Si aparece alguno, ese comando pertenece a la herramienta.
-6. **Responde:** si mañana el curso cambiara de clúster y el planificador fuera otro, ¿qué archivos
-   tendrías que tocar? ¿Y cuántos **no**?
-7. **Y responde también, con la Sección 2 delante:** ¿por qué tu análisis no se ejecuta en el nodo al
-   que te conectas? ¿Y cómo puede el nodo de cómputo ver tu proyecto si nunca te conectaste a él? Dos
-   frases cada una.
-
-**Producto esperado.** Los dos *job scripts* y la tabla de clasificación.
-
-**Criterio de logro:** el *job script* del análisis tiene **una** línea que hace el trabajo, y esa
-línea es idéntica a la que documentaste en el `README`.
-
----
-
-### Práctica 3 — Enviar y monitorear *(durante el taller)*
-
-**Pregunta metodológica.** ¿Cómo entrego un trabajo y cómo sé en qué estado está?
-
-**Objetivo.** Recorrer el ciclo de vida completo, incluida una cancelación deliberada.
-
-**Parte A — Llegar y mirar**
-
-1. **Conéctate a `chaac`** por SSH, como en U2, y ubícate en tu espacio de trabajo.
-2. **Mira el clúster antes de usarlo**: `qhost` para ver los nodos, `qstat -g c` para ver las colas.
-   Anota cuántos nodos hay y qué ocupación tienen. No es trámite: es saber dónde estás.
-3. **Lleva tu proyecto** al espacio de trabajo, con `scp` o `rsync` (U2, S3), y **comprueba que la
-   herramienta sigue siendo ejecutable** (`ls -l src/`). Si perdió el permiso al copiarse, `chmod +x`.
-
-**Parte B — El trabajo trivial**
-
-4. **Crea el directorio `registros/`** y envía `prueba-cluster.jdl` con `qsub`. Anota el **JOBID** que
-   devuelve.
-5. **Consúltalo con `qstat`** varias veces y anota los estados que ves y en qué momento. Si nunca lo
-   ves en `qw`, es que la cola estaba libre: anótalo igual.
-6. **Espera a que desaparezca** y lee sus dos archivos. ¿En qué nodo corrió? ¿Cuánto tardó?
-
-**Parte C — Cancelar a propósito**
-
-7. **Vuelve a enviarlo** y, esta vez, **cancélalo con `qdel`** mientras está en la cola o corriendo.
-8. **Comprueba qué quedó**: ¿desapareció de `qstat`? ¿se crearon los archivos? ¿qué contienen?
-9. **Responde:** vistos desde `qstat`, ¿en qué se distingue un trabajo que terminó de uno que
-   cancelaste? Es una pregunta con truco, y la respuesta importa.
-
-**Producto esperado.** El registro de los dos envíos, con JOBID, estados observados y qué quedó tras
-cancelar.
-
-**Criterio de logro:** recorriste el ciclo completo y puedes explicar por qué la desaparición de
-`qstat` no distingue el éxito del fracaso.
-
----
-
-### Práctica 4 — El análisis en el clúster *(durante el taller)*
-
-**Pregunta biológica de fondo.** ¿Qué contiene la anotación de mi colección? — la misma de siempre,
-ejecutada hoy en otro sitio.
-
-**Objetivo.** Enviar el análisis real y recuperar sus resultados.
-
-**Pasos.**
-
-1. **Envía `lote-genomas.jdl`** y anota el JOBID y la hora.
-2. **Desconéctate.** En serio: cierra la sesión SSH mientras el trabajo corre. Es el experimento
-   central de la sesión y hay que vivirlo.
-3. **Vuelve a conectarte** y consulta el estado. Anota qué encontraste.
-4. **Cuando termine, lee `.out`**: ahí están los mensajes de avance de tu herramienta, los controles
-   impresos y las dos fechas. Calcula cuánto tardó.
-5. **Lee `.err`.** Si está vacío, dilo —es un resultado—. Si no, clasifica cada línea: ¿es un aviso de
-   tu herramienta (un organismo fallido, S26) o un mensaje del sistema?
-6. **Aplica los controles del análisis**, los de S26: correctos + fallidos = organismos, filas del
-   resumen = correctos + 1. El registro del planificador **no** los sustituye.
-7. **Recupera los resultados** a tu computadora con `scp` o `rsync`.
-
-**Producto esperado.** Los resultados remotos recuperados, con `.out` y `.err` leídos y clasificados.
-
-**Criterio de logro:** el trabajo se completó sin que tu sesión estuviera abierta, y comprobaste el
-análisis con tus propios controles además del estado del trabajo.
-
----
-
-### Práctica 5 — ¿Cambió algo? *(durante el taller)*
-
-**Pregunta metodológica.** ¿El resultado remoto es el mismo que el local?
-
-**Objetivo.** Demostrar, y no suponer, que solo cambió la infraestructura.
-
-**Pasos.**
-
-1. **Compara el `resumen-global.tsv`** local con el remoto, con la estrategia que corresponde: es un
-   archivo determinista, así que **checksum**.
-2. **Compara la bitácora de ejecuciones**: ¿los mismos organismos correctos y fallidos?
-3. **Registra el resultado:**
-
-   | Producto | Local | Remoto | ¿Coincide? |
-   | --- | --- | --- | --- |
-   | `resumen-global.tsv` (checksum) | … | … | … |
-   | Ejecuciones correctas | … | … | … |
-   | Ejecuciones fallidas | … | … | … |
-
-4. **Si coinciden**, escribe explícitamente qué acabas de demostrar, con la cadena de la Sección 6.4:
-   misma herramienta → infraestructura distinta → mismo checksum → mismo procedimiento → **la
-   infraestructura no alteró el análisis**. No es «que funcionó»: es que todo lo que defendiste en S28
-   sigue siendo válido en las dos máquinas.
-5. **Si NO coinciden, es el hallazgo más valioso del día.** Diagnostícalo: ¿una versión distinta de una
-   herramienta del sistema? ¿un archivo que no se copió? ¿un paso manual que hacías sin darte cuenta?
-   Cualquiera de las tres revela un supuesto que no estaba declarado.
-6. **Responde por escrito, en una frase cada una:**
-   - ¿Cambió el procedimiento?
-   - ¿Cambió únicamente la infraestructura?
-   - ¿Qué habría significado que los resultados difirieran?
-
-**Producto esperado.** La tabla de comparación y las tres respuestas.
-
-**Criterio de logro:** la comparación se hizo con checksum —no a ojo— y sabes decir qué demuestra la
-coincidencia.
 
 ---
 

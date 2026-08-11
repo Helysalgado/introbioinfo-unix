@@ -72,6 +72,8 @@ Deberías poder responder que sí a todo esto. Si algo falla, revísalo antes de
 - [ ] Sé enviar un trabajo con `qsub` y consultarlo con `qstat` (U5, S29). *Hoy no hará falta, pero
       conviene tenerlo fresco.*
 
+> **NOTA — dónde guardar.** Trabaja dentro de tu proyecto y guarda los resultados en `results/s30/`.
+
 ## Ruta de la sesión
 
 | Momento | Qué hacer | Tiempo estimado |
@@ -155,6 +157,39 @@ longitudes que van de **230 a 257 aminoácidos**).
 > aritmética no cuadrara, tendrías un problema con tus datos antes de empezar a compararlos — y
 > comprobarlo es, literalmente, la primera línea de defensa que aprendiste en la Unidad 3.
 
+### Práctica 1 — Documentar la secuencia consulta *(antes de clase, primer intento)*
+
+**Antes de clase.** No se puede investigar una secuencia que no sabes de dónde salió.
+
+1. Copia los archivos de `ejemplos/datos-alineamientos/` a tu `data/source/ubiE/`. **No los edites nunca.**
+2. Mira el encabezado completo de la consulta:
+
+   ```bash
+   grep '^>' data/source/ubiE/ubiE_con.faa
+   ```
+
+3. Sepáralo en campos con la herramienta de la Unidad 4:
+
+   ```bash
+   grep '^>' data/source/ubiE/ubiE_con.faa | cut -d '|' -f 1,2,3
+   ```
+
+4. Comprueba las dos longitudes:
+
+   ```bash
+   grep -v '^>' data/source/ubiE/ubiE_con.faa | tr -d '\n' | wc -c
+   grep -v '^>' data/source/ubiE/ubiE_con.fna | tr -d '\n' | wc -c
+   ```
+
+5. Escribe en `doc/protocolo.md` una ficha con: identificador, organismo, cepa, gen, longitud en
+   aminoácidos, longitud en nucleótidos, archivo de origen y fecha de copia.
+6. Comprueba la aritmética: ¿cuadran los 747 con los 248? Escribe la cuenta y su explicación.
+
+**Durante el taller.** Compara tu ficha con la de otra persona. Si un campo no está documentado en el
+encabezado, **escribe «no documentado»**; no lo inventes ni lo deduzcas del nombre del archivo.
+
+**Entrega.** La ficha corregida dentro del protocolo.
+
 ## 3. Por qué mirar no basta (y por qué `grep` tampoco) [Indispensable]
 
 El instinto razonable, con las herramientas que ya tienes, es buscar trozos en común. Si dos
@@ -188,6 +223,38 @@ letra distinta rompe la coincidencia exacta. La región **está conservada**, y 
 > lo mismo.
 >
 > Esa herramienta es el **alineamiento**.
+
+### Práctica 2 — Comparar a ojo, y fracasar productivamente *(antes de clase, primer intento)*
+
+**Antes de clase.** Este es el primer intento propiamente dicho. Se califica por haberlo hecho.
+
+1. Mira las dos secuencias de la pareja más lejana, sin alinearlas:
+
+   ```bash
+   grep -v '^>' data/source/ubiE/ubiE_con_tsu.faa | head -20
+   ```
+
+2. Intenta la búsqueda de texto exacto:
+
+   ```bash
+   grep -c 'DVASGSGDIAL' data/source/ubiE/ubiE_19_org.faa
+   grep -c 'DVASG' data/source/ubiE/ubiE_19_org.faa
+   ```
+
+3. Escribe media página respondiendo, **sin usar ninguna herramienta más**:
+   - ¿Se parecen estas dos proteínas? ¿En qué te basas?
+   - ¿Puedes decir en qué porcentaje? ¿Cómo lo calcularías a mano?
+   - ¿Qué encontró `grep` y qué se le escapó? ¿Por qué?
+
+**Durante el taller.** Guarda ese texto sin tocarlo. Al final de la sesión volverás a él.
+
+**Entrega.** El texto original **y** una corrección argumentada de al menos tres frases: qué dijiste,
+qué mostraron los datos y por qué te equivocaste (o por qué acertaste sin poder demostrarlo).
+
+> **NOTA — para qué sirve equivocarse aquí.** El objetivo de esta práctica no es que aciertes. Es que
+> experimentes en carne propia el límite que hace necesario el alineamiento. Una respuesta como *«se
+> parecen bastante, quizá un 80 %»* es un excelente primer intento si después eres capaz de explicar
+> por qué la impresión visual sobreestimó el parecido.
 
 ## 4. El alineamiento: una hipótesis de correspondencia [Indispensable]
 
@@ -274,6 +341,52 @@ Un alineamiento propone tres tipos de suceso:
 **Figura 30.3.** Sustitución, inserción y deleción. Fíjate en el panel central: sin una tercera
 secuencia que sirva de referencia, **no puedes saber si hubo una inserción o una deleción**. Por eso
 se usa el término neutro *indel*.
+
+### Práctica 3 — Alinear las tres parejas *(durante el taller)*
+
+**Durante el taller.** Entra a `chaac` y trabaja en tu espacio de la Unidad 5.
+
+Divídela en tres partes.
+
+**Parte A — la pareja más cercana.**
+
+```bash
+mkdir -p results/s30
+
+clustalo -i data/source/ubiE/ubiE_con_afr.faa \
+         -o results/s30/ubiE_con_afr.aln \
+         --outfmt=clu --force
+```
+
+Ábrela y responde: ¿cuántas columnas no son idénticas? ¿Dónde está esa posición? ¿Hay algún gap? ¿Por
+qué crees que no lo hay?
+
+**Parte B — la pareja intermedia.** Repite con `ubiE_con_typ.faa`. Cuenta cuántas columnas están
+marcadas con `*` y calcula el porcentaje. **Declara el denominador que usaste.**
+
+**Parte C — la pareja lejana.** Repite con `ubiE_con_tsu.faa`. Aquí sí aparecen huecos.
+
+1. ¿Cuántos huecos hay en total?
+2. ¿Están repartidos o agrupados? ¿Dónde?
+3. ¿La secuencia que tiene los huecos es la más corta o la más larga? ¿Qué significa eso?
+4. Marca en el alineamiento las **tres regiones** más largas sin ninguna diferencia.
+
+**Entrega.** Una tabla con las tres parejas: longitudes, columnas del alineamiento, columnas
+idénticas, porcentaje (con denominador declarado) y número de gaps. Debajo, tres frases sobre lo que
+cambia al aumentar la distancia evolutiva.
+
+> **TIP.** Si prefieres que el programa calcule los porcentajes por ti, Clustal Omega puede escribir
+> una matriz de identidades:
+>
+> ```bash
+> clustalo -i data/source/ubiE/ubiE_19_org.faa \
+>          -o results/s30/ubiE_19_org.aln --outfmt=clu --force \
+>          --distmat-out=results/s30/ubiE_19_org.dist --full --percent-id
+> ```
+>
+> Úsalo **después** de haber contado a mano al menos una pareja. El trabajo manual es tu línea base:
+> si el programa y tú discrepan, lo primero que hay que averiguar es sobre qué denominador está
+> calculando cada uno.
 
 ## 5. Lo que un alineamiento te deja medir [Indispensable]
 
@@ -459,6 +572,59 @@ Medida contra su propio punto de partida, la señal de la proteína es mucho má
 > la proteína cambie —lo acabas de ver tres veces— y por eso **la señal de parentesco se borra antes
 > en el ADN**.
 
+### Práctica 4 — El mismo par en los dos alfabetos *(durante el taller)*
+
+**Durante el taller.** Vuelve a la pareja más cercana, ahora en nucleótidos.
+
+```bash
+clustalo -i data/source/ubiE/ubiE_con_afr.fna \
+         -o results/s30/ubiE_con_afr_nt.aln \
+         --outfmt=clu --force
+```
+
+1. ¿Cuántas diferencias hay en el alineamiento de nucleótidos? ¿Y en el de proteína?
+2. Localiza las posiciones de las diferencias de nucleótidos. Para cada una, calcula a qué codón
+   pertenece y qué posición ocupa dentro del codón.
+3. ¿Cuáles cambiaron el aminoácido y cuáles no? ¿Qué patrón ves en la posición dentro del codón?
+4. Repite el alineamiento de nucleótidos con la pareja **más lejana** (`ubiE_con_tsu.fna`). Cuenta
+   los huecos. Compáralo con el de proteína.
+5. Escribe dos frases explicando por qué el alineamiento de nucleótidos de la pareja lejana es menos
+   fiable, aunque su porcentaje sea más alto.
+
+**Entrega.** La tabla de las tres diferencias de nucleótidos con su codón y su efecto, más las dos
+frases del punto 5.
+
+### Práctica 5 — Diecinueve organismos a la vez *(durante el taller)*
+
+**Durante el taller.** Hasta ahora comparaste de dos en dos. Ahora, todos contra todos.
+
+```bash
+clustalo -i data/source/ubiE/ubiE_19_org.faa \
+         -o results/s30/ubiE_19_org.aln \
+         --outfmt=clu --force
+```
+
+1. Antes de abrirlo, revisa las longitudes de entrada. ¿Cuál es la más corta y cuál la más larga?
+
+   ```bash
+   grep '^>' data/source/ubiE/ubiE_19_org.faa | cut -d '|' -f 2 | head -20
+   ```
+
+2. Abre el alineamiento y localiza **tres columnas idénticas en los 19 organismos**. Anota su
+   posición.
+3. Localiza la región conservada más larga. ¿Coincide con alguna de las que encontraste en la
+   Práctica 3 con solo dos secuencias?
+4. Localiza la región **peor** conservada. ¿Dónde está: en los extremos o en el centro?
+5. Escribe: ¿qué te dice el grupo de 19 que no te decían las parejas? ¿Y qué te decían las parejas
+   que el grupo esconde?
+
+**Entrega.** Las respuestas 2–5, con las posiciones concretas.
+
+> **COMENTARIO — por qué la escala cambia la interpretación.** Con dos secuencias, una columna
+> idéntica puede ser casualidad. Con diecinueve organismos que llevan mucho tiempo separados, una
+> columna idéntica en las diecinueve es **muy improbable por azar**. El mismo tipo de observación
+> cambia de peso según cuántos datos la sostengan, y saber leer eso es parte del oficio.
+
 ## 7. De dónde salen esos alineamientos [Consulta]
 
 Esta sección no se evalúa hoy, pero contesta la pregunta que probablemente ya te hiciste: si un
@@ -570,178 +736,7 @@ quinto es el resto de la unidad.
 
 ---
 
-## Prácticas
-
-Seis prácticas. Las dos primeras se hacen **antes de clase** (son tu primer intento). Las tres
-siguientes, **en el taller**. La sexta se discute en clase y se entrega después.
-
-Trabaja siempre dentro de tu proyecto y guarda los resultados en `results/s30/`.
-
-### Práctica 1 — Documentar la secuencia consulta
-
-**Antes de clase.** No se puede investigar una secuencia que no sabes de dónde salió.
-
-1. Copia los archivos de `ejemplos/datos-alineamientos/` a tu `data/source/ubiE/`. **No los edites nunca.**
-2. Mira el encabezado completo de la consulta:
-
-   ```bash
-   grep '^>' data/source/ubiE/ubiE_con.faa
-   ```
-
-3. Sepáralo en campos con la herramienta de la Unidad 4:
-
-   ```bash
-   grep '^>' data/source/ubiE/ubiE_con.faa | cut -d '|' -f 1,2,3
-   ```
-
-4. Comprueba las dos longitudes:
-
-   ```bash
-   grep -v '^>' data/source/ubiE/ubiE_con.faa | tr -d '\n' | wc -c
-   grep -v '^>' data/source/ubiE/ubiE_con.fna | tr -d '\n' | wc -c
-   ```
-
-5. Escribe en `doc/protocolo.md` una ficha con: identificador, organismo, cepa, gen, longitud en
-   aminoácidos, longitud en nucleótidos, archivo de origen y fecha de copia.
-6. Comprueba la aritmética: ¿cuadran los 747 con los 248? Escribe la cuenta y su explicación.
-
-**Durante el taller.** Compara tu ficha con la de otra persona. Si un campo no está documentado en el
-encabezado, **escribe «no documentado»**; no lo inventes ni lo deduzcas del nombre del archivo.
-
-**Entrega.** La ficha corregida dentro del protocolo.
-
-### Práctica 2 — Comparar a ojo, y fracasar productivamente
-
-**Antes de clase.** Este es el primer intento propiamente dicho. Se califica por haberlo hecho.
-
-1. Mira las dos secuencias de la pareja más lejana, sin alinearlas:
-
-   ```bash
-   grep -v '^>' data/source/ubiE/ubiE_con_tsu.faa | head -20
-   ```
-
-2. Intenta la búsqueda de texto exacto:
-
-   ```bash
-   grep -c 'DVASGSGDIAL' data/source/ubiE/ubiE_19_org.faa
-   grep -c 'DVASG' data/source/ubiE/ubiE_19_org.faa
-   ```
-
-3. Escribe media página respondiendo, **sin usar ninguna herramienta más**:
-   - ¿Se parecen estas dos proteínas? ¿En qué te basas?
-   - ¿Puedes decir en qué porcentaje? ¿Cómo lo calcularías a mano?
-   - ¿Qué encontró `grep` y qué se le escapó? ¿Por qué?
-
-**Durante el taller.** Guarda ese texto sin tocarlo. Al final de la sesión volverás a él.
-
-**Entrega.** El texto original **y** una corrección argumentada de al menos tres frases: qué dijiste,
-qué mostraron los datos y por qué te equivocaste (o por qué acertaste sin poder demostrarlo).
-
-> **NOTA — para qué sirve equivocarse aquí.** El objetivo de esta práctica no es que aciertes. Es que
-> experimentes en carne propia el límite que hace necesario el alineamiento. Una respuesta como *«se
-> parecen bastante, quizá un 80 %»* es un excelente primer intento si después eres capaz de explicar
-> por qué la impresión visual sobreestimó el parecido.
-
-### Práctica 3 — Alinear las tres parejas
-
-**Durante el taller.** Entra a `chaac` y trabaja en tu espacio de la Unidad 5.
-
-Divídela en tres partes.
-
-**Parte A — la pareja más cercana.**
-
-```bash
-mkdir -p results/s30
-
-clustalo -i data/source/ubiE/ubiE_con_afr.faa \
-         -o results/s30/ubiE_con_afr.aln \
-         --outfmt=clu --force
-```
-
-Ábrela y responde: ¿cuántas columnas no son idénticas? ¿Dónde está esa posición? ¿Hay algún gap? ¿Por
-qué crees que no lo hay?
-
-**Parte B — la pareja intermedia.** Repite con `ubiE_con_typ.faa`. Cuenta cuántas columnas están
-marcadas con `*` y calcula el porcentaje. **Declara el denominador que usaste.**
-
-**Parte C — la pareja lejana.** Repite con `ubiE_con_tsu.faa`. Aquí sí aparecen huecos.
-
-1. ¿Cuántos huecos hay en total?
-2. ¿Están repartidos o agrupados? ¿Dónde?
-3. ¿La secuencia que tiene los huecos es la más corta o la más larga? ¿Qué significa eso?
-4. Marca en el alineamiento las **tres regiones** más largas sin ninguna diferencia.
-
-**Entrega.** Una tabla con las tres parejas: longitudes, columnas del alineamiento, columnas
-idénticas, porcentaje (con denominador declarado) y número de gaps. Debajo, tres frases sobre lo que
-cambia al aumentar la distancia evolutiva.
-
-> **TIP.** Si prefieres que el programa calcule los porcentajes por ti, Clustal Omega puede escribir
-> una matriz de identidades:
->
-> ```bash
-> clustalo -i data/source/ubiE/ubiE_19_org.faa \
->          -o results/s30/ubiE_19_org.aln --outfmt=clu --force \
->          --distmat-out=results/s30/ubiE_19_org.dist --full --percent-id
-> ```
->
-> Úsalo **después** de haber contado a mano al menos una pareja. El trabajo manual es tu línea base:
-> si el programa y tú discrepan, lo primero que hay que averiguar es sobre qué denominador está
-> calculando cada uno.
-
-### Práctica 4 — El mismo par en los dos alfabetos
-
-**Durante el taller.** Vuelve a la pareja más cercana, ahora en nucleótidos.
-
-```bash
-clustalo -i data/source/ubiE/ubiE_con_afr.fna \
-         -o results/s30/ubiE_con_afr_nt.aln \
-         --outfmt=clu --force
-```
-
-1. ¿Cuántas diferencias hay en el alineamiento de nucleótidos? ¿Y en el de proteína?
-2. Localiza las posiciones de las diferencias de nucleótidos. Para cada una, calcula a qué codón
-   pertenece y qué posición ocupa dentro del codón.
-3. ¿Cuáles cambiaron el aminoácido y cuáles no? ¿Qué patrón ves en la posición dentro del codón?
-4. Repite el alineamiento de nucleótidos con la pareja **más lejana** (`ubiE_con_tsu.fna`). Cuenta
-   los huecos. Compáralo con el de proteína.
-5. Escribe dos frases explicando por qué el alineamiento de nucleótidos de la pareja lejana es menos
-   fiable, aunque su porcentaje sea más alto.
-
-**Entrega.** La tabla de las tres diferencias de nucleótidos con su codón y su efecto, más las dos
-frases del punto 5.
-
-### Práctica 5 — Diecinueve organismos a la vez
-
-**Durante el taller.** Hasta ahora comparaste de dos en dos. Ahora, todos contra todos.
-
-```bash
-clustalo -i data/source/ubiE/ubiE_19_org.faa \
-         -o results/s30/ubiE_19_org.aln \
-         --outfmt=clu --force
-```
-
-1. Antes de abrirlo, revisa las longitudes de entrada. ¿Cuál es la más corta y cuál la más larga?
-
-   ```bash
-   grep '^>' data/source/ubiE/ubiE_19_org.faa | cut -d '|' -f 2 | head -20
-   ```
-
-2. Abre el alineamiento y localiza **tres columnas idénticas en los 19 organismos**. Anota su
-   posición.
-3. Localiza la región conservada más larga. ¿Coincide con alguna de las que encontraste en la
-   Práctica 3 con solo dos secuencias?
-4. Localiza la región **peor** conservada. ¿Dónde está: en los extremos o en el centro?
-5. Escribe: ¿qué te dice el grupo de 19 que no te decían las parejas? ¿Y qué te decían las parejas
-   que el grupo esconde?
-
-**Entrega.** Las respuestas 2–5, con las posiciones concretas.
-
-> **COMENTARIO — por qué la escala cambia la interpretación.** Con dos secuencias, una columna
-> idéntica puede ser casualidad. Con diecinueve organismos que llevan mucho tiempo separados, una
-> columna idéntica en las diecinueve es **muy improbable por azar**. El mismo tipo de observación
-> cambia de peso según cuántos datos la sostengan, y saber leer eso es parte del oficio.
-
-### Práctica 6 — ¿Qué respondería la IA y cómo lo verificarías?
+### Práctica 6 — ¿Qué respondería la IA y cómo lo verificarías? *(taller y entrega posterior)*
 
 **Durante el taller (discusión) y después (entrega).**
 

@@ -362,6 +362,14 @@ sospechoso?
    que más errores atrapa.
 3. **Comprueba lo imposible.** Ninguna longitud puede ser cero ni negativa:
 
+> **TIP — qué debe cumplirse siempre, sea cual sea tu genoma.** Tus tres comprobaciones a mano tienen
+> que dar exactamente lo mismo que `awk`; si una falla, el error casi siempre es haber olvidado el
+> `+1` de las coordenadas inclusivas. Y sobre el conjunto: ninguna longitud puede ser **cero ni
+> negativa**, y la longitud mínima no puede superar a la media, ni la media a la máxima. Esas tres
+> desigualdades no dependen del organismo. Lo que sí depende —cuánto miden tus genes, si hay alguno
+> sospechosamente largo— no tiene respuesta única: se interpreta contra la biología del organismo, no
+> contra una tabla.
+
    ```bash
    awk -F'\t' '$3=="gene" && $5-$4+1 <= 0' data/source/anotacion.gff3 | wc -l
    ```

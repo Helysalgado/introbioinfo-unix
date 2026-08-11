@@ -257,12 +257,32 @@ títulos, los marcadores de lectura, el formato de figuras y la coherencia
 con la pestaña vigente del Plan de clases.
 
 Los comandos se clasifican, cuando sea útil, como **esenciales**, **de
-consulta** o **de ampliación**. Las respuestas cerradas, salidas
-verificables y retroalimentaciones que conviene ocultar hasta después
-del primer intento pueden colocarse en bloques HTML colapsables para no
-interrumpir la lectura. La etiqueta canónica es **Ver
-retroalimentación**. No se fuerza este recurso en preguntas abiertas
-cuya riqueza depende de varias interpretaciones defendibles:
+consulta** o **de ampliación**.
+
+### Retroalimentación de las prácticas
+
+No toda pregunta merece el mismo tratamiento. Se aplican **tres niveles**,
+y elegir el que corresponde es parte del trabajo editorial:
+
+1.  **Respuesta directa → bloque colapsable.** Solo cuando la respuesta
+    es la misma para todo el mundo: cadenas de prueba dadas en el
+    enunciado, salidas deterministas, comportamientos del sistema. La
+    etiqueta canónica es **Ver retroalimentación**. Conviene decir en la
+    primera línea por qué la respuesta es exacta ("las cinco cadenas de
+    prueba son las mismas para todo el mundo").
+2.  **Respuesta que depende de los datos → `> **TIP:**` visible.** Cuando
+    la cifra o el resultado varían según el genoma, el ensamblado o quien
+    anotó, **no se inventa un número**. Se orienta: qué es esperable, qué
+    hacer si no cuadra, y con qué **no** compararse. Va visible, no
+    oculto: es una guía, no una solución.
+3.  **Trabajo de rastreo o elaboración propia → nada.** Si responder
+    exige que el estudiante investigue, decida o construya, no se añade
+    ni colapsable ni tip. Adelantar la respuesta destruiría el ejercicio,
+    y muy especialmente en los primeros intentos, cuyo valor está en
+    comprometerse con una respuesta **antes** de conocer la herramienta
+    que la formaliza.
+
+Formato del colapsable:
 
 ``` html
 <details>

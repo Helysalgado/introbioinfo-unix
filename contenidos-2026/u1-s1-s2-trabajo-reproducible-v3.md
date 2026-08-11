@@ -1107,7 +1107,7 @@ una columna equivocada del archivo.
 - D. Es robusto porque el resultado no cambia.
 
 <details>
-<summary>Ver respuesta y retroalimentación</summary>
+<summary>Ver retroalimentación</summary>
 
 **Respuesta: B.**
 
@@ -1132,7 +1132,7 @@ con la conclusión del estudio original.
 - D. Documentación.
 
 <details>
-<summary>Ver respuesta y retroalimentación</summary>
+<summary>Ver retroalimentación</summary>
 
 **Respuesta: B.**
 
@@ -1156,7 +1156,7 @@ Después de descargar un archivo, comparas su checksum con el valor publicado po
 - D. Replicando el estudio.
 
 <details>
-<summary>Ver respuesta y retroalimentación</summary>
+<summary>Ver retroalimentación</summary>
 
 **Respuesta: C.**
 
@@ -1180,7 +1180,7 @@ Aunque el comando funcione, ¿cuál es el principal problema?
 - D. El archivo original fue replicado.
 
 <details>
-<summary>Ver respuesta y retroalimentación</summary>
+<summary>Ver retroalimentación</summary>
 
 **Respuesta: B.**
 
@@ -1202,7 +1202,7 @@ responder la pregunta.
 - D. Comando → resultado → pregunta → validación.
 
 <details>
-<summary>Ver respuesta y retroalimentación</summary>
+<summary>Ver retroalimentación</summary>
 
 **Respuesta: C.**
 
@@ -1227,7 +1227,7 @@ inválidos.
 - D. Ambos en `data/source/`, reemplazando el archivo anterior.
 
 <details>
-<summary>Ver respuesta y retroalimentación</summary>
+<summary>Ver retroalimentación</summary>
 
 **Respuesta: B.**
 
@@ -1248,7 +1248,7 @@ son archivos derivados y deben guardarse por separado en `data/processed/`.
 - D. FAIR solo se aplica a grandes repositorios internacionales.
 
 <details>
-<summary>Ver respuesta y retroalimentación</summary>
+<summary>Ver retroalimentación</summary>
 
 **Respuesta: C.**
 
@@ -1273,7 +1273,7 @@ aunque no recibió un diccionario de códigos ni una fuente clínica.
 - D. Eliminar la columna porque la IA no pudo interpretarla.
 
 <details>
-<summary>Ver respuesta y retroalimentación</summary>
+<summary>Ver retroalimentación</summary>
 
 **Respuesta: C.**
 
@@ -1299,7 +1299,7 @@ pequeño cuyo resultado conoces.
 - D. Formato Markdown.
 
 <details>
-<summary>Ver respuesta y retroalimentación</summary>
+<summary>Ver retroalimentación</summary>
 
 **Respuesta: A.**
 
@@ -1359,7 +1359,7 @@ Antes de aceptar o rechazar la afirmación, responde:
 ...
 
 <details>
-<summary>Ver guía de retroalimentación</summary>
+<summary>Ver retroalimentación</summary>
 
 Una respuesta adecuada debería reconocer que:
 

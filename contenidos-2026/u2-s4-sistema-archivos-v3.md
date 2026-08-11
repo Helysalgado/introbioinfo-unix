@@ -192,7 +192,7 @@ Sin usar todavía el servidor, imagina que tu directorio actual es `~/proyecto/`
 4. ¿La ruta relativa `data/source/` funcionará igual si tu directorio actual cambia a `~/proyecto/doc/`?
 
 <details>
-<summary>Ver respuestas orientativas de la pausa de predicción</summary>
+<summary>Ver retroalimentación</summary>
 
 1. `/home/usuario/proyecto/data/source/` es absoluta porque comienza en `/`; `data/source/` es
    relativa porque comienza en el directorio actual. `/home/usuario` es solo un ejemplo: la ruta real
@@ -259,7 +259,7 @@ transferencia o quizá estás en otra ubicación.
 > también `bitacora-ia.md`?
 
 <details>
-<summary>Ver respuestas orientativas de la Micropráctica 1</summary>
+<summary>Ver retroalimentación — Micropráctica 1</summary>
 
 1. La respuesta exacta es la salida de `pwd` inmediatamente después de `cd ~`; depende de la cuenta y
    de la configuración del servidor. Puede tener una forma semejante a `/home/usuario`, pero debes
@@ -334,7 +334,7 @@ cd ..
 > mismo directorio) de **mover** (`mv a carpeta/`)? (2) ¿Por qué conviene usar `-i`?
 
 <details>
-<summary>Ver respuestas orientativas de la Micropráctica 2</summary>
+<summary>Ver retroalimentación — Micropráctica 2</summary>
 
 1. Al ejecutar `mv -i b.txt c.txt` dentro del mismo directorio, el archivo permaneció en ese lugar,
    pero cambió de nombre. Al ejecutar `mv -i c.txt sub/`, conservó su nombre y cambió de ubicación:
@@ -385,7 +385,7 @@ cd ..
 > `c.txt`? (2) ¿Cómo te protegió comprobar `pwd` y `ls` antes de borrar?
 
 <details>
-<summary>Ver respuestas orientativas de la Micropráctica 3</summary>
+<summary>Ver retroalimentación — Micropráctica 3</summary>
 
 1. `rmdir` solo elimina directorios vacíos. Falló porque `sub/` todavía contenía `c.txt`; después de
    borrar ese archivo de forma explícita con `rm -i sub/c.txt`, el directorio quedó vacío y `rmdir sub`
@@ -558,7 +558,7 @@ Después responde: (1) ¿qué diferencia hay entre guardar y salir?, (2) ¿cómo
 editor que el archivo se guardó?, y (3) ¿por qué no debes ejecutar `nano data/source/pacientes.md`?
 
 <details>
-<summary>Ver respuestas orientativas de la Micropráctica 4</summary>
+<summary>Ver retroalimentación — Micropráctica 4</summary>
 
 1. Guardar (`Ctrl-O` y Enter) escribe los cambios en el archivo, pero mantiene abierto el editor;
    salir (`Ctrl-X`) cierra `nano`. Si existen cambios sin guardar, `nano` solicita una decisión antes
@@ -669,7 +669,7 @@ presencial se dedica a **ejecutar, diagnosticar, comparar y corregir** el primer
    `../data/source/pacientes.md` sí funciona desde `doc/`, pero `data/source/pacientes.md` no.
 
    <details>
-   <summary>Ver respuesta orientativa de la práctica de rutas</summary>
+   <summary>Ver retroalimentación</summary>
 
    La ruta absoluta comienza en `/` y no depende del directorio actual. La ruta `data/source/` parte
    de `~/proyecto/`; por eso llega al mismo directorio y ambas salidas de `pwd` coinciden. Desde

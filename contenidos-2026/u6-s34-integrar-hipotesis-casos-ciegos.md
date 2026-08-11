@@ -59,6 +59,10 @@ Al terminar S34 podrás:
 - [ ] Verifiqué que el encabezado usa un seudónimo neutro y que no contiene la anotación funcional.
 - [ ] Sé que la calidad se mide por la **argumentación**, no por adivinar el identificador.
 
+> **NOTA — una sola investigación.** Las siete prácticas de esta sesión no son ejercicios sueltos:
+> son los pasos de **una misma investigación** sobre tu secuencia ciega. Guarda todo en
+> `results/s34/` y `doc/`.
+
 ## Ruta de la sesión
 
 | Momento | Qué hacer | Tiempo estimado |
@@ -102,7 +106,7 @@ y **no se entrega hasta después de la defensa**.
 
 > **Concepto esencial — ocultar la etiqueta no es alterar el dato.** La secuencia de aminoácidos se conserva exactamente. Lo único que se elimina es la pista textual que permitiría responder leyendo el encabezado en vez de investigando.
 
-### Práctica 0 — Verificar que el caso está listo para investigarse
+### Práctica 0 — Verificar que el caso está listo para investigarse *(antes de clase)*
 
 **Antes de clase.**
 
@@ -143,6 +147,19 @@ La única pregunta:
 
 **Figura 34.1.** El mismo patrón narrativo de U4 y U5: el cierre **integra**.
 
+### Práctica 1 — Definir la pregunta biológica *(antes de clase, primer intento)*
+
+**Antes de clase.**
+
+1. Abre la secuencia desconocida que verificaste en la Práctica 0. Anota longitud, alfabeto y seudónimo. **No hay una pista funcional intencional en el nombre del archivo ni en el encabezado.**
+2. Escribe **una** pregunta biológica en el molde:
+
+   > *¿Qué puedo afirmar sobre … a partir de su comparación con …?*
+
+3. Lista dos subpreguntas operables (ej. «¿proteína o nucleótido?», «¿contra qué colección?»).
+
+**Entrega.** La pregunta y las subpreguntas. Sin ejecutar búsquedas todavía.
+
 ## 2. Lo que ya tienes (y no debes reinventar) [Indispensable]
 
 Antes de abrir la terminal, haz inventario. Cada fila es una competencia de una sesión previa.
@@ -162,6 +179,17 @@ Antes de abrir la terminal, haz inventario. Cada fila es una competencia de una 
 
 **Figura 34.2.** El camino largo es el producto. El atajo de la IA es el objeto de auditoría.
 
+### Práctica 2 — Recuperar la evidencia previa *(antes de clase e inicio del taller)*
+
+**Antes de clase / inicio del taller.**
+
+1. Inventaría qué de S30–S33 **reutilizas** y qué **vuelves a correr** (tabla de dos columnas).
+2. Si construyes o reutilizas una base, escribe su ficha (como en S31): qué contiene y qué **no**.
+3. Predice por escrito qué esperarías encontrar si tu secuencia fuera de la familia `ubiE`, de una
+   globina, o de algo fuera de ambas.
+
+**Entrega.** El inventario y la predicción.
+
 ## 3. Cómo se evalúa (léelo antes de escribir) [Indispensable]
 
 | Se evalúa | No se evalúa |
@@ -176,6 +204,19 @@ Antes de abrir la terminal, haz inventario. Cada fila es una competencia de una 
 
 > **IMPORTANTE.** Una hipótesis honesta que declara no poder decidir entre dos explicaciones puede
 > ser un **excelente** informe. Una conclusión categórica sin alternativas suele ser un informe flojo.
+
+### Práctica 3 — Seleccionar los mejores candidatos *(durante el taller)*
+
+**Durante el taller.**
+
+1. Ejecuta la búsqueda justificada (o reutiliza una ya hecha si aplica —**dilo**).
+2. Produce una tabla de **como máximo ocho** candidatos con identidad, cobertura, *E-value*,
+   *bit score* y decisión.
+3. Elige el candidato mejor sustentado **para tu pregunta** y escribe el párrafo de argumento (≥3
+   métricas + contexto).
+4. Descarta al menos dos con motivos distintos.
+
+**Entrega.** `results/s34/candidatos.md` y los `.tsv` usados.
 
 ## 4. El informe: doce apartados, un solo argumento [Indispensable]
 
@@ -200,6 +241,20 @@ Es el mismo esqueleto de la [portada](u6-comparacion-homologia.md). Hoy lo **lle
 
 **Figura 34.3.** No son doce tareas sueltas: son **un** argumento en doce piezas.
 
+### Práctica 4 — Comparar hipótesis alternativas *(durante el taller)*
+
+**Durante el taller.**
+
+Escribe al menos **dos** hipótesis rivales, por ejemplo:
+
+- homología con transferencia de función provisional;
+- homología sin transferir función (paralogía sospechada / dominio parcial);
+- evidencia insuficiente para decidir.
+
+Para cada una: qué la apoya, qué la debilita, qué evidencia adicional la resolvería.
+
+**Entrega.** La tabla de hipótesis (entra a los apartados 7–10 del informe).
+
 ## 5. La IA como adversario útil [Indispensable]
 
 En esta sesión la IA no es un atajo para redactar el informe «bonito». Es el **objeto** de la
@@ -220,6 +275,32 @@ la conclusión se defiende
 ![Dos columnas. Izquierda, informe de IA con frases rotundas tachadas. Derecha, tu versión: observación, evidencia, hipótesis provisional, límites. Pie: la IA ayuda a construir hipótesis; el investigador decide cuáles se sostienen.](images/figura-u6-s34-ia-frente-a-evidencia.png)
 
 **Figura 34.4.** Misma regla de toda la unidad, ahora a escala de informe completo.
+
+### Práctica 5 — Auditar un informe de IA *(taller y entrega posterior)*
+
+**Durante el taller (discusión) y después (entrega).**
+
+Usa el informe que te entregue el docente **o** genera uno pidiéndole a una IA un «informe completo
+de anotación» sobre tu secuencia. Si necesitas un ejemplo del *tipo* de texto que debes atacar, este
+es el género (ajústalo a tus datos reales):
+
+> *«La secuencia desconocida corresponde inequívocamente a ubiE de Rickettsia. El primer hit de
+> BLASTP tiene 94 % de identidad y E-value 0, por lo tanto es el ortólogo funcional. La cobertura no
+> es relevante porque la identidad es alta. Se recomienda transferir la anotación de metiltransferasa
+> con total confianza. BLAST garantiza que no existen parálogos confusos. Si no aparecen más hits,
+> la proteína es única de este organismo.»*
+
+1. **Marca** cada afirmación como **hecho verificable**, **inferencia** o **sin evidencia**.
+2. Lista al menos **cinco** problemas (exageración, ortología gratuita, cobertura ignorada, base no
+   documentada, conclusión categórica, ausencia leída como inexistencia…).
+3. **Comprueba** con tu `.tsv` y tu ficha de base cuáles cifras son siquiera correctas.
+4. Reescribe los apartados 7–10 de forma defendible.
+5. Registra todo en `doc/bitacora-ia.md`.
+
+> **TIP.** Si la IA «acertó» el identificador, eso **no** mejora su nota: la pregunta es si el
+> razonamiento se sostiene.
+
+**Entrega.** El informe de la IA anotado, tu reescritura y la bitácora.
 
 ## 6. Un mapa de decisiones (sin conceptos nuevos) [Indispensable]
 
@@ -260,88 +341,7 @@ Redacta la conclusión provisional (≤5 líneas) y defiéndela.
 
 ---
 
-## Prácticas
-
-Una sola investigación en seis pasos. Guarda todo en `results/s34/` y `doc/`.
-
-### Práctica 1 — Definir la pregunta biológica
-
-**Antes de clase.**
-
-1. Abre la secuencia desconocida que verificaste en la Práctica 0. Anota longitud, alfabeto y seudónimo. **No hay una pista funcional intencional en el nombre del archivo ni en el encabezado.**
-2. Escribe **una** pregunta biológica en el molde:
-
-   > *¿Qué puedo afirmar sobre … a partir de su comparación con …?*
-
-3. Lista dos subpreguntas operables (ej. «¿proteína o nucleótido?», «¿contra qué colección?»).
-
-**Entrega.** La pregunta y las subpreguntas. Sin ejecutar búsquedas todavía.
-
-### Práctica 2 — Recuperar la evidencia previa
-
-**Antes de clase / inicio del taller.**
-
-1. Inventaría qué de S30–S33 **reutilizas** y qué **vuelves a correr** (tabla de dos columnas).
-2. Si construyes o reutilizas una base, escribe su ficha (como en S31): qué contiene y qué **no**.
-3. Predice por escrito qué esperarías encontrar si tu secuencia fuera de la familia `ubiE`, de una
-   globina, o de algo fuera de ambas.
-
-**Entrega.** El inventario y la predicción.
-
-### Práctica 3 — Seleccionar los mejores candidatos
-
-**Durante el taller.**
-
-1. Ejecuta la búsqueda justificada (o reutiliza una ya hecha si aplica —**dilo**).
-2. Produce una tabla de **como máximo ocho** candidatos con identidad, cobertura, *E-value*,
-   *bit score* y decisión.
-3. Elige el candidato mejor sustentado **para tu pregunta** y escribe el párrafo de argumento (≥3
-   métricas + contexto).
-4. Descarta al menos dos con motivos distintos.
-
-**Entrega.** `results/s34/candidatos.md` y los `.tsv` usados.
-
-### Práctica 4 — Comparar hipótesis alternativas
-
-**Durante el taller.**
-
-Escribe al menos **dos** hipótesis rivales, por ejemplo:
-
-- homología con transferencia de función provisional;
-- homología sin transferir función (paralogía sospechada / dominio parcial);
-- evidencia insuficiente para decidir.
-
-Para cada una: qué la apoya, qué la debilita, qué evidencia adicional la resolvería.
-
-**Entrega.** La tabla de hipótesis (entra a los apartados 7–10 del informe).
-
-### Práctica 5 — Auditar un informe de IA
-
-**Durante el taller (discusión) y después (entrega).**
-
-Usa el informe que te entregue el docente **o** genera uno pidiéndole a una IA un «informe completo
-de anotación» sobre tu secuencia. Si necesitas un ejemplo del *tipo* de texto que debes atacar, este
-es el género (ajústalo a tus datos reales):
-
-> *«La secuencia desconocida corresponde inequívocamente a ubiE de Rickettsia. El primer hit de
-> BLASTP tiene 94 % de identidad y E-value 0, por lo tanto es el ortólogo funcional. La cobertura no
-> es relevante porque la identidad es alta. Se recomienda transferir la anotación de metiltransferasa
-> con total confianza. BLAST garantiza que no existen parálogos confusos. Si no aparecen más hits,
-> la proteína es única de este organismo.»*
-
-1. **Marca** cada afirmación como **hecho verificable**, **inferencia** o **sin evidencia**.
-2. Lista al menos **cinco** problemas (exageración, ortología gratuita, cobertura ignorada, base no
-   documentada, conclusión categórica, ausencia leída como inexistencia…).
-3. **Comprueba** con tu `.tsv` y tu ficha de base cuáles cifras son siquiera correctas.
-4. Reescribe los apartados 7–10 de forma defendible.
-5. Registra todo en `doc/bitacora-ia.md`.
-
-> **TIP.** Si la IA «acertó» el identificador, eso **no** mejora su nota: la pregunta es si el
-> razonamiento se sostiene.
-
-**Entrega.** El informe de la IA anotado, tu reescritura y la bitácora.
-
-### Práctica 6 — Conclusión científica y defensa
+### Práctica 6 — Conclusión científica y defensa *(cierre del taller y entrega)*
 
 **Durante el taller (cierre) y después.**
 

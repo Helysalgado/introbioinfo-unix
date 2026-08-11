@@ -257,6 +257,108 @@ tiene que preguntarlo
 Por eso parametrizar y validar se aprenden en la misma sesión. **No son dos temas: son las dos caras
 de abrir el procedimiento al mundo.**
 
+### Práctica 1 — Auditar la frontera *(antes de clase, primer intento)*
+
+**Pregunta metodológica.** En mi propio script, ¿qué describe el análisis y qué describe mi genoma?
+
+**Objetivo.** Decidir la frontera antes de escribir una sola línea de código.
+
+**Antes de clase.** En `doc/s25-primer-intento.md`, **sin ejecutar ni modificar nada**:
+
+1. **Recupera el número** que anotaste al cerrar S24: cuántas veces aparecía dentro del script el
+   nombre de tu archivo de anotación. Cuenta ahora también el FASTA y el directorio de resultados.
+2. **Clasifica cada valor literal** que aparezca en el script, aplicando la pregunta de la Sección 2:
+
+   | Valor literal | Línea(s) | ¿Cambiaría con otro organismo? | Categoría | ¿Entra desde fuera? |
+   | --- | --- | --- | --- | --- |
+   | `data/source/anotacion.gff3` | … | sí | dato | sí, `$2` |
+   | `$3=="gene"` | … | no | método | no |
+   | `results/s24/` | … | no, pero el nombre sí | convención | derivado |
+
+3. **Justifica los casos dudosos.** Habrá al menos uno. Escribe por qué lo pusiste donde lo pusiste.
+4. **Responde por escrito:** ¿por qué la definición de gen **no** debería ser un parámetro? Si no
+   estás de acuerdo, argumenta lo contrario: es una discusión legítima y se abordará en el taller.
+5. **Cuenta los parámetros** que va a tener tu script. Si te salen más de tres, revisa: probablemente
+   estés sacando fuera algo que es método.
+6. **Escribe la línea de uso** actualizada, con los argumentos en el orden que decidas.
+
+**Producto esperado.** La tabla de clasificación completa, con los casos dudosos justificados y la
+línea de uso propuesta.
+
+**Criterio de logro:** cada valor está clasificado en una de las tres categorías, y puedes defender
+por qué el método se queda dentro.
+
+---
+
+### Práctica 2 — Diseñar la invocación y predecir los fallos *(antes de clase, primer intento)*
+
+**Pregunta metodológica.** ¿Qué debería ocurrir cuando a mi herramienta le dan algo que no espera?
+
+**Objetivo.** Decidir el comportamiento **antes** de programarlo, que es el orden correcto.
+
+**Antes de clase.** En el mismo documento, y sin probar nada:
+
+1. **Escribe la invocación completa** para tu genoma y para el segundo, con rutas reales.
+2. **Predice** qué haría tu script de S24 —el de ayer, sin parámetros ni comprobaciones— en cada uno
+   de estos casos, y qué querrías que hiciera la versión de hoy:
+
+   | # | Situación | Qué haría el de S24 | Qué debería hacer el de hoy |
+   | --- | --- | --- | --- |
+   | 1 | No se le da ningún argumento | … | … |
+   | 2 | Se le da un solo archivo | … | … |
+   | 3 | El FASTA no existe | … | … |
+   | 4 | El GFF3 existe pero está vacío | … | … |
+   | 5 | Se le dan los dos archivos **en orden invertido** | … | … |
+   | 6 | La ruta contiene un espacio | … | … |
+
+3. **Marca cuál de los seis es el más peligroso** y explica por qué. Pista: no es el que da un error
+   más feo.
+4. **Redacta los mensajes de error** que te gustaría leer en los casos 1 a 4. Un mensaje útil dice
+   **qué falta**, **cuál era el valor recibido** y **cómo se invoca** el script.
+5. **Responde:** el caso 5 —orden invertido— ¿puede detectarse comprobando que los archivos existen?
+   Si no, ¿qué haría falta?
+
+<details>
+<summary>Ver retroalimentación</summary>
+
+**Ábrelo después de haber llenado la tabla.** Las seis situaciones dependen del comportamiento del
+shell, no de tu genoma: la columna «qué haría el de S24» es la misma para todo el mundo.
+
+| # | Qué hace el script de S24 (sin parámetros ni comprobaciones) |
+| --- | --- |
+| 1 | Ignora que no le diste nada y trabaja sobre las rutas escritas dentro. **Parece funcionar.** |
+| 2 | Igual: el argumento sobra y se descarta sin aviso |
+| 3 | Los comandos fallan uno a uno, pero el script continúa y termina con código 0 |
+| 4 | No falla nada: procesa un archivo vacío y produce resultados vacíos o con ceros |
+| 5 | **Se ejecuta entero y produce resultados plausibles pero equivocados** |
+| 6 | La ruta se parte en dos argumentos; se procesa un archivo que no existe |
+
+**Cuál es el más peligroso (paso 3).** El **5**, el del orden invertido. Los otros o bien avisan, o
+bien producen algo visiblemente vacío. El 5 produce números completos, con el formato correcto, que
+puedes copiar al protocolo sin sospechar nada. La pista del enunciado apuntaba justo ahí: no es el
+que da el error más feo, es el que **no da error**.
+
+Los casos 1 y 2 comparten una propiedad incómoda: un script con rutas escritas dentro **no puede
+distinguir** entre «me llamaron bien» y «me llamaron mal», porque nunca mira lo que le pasaron.
+
+**Paso 5 — el orden invertido no se detecta comprobando existencia.** Ambos archivos existen; la
+comprobación pasa. Detectarlo exige mirar **el contenido**, no el nombre: que el FASTA empiece por
+`>`, que el GFF3 tenga nueve columnas separadas por tabuladores o su cabecera `##gff-version`.
+Comprobar que un archivo existe es comprobar lo más barato, no lo que importa. Esa distinción es lo
+que trabajas en la Práctica 5.
+
+> **NOTA:** Comprobar la extensión del nombre (`.fna`, `.gff`) es mejor que nada, pero sigue siendo
+> una comprobación sobre la etiqueta, no sobre el dato. Un archivo mal nombrado la burla.
+
+</details>
+
+**Producto esperado.** La tabla de seis predicciones y los mensajes de error redactados.
+
+**Criterio de logro:** las seis predicciones están escritas antes del taller y los mensajes que
+propones incluyen el valor recibido, no solo el aviso.
+
+---
+
 ## 3. Dar nombre a lo que se repite [Indispensable]
 
 **Concepto esencial**
@@ -360,6 +462,62 @@ usa— es el concepto nuevo más importante de la sesión, y todo lo demás es s
 > **IDEA CLAVE.** Una variable **agrupa** el cambio; un parámetro lo **saca fuera del archivo**. La
 > variable es el paso intermedio necesario —y también la trampa donde mucha gente se detiene creyendo
 > que ya parametrizó—.
+
+### Práctica 3 — Dar nombre sin cambiar el comportamiento *(durante el taller)*
+
+**Pregunta metodológica.** ¿Puedo reorganizar mi script y demostrar que sigue haciendo exactamente lo
+mismo?
+
+**Objetivo.** Introducir variables y comprobar que el resultado es **idéntico** al de S24.
+
+> **NOTA:** Trabaja sobre una copia con nombre nuevo y conserva intacta la de S24:
+> `cp src/analizar-genoma.sh src/analizar-genoma-s24.sh`. Las dos versiones se comparan al final.
+
+**Parte A — Sustituir**
+
+1. **Declara las variables** al principio del script, después del encabezado, con los mismos valores
+   que estaban escritos dentro:
+
+   ```bash
+   FASTA="data/source/genoma.fna"
+   GFF="data/source/anotacion.gff3"
+   SALIDA="results/s25"
+   ```
+
+2. **Sustituye cada aparición** por su expansión, **entre comillas dobles**. Ve una por una y ve
+   tachándolas de la lista de la Práctica 1.
+3. **Comprueba que no queda ninguna:** busca en el archivo el nombre del genoma. Si aparece fuera de
+   la línea de asignación y del encabezado, se te escapó una.
+
+**Parte B — Demostrar que nada cambió**
+
+4. **Ejecuta el script** y compara sus salidas con las de S24 usando la estrategia adecuada a cada
+   tipo de producto, como en S23: **checksum** para los archivos deterministas, conteo para los
+   números.
+5. **Registra el resultado:**
+
+   | Producto | Equivalencia esperada | Estrategia | Resultado |
+   | --- | --- | --- | --- |
+   | `inventario-features.tsv` | byte a byte | checksum | coincide / difiere |
+
+6. **Si algo difiere, encuéntralo antes de seguir.** La causa casi siempre es una expansión sin
+   comillas o una ruta que no sustituiste.
+
+**Parte C — Provocar los dos errores clásicos**
+
+7. **Escribe a propósito** `GFF = "data/source/anotacion.gff3"`, con espacios. Ejecuta, anota el
+   mensaje y explica en una línea por qué el shell dice lo que dice.
+8. **Quita las comillas** de una expansión y ejecuta el script desde una ruta que contenga un
+   espacio. Anota qué pasa. Si tu ruta no tiene espacios, créate un directorio de prueba que sí los
+   tenga.
+
+**Producto esperado.** El script con variables, la tabla de equivalencia frente a S24 y los dos
+errores provocados con su mensaje.
+
+**Criterio de logro:** la salida es **idéntica** a la de S24 —eso es lo que se evalúa— y sabes
+explicar los dos mensajes de error.
+
+---
 
 ## 4. Que el dato entre desde fuera [Indispensable]
 
@@ -488,6 +646,50 @@ resultado.
 > inventario. Que la salida herede el nombre de su entrada es **trazabilidad**, la misma que
 > persigues desde U3.
 
+### Práctica 4 — Que el dato entre desde fuera *(durante el taller)*
+
+**Pregunta biológica de fondo.** ¿Qué contiene la anotación de **este** genoma? — la misma de S13,
+respondida hoy sin que el procedimiento sepa de cuál se trata.
+
+**Objetivo.** Convertir las variables en parámetros y ejecutar el mismo archivo sobre dos genomas.
+
+**Parte A — Parametrizar**
+
+1. **Sustituye los valores** de las tres variables por los argumentos:
+
+   ```bash
+   FASTA="$1"
+   GFF="$2"
+   ```
+
+2. **Deriva el nombre de la salida** del dato recibido, con `basename`, y crea el directorio con
+   `mkdir -p`. Sin esto, el segundo genoma borrará los resultados del primero.
+3. **Actualiza el encabezado**: la línea de uso ya no es `./src/analizar-genoma.sh`, y las entradas
+   ya no son rutas fijas sino **argumentos esperados**. Descríbelos.
+
+**Parte B — Ejecutar**
+
+4. **Ejecuta con tu genoma** y comprueba que el resultado sigue coincidiendo con el de la Práctica 3.
+5. **Ejecuta con el segundo genoma** y comprueba que aparecieron dos carpetas de resultados, cada una
+   con su nombre.
+6. **Invierte el orden de los argumentos** a propósito y observa qué ocurre. Responde: ¿protestó el
+   script? ¿Produjo archivos? ¿Se distinguen de los buenos mirando solo el resultado?
+
+**Parte C — El choque de los `$1`**
+
+7. **Localiza en tu script una línea de `awk`** que use campos y comprueba con qué comillas está
+   escrita.
+8. **Cámbiala a comillas dobles** a propósito, ejecuta y anota el mensaje. Vuelve a dejarla como
+   estaba y explica en dos líneas por qué las comillas simples son obligatorias ahí.
+
+**Producto esperado.** El script parametrizado, dos carpetas de resultados y las respuestas del paso
+6 y del paso 8.
+
+**Criterio de logro:** el mismo archivo, sin editarlo, produce resultados identificables para dos
+genomas distintos; y sabes por qué el paso 6 es peligroso.
+
+---
+
 ## 5. Un procedimiento que no supone [Indispensable]
 
 Ya tienes un script que recibe datos. Y con ello acabas de perder la única garantía que tenías: que
@@ -599,252 +801,6 @@ de líneas de salida.
 > científica. Un resultado ausente se nota y se corrige; un resultado falso se interpreta, se discute
 > y a veces se publica. Comprobar las entradas cuesta cuatro líneas.
 
-## 6. El mismo procedimiento, otro genoma [Indispensable]
-
-**Concepto esencial**
-
-Todo lo anterior tiene un propósito que no es informático. Ahora puedes hacer algo que ayer no
-podías:
-
-> **Aplicar exactamente el mismo análisis, sin una sola diferencia, a dos organismos distintos.**
-
-Esa es la condición para comparar. La pregunta científica permanece igual —*¿qué contiene esta
-anotación?*—; lo único que cambia son los datos sobre los que se formula. Si hubieras editado el
-script entre un genoma y otro, cualquier diferencia en los resultados tendría dos explicaciones
-posibles —la biología o tu edición— y no podrías distinguirlas. Con un instrumento único, esa
-ambigüedad desaparece:
-
-```text
-mismo instrumento + datos distintos  →  las diferencias son de los datos
-```
-
-Es la lógica de cualquier experimento comparativo: si quieres atribuir una diferencia a las muestras,
-todo lo demás tiene que haber sido igual. Aquí «todo lo demás» es tu script.
-
-### 6.1 Qué mirar cuando tengas los dos inventarios
-
-**Concepto de apoyo**
-
-La Práctica 6 te pedirá interpretar, y conviene saber de antemano que **no toda diferencia es
-biológica**. Al comparar dos inventarios aparecerán tres clases de diferencia y hay que separarlas:
-
-| Lo que observas | Posible causa biológica | Posible causa técnica |
-| --- | --- | --- |
-| Un genoma tiene más genes | Genoma mayor, más capacidad codificante | Distinta versión o criterio de anotación |
-| Aparecen tipos de *feature* que el otro no tiene | El organismo tiene esos elementos | La anotación los reporta con otro vocabulario |
-| Distinta proporción CDS/gen | Más genes no codificantes de proteína | Pseudogenes tratados de otro modo |
-| Distinto número de replicones | Plásmidos presentes o ausentes | El ensamblado incluye o no los plásmidos |
-
-Es el mismo razonamiento de S21, cuando confrontaste tu inventario con una fuente externa: **antes de
-atribuir una diferencia a la biología, hay que descartar que venga del procedimiento de anotación**.
-La honestidad aquí consiste en declarar cuándo no puedes distinguirlo con los datos que tienes.
-
-> **IDEA CLAVE.** Parametrizar un script no es un logro técnico: es lo que **hace comparables** dos
-> análisis. Y comparar es, desde S21, la operación que convierte un resultado en una conclusión.
-
-## 7. Reutilizable todavía no es masivo [Consulta]
-
-Al terminar tendrás una herramienta que sirve para cualquier genoma. Compruébalo tú mismo: ejecútala
-para el tuyo, después para el segundo, y después para un tercero.
-
-Y ahí vas a notar lo siguiente:
-
-```text
-./analizar-genoma.sh g1.fna g1.gff3
-./analizar-genoma.sh g2.fna g2.gff3
-./analizar-genoma.sh g3.fna g3.gff3
-...
-```
-
-Funciona. Pero para doce genomas son doce órdenes escritas a mano, y para cien, cien. Y hay algo peor
-que el tedio: si una de esas ejecuciones falla, lo sabrás solo si estabas mirando.
-
-| Herramienta parametrizada *(hoy)* | Procesamiento por lotes *(S26)* |
-| --- | --- |
-| Una invocación por genoma | Una invocación para el conjunto |
-| Tú decides el orden y llevas la cuenta | El recorrido está escrito |
-| Un resultado por ejecución, suelto | Los resultados organizados y **resumidos** |
-| Puedes responder sobre **un** genoma | Puedes responder sobre **el conjunto** |
-
-Esa última fila es la importante, y no es una cuestión de comodidad: hay preguntas que **ningún
-análisis individual contiene**. Cuántos genes tiene tu genoma lo sabes hoy. Cómo se distribuye el
-número de genes en doce genomas, cuál es atípico y por qué, no lo sabe ninguna de las doce
-ejecuciones por separado.
-
-> **IDEA CLAVE.** Hoy tu procedimiento dejó de depender de un genoma concreto. Sigue dependiendo de
-> que alguien lo invoque una vez por cada genoma — y con ello, de que esa persona no se canse, no se
-> salte ninguno y no deje de mirar.
-
----
-
-### Práctica 1 — Auditar la frontera *(antes de clase, primer intento)*
-
-**Pregunta metodológica.** En mi propio script, ¿qué describe el análisis y qué describe mi genoma?
-
-**Objetivo.** Decidir la frontera antes de escribir una sola línea de código.
-
-**Antes de clase.** En `doc/s25-primer-intento.md`, **sin ejecutar ni modificar nada**:
-
-1. **Recupera el número** que anotaste al cerrar S24: cuántas veces aparecía dentro del script el
-   nombre de tu archivo de anotación. Cuenta ahora también el FASTA y el directorio de resultados.
-2. **Clasifica cada valor literal** que aparezca en el script, aplicando la pregunta de la Sección 2:
-
-   | Valor literal | Línea(s) | ¿Cambiaría con otro organismo? | Categoría | ¿Entra desde fuera? |
-   | --- | --- | --- | --- | --- |
-   | `data/source/anotacion.gff3` | … | sí | dato | sí, `$2` |
-   | `$3=="gene"` | … | no | método | no |
-   | `results/s24/` | … | no, pero el nombre sí | convención | derivado |
-
-3. **Justifica los casos dudosos.** Habrá al menos uno. Escribe por qué lo pusiste donde lo pusiste.
-4. **Responde por escrito:** ¿por qué la definición de gen **no** debería ser un parámetro? Si no
-   estás de acuerdo, argumenta lo contrario: es una discusión legítima y se abordará en el taller.
-5. **Cuenta los parámetros** que va a tener tu script. Si te salen más de tres, revisa: probablemente
-   estés sacando fuera algo que es método.
-6. **Escribe la línea de uso** actualizada, con los argumentos en el orden que decidas.
-
-**Producto esperado.** La tabla de clasificación completa, con los casos dudosos justificados y la
-línea de uso propuesta.
-
-**Criterio de logro:** cada valor está clasificado en una de las tres categorías, y puedes defender
-por qué el método se queda dentro.
-
----
-
-### Práctica 2 — Diseñar la invocación y predecir los fallos *(antes de clase, primer intento)*
-
-**Pregunta metodológica.** ¿Qué debería ocurrir cuando a mi herramienta le dan algo que no espera?
-
-**Objetivo.** Decidir el comportamiento **antes** de programarlo, que es el orden correcto.
-
-**Antes de clase.** En el mismo documento, y sin probar nada:
-
-1. **Escribe la invocación completa** para tu genoma y para el segundo, con rutas reales.
-2. **Predice** qué haría tu script de S24 —el de ayer, sin parámetros ni comprobaciones— en cada uno
-   de estos casos, y qué querrías que hiciera la versión de hoy:
-
-   | # | Situación | Qué haría el de S24 | Qué debería hacer el de hoy |
-   | --- | --- | --- | --- |
-   | 1 | No se le da ningún argumento | … | … |
-   | 2 | Se le da un solo archivo | … | … |
-   | 3 | El FASTA no existe | … | … |
-   | 4 | El GFF3 existe pero está vacío | … | … |
-   | 5 | Se le dan los dos archivos **en orden invertido** | … | … |
-   | 6 | La ruta contiene un espacio | … | … |
-
-3. **Marca cuál de los seis es el más peligroso** y explica por qué. Pista: no es el que da un error
-   más feo.
-4. **Redacta los mensajes de error** que te gustaría leer en los casos 1 a 4. Un mensaje útil dice
-   **qué falta**, **cuál era el valor recibido** y **cómo se invoca** el script.
-5. **Responde:** el caso 5 —orden invertido— ¿puede detectarse comprobando que los archivos existen?
-   Si no, ¿qué haría falta?
-
-**Producto esperado.** La tabla de seis predicciones y los mensajes de error redactados.
-
-**Criterio de logro:** las seis predicciones están escritas antes del taller y los mensajes que
-propones incluyen el valor recibido, no solo el aviso.
-
----
-
-### Práctica 3 — Dar nombre sin cambiar el comportamiento *(durante el taller)*
-
-**Pregunta metodológica.** ¿Puedo reorganizar mi script y demostrar que sigue haciendo exactamente lo
-mismo?
-
-**Objetivo.** Introducir variables y comprobar que el resultado es **idéntico** al de S24.
-
-> **NOTA:** Trabaja sobre una copia con nombre nuevo y conserva intacta la de S24:
-> `cp src/analizar-genoma.sh src/analizar-genoma-s24.sh`. Las dos versiones se comparan al final.
-
-**Parte A — Sustituir**
-
-1. **Declara las variables** al principio del script, después del encabezado, con los mismos valores
-   que estaban escritos dentro:
-
-   ```bash
-   FASTA="data/source/genoma.fna"
-   GFF="data/source/anotacion.gff3"
-   SALIDA="results/s25"
-   ```
-
-2. **Sustituye cada aparición** por su expansión, **entre comillas dobles**. Ve una por una y ve
-   tachándolas de la lista de la Práctica 1.
-3. **Comprueba que no queda ninguna:** busca en el archivo el nombre del genoma. Si aparece fuera de
-   la línea de asignación y del encabezado, se te escapó una.
-
-**Parte B — Demostrar que nada cambió**
-
-4. **Ejecuta el script** y compara sus salidas con las de S24 usando la estrategia adecuada a cada
-   tipo de producto, como en S23: **checksum** para los archivos deterministas, conteo para los
-   números.
-5. **Registra el resultado:**
-
-   | Producto | Equivalencia esperada | Estrategia | Resultado |
-   | --- | --- | --- | --- |
-   | `inventario-features.tsv` | byte a byte | checksum | coincide / difiere |
-
-6. **Si algo difiere, encuéntralo antes de seguir.** La causa casi siempre es una expansión sin
-   comillas o una ruta que no sustituiste.
-
-**Parte C — Provocar los dos errores clásicos**
-
-7. **Escribe a propósito** `GFF = "data/source/anotacion.gff3"`, con espacios. Ejecuta, anota el
-   mensaje y explica en una línea por qué el shell dice lo que dice.
-8. **Quita las comillas** de una expansión y ejecuta el script desde una ruta que contenga un
-   espacio. Anota qué pasa. Si tu ruta no tiene espacios, créate un directorio de prueba que sí los
-   tenga.
-
-**Producto esperado.** El script con variables, la tabla de equivalencia frente a S24 y los dos
-errores provocados con su mensaje.
-
-**Criterio de logro:** la salida es **idéntica** a la de S24 —eso es lo que se evalúa— y sabes
-explicar los dos mensajes de error.
-
----
-
-### Práctica 4 — Que el dato entre desde fuera *(durante el taller)*
-
-**Pregunta biológica de fondo.** ¿Qué contiene la anotación de **este** genoma? — la misma de S13,
-respondida hoy sin que el procedimiento sepa de cuál se trata.
-
-**Objetivo.** Convertir las variables en parámetros y ejecutar el mismo archivo sobre dos genomas.
-
-**Parte A — Parametrizar**
-
-1. **Sustituye los valores** de las tres variables por los argumentos:
-
-   ```bash
-   FASTA="$1"
-   GFF="$2"
-   ```
-
-2. **Deriva el nombre de la salida** del dato recibido, con `basename`, y crea el directorio con
-   `mkdir -p`. Sin esto, el segundo genoma borrará los resultados del primero.
-3. **Actualiza el encabezado**: la línea de uso ya no es `./src/analizar-genoma.sh`, y las entradas
-   ya no son rutas fijas sino **argumentos esperados**. Descríbelos.
-
-**Parte B — Ejecutar**
-
-4. **Ejecuta con tu genoma** y comprueba que el resultado sigue coincidiendo con el de la Práctica 3.
-5. **Ejecuta con el segundo genoma** y comprueba que aparecieron dos carpetas de resultados, cada una
-   con su nombre.
-6. **Invierte el orden de los argumentos** a propósito y observa qué ocurre. Responde: ¿protestó el
-   script? ¿Produjo archivos? ¿Se distinguen de los buenos mirando solo el resultado?
-
-**Parte C — El choque de los `$1`**
-
-7. **Localiza en tu script una línea de `awk`** que use campos y comprueba con qué comillas está
-   escrita.
-8. **Cámbiala a comillas dobles** a propósito, ejecuta y anota el mensaje. Vuelve a dejarla como
-   estaba y explica en dos líneas por qué las comillas simples son obligatorias ahí.
-
-**Producto esperado.** El script parametrizado, dos carpetas de resultados y las respuestas del paso
-6 y del paso 8.
-
-**Criterio de logro:** el mismo archivo, sin editarlo, produce resultados identificables para dos
-genomas distintos; y sabes por qué el paso 6 es peligroso.
-
----
-
 ### Práctica 5 — Enseñarle al script a comprobar *(durante el taller)*
 
 **Pregunta metodológica.** ¿Cómo consigo que se detenga en vez de producir basura convincente?
@@ -888,6 +844,49 @@ por `>&2` y el código de salida distingue el éxito del fallo.
 
 ---
 
+## 6. El mismo procedimiento, otro genoma [Indispensable]
+
+**Concepto esencial**
+
+Todo lo anterior tiene un propósito que no es informático. Ahora puedes hacer algo que ayer no
+podías:
+
+> **Aplicar exactamente el mismo análisis, sin una sola diferencia, a dos organismos distintos.**
+
+Esa es la condición para comparar. La pregunta científica permanece igual —*¿qué contiene esta
+anotación?*—; lo único que cambia son los datos sobre los que se formula. Si hubieras editado el
+script entre un genoma y otro, cualquier diferencia en los resultados tendría dos explicaciones
+posibles —la biología o tu edición— y no podrías distinguirlas. Con un instrumento único, esa
+ambigüedad desaparece:
+
+```text
+mismo instrumento + datos distintos  →  las diferencias son de los datos
+```
+
+Es la lógica de cualquier experimento comparativo: si quieres atribuir una diferencia a las muestras,
+todo lo demás tiene que haber sido igual. Aquí «todo lo demás» es tu script.
+
+### 6.1 Qué mirar cuando tengas los dos inventarios
+
+**Concepto de apoyo**
+
+La Práctica 6 te pedirá interpretar, y conviene saber de antemano que **no toda diferencia es
+biológica**. Al comparar dos inventarios aparecerán tres clases de diferencia y hay que separarlas:
+
+| Lo que observas | Posible causa biológica | Posible causa técnica |
+| --- | --- | --- |
+| Un genoma tiene más genes | Genoma mayor, más capacidad codificante | Distinta versión o criterio de anotación |
+| Aparecen tipos de *feature* que el otro no tiene | El organismo tiene esos elementos | La anotación los reporta con otro vocabulario |
+| Distinta proporción CDS/gen | Más genes no codificantes de proteína | Pseudogenes tratados de otro modo |
+| Distinto número de replicones | Plásmidos presentes o ausentes | El ensamblado incluye o no los plásmidos |
+
+Es el mismo razonamiento de S21, cuando confrontaste tu inventario con una fuente externa: **antes de
+atribuir una diferencia a la biología, hay que descartar que venga del procedimiento de anotación**.
+La honestidad aquí consiste en declarar cuándo no puedes distinguirlo con los datos que tienes.
+
+> **IDEA CLAVE.** Parametrizar un script no es un logro técnico: es lo que **hace comparables** dos
+> análisis. Y comparar es, desde S21, la operación que convierte un resultado en una conclusión.
+
 ### Práctica 6 — Dos genomas, un procedimiento *(después del taller)*
 
 **Pregunta biológica.** ¿En qué se parecen y en qué se diferencian la anotación de mi genoma y la de
@@ -929,6 +928,41 @@ protocolo.
 **Criterio de logro:** las diferencias están clasificadas por su causa probable, hay al menos un caso
 declarado como no distinguible, y queda demostrado que **la comparación solo es válida porque los dos
 genomas se analizaron con el mismo instrumento**.
+
+---
+
+## 7. Reutilizable todavía no es masivo [Consulta]
+
+Al terminar tendrás una herramienta que sirve para cualquier genoma. Compruébalo tú mismo: ejecútala
+para el tuyo, después para el segundo, y después para un tercero.
+
+Y ahí vas a notar lo siguiente:
+
+```text
+./analizar-genoma.sh g1.fna g1.gff3
+./analizar-genoma.sh g2.fna g2.gff3
+./analizar-genoma.sh g3.fna g3.gff3
+...
+```
+
+Funciona. Pero para doce genomas son doce órdenes escritas a mano, y para cien, cien. Y hay algo peor
+que el tedio: si una de esas ejecuciones falla, lo sabrás solo si estabas mirando.
+
+| Herramienta parametrizada *(hoy)* | Procesamiento por lotes *(S26)* |
+| --- | --- |
+| Una invocación por genoma | Una invocación para el conjunto |
+| Tú decides el orden y llevas la cuenta | El recorrido está escrito |
+| Un resultado por ejecución, suelto | Los resultados organizados y **resumidos** |
+| Puedes responder sobre **un** genoma | Puedes responder sobre **el conjunto** |
+
+Esa última fila es la importante, y no es una cuestión de comodidad: hay preguntas que **ningún
+análisis individual contiene**. Cuántos genes tiene tu genoma lo sabes hoy. Cómo se distribuye el
+número de genes en doce genomas, cuál es atípico y por qué, no lo sabe ninguna de las doce
+ejecuciones por separado.
+
+> **IDEA CLAVE.** Hoy tu procedimiento dejó de depender de un genoma concreto. Sigue dependiendo de
+> que alguien lo invoque una vez por cada genoma — y con ello, de que esa persona no se canse, no se
+> salte ninguno y no deje de mirar.
 
 ---
 

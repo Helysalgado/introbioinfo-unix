@@ -255,7 +255,7 @@ SHA-256. Ella calculó el checksum de su copia con `md5sum` y concluyó que la d
 porque los valores no coincidían. ¿Qué error cometió?
 
 <details>
-<summary>Ver respuesta</summary>
+<summary>Ver retroalimentación</summary>
 
 Comparó valores producidos por algoritmos distintos. Un MD5 y un SHA-256 del mismo archivo nunca
 coinciden entre sí, aunque el archivo sea idéntico, porque son funciones matemáticas diferentes. El

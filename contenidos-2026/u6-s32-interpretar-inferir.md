@@ -77,6 +77,8 @@ Al terminar S32 podrás:
 - [ ] Leí la segunda mitad de Pearson (2013) o la tengo a la mano para contrastar.
 - [ ] Sé usar `cut`, `sort`, `head` y `awk` sobre un TSV (U4 / U5).
 
+> **NOTA — dónde guardar.** Guarda todo en `results/s32/`.
+
 ## Ruta de la sesión
 
 | Momento | Qué hacer | Tiempo estimado |
@@ -157,6 +159,25 @@ mkdir -p results/s32
 cut -f 2,3,4,7,8,11,12 results/s31/ubiE_vs_tres-familias.tsv \
   > results/s32/ubiE_metricas.tsv
 ```
+
+### Práctica 1 — Mirar la tabla antes de saber las respuestas *(antes de clase, primer intento)*
+
+**Antes de clase.** Sin releer aún las secciones 3–7 (si puedes; si ya las leíste, no borres tu
+borrador: contrástalo después).
+
+Abre `results/s31/ubiE_vs_tres-familias.tsv` y responde en media página:
+
+1. ¿Cuántas filas hay? ¿Cuántos `sseqid` distintos?
+2. ¿Qué columnas mirarías primero para decidir cuáles hits importan? **Nombra al menos tres** y di
+   qué pregunta crees que responde cada una.
+3. Elige las **tres primeras filas** y escribe, solo con lo que ves, qué te atreverías a afirmar y
+   qué no.
+4. Formula en una frase tu criterio provisional: *«Yo me quedaría con un hit si…»*.
+
+**Durante el taller.** Guarda el texto sin reescribirlo todavía.
+
+**Entrega.** El original y una corrección argumentada al final de la sesión: qué acertaste del
+significado de las columnas y qué tenías al revés.
 
 ## 3. Identidad: qué tan idéntico es el tramo alineado [Indispensable]
 
@@ -256,6 +277,29 @@ head results/s32/ubiE_por_cobertura.tsv
 
 > **TIP.** El `248` no es magia: es la longitud de `ubiE_con.faa`. Si cambias de consulta, cámbialo.
 > Mejor aún: calcúlala una vez y guárdala en el protocolo.
+
+### Práctica 2 — Leer identidad y cobertura juntas *(durante el taller)*
+
+**Durante el taller.**
+
+1. **Predice.** Antes de calcular nada: en tu lista, ¿esperas coberturas altas para los `ubiE`?
+   ¿Qué esperarías de un falso amigo?
+2. **Localiza** identidad y coordenadas:
+
+   ```bash
+   cut -f 2,3,4,7,8,11,12 results/s31/ubiE_vs_tres-familias.tsv | head -20
+   ```
+
+3. **Calcula** la cobertura de la consulta (longitud 248) para cada fila y guarda la tabla.
+4. **Contrasta** los cinco mejores por `bitscore` con los cinco mejores por cobertura. ¿Coinciden?
+5. **Interpreta.** Elige **un** hit con identidad alta y cobertura claramente menor que el resto (si
+   no lo hay en tu salida, elige el de menor cobertura entre los reportados y di qué implica esa
+   ausencia). Escribe cuatro frases: qué observas; qué *no* observas; qué riesgo habría si solo
+   miraras identidad; qué decisión tomas respecto a ese hit.
+6. **Documenta** en el protocolo el criterio: umbral o regla cualitativa que usaste para «cobertura
+   aceptable» en **esta** pregunta —y aclara que no es universal.
+
+**Entrega.** La tabla `results/s32/ubiE_por_cobertura.tsv` (o equivalente) y las cuatro frases.
 
 ## 5. Longitud del alineamiento y múltiples HSP [Indispensable]
 
@@ -389,76 +433,7 @@ explicación**.
 
 Nunca basta con: *¿cuál quedó primero?*
 
-## 10. Lo que hoy todavía NO puedes afirmar [Indispensable]
-
-Al terminar tendrás candidatos jerarquizados. La tentación evolutiva vuelve.
-
-| Puedes afirmarlo — es **evidencia construida** | No puedes afirmarlo todavía |
-| --- | --- |
-| «Este HSP cubre el 98 % de mi consulta con 56 % de identidad» | «Son homólogos» |
-| «Descarté este hit porque solo cubre un dominio y la anotación es genérica» | «No están emparentados» |
-| «Estos cinco hits son redundantes; elijo uno como representante» | «Elegí el ortólogo» |
-| «El E-value es bajo en esta base de 57 secuencias» | «La probabilidad de que compartan función es del 99 %» |
-| «Para mi pregunta, el candidato mejor sustentado es X, porque…» | «X tiene la misma función; puedo transferir la anotación» |
-
-> **IMPORTANTE.** Hoy levantamos la prohibición de **interpretar las columnas**. **No** levantamos
-> todavía la de usar el vocabulario evolutivo como conclusión. Homología, ortología, paralogía y
-> transferencia de función son el puente explícito hacia S33.
-
-![Dos cajas. Izquierda, «evidencia suficiente para rankear»: métricas integradas, cobertura declarada, descartes justificados. Derecha, «evidencia insuficiente para concluir historia evolutiva»: falta el marco de homología y alternativas. Entre ambas, una flecha hacia S33.](images/figura-u6-s32-evidencia-suficiente-vs-insuficiente.png)
-
-**Figura 32.8.** Saber interpretar hits no cierra la unidad: abre la pregunta de qué hipótesis
-pueden sostener.
-
----
-
-## Prácticas
-
-Seis prácticas. La primera se hace **antes de clase**. Guarda todo en `results/s32/`.
-
-### Práctica 1 — Mirar la tabla antes de saber las respuestas
-
-**Antes de clase.** Sin releer aún las secciones 3–7 (si puedes; si ya las leíste, no borres tu
-borrador: contrástalo después).
-
-Abre `results/s31/ubiE_vs_tres-familias.tsv` y responde en media página:
-
-1. ¿Cuántas filas hay? ¿Cuántos `sseqid` distintos?
-2. ¿Qué columnas mirarías primero para decidir cuáles hits importan? **Nombra al menos tres** y di
-   qué pregunta crees que responde cada una.
-3. Elige las **tres primeras filas** y escribe, solo con lo que ves, qué te atreverías a afirmar y
-   qué no.
-4. Formula en una frase tu criterio provisional: *«Yo me quedaría con un hit si…»*.
-
-**Durante el taller.** Guarda el texto sin reescribirlo todavía.
-
-**Entrega.** El original y una corrección argumentada al final de la sesión: qué acertaste del
-significado de las columnas y qué tenías al revés.
-
-### Práctica 2 — Leer identidad y cobertura juntas
-
-**Durante el taller.**
-
-1. **Predice.** Antes de calcular nada: en tu lista, ¿esperas coberturas altas para los `ubiE`?
-   ¿Qué esperarías de un falso amigo?
-2. **Localiza** identidad y coordenadas:
-
-   ```bash
-   cut -f 2,3,4,7,8,11,12 results/s31/ubiE_vs_tres-familias.tsv | head -20
-   ```
-
-3. **Calcula** la cobertura de la consulta (longitud 248) para cada fila y guarda la tabla.
-4. **Contrasta** los cinco mejores por `bitscore` con los cinco mejores por cobertura. ¿Coinciden?
-5. **Interpreta.** Elige **un** hit con identidad alta y cobertura claramente menor que el resto (si
-   no lo hay en tu salida, elige el de menor cobertura entre los reportados y di qué implica esa
-   ausencia). Escribe cuatro frases: qué observas; qué *no* observas; qué riesgo habría si solo
-   miraras identidad; qué decisión tomas respecto a ese hit.
-6. **Documenta** en el protocolo el criterio: umbral o regla cualitativa que usaste para «cobertura
-   aceptable» en **esta** pregunta —y aclara que no es universal.
-
-**Entrega.** La tabla `results/s32/ubiE_por_cobertura.tsv` (o equivalente) y las cuatro frases.
-
-### Práctica 3 — Elegir el candidato mejor sustentado
+### Práctica 3 — Elegir el candidato mejor sustentado *(durante el taller)*
 
 **Durante el taller.**
 
@@ -485,7 +460,7 @@ una línea antes de seguir).
 > **IMPORTANTE.** «Mejor sustentado» ≠ «primero en la lista». Si tu elección coincide con la fila 1,
 > dilo —y explica **por qué las métricas lo respaldan**, no porque estaba primero.
 
-### Práctica 4 — Cuando el alineamiento parcial induce errores
+### Práctica 4 — Cuando el alineamiento parcial induce errores *(durante el taller)*
 
 **Durante el taller.**
 
@@ -514,7 +489,30 @@ una línea antes de seguir).
 
 **Entrega.** El escenario de error y, si la hiciste, la nota sobre HBA1/HBA2.
 
-### Práctica 5 — Criticar una interpretación de IA
+## 10. Lo que hoy todavía NO puedes afirmar [Indispensable]
+
+Al terminar tendrás candidatos jerarquizados. La tentación evolutiva vuelve.
+
+| Puedes afirmarlo — es **evidencia construida** | No puedes afirmarlo todavía |
+| --- | --- |
+| «Este HSP cubre el 98 % de mi consulta con 56 % de identidad» | «Son homólogos» |
+| «Descarté este hit porque solo cubre un dominio y la anotación es genérica» | «No están emparentados» |
+| «Estos cinco hits son redundantes; elijo uno como representante» | «Elegí el ortólogo» |
+| «El E-value es bajo en esta base de 57 secuencias» | «La probabilidad de que compartan función es del 99 %» |
+| «Para mi pregunta, el candidato mejor sustentado es X, porque…» | «X tiene la misma función; puedo transferir la anotación» |
+
+> **IMPORTANTE.** Hoy levantamos la prohibición de **interpretar las columnas**. **No** levantamos
+> todavía la de usar el vocabulario evolutivo como conclusión. Homología, ortología, paralogía y
+> transferencia de función son el puente explícito hacia S33.
+
+![Dos cajas. Izquierda, «evidencia suficiente para rankear»: métricas integradas, cobertura declarada, descartes justificados. Derecha, «evidencia insuficiente para concluir historia evolutiva»: falta el marco de homología y alternativas. Entre ambas, una flecha hacia S33.](images/figura-u6-s32-evidencia-suficiente-vs-insuficiente.png)
+
+**Figura 32.8.** Saber interpretar hits no cierra la unidad: abre la pregunta de qué hipótesis
+pueden sostener.
+
+---
+
+### Práctica 5 — Criticar una interpretación de IA *(taller y entrega posterior)*
 
 **Durante el taller (discusión) y después (entrega).**
 
@@ -535,7 +533,7 @@ Una IA responde, mirando un hit de tu búsqueda:
 
 **Entrega.** La tabla de tres columnas, la lista de evidencia faltante y la frase reescrita.
 
-### Práctica 6 — (Cierre breve) Evidencia suficiente frente a insuficiente
+### Práctica 6 — (Cierre breve) Evidencia suficiente frente a insuficiente *(cierre del taller)*
 
 **Durante los últimos minutos del taller.**
 
