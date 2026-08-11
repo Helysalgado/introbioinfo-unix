@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Las nueve columnas de un registro GFF3 y la pregunta biológica que responde cada una</title>
+  <desc id="desc">Un registro de anotación GFF3 separado por tabuladores se descompone en nueve columnas numeradas: seqid, source, type, start, end, score, strand, phase y attributes. Cada columna muestra su valor de ejemplo y la pregunta biológica que permite responder. Las columnas score y phase contienen un punto, que indica un valor faltante.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <style>.title{font:700 40px Arial;fill:#17365d}.subtitle{font:400 20px Arial;fill:#526270}.h3{font:700 17px Arial;fill:#17365d}.copy{font:400 15px Arial;fill:#34495e}.code{font:700 17px 'Courier New';fill:#17365d}.white{font:700 19px Arial;fill:#fff}.num{font:700 17px Arial;fill:#fff;text-anchor:middle;dominant-baseline:middle}.tab{font:700 15px Arial;fill:#8a9aa8;text-anchor:middle}</style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+  <text x="800" y="55" class="title" text-anchor="middle">Las nueve columnas del GFF3</text>
+  <text x="800" y="92" class="subtitle" text-anchor="middle">Una línea = un registro de anotación. Cada columna responde a una pregunta biológica distinta.</text>
+
+  <!-- registro completo -->
+  <g filter="url(#shadow)">
+    <rect x="60" y="130" width="1480" height="74" rx="16" fill="#18232c"/>
+  </g>
+  <text x="80" y="176" font-family="Courier New" font-size="21" font-weight="700" fill="#68b5df">NC_000913.3</text>
+  <text x="253" y="176" class="tab">→</text>
+  <text x="275" y="176" font-family="Courier New" font-size="21" font-weight="700" fill="#71c6b8">RefSeq</text>
+  <text x="382" y="176" class="tab">→</text>
+  <text x="404" y="176" font-family="Courier New" font-size="21" font-weight="700" fill="#e2b96b">gene</text>
+  <text x="483" y="176" class="tab">→</text>
+  <text x="505" y="176" font-family="Courier New" font-size="21" font-weight="700" fill="#b9a3d3">190</text>
+  <text x="566" y="176" class="tab">→</text>
+  <text x="588" y="176" font-family="Courier New" font-size="21" font-weight="700" fill="#b9a3d3">255</text>
+  <text x="649" y="176" class="tab">→</text>
+  <text x="671" y="176" font-family="Courier New" font-size="21" font-weight="700" fill="#e79f88">.</text>
+  <text x="700" y="176" class="tab">→</text>
+  <text x="722" y="176" font-family="Courier New" font-size="21" font-weight="700" fill="#68b5df">+</text>
+  <text x="751" y="176" class="tab">→</text>
+  <text x="773" y="176" font-family="Courier New" font-size="21" font-weight="700" fill="#e79f88">.</text>
+  <text x="802" y="176" class="tab">→</text>
+  <text x="824" y="176" font-family="Courier New" font-size="21" font-weight="700" fill="#eaf6f7">ID=gene-b0001;Name=thrL;locus_tag=b0001</text>
+
+  <text x="1490" y="222" class="copy" text-anchor="end" fill="#8a9aa8">→ = tabulador (el delimitador)</text>
+
+  <!-- fila 1 de tarjetas -->
+  <g filter="url(#shadow)"><rect x="60" y="255" width="352" height="150" rx="16" fill="#f3f8fc" stroke="#8bb4cf" stroke-width="3"/></g>
+  <circle cx="90" cy="272" r="24" fill="#2878a9"/><text x="90" y="273" class="num">1</text>
+  <text x="130" y="296" class="h3">seqid</text>
+  <text x="80" y="330" class="code">NC_000913.3</text>
+  <text x="80" y="362" class="copy"><tspan x="80" dy="0">¿En qué cromosoma, replicón</tspan><tspan x="80" dy="22">o contig está este elemento?</tspan></text>
+
+  <g filter="url(#shadow)"><rect x="436" y="255" width="352" height="150" rx="16" fill="#f1faf9" stroke="#7ebdb8" stroke-width="3"/></g>
+  <circle cx="466" cy="272" r="24" fill="#208b82"/><text x="466" y="273" class="num">2</text>
+  <text x="506" y="296" class="h3">source</text>
+  <text x="456" y="330" class="code">RefSeq</text>
+  <text x="456" y="362" class="copy"><tspan x="456" dy="0">¿De dónde viene esta anotación</tspan><tspan x="456" dy="22">y qué confianza merece?</tspan></text>
+
+  <g filter="url(#shadow)"><rect x="812" y="255" width="352" height="150" rx="16" fill="#fdf9f0" stroke="#d8bd83" stroke-width="3"/></g>
+  <circle cx="842" cy="272" r="24" fill="#b48b34"/><text x="842" y="273" class="num">3</text>
+  <text x="882" y="296" class="h3">type</text>
+  <text x="832" y="330" class="code">gene</text>
+  <text x="832" y="362" class="copy"><tspan x="832" dy="0">¿Qué clase de elemento</tspan><tspan x="832" dy="22">genómico es este?</tspan></text>
+
+  <g filter="url(#shadow)"><rect x="1188" y="255" width="352" height="150" rx="16" fill="#f8f6fb" stroke="#aa98c5" stroke-width="3"/></g>
+  <circle cx="1218" cy="272" r="24" fill="#76629a"/><text x="1218" y="273" class="num">4</text>
+  <text x="1258" y="296" class="h3">start</text>
+  <text x="1208" y="330" class="code">190</text>
+  <text x="1208" y="362" class="copy"><tspan x="1208" dy="0">¿Dónde empieza sobre</tspan><tspan x="1208" dy="22">la secuencia de referencia?</tspan></text>
+
+  <!-- fila 2 -->
+  <g filter="url(#shadow)"><rect x="60" y="430" width="352" height="150" rx="16" fill="#f8f6fb" stroke="#aa98c5" stroke-width="3"/></g>
+  <circle cx="90" cy="447" r="24" fill="#76629a"/><text x="90" y="448" class="num">5</text>
+  <text x="130" y="471" class="h3">end</text>
+  <text x="80" y="505" class="code">255</text>
+  <text x="80" y="537" class="copy"><tspan x="80" dy="0">¿Dónde termina? Longitud =</tspan><tspan x="80" dy="22">end − start + 1 = 66 bases</tspan></text>
+
+  <g filter="url(#shadow)"><rect x="436" y="430" width="352" height="150" rx="16" fill="#fdf5f2" stroke="#d59a86" stroke-width="3"/></g>
+  <circle cx="466" cy="447" r="24" fill="#b4553f"/><text x="466" y="448" class="num">6</text>
+  <text x="506" y="471" class="h3">score</text>
+  <text x="456" y="505" class="code">.  ← valor faltante</text>
+  <text x="456" y="537" class="copy"><tspan x="456" dy="0">¿Con qué confianza numérica</tspan><tspan x="456" dy="22">se predijo, si aplica?</tspan></text>
+
+  <g filter="url(#shadow)"><rect x="812" y="430" width="352" height="150" rx="16" fill="#f3f8fc" stroke="#8bb4cf" stroke-width="3"/></g>
+  <circle cx="842" cy="447" r="24" fill="#2878a9"/><text x="842" y="448" class="num">7</text>
+  <text x="882" y="471" class="h3">strand</text>
+  <text x="832" y="505" class="code">+</text>
+  <text x="832" y="537" class="copy"><tspan x="832" dy="0">¿En qué hebra se localiza</tspan><tspan x="832" dy="22">y se lee el elemento?</tspan></text>
+
+  <g filter="url(#shadow)"><rect x="1188" y="430" width="352" height="150" rx="16" fill="#fdf5f2" stroke="#d59a86" stroke-width="3"/></g>
+  <circle cx="1218" cy="447" r="24" fill="#b4553f"/><text x="1218" y="448" class="num">8</text>
+  <text x="1258" y="471" class="h3">phase</text>
+  <text x="1208" y="505" class="code">.  ← no aplica</text>
+  <text x="1208" y="537" class="copy"><tspan x="1208" dy="0">¿En qué posición del codón</tspan><tspan x="1208" dy="22">empieza esta CDS?</tspan></text>
+
+  <!-- fila 3: columna 9 ancha -->
+  <g filter="url(#shadow)"><rect x="60" y="605" width="1480" height="130" rx="16" fill="#f4f6f8" stroke="#8a9aa8" stroke-width="3"/></g>
+  <circle cx="90" cy="622" r="24" fill="#526270"/><text x="90" y="623" class="num">9</text>
+  <text x="130" y="646" class="h3">attributes</text>
+  <text x="80" y="682" class="code">ID=gene-b0001;Name=thrL;locus_tag=b0001</text>
+  <text x="80" y="714" class="copy">¿Cómo se llama, qué identificador tiene, de qué otro elemento depende?</text>
+  <text x="1510" y="682" class="copy" text-anchor="end">Delimitadores propios dentro del campo:</text>
+  <text x="1510" y="706" class="code" text-anchor="end">;  entre pares      =  entre clave y valor</text>
+
+  <!-- pie -->
+  <rect x="60" y="775" width="1480" height="80" rx="18" fill="#1f6d7a"/>
+  <text x="800" y="810" class="white" text-anchor="middle">Una pregunta biológica bien formulada apunta a una columna concreta</text>
+  <text x="800" y="838" font-family="Courier New" font-size="18" font-weight="700" fill="#c8e6e9" text-anchor="middle">cut -f3 genomic.gff   →   ¿qué tipos de elementos contiene la anotación?</text>
+</svg>

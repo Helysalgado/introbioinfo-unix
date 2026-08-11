@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Validación cruzada entre el FASTA y el GFF3 mediante sus identificadores</title>
+  <desc id="desc">Dos listas de identificadores de replicones, una extraída de los encabezados del FASTA y otra de la primera columna del GFF3, se comparan y producen tres zonas. Zona izquierda: identificadores presentes solo en el FASTA, que corresponden a replicones secuenciados pero sin anotación. Zona central: identificadores presentes en ambos archivos, que son la correspondencia esperada. Zona derecha: identificadores presentes solo en el GFF3, que corresponden a anotaciones cuya secuencia no está en el archivo, lo que suele indicar que los dos archivos no provienen del mismo ensamblado o de la misma versión. Un recuadro inferior indica que las dos listas describen el mismo ensamblado desde perspectivas distintas, de modo que su comparación no es una operación de Unix, sino evidencia sobre la calidad y la coherencia de la anotación.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrow" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto">
+      <path d="M0 0 L11 5.5 L0 11z" fill="#2878a9"/>
+    </marker>
+    <style>
+      .title{font:700 42px Arial;fill:#17365d}
+      .subtitle{font:400 20px Arial;fill:#526270}
+      .h2{font:700 21px Arial;fill:#17365d}
+      .tag{font:700 16px Arial;fill:#fff}
+      .copy{font:400 18px Arial;fill:#34495e}
+      .small{font:400 15px Arial;fill:#526270}
+      .code{font:400 19px 'Courier New';fill:#17365d}
+      .codeB{font:700 19px 'Courier New';fill:#17365d}
+      .zona{font:700 20px Arial;fill:#17365d}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+
+  <text x="800" y="56" class="title" text-anchor="middle">Validación cruzada: FASTA ↔ GFF3</text>
+  <text x="800" y="92" class="subtitle" text-anchor="middle">Dos archivos describen el mismo ensamblado desde perspectivas distintas. Sus identificadores deberían corresponder.</text>
+
+  <!-- LISTAS -->
+  <g filter="url(#shadow)"><rect x="120" y="130" width="530" height="210" rx="14" fill="#eef5fb" stroke="#2878a9"/></g>
+  <rect x="120" y="130" width="290" height="32" rx="10" fill="#2878a9"/>
+  <text x="140" y="154" class="tag">DESDE EL FASTA</text>
+  <text x="145" y="192" class="codeB" font-size="16">grep '^&gt;' | cut -d' ' -f1 | cut -d'&gt;' -f2</text>
+  <text x="145" y="228" class="code">NC_000913.3</text>
+  <text x="145" y="256" class="code">NC_P00001.1</text>
+  <text x="145" y="284" class="code">NC_EXTRA.1</text>
+  <text x="145" y="318" class="small">Lo que fue secuenciado.</text>
+
+  <g filter="url(#shadow)"><rect x="950" y="130" width="530" height="210" rx="14" fill="#eef8f2" stroke="#8cc9a9"/></g>
+  <rect x="950" y="130" width="290" height="32" rx="10" fill="#1e7a52"/>
+  <text x="970" y="154" class="tag">DESDE EL GFF3</text>
+  <text x="975" y="192" class="codeB" font-size="16">grep -v '^#' | cut -f1 | sort -u</text>
+  <text x="975" y="228" class="code">NC_000913.3</text>
+  <text x="975" y="256" class="code">NC_P00001.1</text>
+  <text x="975" y="318" class="small">Lo que fue anotado.</text>
+
+  <line x1="385" y1="348" x2="600" y2="400" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="1215" y1="348" x2="1000" y2="400" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="620" y="405" width="360" height="50" rx="10" fill="#17365d"/>
+  <text x="800" y="438" class="tag" text-anchor="middle" font-size="19">comm  lista-fasta.txt  lista-gff3.txt</text>
+
+  <line x1="800" y1="460" x2="800" y2="496" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- TRES ZONAS -->
+  <g filter="url(#shadow)"><rect x="60" y="510" width="470" height="270" rx="14" fill="#fdf7e8" stroke="#d18b16"/></g>
+  <text x="90" y="552" class="zona" fill="#d18b16">Solo en el FASTA</text>
+  <rect x="90" y="570" width="220" height="36" rx="8" fill="#fff" stroke="#d18b16" stroke-width="2"/>
+  <text x="106" y="595" class="code">NC_EXTRA.1</text>
+  <text x="90" y="640" class="copy" font-weight="700">Secuencia sin anotación.</text>
+  <text x="90" y="668" class="small">Un replicón que se secuenció pero</text>
+  <text x="90" y="690" class="small">para el que no hay registros.</text>
+  <text x="90" y="726" class="small">Puede ser real —un plásmido pequeño,</text>
+  <text x="90" y="748" class="small">un contig no anotado— o señal de que</text>
+  <text x="90" y="770" class="small">los archivos no son de la misma versión.</text>
+
+  <g filter="url(#shadow)"><rect x="565" y="510" width="470" height="270" rx="14" fill="#eef8f2" stroke="#8cc9a9"/></g>
+  <text x="595" y="552" class="zona" fill="#1e7a52">En ambos archivos</text>
+  <rect x="595" y="570" width="240" height="36" rx="8" fill="#fff" stroke="#8cc9a9" stroke-width="2"/>
+  <text x="611" y="595" class="code">NC_000913.3</text>
+  <rect x="595" y="616" width="240" height="36" rx="8" fill="#fff" stroke="#8cc9a9" stroke-width="2"/>
+  <text x="611" y="641" class="code">NC_P00001.1</text>
+  <text x="595" y="690" class="copy" font-weight="700">La correspondencia esperada.</text>
+  <text x="595" y="718" class="small">Cada secuencia tiene su anotación</text>
+  <text x="595" y="740" class="small">y cada anotación su secuencia.</text>
+  <text x="595" y="770" class="small">Es el resultado que confirma coherencia.</text>
+
+  <g filter="url(#shadow)"><rect x="1070" y="510" width="470" height="270" rx="14" fill="#fdf1ef" stroke="#b03a2e"/></g>
+  <text x="1100" y="552" class="zona" fill="#b03a2e">Solo en el GFF3</text>
+  <rect x="1100" y="570" width="240" height="36" rx="8" fill="#fff" stroke="#b03a2e" stroke-width="2"/>
+  <text x="1116" y="595" class="code" fill="#b03a2e">(vacío, idealmente)</text>
+  <text x="1100" y="640" class="copy" font-weight="700">Anotación huérfana.</text>
+  <text x="1100" y="668" class="small">Registros sobre una secuencia que</text>
+  <text x="1100" y="690" class="small">no está en tu FASTA.</text>
+  <text x="1100" y="726" class="small">Casi siempre significa que los dos</text>
+  <text x="1100" y="748" class="small">archivos no describen el mismo</text>
+  <text x="1100" y="770" class="small">ensamblado. Es el caso más grave.</text>
+
+  <!-- CIERRE -->
+  <rect x="60" y="805" width="1480" height="70" rx="12" fill="#eef5fb" stroke="#2878a9" stroke-width="2"/>
+  <text x="95" y="848" class="copy"><tspan font-weight="700">Esto no es una operación de Unix:</tspan> es evidencia sobre la calidad de tus datos. Una discrepancia obliga a decidir si es un error de tu análisis o una característica real del ensamblado.</text>
+</svg>

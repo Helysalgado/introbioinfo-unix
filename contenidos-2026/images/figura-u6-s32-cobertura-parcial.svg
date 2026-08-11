@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="700" viewBox="0 0 1600 700" role="img" aria-labelledby="t d">
+  <title id="t">Alineamiento parcial y dominio compartido</title>
+  <desc id="d">La proteína consulta aparece como barra completa. Debajo, un sujeto alineado solo en un dominio central; el resto del sujeto está en gris. Etiquetas: alineamiento parcial, dominio compartido, riesgo de sobreinterpretar.</desc>
+  <defs>
+    <filter id="sh" x="-10%" y="-10%" width="120%" height="135%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#17365d" flood-opacity="0.12"/>
+    </filter>
+    <style>
+      .title{font:700 34px Arial;fill:#17365d}
+      .sub{font:400 18px Arial;fill:#526270}
+      .h{font:700 20px Arial;fill:#17365d}
+      .copy{font:400 16px Arial;fill:#34495e}
+      .small{font:400 14px Arial;fill:#526270}
+      .tag{font:700 14px Arial;fill:#ffffff}
+      .warn{font:700 16px Arial;fill:#b03a2e}
+      .ok{font:700 16px Arial;fill:#1e7a52}
+    </style>
+  </defs>
+  <rect width="1600" height="700" fill="#fff"/>
+  <text x="800" y="48" class="title" text-anchor="middle">BLAST es local: un acierto excelente puede ser un pedazo</text>
+  <text x="800" y="80" class="sub" text-anchor="middle">Ya lo viste en S30 (local vs global) y en S31 (HSP = segmento)</text>
+
+  <!-- CONSULTA -->
+  <text x="120" y="140" class="h">Consulta</text>
+  <g filter="url(#sh)"><rect x="120" y="160" width="1200" height="70" rx="10" fill="#eef4fa" stroke="#17365d" stroke-width="2"/></g>
+  <text x="140" y="202" class="copy">N  C   (proteína completa)</text>
+  <text x="1360" y="202" class="small">248 aa</text>
+
+  <!-- SUJETO -->
+  <text x="120" y="290" class="h">Sujeto</text>
+  <g filter="url(#sh)"><rect x="120" y="310" width="1200" height="70" rx="10" fill="#f4f6f8" stroke="#c9d6e2" stroke-width="2"/></g>
+  <!-- dominio alineado -->
+  <rect x="520" y="310" width="320" height="70" fill="#d18b16" opacity="0.35"/>
+  <rect x="520" y="310" width="320" height="70" fill="none" stroke="#d18b16" stroke-width="3"/>
+  <text x="200" y="352" class="small">región no alineada</text>
+  <text x="680" y="352" class="tag" text-anchor="middle" fill="#17365d" style="font:700 15px Arial;fill:#17365d">HSP / dominio</text>
+  <text x="1000" y="352" class="small">región no alineada</text>
+
+  <!-- flechas de alineamiento -->
+  <path d="M680 230 L680 310" stroke="#d18b16" stroke-width="3" stroke-dasharray="6 4"/>
+  <path d="M780 230 L780 310" stroke="#d18b16" stroke-width="3" stroke-dasharray="6 4"/>
+  <text x="900" y="270" class="small">solo este tramo entra al pident</text>
+
+  <!-- tarjetas -->
+  <g filter="url(#sh)"><rect x="120" y="430" width="420" height="120" rx="12" fill="#fff8e8" stroke="#d18b16" stroke-width="2"/></g>
+  <text x="330" y="470" class="h" text-anchor="middle">Alineamiento parcial</text>
+  <text x="330" y="505" class="copy" text-anchor="middle">qstartqend cubren una fracción</text>
+  <text x="330" y="530" class="copy" text-anchor="middle">de la consulta</text>
+
+  <g filter="url(#sh)"><rect x="590" y="430" width="420" height="120" rx="12" fill="#fdf1ef" stroke="#b03a2e" stroke-width="2"/></g>
+  <text x="800" y="470" class="h" text-anchor="middle">Riesgo</text>
+  <text x="800" y="505" class="warn" text-anchor="middle">leer pident alto como si</text>
+  <text x="800" y="530" class="warn" text-anchor="middle">describiera toda la proteína</text>
+
+  <g filter="url(#sh)"><rect x="1060" y="430" width="420" height="120" rx="12" fill="#eef8f2" stroke="#1e7a52" stroke-width="2"/></g>
+  <text x="1270" y="470" class="h" text-anchor="middle">Antídoto</text>
+  <text x="1270" y="505" class="ok" text-anchor="middle">calcular cobertura y mirar</text>
+  <text x="1270" y="530" class="ok" text-anchor="middle">coordenadas antes de concluir</text>
+
+  <rect x="120" y="580" width="1360" height="80" rx="12" fill="#eef4fa" stroke="#17365d" stroke-width="2"/>
+  <text x="800" y="615" style="font:600 17px Arial;fill:#17365d" text-anchor="middle">Compartir un dominio ` parecerse en toda la proteína</text>
+  <text x="800" y="642" class="small" text-anchor="middle">El programa no te lo grita: aparece en la lista igual que los demás. Detectarlo es el oficio de hoy.</text>
+</svg>

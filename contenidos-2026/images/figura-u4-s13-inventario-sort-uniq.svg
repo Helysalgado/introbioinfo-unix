@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">De una columna desordenada a una distribución de frecuencias</title>
+  <desc id="desc">Una columna extraída de un archivo, con valores repetidos y desordenados, atraviesa tres operaciones sucesivas: ordenar agrupa los valores iguales, uniq con la opción de conteo colapsa cada grupo y antepone su frecuencia, y un ordenamiento numérico inverso jerarquiza las categorías de mayor a menor. Una advertencia final indica que uniq solo compara cada línea con la anterior, de modo que sin ordenar primero el conteo se fragmenta en grupos parciales.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0 0 L12 6 L0 12z" fill="#2878a9"/>
+    </marker>
+    <style>
+      .title{font:700 42px Arial;fill:#17365d}
+      .subtitle{font:400 20px Arial;fill:#526270}
+      .h2{font:700 22px Arial;fill:#17365d}
+      .copy{font:400 18px Arial;fill:#34495e}
+      .small{font:400 15px Arial;fill:#526270}
+      .code{font:700 22px 'Courier New';fill:#17365d}
+      .codeS{font:400 18px 'Courier New';fill:#34495e}
+      .num{font:700 18px 'Courier New';fill:#17365d}
+      .step{font:700 20px Arial;fill:#2878a9}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+
+  <text x="800" y="58" class="title" text-anchor="middle">De una columna a una distribución</text>
+  <text x="800" y="95" class="subtitle" text-anchor="middle">Cada eslabón hace una sola cosa: reunir, contar y jerarquizar. El archivo declara su propio vocabulario.</text>
+
+  <!-- PANEL 1 -->
+  <g filter="url(#shadow)">
+    <rect x="60" y="150" width="295" height="470" rx="18" fill="#f7f9fb" stroke="#8bb4cf" stroke-width="3"/>
+  </g>
+  <text x="207" y="188" class="h2" text-anchor="middle">cut -f3</text>
+  <text x="207" y="212" class="small" text-anchor="middle">la columna, tal como está</text>
+  <rect x="85" y="232" width="245" height="34" rx="6" fill="#eaf6f3" stroke="#7cc0b8" stroke-width="2"/><text x="100" y="255" class="codeS">gene</text>
+  <rect x="85" y="272" width="245" height="34" rx="6" fill="#f3f8fc" stroke="#8bb4cf" stroke-width="2"/><text x="100" y="295" class="codeS">CDS</text>
+  <rect x="85" y="312" width="245" height="34" rx="6" fill="#eaf6f3" stroke="#7cc0b8" stroke-width="2"/><text x="100" y="335" class="codeS">gene</text>
+  <rect x="85" y="352" width="245" height="34" rx="6" fill="#fdf1ec" stroke="#d99f8c" stroke-width="2"/><text x="100" y="375" class="codeS">tRNA</text>
+  <rect x="85" y="392" width="245" height="34" rx="6" fill="#f3f8fc" stroke="#8bb4cf" stroke-width="2"/><text x="100" y="415" class="codeS">CDS</text>
+  <rect x="85" y="432" width="245" height="34" rx="6" fill="#eaf6f3" stroke="#7cc0b8" stroke-width="2"/><text x="100" y="455" class="codeS">gene</text>
+  <rect x="85" y="472" width="245" height="34" rx="6" fill="#eaf6f3" stroke="#7cc0b8" stroke-width="2"/><text x="100" y="495" class="codeS">gene</text>
+  <rect x="85" y="512" width="245" height="34" rx="6" fill="#f3f8fc" stroke="#8bb4cf" stroke-width="2"/><text x="100" y="535" class="codeS">CDS</text>
+  <text x="207" y="580" class="small" text-anchor="middle">miles de líneas, valores mezclados</text>
+  <text x="207" y="602" class="small" text-anchor="middle">no se puede leer a ojo</text>
+
+  <!-- ARROW 1 -->
+  <line x1="365" y1="385" x2="443" y2="385" stroke="#2878a9" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="404" y="352" class="step" text-anchor="middle">sort</text>
+  <text x="404" y="430" class="small" text-anchor="middle">reunir</text>
+
+  <!-- PANEL 2 -->
+  <g filter="url(#shadow)">
+    <rect x="455" y="150" width="295" height="470" rx="18" fill="#f7f9fb" stroke="#8bb4cf" stroke-width="3"/>
+  </g>
+  <text x="602" y="188" class="h2" text-anchor="middle">ordenada</text>
+  <text x="602" y="212" class="small" text-anchor="middle">los iguales, juntos</text>
+  <rect x="480" y="232" width="245" height="34" rx="6" fill="#f3f8fc" stroke="#8bb4cf" stroke-width="2"/><text x="495" y="255" class="codeS">CDS</text>
+  <rect x="480" y="272" width="245" height="34" rx="6" fill="#f3f8fc" stroke="#8bb4cf" stroke-width="2"/><text x="495" y="295" class="codeS">CDS</text>
+  <rect x="480" y="312" width="245" height="34" rx="6" fill="#f3f8fc" stroke="#8bb4cf" stroke-width="2"/><text x="495" y="335" class="codeS">CDS</text>
+  <rect x="480" y="352" width="245" height="34" rx="6" fill="#eaf6f3" stroke="#7cc0b8" stroke-width="2"/><text x="495" y="375" class="codeS">gene</text>
+  <rect x="480" y="392" width="245" height="34" rx="6" fill="#eaf6f3" stroke="#7cc0b8" stroke-width="2"/><text x="495" y="415" class="codeS">gene</text>
+  <rect x="480" y="432" width="245" height="34" rx="6" fill="#eaf6f3" stroke="#7cc0b8" stroke-width="2"/><text x="495" y="455" class="codeS">gene</text>
+  <rect x="480" y="472" width="245" height="34" rx="6" fill="#eaf6f3" stroke="#7cc0b8" stroke-width="2"/><text x="495" y="495" class="codeS">gene</text>
+  <rect x="480" y="512" width="245" height="34" rx="6" fill="#fdf1ec" stroke="#d99f8c" stroke-width="2"/><text x="495" y="535" class="codeS">tRNA</text>
+  <text x="602" y="580" class="small" text-anchor="middle">ahora cada grupo es contiguo:</text>
+  <text x="602" y="602" class="small" text-anchor="middle">se puede colapsar y contar</text>
+
+  <!-- ARROW 2 -->
+  <line x1="760" y1="385" x2="838" y2="385" stroke="#2878a9" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="799" y="352" class="step" text-anchor="middle">uniq -c</text>
+  <text x="799" y="430" class="small" text-anchor="middle">contar</text>
+
+  <!-- PANEL 3 -->
+  <g filter="url(#shadow)">
+    <rect x="850" y="150" width="295" height="470" rx="18" fill="#f7f9fb" stroke="#8bb4cf" stroke-width="3"/>
+  </g>
+  <text x="997" y="188" class="h2" text-anchor="middle">catálogo + frecuencia</text>
+  <text x="997" y="212" class="small" text-anchor="middle">orden alfabético</text>
+  <rect x="875" y="252" width="245" height="34" rx="6" fill="#f3f8fc" stroke="#8bb4cf" stroke-width="2"/><text x="890" y="275" class="num">3</text><text x="930" y="275" class="codeS">CDS</text>
+  <rect x="875" y="292" width="245" height="34" rx="6" fill="#eaf6f3" stroke="#7cc0b8" stroke-width="2"/><text x="890" y="315" class="num">4</text><text x="930" y="315" class="codeS">gene</text>
+  <rect x="875" y="332" width="245" height="34" rx="6" fill="#fdf1ec" stroke="#d99f8c" stroke-width="2"/><text x="890" y="355" class="num">1</text><text x="930" y="355" class="codeS">tRNA</text>
+  <rect x="875" y="400" width="245" height="150" rx="10" fill="#fff" stroke="#c9d6e0" stroke-width="2" stroke-dasharray="6 5"/>
+  <text x="997" y="428" class="small" text-anchor="middle">Sin la opción -c:</text>
+  <text x="997" y="454" class="code" text-anchor="middle">sort | uniq</text>
+  <text x="997" y="480" class="small" text-anchor="middle">devuelve solo el catálogo,</text>
+  <text x="997" y="502" class="small" text-anchor="middle">sin frecuencias. Atajo:</text>
+  <text x="997" y="532" class="code" text-anchor="middle">sort -u</text>
+  <text x="997" y="580" class="small" text-anchor="middle">3 categorías, 8 registros</text>
+  <text x="997" y="602" class="small" text-anchor="middle">las frecuencias suman el total</text>
+
+  <!-- ARROW 3 -->
+  <line x1="1155" y1="385" x2="1233" y2="385" stroke="#2878a9" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="1194" y="352" class="step" text-anchor="middle">sort -nr</text>
+  <text x="1194" y="430" class="small" text-anchor="middle">jerarquizar</text>
+
+  <!-- PANEL 4 -->
+  <g filter="url(#shadow)">
+    <rect x="1245" y="150" width="295" height="470" rx="18" fill="#f3f8fc" stroke="#2878a9" stroke-width="3"/>
+  </g>
+  <text x="1392" y="188" class="h2" text-anchor="middle">distribución</text>
+  <text x="1392" y="212" class="small" text-anchor="middle">de mayor a menor frecuencia</text>
+  <rect x="1270" y="252" width="245" height="34" rx="6" fill="#eaf6f3" stroke="#7cc0b8" stroke-width="2"/><text x="1285" y="275" class="num">4</text><text x="1325" y="275" class="codeS">gene</text>
+  <rect x="1270" y="292" width="245" height="34" rx="6" fill="#f3f8fc" stroke="#8bb4cf" stroke-width="2"/><text x="1285" y="315" class="num">3</text><text x="1325" y="315" class="codeS">CDS</text>
+  <rect x="1270" y="332" width="245" height="34" rx="6" fill="#fdf1ec" stroke="#d99f8c" stroke-width="2"/><text x="1285" y="355" class="num">1</text><text x="1325" y="355" class="codeS">tRNA</text>
+  <text x="1392" y="412" class="copy" text-anchor="middle">dominante · raras · ausentes</text>
+  <text x="1392" y="446" class="small" text-anchor="middle">Con -n se ordena por valor numérico:</text>
+  <text x="1392" y="470" class="small" text-anchor="middle">sin él, 1000 iría antes que 999.</text>
+  <text x="1392" y="512" class="small" text-anchor="middle">La misma tubería sirve para</text>
+  <text x="1392" y="534" class="small" text-anchor="middle">cualquier variable categórica:</text>
+  <text x="1392" y="562" class="code" text-anchor="middle">cut -f2</text>
+  <text x="1392" y="602" class="small" text-anchor="middle">fuentes de anotación</text>
+
+  <!-- ADVERTENCIA -->
+  <g filter="url(#shadow)">
+    <rect x="60" y="672" width="1480" height="160" rx="16" fill="#fdf1ec" stroke="#d99f8c" stroke-width="3"/>
+  </g>
+  <text x="100" y="716" class="h2">uniq no funciona solo</text>
+  <text x="100" y="752" class="copy">uniq compara cada línea únicamente con la anterior, nunca con el resto del archivo. Si los valores iguales no están juntos,</text>
+  <text x="100" y="782" class="copy">cada racha se cuenta por separado: el resultado no da error, parece un inventario y no lo es.</text>
+  <text x="100" y="814" class="code">cut -f3 archivo.gff | uniq -c   →   1 gene · 1 CDS · 1 gene · 2 CDS · …     (rachas, no categorías)</text>
+</svg>

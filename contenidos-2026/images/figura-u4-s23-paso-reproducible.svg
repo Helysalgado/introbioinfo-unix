@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Anatomía de un paso reproducible frente a un comando suelto</title>
+  <desc id="desc">A la izquierda, un comando aislado: una sola línea de terminal, sin contexto. A la derecha, ese mismo comando convertido en un paso del protocolo, con siete elementos declarados: la pregunta que responde, la entrada que necesita y el paso del que depende, la operación en español, el comando exacto, la salida con su nombre de archivo, la verificación que comprueba que terminó bien y qué significaría que fallara, y la interpretación de lo que el resultado permite afirmar. Una franja inferior indica que el comando ocupa una de las siete casillas, que las otras seis son las que permiten que otra persona ejecute el paso sin preguntar nada, y que un paso sin verificación no puede formar parte de un flujo porque no hay manera de saber si conviene continuar.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrow" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto">
+      <path d="M0 0 L11 5.5 L0 11z" fill="#2878a9"/>
+    </marker>
+    <style>
+      .title{font:700 42px Arial;fill:#17365d}
+      .subtitle{font:400 20px Arial;fill:#526270}
+      .tag{font:700 16px Arial;fill:#fff}
+      .copy{font:400 17px Arial;fill:#34495e}
+      .small{font:400 15px Arial;fill:#526270}
+      .code{font:400 16px 'Courier New';fill:#17365d}
+      .lbl{font:700 15px Arial;fill:#fff}
+      .h3{font:700 20px Arial;fill:#17365d}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+
+  <text x="800" y="56" class="title" text-anchor="middle">Un comando no es un paso</text>
+  <text x="800" y="92" class="subtitle" text-anchor="middle">El comando es una de siete casillas. Las otras seis son las que hacen que alguien más pueda ejecutarlo.</text>
+
+  <!-- IZQUIERDA -->
+  <g filter="url(#shadow)"><rect x="60" y="140" width="480" height="330" rx="16" fill="#fdf7e8" stroke="#d18b16"/></g>
+  <rect x="60" y="140" width="300" height="34" rx="10" fill="#d18b16"/>
+  <text x="80" y="165" class="tag">UN COMANDO SUELTO</text>
+
+  <rect x="90" y="215" width="420" height="60" rx="8" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="108" y="252" class="code">awk -F'\t' '$3=="gene"' … | wc -l</text>
+
+  <text x="90" y="320" class="copy">Funciona. Es correcto. Y aun así,</text>
+  <text x="90" y="348" class="copy">quien lo lea mañana no sabrá:</text>
+  <text x="110" y="386" class="small">· sobre qué archivo se ejecuta</text>
+  <text x="110" y="412" class="small">· qué tenía que existir antes</text>
+  <text x="110" y="438" class="small">· si el número que salió era el esperado</text>
+
+  <path d="M565 300 L625 300" stroke="#2878a9" stroke-width="5" marker-end="url(#arrow)"/>
+
+  <!-- DERECHA -->
+  <g filter="url(#shadow)"><rect x="650" y="140" width="890" height="620" rx="16" fill="#eef8f2" stroke="#8cc9a9"/></g>
+  <rect x="650" y="140" width="300" height="34" rx="10" fill="#1e7a52"/>
+  <text x="670" y="165" class="tag">UN PASO DEL PROTOCOLO</text>
+
+  <rect x="680" y="195" width="150" height="30" rx="8" fill="#2878a9"/><text x="698" y="216" class="lbl">PREGUNTA</text>
+  <text x="850" y="216" class="copy">¿Cuántos genes contiene la anotación?</text>
+
+  <rect x="680" y="245" width="150" height="30" rx="8" fill="#2878a9"/><text x="698" y="266" class="lbl">ENTRADA</text>
+  <text x="850" y="266" class="code">results/s12/anotaciones-sin-directivas.gff</text>
+
+  <rect x="680" y="295" width="150" height="30" rx="8" fill="#7d5ba6"/><text x="698" y="316" class="lbl">DEPENDE DE</text>
+  <text x="850" y="316" class="copy">El paso A2, que produjo ese archivo</text>
+
+  <rect x="680" y="345" width="150" height="30" rx="8" fill="#526270"/><text x="698" y="366" class="lbl">OPERACIÓN</text>
+  <text x="850" y="366" class="copy">Contar las líneas cuyo campo 3 es exactamente `gene`</text>
+
+  <rect x="680" y="395" width="150" height="30" rx="8" fill="#526270"/><text x="698" y="416" class="lbl">COMANDO</text>
+  <text x="850" y="416" class="code">awk -F'\t' '$3=="gene"' … | wc -l</text>
+
+  <rect x="680" y="445" width="150" height="30" rx="8" fill="#1e7a52"/><text x="698" y="466" class="lbl">SALIDA</text>
+  <text x="850" y="466" class="code">results/s23/conteo-genes.txt</text>
+
+  <rect x="680" y="495" width="150" height="30" rx="8" fill="#b03a2e"/><text x="698" y="516" class="lbl">VERIFICACIÓN</text>
+  <text x="850" y="516" class="copy">Coincide con el conteo refinado de S18</text>
+  <text x="850" y="542" class="small">Si no coincide: la entrada no es la esperada. <tspan font-weight="700">No continuar.</tspan></text>
+
+  <rect x="680" y="570" width="150" height="30" rx="8" fill="#d18b16"/><text x="698" y="591" class="lbl">INTERPRETA</text>
+  <text x="850" y="591" class="copy">Número de registros `gene`, no de genes comprobados</text>
+
+  <rect x="680" y="630" width="820" height="105" rx="10" fill="#fff" stroke="#1e7a52" stroke-width="2"/>
+  <text x="700" y="668" class="h3" fill="#1e7a52">Lo que cambia</text>
+  <text x="700" y="700" class="copy">Con las siete casillas, otra persona ejecuta el paso, sabe si salió bien y sabe qué</text>
+  <text x="700" y="726" class="copy">significa el número. Sin ellas, solo puede copiar y esperar.</text>
+
+  <!-- CIERRE -->
+  <rect x="60" y="790" width="1480" height="70" rx="12" fill="#eef5fb" stroke="#2878a9" stroke-width="2"/>
+  <text x="95" y="828" class="copy"><tspan font-weight="700">La casilla que más se olvida es la verificación</tspan>, y es la única que decide si se puede continuar. Un paso sin control no forma parte</text>
+  <text x="95" y="852" class="copy">de un flujo: es un comando que alguien ejecutó una vez y salió bien.</text>
+</svg>

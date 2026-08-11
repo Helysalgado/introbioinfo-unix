@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">De qué están hechos los bytes de un archivo FASTA</title>
+  <desc id="desc">Barra horizontal que representa el total de bytes de un archivo FASTA descompuesta en tres partes: una franja muy pequeña de encabezados, una franja delgada de saltos de línea equivalente a alrededor del 1.4 por ciento del total, y una franja mayoritaria de secuencia biológica que constituye el tamaño real del genoma. Debajo, la resta que permite estimar las bases a partir de los bytes totales.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrowT" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto">
+      <path d="M0 0 L11 5.5 L0 11z" fill="#1f6d7a"/>
+    </marker>
+    <style>.title{font:700 40px Arial;fill:#17365d}.subtitle{font:400 20px Arial;fill:#526270}.h3{font:700 19px Arial;fill:#17365d}.copy{font:400 17px Arial;fill:#34495e}.small{font:400 15px Arial;fill:#526270}.code{font:700 19px 'Courier New';fill:#17365d}.white{font:700 20px Arial;fill:#fff}</style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+  <text x="800" y="55" class="title" text-anchor="middle">De qué están hechos los bytes de un FASTA</text>
+  <text x="800" y="92" class="subtitle" text-anchor="middle">Medir el archivo no es medir el genoma: parte de esos bytes no son secuencia.</text>
+
+  <!-- etiqueta superior -->
+  <text x="100" y="160" class="h3">Bytes totales del archivo · lo que mide <tspan font-family="Courier New">wc -c</tspan></text>
+  <path d="M100 175 H1500" fill="none" stroke="#8a9aa8" stroke-width="2"/>
+  <path d="M100 168 V182 M1500 168 V182" stroke="#8a9aa8" stroke-width="2"/>
+
+  <!-- barra apilada a escala: 1400 px = 100% -->
+  <g filter="url(#shadow)">
+    <rect x="100" y="200" width="1400" height="110" rx="10" fill="#2f9e8f"/>
+    <rect x="100" y="200" width="19.6" height="110" fill="#d98a4f"/>
+    <rect x="100" y="200" width="1.5" height="110" fill="#b4553f"/>
+  </g>
+  <rect x="100" y="200" width="1400" height="110" rx="10" fill="none" stroke="#17365d" stroke-width="2"/>
+
+  <text x="810" y="248" class="white" text-anchor="middle">SECUENCIA BIOLÓGICA · ≈ 98.6 %</text>
+  <text x="810" y="282" font-family="Arial" font-size="18" fill="#d6f0ec" text-anchor="middle">esto es lo que querías medir: el tamaño del genoma</text>
+
+  <!-- detalle ampliado del extremo izquierdo -->
+  <path d="M100 312 L360 402 M122 312 L1140 402" fill="none" stroke="#8a9aa8" stroke-width="2" stroke-dasharray="6 6"/>
+  <text x="360" y="392" class="small">Detalle ampliado del extremo izquierdo (primer 1.6 % del archivo)</text>
+
+  <g filter="url(#shadow)">
+    <rect x="360" y="405" width="780" height="105" rx="10" fill="#d98a4f"/>
+    <rect x="360" y="405" width="60" height="105" fill="#b4553f"/>
+  </g>
+  <rect x="360" y="405" width="780" height="105" rx="10" fill="none" stroke="#17365d" stroke-width="2"/>
+
+  <!-- etiquetas del detalle -->
+  <path d="M390 530 V572" fill="none" stroke="#b4553f" stroke-width="3"/>
+  <text x="330" y="600" class="h3" text-anchor="middle" fill="#b4553f">Encabezados</text>
+  <text x="330" y="628" class="copy" text-anchor="middle">líneas que empiezan con &gt;</text>
+  <text x="330" y="653" class="small" text-anchor="middle">≈ 0.002 % del archivo</text>
+
+  <path d="M780 530 V572" fill="none" stroke="#a86a33" stroke-width="3"/>
+  <text x="870" y="600" class="h3" text-anchor="middle" fill="#a86a33">Saltos de línea</text>
+  <text x="870" y="628" class="copy" text-anchor="middle">uno por cada 70 bases: invisibles, pero se cuentan</text>
+  <text x="870" y="653" class="small" text-anchor="middle">≈ 1.4 % del archivo</text>
+
+  <!-- nota lateral -->
+  <g filter="url(#shadow)">
+    <rect x="1190" y="405" width="310" height="105" rx="14" fill="#f1faf9" stroke="#7ebdb8" stroke-width="3"/>
+  </g>
+  <text x="1345" y="445" class="copy" text-anchor="middle">
+    <tspan x="1345" dy="0">Pequeño, pero</tspan>
+    <tspan x="1345" dy="24" font-weight="700">sistemático:</tspan>
+    <tspan x="1345" dy="24">siempre sobreestima</tspan>
+  </text>
+
+  <!-- resta -->
+  <g filter="url(#shadow)">
+    <rect x="100" y="700" width="1400" height="72" rx="16" fill="#18232c"/>
+  </g>
+  <text x="800" y="745" font-family="Courier New" font-size="23" font-weight="700" fill="#eaf6f7" text-anchor="middle">bases estimadas  ≈  bytes totales  −  saltos de línea  −  encabezados</text>
+
+  <!-- pie -->
+  <rect x="100" y="805" width="1400" height="60" rx="16" fill="#1f6d7a"/>
+  <text x="800" y="843" class="white" text-anchor="middle">La estimación mejora el número, pero sigue sin contar las bases una por una</text>
+</svg>

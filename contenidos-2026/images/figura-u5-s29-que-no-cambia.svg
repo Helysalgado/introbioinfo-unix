@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="740" viewBox="0 0 1600 740" role="img" aria-labelledby="title desc">
+  <title id="title">Qué no cambia y qué sí</title>
+  <desc id="desc">Cuatro capas apiladas del análisis. La primera, la pregunta biológica —qué contiene la anotación de estos genomas— no cambia: es la misma desde la Unidad 4. La segunda, el procedimiento —qué cuenta como gen, qué se comprueba, qué controles se aplican— tampoco cambia: es el mismo desde la sesión veintitrés. La tercera, la herramienta —los scripts que ejecutan ese procedimiento— tampoco cambia: es la misma desde la sesión veintiséis y ni una línea se tocó para el clúster. Y solo la cuarta, la infraestructura —dónde se ejecuta y quién reparte el turno—, sí cambia. Una franja inferior señala que por eso el resultado es idéntico y el checksum coincide, y que si alguna de las tres primeras capas hubiera cambiado, habría que volver a documentar, probar y defender todo.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <style>
+      .title{font:700 38px Arial;fill:#17365d}
+      .subtitle{font:400 19px Arial;fill:#526270}
+      .layer{font:700 26px Arial;fill:#17365d}
+      .copy{font:400 16px Arial;fill:#34495e}
+      .small{font:400 14px Arial;fill:#526270}
+      .no{font:700 22px Arial;fill:#1e7a52}
+      .si{font:700 22px Arial;fill:#b03a2e}
+      .band{font:400 19px Arial;fill:#17365d}
+    </style>
+  </defs>
+  <rect width="1600" height="740" fill="#fff"/>
+
+  <text x="800" y="50" class="title" text-anchor="middle">Qué no cambia, y qué sí</text>
+  <text x="800" y="84" class="subtitle" text-anchor="middle">Cuatro capas. Hoy solo se movió la de abajo.</text>
+
+  <!-- linea vertical -->
+  <path d="M120 130 L120 500" stroke="#c9d6e2" stroke-width="3"/>
+
+  <!-- 1 -->
+  <circle cx="120" cy="160" r="10" fill="#1e7a52"/>
+  <g filter="url(#shadow)"><rect x="160" y="126" width="900" height="70" rx="12" fill="#eef8f2" stroke="#1e7a52"/></g>
+  <text x="190" y="172" class="layer">Pregunta biológica</text>
+  <text x="560" y="170" class="copy">¿qué contiene la anotación de estos genomas?</text>
+  <text x="1090" y="162" class="no">no cambia</text>
+  <text x="1090" y="188" class="small">la misma desde la Unidad 4</text>
+
+  <!-- 2 -->
+  <circle cx="120" cy="260" r="10" fill="#1e7a52"/>
+  <g filter="url(#shadow)"><rect x="160" y="226" width="900" height="70" rx="12" fill="#eef8f2" stroke="#1e7a52"/></g>
+  <text x="190" y="272" class="layer">Procedimiento</text>
+  <text x="560" y="262" class="copy">qué cuenta como gen, qué se comprueba,</text>
+  <text x="560" y="284" class="copy">qué controles se aplican</text>
+  <text x="1090" y="262" class="no">no cambia</text>
+  <text x="1090" y="288" class="small">el mismo desde S23</text>
+
+  <!-- 3 -->
+  <circle cx="120" cy="360" r="10" fill="#1e7a52"/>
+  <g filter="url(#shadow)"><rect x="160" y="326" width="900" height="70" rx="12" fill="#eef8f2" stroke="#1e7a52"/></g>
+  <text x="190" y="372" class="layer">Herramienta</text>
+  <text x="560" y="362" class="copy">los scripts que ejecutan ese procedimiento</text>
+  <text x="560" y="384" class="small">ni una línea se tocó para el clúster</text>
+  <text x="1090" y="362" class="no">no cambia</text>
+  <text x="1090" y="388" class="small">la misma desde S26</text>
+
+  <!-- 4 -->
+  <circle cx="120" cy="460" r="10" fill="#b03a2e"/>
+  <g filter="url(#shadow)"><rect x="160" y="426" width="900" height="70" rx="12" fill="#fdf1ef" stroke="#b03a2e"/></g>
+  <text x="190" y="472" class="layer">Infraestructura</text>
+  <text x="560" y="462" class="copy">dónde se ejecuta y quién reparte el turno</text>
+  <text x="560" y="484" class="small">tu computadora → el clúster</text>
+  <text x="1090" y="462" class="si">SÍ CAMBIA</text>
+  <text x="1090" y="488" class="small">y es lo único que cambió hoy</text>
+
+  <!-- FRANJA -->
+  <rect x="55" y="540" width="1490" height="80" rx="14" fill="#eef5fb" stroke="#2878a9"/>
+  <text x="85" y="580" class="band">Por eso el resultado es idéntico, y por eso <tspan font-weight="700">el checksum coincide</tspan>.</text>
+  <text x="85" y="608" class="copy">Si hubiera cambiado alguna de las tres capas de arriba, el checksum sería otro — y con razón.</text>
+
+  <rect x="55" y="636" width="1490" height="84" rx="14" fill="#f3eefa" stroke="#7d5ba6"/>
+  <text x="85" y="676" class="band">Y si hubiera que <tspan font-weight="700">rehacer</tspan> alguna de esas tres capas para cambiar de máquina…</text>
+  <text x="85" y="704" class="copy">…habría que volver a documentarla (S27), a probarla con otras personas (S27) y a defenderla (S28). Todo, otra vez.</text>
+</svg>

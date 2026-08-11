@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Dónde está ahora el cuello de botella</title>
+  <desc id="desc">A la izquierda, la única forma disponible al terminar la sesión anterior: invocar la herramienta una vez por cada organismo de la colección, escribiendo veinte órdenes a mano, con cuatro riesgos señalados: saltarse un organismo sin notarlo, equivocarse al escribir una ruta, no enterarse de cuáles ejecuciones fallaron porque los avisos se pierden entre la salida, y no poder demostrar que mañana se repetiría exactamente el mismo conjunto. A la derecha, una sola orden que recorre la colección entera y produce las mismas veinte ejecuciones, con el recorrido escrito en un archivo. Una franja inferior precisa que la herramienta no cambió: lo que cambió es que el recorrido dejó de vivir en la cabeza de quien ejecuta y pasó a ser parte del experimento.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrow" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto">
+      <path d="M0 0 L11 5.5 L0 11z" fill="#1e7a52"/>
+    </marker>
+    <style>
+      .title{font:700 40px Arial;fill:#17365d}
+      .subtitle{font:400 20px Arial;fill:#526270}
+      .tag{font:700 15px Arial;fill:#fff}
+      .copy{font:400 16px Arial;fill:#34495e}
+      .small{font:400 14px Arial;fill:#526270}
+      .code{font:400 15px 'Courier New';fill:#17365d}
+      .codew{font:400 20px 'Courier New';fill:#ffffff}
+      .h3{font:700 19px Arial;fill:#17365d}
+      .band{font:400 19px Arial;fill:#17365d}
+      .big{font:700 28px Arial;fill:#17365d}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+
+  <text x="800" y="52" class="title" text-anchor="middle">Dónde está ahora el cuello de botella</text>
+  <text x="800" y="88" class="subtitle" text-anchor="middle">La herramienta ya sirve para cualquier genoma. El problema se mudó de sitio.</text>
+
+  <!-- ============ IZQUIERDA ============ -->
+  <g filter="url(#shadow)"><rect x="55" y="126" width="690" height="580" rx="16" fill="#fdf7e8" stroke="#d18b16"/></g>
+  <rect x="55" y="126" width="300" height="34" rx="10" fill="#d18b16"/>
+  <text x="75" y="151" class="tag">AL TERMINAR S25 · a mano</text>
+
+  <rect x="85" y="182" width="630" height="214" rx="8" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="105" y="210" class="code">./src/analizar-genoma.sh ecoli/genome.fna …</text>
+  <text x="105" y="238" class="code">./src/analizar-genoma.sh salmonella/genome.fna …</text>
+  <text x="105" y="266" class="code">./src/analizar-genoma.sh shigella/genome.fna …</text>
+  <text x="105" y="294" class="code">./src/analizar-genoma.sh vibrio/genome.fna …</text>
+  <text x="105" y="322" class="code">./src/analizar-genoma.sh listeria/genome.fna …</text>
+  <text x="105" y="350" class="code">…</text>
+  <text x="105" y="380" class="small">una orden escrita a mano por cada organismo</text>
+
+  <text x="400" y="440" class="big" text-anchor="middle">20 órdenes · 20 oportunidades de fallar</text>
+
+  <text x="85" y="490" class="h3">Cuatro cosas que dependen de ti</text>
+  <text x="105" y="524" class="copy">· no saltarte ningún organismo</text>
+  <text x="105" y="554" class="copy">· no equivocarte al escribir una ruta</text>
+  <text x="105" y="584" class="copy">· enterarte de cuáles fallaron</text>
+  <text x="105" y="614" class="copy">· poder demostrar mañana qué conjunto analizaste</text>
+
+  <rect x="85" y="636" width="630" height="52" rx="8" fill="#fdf1ef" stroke="#b03a2e"/>
+  <text x="105" y="668" class="copy">Y si te cansas a la mitad, nadie lo sabrá.</text>
+
+  <path d="M765 400 L835 400" stroke="#1e7a52" stroke-width="4" marker-end="url(#arrow)"/>
+
+  <!-- ============ DERECHA ============ -->
+  <g filter="url(#shadow)"><rect x="855" y="126" width="690" height="580" rx="16" fill="#eef8f2" stroke="#1e7a52"/></g>
+  <rect x="855" y="126" width="240" height="34" rx="10" fill="#1e7a52"/>
+  <text x="875" y="151" class="tag">EN S26 · por lotes</text>
+
+  <text x="885" y="200" class="h3">Una sola orden</text>
+  <rect x="885" y="220" width="630" height="60" rx="10" fill="#17365d"/>
+  <text x="905" y="258" class="codew">$ ./src/procesar-lote.sh genomas/</text>
+
+  <path d="M1200 288 L1200 326" stroke="#1e7a52" stroke-width="3.5" marker-end="url(#arrow)"/>
+
+  <rect x="885" y="334" width="630" height="240" rx="8" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="1200" y="368" class="h3" text-anchor="middle">Las mismas 20 ejecuciones</text>
+  <text x="905" y="404" class="copy">· ninguna se salta, porque el recorrido está escrito</text>
+  <text x="905" y="434" class="copy">· ninguna ruta se teclea, porque se derivan</text>
+  <text x="905" y="464" class="copy">· cada resultado queda en la carpeta de su organismo</text>
+  <text x="905" y="494" class="copy">· las que fallan quedan <tspan font-weight="700">anotadas</tspan>, no perdidas</text>
+  <text x="905" y="524" class="copy">· y mañana se repite el conjunto exacto</text>
+  <text x="905" y="556" class="small">La herramienta que se ejecuta es la misma de S25. No cambió.</text>
+
+  <rect x="885" y="596" width="630" height="92" rx="8" fill="#eef5fb" stroke="#2878a9"/>
+  <text x="905" y="630" class="copy">Y aparece algo que antes no existía:</text>
+  <text x="905" y="662" class="copy"><tspan font-weight="700">un resultado sobre la colección entera.</tspan></text>
+
+  <!-- ============ FRANJA ============ -->
+  <rect x="55" y="740" width="1490" height="110" rx="14" fill="#eef8f2" stroke="#1e7a52"/>
+  <text x="85" y="782" class="band"><tspan font-weight="700">El recorrido dejó de vivir en tu cabeza y pasó a formar parte del experimento.</tspan></text>
+  <text x="85" y="818" class="copy">Automatizar por lotes no es escribir menos: es poder afirmar que los veinte organismos se analizaron exactamente igual.</text>
+</svg>

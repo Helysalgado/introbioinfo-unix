@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Anatomía básica del editor nano</title>
+  <desc id="desc">Esquema de una terminal con nano. Señala la barra superior, el área de edición, la línea de mensajes y los atajos inferiores, incluidos guardar con Control O y salir con Control X.</desc>
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="135%">
+      <feDropShadow dx="0" dy="7" stdDeviation="10" flood-color="#102a43" flood-opacity="0.20"/>
+    </filter>
+    <style>
+      .title{font:700 40px Arial,sans-serif;fill:#17365d}
+      .subtitle{font:400 19px Arial,sans-serif;fill:#526270}
+      .terminal{font:400 18px 'Courier New',monospace;fill:#e9f2f7}
+      .terminalBold{font:700 18px 'Courier New',monospace;fill:#fff}
+      .calloutTitle{font:700 19px Arial,sans-serif;fill:#17365d}
+      .calloutText{font:400 16px Arial,sans-serif;fill:#526270}
+      .line{fill:none;stroke:#2878a9;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+    </style>
+  </defs>
+
+  <rect width="1600" height="900" fill="#fff"/>
+  <text x="800" y="55" class="title" text-anchor="middle">Anatomía básica de nano</text>
+  <text x="800" y="88" class="subtitle" text-anchor="middle">Un editor de texto dentro de la terminal: escribir, guardar, salir y comprobar.</text>
+
+  <!-- Ventana -->
+  <g filter="url(#shadow)">
+    <rect x="245" y="135" width="1110" height="650" rx="20" fill="#122b3a"/>
+    <rect x="245" y="135" width="1110" height="48" rx="20" fill="#dce7ed"/>
+    <rect x="245" y="163" width="1110" height="20" fill="#dce7ed"/>
+  </g>
+  <circle cx="278" cy="159" r="8" fill="#d65f59"/>
+  <circle cx="304" cy="159" r="8" fill="#e3ad3a"/>
+  <circle cx="330" cy="159" r="8" fill="#56a66b"/>
+  <text x="800" y="165" font-family="Arial" font-size="17" font-weight="700" fill="#34495e" text-anchor="middle">Terminal remota</text>
+
+  <!-- nano -->
+  <rect x="270" y="205" width="1060" height="42" fill="#23697a"/>
+  <text x="295" y="232" class="terminalBold">GNU nano</text>
+  <text x="800" y="232" class="terminalBold" text-anchor="middle">README.md</text>
+  <text x="1305" y="232" class="terminal" text-anchor="end">Modificado</text>
+
+  <text x="300" y="292" class="terminalBold"># Proyecto de introducción a la bioinformática</text>
+  <text x="300" y="332" class="terminal">Este proyecto organiza los archivos de las sesiones S1–S3.</text>
+  <text x="300" y="390" class="terminal">- data/source/: datos originales que no deben modificarse</text>
+  <text x="300" y="425" class="terminal">- data/processed/: datos derivados</text>
+  <text x="300" y="460" class="terminal">- src/: scripts</text>
+  <text x="300" y="495" class="terminal">- results/: resultados</text>
+  <text x="300" y="530" class="terminal">- doc/: protocolo y bitácora</text>
+  <rect x="299" y="545" width="12" height="24" fill="#e9f2f7" opacity="0.85"/>
+
+  <rect x="270" y="610" width="1060" height="38" fill="#27495a"/>
+  <text x="800" y="635" class="terminal" text-anchor="middle">[ Mensajes y preguntas aparecen aquí ]</text>
+
+  <rect x="270" y="660" width="1060" height="100" fill="#0d2130"/>
+  <text x="360" y="696" class="terminalBold">^G Ayuda</text>
+  <text x="700" y="696" class="terminalBold">^O Guardar</text>
+  <text x="1040" y="696" class="terminalBold">^W Buscar</text>
+  <text x="360" y="735" class="terminalBold">^K Cortar</text>
+  <text x="700" y="735" class="terminalBold">^U Pegar</text>
+  <text x="1040" y="735" class="terminalBold">^X Salir</text>
+
+  <!-- llamadas -->
+  <path d="M245 226H120L105 210" class="line"/>
+  <circle cx="95" cy="200" r="25" fill="#2878a9"/>
+  <text x="95" y="207" font-family="Arial" font-size="20" font-weight="700" fill="#fff" text-anchor="middle">1</text>
+  <text x="55" y="255" class="calloutTitle">Barra superior</text>
+  <text x="55" y="280" class="calloutText">archivo abierto</text>
+
+  <path d="M1355 390H1460L1475 375" class="line"/>
+  <circle cx="1485" cy="365" r="25" fill="#2878a9"/>
+  <text x="1485" y="372" font-family="Arial" font-size="20" font-weight="700" fill="#fff" text-anchor="middle">2</text>
+  <text x="1390" y="420" class="calloutTitle">Área de edición</text>
+  <text x="1390" y="445" class="calloutText">escribe y navega</text>
+  <text x="1390" y="468" class="calloutText">con las flechas</text>
+
+  <path d="M245 628H130L115 643" class="line"/>
+  <circle cx="102" cy="655" r="25" fill="#2878a9"/>
+  <text x="102" y="662" font-family="Arial" font-size="20" font-weight="700" fill="#fff" text-anchor="middle">3</text>
+  <text x="45" y="703" class="calloutTitle">Mensajes</text>
+  <text x="45" y="728" class="calloutText">lee antes de</text>
+  <text x="45" y="751" class="calloutText">confirmar</text>
+
+  <path d="M1355 710H1460L1475 725" class="line"/>
+  <circle cx="1485" cy="737" r="25" fill="#2878a9"/>
+  <text x="1485" y="744" font-family="Arial" font-size="20" font-weight="700" fill="#fff" text-anchor="middle">4</text>
+  <text x="1378" y="790" class="calloutTitle">Atajos visibles</text>
+
+  <rect x="285" y="815" width="1030" height="52" rx="18" fill="#1f6d7a"/>
+  <text x="800" y="848" font-family="Arial" font-size="19" font-weight="700" fill="#fff" text-anchor="middle">^ significa Ctrl:  ^O = Ctrl-O para guardar  ·  ^X = Ctrl-X para salir</text>
+</svg>

@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Árbol Unix con el home y el espacio institucional</title>
+  <desc id="desc">Árbol jerárquico desde la raíz. La rama home conduce al proyecto pequeño usado en S4; la rama export conduce al espacio institucional reservado para genomas, BLAST y resultados grandes en sesiones posteriores.</desc>
+  <defs>
+    <filter id="shadow" x="-15%" y="-15%" width="130%" height="145%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <style>
+      .title{font:700 40px Arial,sans-serif;fill:#17365d}
+      .subtitle{font:400 19px Arial,sans-serif;fill:#526270}
+      .node{font:700 19px 'Courier New',monospace;fill:#17365d}
+      .nodeWhite{font:700 22px 'Courier New',monospace;fill:#fff}
+      .label{font:700 18px Arial,sans-serif;fill:#17365d}
+      .small{font:400 15px Arial,sans-serif;fill:#526270}
+      .tiny{font:400 14px Arial,sans-serif;fill:#526270}
+      .line{fill:none;stroke:#52738f;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+      .homeLine{fill:none;stroke:#208b82;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+      .instLine{fill:none;stroke:#bd7c1b;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+    </style>
+  </defs>
+
+  <rect width="1600" height="900" fill="#fff"/>
+  <text x="800" y="52" class="title" text-anchor="middle">El sistema de archivos es un árbol</text>
+  <text x="800" y="84" class="subtitle" text-anchor="middle">Desde la raíz (/) se llega por ramas diferentes al home y al espacio institucional.</text>
+
+  <!-- raíz común -->
+  <g filter="url(#shadow)"><rect x="730" y="112" width="140" height="66" rx="17" fill="#17365d"/></g>
+  <text x="800" y="154" class="nodeWhite" text-anchor="middle">/</text>
+  <path d="M800 178V211M410 211H1190M410 211V238M1190 211V238" class="line"/>
+
+  <!-- zonas de las dos ramas -->
+  <rect x="70" y="230" width="680" height="570" rx="26" fill="#f1faf9" stroke="#208b82" stroke-width="3"/>
+  <rect x="850" y="230" width="680" height="570" rx="26" fill="#fff7e8" stroke="#bd7c1b" stroke-width="3"/>
+
+  <rect x="95" y="248" width="128" height="34" rx="17" fill="#208b82"/>
+  <text x="159" y="271" font-family="Arial" font-size="16" font-weight="700" fill="#fff" text-anchor="middle">AHORA · S4</text>
+  <rect x="875" y="248" width="190" height="34" rx="17" fill="#bd7c1b"/>
+  <text x="970" y="271" font-family="Arial" font-size="16" font-weight="700" fill="#fff" text-anchor="middle">MÁS ADELANTE</text>
+
+  <!-- rama home -->
+  <path d="M410 238V300" class="homeLine"/>
+  <g filter="url(#shadow)"><rect x="300" y="300" width="220" height="58" rx="15" fill="#fff" stroke="#208b82" stroke-width="3"/></g>
+  <text x="410" y="336" class="node" text-anchor="middle">home/</text>
+  <path d="M410 358V388" class="homeLine"/>
+  <g filter="url(#shadow)"><rect x="250" y="388" width="320" height="64" rx="15" fill="#fff" stroke="#208b82" stroke-width="3"/></g>
+  <text x="410" y="416" class="node" text-anchor="middle">usuario/</text>
+  <text x="410" y="439" class="small" text-anchor="middle">tu home: ~ = $HOME</text>
+  <path d="M410 452V482" class="homeLine"/>
+  <g filter="url(#shadow)"><rect x="245" y="482" width="330" height="64" rx="15" fill="#dff4f1" stroke="#208b82" stroke-width="4"/></g>
+  <text x="410" y="510" class="node" text-anchor="middle">proyecto/</text>
+  <text x="410" y="533" class="small" text-anchor="middle">ruta abreviada: ~/proyecto/</text>
+
+  <!-- subárbol del proyecto -->
+  <path d="M410 546V574M155 574H665M155 574V600M270 574V600M410 574V600M535 574V600M665 574V600" class="homeLine"/>
+  <rect x="92" y="600" width="126" height="56" rx="12" fill="#fff" stroke="#2878a9" stroke-width="2.5"/>
+  <text x="155" y="634" class="label" text-anchor="middle">README.md</text>
+  <rect x="230" y="600" width="80" height="56" rx="12" fill="#fff" stroke="#208b82" stroke-width="2.5"/>
+  <text x="270" y="634" class="node" text-anchor="middle">data/</text>
+  <rect x="365" y="600" width="90" height="56" rx="12" fill="#fff" stroke="#5a73a8" stroke-width="2.5"/>
+  <text x="410" y="634" class="node" text-anchor="middle">src/</text>
+  <rect x="480" y="600" width="110" height="56" rx="12" fill="#fff" stroke="#5a73a8" stroke-width="2.5"/>
+  <text x="535" y="634" class="node" text-anchor="middle">results/</text>
+  <rect x="620" y="600" width="90" height="56" rx="12" fill="#fff" stroke="#76629a" stroke-width="2.5"/>
+  <text x="665" y="634" class="node" text-anchor="middle">doc/</text>
+  <path d="M270 656V684M210 684H330M210 684V710M330 684V710" class="homeLine"/>
+  <rect x="145" y="710" width="130" height="50" rx="11" fill="#fff" stroke="#208b82" stroke-width="2.5"/>
+  <text x="210" y="741" class="label" text-anchor="middle">source/</text>
+  <rect x="285" y="710" width="145" height="50" rx="11" fill="#fff" stroke="#208b82" stroke-width="2.5"/>
+  <text x="357" y="741" class="label" text-anchor="middle">processed/</text>
+  <text x="410" y="784" class="tiny" text-anchor="middle">Archivos pequeños y aprendizaje de navegación y organización</text>
+
+  <!-- rama institucional -->
+  <path d="M1190 238V300" class="instLine"/>
+  <g filter="url(#shadow)"><rect x="1080" y="300" width="220" height="58" rx="15" fill="#fff" stroke="#bd7c1b" stroke-width="3"/></g>
+  <text x="1190" y="336" class="node" text-anchor="middle">export/</text>
+  <path d="M1190 358V388" class="instLine"/>
+  <g filter="url(#shadow)"><rect x="1080" y="388" width="220" height="58" rx="15" fill="#fff" stroke="#bd7c1b" stroke-width="3"/></g>
+  <text x="1190" y="424" class="node" text-anchor="middle">space3/</text>
+  <path d="M1190 446V476" class="instLine"/>
+  <g filter="url(#shadow)"><rect x="1080" y="476" width="220" height="58" rx="15" fill="#fff" stroke="#bd7c1b" stroke-width="3"/></g>
+  <text x="1190" y="512" class="node" text-anchor="middle">users/</text>
+  <path d="M1190 534V564" class="instLine"/>
+  <g filter="url(#shadow)"><rect x="960" y="564" width="460" height="74" rx="16" fill="#fff0d7" stroke="#bd7c1b" stroke-width="4"/></g>
+  <text x="1190" y="595" class="node" text-anchor="middle">usuario/</text>
+  <text x="1190" y="622" class="small" text-anchor="middle">/export/space3/users/$USER</text>
+  <path d="M1190 638V678" class="instLine"/>
+  <rect x="975" y="678" width="430" height="72" rx="15" fill="#fff" stroke="#bd7c1b" stroke-width="2.5"/>
+  <text x="1190" y="706" class="label" text-anchor="middle">genomas · bases BLAST</text>
+  <text x="1190" y="733" class="small" text-anchor="middle">análisis y resultados voluminosos</text>
+  <text x="1190" y="784" class="tiny" text-anchor="middle">La docente indicará cuándo comenzar a trabajar aquí</text>
+
+  <!-- recordatorio -->
+  <rect x="250" y="830" width="1100" height="48" rx="18" fill="#1f6d7a"/>
+  <text x="800" y="860" font-family="Arial" font-size="18" font-weight="700" fill="#fff" text-anchor="middle">Son dos ramas distintas: usa pwd para confirmar dónde estás antes de crear, copiar o borrar.</text>
+</svg>

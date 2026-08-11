@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Filosof&#xED;a Unix: programas peque&#xF1;os que se combinan</title>
+  <desc id="desc">Herramientas grep, cut, sort y uniq conectadas mediante tuber&#xED;as.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0 0 L12 6 L0 12z" fill="#52738f"/>
+    </marker>
+    <marker id="arrowT" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0 0 L12 6 L0 12z" fill="#1f6d7a"/>
+    </marker>
+    <style>.title{font:700 42px Arial;fill:#17365d}.subtitle{font:400 20px Arial;fill:#526270}.h1{font:700 27px Arial;fill:#17365d}.h2{font:700 22px Arial;fill:#17365d}.copy{font:400 18px Arial;fill:#34495e}.small{font:400 15px Arial;fill:#526270}.label{font:700 18px Arial;fill:#17365d}.code{font:700 25px 'Courier New';fill:#17365d}.codeS{font:700 17px 'Courier New';fill:#17365d}.white{font:700 20px Arial;fill:#fff}.whiteS{font:400 16px Arial;fill:#eaf6f7}.num{font:700 22px Arial;fill:#fff;text-anchor:middle;dominant-baseline:middle}.line{fill:none;stroke:#52738f;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}</style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+  <text x="800" y="58" class="title" text-anchor="middle">Filosof&#xED;a Unix: programas peque&#xF1;os que se combinan</text>
+  <text x="800" y="95" class="subtitle" text-anchor="middle">Cada herramienta hace una tarea concreta; las tuber&#xED;as permiten construir flujos m&#xE1;s complejos.</text>
+  <g filter="url(#shadow)">
+    <rect x="90" y="175" width="300" height="255" rx="20" fill="#f3f8fc" stroke="#8bb4cf" stroke-width="3"/>
+  </g>
+  <text x="240" y="240" class="h2" text-anchor="middle">BUSCAR</text>
+  <text x="240" y="310" class="code" text-anchor="middle">grep</text>
+  <text x="240" y="355" class="copy" text-anchor="middle">
+    <tspan x="240" dy="0">Selecciona l&#xED;neas</tspan>
+    <tspan x="240" dy="28">que cumplen un patr&#xF3;n</tspan>
+  </text>
+  <g filter="url(#shadow)">
+    <rect x="465" y="175" width="300" height="255" rx="20" fill="#f1faf9" stroke="#7ebdb8" stroke-width="3"/>
+  </g>
+  <text x="615" y="240" class="h2" text-anchor="middle">EXTRAER</text>
+  <text x="615" y="310" class="code" text-anchor="middle">cut</text>
+  <text x="615" y="355" class="copy" text-anchor="middle">
+    <tspan x="615" dy="0">Conserva campos</tspan>
+    <tspan x="615" dy="28">o columnas espec&#xED;ficas</tspan>
+  </text>
+  <g filter="url(#shadow)">
+    <rect x="840" y="175" width="300" height="255" rx="20" fill="#f6f8fc" stroke="#9caed1" stroke-width="3"/>
+  </g>
+  <text x="990" y="240" class="h2" text-anchor="middle">ORDENAR</text>
+  <text x="990" y="310" class="code" text-anchor="middle">sort</text>
+  <text x="990" y="355" class="copy" text-anchor="middle">
+    <tspan x="990" dy="0">Organiza valores</tspan>
+    <tspan x="990" dy="28">seg&#xFA;n un criterio</tspan>
+  </text>
+  <g filter="url(#shadow)">
+    <rect x="1215" y="175" width="300" height="255" rx="20" fill="#f8f6fb" stroke="#aa98c5" stroke-width="3"/>
+  </g>
+  <text x="1365" y="240" class="h2" text-anchor="middle">CONTAR</text>
+  <text x="1365" y="310" class="code" text-anchor="middle">uniq -c</text>
+  <text x="1365" y="355" class="copy" text-anchor="middle">
+    <tspan x="1365" dy="0">Cuenta ocurrencias</tspan>
+    <tspan x="1365" dy="28">por categor&#xED;a</tspan>
+  </text>
+  <g fill="none" stroke="#52738f" stroke-width="5" marker-end="url(#arrow)">
+    <path d="M390 303H465"/>
+    <path d="M765 303H840"/>
+    <path d="M1140 303H1215"/>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="170" y="520" width="1260" height="130" rx="22" fill="#18232c"/>
+  </g>
+  <text x="800" y="600" font-family="Courier New" font-size="26" fill="#fff" text-anchor="middle">grep "CDS" anotacion.gff3 | cut -f 3 | sort | uniq -c</text>
+  <rect x="170" y="710" width="1260" height="95" rx="18" fill="#1f6d7a"/>
+  <text x="800" y="750" class="white" text-anchor="middle">UNA HERRAMIENTA &#xB7; UNA TAREA &#xB7; MUCHAS COMBINACIONES</text>
+  <text x="800" y="782" class="whiteS" text-anchor="middle">El flujo puede guardarse, repetirse, revisarse y automatizarse.</text>
+</svg>

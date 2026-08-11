@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Ciclo de vida de un trabajo en el clúster</title>
+  <desc id="desc">Recorrido de un trabajo enviado a un planificador. Primero se prepara el archivo de trabajo. Al enviarlo con la orden de envío, el planificador responde de inmediato con un identificador. El trabajo espera en la cola, estado que se ve como qw al consultarlo. Cuando hay recursos libres, pasa a ejecutarse en un nodo de cómputo, estado r. Al terminar, el trabajo simplemente desaparece de la consulta: no existe un estado permanente de finalizado. Y quedan dos archivos, la salida estándar y los errores, que son el único registro de lo que ocurrió. Desde la espera y desde la ejecución se puede cancelar el trabajo, que también desaparece de la consulta. Una franja inferior advierte que desaparecer de la consulta no significa haber terminado bien: es exactamente la misma lección de la sesión veinticuatro, que un proceso puede terminar sin haber hecho nada, y por eso hay que revisar siempre los dos archivos y los controles del propio análisis.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrow" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto">
+      <path d="M0 0 L11 5.5 L0 11z" fill="#2878a9"/>
+    </marker>
+    <marker id="arrowred" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto">
+      <path d="M0 0 L11 5.5 L0 11z" fill="#b03a2e"/>
+    </marker>
+    <style>
+      .title{font:700 38px Arial;fill:#17365d}
+      .subtitle{font:400 19px Arial;fill:#526270}
+      .tag{font:700 14px Arial;fill:#fff}
+      .copy{font:400 15px Arial;fill:#34495e}
+      .small{font:400 13px Arial;fill:#526270}
+      .code{font:400 15px 'Courier New';fill:#17365d}
+      .codew{font:400 15px 'Courier New';fill:#ffffff}
+      .h3{font:700 18px Arial;fill:#17365d}
+      .band{font:400 19px Arial;fill:#17365d}
+      .st{font:700 26px 'Courier New';fill:#17365d}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+
+  <text x="800" y="48" class="title" text-anchor="middle">El ciclo de vida de un trabajo</text>
+  <text x="800" y="82" class="subtitle" text-anchor="middle">Cinco momentos. El último no es un estado: es una ausencia.</text>
+
+  <!-- 1 preparar -->
+  <g filter="url(#shadow)"><rect x="40" y="140" width="250" height="240" rx="14" fill="#f7fafc" stroke="#c9d6e2"/></g>
+  <rect x="40" y="140" width="120" height="30" rx="9" fill="#526270"/>
+  <text x="58" y="162" class="tag">1 · PREPARAR</text>
+  <text x="62" y="204" class="h3">El job script</text>
+  <text x="62" y="240" class="code">analisis.jdl</text>
+  <text x="62" y="276" class="copy">Directivas del clúster</text>
+  <text x="62" y="300" class="copy">y una llamada a</text>
+  <text x="62" y="324" class="copy">tu herramienta.</text>
+  <text x="62" y="358" class="small">No contiene análisis.</text>
+  <path d="M300 260 L326 260" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- 2 enviar -->
+  <g filter="url(#shadow)"><rect x="336" y="140" width="250" height="240" rx="14" fill="#eef5fb" stroke="#2878a9"/></g>
+  <rect x="336" y="140" width="110" height="30" rx="9" fill="#2878a9"/>
+  <text x="354" y="162" class="tag">2 · ENVIAR</text>
+  <rect x="358" y="188" width="206" height="42" rx="8" fill="#17365d"/>
+  <text x="374" y="215" class="codew">qsub analisis.jdl</text>
+  <text x="358" y="262" class="copy">Devuelve el <tspan font-weight="700">JOBID</tspan></text>
+  <text x="358" y="292" class="code">job 48127</text>
+  <text x="358" y="330" class="copy">Y te devuelve el</text>
+  <text x="358" y="354" class="copy">control de la terminal.</text>
+  <path d="M596 260 L622 260" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- 3 esperar -->
+  <g filter="url(#shadow)"><rect x="632" y="140" width="250" height="240" rx="14" fill="#fdf7e8" stroke="#d18b16"/></g>
+  <rect x="632" y="140" width="110" height="30" rx="9" fill="#d18b16"/>
+  <text x="650" y="162" class="tag">3 · ESPERAR</text>
+  <text x="654" y="216" class="st">qw</text>
+  <text x="710" y="216" class="copy">en cola</text>
+  <text x="654" y="256" class="copy">Otros trabajos van</text>
+  <text x="654" y="280" class="copy">delante. Puede tardar</text>
+  <text x="654" y="304" class="copy">segundos u horas.</text>
+  <text x="654" y="344" class="code">qstat</text>
+  <text x="722" y="344" class="small">para consultarlo</text>
+  <path d="M892 260 L918 260" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- 4 ejecutar -->
+  <g filter="url(#shadow)"><rect x="928" y="140" width="250" height="240" rx="14" fill="#eef8f2" stroke="#1e7a52"/></g>
+  <rect x="928" y="140" width="120" height="30" rx="9" fill="#1e7a52"/>
+  <text x="946" y="162" class="tag">4 · EJECUTAR</text>
+  <text x="950" y="216" class="st">r</text>
+  <text x="990" y="216" class="copy">corriendo en un nodo</text>
+  <text x="950" y="256" class="copy">Ya no depende de tu</text>
+  <text x="950" y="280" class="copy">sesión. Puedes cerrar</text>
+  <text x="950" y="304" class="copy">la terminal e irte.</text>
+  <text x="950" y="344" class="small">Es exactamente tu herramienta.</text>
+  <path d="M1188 260 L1214 260" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- 5 desaparece -->
+  <g filter="url(#shadow)"><rect x="1224" y="140" width="330" height="240" rx="14" fill="#f3eefa" stroke="#7d5ba6"/></g>
+  <rect x="1224" y="140" width="180" height="30" rx="9" fill="#7d5ba6"/>
+  <text x="1242" y="162" class="tag">5 · DESAPARECE</text>
+  <text x="1246" y="212" class="copy">Al terminar, el trabajo</text>
+  <text x="1246" y="236" class="copy"><tspan font-weight="700">deja de aparecer</tspan> en <tspan class="code">qstat</tspan>.</text>
+  <text x="1246" y="276" class="copy">No hay un estado</text>
+  <text x="1246" y="300" class="copy">«terminado»: hay una</text>
+  <text x="1246" y="324" class="copy">ausencia.</text>
+  <text x="1246" y="360" class="small">Y eso, por sí solo, no dice nada.</text>
+
+  <!-- cancelar -->
+  <path d="M757 388 L757 430" stroke="#b03a2e" stroke-width="2.5" fill="none"/>
+  <path d="M1053 388 L1053 430" stroke="#b03a2e" stroke-width="2.5" fill="none"/>
+  <path d="M757 430 L1053 430" stroke="#b03a2e" stroke-width="2.5" fill="none"/>
+  <path d="M905 430 L905 462" stroke="#b03a2e" stroke-width="2.5" marker-end="url(#arrowred)"/>
+  <rect x="700" y="470" width="410" height="70" rx="10" fill="#fdf1ef" stroke="#b03a2e"/>
+  <text x="722" y="500" class="code">qdel 48127</text>
+  <text x="722" y="526" class="copy">cancela desde la cola o en plena ejecución</text>
+
+  <!-- registros -->
+  <g filter="url(#shadow)"><rect x="1160" y="410" width="394" height="200" rx="14" fill="#fff" stroke="#7d5ba6" stroke-width="2"/></g>
+  <text x="1184" y="446" class="h3">Y quedan dos archivos</text>
+  <text x="1184" y="486" class="code">…-48127.out</text>
+  <text x="1330" y="486" class="small">lo que imprimió</text>
+  <text x="1184" y="522" class="code">…-48127.err</text>
+  <text x="1330" y="522" class="small">lo que protestó</text>
+  <text x="1184" y="562" class="copy">Son el <tspan font-weight="700">único</tspan> registro de lo que pasó</text>
+  <text x="1184" y="588" class="copy">mientras no estabas mirando.</text>
+  <path d="M1389 388 L1389 404" stroke="#7d5ba6" stroke-width="2.5"/>
+
+  <!-- FRANJA -->
+  <rect x="55" y="646" width="1490" height="120" rx="14" fill="#fdf1ef" stroke="#b03a2e"/>
+  <text x="85" y="688" class="band"><tspan font-weight="700">Desaparecer de la cola no significa haber terminado bien.</tspan></text>
+  <text x="85" y="726" class="copy">Es exactamente la lección de S24 —un proceso puede terminar sin haber hecho nada— en otro escenario, y ahora sin nadie mirando la pantalla.</text>
+  <text x="85" y="754" class="copy">Se revisan siempre los dos archivos <tspan class="code">.out</tspan> y <tspan class="code">.err</tspan>, y después los controles de tu propio análisis.</text>
+
+  <rect x="55" y="784" width="1490" height="82" rx="14" fill="#eef8f2" stroke="#1e7a52"/>
+  <text x="85" y="822" class="band">Tu bitácora del lote (S26) sigue siendo la que dice qué organismos se procesaron.</text>
+  <text x="85" y="852" class="small">El planificador informa sobre el <tspan font-style="italic">trabajo</tspan>; tu herramienta informa sobre el <tspan font-style="italic">análisis</tspan>. Son dos cosas distintas y hacen falta las dos.</text>
+</svg>

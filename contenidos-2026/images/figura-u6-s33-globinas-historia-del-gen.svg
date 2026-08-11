@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="680" viewBox="0 0 1600 680" role="img" aria-labelledby="t d">
+  <title id="t">La similitud sigue la historia del gen</title>
+  <desc id="d">Tres barras de identidad: alfa humana con alfa de ratón, con zeta humana y con beta. La similitud no sigue la frontera de la especie.</desc>
+  <defs>
+    <style>
+      .title{font:700 32px Arial;fill:#17365d}
+      .sub{font:400 17px Arial;fill:#526270}
+      .lab{font:600 15px Arial;fill:#34495e}
+      .pct{font:700 18px Arial;fill:#17365d}
+      .small{font:400 14px Arial;fill:#526270}
+      .tag{font:700 14px Arial;fill:#ffffff}
+    </style>
+  </defs>
+  <rect width="1600" height="680" fill="#fff"/>
+  <text x="800" y="46" class="title" text-anchor="middle">± humana se parece más a ± de ratón que a ¶ humana</text>
+  <text x="800" y="76" class="sub" text-anchor="middle">Identidades aproximadas (alineamiento global sobre los FASTA de la unidad)</text>
+
+  <!-- bar 1 -->
+  <text x="80" y="150" class="lab">± humana ” ± ratón</text>
+  <rect x="400" y="125" width="900" height="44" rx="8" fill="#e8f5ee" stroke="#1e7a52" stroke-width="2"/>
+  <rect x="400" y="125" width="779" height="44" rx="8" fill="#1e7a52" opacity="0.55"/>
+  <text x="1340" y="155" class="pct">~86.6 %</text>
+  <rect x="400" y="180" width="160" height="28" rx="6" fill="#1e7a52"/>
+  <text x="480" y="199" class="tag" text-anchor="middle">ortólogos</text>
+
+  <!-- bar 2 -->
+  <text x="80" y="280" class="lab">± humana ” ¶ humana</text>
+  <rect x="400" y="255" width="900" height="44" rx="8" fill="#fff8e8" stroke="#d18b16" stroke-width="2"/>
+  <rect x="400" y="255" width="539" height="44" rx="8" fill="#d18b16" opacity="0.55"/>
+  <text x="1340" y="285" class="pct">~59.9 %</text>
+  <rect x="400" y="310" width="160" height="28" rx="6" fill="#d18b16"/>
+  <text x="480" y="329" class="tag" text-anchor="middle">parálogos</text>
+
+  <!-- bar 3 -->
+  <text x="80" y="410" class="lab">± humana ” ² (ratón)</text>
+  <rect x="400" y="385" width="900" height="44" rx="8" fill="#fdf1ef" stroke="#b03a2e" stroke-width="2"/>
+  <rect x="400" y="385" width="411" height="44" rx="8" fill="#b03a2e" opacity="0.45"/>
+  <text x="1340" y="415" class="pct">~45.7 %</text>
+  <rect x="400" y="440" width="220" height="28" rx="6" fill="#b03a2e"/>
+  <text x="510" y="459" class="tag" text-anchor="middle">más distantes</text>
+
+  <!-- callout HBA1/HBA2 -->
+  <rect x="80" y="500" width="1440" height="120" rx="12" fill="#eef4fa" stroke="#17365d" stroke-width="2"/>
+  <text x="800" y="545" style="font:700 18px Arial;fill:#17365d" text-anchor="middle">Y además: HBA1 = HBA2 al 100 %</text>
+  <text x="800" y="580" class="small" text-anchor="middle">Dos genes humanos distintos, misma proteína. 100 % de identidad ` «el mismo gen».</text>
+  <text x="800" y="605" class="small" text-anchor="middle">La similitud sigue la historia del gen, no la frontera de la especie.</text>
+</svg>

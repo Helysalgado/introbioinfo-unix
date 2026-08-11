@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Mapa de dependencias de la investigación, de las entradas a la síntesis</title>
+  <desc id="desc">Un mapa muestra qué produce cada sesión y qué necesita de las anteriores. De los archivos originales sale un cuerpo del GFF3 sin directivas, producido en la sesión 12, que es el cuello de botella del flujo: de él dependen el inventario de la sesión 13, los conteos refinados de la sesión 18 y las listas de identificadores de la sesión 19. De la sesión 19 salen las listas de replicones y de locus, que la sesión 20 normaliza y con las que produce además una tabla derivada. La sesión 21 toma la lista propia y una tabla externa descargada, que es una entrada y no se regenera, y produce las tres zonas de la confrontación. La sesión 22 toma esas zonas y el archivo original para calcular longitudes y densidades. La sesión 23 no produce análisis nuevos: ordena todos los anteriores y añade una tabla ordenada por posición y una síntesis. Una franja inferior distingue tres tipos de producto: entradas que nunca se modifican, derivados reutilizables como entrada de otro análisis, y resultados que responden una pregunta concreta.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0 L10 5 L0 10z" fill="#2878a9"/>
+    </marker>
+    <style>
+      .title{font:700 40px Arial;fill:#17365d}
+      .subtitle{font:400 19px Arial;fill:#526270}
+      .ses{font:700 17px Arial;fill:#fff}
+      .prod{font:400 14px 'Courier New';fill:#17365d}
+      .copy{font:400 16px Arial;fill:#34495e}
+      .small{font:400 14px Arial;fill:#526270}
+      .h3{font:700 19px Arial;fill:#17365d}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+
+  <text x="800" y="52" class="title" text-anchor="middle">Qué necesita cada paso antes de empezar</text>
+  <text x="800" y="86" class="subtitle" text-anchor="middle">El orden del protocolo no es cronológico: lo dictan las dependencias entre archivos.</text>
+
+  <!-- ENTRADAS -->
+  <g filter="url(#shadow)"><rect x="50" y="120" width="250" height="200" rx="14" fill="#17365d"/></g>
+  <text x="175" y="152" class="ses" text-anchor="middle">ENTRADAS</text>
+  <text x="70" y="186" class="prod" fill="#fff">genoma.fna</text>
+  <text x="70" y="212" class="prod" fill="#fff">anotacion.gff3</text>
+  <text x="70" y="238" class="prod" fill="#fff">uniprot-proteoma.tsv</text>
+  <text x="70" y="272" class="small" fill="#c9d6e2">data/source/</text>
+  <text x="70" y="296" class="small" fill="#c9d6e2">Nunca se modifican.</text>
+
+  <path d="M305 200 L355 200" stroke="#2878a9" stroke-width="3" marker-end="url(#a)"/>
+
+  <!-- S12 cuello de botella -->
+  <g filter="url(#shadow)"><rect x="360" y="140" width="250" height="120" rx="14" fill="#fdf1ef" stroke="#b03a2e" stroke-width="3"/></g>
+  <rect x="360" y="140" width="80" height="28" rx="8" fill="#b03a2e"/>
+  <text x="378" y="161" class="ses" font-size="15">S12</text>
+  <text x="380" y="196" class="prod">anotaciones-</text>
+  <text x="380" y="218" class="prod">sin-directivas.gff</text>
+  <text x="380" y="245" class="small" fill="#b03a2e">Sin esto no arranca nada.</text>
+
+  <path d="M615 175 L665 155" stroke="#2878a9" stroke-width="3" marker-end="url(#a)"/>
+  <path d="M615 200 L665 225" stroke="#2878a9" stroke-width="3" marker-end="url(#a)"/>
+  <path d="M615 230 L665 300" stroke="#2878a9" stroke-width="3" marker-end="url(#a)"/>
+
+  <!-- S13 / S18 / S19 -->
+  <g filter="url(#shadow)"><rect x="670" y="118" width="250" height="78" rx="14" fill="#eef5fb" stroke="#2878a9"/></g>
+  <rect x="670" y="118" width="70" height="26" rx="8" fill="#2878a9"/><text x="687" y="138" class="ses" font-size="15">S13</text>
+  <text x="690" y="170" class="prod">inventario-tipos.txt</text>
+  <text x="690" y="190" class="prod">catalogo-tipos.txt</text>
+
+  <g filter="url(#shadow)"><rect x="670" y="208" width="250" height="60" rx="14" fill="#eef5fb" stroke="#2878a9"/></g>
+  <rect x="670" y="208" width="70" height="26" rx="8" fill="#2878a9"/><text x="687" y="228" class="ses" font-size="15">S18</text>
+  <text x="690" y="256" class="prod">conteos refinados</text>
+
+  <g filter="url(#shadow)"><rect x="670" y="280" width="250" height="100" rx="14" fill="#eef5fb" stroke="#2878a9"/></g>
+  <rect x="670" y="280" width="70" height="26" rx="8" fill="#2878a9"/><text x="687" y="300" class="ses" font-size="15">S19</text>
+  <text x="690" y="328" class="prod">locus-tags.txt</text>
+  <text x="690" y="350" class="prod">replicones-fasta.txt</text>
+  <text x="690" y="372" class="prod">replicones-gff3.txt</text>
+
+  <path d="M925 330 L975 330" stroke="#2878a9" stroke-width="3" marker-end="url(#a)"/>
+
+  <!-- S20 -->
+  <g filter="url(#shadow)"><rect x="980" y="280" width="260" height="120" rx="14" fill="#eef8f2" stroke="#8cc9a9"/></g>
+  <rect x="980" y="280" width="70" height="26" rx="8" fill="#1e7a52"/><text x="997" y="300" class="ses" font-size="15">S20</text>
+  <text x="1000" y="328" class="prod">politica-normalizacion.md</text>
+  <text x="1000" y="350" class="prod">*-normalizados.txt</text>
+  <text x="1000" y="372" class="prod" fill="#1e7a52">anotacion-tabla.tsv</text>
+  <text x="1000" y="392" class="small" fill="#1e7a52">↑ derivado, en data/processed/</text>
+
+  <path d="M1245 340 L1295 400" stroke="#2878a9" stroke-width="3" marker-end="url(#a)"/>
+  <path d="M175 330 C 175 500, 1150 460, 1295 440" fill="none" stroke="#2878a9" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#a)"/>
+  <text x="640" y="486" class="small" fill="#2878a9">la tabla externa entra aquí: es una descarga, no se regenera</text>
+
+  <!-- S21 -->
+  <g filter="url(#shadow)"><rect x="1300" y="400" width="250" height="120" rx="14" fill="#f3eefa" stroke="#7d5ba6"/></g>
+  <rect x="1300" y="400" width="70" height="26" rx="8" fill="#7d5ba6"/><text x="1317" y="420" class="ses" font-size="15">S21</text>
+  <text x="1320" y="448" class="prod">solo-propio.txt</text>
+  <text x="1320" y="470" class="prod">en-ambas.txt</text>
+  <text x="1320" y="492" class="prod">solo-uniprot.txt</text>
+
+  <path d="M1420 525 L1300 570" stroke="#2878a9" stroke-width="3" marker-end="url(#a)"/>
+
+  <!-- S22 -->
+  <g filter="url(#shadow)"><rect x="1000" y="560" width="290" height="120" rx="14" fill="#fdf7e8" stroke="#d18b16"/></g>
+  <rect x="1000" y="560" width="70" height="26" rx="8" fill="#d18b16"/><text x="1017" y="580" class="ses" font-size="15">S22</text>
+  <text x="1020" y="608" class="prod">longitudes-genes.txt</text>
+  <text x="1020" y="630" class="prod">longitud-por-locus.tsv</text>
+  <text x="1020" y="652" class="prod">replicones-genes-longitud.tsv</text>
+
+  <path d="M995 620 L800 620" stroke="#2878a9" stroke-width="3" marker-end="url(#a)"/>
+
+  <!-- S23 -->
+  <g filter="url(#shadow)"><rect x="480" y="560" width="310" height="120" rx="14" fill="#17365d"/></g>
+  <rect x="480" y="560" width="70" height="26" rx="8" fill="#2878a9"/><text x="497" y="580" class="ses" font-size="15">S23</text>
+  <text x="500" y="612" class="prod" fill="#fff">genes-ordenados.tsv</text>
+  <text x="500" y="636" class="prod" fill="#fff">sintesis-genoma.md</text>
+  <text x="500" y="664" class="small" fill="#c9d6e2">No añade análisis: los ordena.</text>
+
+  <!-- LEYENDA -->
+  <rect x="50" y="720" width="1500" height="140" rx="14" fill="#f7fafc" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="80" y="758" class="h3">Tres tipos de producto, tres reglas distintas</text>
+  <rect x="80" y="775" width="450" height="65" rx="10" fill="#fff" stroke="#17365d" stroke-width="2"/>
+  <text x="100" y="800" class="copy" font-weight="700">Entrada · data/source/</text>
+  <text x="100" y="826" class="small">No se modifica ni se regenera. Se verifica.</text>
+
+  <rect x="560" y="775" width="450" height="65" rx="10" fill="#fff" stroke="#1e7a52" stroke-width="2"/>
+  <text x="580" y="800" class="copy" font-weight="700">Derivado · data/processed/</text>
+  <text x="580" y="826" class="small">Alimenta otro análisis. Se regenera con un comando.</text>
+
+  <rect x="1040" y="775" width="470" height="65" rx="10" fill="#fff" stroke="#d18b16" stroke-width="2"/>
+  <text x="1060" y="800" class="copy" font-weight="700">Resultado · results/sNN/</text>
+  <text x="1060" y="826" class="small">Responde una pregunta. Se regenera; no alimenta a otro.</text>
+</svg>

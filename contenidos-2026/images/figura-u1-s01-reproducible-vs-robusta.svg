@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="800" viewBox="0 0 1600 800" role="img" aria-labelledby="title desc">
+  <title id="title">Investigación reproducible e investigación robusta</title>
+  <desc id="desc">Comparación entre reproducibilidad, que permite regenerar los mismos resultados, y robustez, que busca resultados correctos que no dependan de detalles frágiles. Ambas son necesarias para una investigación confiable.</desc>
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/></filter>
+    <style>
+      .title{font:700 40px Arial,Helvetica,sans-serif;fill:#17365d}.subtitle{font:400 20px Arial,Helvetica,sans-serif;fill:#526270}
+      .card-title{font:700 30px Arial,Helvetica,sans-serif;fill:#17365d}.question{font:700 18px Arial,Helvetica,sans-serif;fill:#fff}
+      .copy{font:400 19px Arial,Helvetica,sans-serif;fill:#34495e}.label{font:700 18px Arial,Helvetica,sans-serif;fill:#17365d}
+      .center-title{font:700 27px Arial,Helvetica,sans-serif;fill:#fff}.center-copy{font:400 18px Arial,Helvetica,sans-serif;fill:#eaf6f7}
+      .warning-title{font:700 22px Arial,Helvetica,sans-serif;fill:#8a5a16}.warning-copy{font:400 18px Arial,Helvetica,sans-serif;fill:#5e4b2d}
+    </style>
+  </defs>
+  <rect width="1600" height="800" fill="#fff"/>
+  <text x="800" y="58" class="title" text-anchor="middle">Investigación reproducible e investigación robusta</text>
+  <text x="800" y="94" class="subtitle" text-anchor="middle">Son propiedades distintas y complementarias: regenerar un análisis no basta para demostrar que está bien.</text>
+
+  <g filter="url(#shadow)"><rect x="90" y="150" width="610" height="445" rx="24" fill="#f3f8fc" stroke="#8bb4cf" stroke-width="3"/></g>
+  <circle cx="155" cy="228" r="48" fill="#2878a9"/>
+  <g transform="translate(133 205)" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M35 8a25 25 0 1 0 7 27"/><path d="M35 8h16V-8"/>
+  </g>
+  <text x="430" y="215" class="card-title" text-anchor="middle">Investigación reproducible</text>
+  <rect x="150" y="258" width="500" height="48" rx="24" fill="#2878a9"/>
+  <text x="400" y="289" class="question" text-anchor="middle">¿Se pueden regenerar los mismos resultados?</text>
+  <text x="150" y="345" class="label">Necesita:</text>
+  <text x="175" y="385" class="copy">• Datos identificados y disponibles</text>
+  <text x="175" y="425" class="copy">• Código o procedimiento completo</text>
+  <text x="175" y="465" class="copy">• Versiones, parámetros y documentación</text>
+  <rect x="150" y="505" width="490" height="58" rx="14" fill="#dcecf7"/>
+  <text x="395" y="530" class="copy" text-anchor="middle"><tspan x="395">Permite regenerar exactamente lo realizado,</tspan><tspan x="395" dy="24">incluso si el procedimiento contiene un error.</tspan></text>
+
+  <g filter="url(#shadow)"><rect x="900" y="150" width="610" height="445" rx="24" fill="#f8f6fb" stroke="#aa98c5" stroke-width="3"/></g>
+  <circle cx="965" cy="228" r="48" fill="#76629a"/>
+  <g transform="translate(938 198)" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M27 0l25 10v18c0 18-10 30-25 38C12 58 2 46 2 28V10z"/><path d="M14 30l9 9 18-20"/>
+  </g>
+  <text x="1240" y="215" class="card-title" text-anchor="middle">Investigación robusta</text>
+  <rect x="960" y="258" width="500" height="48" rx="24" fill="#76629a"/>
+  <text x="1210" y="289" class="question" text-anchor="middle">¿El resultado es correcto y resiste cambios?</text>
+  <text x="960" y="345" class="label">Necesita:</text>
+  <text x="985" y="385" class="copy">• Supuestos explícitos y comprobados</text>
+  <text x="985" y="425" class="copy">• Pruebas con datos y resultados conocidos</text>
+  <text x="985" y="465" class="copy">• Validaciones y controles independientes</text>
+  <rect x="960" y="505" width="490" height="58" rx="14" fill="#ebe5f2"/>
+  <text x="1205" y="530" class="copy" text-anchor="middle"><tspan x="1205">Reduce la dependencia de rutas, pasos manuales</tspan><tspan x="1205" dy="24">y otras decisiones frágiles.</tspan></text>
+
+  <g filter="url(#shadow)"><rect x="575" y="620" width="450" height="110" rx="22" fill="#1f6d7a"/></g>
+  <text x="800" y="661" class="center-title" text-anchor="middle">INVESTIGACIÓN CONFIABLE</text>
+  <text x="800" y="696" class="center-copy" text-anchor="middle">Reproducible + robusta</text>
+  <path d="M700 520 C760 555 760 590 760 620" fill="none" stroke="#2878a9" stroke-width="5"/>
+  <path d="M900 520 C840 555 840 590 840 620" fill="none" stroke="#76629a" stroke-width="5"/>
+
+  <rect x="90" y="650" width="420" height="80" rx="18" fill="#fff7e8" stroke="#d5a44e" stroke-width="2"/>
+  <text x="120" y="681" class="warning-title">Idea clave</text>
+  <text x="120" y="710" class="warning-copy">Reproducible no significa necesariamente correcto.</text>
+</svg>

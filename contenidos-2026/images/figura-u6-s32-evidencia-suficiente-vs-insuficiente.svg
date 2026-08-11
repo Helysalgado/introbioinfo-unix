@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="640" viewBox="0 0 1600 640" role="img" aria-labelledby="t d">
+  <title id="t">Evidencia suficiente frente a evidencia insuficiente</title>
+  <desc id="d">Dos cajas. Izquierda: evidencia suficiente para rankear candidatos. Derecha: evidencia insuficiente para concluir historia evolutiva. Una flecha hacia S33 conecta ambas.</desc>
+  <defs>
+    <filter id="sh" x="-10%" y="-10%" width="120%" height="135%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#17365d" flood-opacity="0.12"/>
+    </filter>
+    <style>
+      .title{font:700 32px Arial;fill:#17365d}
+      .sub{font:400 17px Arial;fill:#526270}
+      .h{font:700 20px Arial;fill:#ffffff}
+      .copy{font:400 16px Arial;fill:#34495e}
+      .ok{font:400 16px Arial;fill:#1e7a52}
+      .no{font:400 16px Arial;fill:#b03a2e}
+      .small{font:400 14px Arial;fill:#526270}
+    </style>
+  </defs>
+  <rect width="1600" height="640" fill="#fff"/>
+  <text x="800" y="48" class="title" text-anchor="middle">Hoy cierra el ranking; no cierra la historia evolutiva</text>
+  <text x="800" y="80" class="sub" text-anchor="middle">Saber interpretar hits abre la pregunta de qué hipótesis pueden sostener</text>
+
+  <!-- IZQUIERDA -->
+  <g filter="url(#sh)"><rect x="80" y="120" width="640" height="380" rx="16" fill="#eef8f2" stroke="#1e7a52" stroke-width="2"/></g>
+  <rect x="80" y="120" width="640" height="50" rx="16" fill="#1e7a52"/>
+  <rect x="80" y="150" width="640" height="20" fill="#1e7a52"/>
+  <text x="400" y="155" class="h" text-anchor="middle">Evidencia suficiente para rankear</text>
+  <text x="120" y="220" class="ok"> identidad + cobertura leídas juntas</text>
+  <text x="120" y="260" class="ok"> bit score y E-value en contexto de la base</text>
+  <text x="120" y="300" class="ok"> múltiples HSP y redundancia detectados</text>
+  <text x="120" y="340" class="ok"> descartes con motivo escrito</text>
+  <text x="120" y="380" class="ok"> candidato principal argumentado</text>
+  <text x="120" y="440" class="copy">Producto de S32: jerarquía de evidencia</text>
+  <text x="120" y="470" class="small">para TU pregunta biológica</text>
+
+  <!-- FLECHA -->
+  <path d="M750 310 L850 310" stroke="#17365d" stroke-width="4" marker-end="url(#a)"/>
+  <defs><marker id="a" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#17365d"/></marker></defs>
+  <text x="800" y="290" class="small" text-anchor="middle">S33</text>
+
+  <!-- DERECHA -->
+  <g filter="url(#sh)"><rect x="880" y="120" width="640" height="380" rx="16" fill="#fdf1ef" stroke="#b03a2e" stroke-width="2"/></g>
+  <rect x="880" y="120" width="640" height="50" rx="16" fill="#b03a2e"/>
+  <rect x="880" y="150" width="640" height="20" fill="#b03a2e"/>
+  <text x="1200" y="155" class="h" text-anchor="middle">Aún insuficiente para concluir</text>
+  <text x="920" y="220" class="no"> afirmar homología</text>
+  <text x="920" y="260" class="no"> distinguir ortólogos de parálogos</text>
+  <text x="920" y="300" class="no"> transferir función con rigor</text>
+  <text x="920" y="340" class="no"> cerrar alternativas evolutivas</text>
+  <text x="920" y="400" class="copy">Falta el marco de S33:</text>
+  <text x="920" y="430" class="small">similitud observada ` historia inferida</text>
+  <text x="920" y="460" class="small">+ límites + evidencia adicional</text>
+
+  <rect x="80" y="530" width="1440" height="70" rx="12" fill="#eef4fa" stroke="#17365d" stroke-width="2"/>
+  <text x="800" y="572" style="font:600 17px Arial;fill:#17365d" text-anchor="middle">Una tabla de BLAST no contiene conclusiones. Contiene evidencia. Interpretarla es el oficio.</text>
+</svg>

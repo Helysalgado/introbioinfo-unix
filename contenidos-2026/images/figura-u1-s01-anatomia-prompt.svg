@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="880" viewBox="0 0 1600 880" role="img" aria-labelledby="title desc">
+  <title id="title">Anatomía de un prompt científico efectivo</title>
+  <desc id="desc">Cuatro componentes de un prompt efectivo: contexto, objetivo, formato solicitado y verificación. Un ejemplo integra los cuatro elementos para consultar cómo contar secuencias en un archivo FASTA.</desc>
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/></filter>
+    <style>
+      .title{font:700 40px Arial,Helvetica,sans-serif;fill:#17365d}.subtitle{font:400 20px Arial,Helvetica,sans-serif;fill:#526270}
+      .num{font:700 24px Arial,Helvetica,sans-serif;fill:#fff;text-anchor:middle;dominant-baseline:middle}.part{font:700 24px Arial,Helvetica,sans-serif;fill:#17365d;text-anchor:middle}
+      .copy{font:400 17px Arial,Helvetica,sans-serif;fill:#34495e;text-anchor:middle}.plus{font:700 40px Arial,Helvetica,sans-serif;fill:#8ba0b0;text-anchor:middle}
+      .example-title{font:700 24px Arial,Helvetica,sans-serif;fill:#fff}.prompt{font:400 20px Arial,Helvetica,sans-serif;fill:#263746}
+      .tag{font:700 15px Arial,Helvetica,sans-serif;fill:#fff;text-anchor:middle;dominant-baseline:middle}.tip{font:400 17px Arial,Helvetica,sans-serif;fill:#526270}
+    </style>
+  </defs>
+  <rect width="1600" height="880" fill="#fff"/>
+  <text x="800" y="58" class="title" text-anchor="middle">Anatomía de un prompt científico efectivo</text>
+  <text x="800" y="94" class="subtitle" text-anchor="middle">Una instrucción útil especifica qué tienes, qué necesitas, cómo quieres la respuesta y cómo comprobarla.</text>
+
+  <g filter="url(#shadow)"><rect x="70" y="165" width="320" height="280" rx="22" fill="#f3f8fc" stroke="#8bb4cf" stroke-width="3"/></g>
+  <circle cx="230" cy="177" r="38" fill="#2878a9"/><text x="230" y="178" class="num">1</text>
+  <text x="230" y="258" class="part">CONTEXTO</text>
+  <text x="230" y="304" class="copy"><tspan x="230">¿Qué datos tienes?</tspan><tspan x="230" dy="27">¿En qué entorno trabajas?</tspan><tspan x="230" dy="27">¿Qué sabes hasta ahora?</tspan></text>
+  <rect x="115" y="386" width="230" height="36" rx="18" fill="#2878a9"/><text x="230" y="405" class="tag">SITUACIÓN DE PARTIDA</text>
+
+  <text x="415" y="316" class="plus">+</text>
+
+  <g filter="url(#shadow)"><rect x="440" y="165" width="320" height="280" rx="22" fill="#f1faf9" stroke="#7ebdb8" stroke-width="3"/></g>
+  <circle cx="600" cy="177" r="38" fill="#208b82"/><text x="600" y="178" class="num">2</text>
+  <text x="600" y="258" class="part">OBJETIVO</text>
+  <text x="600" y="304" class="copy"><tspan x="600">¿Qué resultado necesitas?</tspan><tspan x="600" dy="27">Usa un verbo preciso:</tspan><tspan x="600" dy="27">explicar, comparar, contar…</tspan></text>
+  <rect x="485" y="386" width="230" height="36" rx="18" fill="#208b82"/><text x="600" y="405" class="tag">TAREA CONCRETA</text>
+
+  <text x="785" y="316" class="plus">+</text>
+
+  <g filter="url(#shadow)"><rect x="810" y="165" width="320" height="280" rx="22" fill="#f6f8fc" stroke="#9caed1" stroke-width="3"/></g>
+  <circle cx="970" cy="177" r="38" fill="#5a73a8"/><text x="970" y="178" class="num">3</text>
+  <text x="970" y="258" class="part">FORMATO</text>
+  <text x="970" y="304" class="copy"><tspan x="970">¿Cómo debe responder?</tspan><tspan x="970" dy="27">Paso a paso, tabla, lista,</tspan><tspan x="970" dy="27">código comentado…</tspan></text>
+  <rect x="855" y="386" width="230" height="36" rx="18" fill="#5a73a8"/><text x="970" y="405" class="tag">FORMA DE ENTREGA</text>
+
+  <text x="1155" y="316" class="plus">+</text>
+
+  <g filter="url(#shadow)"><rect x="1180" y="165" width="350" height="280" rx="22" fill="#f8f6fb" stroke="#aa98c5" stroke-width="3"/></g>
+  <circle cx="1355" cy="177" r="38" fill="#76629a"/><text x="1355" y="178" class="num">4</text>
+  <text x="1355" y="258" class="part">VERIFICACIÓN</text>
+  <text x="1355" y="304" class="copy"><tspan x="1355">¿Cómo comprobarás</tspan><tspan x="1355" dy="27">que es correcto?</tspan><tspan x="1355" dy="27">Pide pruebas y fuentes.</tspan></text>
+  <rect x="1240" y="386" width="230" height="36" rx="18" fill="#76629a"/><text x="1355" y="405" class="tag">CRITERIO DE CONTROL</text>
+
+  <g filter="url(#shadow)"><rect x="70" y="510" width="1460" height="275" rx="22" fill="#f7f9fa" stroke="#c6d1d9" stroke-width="2"/></g>
+  <path d="M70 532a22 22 0 0 1 22-22h1416a22 22 0 0 1 22 22v54H70z" fill="#1f6d7a"/>
+  <text x="110" y="558" class="example-title">Ejemplo integrado</text>
+
+  <rect x="110" y="620" width="300" height="112" rx="14" fill="#e7f1f8" stroke="#2878a9" stroke-width="2"/>
+  <rect x="125" y="603" width="112" height="32" rx="16" fill="#2878a9"/><text x="181" y="620" class="tag">CONTEXTO</text>
+  <text x="135" y="660" class="prompt"><tspan x="135">“Tengo un archivo FASTA</tspan><tspan x="135" dy="28">de nucleótidos.</tspan></text>
+
+  <rect x="430" y="620" width="350" height="112" rx="14" fill="#e4f3f1" stroke="#208b82" stroke-width="2"/>
+  <rect x="445" y="603" width="112" height="32" rx="16" fill="#208b82"/><text x="501" y="620" class="tag">OBJETIVO</text>
+  <text x="455" y="660" class="prompt"><tspan x="455">Quiero contar cuántas secuencias</tspan><tspan x="455" dy="28">contiene usando Linux.</tspan></text>
+
+  <rect x="800" y="620" width="330" height="112" rx="14" fill="#eaedf5" stroke="#5a73a8" stroke-width="2"/>
+  <rect x="815" y="603" width="112" height="32" rx="16" fill="#5a73a8"/><text x="871" y="620" class="tag">FORMATO</text>
+  <text x="825" y="660" class="prompt"><tspan x="825">Explícame el comando</tspan><tspan x="825" dy="28">paso a paso.</tspan></text>
+
+  <rect x="1150" y="620" width="340" height="112" rx="14" fill="#eee9f4" stroke="#76629a" stroke-width="2"/>
+  <rect x="1165" y="603" width="136" height="32" rx="16" fill="#76629a"/><text x="1233" y="620" class="tag">VERIFICACIÓN</text>
+  <text x="1175" y="660" class="prompt"><tspan x="1175">Indica cómo verificar que</tspan><tspan x="1175" dy="28">el resultado sea correcto.”</tspan></text>
+
+  <text x="800" y="835" class="tip" text-anchor="middle">Un buen prompt mejora la respuesta; la validación posterior sigue siendo obligatoria.</text>
+</svg>

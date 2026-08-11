@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">De una medida por registro a un resumen del conjunto</title>
+  <desc id="desc">A la izquierda, el archivo se recorre línea por línea: de cada gen que cumple la condición se calcula su longitud y se actualizan cuatro acumuladores con significado biológico —cuántos genes van, cuánta longitud acumulada, cuál es la longitud mínima vista y cuál la máxima—. A la derecha, cuando el archivo se termina, esos acumuladores se convierten en el resumen del conjunto: número de genes, longitud total, mínima, máxima y media, que es la longitud acumulada dividida entre el número de genes. En el centro se destaca que el cambio no es de sintaxis sino de escala: se pasa de una afirmación sobre un gen a una afirmación sobre todos. Una franja inferior enumera tres comprobaciones: que la mínima sea menor o igual que la media y esta menor o igual que la máxima, que el número de genes coincida con el conteo obtenido por otro camino, y que ninguna longitud sea cero o negativa.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrow" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto">
+      <path d="M0 0 L11 5.5 L0 11z" fill="#2878a9"/>
+    </marker>
+    <style>
+      .title{font:700 42px Arial;fill:#17365d}
+      .subtitle{font:400 20px Arial;fill:#526270}
+      .tag{font:700 16px Arial;fill:#fff}
+      .copy{font:400 17px Arial;fill:#34495e}
+      .small{font:400 15px Arial;fill:#526270}
+      .code{font:400 18px 'Courier New';fill:#17365d}
+      .h3{font:700 20px Arial;fill:#17365d}
+      .acc{font:700 19px 'Courier New';fill:#1e7a52}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+
+  <text x="800" y="56" class="title" text-anchor="middle">De un registro a un conjunto</text>
+  <text x="800" y="92" class="subtitle" text-anchor="middle">Los acumuladores no son variables de programación: son la memoria de lo que llevas visto.</text>
+
+  <!-- IZQUIERDA: recorrido -->
+  <g filter="url(#shadow)"><rect x="60" y="130" width="620" height="560" rx="16" fill="#eef5fb" stroke="#2878a9"/></g>
+  <rect x="60" y="130" width="400" height="34" rx="10" fill="#2878a9"/>
+  <text x="80" y="155" class="tag">MIENTRAS RECORRE EL ARCHIVO</text>
+
+  <text x="90" y="200" class="copy">Cada línea que cumple la condición:</text>
+  <rect x="90" y="215" width="560" height="46" rx="8" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="110" y="245" class="code">L = $5 - $4 + 1</text>
+
+  <text x="90" y="300" class="h3">…y actualiza cuatro memorias</text>
+
+  <rect x="90" y="320" width="560" height="60" rx="8" fill="#fff" stroke="#8cc9a9" stroke-width="2"/>
+  <text x="110" y="345" class="acc">n++</text>
+  <text x="250" y="345" class="small">cuántos genes llevo</text>
+  <text x="110" y="370" class="small">Empieza en cero y sube de uno en uno.</text>
+
+  <rect x="90" y="392" width="560" height="60" rx="8" fill="#fff" stroke="#8cc9a9" stroke-width="2"/>
+  <text x="110" y="417" class="acc">suma += L</text>
+  <text x="250" y="417" class="small">longitud acumulada</text>
+  <text x="110" y="442" class="small">Todo el DNA que llevo contado.</text>
+
+  <rect x="90" y="464" width="560" height="72" rx="8" fill="#fff" stroke="#8cc9a9" stroke-width="2"/>
+  <text x="110" y="489" class="acc">if (min=="" || L&lt;min) min = L</text>
+  <text x="110" y="514" class="small">La más corta vista. La primera comparación es especial:</text>
+  <text x="110" y="532" class="small">sin `min==""` el mínimo nunca se inicializa y sale vacío.</text>
+
+  <rect x="90" y="548" width="560" height="60" rx="8" fill="#fff" stroke="#8cc9a9" stroke-width="2"/>
+  <text x="110" y="573" class="acc">if (L &gt; max) max = L</text>
+  <text x="110" y="598" class="small">La más larga vista.</text>
+
+  <text x="90" y="650" class="small">Ninguna de las cuatro imprime nada todavía: solo recuerdan.</text>
+
+  <!-- FLECHA -->
+  <path d="M700 400 L780 400" stroke="#2878a9" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="740" y="380" class="small" text-anchor="middle">se acaba</text>
+  <text x="740" y="440" class="small" text-anchor="middle">el archivo</text>
+
+  <!-- DERECHA: END -->
+  <g filter="url(#shadow)"><rect x="820" y="130" width="720" height="560" rx="16" fill="#eef8f2" stroke="#8cc9a9"/></g>
+  <rect x="820" y="130" width="300" height="34" rx="10" fill="#1e7a52"/>
+  <text x="840" y="155" class="tag">AL TERMINAR · END</text>
+
+  <text x="850" y="200" class="copy">Y solo entonces, el resumen del conjunto:</text>
+
+  <rect x="850" y="225" width="660" height="290" rx="10" fill="#fff" stroke="#1e7a52" stroke-width="2"/>
+  <text x="880" y="268" class="code" font-size="19">genes analizados     n</text>
+  <text x="880" y="316" class="code" font-size="19">longitud total       suma</text>
+  <text x="880" y="364" class="code" font-size="19">longitud mínima      min</text>
+  <text x="880" y="412" class="code" font-size="19">longitud máxima      max</text>
+  <text x="880" y="460" class="code" font-size="19">longitud media       suma / n</text>
+  <text x="880" y="498" class="small">La media se calcula aquí, no antes: necesita el total y el número finales.</text>
+
+  <rect x="850" y="540" width="660" height="120" rx="10" fill="#eef5fb" stroke="#2878a9" stroke-width="2"/>
+  <text x="880" y="578" class="h3" fill="#2878a9">El cambio no es de sintaxis</text>
+  <text x="880" y="612" class="copy">Pasas de una afirmación sobre <tspan font-weight="700">un gen</tspan> a una</text>
+  <text x="880" y="640" class="copy">afirmación sobre <tspan font-weight="700">todos</tspan>. Es un cambio de escala.</text>
+
+  <!-- COMPROBACIONES -->
+  <rect x="60" y="720" width="1480" height="140" rx="12" fill="#f7fafc" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="90" y="760" class="h3">Tres comprobaciones antes de creerte el resumen</text>
+  <text x="90" y="798" class="copy">1 · <tspan font-weight="700">mínima ≤ media ≤ máxima</tspan>. Si no se cumple, hay un acumulador mal inicializado.</text>
+  <text x="90" y="826" class="copy">2 · La <tspan font-weight="700">n</tspan> coincide con el conteo de genes que obtuviste por otro camino.</text>
+  <text x="90" y="854" class="copy">3 · Ninguna longitud es cero ni negativa: si aparece alguna, el archivo o la fórmula tienen un problema.</text>
+</svg>

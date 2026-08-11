@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Un apunte ejecutable frente a un script</title>
+  <desc id="desc">A la izquierda, un apunte ejecutable: un documento con comandos correctos en su orden, que una persona lee, selecciona, copia y pega en la terminal uno por uno, con tres puntos de fuga señalados: el orden lo sostiene quien lee, un comando pegado a medias no avisa, y el directorio desde el que se ejecuta depende de dónde estuviera la terminal. A la derecha, el mismo contenido convertido en un archivo del proyecto que vive en la carpeta src: una primera línea que declara el intérprete, un encabezado que dice qué hace y qué necesita, los mismos comandos en el mismo orden, y una sola invocación que lo ejecuta entero. Una franja inferior precisa que ningún comando cambió: lo que cambió es quién los ejecuta y cuántas veces puede hacerlo sin equivocarse.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrow" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto">
+      <path d="M0 0 L11 5.5 L0 11z" fill="#2878a9"/>
+    </marker>
+    <style>
+      .title{font:700 42px Arial;fill:#17365d}
+      .subtitle{font:400 20px Arial;fill:#526270}
+      .tag{font:700 16px Arial;fill:#fff}
+      .copy{font:400 17px Arial;fill:#34495e}
+      .small{font:400 15px Arial;fill:#526270}
+      .code{font:400 15px 'Courier New';fill:#17365d}
+      .codew{font:400 15px 'Courier New';fill:#ffffff}
+      .codedim{font:400 15px 'Courier New';fill:#8a99a8}
+      .h3{font:700 20px Arial;fill:#17365d}
+      .band{font:400 19px Arial;fill:#17365d}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+
+  <text x="800" y="56" class="title" text-anchor="middle">Los mismos comandos, distinto ejecutor</text>
+  <text x="800" y="92" class="subtitle" text-anchor="middle">Lo que cambia de un lado al otro no es el análisis: es quién lo pone en marcha.</text>
+
+  <!-- ================= IZQUIERDA ================= -->
+  <g filter="url(#shadow)"><rect x="55" y="130" width="690" height="560" rx="16" fill="#fdf7e8" stroke="#d18b16"/></g>
+  <rect x="55" y="130" width="330" height="34" rx="10" fill="#d18b16"/>
+  <text x="75" y="155" class="tag">UN APUNTE EJECUTABLE</text>
+  <text x="405" y="155" class="small">doc/protocolo.md</text>
+
+  <!-- documento -->
+  <rect x="85" y="190" width="400" height="230" rx="8" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="103" y="216" class="small">Bloque A · Preparar la evidencia</text>
+  <text x="103" y="246" class="code">grep -Ev '^#' anotacion.gff3 \</text>
+  <text x="103" y="268" class="code">  &gt; anotaciones-sin-directivas.gff3</text>
+  <text x="103" y="298" class="small">Bloque B · Inventario</text>
+  <text x="103" y="328" class="code">cut -f3 anotaciones-sin-... \</text>
+  <text x="103" y="350" class="code">  | sort | uniq -c | sort -nr</text>
+  <text x="103" y="380" class="codedim">... y veintiséis comandos más</text>
+
+  <!-- persona -->
+  <g>
+    <circle cx="580" cy="240" r="19" fill="#d18b16"/>
+    <path d="M552 298 q28 -44 56 0 z" fill="#d18b16"/>
+    <text x="580" y="330" class="h3" text-anchor="middle">una persona</text>
+    <text x="580" y="362" class="small" text-anchor="middle">lee → selecciona</text>
+    <text x="580" y="386" class="small" text-anchor="middle">copia → pega</text>
+    <text x="580" y="414" class="small" text-anchor="middle">× 30, cada vez</text>
+  </g>
+  <path d="M498 262 L543 262" stroke="#d18b16" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+
+  <text x="85" y="466" class="h3">Tres cosas que no están en el documento</text>
+  <text x="103" y="500" class="copy">· el orden lo sostiene quien lee, no el archivo</text>
+  <text x="103" y="532" class="copy">· un comando pegado a medias no avisa</text>
+  <text x="103" y="564" class="copy">· desde qué directorio se ejecuta depende de</text>
+  <text x="121" y="590" class="copy">dónde estuviera la terminal</text>
+
+  <rect x="85" y="614" width="620" height="52" rx="8" fill="#fdf1ef" stroke="#b03a2e"/>
+  <text x="105" y="646" class="copy">Reproducir = volver a copiar bien treinta líneas.</text>
+
+  <!-- flecha central -->
+  <path d="M765 400 L835 400" stroke="#2878a9" stroke-width="3.5" fill="none" marker-end="url(#arrow)"/>
+
+  <!-- ================= DERECHA ================= -->
+  <g filter="url(#shadow)"><rect x="855" y="130" width="690" height="560" rx="16" fill="#eef8f2" stroke="#1e7a52"/></g>
+  <rect x="855" y="130" width="290" height="34" rx="10" fill="#1e7a52"/>
+  <text x="875" y="155" class="tag">UN SCRIPT</text>
+  <text x="1165" y="155" class="small">src/analizar-genoma.sh</text>
+
+  <rect x="885" y="190" width="630" height="300" rx="8" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <rect x="885" y="190" width="630" height="34" rx="8" fill="#eef5fb"/>
+  <text x="903" y="213" class="code">#!/bin/bash</text>
+  <text x="903" y="252" class="codedim"># Propósito : inventario de features del genoma</text>
+  <text x="903" y="274" class="codedim"># Entradas  : data/source/anotacion.gff3</text>
+  <text x="903" y="296" class="codedim"># Uso       : ./src/analizar-genoma.sh</text>
+  <text x="903" y="334" class="code">grep -Ev '^#' anotacion.gff3 \</text>
+  <text x="903" y="356" class="code">  &gt; anotaciones-sin-directivas.gff3</text>
+  <text x="903" y="394" class="code">cut -f3 anotaciones-sin-directivas.gff3 \</text>
+  <text x="903" y="416" class="code">  | sort | uniq -c | sort -nr</text>
+  <text x="903" y="454" class="codedim">... los mismos veintiséis comandos</text>
+
+  <text x="885" y="530" class="h3">Y una sola orden lo ejecuta entero</text>
+  <rect x="885" y="548" width="440" height="46" rx="8" fill="#17365d"/>
+  <text x="905" y="578" class="codew">$ ./src/analizar-genoma.sh</text>
+
+  <text x="885" y="628" class="copy">El orden queda en el archivo · el copiado desaparece</text>
+  <text x="885" y="658" class="copy">el archivo es el registro de lo que se ejecutó</text>
+
+  <!-- ================= FRANJA ================= -->
+  <rect x="55" y="726" width="1490" height="112" rx="14" fill="#eef5fb" stroke="#2878a9"/>
+  <text x="85" y="768" class="band">Ningún comando cambió. Cambió <tspan font-weight="700">quién los ejecuta</tspan> y <tspan font-weight="700">cuántas veces puede hacerlo sin equivocarse</tspan>.</text>
+  <text x="85" y="806" class="small">Un script todavía lleva sus rutas dentro: sirve para este genoma. Separar el procedimiento de sus datos es la sesión siguiente.</text>
+</svg>

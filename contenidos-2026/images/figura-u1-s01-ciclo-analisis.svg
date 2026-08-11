@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="680" viewBox="0 0 1600 680" role="img" aria-labelledby="title desc">
+  <title id="title">Ciclo del análisis de datos en bioinformática</title>
+  <desc id="desc">Seis fases conectadas de izquierda a derecha: Pregunta, Datos, Exploración, Análisis, Interpretación y Comunicación. Una banda inferior muestra que la documentación y los metadatos acompañan todas las fases.</desc>
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L12,6 L0,12 z" fill="#52738f"/>
+    </marker>
+    <style>
+      .title { font: 700 38px Arial, Helvetica, sans-serif; fill: #17365d; }
+      .subtitle { font: 400 20px Arial, Helvetica, sans-serif; fill: #526270; }
+      .phase { font: 700 23px Arial, Helvetica, sans-serif; fill: #17365d; }
+      .copy { font: 400 17px Arial, Helvetica, sans-serif; fill: #34495e; }
+      .number { font: 700 24px Arial, Helvetica, sans-serif; fill: #ffffff; text-anchor: middle; dominant-baseline: middle; }
+      .band-title { font: 700 23px Arial, Helvetica, sans-serif; fill: #ffffff; letter-spacing: 0.7px; }
+      .band-copy { font: 400 18px Arial, Helvetica, sans-serif; fill: #eaf6f7; }
+      .connector { stroke: #84a9b8; stroke-width: 2.5; stroke-dasharray: 7 7; opacity: 0.8; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="680" fill="#ffffff"/>
+  <text x="800" y="58" class="title" text-anchor="middle">Ciclo del análisis de datos en bioinformática</text>
+  <text x="800" y="94" class="subtitle" text-anchor="middle">Cada fase responde una pregunta distinta, pero todas deben quedar documentadas.</text>
+
+  <!-- Flechas de progresión -->
+  <g fill="none" stroke="#52738f" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)">
+    <path d="M290 290 H326"/>
+    <path d="M538 290 H574"/>
+    <path d="M786 290 H822"/>
+    <path d="M1034 290 H1070"/>
+    <path d="M1282 290 H1318"/>
+  </g>
+
+  <!-- Conexión transversal con documentación y metadatos -->
+  <g class="connector">
+    <path d="M180 430 V515"/><path d="M428 430 V515"/><path d="M676 430 V515"/>
+    <path d="M924 430 V515"/><path d="M1172 430 V515"/><path d="M1420 430 V515"/>
+  </g>
+
+  <!-- Tarjeta 1 -->
+  <g filter="url(#shadow)">
+    <rect x="70" y="150" width="220" height="280" rx="18" fill="#f3f8fc" stroke="#8bb4cf" stroke-width="2"/>
+  </g>
+  <circle cx="180" cy="202" r="28" fill="#2878a9"/><text x="180" y="203" class="number">1</text>
+  <text x="180" y="258" class="phase" text-anchor="middle">Pregunta</text>
+  <text x="180" y="301" class="copy" text-anchor="middle">
+    <tspan x="180" dy="0">Define con claridad</tspan><tspan x="180" dy="25">qué problema</tspan>
+    <tspan x="180" dy="25">biológico quieres</tspan><tspan x="180" dy="25">responder.</tspan>
+  </text>
+
+  <!-- Tarjeta 2 -->
+  <g filter="url(#shadow)">
+    <rect x="318" y="150" width="220" height="280" rx="18" fill="#f1faf9" stroke="#7ebdb8" stroke-width="2"/>
+  </g>
+  <circle cx="428" cy="202" r="28" fill="#208b82"/><text x="428" y="203" class="number">2</text>
+  <text x="428" y="258" class="phase" text-anchor="middle">Datos</text>
+  <text x="428" y="301" class="copy" text-anchor="middle">
+    <tspan x="428" dy="0">Obtén datos</tspan><tspan x="428" dy="25">confiables y registra</tspan>
+    <tspan x="428" dy="25">su origen, versión</tspan><tspan x="428" dy="25">y fecha.</tspan>
+  </text>
+
+  <!-- Tarjeta 3 -->
+  <g filter="url(#shadow)">
+    <rect x="566" y="150" width="220" height="280" rx="18" fill="#f6f8fc" stroke="#9caed1" stroke-width="2"/>
+  </g>
+  <circle cx="676" cy="202" r="28" fill="#5a73a8"/><text x="676" y="203" class="number">3</text>
+  <text x="676" y="258" class="phase" text-anchor="middle">Exploración</text>
+  <text x="676" y="301" class="copy" text-anchor="middle">
+    <tspan x="676" dy="0">Revisa formato,</tspan><tspan x="676" dy="25">integridad, registros</tspan>
+    <tspan x="676" dy="25">y valores</tspan><tspan x="676" dy="25">faltantes.</tspan>
+  </text>
+
+  <!-- Tarjeta 4 -->
+  <g filter="url(#shadow)">
+    <rect x="814" y="150" width="220" height="280" rx="18" fill="#f2f8fb" stroke="#83aec3" stroke-width="2"/>
+  </g>
+  <circle cx="924" cy="202" r="28" fill="#337f9b"/><text x="924" y="203" class="number">4</text>
+  <text x="924" y="258" class="phase" text-anchor="middle">Análisis</text>
+  <text x="924" y="301" class="copy" text-anchor="middle">
+    <tspan x="924" dy="0">Filtra, transforma,</tspan><tspan x="924" dy="25">cuenta y compara</tspan>
+    <tspan x="924" dy="25">para producir</tspan><tspan x="924" dy="25">resultados.</tspan>
+  </text>
+
+  <!-- Tarjeta 5 -->
+  <g filter="url(#shadow)">
+    <rect x="1062" y="150" width="220" height="280" rx="18" fill="#f8f6fb" stroke="#aa98c5" stroke-width="2"/>
+  </g>
+  <circle cx="1172" cy="202" r="28" fill="#76629a"/><text x="1172" y="203" class="number">5</text>
+  <text x="1172" y="258" class="phase" text-anchor="middle">Interpretación</text>
+  <text x="1172" y="301" class="copy" text-anchor="middle">
+    <tspan x="1172" dy="0">Explica qué</tspan><tspan x="1172" dy="25">significan los</tspan>
+    <tspan x="1172" dy="25">resultados en su</tspan><tspan x="1172" dy="25">contexto biológico.</tspan>
+  </text>
+
+  <!-- Tarjeta 6 -->
+  <g filter="url(#shadow)">
+    <rect x="1310" y="150" width="220" height="280" rx="18" fill="#fbf7f0" stroke="#cfad76" stroke-width="2"/>
+  </g>
+  <circle cx="1420" cy="202" r="28" fill="#a8782d"/><text x="1420" y="203" class="number">6</text>
+  <text x="1420" y="258" class="phase" text-anchor="middle">Comunicación</text>
+  <text x="1420" y="301" class="copy" text-anchor="middle">
+    <tspan x="1420" dy="0">Reporta métodos,</tspan><tspan x="1420" dy="25">resultados, discusión</tspan>
+    <tspan x="1420" dy="25">y conclusiones con</tspan><tspan x="1420" dy="25">claridad.</tspan>
+  </text>
+
+  <!-- Banda transversal -->
+  <rect x="70" y="515" width="1460" height="112" rx="18" fill="#1f6d7a"/>
+  <g transform="translate(116 548)" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M0 0 h33 a6 6 0 0 1 6 6 v32 a6 6 0 0 1-6 6 H0 a6 6 0 0 1-6-6 V6 A6 6 0 0 1 0 0z"/>
+    <path d="M5 12 h24 M5 22 h24 M5 32 h16"/>
+  </g>
+  <text x="180" y="558" class="band-title">DOCUMENTACIÓN Y METADATOS EN TODAS LAS FASES</text>
+  <text x="180" y="592" class="band-copy">Registra decisiones, fuentes, versiones, comandos, resultados intermedios y criterios de validación.</text>
+</svg>

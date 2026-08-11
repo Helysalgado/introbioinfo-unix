@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="820" viewBox="0 0 1600 820" role="img" aria-labelledby="t d">
+  <title id="t">Una secuencia aislada frente a una secuencia en contexto</title>
+  <desc id="d">A la izquierda, un solo renglón de aminoácidos del que solo pueden leerse propiedades estructurales: longitud, alfabeto, primer residuo. A la derecha, cinco renglones apilados y alineados de organismos distintos en los que aparecen columnas donde todos coinciden y columnas donde cada uno tiene una letra diferente; las columnas conservadas se destacan. Un pie señala que las preguntas biológicas solo pueden formularse en el panel derecho.</desc>
+  <defs>
+    <filter id="sh" x="-10%" y="-10%" width="120%" height="135%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <style>
+      .title{font:700 38px Arial;fill:#17365d}
+      .sub{font:400 19px Arial;fill:#526270}
+      .h{font:700 25px Arial;fill:#17365d}
+      .copy{font:400 16px Arial;fill:#34495e}
+      .small{font:400 14px Arial;fill:#526270}
+      .seq{font:400 19px 'Courier New';fill:#17365d}
+      .seqw{font:700 19px 'Courier New';fill:#ffffff}
+      .org{font:400 14px Arial;fill:#526270}
+      .q{font:400 17px Arial;fill:#34495e}
+      .qbad{font:400 17px Arial;fill:#b03a2e}
+      .qgood{font:400 17px Arial;fill:#1e7a52}
+      .tag{font:700 15px Arial;fill:#ffffff}
+    </style>
+  </defs>
+  <rect width="1600" height="820" fill="#fff"/>
+
+  <text x="800" y="52" class="title" text-anchor="middle">Una secuencia aislada, y la misma secuencia en contexto</text>
+  <text x="800" y="86" class="sub" text-anchor="middle">Lo que se puede preguntar cambia por completo</text>
+
+  <!-- IZQUIERDA -->
+  <g filter="url(#sh)"><rect x="55" y="120" width="660" height="560" rx="16" fill="#fdf1ef" stroke="#b03a2e" stroke-width="2"/></g>
+  <rect x="55" y="120" width="660" height="46" rx="16" fill="#b03a2e"/>
+  <rect x="55" y="150" width="660" height="16" fill="#b03a2e"/>
+  <text x="385" y="152" class="tag" text-anchor="middle">UNA SOLA SECUENCIA</text>
+
+  <rect x="90" y="196" width="590" height="52" rx="8" fill="#ffffff" stroke="#c9d6e2"/>
+  <text x="105" y="230" class="seq">MNQTNFGFKKVDYTKKQGLVNN…</text>
+
+  <text x="90" y="292" class="h">Lo que puedes leer</text>
+  <text x="90" y="326" class="copy">· son aminoácidos</text>
+  <text x="90" y="352" class="copy">· hay 248 en total</text>
+  <text x="90" y="378" class="copy">· empieza con metionina</text>
+  <text x="90" y="404" class="copy">· no hay caracteres extraños</text>
+  <text x="90" y="434" class="small">Todo esto se comprueba con Unix, y ya sabías hacerlo.</text>
+
+  <line x1="90" y1="462" x2="680" y2="462" stroke="#c9d6e2" stroke-width="2"/>
+
+  <text x="90" y="500" class="h">Lo que NO puedes preguntar</text>
+  <text x="120" y="534" class="qbad">¿qué hace esta proteína?</text>
+  <text x="120" y="562" class="qbad">¿existe en otros organismos?</text>
+  <text x="120" y="590" class="qbad">¿qué posiciones importan?</text>
+  <text x="120" y="618" class="qbad">¿es antigua o reciente?</text>
+  <text x="90" y="656" class="small">No es que falten herramientas. Falta con qué comparar.</text>
+
+  <!-- FLECHA -->
+  <path d="M735 402 L855 402" stroke="#17365d" stroke-width="4" marker-end="url(#a)"/>
+  <defs><marker id="a" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#17365d"/></marker></defs>
+  <text x="795" y="376" class="small" text-anchor="middle">comparar</text>
+
+  <!-- DERECHA -->
+  <g filter="url(#sh)"><rect x="885" y="120" width="660" height="560" rx="16" fill="#eef8f2" stroke="#1e7a52" stroke-width="2"/></g>
+  <rect x="885" y="120" width="660" height="46" rx="16" fill="#1e7a52"/>
+  <rect x="885" y="150" width="660" height="16" fill="#1e7a52"/>
+  <text x="1215" y="152" class="tag" text-anchor="middle">LA MISMA SECUENCIA, ALINEADA CON OTRAS</text>
+
+  <!-- columnas conservadas resaltadas: posiciones 0,4,5,6,10,13 -->
+  <g>
+    <rect x="1046" y="192" width="20" height="176" fill="#d18b16" opacity="0.20"/>
+    <rect x="1137" y="192" width="88" height="176" fill="#d18b16" opacity="0.20"/>
+    <rect x="1274" y="192" width="43" height="176" fill="#d18b16" opacity="0.20"/>
+  </g>
+
+  <g class="seq">
+    <text x="1050" y="212" xml:space="preserve">M N Q T N F G F K K V D Y T</text>
+    <text x="1050" y="248" xml:space="preserve">M H Q T N F G F N K V D Y T</text>
+    <text x="1050" y="284" xml:space="preserve">M N Q T N F G F K K V D Y T</text>
+    <text x="1050" y="320" xml:space="preserve">M K S T N F G F Q L V D S D</text>
+    <text x="1050" y="356" xml:space="preserve">M N Q S N F G F K K V D Y T</text>
+  </g>
+  <g class="org">
+    <text x="905" y="212">R. conorii</text>
+    <text x="905" y="248">R. typhi</text>
+    <text x="905" y="284">R. africae</text>
+    <text x="905" y="320">O. tsutsugamushi</text>
+    <text x="905" y="356">R. rickettsii</text>
+  </g>
+  <text x="1050" y="386" class="seq" xml:space="preserve">*&#160;&#160;&#160;&#160;&#160;&#160;&#160;* * * *&#160;&#160;&#160;&#160;&#160;* *</text>
+
+  <text x="1055" y="416" class="small">columnas donde todos coinciden</text>
+
+  <line x1="920" y1="446" x2="1510" y2="446" stroke="#c9d6e2" stroke-width="2"/>
+
+  <text x="920" y="484" class="h">Lo que ahora sí puedes preguntar</text>
+  <text x="952" y="518" class="qgood">¿qué posiciones no cambian nunca?</text>
+  <text x="952" y="546" class="qgood">¿dónde se concentran las diferencias?</text>
+  <text x="952" y="574" class="qgood">¿hay regiones que resisten al tiempo?</text>
+  <text x="952" y="602" class="qgood">¿este organismo se sale del patrón?</text>
+  <text x="920" y="640" class="small">Ninguna de estas preguntas existía en el panel de la izquierda.</text>
+  <text x="920" y="662" class="small">No las abrió una herramienta nueva: las abrió el contexto.</text>
+
+  <!-- FRANJA -->
+  <rect x="55" y="706" width="1490" height="82" rx="14" fill="#eef5fb" stroke="#2878a9"/>
+  <text x="85" y="744" class="q"><tspan font-weight="700" font-size="19">El significado biológico es comparativo.</tspan> Una posición no es importante por sí misma:</text>
+  <text x="85" y="772" class="q">es importante porque se mantuvo igual mientras el resto cambiaba. Y eso no se ve mirando una sola secuencia.</text>
+<path d="M94 521 L110 535 M110 521 L94 535" stroke="#b03a2e" stroke-width="3" stroke-linecap="round"/>
+  <path d="M94 549 L110 563 M110 549 L94 563" stroke="#b03a2e" stroke-width="3" stroke-linecap="round"/>
+  <path d="M94 577 L110 591 M110 577 L94 591" stroke="#b03a2e" stroke-width="3" stroke-linecap="round"/>
+  <path d="M94 605 L110 619 M110 605 L94 619" stroke="#b03a2e" stroke-width="3" stroke-linecap="round"/>
+  <path d="M926 513 L933 521 L944 505" stroke="#1e7a52" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M926 541 L933 549 L944 533" stroke="#1e7a52" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M926 569 L933 577 L944 561" stroke="#1e7a52" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M926 597 L933 605 L944 589" stroke="#1e7a52" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

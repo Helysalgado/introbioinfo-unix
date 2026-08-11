@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="520" viewBox="0 0 1600 520" role="img" aria-labelledby="t d">
+  <title id="t">De la observación a la conclusión</title>
+  <desc id="d">Cinco peldaños: observación, evidencia, inferencia, hipótesis, conclusión. Franjas rojas marcan donde suele saltar una IA.</desc>
+  <defs>
+    <style>
+      .title{font:700 32px Arial;fill:#17365d}
+      .sub{font:400 16px Arial;fill:#526270}
+      .h{font:700 15px Arial;fill:#ffffff}
+      .ex{font:400 13px Arial;fill:#34495e}
+      .warn{font:700 12px Arial;fill:#b03a2e}
+    </style>
+  </defs>
+  <rect width="1600" height="520" fill="#fff"/>
+  <text x="800" y="42" class="title" text-anchor="middle">No te saltes los peldaños</text>
+  <text x="800" y="72" class="sub" text-anchor="middle">La Bioinformática vive en el medio de la cadena</text>
+
+  <!-- boxes -->
+  <rect x="40" y="140" width="260" height="160" rx="12" fill="#eef4fa" stroke="#17365d" stroke-width="2"/>
+  <rect x="40" y="140" width="260" height="36" rx="12" fill="#17365d"/>
+  <rect x="40" y="160" width="260" height="16" fill="#17365d"/>
+  <text x="170" y="166" class="h" text-anchor="middle">1 · Observación</text>
+  <text x="170" y="220" class="ex" text-anchor="middle">pident = 86.6</text>
+  <text x="170" y="245" class="ex" text-anchor="middle">cobertura H 100 %</text>
+
+  <rect x="340" y="140" width="260" height="160" rx="12" fill="#eef8f2" stroke="#1e7a52" stroke-width="2"/>
+  <rect x="340" y="140" width="260" height="36" rx="12" fill="#1e7a52"/>
+  <rect x="340" y="160" width="260" height="16" fill="#1e7a52"/>
+  <text x="470" y="166" class="h" text-anchor="middle">2 · Evidencia</text>
+  <text x="470" y="220" class="ex" text-anchor="middle">métricas + base</text>
+  <text x="470" y="245" class="ex" text-anchor="middle">+ anotación</text>
+
+  <rect x="640" y="140" width="260" height="160" rx="12" fill="#fff8e8" stroke="#d18b16" stroke-width="2"/>
+  <rect x="640" y="140" width="260" height="36" rx="12" fill="#d18b16"/>
+  <rect x="640" y="160" width="260" height="16" fill="#d18b16"/>
+  <text x="770" y="166" class="h" text-anchor="middle">3 · Inferencia</text>
+  <text x="770" y="220" class="ex" text-anchor="middle">difícil de explicar</text>
+  <text x="770" y="245" class="ex" text-anchor="middle">solo por azar</text>
+
+  <rect x="940" y="140" width="260" height="160" rx="12" fill="#eef4fa" stroke="#17365d" stroke-width="2"/>
+  <rect x="940" y="140" width="260" height="36" rx="12" fill="#17365d"/>
+  <rect x="940" y="160" width="260" height="16" fill="#17365d"/>
+  <text x="1070" y="166" class="h" text-anchor="middle">4 · Hipótesis</text>
+  <text x="1070" y="220" class="ex" text-anchor="middle">propongo homología</text>
+  <text x="1070" y="245" class="ex" text-anchor="middle">(revisable)</text>
+
+  <rect x="1240" y="140" width="300" height="160" rx="12" fill="#f4f6f8" stroke="#c9d6e2" stroke-width="2"/>
+  <rect x="1240" y="140" width="300" height="36" rx="12" fill="#526270"/>
+  <rect x="1240" y="160" width="300" height="16" fill="#526270"/>
+  <text x="1390" y="166" class="h" text-anchor="middle">5 · Conclusión</text>
+  <text x="1390" y="220" class="ex" text-anchor="middle">solo si aguanta</text>
+  <text x="1390" y="245" class="ex" text-anchor="middle">alternativas y límites</text>
+
+  <!-- jump warnings -->
+  <rect x="640" y="340" width="560" height="70" rx="10" fill="#fdf1ef" stroke="#b03a2e" stroke-width="2"/>
+  <text x="920" y="370" class="warn" text-anchor="middle">AQUÍ SUELE SALTAR LA IA</text>
+  <text x="920" y="395" style="font:400 14px Arial;fill:#526270" text-anchor="middle">del porcentaje ’ «son ortólogas y hacen exactamente lo mismo»</text>
+
+  <path d="M300 220 L340 220 M600 220 L640 220 M900 220 L940 220 M1200 220 L1240 220" stroke="#17365d" stroke-width="3" marker-end="url(#ar)"/>
+  <defs><marker id="ar" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#17365d"/></marker></defs>
+
+  <text x="800" y="470" style="font:600 16px Arial;fill:#17365d" text-anchor="middle">Tu oficio: habitar los peldaños 24 sin fingir que ya llegaste al 5.</text>
+</svg>

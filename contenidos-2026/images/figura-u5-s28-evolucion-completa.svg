@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">La evolución completa: de un comando a una herramienta que se defiende</title>
+  <desc id="desc">Recorrido de seis etapas. En la Unidad 4 el análisis eran comandos sueltos que se integraron en un protocolo ejecutable, y la dependencia era que alguien recordara el orden. En la sesión veinticuatro el protocolo se convirtió en un script y desapareció la dependencia de copiar los comandos. En la veinticinco los datos pasaron a entrar desde fuera y desapareció la dependencia de editar el archivo. En la veintiséis un ciclo recorrió la colección completa y desapareció la dependencia de repetir la orden. En la veintisiete la documentación puso el contrato por escrito y desapareció la dependencia del autor. En la veintiocho la herramienta se ejecuta con datos nuevos y se sostiene con argumentos, y desaparece la última dependencia: la de creer sin evidencia. Una franja inferior recuerda que durante todo el recorrido las preguntas biológicas fueron las mismas que en la Unidad 4: lo que cambió no fue lo que se pregunta, sino cuántas veces y con qué garantías se puede responder.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrow" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto">
+      <path d="M0 0 L11 5.5 L0 11z" fill="#2878a9"/>
+    </marker>
+    <style>
+      .title{font:700 38px Arial;fill:#17365d}
+      .subtitle{font:400 19px Arial;fill:#526270}
+      .tag{font:700 13px Arial;fill:#fff}
+      .copy{font:400 14px Arial;fill:#34495e}
+      .small{font:400 13px Arial;fill:#526270}
+      .h3{font:700 17px Arial;fill:#17365d}
+      .band{font:400 19px Arial;fill:#17365d}
+      .dep{font:700 13px Arial;fill:#b03a2e}
+      .gone{font:700 13px Arial;fill:#1e7a52}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+
+  <text x="800" y="48" class="title" text-anchor="middle">De un comando a una herramienta que se defiende</text>
+  <text x="800" y="82" class="subtitle" text-anchor="middle">Cada sesión eliminó una dependencia. Ninguna cambió la pregunta.</text>
+
+  <!-- U4 -->
+  <g filter="url(#shadow)"><rect x="40" y="120" width="238" height="420" rx="14" fill="#f7fafc" stroke="#c9d6e2"/></g>
+  <rect x="40" y="120" width="110" height="30" rx="9" fill="#526270"/>
+  <text x="58" y="142" class="tag">UNIDAD 4</text>
+  <text x="60" y="184" class="h3">Comandos</text>
+  <text x="60" y="208" class="h3">→ protocolo</text>
+  <text x="60" y="248" class="copy">Cada pregunta con</text>
+  <text x="60" y="270" class="copy">su comando y su</text>
+  <text x="60" y="292" class="copy">verificación, integrados</text>
+  <text x="60" y="314" class="copy">en un procedimiento.</text>
+  <rect x="60" y="346" width="198" height="90" rx="8" fill="#fdf1ef" stroke="#b03a2e"/>
+  <text x="76" y="372" class="dep">DEPENDÍA DE</text>
+  <text x="76" y="398" class="copy">que alguien recordara</text>
+  <text x="76" y="420" class="copy">el orden y lo copiara</text>
+  <text x="60" y="472" class="small">Producto: doc/protocolo.md</text>
+  <text x="60" y="494" class="small">ejecutable a mano</text>
+
+  <path d="M288 330 L312 330" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- S24 -->
+  <g filter="url(#shadow)"><rect x="322" y="120" width="238" height="420" rx="14" fill="#eef5fb" stroke="#2878a9"/></g>
+  <rect x="322" y="120" width="80" height="30" rx="9" fill="#2878a9"/>
+  <text x="340" y="142" class="tag">S24</text>
+  <text x="342" y="184" class="h3">Guardar</text>
+  <text x="342" y="224" class="copy">El procedimiento se</text>
+  <text x="342" y="246" class="copy">vuelve un archivo que</text>
+  <text x="342" y="268" class="copy">el sistema ejecuta.</text>
+  <rect x="342" y="346" width="198" height="90" rx="8" fill="#eef8f2" stroke="#1e7a52"/>
+  <text x="358" y="372" class="gone">DESAPARECE</text>
+  <text x="358" y="398" class="copy">copiar los comandos</text>
+  <text x="358" y="420" class="copy">uno por uno</text>
+  <text x="342" y="472" class="small">src/analizar-genoma.sh</text>
+
+  <path d="M570 330 L594 330" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- S25 -->
+  <g filter="url(#shadow)"><rect x="604" y="120" width="238" height="420" rx="14" fill="#eef5fb" stroke="#2878a9"/></g>
+  <rect x="604" y="120" width="80" height="30" rx="9" fill="#2878a9"/>
+  <text x="622" y="142" class="tag">S25</text>
+  <text x="624" y="184" class="h3">Separar</text>
+  <text x="624" y="224" class="copy">Los datos entran desde</text>
+  <text x="624" y="246" class="copy">fuera; la herramienta</text>
+  <text x="624" y="268" class="copy">comprueba y se detiene.</text>
+  <rect x="624" y="346" width="198" height="90" rx="8" fill="#eef8f2" stroke="#1e7a52"/>
+  <text x="640" y="372" class="gone">DESAPARECE</text>
+  <text x="640" y="398" class="copy">editar el archivo para</text>
+  <text x="640" y="420" class="copy">cambiar de genoma</text>
+  <text x="624" y="472" class="small">parámetros y validación</text>
+
+  <path d="M852 330 L876 330" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- S26 -->
+  <g filter="url(#shadow)"><rect x="886" y="120" width="238" height="420" rx="14" fill="#eef5fb" stroke="#2878a9"/></g>
+  <rect x="886" y="120" width="80" height="30" rx="9" fill="#2878a9"/>
+  <text x="904" y="142" class="tag">S26</text>
+  <text x="906" y="184" class="h3">Escalar</text>
+  <text x="906" y="224" class="copy">Un recorrido aplica la</text>
+  <text x="906" y="246" class="copy">herramienta a la colección</text>
+  <text x="906" y="268" class="copy">y resume el conjunto.</text>
+  <rect x="906" y="346" width="198" height="90" rx="8" fill="#eef8f2" stroke="#1e7a52"/>
+  <text x="922" y="372" class="gone">DESAPARECE</text>
+  <text x="922" y="398" class="copy">repetir la orden una</text>
+  <text x="922" y="420" class="copy">vez por organismo</text>
+  <text x="906" y="472" class="small">bitácora + resumen global</text>
+
+  <path d="M1134 330 L1158 330" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- S27 -->
+  <g filter="url(#shadow)"><rect x="1168" y="120" width="180" height="420" rx="14" fill="#eef8f2" stroke="#1e7a52"/></g>
+  <rect x="1168" y="120" width="80" height="30" rx="9" fill="#1e7a52"/>
+  <text x="1186" y="142" class="tag">S27</text>
+  <text x="1188" y="184" class="h3">Compartir</text>
+  <text x="1188" y="224" class="copy">El contrato se</text>
+  <text x="1188" y="246" class="copy">pone por escrito</text>
+  <text x="1188" y="268" class="copy">y se prueba.</text>
+  <rect x="1188" y="346" width="140" height="90" rx="8" fill="#fff" stroke="#1e7a52"/>
+  <text x="1204" y="372" class="gone">DESAPARECE</text>
+  <text x="1204" y="398" class="copy">depender de</text>
+  <text x="1204" y="420" class="copy">su autor</text>
+  <text x="1188" y="472" class="small">README + prueba</text>
+  <text x="1188" y="492" class="small">cruzada</text>
+
+  <path d="M1358 330 L1382 330" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- S28 -->
+  <g filter="url(#shadow)"><rect x="1392" y="120" width="168" height="420" rx="14" fill="#f3eefa" stroke="#7d5ba6"/></g>
+  <rect x="1392" y="120" width="80" height="30" rx="9" fill="#7d5ba6"/>
+  <text x="1410" y="142" class="tag">S28</text>
+  <text x="1412" y="184" class="h3">Defender</text>
+  <text x="1412" y="224" class="copy">Se ejecuta con</text>
+  <text x="1412" y="246" class="copy">datos nuevos y</text>
+  <text x="1412" y="268" class="copy">se sostiene con</text>
+  <text x="1412" y="290" class="copy">argumentos.</text>
+  <rect x="1412" y="346" width="130" height="90" rx="8" fill="#fff" stroke="#7d5ba6"/>
+  <text x="1428" y="372" class="gone">DESAPARECE</text>
+  <text x="1428" y="398" class="copy">creer sin</text>
+  <text x="1428" y="420" class="copy">evidencia</text>
+  <text x="1412" y="472" class="small">evidencia</text>
+  <text x="1412" y="492" class="small">integradora</text>
+
+  <!-- FRANJA -->
+  <rect x="40" y="586" width="1520" height="130" rx="14" fill="#eef5fb" stroke="#2878a9"/>
+  <text x="70" y="628" class="band"><tspan font-weight="700">Y en todo el recorrido, las preguntas biológicas fueron las mismas que en la Unidad 4.</tspan></text>
+  <text x="70" y="666" class="copy" font-size="16">Cuántos genes tiene este genoma, cuántas CDS, cómo se distribuyen por cadena, qué contiene su anotación. Ninguna cambió.</text>
+  <text x="70" y="696" class="copy" font-size="16">Lo que cambió no es <tspan font-style="italic">qué</tspan> se pregunta, sino <tspan font-weight="700">cuántas veces se puede responder y con qué garantías</tspan>.</text>
+
+  <rect x="40" y="734" width="1520" height="118" rx="14" fill="#f3eefa" stroke="#7d5ba6"/>
+  <text x="70" y="776" class="band">Una herramienta bioinformática es <tspan font-weight="700">la evolución natural de un protocolo científico reproducible</tspan>…</text>
+  <text x="70" y="814" class="copy" font-size="16">…no un atajo para saltárselo. Por eso esta unidad viene después de la Unidad 4, y por eso hoy no se evalúa el código: se evalúa el razonamiento.</text>
+</svg>

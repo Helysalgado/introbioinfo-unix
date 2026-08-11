@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Las tres respuestas válidas en una defensa</title>
+  <desc id="desc">Ante una pregunta durante la defensa hay tres respuestas legítimas y una que no lo es. La primera respuesta válida muestra la evidencia: se responde señalando el archivo del proyecto donde está escrito, y es la más fuerte. La segunda reconoce un límite: la herramienta no puede responder eso, y está declarado en el apartado de limitaciones. La tercera admite que no se sabe, y añade qué haría falta para averiguarlo. La respuesta que no es válida es la que afirma algo sin poder mostrar dónde está registrado, porque presenta una suposición como si fuera un resultado. Una franja inferior señala que en una defensa científica reconocer un límite suma, mientras que afirmar de más resta, y que quien pregunta no busca sorprender sino comprobar si quien responde sabe dónde termina su evidencia.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <style>
+      .title{font:700 40px Arial;fill:#17365d}
+      .subtitle{font:400 20px Arial;fill:#526270}
+      .tag{font:700 15px Arial;fill:#fff}
+      .copy{font:400 16px Arial;fill:#34495e}
+      .small{font:400 14px Arial;fill:#526270}
+      .code{font:400 15px 'Courier New';fill:#17365d}
+      .quote{font:italic 400 17px Arial;fill:#17365d}
+      .h3{font:700 19px Arial;fill:#17365d}
+      .band{font:400 19px Arial;fill:#17365d}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+
+  <text x="800" y="52" class="title" text-anchor="middle">Las tres respuestas válidas</text>
+  <text x="800" y="88" class="subtitle" text-anchor="middle">Defender no es tener razón en todo. Es saber dónde termina tu evidencia.</text>
+
+  <rect x="420" y="112" width="760" height="52" rx="12" fill="#f3eefa" stroke="#7d5ba6"/>
+  <text x="800" y="146" class="h3" text-anchor="middle">Alguien te hace una pregunta sobre tu herramienta</text>
+
+  <!-- 1 -->
+  <g filter="url(#shadow)"><rect x="55" y="200" width="480" height="330" rx="16" fill="#eef8f2" stroke="#1e7a52"/></g>
+  <rect x="55" y="200" width="230" height="34" rx="10" fill="#1e7a52"/>
+  <text x="75" y="225" class="tag">1 · MOSTRAR LA EVIDENCIA</text>
+  <text x="85" y="272" class="quote">«Sí, y está aquí.»</text>
+  <rect x="85" y="292" width="420" height="118" rx="8" fill="#fff" stroke="#c9d6e2"/>
+  <text x="105" y="320" class="copy">Se responde señalando el archivo</text>
+  <text x="105" y="344" class="copy">donde está registrado:</text>
+  <text x="105" y="374" class="code">protocolo · README · bitácora</text>
+  <text x="105" y="398" class="code">controles · resumen</text>
+  <text x="85" y="446" class="copy" font-weight="700">Es la respuesta más fuerte.</text>
+  <text x="85" y="474" class="small">No porque suene segura, sino porque</text>
+  <text x="85" y="496" class="small">quien pregunta puede comprobarla.</text>
+
+  <!-- 2 -->
+  <g filter="url(#shadow)"><rect x="560" y="200" width="480" height="330" rx="16" fill="#eef5fb" stroke="#2878a9"/></g>
+  <rect x="560" y="200" width="230" height="34" rx="10" fill="#2878a9"/>
+  <text x="580" y="225" class="tag">2 · RECONOCER UN LÍMITE</text>
+  <text x="590" y="272" class="quote">«No puede: es una limitación.»</text>
+  <rect x="590" y="292" width="420" height="118" rx="8" fill="#fff" stroke="#c9d6e2"/>
+  <text x="610" y="320" class="copy">La herramienta no responde eso,</text>
+  <text x="610" y="344" class="copy">y está declarado desde antes en</text>
+  <text x="610" y="374" class="code">«qué no hace» · limitaciones</text>
+  <text x="610" y="398" class="small">— no improvisado ahora</text>
+  <text x="590" y="446" class="copy" font-weight="700">Suma, no resta.</text>
+  <text x="590" y="474" class="small">Un método con su rango de validez</text>
+  <text x="590" y="496" class="small">declarado es más utilizable, no menos.</text>
+
+  <!-- 3 -->
+  <g filter="url(#shadow)"><rect x="1065" y="200" width="480" height="330" rx="16" fill="#fdf7e8" stroke="#d18b16"/></g>
+  <rect x="1065" y="200" width="200" height="34" rx="10" fill="#d18b16"/>
+  <text x="1085" y="225" class="tag">3 · NO LO SÉ</text>
+  <text x="1095" y="272" class="quote">«No lo sé, y haría falta…»</text>
+  <rect x="1095" y="292" width="420" height="118" rx="8" fill="#fff" stroke="#c9d6e2"/>
+  <text x="1115" y="320" class="copy">Se admite el desconocimiento</text>
+  <text x="1115" y="344" class="copy"><tspan font-weight="700">y se añade</tspan> qué evidencia haría</text>
+  <text x="1115" y="368" class="copy">falta para averiguarlo.</text>
+  <text x="1115" y="398" class="small">Esa segunda parte es la que se evalúa.</text>
+  <text x="1095" y="446" class="copy" font-weight="700">Es una respuesta completa.</text>
+  <text x="1095" y="474" class="small">Nadie espera que sepas todo; se espera</text>
+  <text x="1095" y="496" class="small">que sepas qué te falta por saber.</text>
+
+  <!-- la que no vale -->
+  <g filter="url(#shadow)"><rect x="55" y="562" width="1490" height="170" rx="16" fill="#fdf1ef" stroke="#b03a2e"/></g>
+  <rect x="55" y="562" width="290" height="34" rx="10" fill="#b03a2e"/>
+  <text x="75" y="587" class="tag">LA ÚNICA QUE NO ES VÁLIDA</text>
+  <text x="85" y="636" class="quote">«Sí, claro que sí.»   — y no puedes mostrar dónde está escrito.</text>
+  <text x="85" y="678" class="copy">Presentar una suposición como si fuera un resultado es el único error grave de una defensa. Los otros tres son respuestas;</text>
+  <text x="85" y="706" class="copy">este es una afirmación sin respaldo — y en ciencia una afirmación sin respaldo no vale más que el silencio.</text>
+
+  <!-- FRANJA -->
+  <rect x="55" y="756" width="1490" height="110" rx="14" fill="#f3eefa" stroke="#7d5ba6"/>
+  <text x="85" y="798" class="band"><tspan font-weight="700">Reconocer un límite suma. Afirmar de más resta.</tspan></text>
+  <text x="85" y="836" class="copy">Quien pregunta no busca sorprenderte: busca comprobar si sabes dónde termina tu evidencia. Y eso se puede aprender hoy.</text>
+</svg>

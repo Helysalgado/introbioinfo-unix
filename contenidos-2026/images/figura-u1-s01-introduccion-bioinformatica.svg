@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="780" viewBox="0 0 1600 780" role="img" aria-labelledby="title desc">
+  <title id="title">¿Qué hace la bioinformática? De los datos biológicos al conocimiento</title>
+  <desc id="desc">Flujo de cinco etapas: pregunta biológica, experimentos y repositorios, datos biológicos, bioinformática y evidencia e interpretación. Una banda inferior destaca automatización, documentación, verificación y reproducibilidad.</desc>
+  <defs>
+    <filter id="shadow" x="-15%" y="-15%" width="130%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L12,6 L0,12 z" fill="#52738f"/>
+    </marker>
+    <style>
+      .title { font: 700 38px Arial, Helvetica, sans-serif; fill: #17365d; }
+      .subtitle { font: 400 20px Arial, Helvetica, sans-serif; fill: #526270; }
+      .stage { font: 700 22px Arial, Helvetica, sans-serif; fill: #17365d; }
+      .copy { font: 400 17px Arial, Helvetica, sans-serif; fill: #34495e; }
+      .small { font: 400 15px Arial, Helvetica, sans-serif; fill: #526270; }
+      .number { font: 700 23px Arial, Helvetica, sans-serif; fill: #ffffff; text-anchor: middle; dominant-baseline: middle; }
+      .band-title { font: 700 21px Arial, Helvetica, sans-serif; fill: #ffffff; letter-spacing: 0.6px; }
+      .band-copy { font: 400 17px Arial, Helvetica, sans-serif; fill: #eaf6f7; }
+      .pill { font: 700 17px Arial, Helvetica, sans-serif; fill: #17365d; text-anchor: middle; dominant-baseline: middle; }
+      .icon { fill: none; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="780" fill="#ffffff"/>
+  <text x="800" y="55" class="title" text-anchor="middle">¿Qué hace la bioinformática?</text>
+  <text x="800" y="91" class="subtitle" text-anchor="middle">Transforma preguntas y datos biológicos en evidencia interpretable mediante herramientas computacionales.</text>
+
+  <!-- Conectores del flujo -->
+  <g fill="none" stroke="#52738f" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)">
+    <path d="M330 332 H360"/><path d="M630 332 H660"/><path d="M930 332 H960"/><path d="M1230 332 H1260"/>
+  </g>
+
+  <!-- 1. Pregunta biológica -->
+  <g filter="url(#shadow)"><rect x="60" y="145" width="270" height="385" rx="20" fill="#f3f8fc" stroke="#8bb4cf" stroke-width="2.5"/></g>
+  <circle cx="195" cy="164" r="30" fill="#2878a9"/><text x="195" y="165" class="number">1</text>
+  <circle cx="195" cy="238" r="45" fill="#e2f0f8" stroke="#2878a9" stroke-width="3"/>
+  <g class="icon" stroke="#2878a9"><path d="M177 222 a22 22 0 1 1 31 31"/><path d="M208 253 l13 13"/><path d="M188 238 h14 M195 231 v14"/></g>
+  <text x="195" y="315" class="stage" text-anchor="middle">Pregunta biológica</text>
+  <text x="195" y="357" class="copy" text-anchor="middle">
+    <tspan x="195" dy="0">¿Qué quieres conocer,</tspan><tspan x="195" dy="26">comparar o explicar</tspan><tspan x="195" dy="26">sobre un sistema vivo?</tspan>
+  </text>
+  <rect x="92" y="455" width="206" height="42" rx="21" fill="#e2f0f8"/><text x="195" y="477" class="small" text-anchor="middle">La pregunta guía el análisis</text>
+
+  <!-- 2. Fuentes -->
+  <g filter="url(#shadow)"><rect x="360" y="145" width="270" height="385" rx="20" fill="#f1faf9" stroke="#7ebdb8" stroke-width="2.5"/></g>
+  <circle cx="495" cy="164" r="30" fill="#208b82"/><text x="495" y="165" class="number">2</text>
+  <circle cx="495" cy="238" r="45" fill="#def2ef" stroke="#208b82" stroke-width="3"/>
+  <g class="icon" stroke="#208b82"><path d="M477 213 v20 l-11 23 a8 8 0 0 0 7 11 h44 a8 8 0 0 0 7-11 l-11-23 v-20"/><path d="M474 261 h42 M486 213 h18"/><circle cx="489" cy="250" r="3" fill="#208b82"/><circle cx="505" cy="269" r="3" fill="#208b82"/></g>
+  <text x="495" y="308" class="stage" text-anchor="middle">Experimentos y</text><text x="495" y="336" class="stage" text-anchor="middle">repositorios</text>
+  <text x="495" y="378" class="copy" text-anchor="middle">
+    <tspan x="495" dy="0">Secuenciación, laboratorio,</tspan><tspan x="495" dy="26">SRA y otras bases</tspan><tspan x="495" dy="26">de datos públicas.</tspan>
+  </text>
+  <rect x="392" y="455" width="206" height="42" rx="21" fill="#def2ef"/><text x="495" y="477" class="small" text-anchor="middle">Fuentes con procedencia</text>
+
+  <!-- 3. Datos -->
+  <g filter="url(#shadow)"><rect x="660" y="145" width="270" height="385" rx="20" fill="#f6f8fc" stroke="#9caed1" stroke-width="2.5"/></g>
+  <circle cx="795" cy="164" r="30" fill="#5a73a8"/><text x="795" y="165" class="number">3</text>
+  <circle cx="795" cy="238" r="45" fill="#e8ecf6" stroke="#5a73a8" stroke-width="3"/>
+  <g class="icon" stroke="#5a73a8"><ellipse cx="795" cy="218" rx="24" ry="10"/><path d="M771 218 v39 c0 6 11 10 24 10 s24-4 24-10 v-39 M771 237 c0 6 11 10 24 10 s24-4 24-10 M771 256 c0 6 11 10 24 10 s24-4 24-10"/></g>
+  <text x="795" y="315" class="stage" text-anchor="middle">Datos biológicos</text>
+  <text x="795" y="357" class="copy" text-anchor="middle">
+    <tspan x="795" dy="0">Secuencias, anotaciones,</tspan><tspan x="795" dy="26">tablas, imágenes</tspan><tspan x="795" dy="26">y metadatos.</tspan>
+  </text>
+  <rect x="692" y="455" width="206" height="42" rx="21" fill="#e8ecf6"/><text x="795" y="477" class="small" text-anchor="middle">FASTA · GFF · tablas</text>
+
+  <!-- 4. Bioinformática -->
+  <g filter="url(#shadow)"><rect x="960" y="145" width="270" height="385" rx="20" fill="#eef7f8" stroke="#4f9baa" stroke-width="2.5"/></g>
+  <circle cx="1095" cy="164" r="30" fill="#1f6d7a"/><text x="1095" y="165" class="number">4</text>
+  <circle cx="1095" cy="238" r="45" fill="#dceff1" stroke="#1f6d7a" stroke-width="3"/>
+  <g class="icon" stroke="#1f6d7a"><rect x="1065" y="213" width="60" height="43" rx="6"/><path d="M1076 268 h38 M1095 256 v12 M1076 228 l9 8-9 8 M1092 244 h18"/></g>
+  <text x="1095" y="315" class="stage" text-anchor="middle">Bioinformática</text>
+  <text x="1095" y="357" class="copy" text-anchor="middle">
+    <tspan x="1095" dy="0">Almacena, accede,</tspan><tspan x="1095" dy="26">explora y analiza</tspan><tspan x="1095" dy="26">los datos a escala.</tspan>
+  </text>
+  <rect x="992" y="455" width="206" height="42" rx="21" fill="#dceff1"/><text x="1095" y="477" class="small" text-anchor="middle">Herramientas + estrategia</text>
+
+  <!-- 5. Evidencia y conocimiento -->
+  <g filter="url(#shadow)"><rect x="1260" y="145" width="270" height="385" rx="20" fill="#f8f6fb" stroke="#aa98c5" stroke-width="2.5"/></g>
+  <circle cx="1395" cy="164" r="30" fill="#76629a"/><text x="1395" y="165" class="number">5</text>
+  <circle cx="1395" cy="238" r="45" fill="#eee9f4" stroke="#76629a" stroke-width="3"/>
+  <g class="icon" stroke="#76629a"><path d="M1370 245 l15-15 13 13 24-25"/><path d="M1370 214 v53 h52"/><circle cx="1422" cy="218" r="4" fill="#76629a"/></g>
+  <text x="1395" y="308" class="stage" text-anchor="middle">Evidencia e</text><text x="1395" y="336" class="stage" text-anchor="middle">interpretación</text>
+  <text x="1395" y="378" class="copy" text-anchor="middle">
+    <tspan x="1395" dy="0">Resultados verificables,</tspan><tspan x="1395" dy="26">significado biológico</tspan><tspan x="1395" dy="26">y conclusiones.</tspan>
+  </text>
+  <rect x="1292" y="455" width="206" height="42" rx="21" fill="#eee9f4"/><text x="1395" y="477" class="small" text-anchor="middle">Datos → conocimiento</text>
+
+  <!-- Principios transversales -->
+  <text x="800" y="575" class="stage" text-anchor="middle">El trabajo científico confiable atraviesa todo el proceso</text>
+  <rect x="60" y="600" width="1470" height="125" rx="20" fill="#1f6d7a"/>
+  <text x="105" y="639" class="band-title">HABILIDADES CON DATOS</text>
+  <text x="105" y="671" class="band-copy"><tspan x="105" dy="0">La computadora permite trabajar a escala.</tspan><tspan x="105" dy="24">Estos principios permiten confiar en el resultado.</tspan></text>
+  <g>
+    <rect x="765" y="625" width="170" height="55" rx="27" fill="#e2f0f8"/><text x="850" y="653" class="pill">Automatización</text>
+    <rect x="950" y="625" width="170" height="55" rx="27" fill="#def2ef"/><text x="1035" y="653" class="pill">Documentación</text>
+    <rect x="1135" y="625" width="170" height="55" rx="27" fill="#e8ecf6"/><text x="1220" y="653" class="pill">Verificación</text>
+    <rect x="1320" y="625" width="180" height="55" rx="27" fill="#eee9f4"/><text x="1410" y="653" class="pill">Reproducibilidad</text>
+  </g>
+</svg>

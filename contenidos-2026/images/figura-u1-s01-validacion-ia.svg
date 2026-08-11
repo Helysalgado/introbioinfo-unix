@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="860" viewBox="0 0 1600 860" role="img" aria-labelledby="title desc">
+  <title id="title">Ciclo de validación de una respuesta de inteligencia artificial</title>
+  <desc id="desc">Flujo para entender la respuesta, probarla con datos conocidos, contrastarla con documentación oficial y decidir si puede aceptarse o debe corregirse y volver a evaluarse.</desc>
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/></filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6 0 12z" fill="#52738f"/></marker>
+    <marker id="arrowGreen" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6 0 12z" fill="#208b82"/></marker>
+    <marker id="arrowGold" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6 0 12z" fill="#b77a22"/></marker>
+    <style>
+      .title{font:700 40px Arial,Helvetica,sans-serif;fill:#17365d}.subtitle{font:400 20px Arial,Helvetica,sans-serif;fill:#526270}
+      .step{font:700 25px Arial,Helvetica,sans-serif;fill:#17365d}.num{font:700 24px Arial,Helvetica,sans-serif;fill:#fff;text-anchor:middle;dominant-baseline:middle}
+      .copy{font:400 18px Arial,Helvetica,sans-serif;fill:#34495e}.decision{font:700 21px Arial,Helvetica,sans-serif;fill:#17365d;text-anchor:middle}
+      .branch{font:700 18px Arial,Helvetica,sans-serif}.box-title{font:700 24px Arial,Helvetica,sans-serif;fill:#fff}.box-copy{font:400 18px Arial,Helvetica,sans-serif;fill:#fff}
+      .band-title{font:700 22px Arial,Helvetica,sans-serif;fill:#fff}.band-copy{font:400 18px Arial,Helvetica,sans-serif;fill:#eaf6f7}
+    </style>
+  </defs>
+  <rect width="1600" height="860" fill="#fff"/>
+  <text x="800" y="58" class="title" text-anchor="middle">Ciclo de validación de una respuesta de IA</text>
+  <text x="800" y="94" class="subtitle" text-anchor="middle">Una respuesta plausible no es evidencia: debe entenderse, probarse y contrastarse.</text>
+
+  <g fill="none" stroke="#52738f" stroke-width="5" marker-end="url(#arrow)"><path d="M370 337H425"/><path d="M725 337H780"/><path d="M1080 337H1135"/></g>
+
+  <g filter="url(#shadow)"><rect x="70" y="190" width="300" height="300" rx="22" fill="#f3f8fc" stroke="#8bb4cf" stroke-width="3"/></g>
+  <circle cx="220" cy="206" r="38" fill="#2878a9"/><text x="220" y="207" class="num">1</text>
+  <text x="220" y="280" class="step" text-anchor="middle">ENTENDER</text>
+  <text x="220" y="330" class="copy" text-anchor="middle"><tspan x="220">Explica con tus propias</tspan><tspan x="220" dy="27">palabras qué hace la</tspan><tspan x="220" dy="27">respuesta o el comando.</tspan></text>
+  <rect x="105" y="424" width="230" height="42" rx="21" fill="#2878a9"/><text x="220" y="451" class="num" style="font-size:16px">NO EJECUTES A CIEGAS</text>
+
+  <g filter="url(#shadow)"><rect x="425" y="190" width="300" height="300" rx="22" fill="#f1faf9" stroke="#7ebdb8" stroke-width="3"/></g>
+  <circle cx="575" cy="206" r="38" fill="#208b82"/><text x="575" y="207" class="num">2</text>
+  <text x="575" y="280" class="step" text-anchor="middle">PROBAR</text>
+  <text x="575" y="330" class="copy" text-anchor="middle"><tspan x="575">Usa datos pequeños</tspan><tspan x="575" dy="27">cuyo resultado esperado</tspan><tspan x="575" dy="27">ya conozcas.</tspan></text>
+  <rect x="460" y="424" width="230" height="42" rx="21" fill="#208b82"/><text x="575" y="451" class="num" style="font-size:16px">CASO CONTROLADO</text>
+
+  <g filter="url(#shadow)"><rect x="780" y="190" width="300" height="300" rx="22" fill="#f6f8fc" stroke="#9caed1" stroke-width="3"/></g>
+  <circle cx="930" cy="206" r="38" fill="#5a73a8"/><text x="930" y="207" class="num">3</text>
+  <text x="930" y="280" class="step" text-anchor="middle">CONTRASTAR</text>
+  <text x="930" y="330" class="copy" text-anchor="middle"><tspan x="930">Consulta documentación</tspan><tspan x="930" dy="27">oficial, man pages o</tspan><tspan x="930" dy="27">material del curso.</tspan></text>
+  <rect x="815" y="424" width="230" height="42" rx="21" fill="#5a73a8"/><text x="930" y="451" class="num" style="font-size:16px">FUENTE INDEPENDIENTE</text>
+
+  <g filter="url(#shadow)"><path d="M1325 188L1510 337 1325 486 1140 337z" fill="#f8f6fb" stroke="#76629a" stroke-width="4"/></g>
+  <text x="1325" y="316" class="decision"><tspan x="1325">¿La respuesta</tspan><tspan x="1325" dy="28">es correcta y está</tspan><tspan x="1325" dy="28">sustentada?</tspan></text>
+
+  <!-- Rama positiva: recorrido directo y separado -->
+  <path d="M1390 455V575" fill="none" stroke="#208b82" stroke-width="5" marker-end="url(#arrowGreen)"/>
+  <text x="1410" y="530" class="branch" fill="#208b82">SÍ</text>
+  <g filter="url(#shadow)"><rect x="1210" y="575" width="300" height="110" rx="20" fill="#208b82"/></g>
+  <text x="1360" y="614" class="box-title" text-anchor="middle">ACEPTAR</text>
+  <text x="1360" y="650" class="box-copy" text-anchor="middle">Usar con registro y criterio.</text>
+
+  <!-- Rama negativa: se desvía a la izquierda sin cruzar la rama positiva -->
+  <path d="M1260 455V525H950V575" fill="none" stroke="#b77a22" stroke-width="5" marker-end="url(#arrowGold)"/>
+  <text x="1090" y="513" class="branch" fill="#b77a22">NO / DUDOSA</text>
+  <g filter="url(#shadow)"><rect x="800" y="575" width="300" height="110" rx="20" fill="#b77a22"/></g>
+  <text x="950" y="614" class="box-title" text-anchor="middle">CORREGIR</text>
+  <text x="950" y="650" class="box-copy" text-anchor="middle">Reformular, probar y verificar.</text>
+  <path d="M800 630H220V505" fill="none" stroke="#b77a22" stroke-width="5" marker-end="url(#arrowGold)"/>
+
+  <rect x="70" y="720" width="1460" height="86" rx="18" fill="#1f6d7a"/>
+  <text x="110" y="754" class="band-title">RESPONSABILIDAD CIENTÍFICA</text>
+  <text x="110" y="785" class="band-copy">La IA puede proponer; la persona que realiza el análisis debe comprender, verificar y responder por el resultado.</text>
+</svg>

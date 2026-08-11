@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">De la lista extraída a la lista comparable</title>
+  <desc id="desc">Flujo de cinco pasos. Se parte de las listas de identificadores extraídas en la sesión anterior. Primero se auditan sus rasgos visibles e invisibles: espacios en los extremos, mayúsculas y minúsculas, prefijos, sufijos de versión y delimitadores. Segundo, cada diferencia observada se clasifica como confirmada de formato, posiblemente semántica o no resuelta, y solo las confirmadas pasan a la política. Tercero se escribe la política: qué regla, en qué orden, con qué justificación, qué riesgo y qué control. Cuarto se aplica la transformación, que produce archivos derivados y conserva intactos tanto los originales de la sesión anterior como la carpeta de datos fuente. Quinto se valida: número de líneas, claves vacías, valores únicos, colisiones e idempotencia. Solo entonces las listas están listas para compararse. Una franja lateral recuerda que los datos de origen nunca se modifican y que cada salida se guarda como derivado.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrow" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto">
+      <path d="M0 0 L11 5.5 L0 11z" fill="#2878a9"/>
+    </marker>
+    <style>
+      .title{font:700 42px Arial;fill:#17365d}
+      .subtitle{font:400 20px Arial;fill:#526270}
+      .tag{font:700 17px Arial;fill:#fff}
+      .copy{font:400 18px Arial;fill:#34495e}
+      .small{font:400 15px Arial;fill:#526270}
+      .code{font:400 16px 'Courier New';fill:#17365d}
+      .step{font:700 20px Arial;fill:#17365d}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+
+  <text x="800" y="56" class="title" text-anchor="middle">De la lista extraída a la lista comparable</text>
+  <text x="800" y="92" class="subtitle" text-anchor="middle">La comparación no empieza hasta que las listas han pasado la auditoría, la política y los controles.</text>
+
+  <!-- ENTRADA -->
+  <g filter="url(#shadow)"><rect x="60" y="140" width="250" height="120" rx="14" fill="#f7fafc" stroke="#c9d6e2"/></g>
+  <text x="185" y="180" class="step" text-anchor="middle">Listas de S19</text>
+  <text x="185" y="212" class="code" text-anchor="middle">replicones-fasta.txt</text>
+  <text x="185" y="236" class="code" text-anchor="middle">replicones-gff3.txt</text>
+
+  <path d="M320 200 L390 200" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- 1 AUDITAR -->
+  <g filter="url(#shadow)"><rect x="400" y="140" width="330" height="120" rx="14" fill="#eef5fb" stroke="#2878a9"/></g>
+  <rect x="400" y="140" width="150" height="30" rx="8" fill="#2878a9"/>
+  <text x="418" y="162" class="tag">1 · AUDITAR</text>
+  <text x="420" y="196" class="small">espacios · caja · prefijos</text>
+  <text x="420" y="218" class="small">versiones · delimitadores</text>
+  <text x="420" y="246" class="code">cat -A · grep -c · wc -l</text>
+
+  <path d="M740 200 L810 200" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- 2 CLASIFICAR -->
+  <g filter="url(#shadow)"><rect x="820" y="140" width="330" height="120" rx="14" fill="#fdf7e8" stroke="#d18b16"/></g>
+  <rect x="820" y="140" width="190" height="30" rx="8" fill="#d18b16"/>
+  <text x="838" y="162" class="tag">2 · CLASIFICAR</text>
+  <text x="840" y="196" class="small">¿formato confirmado?</text>
+  <text x="840" y="218" class="small">¿posible significado?</text>
+  <text x="840" y="240" class="small">¿sin resolver todavía?</text>
+
+  <path d="M1160 200 L1230 200" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- 3 POLITICA -->
+  <g filter="url(#shadow)"><rect x="1240" y="140" width="300" height="120" rx="14" fill="#f3eefa" stroke="#7d5ba6"/></g>
+  <rect x="1240" y="140" width="180" height="30" rx="8" fill="#7d5ba6"/>
+  <text x="1258" y="162" class="tag">3 · POLÍTICA</text>
+  <text x="1260" y="196" class="small">regla · orden · justificación</text>
+  <text x="1260" y="218" class="small">riesgo · control</text>
+  <text x="1260" y="246" class="small">Solo pasa lo confirmado.</text>
+
+  <path d="M1390 270 C 1390 320, 800 320, 800 360" fill="none" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- 4 TRANSFORMAR -->
+  <g filter="url(#shadow)"><rect x="400" y="370" width="800" height="150" rx="14" fill="#eef8f2" stroke="#8cc9a9"/></g>
+  <rect x="400" y="370" width="230" height="30" rx="8" fill="#1e7a52"/>
+  <text x="418" y="392" class="tag">4 · TRANSFORMAR</text>
+  <text x="425" y="430" class="code" font-size="17">sed 's/^[[:space:]]*//; s/[[:space:]]*$//; s/^chr://'</text>
+  <text x="425" y="458" class="code" font-size="17">tr '[:lower:]' '[:upper:]'   |   sort</text>
+  <text x="425" y="496" class="small">Cada regla implementa una línea de la política. Ninguna aparece sin justificación.</text>
+
+  <rect x="880" y="400" width="300" height="100" rx="10" fill="#fff" stroke="#8cc9a9" stroke-width="2"/>
+  <text x="900" y="430" class="copy" font-weight="700">Salida: derivados</text>
+  <text x="900" y="458" class="code">results/s20/…-normalizados.txt</text>
+  <text x="900" y="484" class="small">Los originales de S19 no se tocan.</text>
+
+  <path d="M800 530 L800 580" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- 5 VALIDAR -->
+  <g filter="url(#shadow)"><rect x="400" y="590" width="800" height="150" rx="14" fill="#fdf1ef" stroke="#e0a79c"/></g>
+  <rect x="400" y="590" width="200" height="30" rx="8" fill="#b03a2e"/>
+  <text x="418" y="612" class="tag">5 · VALIDAR</text>
+  <text x="425" y="654" class="copy">¿mismo número de líneas? · ¿alguna clave vacía? · ¿bajaron los valores únicos?</text>
+  <text x="425" y="686" class="copy">¿dos originales distintos dan la misma clave? · ¿aplicarla dos veces cambia algo?</text>
+  <text x="425" y="720" class="small">Si un control falla, se corrige la política — no se corrigen los datos a mano.</text>
+
+  <path d="M1210 665 L1300 665" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+  <g filter="url(#shadow)"><rect x="1310" y="605" width="230" height="120" rx="14" fill="#17365d"/></g>
+  <text x="1425" y="655" class="tag" text-anchor="middle" font-size="20">LISTAS</text>
+  <text x="1425" y="683" class="tag" text-anchor="middle" font-size="20">COMPARABLES</text>
+  <text x="1425" y="710" class="tag" text-anchor="middle" font-size="14" font-weight="400">ahora sí: comm</text>
+
+  <!-- FRANJA LATERAL -->
+  <rect x="60" y="370" width="300" height="370" rx="14" fill="#f7fafc" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="90" y="412" class="step">Lo que no cambia</text>
+  <text x="90" y="450" class="code" font-size="17">data/source/</text>
+  <text x="90" y="480" class="small">Los archivos descargados y</text>
+  <text x="90" y="502" class="small">verificados en U3 permanecen</text>
+  <text x="90" y="524" class="small">intactos, siempre.</text>
+  <text x="90" y="566" class="code" font-size="17">results/s19/</text>
+  <text x="90" y="596" class="small">Las listas originales se</text>
+  <text x="90" y="618" class="small">conservan: son la línea base</text>
+  <text x="90" y="640" class="small">contra la que se valida.</text>
+  <text x="90" y="686" class="small" font-weight="700">Normalizar nunca es editar:</text>
+  <text x="90" y="708" class="small">siempre es producir algo nuevo.</text>
+</svg>

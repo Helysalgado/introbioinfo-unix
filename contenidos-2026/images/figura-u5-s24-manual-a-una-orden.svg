@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Del trabajo manual a una sola orden</title>
+  <desc id="desc">A la izquierda, la ejecución manual del protocolo: una cadena de acciones repetidas —localizar el comando en el documento, copiarlo, pegarlo, esperar la salida, leerla y volver a empezar— que se repite treinta veces, con una nota que advierte que cada repetición es una oportunidad nueva de equivocarse y que un error de copiado no avisa. A la derecha, el mismo análisis lanzado con una sola orden en la terminal, que desencadena las mismas treinta acciones ejecutadas automáticamente, siempre en el mismo orden y sin intervención humana. Una franja inferior resume la idea central: no cambió el análisis, cambió quién lo ejecuta.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrow" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto">
+      <path d="M0 0 L11 5.5 L0 11z" fill="#d18b16"/>
+    </marker>
+    <marker id="arrowgrn" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto">
+      <path d="M0 0 L12 6 L0 12z" fill="#1e7a52"/>
+    </marker>
+    <style>
+      .title{font:700 42px Arial;fill:#17365d}
+      .subtitle{font:400 20px Arial;fill:#526270}
+      .tag{font:700 16px Arial;fill:#fff}
+      .copy{font:400 17px Arial;fill:#34495e}
+      .small{font:400 15px Arial;fill:#526270}
+      .step{font:400 16px Arial;fill:#34495e}
+      .code{font:400 17px 'Courier New';fill:#17365d}
+      .codew{font:400 19px 'Courier New';fill:#ffffff}
+      .h3{font:700 20px Arial;fill:#17365d}
+      .big{font:700 30px Arial;fill:#17365d}
+      .band{font:400 20px Arial;fill:#17365d}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+
+  <text x="800" y="56" class="title" text-anchor="middle">Del trabajo manual a una sola orden</text>
+  <text x="800" y="92" class="subtitle" text-anchor="middle">El mismo análisis, el mismo orden, los mismos resultados. Lo que cambia es cuántas veces hay que acertar.</text>
+
+  <!-- ================= ANTES ================= -->
+  <g filter="url(#shadow)"><rect x="55" y="130" width="690" height="570" rx="16" fill="#fdf7e8" stroke="#d18b16"/></g>
+  <rect x="55" y="130" width="250" height="34" rx="10" fill="#d18b16"/>
+  <text x="75" y="155" class="tag">ANTES · a mano</text>
+  <text x="325" y="155" class="small">ejecutar el protocolo de S23</text>
+
+  <g>
+    <rect x="200" y="192" width="400" height="40" rx="8" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+    <text x="220" y="219" class="step">localizar el comando en el documento</text>
+    <path d="M400 234 L400 254" stroke="#d18b16" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+    <rect x="200" y="258" width="400" height="40" rx="8" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+    <text x="220" y="285" class="step">copiarlo</text>
+    <path d="M400 300 L400 320" stroke="#d18b16" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+    <rect x="200" y="324" width="400" height="40" rx="8" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+    <text x="220" y="351" class="step">pegarlo en la terminal</text>
+    <path d="M400 366 L400 386" stroke="#d18b16" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+    <rect x="200" y="390" width="400" height="40" rx="8" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+    <text x="220" y="417" class="step">esperar y leer la salida</text>
+    <path d="M400 432 L400 452" stroke="#d18b16" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+    <rect x="200" y="456" width="400" height="40" rx="8" fill="#fdf1ef" stroke="#d18b16" stroke-width="2"/>
+    <text x="220" y="483" class="step">volver a empezar</text>
+  </g>
+
+  <path d="M180 476 L150 476 L150 212 L180 212" stroke="#d18b16" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+  <text x="120" y="350" class="h3" transform="rotate(-90 120 350)" text-anchor="middle">× 30</text>
+
+  <text x="400" y="546" class="big" text-anchor="middle">30 acciones manuales</text>
+  <rect x="105" y="570" width="590" height="106" rx="10" fill="#fdf1ef" stroke="#b03a2e"/>
+  <text x="130" y="604" class="copy">Cada repetición es una oportunidad nueva de equivocarse</text>
+  <text x="130" y="634" class="copy">en algo que ya habías resuelto bien.</text>
+  <text x="130" y="662" class="small">Y un error de copiado no avisa: el comando corre, el archivo se crea, el número es otro.</text>
+
+  <!-- flecha central -->
+  <path d="M765 400 L835 400" stroke="#1e7a52" stroke-width="4" fill="none" marker-end="url(#arrowgrn)"/>
+
+  <!-- ================= DESPUÉS ================= -->
+  <g filter="url(#shadow)"><rect x="855" y="130" width="690" height="570" rx="16" fill="#eef8f2" stroke="#1e7a52"/></g>
+  <rect x="855" y="130" width="290" height="34" rx="10" fill="#1e7a52"/>
+  <text x="875" y="155" class="tag">DESPUÉS · con un script</text>
+  <text x="1165" y="155" class="small">el mismo protocolo</text>
+
+  <text x="1200" y="215" class="h3" text-anchor="middle">Una acción humana</text>
+  <rect x="925" y="238" width="550" height="62" rx="10" fill="#17365d"/>
+  <text x="950" y="277" class="codew">$ ./src/analizar-genoma.sh</text>
+
+  <path d="M1200 306 L1200 350" stroke="#1e7a52" stroke-width="4" fill="none" marker-end="url(#arrowgrn)"/>
+
+  <rect x="925" y="356" width="550" height="200" rx="10" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="1200" y="392" class="h3" text-anchor="middle">30 acciones automáticas</text>
+  <text x="950" y="428" class="step">· los mismos comandos</text>
+  <text x="950" y="458" class="step">· en el mismo orden</text>
+  <text x="950" y="488" class="step">· sin pasos olvidados ni líneas a medias</text>
+  <text x="950" y="518" class="step">· y otra vez igual mañana, y dentro de un año</text>
+  <text x="950" y="546" class="small">El orden dejó de vivir en tu memoria: vive en el archivo.</text>
+
+  <rect x="905" y="576" width="590" height="100" rx="10" fill="#eef5fb" stroke="#2878a9"/>
+  <text x="930" y="612" class="copy">El tiempo que ahorras es lo de menos.</text>
+  <text x="930" y="644" class="copy">Lo que ganas es que el resultado ya no dependa de tu atención.</text>
+
+  <!-- ================= FRANJA ================= -->
+  <rect x="55" y="736" width="1490" height="104" rx="14" fill="#eef8f2" stroke="#1e7a52"/>
+  <text x="800" y="778" class="band" text-anchor="middle"><tspan font-weight="700">No cambió el análisis. Cambió quién lo ejecuta.</tspan></text>
+  <text x="800" y="814" class="small" text-anchor="middle">Ni un comando nuevo, ni una respuesta nueva sobre el genoma: la misma investigación, puesta en marcha por el sistema.</text>
+</svg>

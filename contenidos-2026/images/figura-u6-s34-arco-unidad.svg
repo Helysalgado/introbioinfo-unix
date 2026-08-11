@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="520" viewBox="0 0 1600 520" role="img" aria-labelledby="t d">
+  <title id="t">Arco completo de la Unidad 6</title>
+  <desc id="d">Cinco peldaños: Comparar, Buscar, Interpretar, Inferir, Integrar. El último resaltado. Sin conceptos nuevos.</desc>
+  <defs>
+    <style>
+      .title{font:700 32px Arial;fill:#17365d}
+      .sub{font:400 16px Arial;fill:#526270}
+      .lab{font:700 16px Arial;fill:#ffffff}
+      .n{font:700 14px Arial;fill:#17365d}
+      .small{font:400 13px Arial;fill:#526270}
+    </style>
+  </defs>
+  <rect width="1600" height="520" fill="#fff"/>
+  <text x="800" y="44" class="title" text-anchor="middle">El cierre no añade: integra</text>
+  <text x="800" y="74" class="sub" text-anchor="middle">Mismo patrón narrativo que U4 y U5</text>
+
+  <rect x="40" y="140" width="280" height="120" rx="14" fill="#eef4fa" stroke="#17365d" stroke-width="2"/>
+  <rect x="40" y="140" width="280" height="40" rx="14" fill="#17365d"/>
+  <rect x="40" y="164" width="280" height="16" fill="#17365d"/>
+  <text x="180" y="168" class="lab" text-anchor="middle">S30 · Comparar</text>
+  <text x="180" y="230" class="small" text-anchor="middle">contexto y alineamiento</text>
+
+  <rect x="340" y="140" width="280" height="120" rx="14" fill="#eef4fa" stroke="#17365d" stroke-width="2"/>
+  <rect x="340" y="140" width="280" height="40" rx="14" fill="#17365d"/>
+  <rect x="340" y="164" width="280" height="16" fill="#17365d"/>
+  <text x="480" y="168" class="lab" text-anchor="middle">S31 · Buscar</text>
+  <text x="480" y="230" class="small" text-anchor="middle">candidatos en una colección</text>
+
+  <rect x="640" y="140" width="280" height="120" rx="14" fill="#eef4fa" stroke="#17365d" stroke-width="2"/>
+  <rect x="640" y="140" width="280" height="40" rx="14" fill="#17365d"/>
+  <rect x="640" y="164" width="280" height="16" fill="#17365d"/>
+  <text x="780" y="168" class="lab" text-anchor="middle">S32 · Interpretar</text>
+  <text x="780" y="230" class="small" text-anchor="middle">hits ` conclusión</text>
+
+  <rect x="940" y="140" width="280" height="120" rx="14" fill="#eef4fa" stroke="#17365d" stroke-width="2"/>
+  <rect x="940" y="140" width="280" height="40" rx="14" fill="#17365d"/>
+  <rect x="940" y="164" width="280" height="16" fill="#17365d"/>
+  <text x="1080" y="168" class="lab" text-anchor="middle">S33 · Inferir</text>
+  <text x="1080" y="230" class="small" text-anchor="middle">similitud ` homología</text>
+
+  <rect x="1240" y="120" width="320" height="160" rx="14" fill="#eef8f2" stroke="#1e7a52" stroke-width="3"/>
+  <rect x="1240" y="120" width="320" height="44" rx="14" fill="#1e7a52"/>
+  <rect x="1240" y="148" width="320" height="16" fill="#1e7a52"/>
+  <text x="1400" y="150" class="lab" text-anchor="middle">S34 · Integrar</text>
+  <text x="1400" y="210" class="n" text-anchor="middle">evidencia ’ hipótesis</text>
+  <text x="1400" y="240" class="small" text-anchor="middle">sin conceptos nuevos</text>
+
+  <path d="M320 200 L340 200 M620 200 L640 200 M920 200 L940 200 M1220 200 L1240 200" stroke="#17365d" stroke-width="3" marker-end="url(#a)"/>
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#17365d"/></marker></defs>
+
+  <rect x="40" y="340" width="1520" height="120" rx="12" fill="#fff8e8" stroke="#d18b16" stroke-width="2"/>
+  <text x="800" y="390" style="font:600 18px Arial;fill:#17365d" text-anchor="middle">Una investigación pequeña pero auténtica</text>
+  <text x="800" y="425" class="small" text-anchor="middle">Si esta sesión pudiera hacerse sin S30S33, estaría mal diseñada.</text>
+</svg>

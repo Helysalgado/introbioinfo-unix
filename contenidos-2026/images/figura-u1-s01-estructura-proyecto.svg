@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Estructura de un proyecto bioinformático reproducible</title>
+  <desc id="desc">Árbol de directorios con README, data, src, results y doc. Dentro de data, source conserva los datos originales intactos y processed contiene datos derivados.</desc>
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/></filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6 0 12z" fill="#52738f"/></marker>
+    <style>
+      .title{font:700 40px Arial,Helvetica,sans-serif;fill:#17365d}.subtitle{font:400 20px Arial,Helvetica,sans-serif;fill:#526270}
+      .root{font:700 27px Arial,Helvetica,sans-serif;fill:#fff}.folder{font:700 24px Arial,Helvetica,sans-serif;fill:#17365d}
+      .copy{font:400 17px Arial,Helvetica,sans-serif;fill:#34495e}.code{font:600 16px 'Courier New',monospace;fill:#34495e}
+      .subfolder{font:700 17px Arial,Helvetica,sans-serif;fill:#17365d}.subcopy{font:400 12.5px Arial,Helvetica,sans-serif;fill:#34495e}.subtag{font:600 11.5px 'Courier New',monospace;fill:#8a5a16}
+      .flow{font:700 18px Arial,Helvetica,sans-serif;fill:#17365d}.band-title{font:700 23px Arial,Helvetica,sans-serif;fill:#fff}.band-copy{font:400 18px Arial,Helvetica,sans-serif;fill:#eaf6f7}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+  <text x="800" y="58" class="title" text-anchor="middle">Estructura de un proyecto bioinformático reproducible</text>
+  <text x="800" y="94" class="subtitle" text-anchor="middle">Separa los datos originales, el código, los resultados y la documentación.</text>
+
+  <g filter="url(#shadow)"><rect x="590" y="132" width="420" height="78" rx="18" fill="#17365d"/></g>
+  <text x="800" y="181" class="root" text-anchor="middle">mi-proyecto/</text>
+  <path d="M800 210V254M210 254H1390" fill="none" stroke="#7690a5" stroke-width="4"/>
+  <g stroke="#7690a5" stroke-width="4"><path d="M210 254V300"/><path d="M505 254V300"/><path d="M800 254V300"/><path d="M1095 254V300"/><path d="M1390 254V300"/></g>
+
+  <!-- README -->
+  <g filter="url(#shadow)"><rect x="80" y="300" width="260" height="300" rx="20" fill="#f3f8fc" stroke="#8bb4cf" stroke-width="3"/></g>
+  <path d="M122 343h64l18 18h94v48H122z" fill="#2878a9" opacity=".18" stroke="#2878a9" stroke-width="3"/>
+  <text x="210" y="448" class="folder" text-anchor="middle">README.md</text>
+  <text x="210" y="485" class="copy" text-anchor="middle"><tspan x="210">Describe el proyecto</tspan><tspan x="210" dy="25">y explica cómo</tspan><tspan x="210" dy="25">reproducirlo.</tspan></text>
+  <text x="210" y="574" class="code" text-anchor="middle">qué · cómo · versiones</text>
+
+  <!-- data -->
+  <g filter="url(#shadow)"><rect x="375" y="300" width="260" height="300" rx="20" fill="#fff7e8" stroke="#d5a44e" stroke-width="3"/></g>
+  <path d="M417 326h64l18 18h94v42H417z" fill="#d5a44e" opacity=".22" stroke="#b77a22" stroke-width="3"/>
+  <text x="505" y="421" class="folder" text-anchor="middle">data/</text>
+  <rect x="395" y="442" width="220" height="70" rx="12" fill="#fffdf8" stroke="#d5a44e" stroke-width="2"/>
+  <text x="505" y="463" class="subfolder" text-anchor="middle">source/</text>
+  <text x="505" y="480" class="subcopy" text-anchor="middle"><tspan x="505">datos originales, inmutables</tspan><tspan x="505" dy="14">+ metadatos</tspan></text>
+  <text x="505" y="505" class="subtag" text-anchor="middle">entrada intacta</text>
+  <rect x="395" y="522" width="220" height="62" rx="12" fill="#fffdf8" stroke="#d5a44e" stroke-width="2"/>
+  <text x="505" y="544" class="subfolder" text-anchor="middle">processed/</text>
+  <text x="505" y="565" class="subcopy" text-anchor="middle"><tspan x="505">datos derivados</tspan><tspan x="505" dy="15">(limpios o transformados)</tspan></text>
+
+  <!-- src -->
+  <g filter="url(#shadow)"><rect x="670" y="300" width="260" height="300" rx="20" fill="#f1faf9" stroke="#7ebdb8" stroke-width="3"/></g>
+  <path d="M712 343h64l18 18h94v48H712z" fill="#208b82" opacity=".18" stroke="#208b82" stroke-width="3"/>
+  <text x="800" y="448" class="folder" text-anchor="middle">src/</text>
+  <text x="800" y="485" class="copy" text-anchor="middle"><tspan x="800">Scripts, comandos</tspan><tspan x="800" dy="25">y pasos del</tspan><tspan x="800" dy="25">análisis.</tspan></text>
+  <text x="800" y="574" class="code" text-anchor="middle">procedimiento</text>
+
+  <!-- results -->
+  <g filter="url(#shadow)"><rect x="965" y="300" width="260" height="300" rx="20" fill="#f6f8fc" stroke="#9caed1" stroke-width="3"/></g>
+  <path d="M1007 343h64l18 18h94v48h-176z" fill="#5a73a8" opacity=".18" stroke="#5a73a8" stroke-width="3"/>
+  <text x="1095" y="448" class="folder" text-anchor="middle">results/</text>
+  <text x="1095" y="485" class="copy" text-anchor="middle"><tspan x="1095">Salidas generadas</tspan><tspan x="1095" dy="25">que siempre pueden</tspan><tspan x="1095" dy="25">regenerarse.</tspan></text>
+  <text x="1095" y="574" class="code" text-anchor="middle">salida reproducible</text>
+
+  <!-- doc -->
+  <g filter="url(#shadow)"><rect x="1260" y="300" width="260" height="300" rx="20" fill="#f8f6fb" stroke="#aa98c5" stroke-width="3"/></g>
+  <path d="M1302 343h64l18 18h94v48h-176z" fill="#76629a" opacity=".18" stroke="#76629a" stroke-width="3"/>
+  <text x="1390" y="448" class="folder" text-anchor="middle">doc/</text>
+  <text x="1390" y="485" class="copy" text-anchor="middle"><tspan x="1390">Protocolos, reportes</tspan><tspan x="1390" dy="25">e interpretación</tspan><tspan x="1390" dy="25">biológica.</tspan></text>
+  <text x="1390" y="574" class="code" text-anchor="middle">comunicación</text>
+
+  <g fill="none" stroke="#52738f" stroke-width="4" marker-end="url(#arrow)"><path d="M635 650H670"/><path d="M930 650H965"/><path d="M1225 650H1260"/></g>
+  <text x="505" y="656" class="flow" text-anchor="middle">DATOS</text><text x="800" y="656" class="flow" text-anchor="middle">PROCESO</text><text x="1095" y="656" class="flow" text-anchor="middle">RESULTADOS</text><text x="1390" y="656" class="flow" text-anchor="middle">REPORTE</text>
+
+  <rect x="80" y="720" width="1440" height="105" rx="18" fill="#1f6d7a"/>
+  <g transform="translate(120 744)" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M5 18h45M12 8h31v42H12z"/><path d="M20 28h15M20 36h15"/></g>
+  <text x="200" y="758" class="band-title">REGLA DEL PROYECTO</text>
+  <text x="200" y="785" class="band-copy"><tspan x="200">Nunca modifiques data/source/. Toda transformación se documenta en src/</tspan><tspan x="200" dy="25">y produce una nueva salida en data/processed/ o results/.</tspan></text>
+</svg>

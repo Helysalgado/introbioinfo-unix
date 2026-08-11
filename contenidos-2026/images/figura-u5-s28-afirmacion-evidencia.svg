@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Cuatro afirmaciones y la evidencia que las sostiene</title>
+  <desc id="desc">Tabla de cuatro filas. Cada fila enuncia una afirmación que una defensa debe sostener, la evidencia que la demuestra y el archivo del proyecto donde esa evidencia ya existe. Primera: responde una pregunta biológica, demostrada por la interpretación de los resultados y su trazabilidad, registrada en el protocolo desde la Unidad 4. Segunda: es reproducible, demostrada por una ejecución limpia desde los datos originales cuyos resultados coinciden con los anteriores, registrada en el protocolo y comprobada con sumas de verificación. Tercera: puede usarla otra persona, demostrada por el informe de la prueba cruzada de la sesión veintisiete, donde alguien que no la escribió llegó al final con solo la documentación. Cuarta: sus resultados son verificables, demostrada por los puntos de control cuyas cardinalidades cuadran y por las limitaciones declaradas. Una franja inferior señala que la defensa no se prepara la víspera, se recolecta: si las sesiones anteriores se hicieron, toda la evidencia ya está escrita, y lo único que falta hoy es reunirla y sostenerla.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0 L10 5 L0 10z" fill="#2878a9"/>
+    </marker>
+    <style>
+      .title{font:700 38px Arial;fill:#17365d}
+      .subtitle{font:400 19px Arial;fill:#526270}
+      .tag{font:700 14px Arial;fill:#fff}
+      .copy{font:400 15px Arial;fill:#34495e}
+      .small{font:400 13px Arial;fill:#526270}
+      .code{font:400 14px 'Courier New';fill:#17365d}
+      .h3{font:700 18px Arial;fill:#17365d}
+      .band{font:400 19px Arial;fill:#17365d}
+      .col{font:700 14px Arial;fill:#7d5ba6}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+
+  <text x="800" y="48" class="title" text-anchor="middle">Cuatro afirmaciones, cuatro evidencias</text>
+  <text x="800" y="82" class="subtitle" text-anchor="middle">Defender no es asegurar que funciona. Es mostrar dónde está escrito que funciona.</text>
+
+  <!-- cabeceras -->
+  <text x="70" y="128" class="col">LO QUE AFIRMAS</text>
+  <text x="580" y="128" class="col">CÓMO SE DEMUESTRA</text>
+  <text x="1130" y="128" class="col">DÓNDE YA EXISTE</text>
+
+  <!-- fila 1 -->
+  <g filter="url(#shadow)"><rect x="55" y="146" width="480" height="150" rx="12" fill="#eef5fb" stroke="#2878a9"/></g>
+  <text x="80" y="184" class="h3">1 · Responde una</text>
+  <text x="80" y="208" class="h3">pregunta biológica</text>
+  <text x="80" y="242" class="copy">No produce números:</text>
+  <text x="80" y="266" class="copy">responde algo que</text>
+  <text x="80" y="288" class="copy">alguien quería saber.</text>
+  <path d="M545 220 L570 220" stroke="#2878a9" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <rect x="580" y="146" width="500" height="150" rx="12" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="602" y="184" class="copy">La interpretación de los resultados,</text>
+  <text x="602" y="210" class="copy">con su evidencia y sus límites</text>
+  <text x="602" y="244" class="copy">Cada afirmación rastreable hasta</text>
+  <text x="602" y="266" class="copy">el paso que la produjo</text>
+  <rect x="1120" y="146" width="425" height="150" rx="12" fill="#eef8f2" stroke="#1e7a52"/>
+  <text x="1142" y="184" class="code">doc/protocolo.md</text>
+  <text x="1142" y="216" class="small">desde la Unidad 4, sesión a sesión</text>
+  <text x="1142" y="252" class="code">resumen-global.tsv</text>
+  <text x="1142" y="278" class="small">y su diccionario de columnas (S27)</text>
+
+  <!-- fila 2 -->
+  <g filter="url(#shadow)"><rect x="55" y="312" width="480" height="150" rx="12" fill="#eef5fb" stroke="#2878a9"/></g>
+  <text x="80" y="350" class="h3">2 · Es reproducible</text>
+  <text x="80" y="386" class="copy">Los mismos datos y las</text>
+  <text x="80" y="410" class="copy">mismas decisiones dan</text>
+  <text x="80" y="432" class="copy">el mismo resultado.</text>
+  <path d="M545 386 L570 386" stroke="#2878a9" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <rect x="580" y="312" width="500" height="150" rx="12" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="602" y="350" class="copy">Una ejecución limpia desde</text>
+  <text x="602" y="374" class="copy"><tspan class="code">data/source/</tspan>, comparada con</text>
+  <text x="602" y="398" class="copy">la anterior</text>
+  <text x="602" y="432" class="small">checksum, conjunto o conteo, según el producto</text>
+  <rect x="1120" y="312" width="425" height="150" rx="12" fill="#eef8f2" stroke="#1e7a52"/>
+  <text x="1142" y="350" class="small">Registro de regeneración (S23)</text>
+  <text x="1142" y="382" class="code">results/…/ejecuciones.tsv</text>
+  <text x="1142" y="414" class="small">y el script, que es el registro</text>
+  <text x="1142" y="436" class="small">de lo que efectivamente se ejecutó</text>
+
+  <!-- fila 3 -->
+  <g filter="url(#shadow)"><rect x="55" y="478" width="480" height="150" rx="12" fill="#eef5fb" stroke="#2878a9"/></g>
+  <text x="80" y="516" class="h3">3 · Puede usarla</text>
+  <text x="80" y="540" class="h3">otra persona</text>
+  <text x="80" y="574" class="copy">Sin ti delante, y sin</text>
+  <text x="80" y="598" class="copy">poder preguntarte nada.</text>
+  <path d="M545 552 L570 552" stroke="#2878a9" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <rect x="580" y="478" width="500" height="150" rx="12" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="602" y="516" class="copy">Alguien que no la escribió llegó</text>
+  <text x="602" y="540" class="copy">al final con solo la documentación</text>
+  <text x="602" y="574" class="copy">Y las preguntas que necesitó</text>
+  <text x="602" y="596" class="copy">ya están corregidas</text>
+  <rect x="1120" y="478" width="425" height="150" rx="12" fill="#eef8f2" stroke="#1e7a52"/>
+  <text x="1142" y="516" class="small">Informe de la prueba cruzada (S27)</text>
+  <text x="1142" y="548" class="code">README.md</text>
+  <text x="1142" y="580" class="small">y la lista de correcciones aplicadas</text>
+  <text x="1142" y="606" class="small">tras esa prueba</text>
+
+  <!-- fila 4 -->
+  <g filter="url(#shadow)"><rect x="55" y="644" width="480" height="150" rx="12" fill="#eef5fb" stroke="#2878a9"/></g>
+  <text x="80" y="682" class="h3">4 · Sus resultados</text>
+  <text x="80" y="706" class="h3">son verificables</text>
+  <text x="80" y="740" class="copy">Se puede comprobar que</text>
+  <text x="80" y="764" class="copy">salieron bien — y saber</text>
+  <text x="80" y="786" class="copy">qué no demuestran.</text>
+  <path d="M545 718 L570 718" stroke="#2878a9" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <rect x="580" y="644" width="500" height="150" rx="12" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="602" y="682" class="copy">Los puntos de control, con sus</text>
+  <text x="602" y="706" class="copy">cardinalidades cuadrando</text>
+  <text x="602" y="740" class="copy">Y las limitaciones declaradas</text>
+  <text x="602" y="762" class="copy"><tspan font-weight="700">antes</tspan> de que nadie las descubra</text>
+  <rect x="1120" y="644" width="425" height="150" rx="12" fill="#eef8f2" stroke="#1e7a52"/>
+  <text x="1142" y="682" class="small">Tabla de controles (S26)</text>
+  <text x="1142" y="714" class="small">Apartado «qué no hace» (S27)</text>
+  <text x="1142" y="746" class="small">Limitaciones del protocolo</text>
+  <text x="1142" y="778" class="small">desde S12, sesión a sesión</text>
+
+  <!-- FRANJA -->
+  <rect x="55" y="806" width="1490" height="80" rx="14" fill="#f3eefa" stroke="#7d5ba6"/>
+  <text x="800" y="840" class="band" text-anchor="middle" font-weight="700">La defensa no se prepara: se recolecta.</text>
+  <text x="800" y="870" class="copy" text-anchor="middle">Si hiciste las sesiones anteriores, toda la evidencia ya está escrita. Lo único que falta hoy es reunirla y sostenerla.</text>
+</svg>

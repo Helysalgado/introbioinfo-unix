@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Una tubería conecta la salida de un comando con la entrada del siguiente</title>
+  <desc id="desc">El flujo head -n 100 seguido de tail -n 5 y de wc -l muestra cómo la salida estándar de cada comando se convierte en la entrada estándar del siguiente, sin crear archivos intermedios, y cómo el resultado final puede redirigirse a un archivo.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0 0 L12 6 L0 12z" fill="#52738f"/>
+    </marker>
+    <marker id="arrowT" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0 0 L12 6 L0 12z" fill="#1f6d7a"/>
+    </marker>
+    <style>.title{font:700 42px Arial;fill:#17365d}.subtitle{font:400 20px Arial;fill:#526270}.h2{font:700 21px Arial;fill:#17365d}.copy{font:400 17px Arial;fill:#34495e}.code{font:700 24px 'Courier New';fill:#17365d}.codeS{font:700 15px 'Courier New';fill:#1f6d7a}.white{font:700 20px Arial;fill:#fff}.pipe{font:700 52px 'Courier New';fill:#1f6d7a}.num{font:700 20px Arial;fill:#fff;text-anchor:middle;dominant-baseline:middle}</style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+  <text x="800" y="58" class="title" text-anchor="middle">La tubería: el resultado de un comando alimenta al siguiente</text>
+  <text x="800" y="95" class="subtitle" text-anchor="middle">Ninguna herramienta muestra por sí sola “un fragmento del medio”; la combinación sí.</text>
+
+  <!-- ARCHIVO ORIGEN -->
+  <g filter="url(#shadow)">
+    <rect x="60" y="235" width="230" height="180" rx="20" fill="#f5f3f9" stroke="#aa98c5" stroke-width="3"/>
+  </g>
+  <text x="175" y="285" class="h2" text-anchor="middle">ARCHIVO</text>
+  <text x="175" y="324" font-family="Courier New" font-size="18" font-weight="700" fill="#17365d" text-anchor="middle">genomic.gff</text>
+  <text x="175" y="362" class="copy" text-anchor="middle">
+    <tspan x="175" dy="0">data/source/</tspan>
+    <tspan x="175" dy="24">no se modifica</tspan>
+  </text>
+
+  <path d="M295 322 H340" fill="none" stroke="#52738f" stroke-width="6" stroke-linecap="round" marker-end="url(#arrow)"/>
+
+  <!-- COMANDO 1 -->
+  <g filter="url(#shadow)">
+    <rect x="355" y="215" width="300" height="215" rx="20" fill="#f3f8fc" stroke="#8bb4cf" stroke-width="3"/>
+  </g>
+  <circle cx="388" cy="230" r="28" fill="#2878a9"/>
+  <text x="388" y="231" class="num">1</text>
+  <text x="510" y="285" class="code" text-anchor="middle">head -n 100</text>
+  <text x="510" y="330" class="copy" text-anchor="middle">
+    <tspan x="510" dy="0">Toma las primeras</tspan>
+    <tspan x="510" dy="24">100 líneas del archivo</tspan>
+  </text>
+  <rect x="400" y="365" width="220" height="42" rx="10" fill="#18232c"/>
+  <text x="510" y="393" font-family="Courier New" font-size="16" font-weight="700" fill="#68b5df" text-anchor="middle">100 líneas</text>
+
+  <!-- PIPE 1 -->
+  <text x="690" y="340" class="pipe" text-anchor="middle">|</text>
+
+  <!-- COMANDO 2 -->
+  <g filter="url(#shadow)">
+    <rect x="725" y="215" width="300" height="215" rx="20" fill="#f1faf9" stroke="#7ebdb8" stroke-width="3"/>
+  </g>
+  <circle cx="758" cy="230" r="28" fill="#208b82"/>
+  <text x="758" y="231" class="num">2</text>
+  <text x="880" y="285" class="code" text-anchor="middle">tail -n 5</text>
+  <text x="880" y="330" class="copy" text-anchor="middle">
+    <tspan x="880" dy="0">De esas 100, se queda</tspan>
+    <tspan x="880" dy="24">con las 5 últimas</tspan>
+  </text>
+  <rect x="770" y="365" width="220" height="42" rx="10" fill="#18232c"/>
+  <text x="880" y="393" font-family="Courier New" font-size="16" font-weight="700" fill="#71c6b8" text-anchor="middle">líneas 96–100</text>
+
+  <!-- PIPE 2 -->
+  <text x="1060" y="340" class="pipe" text-anchor="middle">|</text>
+
+  <!-- COMANDO 3 -->
+  <g filter="url(#shadow)">
+    <rect x="1095" y="215" width="300" height="215" rx="20" fill="#f8f6fb" stroke="#aa98c5" stroke-width="3"/>
+  </g>
+  <circle cx="1128" cy="230" r="28" fill="#76629a"/>
+  <text x="1128" y="231" class="num">3</text>
+  <text x="1250" y="285" class="code" text-anchor="middle">wc -l</text>
+  <text x="1250" y="330" class="copy" text-anchor="middle">
+    <tspan x="1250" dy="0">Cuenta cuántas</tspan>
+    <tspan x="1250" dy="24">líneas recibió</tspan>
+  </text>
+  <rect x="1160" y="365" width="180" height="42" rx="10" fill="#18232c"/>
+  <text x="1250" y="393" font-family="Courier New" font-size="16" font-weight="700" fill="#b9a3d3" text-anchor="middle">5</text>
+
+  <!-- etiquetas de las tuberias, debajo de las cajas -->
+  <text x="690" y="470" class="codeS" text-anchor="middle">stdout → stdin</text>
+  <text x="1060" y="470" class="codeS" text-anchor="middle">stdout → stdin</text>
+  <path d="M690 380 V450" fill="none" stroke="#1f6d7a" stroke-width="2" stroke-dasharray="5 6"/>
+  <path d="M1060 380 V450" fill="none" stroke="#1f6d7a" stroke-width="2" stroke-dasharray="5 6"/>
+
+  <!-- redireccion final -->
+  <path d="M1400 322 H1470 V560 H870" fill="none" stroke="#1f6d7a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowT)"/>
+  <text x="1435" y="300" font-family="Courier New" font-size="30" font-weight="700" fill="#1f6d7a" text-anchor="middle">&gt;</text>
+  <g filter="url(#shadow)">
+    <rect x="590" y="530" width="280" height="60" rx="14" fill="#e8f4f5" stroke="#7ebdb8" stroke-width="3"/>
+  </g>
+  <text x="730" y="568" font-family="Courier New" font-size="17" font-weight="700" fill="#17365d" text-anchor="middle">results/conteo.txt</text>
+
+  <!-- comando completo -->
+  <g filter="url(#shadow)">
+    <rect x="150" y="645" width="1300" height="80" rx="18" fill="#18232c"/>
+  </g>
+  <text x="800" y="695" font-family="Courier New" font-size="26" font-weight="700" fill="#eaf6f7" text-anchor="middle">head -n 100 genomic.gff | tail -n 5 | wc -l &gt; results/conteo.txt</text>
+
+  <!-- nota inferior -->
+  <rect x="150" y="770" width="1300" height="80" rx="18" fill="#1f6d7a"/>
+  <text x="800" y="805" class="white" text-anchor="middle">Entre un comando y el siguiente no se crea ningún archivo: el texto fluye directamente</text>
+  <text x="800" y="833" font-family="Arial" font-size="17" fill="#c8e6e9" text-anchor="middle">Construye la tubería eslabón por eslabón y revisa la salida de cada paso antes de añadir el siguiente</text>
+</svg>

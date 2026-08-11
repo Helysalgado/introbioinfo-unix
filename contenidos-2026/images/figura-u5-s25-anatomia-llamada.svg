@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Anatomía de una llamada al script</title>
+  <desc id="desc">La línea escrita en la terminal se descompone en tres partes: el nombre del script, que el script conoce como cero, y dos argumentos, el genoma y la anotación, que el script recibe como uno y dos; además dispone del número total de argumentos que llegaron. Debajo se muestra cómo esas piezas se recogen dentro del script en variables con nombre propio, y cómo a partir de ellas se deriva el nombre de la carpeta de resultados, de modo que cada genoma escriba en su propio sitio. A la derecha, la misma orden con otro genoma produce otra carpeta sin haber modificado ni una línea del archivo. Una franja inferior recuerda que la posición es la que da significado: el primer argumento es el primero porque lo escribiste primero, y por eso el bloque de uso es obligatorio.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrow" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto">
+      <path d="M0 0 L11 5.5 L0 11z" fill="#2878a9"/>
+    </marker>
+    <style>
+      .title{font:700 40px Arial;fill:#17365d}
+      .subtitle{font:400 20px Arial;fill:#526270}
+      .tag{font:700 15px Arial;fill:#fff}
+      .copy{font:400 16px Arial;fill:#34495e}
+      .small{font:400 14px Arial;fill:#526270}
+      .code{font:400 16px 'Courier New';fill:#17365d}
+      .codew{font:400 24px 'Courier New';fill:#ffffff}
+      .codew2{font:400 16px 'Courier New';fill:#ffffff}
+      .lbl{font:700 17px Arial;fill:#2878a9}
+      .h3{font:700 19px Arial;fill:#17365d}
+      .band{font:400 19px Arial;fill:#17365d}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+
+  <text x="800" y="52" class="title" text-anchor="middle">Anatomía de una llamada</text>
+  <text x="800" y="88" class="subtitle" text-anchor="middle">Lo que escribes en la terminal es lo que el script recibe. Nada más, y nada menos.</text>
+
+  <!-- linea de invocacion -->
+  <rect x="130" y="126" width="1340" height="72" rx="12" fill="#17365d"/>
+  <text x="160" y="173" class="codew">$ ./src/analizar-genoma.sh   data/source/ecoli.fna   data/source/anotacion.gff3</text>
+
+  <!-- etiquetas -->
+  <path d="M330 206 L330 244" stroke="#2878a9" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <path d="M700 206 L700 244" stroke="#2878a9" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <path d="M1120 206 L1120 244" stroke="#2878a9" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <rect x="250" y="250" width="160" height="46" rx="10" fill="#eef5fb" stroke="#2878a9"/>
+  <text x="330" y="280" class="lbl" text-anchor="middle">$0</text>
+  <text x="330" y="320" class="small" text-anchor="middle">el nombre del script</text>
+
+  <rect x="620" y="250" width="160" height="46" rx="10" fill="#eef5fb" stroke="#2878a9"/>
+  <text x="700" y="280" class="lbl" text-anchor="middle">$1</text>
+  <text x="700" y="320" class="small" text-anchor="middle">primer argumento</text>
+
+  <rect x="1040" y="250" width="160" height="46" rx="10" fill="#eef5fb" stroke="#2878a9"/>
+  <text x="1120" y="280" class="lbl" text-anchor="middle">$2</text>
+  <text x="1120" y="320" class="small" text-anchor="middle">segundo argumento</text>
+
+  <rect x="1290" y="250" width="180" height="46" rx="10" fill="#f3eefa" stroke="#7d5ba6"/>
+  <text x="1380" y="280" class="lbl" text-anchor="middle" fill="#7d5ba6">$# = 2</text>
+  <text x="1380" y="320" class="small" text-anchor="middle">cuántos llegaron</text>
+
+  <!-- dentro del script -->
+  <g filter="url(#shadow)"><rect x="130" y="356" width="800" height="290" rx="16" fill="#eef8f2" stroke="#1e7a52"/></g>
+  <rect x="130" y="356" width="250" height="34" rx="10" fill="#1e7a52"/>
+  <text x="150" y="381" class="tag">DENTRO DEL SCRIPT</text>
+
+  <text x="160" y="424" class="copy">Lo primero: darles un nombre que se entienda.</text>
+  <rect x="160" y="440" width="740" height="90" rx="8" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="180" y="470" class="code">FASTA="$1"</text>
+  <text x="180" y="500" class="code">GFF="$2"</text>
+  <text x="560" y="470" class="small">a partir de aquí el resto del script</text>
+  <text x="560" y="500" class="small">no vuelve a mencionar ningún archivo</text>
+
+  <text x="160" y="562" class="copy">Y el nombre de la salida se <tspan font-weight="700">deriva</tspan> del dato que llegó:</text>
+  <rect x="160" y="578" width="740" height="50" rx="8" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="180" y="609" class="code">SALIDA="results/s25/$(basename "$FASTA" .fna)"</text>
+
+  <!-- otro genoma -->
+  <g filter="url(#shadow)"><rect x="960" y="356" width="510" height="290" rx="16" fill="#fdf7e8" stroke="#d18b16"/></g>
+  <rect x="960" y="356" width="300" height="34" rx="10" fill="#d18b16"/>
+  <text x="980" y="381" class="tag">OTRO GENOMA, MISMO ARCHIVO</text>
+
+  <rect x="990" y="410" width="450" height="52" rx="8" fill="#17365d"/>
+  <text x="1008" y="443" class="codew2">$ ./src/analizar-genoma.sh \</text>
+  <rect x="990" y="466" width="450" height="52" rx="8" fill="#17365d"/>
+  <text x="1008" y="499" class="codew2">    otro.fna  otro.gff3</text>
+
+  <text x="990" y="552" class="copy">→ <tspan class="code">results/s25/otro/</tspan></text>
+  <text x="990" y="588" class="copy">Ni una línea del script cambió.</text>
+  <text x="990" y="616" class="small">Ni hay una segunda copia que mantener.</text>
+
+  <!-- ================= FRANJA ================= -->
+  <rect x="55" y="700" width="1490" height="140" rx="14" fill="#eef5fb" stroke="#2878a9"/>
+  <text x="85" y="742" class="band"><tspan font-weight="700">Lo que da significado a un argumento es su posición</tspan>, no su nombre.</text>
+  <text x="85" y="780" class="copy">El script no sabe que <tspan class="code">$1</tspan> es un FASTA: sabe que fue lo primero que escribiste. Si inviertes el orden, se ejecutará igual</text>
+  <text x="85" y="808" class="copy">y producirá basura convincente. Por eso el <tspan font-weight="700">bloque de uso</tspan> no es cortesía: es la única defensa contra ese error.</text>
+</svg>

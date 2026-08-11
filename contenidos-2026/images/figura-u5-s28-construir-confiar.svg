@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="620" viewBox="0 0 1600 620" role="img" aria-labelledby="title desc">
+  <title id="title">La Unidad 5 en cinco verbos</title>
+  <desc id="desc">Cinco pasos encadenados que resumen la unidad. Construir, en las sesiones veinticuatro a veintiséis: la herramienta existe y funciona. Documentar, en la veintisiete: el contrato queda por escrito. Compartir, también en la veintisiete: otra persona la usa sin ayuda. Defender, en la veintiocho: la evidencia se muestra y se sostiene. Y como resultado de los cuatro anteriores, confiar: los resultados se pueden usar. Una franja inferior señala que el último paso no es una sesión ni una tarea, sino la consecuencia de los otros cuatro, y que ninguno puede saltarse: sin documentar no se comparte, sin compartir no se puede defender, y sin defensa la confianza es solo una opinión.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto">
+      <path d="M0 0 L12 6 L0 12z" fill="#2878a9"/>
+    </marker>
+    <style>
+      .title{font:700 36px Arial;fill:#17365d}
+      .subtitle{font:400 19px Arial;fill:#526270}
+      .verb{font:700 30px Arial;fill:#17365d}
+      .copy{font:400 16px Arial;fill:#34495e}
+      .small{font:400 14px Arial;fill:#526270}
+      .ses{font:700 14px Arial;fill:#fff}
+      .band{font:400 18px Arial;fill:#17365d}
+    </style>
+  </defs>
+  <rect width="1600" height="620" fill="#fff"/>
+
+  <text x="800" y="52" class="title" text-anchor="middle">La Unidad 5 en cinco verbos</text>
+  <text x="800" y="86" class="subtitle" text-anchor="middle">Ninguno se puede saltar, y el último no se hace: se gana.</text>
+
+  <!-- 1 -->
+  <g filter="url(#shadow)"><rect x="45" y="126" width="272" height="230" rx="16" fill="#eef5fb" stroke="#2878a9"/></g>
+  <rect x="45" y="126" width="96" height="30" rx="9" fill="#2878a9"/>
+  <text x="63" y="148" class="ses">S24–S26</text>
+  <text x="70" y="204" class="verb">Construir</text>
+  <text x="70" y="244" class="copy">La herramienta existe</text>
+  <text x="70" y="268" class="copy">y funciona.</text>
+  <text x="70" y="308" class="small">script · parámetros</text>
+  <text x="70" y="330" class="small">validación · lote</text>
+  <path d="M327 240 L357 240" stroke="#2878a9" stroke-width="3.5" marker-end="url(#arrow)"/>
+
+  <!-- 2 -->
+  <g filter="url(#shadow)"><rect x="367" y="126" width="272" height="230" rx="16" fill="#eef5fb" stroke="#2878a9"/></g>
+  <rect x="367" y="126" width="70" height="30" rx="9" fill="#2878a9"/>
+  <text x="385" y="148" class="ses">S27</text>
+  <text x="392" y="204" class="verb">Documentar</text>
+  <text x="392" y="244" class="copy">El contrato queda</text>
+  <text x="392" y="268" class="copy">por escrito.</text>
+  <text x="392" y="308" class="small">qué necesita · qué garantiza</text>
+  <text x="392" y="330" class="small">qué no hace</text>
+  <path d="M649 240 L679 240" stroke="#2878a9" stroke-width="3.5" marker-end="url(#arrow)"/>
+
+  <!-- 3 -->
+  <g filter="url(#shadow)"><rect x="689" y="126" width="272" height="230" rx="16" fill="#eef5fb" stroke="#2878a9"/></g>
+  <rect x="689" y="126" width="70" height="30" rx="9" fill="#2878a9"/>
+  <text x="707" y="148" class="ses">S27</text>
+  <text x="714" y="204" class="verb">Compartir</text>
+  <text x="714" y="244" class="copy">Otra persona la usa</text>
+  <text x="714" y="268" class="copy">sin ayuda.</text>
+  <text x="714" y="308" class="small">prueba cruzada</text>
+  <text x="714" y="330" class="small">y correcciones</text>
+  <path d="M971 240 L1001 240" stroke="#2878a9" stroke-width="3.5" marker-end="url(#arrow)"/>
+
+  <!-- 4 -->
+  <g filter="url(#shadow)"><rect x="1011" y="126" width="272" height="230" rx="16" fill="#f3eefa" stroke="#7d5ba6"/></g>
+  <rect x="1011" y="126" width="70" height="30" rx="9" fill="#7d5ba6"/>
+  <text x="1029" y="148" class="ses">S28</text>
+  <text x="1036" y="204" class="verb">Defender</text>
+  <text x="1036" y="244" class="copy">La evidencia se muestra</text>
+  <text x="1036" y="268" class="copy">y se sostiene.</text>
+  <text x="1036" y="308" class="small">datos nuevos · controles</text>
+  <text x="1036" y="330" class="small">decisiones justificadas</text>
+  <path d="M1293 240 L1323 240" stroke="#2878a9" stroke-width="3.5" marker-end="url(#arrow)"/>
+
+  <!-- 5 -->
+  <g filter="url(#shadow)"><rect x="1333" y="126" width="222" height="230" rx="16" fill="#eef8f2" stroke="#1e7a52"/></g>
+  <rect x="1333" y="126" width="150" height="30" rx="9" fill="#1e7a52"/>
+  <text x="1351" y="148" class="ses">EL RESULTADO</text>
+  <text x="1358" y="204" class="verb">Confiar</text>
+  <text x="1358" y="244" class="copy">Los resultados se</text>
+  <text x="1358" y="268" class="copy">pueden usar.</text>
+  <text x="1358" y="308" class="small">y citar, y discutir,</text>
+  <text x="1358" y="330" class="small">y corregir</text>
+
+  <!-- FRANJA -->
+  <rect x="45" y="400" width="1510" height="180" rx="14" fill="#eef8f2" stroke="#1e7a52"/>
+  <text x="75" y="444" class="band"><tspan font-weight="700">El quinto no es una sesión ni una tarea: es la consecuencia de los otros cuatro.</tspan></text>
+  <text x="75" y="486" class="copy">Sin documentar no se puede compartir. Sin compartir no se puede defender. Y sin defensa, la confianza en un resultado</text>
+  <text x="75" y="514" class="copy">es solo una opinión sobre quien lo produjo.</text>
+  <text x="75" y="556" class="copy" font-style="italic">Ese encadenamiento no es propio de esta unidad ni de esta carrera: es como funciona la ciencia.</text>
+</svg>

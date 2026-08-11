@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">De coordenadas a longitud: por qué se suma uno</title>
+  <desc id="desc">Un segmento de DNA se representa como una fila de bases numeradas de la posición 100 a la 109. Un gen ocupa desde la posición 100 hasta la 109, ambas incluidas. Restar el final menos el inicio da nueve, pero las bases dibujadas son diez: la resta cuenta los huecos entre posiciones, no las posiciones mismas. Por eso la longitud es el final menos el inicio más uno. Un ejemplo mínimo lo confirma: un gen que empieza y termina en la posición 100 ocupa una sola base, y la resta sin el más uno daría cero, que es imposible. Una franja final indica que el formato GFF3 usa coordenadas inclusivas y que empiezan a contarse desde uno, y que olvidar el más uno produce un error que crece con el número de genes pero pasa desapercibido en cada gen individual.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <style>
+      .title{font:700 42px Arial;fill:#17365d}
+      .subtitle{font:400 20px Arial;fill:#526270}
+      .copy{font:400 18px Arial;fill:#34495e}
+      .small{font:400 15px Arial;fill:#526270}
+      .code{font:700 24px 'Courier New';fill:#17365d}
+      .h3{font:700 21px Arial;fill:#17365d}
+      .base{font:700 18px 'Courier New';fill:#17365d}
+      .pos{font:400 14px Arial;fill:#526270}
+      .tag{font:700 16px Arial;fill:#fff}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+
+  <text x="800" y="56" class="title" text-anchor="middle">De coordenadas a longitud</text>
+  <text x="800" y="92" class="subtitle" text-anchor="middle">El GFF3 usa coordenadas inclusivas: la primera y la última base cuentan. De ahí sale el «más uno».</text>
+
+  <!-- SEGMENTO -->
+  <g filter="url(#shadow)"><rect x="60" y="130" width="1480" height="290" rx="16" fill="#f7fafc" stroke="#c9d6e2"/></g>
+  <text x="90" y="172" class="h3">Un gen de la posición 100 a la 109</text>
+
+  <g>
+    <rect x="150" y="205" width="120" height="60" rx="6" fill="#8cc9a9" stroke="#1e7a52" stroke-width="2"/>
+    <text x="210" y="243" class="base" text-anchor="middle">A</text><text x="210" y="288" class="pos" text-anchor="middle">100</text>
+    <rect x="278" y="205" width="120" height="60" rx="6" fill="#8cc9a9" stroke="#1e7a52" stroke-width="2"/>
+    <text x="338" y="243" class="base" text-anchor="middle">C</text><text x="338" y="288" class="pos" text-anchor="middle">101</text>
+    <rect x="406" y="205" width="120" height="60" rx="6" fill="#8cc9a9" stroke="#1e7a52" stroke-width="2"/>
+    <text x="466" y="243" class="base" text-anchor="middle">G</text><text x="466" y="288" class="pos" text-anchor="middle">102</text>
+    <rect x="534" y="205" width="120" height="60" rx="6" fill="#8cc9a9" stroke="#1e7a52" stroke-width="2"/>
+    <text x="594" y="243" class="base" text-anchor="middle">T</text><text x="594" y="288" class="pos" text-anchor="middle">103</text>
+    <rect x="662" y="205" width="120" height="60" rx="6" fill="#8cc9a9" stroke="#1e7a52" stroke-width="2"/>
+    <text x="722" y="243" class="base" text-anchor="middle">A</text><text x="722" y="288" class="pos" text-anchor="middle">104</text>
+    <rect x="790" y="205" width="120" height="60" rx="6" fill="#8cc9a9" stroke="#1e7a52" stroke-width="2"/>
+    <text x="850" y="243" class="base" text-anchor="middle">C</text><text x="850" y="288" class="pos" text-anchor="middle">105</text>
+    <rect x="918" y="205" width="120" height="60" rx="6" fill="#8cc9a9" stroke="#1e7a52" stroke-width="2"/>
+    <text x="978" y="243" class="base" text-anchor="middle">G</text><text x="978" y="288" class="pos" text-anchor="middle">106</text>
+    <rect x="1046" y="205" width="120" height="60" rx="6" fill="#8cc9a9" stroke="#1e7a52" stroke-width="2"/>
+    <text x="1106" y="243" class="base" text-anchor="middle">T</text><text x="1106" y="288" class="pos" text-anchor="middle">107</text>
+    <rect x="1174" y="205" width="120" height="60" rx="6" fill="#8cc9a9" stroke="#1e7a52" stroke-width="2"/>
+    <text x="1234" y="243" class="base" text-anchor="middle">A</text><text x="1234" y="288" class="pos" text-anchor="middle">108</text>
+    <rect x="1302" y="205" width="120" height="60" rx="6" fill="#8cc9a9" stroke="#1e7a52" stroke-width="2"/>
+    <text x="1362" y="243" class="base" text-anchor="middle">C</text><text x="1362" y="288" class="pos" text-anchor="middle">109</text>
+  </g>
+
+  <path d="M150 320 v18 M1422 320 v18 M150 338 h1272" stroke="#1e7a52" stroke-width="3"/>
+  <text x="786" y="380" class="h3" text-anchor="middle" fill="#1e7a52">10 bases dibujadas · 10 bases de longitud</text>
+
+  <!-- LAS DOS CUENTAS -->
+  <g filter="url(#shadow)"><rect x="60" y="450" width="720" height="230" rx="16" fill="#fdf1ef" stroke="#e0a79c"/></g>
+  <rect x="60" y="450" width="330" height="34" rx="10" fill="#b03a2e"/>
+  <text x="80" y="475" class="tag">LA RESTA A SECAS · mal</text>
+  <text x="95" y="535" class="code" fill="#b03a2e">109 − 100 = 9</text>
+  <text x="95" y="585" class="copy">Cuenta los <tspan font-weight="700">huecos entre posiciones</tspan>,</text>
+  <text x="95" y="613" class="copy">no las posiciones mismas.</text>
+  <text x="95" y="653" class="small">Falta exactamente una base: la primera.</text>
+
+  <g filter="url(#shadow)"><rect x="820" y="450" width="720" height="230" rx="16" fill="#eef8f2" stroke="#8cc9a9"/></g>
+  <rect x="820" y="450" width="330" height="34" rx="10" fill="#1e7a52"/>
+  <text x="840" y="475" class="tag">CON EL MÁS UNO · bien</text>
+  <text x="855" y="535" class="code" fill="#1e7a52">109 − 100 + 1 = 10</text>
+  <text x="855" y="585" class="copy">Cuenta las <tspan font-weight="700">bases</tspan>, que es lo que</text>
+  <text x="855" y="613" class="copy">la pregunta biológica pedía.</text>
+  <text x="855" y="653" class="small">Coincide con las diez bases dibujadas arriba.</text>
+
+  <!-- CASO LÍMITE + CIERRE -->
+  <rect x="60" y="710" width="720" height="150" rx="12" fill="#fff8e6" stroke="#e0b84c" stroke-width="2"/>
+  <text x="90" y="750" class="h3" fill="#d18b16">La comprobación que lo zanja</text>
+  <text x="90" y="788" class="copy">Un gen que empieza y termina en la posición 100</text>
+  <text x="90" y="816" class="copy">ocupa <tspan font-weight="700">una</tspan> base. Sin el más uno daría cero,</text>
+  <text x="90" y="844" class="copy">y una longitud de cero es imposible.</text>
+
+  <rect x="820" y="710" width="720" height="150" rx="12" fill="#eef5fb" stroke="#2878a9" stroke-width="2"/>
+  <text x="850" y="750" class="h3" fill="#2878a9">Por qué este error es peligroso</text>
+  <text x="850" y="788" class="copy">Falla por una sola base en cada gen, así que</text>
+  <text x="850" y="816" class="copy">ningún gen parece mal. Pero al sumar miles,</text>
+  <text x="850" y="844" class="copy">el error total es del tamaño de tu genoma en genes.</text>
+</svg>

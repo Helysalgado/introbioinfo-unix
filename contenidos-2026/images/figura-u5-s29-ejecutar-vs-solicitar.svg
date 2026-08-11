@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Ejecutar frente a solicitar</title>
+  <desc id="desc">A la izquierda, la forma de trabajar hasta ahora: la orden se escribe en la terminal y el análisis se ejecuta dentro de esa sesión, de modo que la sesión es la dueña del proceso; si la conexión se cierra, por decisión propia o por una caída de la red, el análisis muere con ella y los resultados a medias se pierden, y además hay que estar presente esperando a que termine. A la derecha, la forma de trabajar en un clúster: la orden no ejecuta el análisis sino que lo entrega a un planificador, que devuelve de inmediato un identificador de trabajo y lo coloca en una cola; el planificador decide en qué nodo y cuándo se ejecuta, el trabajo corre en un nodo de cómputo que no depende de la sesión de nadie, y la salida y los errores quedan escritos en archivos que se pueden consultar más tarde. Una franja inferior resume que en el primer caso la computadora ejecuta el análisis y en el segundo lo solicita, y que esa es toda la diferencia: el análisis es exactamente el mismo.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrow" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto">
+      <path d="M0 0 L11 5.5 L0 11z" fill="#2878a9"/>
+    </marker>
+    <marker id="arrowred" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto">
+      <path d="M0 0 L11 5.5 L0 11z" fill="#b03a2e"/>
+    </marker>
+    <style>
+      .title{font:700 40px Arial;fill:#17365d}
+      .subtitle{font:400 20px Arial;fill:#526270}
+      .tag{font:700 15px Arial;fill:#fff}
+      .copy{font:400 16px Arial;fill:#34495e}
+      .small{font:400 14px Arial;fill:#526270}
+      .code{font:400 15px 'Courier New';fill:#17365d}
+      .codew{font:400 16px 'Courier New';fill:#ffffff}
+      .h3{font:700 19px Arial;fill:#17365d}
+      .band{font:400 19px Arial;fill:#17365d}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+
+  <text x="800" y="52" class="title" text-anchor="middle">Ejecutar o solicitar</text>
+  <text x="800" y="88" class="subtitle" text-anchor="middle">La misma herramienta, el mismo análisis. Cambia quién lo ejecuta y de qué depende que termine.</text>
+
+  <!-- IZQUIERDA -->
+  <g filter="url(#shadow)"><rect x="55" y="126" width="690" height="590" rx="16" fill="#fdf7e8" stroke="#d18b16"/></g>
+  <rect x="55" y="126" width="330" height="34" rx="10" fill="#d18b16"/>
+  <text x="75" y="151" class="tag">HASTA HOY · tu sesión ejecuta</text>
+
+  <rect x="85" y="184" width="630" height="52" rx="10" fill="#17365d"/>
+  <text x="105" y="217" class="codew">$ ./src/procesar-lote.sh genomas/</text>
+
+  <path d="M400 244 L400 276" stroke="#d18b16" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="85" y="284" width="630" height="120" rx="10" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="400" y="316" class="h3" text-anchor="middle">El análisis corre DENTRO de tu sesión</text>
+  <text x="105" y="350" class="copy">La terminal es la dueña del proceso.</text>
+  <text x="105" y="378" class="copy">Mientras dure el análisis, tú estás esperando.</text>
+
+  <path d="M400 412 L400 444" stroke="#b03a2e" stroke-width="3" marker-end="url(#arrowred)"/>
+
+  <rect x="85" y="452" width="630" height="150" rx="10" fill="#fdf1ef" stroke="#b03a2e"/>
+  <text x="105" y="484" class="h3">Y si la sesión se cierra…</text>
+  <text x="105" y="518" class="copy">· porque te vas a casa</text>
+  <text x="105" y="546" class="copy">· porque se cae la red o se duerme tu computadora</text>
+  <text x="105" y="580" class="copy" font-weight="700">el análisis muere con ella, a medias</text>
+
+  <rect x="85" y="620" width="630" height="76" rx="10" fill="#fff" stroke="#c9d6e2"/>
+  <text x="105" y="652" class="copy">Con doce genomas y dos minutos, no importa.</text>
+  <text x="105" y="680" class="copy">Con doce mil y seis horas, es el problema entero.</text>
+
+  <path d="M765 400 L835 400" stroke="#2878a9" stroke-width="4" marker-end="url(#arrow)"/>
+
+  <!-- DERECHA -->
+  <g filter="url(#shadow)"><rect x="855" y="126" width="690" height="590" rx="16" fill="#eef8f2" stroke="#1e7a52"/></g>
+  <rect x="855" y="126" width="330" height="34" rx="10" fill="#1e7a52"/>
+  <text x="875" y="151" class="tag">EN EL CLÚSTER · tu sesión solicita</text>
+
+  <rect x="885" y="184" width="630" height="52" rx="10" fill="#17365d"/>
+  <text x="905" y="217" class="codew">$ qsub analisis.jdl</text>
+  <text x="1290" y="217" class="codew">→ job 48127</text>
+
+  <path d="M1200 244 L1200 276" stroke="#1e7a52" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="885" y="284" width="630" height="120" rx="10" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="1200" y="316" class="h3" text-anchor="middle">La orden vuelve enseguida</text>
+  <text x="905" y="350" class="copy">No ejecutó nada: <tspan font-weight="700">entregó una solicitud</tspan> y</text>
+  <text x="905" y="378" class="copy">recibió un identificador de trabajo.</text>
+
+  <path d="M1200 412 L1200 444" stroke="#1e7a52" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="885" y="452" width="630" height="150" rx="10" fill="#eef5fb" stroke="#2878a9"/>
+  <text x="905" y="484" class="h3">El planificador decide y ejecuta</text>
+  <text x="905" y="518" class="copy">· en qué nodo de cómputo, y cuándo</text>
+  <text x="905" y="546" class="copy">· en un proceso que <tspan font-weight="700">no es de nadie en particular</tspan></text>
+  <text x="905" y="580" class="copy">· y escribe la salida y los errores en archivos</text>
+
+  <rect x="885" y="620" width="630" height="76" rx="10" fill="#fff" stroke="#1e7a52"/>
+  <text x="905" y="652" class="copy">Puedes desconectarte. Volver mañana.</text>
+  <text x="905" y="680" class="copy">El trabajo sigue, y su registro te espera.</text>
+
+  <!-- FRANJA -->
+  <rect x="55" y="748" width="1490" height="118" rx="14" fill="#eef5fb" stroke="#2878a9"/>
+  <text x="85" y="790" class="band">Tu computadora deja de <tspan font-weight="700">ejecutar</tspan> el análisis y pasa a <tspan font-weight="700">solicitarlo</tspan>. Esa es toda la diferencia.</text>
+  <text x="85" y="828" class="copy">La herramienta es la misma, el procedimiento es el mismo y los resultados deben ser idénticos. Lo único que cambió es dónde ocurre.</text>
+</svg>

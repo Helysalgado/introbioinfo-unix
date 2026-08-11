@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="820" viewBox="0 0 1600 820" role="img" aria-labelledby="t d">
+  <title id="t">Alineamiento global frente a alineamiento local</title>
+  <desc id="d">Dos filas. Arriba, dos secuencias de longitud parecida alineadas de extremo a extremo, con la etiqueta global y la pregunta se corresponden en toda su longitud. Abajo, una secuencia corta y una mucho más larga: a la izquierda se muestra el resultado de forzar un alineamiento global, con largos tramos de huecos a ambos lados y un aviso de que el porcentaje resultante engaña; a la derecha, un alineamiento local que recorta solo el tramo coincidente, con la pregunta comparten alguna región.</desc>
+  <defs>
+    <filter id="sh" x="-8%" y="-10%" width="116%" height="132%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <style>
+      .title{font:700 38px Arial;fill:#17365d}
+      .sub{font:400 19px Arial;fill:#526270}
+      .h{font:700 24px Arial;fill:#17365d}
+      .copy{font:400 15px Arial;fill:#34495e}
+      .small{font:400 13px Arial;fill:#526270}
+      .lab{font:400 15px Arial;fill:#526270}
+      .tag{font:700 14px Arial;fill:#ffffff}
+      .q{font:italic 700 18px Arial;fill:#17365d}
+      .num{font:700 22px Arial;fill:#b03a2e}
+      .numg{font:700 22px Arial;fill:#1e7a52}
+      .band{font:400 18px Arial;fill:#17365d}
+    </style>
+  </defs>
+  <rect width="1600" height="820" fill="#fff"/>
+
+  <text x="800" y="48" class="title" text-anchor="middle">Global y local responden preguntas distintas</text>
+  <text x="800" y="82" class="sub" text-anchor="middle">Elegir mal no produce un error: produce un número que engaña</text>
+
+  <!-- CASO A -->
+  <g filter="url(#sh)"><rect x="45" y="112" width="1510" height="212" rx="16" fill="#eef8f2" stroke="#1e7a52" stroke-width="2"/></g>
+  <rect x="45" y="112" width="1510" height="42" rx="16" fill="#1e7a52"/><rect x="45" y="138" width="1510" height="16" fill="#1e7a52"/>
+  <text x="70" y="141" class="tag">CASO A · DOS PROTEÍNAS COMPLETAS DE LONGITUD PARECIDA — HOY</text>
+
+  <rect x="121" y="184" width="869" height="30" rx="5" fill="#2878a9"/>
+  <rect x="90" y="226" width="900" height="30" rx="5" fill="#2878a9"/>
+  <rect x="90" y="184" width="31" height="30" rx="5" fill="#b03a2e" opacity="0.30"/>
+  <text x="1006" y="206" class="lab">R. conorii · 248 aa</text>
+  <text x="1006" y="248" class="lab">O. tsutsugamushi · 257 aa</text>
+  <text x="105" y="278" class="small">9 huecos</text>
+
+  <text x="90" y="306" class="q">¿Se corresponden en toda su longitud?</text>
+  <text x="560" y="286" class="copy">Sí — y por eso el global es la elección correcta: las dos se alinean de extremo a extremo</text>
+  <text x="560" y="308" class="copy">y solo hacen falta 9 huecos, que además caen todos juntos en un extremo.</text>
+  <path d="M1300 196 L1312 210 L1336 182" stroke="#1e7a52" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="1350" y="208" class="numg">global</text>
+  <text x="1350" y="234" class="small">es lo que haces hoy</text>
+
+  <!-- CASO B -->
+  <text x="800" y="362" class="h" text-anchor="middle">CASO B · una secuencia corta frente a una mucho más larga</text>
+  <text x="800" y="384" class="small" text-anchor="middle">Ejemplo esquemático: las cifras ilustran la magnitud del efecto, no proceden de los archivos de la sesión</text>
+
+  <!-- B izquierda: global forzado -->
+  <g filter="url(#sh)"><rect x="45" y="392" width="740" height="316" rx="16" fill="#fdf1ef" stroke="#b03a2e" stroke-width="2"/></g>
+  <rect x="45" y="392" width="740" height="42" rx="16" fill="#b03a2e"/><rect x="45" y="418" width="740" height="16" fill="#b03a2e"/>
+  <text x="70" y="421" class="tag">FORZAR UN GLOBAL</text>
+
+  <rect x="80" y="464" width="670" height="26" rx="5" fill="#2878a9"/>
+  <text x="750" y="452" class="small" text-anchor="end">secuencia larga</text>
+  <rect x="80" y="502" width="200" height="26" rx="5" fill="#b03a2e" opacity="0.3"/>
+  <rect x="280" y="502" width="150" height="26" rx="5" fill="#2878a9"/>
+  <rect x="430" y="502" width="320" height="26" rx="5" fill="#b03a2e" opacity="0.3"/>
+  <text x="180" y="550" class="small" text-anchor="middle">huecos</text>
+  <text x="355" y="550" class="small" text-anchor="middle">lo único real</text>
+  <text x="590" y="550" class="small" text-anchor="middle">huecos</text>
+
+  <text x="80" y="596" class="copy">El programa estira la secuencia corta con huecos</text>
+  <text x="80" y="620" class="copy">para que llegue a los dos extremos de la larga.</text>
+  <text x="80" y="656" class="copy">Identidad resultante:</text>
+  <text x="330" y="656" class="num">12 %</text>
+  <text x="80" y="684" class="small">Cierto, y completamente inútil: el número está dominado por</text>
+  <text x="80" y="702" class="small">los huecos que el propio método tuvo que inventar.</text>
+
+  <!-- B derecha: local -->
+  <g filter="url(#sh)"><rect x="815" y="392" width="740" height="316" rx="16" fill="#eef8f2" stroke="#1e7a52" stroke-width="2"/></g>
+  <rect x="815" y="392" width="740" height="42" rx="16" fill="#1e7a52"/><rect x="815" y="418" width="740" height="16" fill="#1e7a52"/>
+  <text x="840" y="421" class="tag">USAR UN LOCAL</text>
+
+  <rect x="850" y="464" width="670" height="26" rx="5" fill="#2878a9"/>
+  <rect x="1050" y="464" width="150" height="26" fill="#1e7a52"/>
+  <rect x="1050" y="502" width="150" height="26" rx="5" fill="#1e7a52"/>
+  <text x="1125" y="550" class="small" text-anchor="middle">solo el tramo que se corresponde</text>
+
+  <text x="850" y="596" class="copy">El programa recorta el mejor tramo de cada una</text>
+  <text x="850" y="620" class="copy">y descarta el resto.</text>
+  <text x="850" y="656" class="copy">Identidad resultante:</text>
+  <text x="1100" y="656" class="numg">78 %</text>
+  <text x="850" y="684" class="small">Informativo — siempre que digas también qué proporción de</text>
+  <text x="850" y="702" class="small">cada secuencia quedó dentro. Esa medida se llama cobertura.</text>
+
+  <!-- FRANJA -->
+  <rect x="45" y="726" width="1510" height="76" rx="14" fill="#eef5fb" stroke="#2878a9"/>
+  <text x="80" y="762" class="band"><tspan font-weight="700">BLAST es local.</tspan> Esa decisión de diseño explica buena parte de su comportamiento — y de sus trampas.</text>
+  <text x="80" y="788" class="copy" font-size="15">Por eso, a partir de S31, un porcentaje de identidad alto nunca se lee solo: se lee junto con la cobertura.</text>
+</svg>

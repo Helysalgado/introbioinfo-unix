@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="880" viewBox="0 0 1600 880" role="img" aria-labelledby="t d">
+  <title id="t">De comparar a interpretar: el camino de la sesión</title>
+  <desc id="d">Cinco escalones apilados. El primero, comparar, es el objetivo científico. El segundo, alinear, es la herramienta que lo hace posible. El tercero, observar, reúne lo que se ve en el alineamiento: columnas iguales, gaps y regiones conservadas. El cuarto, medir, reúne las tres cantidades de la sesión: identidad, similitud y gaps, cada una con su advertencia. El quinto, interpretar, aparece atenuado y marcado como pendiente para las sesiones siguientes. Una línea vertical separa los cuatro primeros escalones, etiquetados como lo que ya sabes hacer, del quinto, etiquetado como lo que falta.</desc>
+  <defs>
+    <filter id="sh" x="-6%" y="-12%" width="112%" height="136%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <style>
+      .title{font:700 36px Arial;fill:#17365d}
+      .sub{font:400 18px Arial;fill:#526270}
+      .step{font:700 30px Arial;fill:#17365d}
+      .role{font:italic 400 17px Arial;fill:#526270}
+      .copy{font:400 16px Arial;fill:#34495e}
+      .small{font:400 14px Arial;fill:#526270}
+      .warn{font:400 14px Arial;fill:#b03a2e}
+      .tag{font:700 14px Arial;fill:#ffffff}
+      .band{font:400 18px Arial;fill:#17365d}
+      .n{font:700 20px Arial;fill:#ffffff}
+    </style>
+  </defs>
+  <rect width="1600" height="880" fill="#fff"/>
+
+  <text x="800" y="48" class="title" text-anchor="middle">De comparar a interpretar</text>
+  <text x="800" y="80" class="sub" text-anchor="middle">Todo lo de esta sesión, en orden — y dónde termina</text>
+
+  <line x1="118" y1="130" x2="118" y2="700" stroke="#c9d6e2" stroke-width="4"/>
+
+  <!-- 1 COMPARAR -->
+  <circle cx="118" cy="164" r="20" fill="#17365d"/><text x="118" y="172" class="n" text-anchor="middle">1</text>
+  <g filter="url(#sh)"><rect x="170" y="130" width="1380" height="70" rx="12" fill="#eef5fb" stroke="#2878a9" stroke-width="2"/></g>
+  <text x="200" y="176" class="step">COMPARAR</text>
+  <text x="440" y="162" class="role">el objetivo científico</text>
+  <text x="440" y="186" class="copy">una secuencia aislada no responde preguntas biológicas</text>
+  <text x="1520" y="176" class="small" text-anchor="end">§ 1</text>
+
+  <!-- 2 ALINEAR -->
+  <circle cx="118" cy="264" r="20" fill="#17365d"/><text x="118" y="272" class="n" text-anchor="middle">2</text>
+  <g filter="url(#sh)"><rect x="170" y="230" width="1380" height="70" rx="12" fill="#eef5fb" stroke="#2878a9" stroke-width="2"/></g>
+  <text x="200" y="276" class="step">ALINEAR</text>
+  <text x="440" y="262" class="role">la herramienta que lo hace posible</text>
+  <text x="440" y="286" class="copy">una hipótesis de correspondencia entre posiciones — no un dato</text>
+  <text x="1520" y="276" class="small" text-anchor="end">§ 3 y § 4</text>
+
+  <!-- 3 OBSERVAR -->
+  <circle cx="118" cy="364" r="20" fill="#1e7a52"/><text x="118" y="372" class="n" text-anchor="middle">3</text>
+  <g filter="url(#sh)"><rect x="170" y="330" width="1380" height="70" rx="12" fill="#eef8f2" stroke="#1e7a52" stroke-width="2"/></g>
+  <text x="200" y="376" class="step">OBSERVAR</text>
+  <text x="440" y="362" class="role">lo que el alineamiento pone a la vista</text>
+  <text x="440" y="386" class="copy">sustituciones · inserciones y deleciones · regiones conservadas · dónde caen los huecos</text>
+  <text x="1520" y="376" class="small" text-anchor="end">§ 4 y § 5.3</text>
+
+  <!-- 4 MEDIR -->
+  <circle cx="118" cy="500" r="20" fill="#1e7a52"/><text x="118" y="508" class="n" text-anchor="middle">4</text>
+  <g filter="url(#sh)"><rect x="170" y="430" width="1380" height="200" rx="12" fill="#eef8f2" stroke="#1e7a52" stroke-width="2"/></g>
+  <text x="200" y="476" class="step">MEDIR</text>
+  <text x="440" y="462" class="role">y declarar siempre lo que el número esconde</text>
+  <text x="1520" y="476" class="small" text-anchor="end">§ 5 y § 6</text>
+
+  <rect x="200" y="500" width="420" height="106" rx="10" fill="#ffffff" stroke="#c9d6e2"/>
+  <text x="220" y="530" class="copy" font-weight="700">Identidad</text>
+  <text x="220" y="556" class="small">columnas exactamente iguales</text>
+  <text x="220" y="582" class="warn">declara el denominador</text>
+
+  <rect x="640" y="500" width="420" height="106" rx="10" fill="#ffffff" stroke="#c9d6e2"/>
+  <text x="660" y="530" class="copy" font-weight="700">Similitud</text>
+  <text x="660" y="556" class="small">iguales o químicamente equivalentes</text>
+  <text x="660" y="582" class="warn">no es lo mismo que identidad</text>
+
+  <rect x="1080" y="500" width="420" height="106" rx="10" fill="#ffffff" stroke="#c9d6e2"/>
+  <text x="1100" y="530" class="copy" font-weight="700">Gaps</text>
+  <text x="1100" y="556" class="small">cuántos son y dónde caen</text>
+  <text x="1100" y="582" class="warn">cada uno afirma un indel</text>
+
+  <text x="200" y="626" class="small">Y antes de cualquiera de los tres: ¿nucleótidos o aminoácidos? Los porcentajes de los dos alfabetos no se comparan entre sí.</text>
+
+  <!-- 5 INTERPRETAR -->
+  <circle cx="118" cy="694" r="20" fill="#c9d6e2"/><text x="118" y="702" class="n" text-anchor="middle" fill="#526270">5</text>
+  <g filter="url(#sh)"><rect x="170" y="660" width="1380" height="70" rx="12" fill="#f7f9fb" stroke="#c9d6e2" stroke-width="2" stroke-dasharray="9 6"/></g>
+  <text x="200" y="706" class="step" fill="#8a99a8">INTERPRETAR</text>
+  <text x="500" y="692" class="role">todavía no</text>
+  <text x="500" y="716" class="copy" fill="#8a99a8">homología · función · relaciones evolutivas — hacen falta S31, S32 y S33</text>
+  <text x="1520" y="706" class="small" text-anchor="end">§ 8</text>
+
+  <!-- ETIQUETAS LATERALES -->
+  <rect x="20" y="130" width="8" height="500" rx="4" fill="#1e7a52"/>
+  <rect x="20" y="660" width="8" height="70" rx="4" fill="#c9d6e2"/>
+
+  <!-- FRANJA -->
+  <rect x="45" y="762" width="1510" height="96" rx="14" fill="#fdf1ef" stroke="#b03a2e"/>
+  <text x="80" y="800" class="band"><tspan font-weight="700">La frontera está entre el escalón 4 y el 5.</tspan></text>
+  <text x="80" y="830" class="copy">Toda la Unidad 6 consiste en aprender a cruzarla sin dar saltos injustificados. Hoy llegaste al 4, y eso ya es un resultado.</text>
+</svg>

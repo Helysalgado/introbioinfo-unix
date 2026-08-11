@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+<title id="title">El sistema de archivos de Unix es un árbol</title>
+<desc id="desc">Árbol que parte de la raíz diagonal, pasa por el espacio institucional /export/space3/users/$USER, la carpeta proyecto y sus subcarpetas README.md, data con source y processed, src, results y doc.</desc>
+<defs>
+<filter id="shadow" x="-12%" y="-12%" width="124%" height="140%"><feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/></filter>
+<style>
+.title{font:700 40px Arial;fill:#17365d}
+.subtitle{font:400 20px Arial;fill:#526270}
+.h2{font:700 22px Arial;fill:#17365d}
+.small{font:400 15px Arial;fill:#526270}
+.label{font:700 19px Arial;fill:#17365d}
+.code{font:700 22px 'Courier New';fill:#17365d}
+.codeW{font:700 20px 'Courier New';fill:#fff}
+.white{font:700 20px Arial;fill:#fff}
+.legTitle{font:700 18px Arial;fill:#fff}
+.legItem{font:400 16px Arial;fill:#25333f}
+.legCode{font:700 16px 'Courier New';fill:#17365d}
+.line{fill:none;stroke:#52738f;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.lineHi{fill:none;stroke:#bd7c1b;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+</style>
+</defs>
+<rect width="1600" height="900" fill="#fff"/>
+<text x="800" y="54" class="title" text-anchor="middle">El sistema de archivos de Unix es un árbol</text>
+<text x="800" y="88" class="subtitle" text-anchor="middle">Todo comienza en la raíz /; tu espacio de trabajo está en /export/space3/users/$USER.</text>
+
+<!-- Root -->
+<g filter="url(#shadow)"><rect x="700" y="110" width="200" height="66" rx="16" fill="#17365d"/></g>
+<text x="800" y="152" class="codeW" text-anchor="middle">/ · raíz</text>
+
+<!-- bus to system dirs -->
+<path d="M800 176 V200 M320 200 H1280" class="line"/>
+<path d="M320 200 V232 M560 200 V232 M800 200 V232 M1040 200 V232 M1280 200 V232" class="line"/>
+
+<!-- system dirs -->
+<g filter="url(#shadow)"><rect x="220" y="232" width="200" height="60" rx="14" fill="#f6f8fc" stroke="#9caed1" stroke-width="2.5"/></g>
+<text x="320" y="270" class="code" text-anchor="middle">/etc</text>
+<g filter="url(#shadow)"><rect x="460" y="232" width="200" height="60" rx="14" fill="#f6f8fc" stroke="#9caed1" stroke-width="2.5"/></g>
+<text x="560" y="270" class="code" text-anchor="middle">/home</text>
+<g filter="url(#shadow)"><rect x="700" y="232" width="200" height="60" rx="14" fill="#fff2dc" stroke="#bd7c1b" stroke-width="3.5"/></g>
+<text x="800" y="270" class="code" text-anchor="middle">/export</text>
+<g filter="url(#shadow)"><rect x="940" y="232" width="200" height="60" rx="14" fill="#f6f8fc" stroke="#9caed1" stroke-width="2.5"/></g>
+<text x="1040" y="270" class="code" text-anchor="middle">/usr</text>
+<g filter="url(#shadow)"><rect x="1180" y="232" width="200" height="60" rx="14" fill="#f6f8fc" stroke="#9caed1" stroke-width="2.5"/></g>
+<text x="1280" y="270" class="code" text-anchor="middle">/tmp</text>
+
+<!-- highlight chain: /export -> space -> proyecto -->
+<path d="M800 292 V320" class="lineHi"/>
+<g filter="url(#shadow)"><rect x="560" y="320" width="480" height="64" rx="16" fill="#e4eff7" stroke="#2878a9" stroke-width="3"/></g>
+<text x="800" y="352" class="code" text-anchor="middle">/export/space3/users/$USER</text>
+<text x="800" y="372" class="small" text-anchor="middle">tu espacio de trabajo institucional (~)</text>
+
+<path d="M800 384 V412" class="lineHi"/>
+<g filter="url(#shadow)"><rect x="660" y="412" width="280" height="60" rx="16" fill="#fff7e8" stroke="#bd7c1b" stroke-width="3.5"/></g>
+<text x="800" y="450" class="code" text-anchor="middle">proyecto/</text>
+
+<!-- proyecto children bus -->
+<path d="M800 472 V500 M210 500 H1390" class="line"/>
+<path d="M210 500 V532 M505 500 V532 M800 500 V532 M1095 500 V532 M1390 500 V532" class="line"/>
+
+<!-- children -->
+<rect x="110" y="532" width="200" height="58" rx="14" fill="#fff" stroke="#76629a" stroke-width="3"/>
+<text x="210" y="568" class="label" text-anchor="middle">README.md</text>
+<g filter="url(#shadow)"><rect x="405" y="532" width="200" height="58" rx="14" fill="#eaf6f2" stroke="#208b82" stroke-width="3"/></g>
+<text x="505" y="568" class="label" text-anchor="middle">data/</text>
+<rect x="700" y="532" width="200" height="58" rx="14" fill="#fff" stroke="#5a73a8" stroke-width="3"/>
+<text x="800" y="568" class="label" text-anchor="middle">src/</text>
+<rect x="995" y="532" width="200" height="58" rx="14" fill="#fff" stroke="#5a73a8" stroke-width="3"/>
+<text x="1095" y="568" class="label" text-anchor="middle">results/</text>
+<rect x="1290" y="532" width="200" height="58" rx="14" fill="#fff" stroke="#76629a" stroke-width="3"/>
+<text x="1390" y="568" class="label" text-anchor="middle">doc/</text>
+
+<!-- data children -->
+<path d="M505 590 V618 M400 618 H610" class="line"/>
+<path d="M400 618 V646 M610 618 V646" class="line"/>
+<rect x="300" y="646" width="200" height="58" rx="14" fill="#fff" stroke="#208b82" stroke-width="3"/>
+<text x="400" y="682" class="label" text-anchor="middle">source/</text>
+<rect x="510" y="646" width="210" height="58" rx="14" fill="#fff" stroke="#208b82" stroke-width="3"/>
+<text x="615" y="682" class="label" text-anchor="middle">processed/</text>
+
+<!-- legend -->
+<g filter="url(#shadow)"><rect x="905" y="640" width="585" height="205" rx="18" fill="#f8f6fb" stroke="#76629a" stroke-width="3"/></g>
+<rect x="905" y="640" width="585" height="46" rx="18" fill="#76629a"/>
+<rect x="905" y="668" width="585" height="18" fill="#76629a"/>
+<text x="1197" y="671" class="legTitle" text-anchor="middle">Qué guarda cada rama</text>
+<text x="930" y="716" class="legItem"><tspan class="legCode">data/source/</tspan>  datos originales, inmutables:</text>
+<text x="960" y="742" class="legItem"><tspan class="legCode">pacientes.md</tspan> · <tspan class="legCode">pacientes-metadatos.md</tspan></text>
+<text x="930" y="774" class="legItem"><tspan class="legCode">data/processed/</tspan>  datos derivados</text>
+<text x="930" y="802" class="legItem"><tspan class="legCode">doc/</tspan>  <tspan class="legCode">protocolo.md</tspan> · <tspan class="legCode">bitacora-ia.md</tspan></text>
+<text x="930" y="830" class="legItem"><tspan class="legCode">src/</tspan> scripts  ·  <tspan class="legCode">results/</tspan> resultados</text>
+</svg>

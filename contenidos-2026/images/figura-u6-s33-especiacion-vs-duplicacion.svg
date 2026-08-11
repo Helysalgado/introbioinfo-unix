@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="720" viewBox="0 0 1600 720" role="img" aria-labelledby="t d">
+  <title id="t">Especiación frente a duplicación</title>
+  <desc id="d">Dos paneles. Izquierda ortólogos por especiación. Derecha parálogos por duplicación génica.</desc>
+  <defs>
+    <filter id="sh" x="-10%" y="-10%" width="120%" height="135%"><feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#17365d" flood-opacity="0.12"/></filter>
+    <style>
+      .title{font:700 32px Arial;fill:#17365d}
+      .sub{font:400 17px Arial;fill:#526270}
+      .h{font:700 18px Arial;fill:#ffffff}
+      .copy{font:400 15px Arial;fill:#34495e}
+      .lab{font:700 16px Arial;fill:#17365d}
+      .small{font:400 13px Arial;fill:#526270}
+    </style>
+  </defs>
+  <rect width="1600" height="720" fill="#fff"/>
+  <text x="800" y="44" class="title" text-anchor="middle">Dos historias detrás de un parecido</text>
+  <text x="800" y="74" class="sub" text-anchor="middle">Ortología y paralogía responden «¿cómo se separaron?», no «¿cuánto miden?»</text>
+
+  <!-- ORTOLOGOS -->
+  <g filter="url(#sh)"><rect x="60" y="110" width="700" height="480" rx="16" fill="#eef8f2" stroke="#1e7a52" stroke-width="2"/></g>
+  <rect x="60" y="110" width="700" height="48" rx="16" fill="#1e7a52"/>
+  <rect x="60" y="138" width="700" height="20" fill="#1e7a52"/>
+  <text x="410" y="144" class="h" text-anchor="middle">ESPECIACIÓN ’ ortólogos</text>
+
+  <circle cx="410" cy="230" r="28" fill="#fff8e8" stroke="#d18b16" stroke-width="3"/>
+  <text x="410" y="236" class="small" text-anchor="middle">ancestro</text>
+  <text x="410" y="268" class="small" text-anchor="middle">un gen</text>
+
+  <path d="M410 258 L280 340" stroke="#17365d" stroke-width="3"/>
+  <path d="M410 258 L540 340" stroke="#17365d" stroke-width="3"/>
+  <text x="410" y="320" class="lab" text-anchor="middle">la especie se divide</text>
+
+  <rect x="200" y="350" width="160" height="70" rx="10" fill="#fff" stroke="#1e7a52" stroke-width="2"/>
+  <text x="280" y="380" class="copy" text-anchor="middle">especie A</text>
+  <text x="280" y="405" class="small" text-anchor="middle">copia del gen</text>
+  <rect x="460" y="350" width="160" height="70" rx="10" fill="#fff" stroke="#1e7a52" stroke-width="2"/>
+  <text x="540" y="380" class="copy" text-anchor="middle">especie B</text>
+  <text x="540" y="405" class="small" text-anchor="middle">copia del gen</text>
+
+  <text x="410" y="470" class="copy" text-anchor="middle">Ejemplo: ± humana ” ± de ratón</text>
+  <text x="410" y="500" class="small" text-anchor="middle">~86.6 % identidad · misma cadena · especies distintas</text>
+  <text x="410" y="545" class="lab" text-anchor="middle">Expectativa: función a menudo similar</text>
+  <text x="410" y="570" class="small" text-anchor="middle">(no garantizada)</text>
+
+  <!-- PARALOGOS -->
+  <g filter="url(#sh)"><rect x="840" y="110" width="700" height="480" rx="16" fill="#fff8e8" stroke="#d18b16" stroke-width="2"/></g>
+  <rect x="840" y="110" width="700" height="48" rx="16" fill="#d18b16"/>
+  <rect x="840" y="138" width="700" height="20" fill="#d18b16"/>
+  <text x="1190" y="144" class="h" text-anchor="middle">DUPLICACIÓN ’ parálogos</text>
+
+  <circle cx="1190" cy="230" r="28" fill="#eef4fa" stroke="#17365d" stroke-width="3"/>
+  <text x="1190" y="236" class="small" text-anchor="middle">un gen</text>
+
+  <path d="M1190 258 L1060 340" stroke="#17365d" stroke-width="3"/>
+  <path d="M1190 258 L1320 340" stroke="#17365d" stroke-width="3"/>
+  <text x="1190" y="320" class="lab" text-anchor="middle">el gen se copia en el genoma</text>
+
+  <rect x="980" y="350" width="160" height="70" rx="10" fill="#fff" stroke="#d18b16" stroke-width="2"/>
+  <text x="1060" y="380" class="copy" text-anchor="middle">copia 1</text>
+  <text x="1060" y="405" class="small" text-anchor="middle">p. ej. ±</text>
+  <rect x="1240" y="350" width="160" height="70" rx="10" fill="#fff" stroke="#d18b16" stroke-width="2"/>
+  <text x="1320" y="380" class="copy" text-anchor="middle">copia 2</text>
+  <text x="1320" y="405" class="small" text-anchor="middle">p. ej. ¶</text>
+
+  <text x="1190" y="470" class="copy" text-anchor="middle">Ejemplo: ± humana ” ¶ humana</text>
+  <text x="1190" y="500" class="small" text-anchor="middle">~59.9 % identidad · misma especie · cadenas distintas</text>
+  <text x="1190" y="545" class="lab" text-anchor="middle">Expectativa: función a menudo divergente</text>
+  <text x="1190" y="570" class="small" text-anchor="middle">(transferir anotación es más arriesgado)</text>
+
+  <rect x="60" y="620" width="1480" height="70" rx="12" fill="#eef4fa" stroke="#17365d" stroke-width="2"/>
+  <text x="800" y="662" style="font:600 17px Arial;fill:#17365d" text-anchor="middle">La pregunta útil: ¿qué historia explica mejor el parecido que estoy viendo?</text>
+</svg>

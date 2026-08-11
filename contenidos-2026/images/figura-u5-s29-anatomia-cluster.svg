@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Anatomía de un clúster y recorrido de un análisis</title>
+  <desc id="desc">Esquema de las partes de un clúster y del camino que recorre un análisis. A la izquierda, la computadora del estudiante, que se conecta por SSH al nodo de acceso. El nodo de acceso es la puerta de entrada: sirve para preparar el trabajo, copiar archivos y revisar resultados, pero no para ejecutar análisis, y esto se señala explícitamente. Desde ahí el trabajo se entrega al planificador, que recibe también las solicitudes de muchos otros usuarios y las ordena en una cola. Cuando hay recursos libres, el planificador envía cada trabajo a uno de los muchos nodos de cómputo, que es donde el análisis se ejecuta de verdad. Debajo, un sistema de archivos compartido conectado tanto con el nodo de acceso como con todos los nodos de cómputo: es la razón por la que el nodo que ejecuta puede ver el proyecto sin que haya que copiarlo, y donde quedan escritos los resultados. Finalmente los resultados se recuperan a la computadora del estudiante. Una franja inferior aclara que un clúster no es una computadora enorme, sino un conjunto coordinado de computadoras que comparten almacenamiento y un turno.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrow" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto">
+      <path d="M0 0 L11 5.5 L0 11z" fill="#2878a9"/>
+    </marker>
+    <marker id="arrowgrn" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto">
+      <path d="M0 0 L11 5.5 L0 11z" fill="#1e7a52"/>
+    </marker>
+    <marker id="arrowgry" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0 L10 5 L0 10z" fill="#8a99a8"/>
+    </marker>
+    <style>
+      .title{font:700 38px Arial;fill:#17365d}
+      .subtitle{font:400 19px Arial;fill:#526270}
+      .tag{font:700 14px Arial;fill:#fff}
+      .copy{font:400 15px Arial;fill:#34495e}
+      .small{font:400 13px Arial;fill:#526270}
+      .code{font:400 14px 'Courier New';fill:#17365d}
+      .h3{font:700 18px Arial;fill:#17365d}
+      .band{font:400 19px Arial;fill:#17365d}
+      .no{font:700 16px Arial;fill:#b03a2e}
+      .si{font:700 16px Arial;fill:#1e7a52}
+      .lbl{font:700 13px Arial;fill:#2878a9}
+    </style>
+  </defs>
+  <rect width="1600" height="1000" fill="#fff"/>
+
+  <text x="800" y="48" class="title" text-anchor="middle">Qué es un clúster, y por dónde pasa tu análisis</text>
+  <text x="800" y="82" class="subtitle" text-anchor="middle">No es una computadora enorme: es un conjunto coordinado de computadoras.</text>
+
+  <!-- TU COMPUTADORA -->
+  <g filter="url(#shadow)"><rect x="40" y="150" width="200" height="180" rx="14" fill="#f7fafc" stroke="#c9d6e2"/></g>
+  <rect x="66" y="182" width="148" height="88" rx="6" fill="#fff" stroke="#526270" stroke-width="2"/>
+  <rect x="52" y="274" width="176" height="10" rx="4" fill="#526270"/>
+  <text x="140" y="312" class="h3" text-anchor="middle">tu computadora</text>
+
+  <path d="M248 214 L326 214" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="287" y="200" class="lbl" text-anchor="middle">SSH</text>
+
+  <!-- LOGIN NODE -->
+  <g filter="url(#shadow)"><rect x="336" y="140" width="330" height="260" rx="14" fill="#fdf7e8" stroke="#d18b16"/></g>
+  <rect x="336" y="140" width="200" height="30" rx="9" fill="#d18b16"/>
+  <text x="354" y="162" class="tag">NODO DE ACCESO</text>
+  <text x="546" y="162" class="small">login node</text>
+  <text x="358" y="200" class="copy">Es la <tspan font-weight="700">puerta de entrada</tspan>. Sirve para:</text>
+  <text x="374" y="228" class="copy">· preparar el job script</text>
+  <text x="374" y="252" class="copy">· copiar archivos</text>
+  <text x="374" y="276" class="copy">· enviar y consultar trabajos</text>
+  <text x="374" y="300" class="copy">· revisar resultados</text>
+  <rect x="358" y="322" width="286" height="58" rx="8" fill="#fdf1ef" stroke="#b03a2e"/>
+  <text x="374" y="348" class="no">Aquí NO se ejecuta</text>
+  <text x="374" y="370" class="no">el análisis</text>
+
+  <path d="M674 270 L742 270" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="708" y="256" class="lbl" text-anchor="middle">qsub</text>
+
+  <!-- PLANIFICADOR -->
+  <g filter="url(#shadow)"><rect x="752" y="140" width="330" height="260" rx="14" fill="#f3eefa" stroke="#7d5ba6"/></g>
+  <rect x="752" y="140" width="180" height="30" rx="9" fill="#7d5ba6"/>
+  <text x="770" y="162" class="tag">PLANIFICADOR</text>
+  <text x="942" y="162" class="small">scheduler</text>
+  <text x="774" y="200" class="copy">Recibe los trabajos de <tspan font-weight="700">todos</tspan>,</text>
+  <text x="774" y="224" class="copy">los pone en una <tspan font-weight="700">cola</tspan> y decide</text>
+  <text x="774" y="248" class="copy">cuándo y en qué nodo va cada uno.</text>
+
+  <rect x="774" y="268" width="286" height="112" rx="8" fill="#fff" stroke="#c9d6e2"/>
+  <text x="790" y="294" class="small">la cola · queue</text>
+  <rect x="790" y="304" width="60" height="26" rx="5" fill="#eef5fb" stroke="#2878a9"/>
+  <text x="820" y="322" class="small" text-anchor="middle">tuyo</text>
+  <rect x="858" y="304" width="52" height="26" rx="5" fill="#f7fafc" stroke="#c9d6e2"/>
+  <rect x="918" y="304" width="52" height="26" rx="5" fill="#f7fafc" stroke="#c9d6e2"/>
+  <rect x="978" y="304" width="52" height="26" rx="5" fill="#f7fafc" stroke="#c9d6e2"/>
+  <text x="790" y="360" class="small">300 trabajos · 100 usuarios · 40 nodos</text>
+
+  <!-- otros usuarios -->
+  <g>
+    <circle cx="880" cy="116" r="11" fill="#8a99a8"/>
+    <circle cx="924" cy="116" r="11" fill="#8a99a8"/>
+    <circle cx="968" cy="116" r="11" fill="#8a99a8"/>
+    <text x="990" y="121" class="small">otros usuarios envían los suyos</text>
+    <path d="M924 130 L924 136" stroke="#8a99a8" stroke-width="2.5" marker-end="url(#arrowgry)"/>
+  </g>
+
+  <path d="M1090 270 L1158 270" stroke="#1e7a52" stroke-width="3" marker-end="url(#arrowgrn)"/>
+
+  <!-- NODOS DE COMPUTO -->
+  <g filter="url(#shadow)"><rect x="1168" y="140" width="390" height="260" rx="14" fill="#eef8f2" stroke="#1e7a52"/></g>
+  <rect x="1168" y="140" width="230" height="30" rx="9" fill="#1e7a52"/>
+  <text x="1186" y="162" class="tag">NODOS DE CÓMPUTO</text>
+  <text x="1408" y="162" class="small">compute nodes</text>
+
+  <rect x="1190" y="188" width="80" height="60" rx="6" fill="#fff" stroke="#1e7a52" stroke-width="2"/>
+  <text x="1230" y="224" class="small" text-anchor="middle">nodo 1</text>
+  <rect x="1282" y="188" width="80" height="60" rx="6" fill="#fff" stroke="#c9d6e2"/>
+  <text x="1322" y="224" class="small" text-anchor="middle">nodo 2</text>
+  <rect x="1374" y="188" width="80" height="60" rx="6" fill="#fff" stroke="#c9d6e2"/>
+  <text x="1414" y="224" class="small" text-anchor="middle">nodo 3</text>
+  <text x="1478" y="224" class="small">…40</text>
+
+  <rect x="1190" y="266" width="340" height="52" rx="8" fill="#eef8f2" stroke="#1e7a52"/>
+  <text x="1206" y="298" class="si">Aquí SÍ se ejecuta tu análisis</text>
+  <text x="1190" y="344" class="copy">Es tu herramienta, sin cambios,</text>
+  <text x="1190" y="368" class="copy">corriendo sin depender de tu sesión.</text>
+
+  <!-- FILESYSTEM -->
+  <path d="M500 410 L500 470" stroke="#2878a9" stroke-width="2.5" stroke-dasharray="6 5"/>
+  <path d="M1230 410 L1230 470" stroke="#2878a9" stroke-width="2.5" stroke-dasharray="6 5"/>
+  <path d="M1322 410 L1322 470" stroke="#2878a9" stroke-width="2.5" stroke-dasharray="6 5"/>
+  <path d="M1414 410 L1414 470" stroke="#2878a9" stroke-width="2.5" stroke-dasharray="6 5"/>
+
+  <g filter="url(#shadow)"><rect x="336" y="478" width="1222" height="170" rx="14" fill="#eef5fb" stroke="#2878a9"/></g>
+  <rect x="336" y="478" width="330" height="30" rx="9" fill="#2878a9"/>
+  <text x="354" y="500" class="tag">SISTEMA DE ARCHIVOS COMPARTIDO</text>
+  <text x="676" y="500" class="small">shared filesystem</text>
+  <text x="358" y="540" class="copy"><tspan font-weight="700">Todos</tspan> los nodos —el de acceso y los de cómputo— ven <tspan font-weight="700">el mismo</tspan> almacenamiento.</text>
+  <text x="358" y="572" class="copy">Por eso el nodo que ejecuta encuentra tu proyecto sin que nadie lo copie: no es magia, es un disco compartido.</text>
+  <text x="358" y="608" class="code">/export/space3/users/$USER/proyecto/  →  data/  src/  results/</text>
+  <text x="358" y="634" class="small">Y ahí mismo quedan escritos los resultados, y los archivos .out y .err del trabajo.</text>
+
+  <!-- vuelta -->
+  <path d="M336 570 L200 570" stroke="#1e7a52" stroke-width="3" fill="none" marker-end="url(#arrowgrn)"/>
+  <path d="M140 570 L140 348" stroke="#1e7a52" stroke-width="3" fill="none"/>
+  <path d="M200 570 L140 570" stroke="#1e7a52" stroke-width="3" fill="none"/>
+  <path d="M140 360 L140 344" stroke="#1e7a52" stroke-width="3" fill="none" marker-end="url(#arrowgrn)"/>
+  <text x="252" y="600" class="lbl" fill="#1e7a52" text-anchor="middle">scp / rsync</text>
+  <text x="252" y="620" class="small" text-anchor="middle">recuperas los resultados</text>
+
+  <!-- FRANJA -->
+  <rect x="40" y="686" width="1518" height="130" rx="14" fill="#f3eefa" stroke="#7d5ba6"/>
+  <text x="70" y="728" class="band"><tspan font-weight="700">Un clúster no es una computadora enorme.</tspan> Es un conjunto de computadoras que comparten dos cosas:</text>
+  <text x="70" y="768" class="copy" font-size="17">un <tspan font-weight="700">almacenamiento común</tspan> —por eso todas ven tu proyecto— y un <tspan font-weight="700">turno común</tspan> —por eso nadie atropella a nadie—.</text>
+  <text x="70" y="800" class="copy" font-size="17">El planificador es quien reparte ese turno. Sin él, cien personas ejecutando a la vez harían que ninguna terminara.</text>
+
+  <rect x="40" y="836" width="1518" height="120" rx="14" fill="#eef8f2" stroke="#1e7a52"/>
+  <text x="70" y="878" class="band">Y fíjate en lo que <tspan font-weight="700">no</tspan> aparece en ninguna caja de este esquema: tu análisis.</text>
+  <text x="70" y="916" class="copy" font-size="17">El procedimiento no está en el clúster ni en el planificador: sigue estando en tu herramienta, igual que ayer.</text>
+  <text x="70" y="944" class="copy" font-size="17">Lo único que este dibujo describe es <tspan font-style="italic">dónde</tspan> se ejecuta y <tspan font-style="italic">quién</tspan> decide cuándo.</text>
+</svg>

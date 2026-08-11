@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Anatomía de las dos estructuras que no son tablas limpias</title>
+  <desc id="desc">Arriba, un encabezado FASTA descompuesto en tres partes: el símbolo mayor que, que solo marca el inicio del encabezado; el identificador del replicón, que va desde ese símbolo hasta el primer espacio; y una descripción libre, sin estructura garantizada, que ocupa el resto de la línea. Abajo, la novena columna de un GFF3, la de atributos, descompuesta en pares clave igual valor separados por punto y coma; dentro de cada par, el signo igual separa la clave del valor. Se destacan cuatro claves: ID, que identifica el registro; Name, el nombre del gen; locus_tag, el identificador estable del locus; y Parent, que en las líneas CDS apunta al ID del gen al que pertenecen. Un recuadro final indica que en ambos casos la información útil está incrustada dentro de una cadena de texto, no en una columna propia.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <style>
+      .title{font:700 42px Arial;fill:#17365d}
+      .subtitle{font:400 20px Arial;fill:#526270}
+      .h2{font:700 24px Arial;fill:#17365d}
+      .copy{font:400 18px Arial;fill:#34495e}
+      .small{font:400 15px Arial;fill:#526270}
+      .lbl{font:700 17px Arial;fill:#17365d}
+      .code{font:400 21px 'Courier New';fill:#17365d}
+      .codeB{font:700 21px 'Courier New';fill:#17365d}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+
+  <text x="800" y="56" class="title" text-anchor="middle">Dónde vive la información que necesitas</text>
+  <text x="800" y="92" class="subtitle" text-anchor="middle">Las dos estructuras del curso que no son tablas limpias: el encabezado FASTA y la columna de atributos del GFF3.</text>
+
+  <!-- PANEL 1: FASTA -->
+  <g filter="url(#shadow)"><rect x="60" y="130" width="1480" height="300" rx="16" fill="#f7fafc" stroke="#c9d6e2"/></g>
+  <text x="90" y="172" class="h2">1 · Encabezado FASTA</text>
+  <text x="90" y="200" class="small">Una sola línea que mezcla un identificador con texto libre.</text>
+
+  <rect x="90" y="220" width="1420" height="54" rx="8" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="108" y="255" class="codeB" fill="#b03a2e">&gt;</text>
+  <text x="128" y="255" class="codeB" fill="#1e7a52">NC_000913.3</text>
+  <text x="298" y="255" class="code" fill="#7d5ba6">Escherichia coli str. K-12 substr. MG1655, complete genome</text>
+
+  <path d="M112 282 v22" stroke="#b03a2e" stroke-width="3"/>
+  <path d="M128 282 v22 M282 282 v22 M128 304 h154" stroke="#1e7a52" stroke-width="3"/>
+  <path d="M298 282 v22 M1090 282 v22 M298 304 h792" stroke="#7d5ba6" stroke-width="3"/>
+
+  <text x="90" y="342" class="lbl" fill="#b03a2e">Marcador</text>
+  <text x="90" y="368" class="small">Solo indica "aquí empieza</text>
+  <text x="90" y="388" class="small">un encabezado". No es el dato.</text>
+
+  <text x="330" y="342" class="lbl" fill="#1e7a52">Identificador del replicón</text>
+  <text x="330" y="368" class="small">Del símbolo al primer espacio. Es el que debe corresponder</text>
+  <text x="330" y="388" class="small">con la columna 1 del GFF3.</text>
+
+  <text x="1000" y="342" class="lbl" fill="#7d5ba6">Descripción libre</text>
+  <text x="1000" y="368" class="small">Organismo, cepa, estado del ensamblado.</text>
+  <text x="1000" y="388" class="small">Sin estructura garantizada: no se analiza automáticamente.</text>
+
+  <!-- PANEL 2: GFF3 atributos -->
+  <g filter="url(#shadow)"><rect x="60" y="460" width="1480" height="310" rx="16" fill="#f7fafc" stroke="#c9d6e2"/></g>
+  <text x="90" y="502" class="h2">2 · Columna 9 del GFF3: los atributos</text>
+  <text x="90" y="530" class="small">Ocho columnas ordenadas… y una novena que contiene una tabla entera dentro de una cadena.</text>
+
+  <rect x="90" y="550" width="1420" height="54" rx="8" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="108" y="585" class="code"><tspan class="codeB" fill="#2878a9">ID</tspan><tspan fill="#b03a2e">=</tspan>gene-b0001<tspan fill="#d18b16" font-weight="700">;</tspan><tspan class="codeB" fill="#2878a9">Name</tspan><tspan fill="#b03a2e">=</tspan>thrL<tspan fill="#d18b16" font-weight="700">;</tspan><tspan class="codeB" fill="#2878a9">gbkey</tspan><tspan fill="#b03a2e">=</tspan>Gene<tspan fill="#d18b16" font-weight="700">;</tspan><tspan class="codeB" fill="#2878a9">locus_tag</tspan><tspan fill="#b03a2e">=</tspan>b0001</text>
+
+  <rect x="90" y="622" width="450" height="60" rx="8" fill="#fdf7e8" stroke="#d18b16" stroke-width="2"/>
+  <text x="110" y="646" class="lbl" fill="#d18b16">El punto y coma separa pares</text>
+  <text x="110" y="670" class="small">Cada par es un dato distinto del mismo registro.</text>
+
+  <rect x="560" y="622" width="450" height="60" rx="8" fill="#fdf1ef" stroke="#b03a2e" stroke-width="2"/>
+  <text x="580" y="646" class="lbl" fill="#b03a2e">El signo igual separa clave y valor</text>
+  <text x="580" y="670" class="small">A la izquierda, qué es; a la derecha, cuánto vale.</text>
+
+  <rect x="1030" y="622" width="480" height="60" rx="8" fill="#eef5fb" stroke="#2878a9" stroke-width="2"/>
+  <text x="1050" y="646" class="lbl" fill="#2878a9">Las claves no siempre están todas</text>
+  <text x="1050" y="670" class="small">Un registro puede carecer de `locus_tag` o de `Name`.</text>
+
+  <text x="90" y="716" class="copy"><tspan font-weight="700">Cuatro claves que usarás hoy:</tspan> <tspan font-family="Courier New" font-weight="700">ID</tspan> identifica el registro · <tspan font-family="Courier New" font-weight="700">Name</tspan> es el nombre del gen ·</text>
+  <text x="90" y="744" class="copy"><tspan font-family="Courier New" font-weight="700">locus_tag</tspan> es el identificador estable del locus · <tspan font-family="Courier New" font-weight="700">Parent</tspan> enlaza cada CDS con el <tspan font-family="Courier New" font-weight="700">ID</tspan> de su gen.</text>
+
+  <!-- CIERRE -->
+  <rect x="60" y="800" width="1480" height="70" rx="12" fill="#eef8f2" stroke="#8cc9a9" stroke-width="2"/>
+  <text x="95" y="843" class="copy"><tspan font-weight="700">Lo que ambas comparten:</tspan> el dato que necesitas no tiene columna propia. Está incrustado en una cadena, y por eso seleccionar la línea correcta todavía no basta.</text>
+</svg>

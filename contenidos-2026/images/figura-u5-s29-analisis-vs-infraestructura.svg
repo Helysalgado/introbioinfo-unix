@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">La segunda frontera: análisis e infraestructura</title>
+  <desc id="desc">Una nueva separación, análoga a la que se hizo en la sesión veinticinco entre procedimiento y datos. A la izquierda, lo que es análisis y vive en la herramienta: qué registros cuentan como gen, cómo se recorre la colección, qué controles se aplican y cómo se construye el resumen; nada de eso cambia al pasar al clúster. A la derecha, lo que es infraestructura y vive en el archivo de trabajo: en qué directorio ejecutar, cómo se llama el trabajo, dónde escribir la salida y los errores, y cuántos recursos se piden; nada de eso dice nada sobre biología. En el centro, la pregunta que separa ambos lados: si esto cambiara, ¿cambiaría el resultado del análisis? Si la respuesta es sí, es análisis; si es no, es infraestructura. Una franja inferior señala que el archivo de trabajo no reimplementa nada: solo llama a la herramienta, y que por eso todo lo defendido en la sesión anterior sigue siendo válido.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <style>
+      .title{font:700 38px Arial;fill:#17365d}
+      .subtitle{font:400 19px Arial;fill:#526270}
+      .tag{font:700 15px Arial;fill:#fff}
+      .copy{font:400 16px Arial;fill:#34495e}
+      .small{font:400 14px Arial;fill:#526270}
+      .code{font:400 15px 'Courier New';fill:#17365d}
+      .h3{font:700 19px Arial;fill:#17365d}
+      .band{font:400 19px Arial;fill:#17365d}
+      .ask{font:700 18px Arial;fill:#7d5ba6}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+
+  <text x="800" y="50" class="title" text-anchor="middle">La segunda frontera</text>
+  <text x="800" y="86" class="subtitle" text-anchor="middle">En S25 separaste el procedimiento de sus datos. Hoy lo separas de su infraestructura.</text>
+
+  <rect x="440" y="112" width="720" height="52" rx="14" fill="#f3eefa" stroke="#7d5ba6"/>
+  <text x="800" y="146" class="ask" text-anchor="middle">Si esto cambiara, ¿cambiaría el resultado del análisis?</text>
+
+  <!-- IZQUIERDA -->
+  <g filter="url(#shadow)"><rect x="55" y="200" width="690" height="450" rx="16" fill="#eef8f2" stroke="#1e7a52"/></g>
+  <rect x="55" y="200" width="120" height="34" rx="10" fill="#1e7a52"/>
+  <text x="75" y="225" class="tag">SÍ</text>
+  <text x="195" y="225" class="h3">→ es ANÁLISIS · vive en la herramienta</text>
+
+  <rect x="85" y="256" width="630" height="240" rx="10" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="105" y="292" class="copy">· qué registros cuentan como gen <tspan class="code">$3=="gene"</tspan> (S18)</text>
+  <text x="105" y="326" class="copy">· que las directivas <tspan class="code">##</tspan> no son anotaciones (S12)</text>
+  <text x="105" y="360" class="copy">· cómo se recorre la colección (S26)</text>
+  <text x="105" y="394" class="copy">· qué se comprueba antes de trabajar (S25)</text>
+  <text x="105" y="428" class="copy">· qué controles se aplican y qué se registra (S26)</text>
+  <text x="105" y="462" class="copy">· cómo se construye el resumen (S26)</text>
+
+  <rect x="85" y="518" width="630" height="106" rx="10" fill="#eef8f2" stroke="#1e7a52"/>
+  <text x="105" y="552" class="copy" font-weight="700">Nada de esto cambia al pasar al clúster.</text>
+  <text x="105" y="586" class="copy">Es lo que defendiste en S28, y sigue siendo válido</text>
+  <text x="105" y="610" class="copy">exactamente por eso.</text>
+
+  <!-- DERECHA -->
+  <g filter="url(#shadow)"><rect x="855" y="200" width="690" height="450" rx="16" fill="#eef5fb" stroke="#2878a9"/></g>
+  <rect x="855" y="200" width="120" height="34" rx="10" fill="#2878a9"/>
+  <text x="875" y="225" class="tag">NO</text>
+  <text x="995" y="225" class="h3">→ es INFRAESTRUCTURA · va aparte</text>
+
+  <rect x="885" y="256" width="630" height="240" rx="10" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="905" y="292" class="copy">· en qué directorio ejecutar</text>
+  <text x="905" y="326" class="copy">· cómo se llama el trabajo</text>
+  <text x="905" y="360" class="copy">· dónde escribir la salida y los errores</text>
+  <text x="905" y="394" class="copy">· cuánta memoria, cuántos núcleos, cuánto tiempo</text>
+  <text x="905" y="428" class="copy">· qué shell interpreta el trabajo</text>
+  <text x="905" y="462" class="small">— y todo esto depende del clúster, no de la biología</text>
+
+  <rect x="885" y="518" width="630" height="106" rx="10" fill="#eef5fb" stroke="#2878a9"/>
+  <text x="905" y="552" class="copy" font-weight="700">Va en un archivo aparte: el job script.</text>
+  <text x="905" y="586" class="copy">Si mañana cambias de clúster, cambias ese archivo</text>
+  <text x="905" y="610" class="copy">y no tocas la herramienta.</text>
+
+  <path d="M800 176 L800 668" stroke="#7d5ba6" stroke-width="3" stroke-dasharray="10 8" fill="none"/>
+  <circle cx="800" cy="668" r="7" fill="#7d5ba6"/>
+
+  <!-- FRANJA -->
+  <rect x="55" y="706" width="1490" height="160" rx="14" fill="#f3eefa" stroke="#7d5ba6"/>
+  <text x="85" y="748" class="band"><tspan font-weight="700">El job script no reimplementa nada: solo llama a tu herramienta.</tspan></text>
+  <text x="85" y="786" class="copy">Es un envoltorio de tres líneas útiles. Si copiaras dentro de él el análisis, tendrías dos versiones del mismo procedimiento —el problema</text>
+  <text x="85" y="814" class="copy">de S25— y una de ellas no estaría documentada, ni probada, ni defendida.</text>
+  <text x="85" y="850" class="copy" font-style="italic">Es la misma decisión de siempre: una información, un sitio.</text>
+</svg>

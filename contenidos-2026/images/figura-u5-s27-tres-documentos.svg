@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Tres documentos, tres lectores, tres preguntas</title>
+  <desc id="desc">El proyecto documentado tiene tres documentos distintos, y cada uno responde a un lector y a una pregunta diferentes. El archivo léeme se dirige a quien va a usar la herramienta y responde cómo se usa: qué necesita, cómo se organiza la colección, cómo se ejecuta y qué produce. El protocolo se dirige a quien va a juzgar el análisis y responde por qué se hace así: qué decisiones metodológicas se tomaron, qué se descartó y qué limitaciones tiene. Los mensajes del programa y los encabezados de los scripts se dirigen a quien está ejecutando en ese momento y responden qué está pasando ahora: en qué paso va, si algo falta y qué hacer al respecto. Una franja inferior advierte que copiar el contenido de uno en otro es el error más común: el protocolo no sirve para ejecutar y el léeme no sirve para defender un resultado.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <style>
+      .title{font:700 40px Arial;fill:#17365d}
+      .subtitle{font:400 20px Arial;fill:#526270}
+      .tag{font:700 15px Arial;fill:#fff}
+      .copy{font:400 16px Arial;fill:#34495e}
+      .small{font:400 14px Arial;fill:#526270}
+      .code{font:400 15px 'Courier New';fill:#17365d}
+      .h3{font:700 19px Arial;fill:#17365d}
+      .band{font:400 19px Arial;fill:#17365d}
+      .q{font:700 20px Arial;fill:#7d5ba6}
+      .who{font:700 14px Arial;fill:#7d5ba6}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+
+  <text x="800" y="52" class="title" text-anchor="middle">Tres documentos, tres lectores</text>
+  <text x="800" y="88" class="subtitle" text-anchor="middle">Cada uno responde una pregunta distinta. Ninguno sustituye a los otros.</text>
+
+  <!-- README -->
+  <g filter="url(#shadow)"><rect x="45" y="130" width="490" height="530" rx="16" fill="#eef5fb" stroke="#2878a9"/></g>
+  <rect x="45" y="130" width="150" height="34" rx="10" fill="#2878a9"/>
+  <text x="65" y="155" class="tag">README.md</text>
+  <text x="75" y="200" class="who">LO LEE</text>
+  <text x="75" y="228" class="copy">quien va a <tspan font-weight="700">usar</tspan> la herramienta</text>
+  <text x="75" y="272" class="q">¿cómo se usa?</text>
+
+  <rect x="75" y="298" width="430" height="270" rx="8" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="95" y="328" class="copy">· qué hace, en tres líneas</text>
+  <text x="95" y="358" class="copy">· qué necesita para funcionar</text>
+  <text x="95" y="388" class="copy">· cómo debe organizarse la colección</text>
+  <text x="95" y="418" class="copy">· cómo se ejecuta, con un ejemplo real</text>
+  <text x="95" y="448" class="copy">· qué produce y dónde aparece</text>
+  <text x="95" y="478" class="copy">· qué significa cada columna</text>
+  <text x="95" y="508" class="copy">· cómo comprobar que salió bien</text>
+  <text x="95" y="538" class="copy">· qué <tspan font-weight="700">no</tspan> hace</text>
+
+  <text x="75" y="602" class="small">Se escribe para alguien que tiene prisa</text>
+  <text x="75" y="626" class="small">y no va a leer el código.</text>
+
+  <!-- PROTOCOLO -->
+  <g filter="url(#shadow)"><rect x="555" y="130" width="490" height="530" rx="16" fill="#eef8f2" stroke="#1e7a52"/></g>
+  <rect x="555" y="130" width="200" height="34" rx="10" fill="#1e7a52"/>
+  <text x="575" y="155" class="tag">doc/protocolo.md</text>
+  <text x="585" y="200" class="who">LO LEE</text>
+  <text x="585" y="228" class="copy">quien va a <tspan font-weight="700">juzgar</tspan> el análisis</text>
+  <text x="585" y="272" class="q">¿por qué así?</text>
+
+  <rect x="585" y="298" width="430" height="270" rx="8" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="605" y="328" class="copy">· la pregunta biológica de partida</text>
+  <text x="605" y="358" class="copy">· qué cuenta como gen, y por qué (S18)</text>
+  <text x="605" y="388" class="copy">· qué se descartó y con qué criterio</text>
+  <text x="605" y="418" class="copy">· cómo se validó cada resultado</text>
+  <text x="605" y="448" class="copy">· qué limitaciones tiene el análisis</text>
+  <text x="605" y="478" class="copy">· qué preguntas quedan abiertas</text>
+  <text x="605" y="508" class="copy">· la historia de las correcciones</text>
+  <text x="605" y="538" class="small">— el documento vivo desde la Unidad 1</text>
+
+  <text x="585" y="602" class="small">Sin él, los números salen igual</text>
+  <text x="585" y="626" class="small">y no se pueden defender.</text>
+
+  <!-- MENSAJES -->
+  <g filter="url(#shadow)"><rect x="1065" y="130" width="490" height="530" rx="16" fill="#fdf7e8" stroke="#d18b16"/></g>
+  <rect x="1065" y="130" width="290" height="34" rx="10" fill="#d18b16"/>
+  <text x="1085" y="155" class="tag">MENSAJES Y ENCABEZADOS</text>
+  <text x="1095" y="200" class="who">LO LEE</text>
+  <text x="1095" y="228" class="copy">quien está <tspan font-weight="700">ejecutando</tspan> ahora</text>
+  <text x="1095" y="272" class="q">¿qué está pasando?</text>
+
+  <rect x="1095" y="298" width="430" height="270" rx="8" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="1115" y="328" class="copy">· en qué paso va</text>
+  <text x="1115" y="358" class="copy">· qué falta, y cuál era el valor recibido</text>
+  <text x="1115" y="388" class="copy">· cómo se invoca (bloque de uso)</text>
+  <text x="1115" y="418" class="copy">· si el problema es de uso o del análisis</text>
+  <text x="1115" y="448" class="copy">· qué hacer a continuación</text>
+  <text x="1115" y="486" class="code">$ ./procesar-lote.sh -h</text>
+  <text x="1115" y="516" class="small">la ayuda viaja dentro de la herramienta:</text>
+  <text x="1115" y="540" class="small">nunca se separa de ella</text>
+
+  <text x="1095" y="602" class="small">Llega en el único momento</text>
+  <text x="1095" y="626" class="small">en que alguien está mirando.</text>
+
+  <!-- FRANJA -->
+  <rect x="45" y="700" width="1510" height="150" rx="14" fill="#f3eefa" stroke="#7d5ba6"/>
+  <text x="75" y="742" class="band"><tspan font-weight="700">El error más común: copiar el contenido de uno en otro.</tspan></text>
+  <text x="75" y="782" class="copy">Un README con todo el razonamiento metodológico no se lee. Un protocolo con instrucciones de uso deja de ser un cuaderno científico.</text>
+  <text x="75" y="816" class="copy">Ante la duda, pregúntate <tspan font-style="italic">quién</tspan> va a leer esa frase y <tspan font-style="italic">qué</tspan> necesita hacer después de leerla.</text>
+</svg>

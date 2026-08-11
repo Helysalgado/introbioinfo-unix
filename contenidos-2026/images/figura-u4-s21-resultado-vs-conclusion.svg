@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Un resultado sostenido por una fuente frente a una conclusión confrontada</title>
+  <desc id="desc">A la izquierda, un análisis que parte de una sola procedencia: el FASTA y el GFF3 descargados juntos producen un inventario, y todas las comprobaciones realizadas hasta ahora ocurren dentro de ese mismo origen, de modo que solo demuestran coherencia interna. El producto se etiqueta como resultado reproducible, acompañado de una pregunta abierta: si el productor de los datos se hubiera equivocado, nada de lo hecho lo detectaría. A la derecha, el mismo inventario se confronta con otro obtenido de una fuente independiente, con su propia curación, sus propios criterios y su propia versión. De esa confrontación salen tres cosas: las coincidencias, las diferencias y una explicación para cada diferencia. El producto se etiqueta como conclusión en construcción. Una franja inferior precisa que confrontar no corrige el resultado propio ni lo declara equivocado: mide su robustez y obliga a explicar cada discrepancia.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrow" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto">
+      <path d="M0 0 L11 5.5 L0 11z" fill="#2878a9"/>
+    </marker>
+    <style>
+      .title{font:700 42px Arial;fill:#17365d}
+      .subtitle{font:400 20px Arial;fill:#526270}
+      .tag{font:700 16px Arial;fill:#fff}
+      .copy{font:400 18px Arial;fill:#34495e}
+      .small{font:400 15px Arial;fill:#526270}
+      .code{font:400 18px 'Courier New';fill:#17365d}
+      .h3{font:700 21px Arial;fill:#17365d}
+      .big{font:700 24px Arial;fill:#17365d}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+
+  <text x="800" y="56" class="title" text-anchor="middle">De un resultado a una conclusión</text>
+  <text x="800" y="92" class="subtitle" text-anchor="middle">Lo que cambia no es el análisis: es de cuántas procedencias distintas viene la evidencia que lo sostiene.</text>
+
+  <!-- IZQUIERDA -->
+  <g filter="url(#shadow)"><rect x="60" y="130" width="700" height="620" rx="16" fill="#fdf7e8" stroke="#d18b16"/></g>
+  <rect x="60" y="130" width="420" height="34" rx="10" fill="#d18b16"/>
+  <text x="80" y="155" class="tag">HASTA S20 · UNA SOLA PROCEDENCIA</text>
+
+  <rect x="100" y="190" width="280" height="60" rx="10" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="240" y="228" class="code" text-anchor="middle">FASTA + GFF3</text>
+  <text x="440" y="215" class="small">Descargados juntos,</text>
+  <text x="440" y="237" class="small">del mismo ensamblado y productor.</text>
+
+  <line x1="240" y1="256" x2="240" y2="296" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="100" y="306" width="280" height="60" rx="10" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="240" y="344" class="copy" text-anchor="middle" font-weight="700">Mi inventario</text>
+
+  <rect x="440" y="300" width="280" height="72" rx="10" fill="#fff" stroke="#d18b16" stroke-width="2"/>
+  <text x="460" y="328" class="small">Comprobaciones de S19 y S20:</text>
+  <text x="460" y="352" class="small" font-weight="700">coherencia interna, no validación.</text>
+
+  <line x1="240" y1="372" x2="240" y2="412" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="100" y="422" width="620" height="90" rx="12" fill="#fff" stroke="#d18b16" stroke-width="3"/>
+  <text x="410" y="462" class="big" text-anchor="middle">RESULTADO REPRODUCIBLE</text>
+  <text x="410" y="492" class="small" text-anchor="middle">Cualquiera puede repetirlo y obtener lo mismo.</text>
+
+  <rect x="100" y="545" width="620" height="170" rx="12" fill="#fff8e6" stroke="#e0b84c" stroke-width="2"/>
+  <text x="130" y="585" class="h3" fill="#d18b16">La pregunta que queda abierta</text>
+  <text x="130" y="625" class="copy">Si quien produjo la anotación se hubiera equivocado,</text>
+  <text x="130" y="653" class="copy">o hubiera usado un criterio discutible,</text>
+  <text x="130" y="683" class="copy" font-weight="700">nada de lo que he hecho podría detectarlo.</text>
+
+  <!-- DERECHA -->
+  <g filter="url(#shadow)"><rect x="840" y="130" width="700" height="620" rx="16" fill="#eef8f2" stroke="#8cc9a9"/></g>
+  <rect x="840" y="130" width="420" height="34" rx="10" fill="#1e7a52"/>
+  <text x="860" y="155" class="tag">EN S21 · DOS PROCEDENCIAS</text>
+
+  <rect x="880" y="190" width="280" height="60" rx="10" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="1020" y="228" class="copy" text-anchor="middle" font-weight="700">Mi inventario</text>
+
+  <rect x="1220" y="190" width="280" height="60" rx="10" fill="#fff" stroke="#1e7a52" stroke-width="2"/>
+  <text x="1360" y="220" class="copy" text-anchor="middle" font-weight="700">Inventario ajeno</text>
+  <text x="1360" y="242" class="small" text-anchor="middle">otra curación, otros criterios</text>
+
+  <path d="M1020 256 L1150 300" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+  <path d="M1360 256 L1230 300" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="1050" y="310" width="280" height="50" rx="10" fill="#17365d"/>
+  <text x="1190" y="343" class="tag" text-anchor="middle" font-size="19">CONFRONTAR</text>
+
+  <line x1="1190" y1="366" x2="1190" y2="400" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="880" y="410" width="196" height="70" rx="10" fill="#fff" stroke="#8cc9a9" stroke-width="2"/>
+  <text x="978" y="443" class="copy" text-anchor="middle" font-weight="700">Coincidencias</text>
+  <text x="978" y="467" class="small" text-anchor="middle">lo que se sostiene</text>
+
+  <rect x="1092" y="410" width="196" height="70" rx="10" fill="#fff" stroke="#8cc9a9" stroke-width="2"/>
+  <text x="1190" y="443" class="copy" text-anchor="middle" font-weight="700">Diferencias</text>
+  <text x="1190" y="467" class="small" text-anchor="middle">lo que hay que mirar</text>
+
+  <rect x="1304" y="410" width="196" height="70" rx="10" fill="#fff" stroke="#2878a9" stroke-width="2"/>
+  <text x="1402" y="443" class="copy" text-anchor="middle" font-weight="700">Una explicación</text>
+  <text x="1402" y="467" class="small" text-anchor="middle">para cada una</text>
+
+  <rect x="880" y="510" width="620" height="90" rx="12" fill="#fff" stroke="#1e7a52" stroke-width="3"/>
+  <text x="1190" y="550" class="big" text-anchor="middle" fill="#1e7a52">CONCLUSIÓN EN CONSTRUCCIÓN</text>
+  <text x="1190" y="580" class="small" text-anchor="middle">Sostenida por evidencia que no comparte origen.</text>
+
+  <rect x="880" y="630" width="620" height="85" rx="12" fill="#eef5fb" stroke="#2878a9" stroke-width="2"/>
+  <text x="910" y="668" class="copy">Las diferencias no se eliminan: <tspan font-weight="700">se explican</tspan>. Una discrepancia</text>
+  <text x="910" y="696" class="copy">bien argumentada vale más que una coincidencia sin analizar.</text>
+
+  <!-- CIERRE -->
+  <rect x="60" y="780" width="1480" height="80" rx="12" fill="#f7fafc" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="95" y="818" class="copy"><tspan font-weight="700">Confrontar no corrige tu resultado ni lo declara equivocado.</tspan> Tu inventario era —y sigue siendo— reproducible.</text>
+  <text x="95" y="846" class="copy">Lo que estaba sin medir era su <tspan font-weight="700">robustez</tspan>: qué queda en pie cuando alguien más, con otros criterios, mira el mismo genoma.</text>
+</svg>

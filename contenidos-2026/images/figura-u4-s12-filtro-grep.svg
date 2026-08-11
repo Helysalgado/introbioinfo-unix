@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Filtrar es partir el archivo en dos</title>
+  <desc id="desc">Un archivo con líneas de comentario y líneas de datos atraviesa un filtro definido por un patrón. Las líneas que coinciden salen por una vía y las que no coinciden por otra. La coincidencia se evalúa sobre la línea completa, no sobre una columna.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0 0 L12 6 L0 12z" fill="#2878a9"/>
+    </marker>
+    <marker id="arrowG" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0 0 L12 6 L0 12z" fill="#208b82"/>
+    </marker>
+    <marker id="arrowR" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0 0 L12 6 L0 12z" fill="#b4553f"/>
+    </marker>
+    <style>
+      .title{font:700 42px Arial;fill:#17365d}
+      .subtitle{font:400 20px Arial;fill:#526270}
+      .h2{font:700 22px Arial;fill:#17365d}
+      .copy{font:400 18px Arial;fill:#34495e}
+      .small{font:400 15px Arial;fill:#526270}
+      .code{font:700 26px 'Courier New';fill:#17365d}
+      .codeS{font:400 16px 'Courier New';fill:#34495e}
+      .codeW{font:700 20px 'Courier New';fill:#fff}
+      .tag{font:700 17px Arial;fill:#fff}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+
+  <text x="800" y="58" class="title" text-anchor="middle">Filtrar es partir el archivo en dos</text>
+  <text x="800" y="95" class="subtitle" text-anchor="middle">El patrón decide qué líneas entran al análisis. No decide qué columna se mira.</text>
+
+  <!-- ARCHIVO DE ENTRADA -->
+  <g filter="url(#shadow)">
+    <rect x="60" y="180" width="400" height="440" rx="18" fill="#f3f8fc" stroke="#8bb4cf" stroke-width="3"/>
+  </g>
+  <text x="260" y="222" class="h2" text-anchor="middle">EL ARCHIVO</text>
+  <text x="260" y="248" class="small" text-anchor="middle">una pila de líneas heterogéneas</text>
+
+  <rect x="90" y="268" width="340" height="36" rx="6" fill="#fdf1ec" stroke="#d99f8c" stroke-width="2"/>
+  <text x="104" y="292" class="codeS">##gff-version 3</text>
+  <rect x="90" y="312" width="340" height="36" rx="6" fill="#fdf1ec" stroke="#d99f8c" stroke-width="2"/>
+  <text x="104" y="336" class="codeS">##sequence-region NC_000913.3 …</text>
+
+  <rect x="90" y="360" width="340" height="36" rx="6" fill="#fff" stroke="#8bb4cf" stroke-width="2"/>
+  <text x="104" y="384" class="codeS">NC_000913.3  RefSeq  region  1 …</text>
+  <rect x="90" y="404" width="340" height="36" rx="6" fill="#eaf6f3" stroke="#7cc0b8" stroke-width="2"/>
+  <text x="104" y="428" class="codeS">NC_000913.3  RefSeq  gene  190 …</text>
+  <rect x="90" y="448" width="340" height="36" rx="6" fill="#fff" stroke="#8bb4cf" stroke-width="2"/>
+  <text x="104" y="472" class="codeS">NC_000913.3  RefSeq  CDS  337 …</text>
+  <rect x="90" y="492" width="340" height="36" rx="6" fill="#eaf6f3" stroke="#7cc0b8" stroke-width="2"/>
+  <text x="104" y="516" class="codeS">NC_000913.3  RefSeq  gene  337 …</text>
+  <rect x="90" y="536" width="340" height="36" rx="6" fill="#fff" stroke="#8bb4cf" stroke-width="2"/>
+  <text x="104" y="560" class="codeS">NC_000913.3  RefSeq  tRNA  225 …</text>
+  <text x="260" y="596" class="small" text-anchor="middle">… y varios miles más</text>
+
+  <!-- FLECHA HACIA EL FILTRO -->
+  <line x1="470" y1="400" x2="588" y2="400" stroke="#2878a9" stroke-width="5" marker-end="url(#arrow)"/>
+
+  <!-- FILTRO -->
+  <g filter="url(#shadow)">
+    <rect x="600" y="290" width="300" height="220" rx="18" fill="#17365d"/>
+  </g>
+  <text x="750" y="336" class="tag" text-anchor="middle">EL FILTRO</text>
+  <text x="750" y="362" style="font:400 15px Arial;fill:#b8cde0" text-anchor="middle">¿aparece el patrón en esta línea?</text>
+  <rect x="640" y="382" width="220" height="52" rx="10" fill="#fff"/>
+  <text x="750" y="418" class="code" text-anchor="middle">"gene"</text>
+  <text x="750" y="470" style="font:400 15px Arial;fill:#b8cde0" text-anchor="middle">se compara texto contra texto,</text>
+  <text x="750" y="492" style="font:400 15px Arial;fill:#b8cde0" text-anchor="middle">sobre la línea completa</text>
+
+  <!-- FLECHAS DE SALIDA -->
+  <path d="M910 350 L 990 262" fill="none" stroke="#208b82" stroke-width="5" marker-end="url(#arrowG)"/>
+  <path d="M910 450 L 990 538" fill="none" stroke="#b4553f" stroke-width="5" marker-end="url(#arrowR)"/>
+
+  <!-- SALIDA: COINCIDEN -->
+  <g filter="url(#shadow)">
+    <rect x="1010" y="180" width="530" height="200" rx="18" fill="#eaf6f3" stroke="#208b82" stroke-width="3"/>
+  </g>
+  <rect x="1010" y="180" width="530" height="46" rx="18" fill="#208b82"/>
+  <rect x="1010" y="208" width="530" height="18" fill="#208b82"/>
+  <text x="1040" y="212" class="tag">LÍNEAS QUE COINCIDEN</text>
+  <text x="1040" y="266" class="code">grep "gene" archivo.gff</text>
+  <text x="1040" y="304" class="copy">Aísla los registros que te interesan.</text>
+  <text x="1040" y="332" class="copy">Con <tspan style="font:700 18px 'Courier New'">-c</tspan> devuelve cuántas son en lugar de mostrarlas.</text>
+  <text x="1040" y="360" class="small">Uso de hoy: contar genes, CDS y orígenes de replicación.</text>
+
+  <!-- SALIDA: NO COINCIDEN -->
+  <g filter="url(#shadow)">
+    <rect x="1010" y="430" width="530" height="200" rx="18" fill="#fdf1ec" stroke="#b4553f" stroke-width="3"/>
+  </g>
+  <rect x="1010" y="430" width="530" height="46" rx="18" fill="#b4553f"/>
+  <rect x="1010" y="458" width="530" height="18" fill="#b4553f"/>
+  <text x="1040" y="462" class="tag">LÍNEAS QUE NO COINCIDEN</text>
+  <text x="1040" y="516" class="code">grep -v "##" archivo.gff</text>
+  <text x="1040" y="554" class="copy">Elimina el ruido: las directivas del encabezado.</text>
+  <text x="1040" y="582" class="copy">Es la selección invertida: todo menos el patrón.</text>
+  <text x="1040" y="610" class="small">Uso de hoy: dejar solo los registros de anotación.</text>
+
+  <!-- ADVERTENCIA -->
+  <g filter="url(#shadow)">
+    <rect x="60" y="690" width="1480" height="140" rx="18" fill="#fffaf0" stroke="#d9a441" stroke-width="3"/>
+  </g>
+  <text x="100" y="736" class="h2">El patrón no sabe de columnas</text>
+  <text x="100" y="772" class="copy">Una línea coincide si el patrón aparece <tspan style="font:700 18px Arial">en cualquier posición</tspan>: en la columna del tipo, dentro de una palabra más larga</text>
+  <text x="100" y="800" class="copy">o en medio de los atributos. Para el filtro, las tres coincidencias son idénticas. La precisión la pones tú.</text>
+</svg>

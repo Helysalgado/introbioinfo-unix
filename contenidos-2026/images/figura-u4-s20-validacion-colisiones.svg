@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Normalización segura frente a normalización que fusiona objetos</title>
+  <desc id="desc">Dos ramas comparan dos políticas sobre los mismos tres identificadores. En la rama segura se retiran solo los espacios de los extremos: los tres originales producen tres claves distintas, de modo que se conservan el número de líneas y el número de valores únicos. En la rama peligrosa se elimina además el sufijo de versión: dos accesiones que se diferenciaban por su versión producen ahora la misma clave, y el número de valores únicos baja de tres a dos; esa fusión se destaca como colisión. Una franja inferior enumera los cuatro controles que hacen visible el problema: comparar el número de líneas antes y después, comprobar que no haya claves vacías, comparar el número de valores únicos y verificar que aplicar la política dos veces no cambie el resultado.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrow" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto">
+      <path d="M0 0 L11 5.5 L0 11z" fill="#2878a9"/>
+    </marker>
+    <style>
+      .title{font:700 42px Arial;fill:#17365d}
+      .subtitle{font:400 20px Arial;fill:#526270}
+      .tag{font:700 16px Arial;fill:#fff}
+      .copy{font:400 18px Arial;fill:#34495e}
+      .small{font:400 15px Arial;fill:#526270}
+      .code{font:400 19px 'Courier New';fill:#17365d}
+      .h3{font:700 20px Arial;fill:#17365d}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+
+  <text x="800" y="56" class="title" text-anchor="middle">Una normalización se valida, no se supone</text>
+  <text x="800" y="92" class="subtitle" text-anchor="middle">Las dos políticas terminan sin errores. Solo los controles distinguen la que conserva la identidad de la que la destruye.</text>
+
+  <!-- ORIGINALES -->
+  <rect x="600" y="130" width="400" height="150" rx="12" fill="#f7fafc" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="800" y="164" class="h3" text-anchor="middle">Los mismos tres originales</text>
+  <text x="640" y="200" class="code">NC_000913.2</text>
+  <text x="640" y="228" class="code">NC_000913.3</text>
+  <text x="640" y="256" class="code">NC_P00001.1</text>
+  <text x="920" y="256" class="small" text-anchor="end">3 líneas · 3 únicos</text>
+
+  <path d="M700 290 L500 340" stroke="#1e7a52" stroke-width="3" marker-end="url(#arrow)"/>
+  <path d="M900 290 L1100 340" stroke="#b03a2e" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- RAMA SEGURA -->
+  <g filter="url(#shadow)"><rect x="60" y="350" width="700" height="330" rx="16" fill="#eef8f2" stroke="#8cc9a9"/></g>
+  <rect x="60" y="350" width="330" height="34" rx="10" fill="#1e7a52"/>
+  <text x="80" y="375" class="tag">POLÍTICA SEGURA</text>
+  <text x="90" y="418" class="code" font-size="17">sed 's/[[:space:]]*$//'</text>
+  <text x="90" y="446" class="small">retira solo espacios finales · conserva la versión</text>
+
+  <text x="90" y="500" class="code">NC_000913.2</text><text x="330" y="500" class="code">→</text><text x="390" y="500" class="code" fill="#1e7a52">NC_000913.2</text>
+  <text x="90" y="536" class="code">NC_000913.3</text><text x="330" y="536" class="code">→</text><text x="390" y="536" class="code" fill="#1e7a52">NC_000913.3</text>
+  <text x="90" y="572" class="code">NC_P00001.1</text><text x="330" y="572" class="code">→</text><text x="390" y="572" class="code" fill="#1e7a52">NC_P00001.1</text>
+
+  <rect x="90" y="600" width="620" height="56" rx="10" fill="#fff" stroke="#1e7a52" stroke-width="2"/>
+  <text x="110" y="636" class="copy"><tspan font-weight="700" fill="#1e7a52">3 líneas · 3 únicos.</tspan> Nada se fusionó: los controles pasan.</text>
+
+  <!-- RAMA PELIGROSA -->
+  <g filter="url(#shadow)"><rect x="840" y="350" width="700" height="330" rx="16" fill="#fdf1ef" stroke="#e0a79c"/></g>
+  <rect x="840" y="350" width="380" height="34" rx="10" fill="#b03a2e"/>
+  <text x="860" y="375" class="tag">POLÍTICA QUE FUSIONA</text>
+  <text x="870" y="418" class="code" font-size="17">sed 's/\.[0-9]*$//'</text>
+  <text x="870" y="446" class="small">retira además el sufijo de versión</text>
+
+  <rect x="860" y="472" width="660" height="80" rx="8" fill="#fdd9d3"/>
+  <text x="870" y="500" class="code">NC_000913.2</text><text x="1110" y="500" class="code">→</text><text x="1170" y="500" class="code" fill="#b03a2e">NC_000913</text>
+  <text x="870" y="536" class="code">NC_000913.3</text><text x="1110" y="536" class="code">→</text><text x="1170" y="536" class="code" fill="#b03a2e">NC_000913</text>
+  <text x="1400" y="518" class="small" fill="#b03a2e" font-weight="700">colisión</text>
+  <text x="870" y="580" class="code">NC_P00001.1</text><text x="1110" y="580" class="code">→</text><text x="1170" y="580" class="code">NC_P00001</text>
+
+  <rect x="870" y="600" width="620" height="56" rx="10" fill="#fff" stroke="#b03a2e" stroke-width="2"/>
+  <text x="890" y="636" class="copy"><tspan font-weight="700" fill="#b03a2e">3 líneas · 2 únicos.</tspan> Dos versiones distintas pasaron a ser una.</text>
+
+  <!-- CONTROLES -->
+  <g filter="url(#shadow)"><rect x="60" y="710" width="1480" height="160" rx="16" fill="#eef5fb" stroke="#2878a9"/></g>
+  <text x="90" y="752" class="h3">Los cuatro controles que hacen visible la diferencia</text>
+
+  <rect x="90" y="770" width="340" height="80" rx="10" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="110" y="800" class="copy" font-weight="700">1 · Cardinalidad</text>
+  <text x="110" y="828" class="small">¿el mismo número de líneas?</text>
+
+  <rect x="450" y="770" width="340" height="80" rx="10" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="470" y="800" class="copy" font-weight="700">2 · Claves vacías</text>
+  <text x="470" y="828" class="small">¿alguna regla borró la línea entera?</text>
+
+  <rect x="810" y="770" width="340" height="80" rx="10" fill="#fff" stroke="#2878a9" stroke-width="2"/>
+  <text x="830" y="800" class="copy" font-weight="700">3 · Valores únicos</text>
+  <text x="830" y="828" class="small">si bajan, hubo fusión: hay que explicarla</text>
+
+  <rect x="1170" y="770" width="340" height="80" rx="10" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="1190" y="800" class="copy" font-weight="700">4 · Idempotencia</text>
+  <text x="1190" y="828" class="small">¿aplicarla dos veces cambia algo?</text>
+</svg>

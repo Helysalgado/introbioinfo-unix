@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Anatomía de un visualizador de expresiones regulares</title>
+  <desc id="desc">Esquema conceptual de un visualizador interactivo de expresiones regulares. Tiene tres zonas: arriba, el campo donde se escribe el patrón; en el centro, el área de cadenas de prueba, una por línea; y sobre esas cadenas, el resaltado de la coincidencia. A la derecha se compara el mismo conjunto de cadenas con dos patrones: con el patrón sin anclar coinciden cuatro cadenas, y con el patrón anclado coincide solo una. Una nota final advierte que el visualizador sirve para comprender y depurar el patrón, mientras que la evidencia científica se obtiene siempre ejecutando el comando sobre los archivos del proyecto.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0 0 L12 6 L0 12z" fill="#2878a9"/>
+    </marker>
+    <style>
+      .title{font:700 42px Arial;fill:#17365d}
+      .subtitle{font:400 20px Arial;fill:#526270}
+      .h2{font:700 22px Arial;fill:#17365d}
+      .copy{font:400 18px Arial;fill:#34495e}
+      .small{font:400 15px Arial;fill:#526270}
+      .code{font:700 26px 'Courier New';fill:#17365d}
+      .codeS{font:400 20px 'Courier New';fill:#34495e}
+      .tag{font:700 15px Arial;fill:#fff}
+      .ok{font:700 20px Arial;fill:#1e7a52}
+      .no{font:700 20px Arial;fill:#b03a2e}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+
+  <text x="800" y="58" class="title" text-anchor="middle">Laboratorio de visualización de patrones</text>
+  <text x="800" y="95" class="subtitle" text-anchor="middle">Escribes un patrón, das cadenas de prueba y el sitio te muestra qué parte coincide. Sirve para entender; no para documentar.</text>
+
+  <!-- PANEL IZQUIERDO: anatomía del visualizador -->
+  <g filter="url(#shadow)">
+    <rect x="60" y="140" width="780" height="600" rx="16" fill="#f7fafc" stroke="#c9d6e2"/>
+  </g>
+  <text x="90" y="180" class="h2">Las tres zonas de la herramienta</text>
+
+  <!-- zona 1: patrón -->
+  <rect x="90" y="205" width="720" height="90" rx="10" fill="#fff" stroke="#2878a9" stroke-width="2"/>
+  <rect x="90" y="205" width="180" height="30" rx="8" fill="#2878a9"/>
+  <text x="103" y="226" class="tag">1 · PATRÓN</text>
+  <text x="115" y="275" class="code">^gene$</text>
+  <text x="300" y="270" class="small">Lo que escribes aquí es la descripción formal</text>
+  <text x="300" y="290" class="small">de lo que cuenta como coincidencia.</text>
+
+  <!-- zona 2: cadenas de prueba -->
+  <rect x="90" y="320" width="720" height="290" rx="10" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <rect x="90" y="320" width="290" height="30" rx="8" fill="#526270"/>
+  <text x="103" y="341" class="tag">2 · CADENAS DE PRUEBA</text>
+
+  <!-- filas de prueba, con resaltado -->
+  <rect x="120" y="370" width="120" height="34" rx="6" fill="#d6f0e0" stroke="#1e7a52" stroke-width="2"/>
+  <text x="132" y="394" class="codeS">gene</text>
+  <text x="345" y="394" class="small">coincidencia completa (resaltada)</text>
+
+  <text x="132" y="444" class="codeS">pseudogene</text>
+  <text x="345" y="444" class="small">no coincide: hay caracteres antes</text>
+
+  <text x="132" y="494" class="codeS">gene_product</text>
+  <text x="345" y="494" class="small">no coincide: hay caracteres después</text>
+
+  <text x="132" y="544" class="codeS">ID=gene-b0001</text>
+  <text x="345" y="544" class="small">no coincide: la cadena está dentro de otra</text>
+
+  <text x="132" y="594" class="codeS">CDS</text>
+  <text x="345" y="594" class="small">no coincide: es otra categoría</text>
+
+  <!-- zona 3: explicación -->
+  <rect x="90" y="632" width="720" height="80" rx="10" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <rect x="90" y="632" width="250" height="30" rx="8" fill="#526270"/>
+  <text x="103" y="653" class="tag">3 · EXPLICACIÓN</text>
+  <text x="110" y="692" class="small">El sitio desglosa cada símbolo: qué es un ancla, qué es texto literal y dónde empieza y termina la coincidencia.</text>
+
+  <!-- PANEL DERECHO: comparación de dos patrones -->
+  <g filter="url(#shadow)">
+    <rect x="880" y="140" width="660" height="600" rx="16" fill="#f7fafc" stroke="#c9d6e2"/>
+  </g>
+  <text x="910" y="180" class="h2">Para qué se usa: comparar dos patrones</text>
+
+  <rect x="910" y="205" width="600" height="230" rx="10" fill="#fdf1ef" stroke="#e0a79c" stroke-width="2"/>
+  <text x="935" y="245" class="code" fill="#b03a2e">gene</text>
+  <text x="1060" y="243" class="small">sin anclar: coincide en cualquier posición</text>
+  <text x="935" y="290" class="codeS">gene</text><path d="M1150 284 l7 8 l13 -17" fill="none" stroke="#1e7a52" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="935" y="325" class="codeS">pseudogene</text><path d="M1150 319 l7 8 l13 -17" fill="none" stroke="#1e7a52" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="935" y="360" class="codeS">gene_product</text><path d="M1150 354 l7 8 l13 -17" fill="none" stroke="#1e7a52" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="935" y="395" class="codeS">ID=gene-b0001</text><path d="M1150 389 l7 8 l13 -17" fill="none" stroke="#1e7a52" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="1210" y="345" class="small" fill="#b03a2e">4 de 5</text>
+
+  <line x1="1210" y1="440" x2="1210" y2="470" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="910" y="480" width="600" height="230" rx="10" fill="#eef8f2" stroke="#8cc9a9" stroke-width="2"/>
+  <text x="935" y="520" class="code" fill="#1e7a52">^gene$</text>
+  <text x="1085" y="518" class="small">anclado: la línea es exactamente eso</text>
+  <text x="935" y="565" class="codeS">gene</text><path d="M1150 559 l7 8 l13 -17" fill="none" stroke="#1e7a52" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="935" y="600" class="codeS">pseudogene</text><path d="M1150 588 l16 16 M1166 588 l-16 16" fill="none" stroke="#b03a2e" stroke-width="4" stroke-linecap="round"/>
+  <text x="935" y="635" class="codeS">gene_product</text><path d="M1150 623 l16 16 M1166 623 l-16 16" fill="none" stroke="#b03a2e" stroke-width="4" stroke-linecap="round"/>
+  <text x="935" y="670" class="codeS">ID=gene-b0001</text><path d="M1150 658 l16 16 M1166 658 l-16 16" fill="none" stroke="#b03a2e" stroke-width="4" stroke-linecap="round"/>
+  <text x="1210" y="620" class="small" fill="#1e7a52">1 de 5</text>
+
+  <!-- ADVERTENCIA -->
+  <rect x="60" y="770" width="1480" height="90" rx="12" fill="#fff8e6" stroke="#e0b84c" stroke-width="2"/>
+  <text x="95" y="810" class="copy"><tspan font-weight="700">El visualizador explica; la terminal demuestra.</tspan> Úsalo para entender y depurar un patrón antes de ejecutarlo.</text>
+  <text x="95" y="840" class="copy">Una captura de pantalla no es evidencia: el resultado se obtiene ejecutando el comando sobre los archivos del proyecto y se registra en <tspan font-family="Courier New" font-weight="700">doc/protocolo.md</tspan>.</text>
+</svg>

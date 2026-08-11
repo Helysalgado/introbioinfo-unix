@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Anatomía de un falso positivo</title>
+  <desc id="desc">Tres registros de un archivo GFF3 en los que aparece la cadena gene. En el primero aparece en la columna 3, la del tipo, y es la coincidencia legítima. En el segundo aparece dentro de la palabra pseudogene, una coincidencia parcial. En el tercero aparece dentro del atributo Parent, en la novena columna, fuera de la columna preguntada. El comando cuenta las tres por igual y devuelve 3, aunque la respuesta biológica correcta era 1.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <style>
+      .title{font:700 42px Arial;fill:#17365d}
+      .subtitle{font:400 20px Arial;fill:#526270}
+      .h2{font:700 21px Arial;fill:#17365d}
+      .copy{font:400 17px Arial;fill:#34495e}
+      .small{font:400 14px Arial;fill:#526270}
+      .rec{font:400 19px 'Courier New',monospace;fill:#526270}
+      .hit{font:700 19px 'Courier New',monospace;fill:#fff;text-anchor:middle}
+      .colnum{font:700 12px Arial;fill:#93a2b1;text-anchor:middle}
+      .tag{font:700 16px Arial;fill:#fff}
+      .verdict{font:700 20px Arial;text-anchor:middle}
+      .vsmall{font:400 14px Arial;fill:#526270;text-anchor:middle}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+
+  <text x="800" y="58" class="title" text-anchor="middle">Anatomía de un falso positivo</text>
+  <text x="800" y="95" class="subtitle" text-anchor="middle">Tres coincidencias de la misma cadena en el mismo archivo. Solo una responde tu pregunta.</text>
+
+  <text x="60" y="152" class="small">Pregunta: <tspan style="font:700 14px Arial;fill:#17365d">¿cuántos genes hay?</tspan>   ·   patrón buscado: <tspan style="font:700 14px 'Courier New',monospace;fill:#17365d">"gene"</tspan></text>
+  <text x="1370" y="152" class="small" text-anchor="middle">¿es un gen?</text>
+
+  <!-- guía de columnas -->
+  <text x="100" y="176" class="colnum" text-anchor="start">col 1</text>
+  <text x="262" y="176" class="colnum" text-anchor="start">col 2</text>
+  <text x="360" y="176" class="colnum" text-anchor="start">col 3 · type</text>
+  <text x="530" y="176" class="colnum" text-anchor="start">col 4–8</text>
+  <text x="800" y="176" class="colnum" text-anchor="start">col 9 · attributes</text>
+  <line x1="60" y1="184" x2="1140" y2="184" stroke="#dfe7ee" stroke-width="2"/>
+
+  <!-- ============ CASO 1 ============ -->
+  <g filter="url(#shadow)">
+    <rect x="60" y="200" width="1080" height="112" rx="14" fill="#f5fbfa" stroke="#208b82" stroke-width="3"/>
+  </g>
+  <rect x="60" y="200" width="10" height="112" rx="5" fill="#208b82"/>
+  <text x="100" y="234" class="h2">1 · Coincidencia legítima</text>
+  <text x="100" y="282" class="rec">NC_000913.3</text>
+  <text x="262" y="282" class="rec">RefSeq</text>
+  <rect x="360" y="262" width="66" height="28" rx="5" fill="#208b82"/>
+  <text x="393" y="282" class="hit">gene</text>
+  <text x="530" y="282" class="rec">190 255 . + .</text>
+  <text x="800" y="282" class="rec">ID=…;Name=thrL</text>
+  <text x="393" y="306" class="colnum">el campo entero</text>
+  <text x="1370" y="264" class="verdict" fill="#208b82">SÍ</text>
+  <text x="1370" y="290" class="vsmall">esto es lo que buscas</text>
+
+  <!-- ============ CASO 2 ============ -->
+  <g filter="url(#shadow)">
+    <rect x="60" y="336" width="1080" height="112" rx="14" fill="#fdf6f3" stroke="#b4553f" stroke-width="3"/>
+  </g>
+  <rect x="60" y="336" width="10" height="112" rx="5" fill="#b4553f"/>
+  <text x="100" y="370" class="h2">2 · Coincidencia parcial</text>
+  <text x="100" y="418" class="rec">NC_000913.3</text>
+  <text x="262" y="418" class="rec">RefSeq</text>
+  <text x="360" y="418" class="rec">pseudo</text>
+  <rect x="430" y="398" width="66" height="28" rx="5" fill="#b4553f"/>
+  <text x="463" y="418" class="hit">gene</text>
+  <text x="530" y="418" class="rec">4038 4160 . − .</text>
+  <text x="800" y="418" class="rec">ID=…;gene_biotype=…</text>
+  <text x="428" y="442" class="colnum">dentro de una palabra más larga</text>
+  <text x="1370" y="400" class="verdict" fill="#b4553f">NO</text>
+  <text x="1370" y="426" class="vsmall">un pseudogén no es</text>
+  <text x="1370" y="444" class="vsmall">un gen funcional</text>
+
+  <!-- ============ CASO 3 ============ -->
+  <g filter="url(#shadow)">
+    <rect x="60" y="472" width="1080" height="112" rx="14" fill="#fdf6f3" stroke="#b4553f" stroke-width="3"/>
+  </g>
+  <rect x="60" y="472" width="10" height="112" rx="5" fill="#b4553f"/>
+  <text x="100" y="506" class="h2">3 · Coincidencia fuera de la columna</text>
+  <text x="100" y="554" class="rec">NC_000913.3</text>
+  <text x="262" y="554" class="rec">RefSeq</text>
+  <text x="360" y="554" class="rec">CDS</text>
+  <text x="530" y="554" class="rec">190 255 . + 0</text>
+  <text x="800" y="554" class="rec">Parent=</text>
+  <rect x="884" y="534" width="66" height="28" rx="5" fill="#b4553f"/>
+  <text x="917" y="554" class="hit">gene</text>
+  <text x="956" y="554" class="rec">-b0001</text>
+  <text x="917" y="578" class="colnum">en otra columna</text>
+  <text x="1370" y="536" class="verdict" fill="#b4553f">NO</text>
+  <text x="1370" y="562" class="vsmall">es una CDS que</text>
+  <text x="1370" y="580" class="vsmall">apunta a su gen</text>
+
+  <!-- VEREDICTO -->
+  <g filter="url(#shadow)">
+    <rect x="60" y="620" width="1480" height="116" rx="18" fill="#17365d"/>
+  </g>
+  <text x="100" y="662" class="tag">LO QUE DEVUELVE EL COMANDO</text>
+  <text x="100" y="706" style="font:700 26px 'Courier New',monospace;fill:#fff">grep -c "gene"  →  3</text>
+  <text x="600" y="666" style="font:400 18px Arial;fill:#b8cde0">Las tres líneas contienen la cadena, así que las tres se cuentan.</text>
+  <text x="600" y="696" style="font:400 18px Arial;fill:#b8cde0">El número es correcto: cuenta bien las líneas que coinciden.</text>
+  <text x="600" y="724" style="font:700 18px Arial;fill:#fff">La respuesta a la pregunta biológica era 1.</text>
+
+  <!-- CIERRE -->
+  <text x="60" y="784" class="copy"><tspan style="font:700 17px Arial;fill:#17365d">Dos correcciones posibles hoy:</tspan>   acotar el territorio con <tspan style="font:700 17px 'Courier New',monospace">cut -f3</tspan> elimina el caso 3   ·   exigir palabra completa con <tspan style="font:700 17px 'Courier New',monospace">grep -w</tspan> elimina el caso 2.</text>
+  <text x="60" y="814" class="copy">Ninguna de las dos permite todavía decir <tspan style="font:700 17px Arial">«el campo entero es exactamente gene, y nada más»</tspan>: esa precisión llega en S18.</text>
+  <text x="60" y="856" class="small">Registros abreviados con fines ilustrativos; el mecanismo es el que encontrarás en tu propio archivo.</text>
+</svg>

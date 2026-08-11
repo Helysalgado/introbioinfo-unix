@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">El protocolo como documento vivo: de la Unidad 3 al proyecto final</title>
+  <desc id="desc">A la izquierda, una línea temporal descendente recorre la Unidad 3, la sesión 12, la sesión 13, la sesión 18, la sesión 22 y el proyecto final; en cada punto se indica qué apartado se añadió al protocolo. A la derecha, un esquema del archivo doc barra protocolo punto eme de indica que el documento se actualiza añadiendo una sección nueva, se refina corrigiendo un resultado anterior y deja constancia de la diferencia, y nunca se reemplaza ni se borran las versiones previas. Un recuadro inferior señala que la comparación entre las versiones sucesivas de un mismo resultado es la evidencia de aprendizaje, y que un protocolo del que se borran las versiones anteriores deja de ser un cuaderno de laboratorio.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0 0 L12 6 L0 12z" fill="#2878a9"/>
+    </marker>
+    <style>
+      .title{font:700 42px Arial;fill:#17365d}
+      .subtitle{font:400 20px Arial;fill:#526270}
+      .h2{font:700 22px Arial;fill:#17365d}
+      .copy{font:400 18px Arial;fill:#34495e}
+      .small{font:400 16px Arial;fill:#526270}
+      .code{font:700 20px 'Courier New';fill:#17365d}
+      .codeS{font:400 17px 'Courier New';fill:#34495e}
+      .step{font:700 20px Arial;fill:#fff}
+      .lbl{font:700 19px Arial;fill:#17365d}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+
+  <text x="800" y="58" class="title" text-anchor="middle">El protocolo es un documento vivo</text>
+  <text x="800" y="95" class="subtitle" text-anchor="middle">Crece sesión tras sesión, corrige lo que hizo falta corregir y conserva siempre lo anterior.</text>
+
+  <!-- LÍNEA TEMPORAL -->
+  <g filter="url(#shadow)">
+    <rect x="60" y="140" width="760" height="700" rx="16" fill="#f7fafc" stroke="#c9d6e2"/>
+  </g>
+  <text x="90" y="180" class="h2">Lo que cada sesión añadió</text>
+
+  <line x1="150" y1="215" x2="150" y2="800" stroke="#c9d6e2" stroke-width="4"/>
+
+  <circle cx="150" cy="240" r="26" fill="#2878a9"/><text x="150" y="248" class="step" text-anchor="middle">U3</text>
+  <text x="200" y="235" class="lbl">Procedencia e integridad</text>
+  <text x="200" y="260" class="small">De dónde vienen los datos y cómo se verificó su descarga.</text>
+
+  <circle cx="150" cy="340" r="26" fill="#2878a9"/><text x="150" y="348" class="step" text-anchor="middle">S12</text>
+  <text x="200" y="335" class="lbl">Primeros conteos</text>
+  <text x="200" y="360" class="small">Números defendibles, con sus falsos positivos declarados.</text>
+
+  <circle cx="150" cy="440" r="26" fill="#1e7a52"/><text x="150" y="448" class="step" text-anchor="middle">S13</text>
+  <text x="200" y="435" class="lbl">Inventario · Estado 1 del genoma</text>
+  <text x="200" y="460" class="small">Qué contiene la anotación, en qué proporciones y quién la produjo.</text>
+
+  <circle cx="150" cy="540" r="26" fill="#d18b16"/><text x="150" y="548" class="step" text-anchor="middle">S18</text>
+  <text x="200" y="535" class="lbl">Refinamiento del Estado 1</text>
+  <text x="200" y="560" class="small">Los mismos números, ahora especificados y auditados.</text>
+
+  <circle cx="150" cy="640" r="26" fill="#7d5ba6"/><text x="150" y="648" class="step" text-anchor="middle">S22</text>
+  <text x="200" y="635" class="lbl">Conteos condicionados</text>
+  <text x="200" y="660" class="small">Condiciones sobre varias columnas y cálculo sobre coordenadas.</text>
+
+  <circle cx="150" cy="760" r="30" fill="#17365d"/><text x="150" y="768" class="step" text-anchor="middle" font-size="16">FINAL</text>
+  <text x="200" y="755" class="lbl">Proyecto final</text>
+  <text x="200" y="780" class="small">El mismo documento, ahora legible por alguien que no vio tus archivos.</text>
+
+  <!-- PANEL DERECHO -->
+  <g filter="url(#shadow)">
+    <rect x="860" y="140" width="680" height="700" rx="16" fill="#f7fafc" stroke="#c9d6e2"/>
+  </g>
+
+  <rect x="900" y="180" width="600" height="70" rx="10" fill="#fff" stroke="#17365d" stroke-width="2"/>
+  <text x="1200" y="225" class="code" text-anchor="middle">doc/protocolo.md</text>
+
+  <line x1="1200" y1="255" x2="1200" y2="290" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="900" y="300" width="600" height="140" rx="10" fill="#eef5fb" stroke="#2878a9" stroke-width="2"/>
+  <text x="925" y="340" class="lbl" fill="#2878a9">SE ACTUALIZA</text>
+  <text x="925" y="372" class="copy">Cada sesión añade su propia sección, con su pregunta,</text>
+  <text x="925" y="398" class="copy">sus comandos, su evidencia y sus limitaciones.</text>
+  <text x="925" y="426" class="small">Nunca se empieza un documento nuevo.</text>
+
+  <line x1="1200" y1="445" x2="1200" y2="480" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="900" y="490" width="600" height="140" rx="10" fill="#fdf7e8" stroke="#d18b16" stroke-width="2"/>
+  <text x="925" y="530" class="lbl" fill="#d18b16">SE REFINA</text>
+  <text x="925" y="562" class="copy">Cuando un resultado mejora, se escribe la versión nueva</text>
+  <text x="925" y="588" class="copy">junto a la anterior, con la diferencia y su causa.</text>
+  <text x="925" y="616" class="small">Eso es exactamente lo que hace S18 con los números de S13.</text>
+
+  <line x1="1200" y1="635" x2="1200" y2="670" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="900" y="680" width="600" height="140" rx="10" fill="#fdf1ef" stroke="#b03a2e" stroke-width="2"/>
+  <text x="925" y="720" class="lbl" fill="#b03a2e">NUNCA SE REEMPLAZA</text>
+  <text x="925" y="752" class="copy">No se borran las versiones anteriores de una respuesta.</text>
+  <text x="925" y="778" class="copy">La comparación entre ellas es la evidencia de aprendizaje.</text>
+  <text x="925" y="806" class="small">Un protocolo sin historia deja de ser un cuaderno de laboratorio.</text>
+</svg>

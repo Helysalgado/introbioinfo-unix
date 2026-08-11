@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="800" viewBox="0 0 1600 800" role="img" aria-labelledby="t d">
+  <title id="t">Sustitución, inserción y deleción</title>
+  <desc id="d">Tres paneles que muestran, sobre la misma pareja de secuencias cortas, los tres sucesos que un alineamiento propone. En el primero, dos columnas tienen letras distintas y se marcan como sustitución. En el segundo, una secuencia tiene tres residuos frente a huecos en la otra, y una flecha indica que la interpretación puede ser una inserción en la secuencia de arriba o una deleción en la de abajo, según cuál se tome como referencia. En el tercero, un bloque de huecos en un extremo se identifica como una extensión terminal. Un pie recuerda que ninguno de los tres se observa: los tres se infieren.</desc>
+  <defs>
+    <filter id="sh" x="-8%" y="-10%" width="116%" height="132%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <marker id="ar" markerWidth="11" markerHeight="11" refX="8" refY="5.5" orient="auto"><path d="M0,0 L11,5.5 L0,11 z" fill="#7d5ba6"/></marker>
+    <style>
+      .title{font:700 38px Arial;fill:#17365d}
+      .sub{font:400 19px Arial;fill:#526270}
+      .h{font:700 23px Arial;fill:#17365d}
+      .copy{font:400 15px Arial;fill:#34495e}
+      .small{font:400 13px Arial;fill:#526270}
+      .seq{font:400 22px 'Courier New';fill:#17365d}
+      .lab{font:400 14px Arial;fill:#526270}
+      .tag{font:700 14px Arial;fill:#ffffff}
+      .pur{font:700 16px Arial;fill:#7d5ba6}
+      .band{font:400 18px Arial;fill:#17365d}
+    </style>
+  </defs>
+  <rect width="1600" height="800" fill="#fff"/>
+
+  <text x="800" y="50" class="title" text-anchor="middle">Los tres sucesos que un alineamiento propone</text>
+  <text x="800" y="84" class="sub" text-anchor="middle">Ninguno se observa en los datos. Los tres se infieren del alineamiento.</text>
+
+  <!-- PANEL 1 -->
+  <g filter="url(#sh)"><rect x="45" y="120" width="480" height="380" rx="16" fill="#eef5fb" stroke="#2878a9" stroke-width="2"/></g>
+  <rect x="45" y="120" width="480" height="44" rx="16" fill="#2878a9"/><rect x="45" y="148" width="480" height="16" fill="#2878a9"/>
+  <text x="285" y="150" class="tag" text-anchor="middle">1 · SUSTITUCIÓN</text>
+
+  <rect x="156" y="196" width="22" height="86" fill="#d18b16" opacity="0.22"/>
+  <rect x="262" y="196" width="22" height="86" fill="#d18b16" opacity="0.22"/>
+  <text x="80" y="228" class="seq" xml:space="preserve">L N S H I L D V A</text>
+  <text x="80" y="266" class="seq" xml:space="preserve">L N S N I L D I A</text>
+  <text x="80" y="296" class="seq" xml:space="preserve">* * *   * * *   *</text>
+
+  <text x="80" y="342" class="h">Misma longitud</text>
+  <text x="80" y="374" class="copy">Las dos columnas resaltadas tienen</text>
+  <text x="80" y="396" class="copy">residuos distintos: H frente a N,</text>
+  <text x="80" y="418" class="copy">V frente a I.</text>
+  <text x="80" y="452" class="copy"><tspan font-weight="700">Hipótesis:</tspan> en esa posición hubo</text>
+  <text x="80" y="474" class="copy">un cambio de un residuo por otro.</text>
+
+  <!-- PANEL 2 -->
+  <g filter="url(#sh)"><rect x="560" y="120" width="480" height="380" rx="16" fill="#fdf7e8" stroke="#d18b16" stroke-width="2"/></g>
+  <rect x="560" y="120" width="480" height="44" rx="16" fill="#d18b16"/><rect x="560" y="148" width="480" height="16" fill="#d18b16"/>
+  <text x="800" y="150" class="tag" text-anchor="middle">2 · INSERCIÓN … O DELECIÓN</text>
+
+  <rect x="645" y="196" width="82" height="86" fill="#b03a2e" opacity="0.14"/>
+  <text x="595" y="228" class="seq" xml:space="preserve">A K K A R D R V</text>
+  <text x="595" y="266" class="seq" xml:space="preserve">A K - - - D R V</text>
+  <text x="595" y="296" class="seq" xml:space="preserve">* *       * * *</text>
+
+  <text x="595" y="342" class="h">Longitudes distintas</text>
+  <path d="M598 366 L646 366" stroke="#7d5ba6" stroke-width="3" marker-end="url(#ar)"/>
+  <text x="658" y="372" class="pur">¿la de arriba ganó tres…</text>
+  <path d="M598 400 L646 400" stroke="#7d5ba6" stroke-width="3" marker-end="url(#ar)"/>
+  <text x="658" y="406" class="pur">…o la de abajo perdió tres?</text>
+
+  <text x="595" y="446" class="copy">Sin una tercera secuencia que sirva</text>
+  <text x="595" y="468" class="copy">de referencia, <tspan font-weight="700">no se puede decidir</tspan>.</text>
+  <text x="595" y="490" class="small">Por eso se usa el término neutro: indel.</text>
+
+  <!-- PANEL 3 -->
+  <g filter="url(#sh)"><rect x="1075" y="120" width="480" height="380" rx="16" fill="#f3eefa" stroke="#7d5ba6" stroke-width="2"/></g>
+  <rect x="1075" y="120" width="480" height="44" rx="16" fill="#7d5ba6"/><rect x="1075" y="148" width="480" height="16" fill="#7d5ba6"/>
+  <text x="1315" y="150" class="tag" text-anchor="middle">3 · GAP TERMINAL</text>
+
+  <rect x="1136" y="196" width="132" height="86" fill="#b03a2e" opacity="0.14"/>
+  <text x="1110" y="228" class="seq" xml:space="preserve">M - - - - - N Q T</text>
+  <text x="1110" y="266" class="seq" xml:space="preserve">M T K N Y N N K S</text>
+  <text x="1110" y="296" class="seq" xml:space="preserve">*           *</text>
+
+  <text x="1110" y="342" class="h">Un solo bloque, en un extremo</text>
+  <text x="1110" y="374" class="copy">Los huecos no están repartidos:</text>
+  <text x="1110" y="396" class="copy">caen todos juntos al principio.</text>
+  <text x="1110" y="430" class="copy"><tspan font-weight="700">Hipótesis:</tspan> un único suceso —una</text>
+  <text x="1110" y="452" class="copy">extensión del extremo N— y no cinco</text>
+  <text x="1110" y="474" class="copy">indeles independientes.</text>
+
+  <!-- FRANJA 1 -->
+  <rect x="45" y="528" width="1510" height="88" rx="14" fill="#fdf1ef" stroke="#b03a2e"/>
+  <text x="80" y="566" class="band"><tspan font-weight="700">Un gap NO significa «falta información» ni «no se pudo secuenciar».</tspan></text>
+  <text x="80" y="596" class="copy" font-size="16">Un gap es una afirmación biológica: dice que ahí hubo una inserción o una deleción. Por eso los programas lo penalizan.</text>
+
+  <!-- FRANJA 2 -->
+  <rect x="45" y="632" width="1510" height="130" rx="14" fill="#eef5fb" stroke="#2878a9"/>
+  <text x="80" y="670" class="band"><tspan font-weight="700">Y por eso abrir un hueco cuesta más que alargarlo.</tspan></text>
+  <text x="80" y="700" class="copy" font-size="16">Si abrir y extender costaran lo mismo, el programa sembraría huecos por todas partes hasta hacer coincidir cualquier cosa con cualquier cosa.</text>
+  <text x="80" y="726" class="copy" font-size="16">El costo alto de apertura codifica un supuesto sobre el mundo: es más probable un solo indel de cinco residuos que cinco indeles de uno.</text>
+  <text x="80" y="750" class="small">Ese supuesto es discutible, y cambiarlo cambia el alineamiento. Es la razón de que dos programas puedan darte resultados distintos sin que ninguno esté roto.</text>
+</svg>

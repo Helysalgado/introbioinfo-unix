@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="560" viewBox="0 0 1600 560" role="img" aria-labelledby="t d">
+  <title id="t">De la secuencia a la hipótesis</title>
+  <desc id="d">Flujo pregunta, estrategia, búsqueda, métricas, inferencia, hipótesis con límites. Un atajo de IA tachado.</desc>
+  <defs>
+    <style>
+      .title{font:700 30px Arial;fill:#17365d}
+      .box{font:700 14px Arial;fill:#17365d}
+      .small{font:400 12px Arial;fill:#526270}
+      .bad{font:700 14px Arial;fill:#b03a2e}
+    </style>
+  </defs>
+  <rect width="1600" height="560" fill="#fff"/>
+  <text x="800" y="42" class="title" text-anchor="middle">El camino largo es el producto</text>
+
+  <rect x="40" y="100" width="200" height="80" rx="10" fill="#eef4fa" stroke="#17365d" stroke-width="2"/>
+  <text x="140" y="135" class="box" text-anchor="middle">secuencia</text>
+  <text x="140" y="160" class="small" text-anchor="middle">desconocida</text>
+
+  <rect x="280" y="100" width="200" height="80" rx="10" fill="#eef4fa" stroke="#17365d" stroke-width="2"/>
+  <text x="380" y="135" class="box" text-anchor="middle">pregunta</text>
+  <text x="380" y="160" class="small" text-anchor="middle">biológica</text>
+
+  <rect x="520" y="100" width="200" height="80" rx="10" fill="#eef4fa" stroke="#17365d" stroke-width="2"/>
+  <text x="620" y="135" class="box" text-anchor="middle">estrategia</text>
+  <text x="620" y="160" class="small" text-anchor="middle">+ base</text>
+
+  <rect x="760" y="100" width="200" height="80" rx="10" fill="#eef8f2" stroke="#1e7a52" stroke-width="2"/>
+  <text x="860" y="135" class="box" text-anchor="middle">búsqueda</text>
+  <text x="860" y="160" class="small" text-anchor="middle">candidatos</text>
+
+  <rect x="1000" y="100" width="200" height="80" rx="10" fill="#fff8e8" stroke="#d18b16" stroke-width="2"/>
+  <text x="1100" y="135" class="box" text-anchor="middle">métricas</text>
+  <text x="1100" y="160" class="small" text-anchor="middle">S32</text>
+
+  <rect x="1240" y="100" width="300" height="80" rx="10" fill="#eef8f2" stroke="#1e7a52" stroke-width="3"/>
+  <text x="1390" y="135" class="box" text-anchor="middle">hipótesis</text>
+  <text x="1390" y="160" class="small" text-anchor="middle">con límites (S33)</text>
+
+  <path d="M240 140 L280 140 M480 140 L520 140 M720 140 L760 140 M960 140 L1000 140 M1200 140 L1240 140" stroke="#17365d" stroke-width="3" marker-end="url(#a)"/>
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#17365d"/></marker></defs>
+
+  <rect x="280" y="280" width="1040" height="180" rx="14" fill="#fdf1ef" stroke="#b03a2e" stroke-width="2"/>
+  <text x="800" y="330" class="bad" text-anchor="middle">ATAJO DE LA IA (tachado en el oficio)</text>
+  <text x="800" y="370" class="small" text-anchor="middle">secuencia ’ «es el ortólogo X con la función Y»</text>
+  <line x1="400" y1="400" x2="1200" y2="400" stroke="#b03a2e" stroke-width="4"/>
+  <text x="800" y="430" class="small" text-anchor="middle">Objeto de la Práctica 5: auditar, no adoptar</text>
+</svg>

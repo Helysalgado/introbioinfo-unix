@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1640" height="780" viewBox="0 0 1640 780" role="img" aria-labelledby="title desc">
+  <title id="title">¿Dónde encajan el manejo de datos y FAIR en un proyecto?</title>
+  <desc id="desc">Las siete fases del manejo de datos de un proyecto —obtención, registro de procedencia, exploración, limpieza, análisis, conservación y documentación—, cada una con la carpeta del proyecto donde se guarda y los principios FAIR que aplica.</desc>
+  <defs>
+    <filter id="shadow" x="-15%" y="-15%" width="130%" height="140%"><feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#1f4e79" flood-opacity="0.13"/></filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0 0L10 5 0 10z" fill="#52738f"/></marker>
+    <style>
+      .title{font:700 38px Arial,Helvetica,sans-serif;fill:#1f4e79}.subtitle{font:400 20px Arial,Helvetica,sans-serif;fill:#5a5a5a}
+      .phase{font:700 20px Arial,Helvetica,sans-serif;fill:#1f4e79}.copy{font:400 15px Arial,Helvetica,sans-serif;fill:#34495e}
+      .num{font:700 22px Arial,Helvetica,sans-serif;fill:#fff;text-anchor:middle;dominant-baseline:middle}
+      .pill-label{font:700 12px Arial,Helvetica,sans-serif;fill:#5a5a5a;letter-spacing:.7px}.folder{font:700 13.5px 'Courier New',monospace;fill:#1f4e79}
+      .fair{font:700 14px Arial,Helvetica,sans-serif;fill:#548235}.dash{font:700 22px Arial,Helvetica,sans-serif;fill:#87949d}
+      .band-title{font:700 19px Arial,Helvetica,sans-serif;fill:#fff}.band-copy{font:400 16px Arial,Helvetica,sans-serif;fill:#eaf6f7}
+      .legend{font:700 13px Arial,Helvetica,sans-serif;fill:#1f4e79}
+    </style>
+  </defs>
+  <rect width="1640" height="780" fill="#fff"/>
+  <text x="820" y="52" class="title" text-anchor="middle">¿Dónde encajan el manejo de datos y FAIR en un proyecto?</text>
+  <text x="820" y="87" class="subtitle" text-anchor="middle">Cada fase del proyecto produce algo, se guarda en una carpeta y aplica buenas prácticas FAIR.</text>
+
+  <!-- Flechas entre fases -->
+  <g fill="none" stroke="#52738f" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)">
+    <path d="M240 365H260"/><path d="M467 365H487"/><path d="M694 365H714"/>
+    <path d="M921 365H941"/><path d="M1148 365H1168"/><path d="M1375 365H1395"/>
+  </g>
+
+  <!-- 1 Obtención -->
+  <g filter="url(#shadow)"><rect x="35" y="135" width="205" height="465" rx="18" fill="#eaf1f8" stroke="#2e75b6" stroke-width="3"/></g>
+  <circle cx="137.5" cy="151" r="29" fill="#2e75b6"/><text x="137.5" y="152" class="num">1</text>
+  <text x="137.5" y="218" class="phase" text-anchor="middle">Obtención</text>
+  <text x="137.5" y="270" class="copy" text-anchor="middle"><tspan x="137.5">Descargar datos</tspan><tspan x="137.5" dy="23">de una fuente</tspan><tspan x="137.5" dy="23">confiable.</tspan></text>
+  <text x="137.5" y="445" class="pill-label" text-anchor="middle">CARPETA</text><rect x="55" y="458" width="165" height="42" rx="21" fill="#fff" stroke="#1f4e79" stroke-width="2"/><text x="137.5" y="484" class="folder" text-anchor="middle">data/source/</text>
+  <text x="137.5" y="530" class="pill-label" text-anchor="middle">FAIR</text><text x="137.5" y="568" class="dash" text-anchor="middle">—</text>
+
+  <!-- 2 Registro de procedencia -->
+  <g filter="url(#shadow)"><rect x="262" y="135" width="205" height="465" rx="18" fill="#eaf1f8" stroke="#2e8b84" stroke-width="3"/></g>
+  <circle cx="364.5" cy="151" r="29" fill="#2e8b84"/><text x="364.5" y="152" class="num">2</text>
+  <text x="364.5" y="210" class="phase" text-anchor="middle"><tspan x="364.5">Registro de</tspan><tspan x="364.5" dy="24">procedencia</tspan></text>
+  <text x="364.5" y="285" class="copy" text-anchor="middle"><tspan x="364.5">Anotar origen,</tspan><tspan x="364.5" dy="23">versión e integridad</tspan><tspan x="364.5" dy="23">(metadatos).</tspan></text>
+  <text x="364.5" y="445" class="pill-label" text-anchor="middle">CARPETA</text><rect x="282" y="458" width="165" height="42" rx="21" fill="#fff" stroke="#1f4e79" stroke-width="2"/><text x="364.5" y="484" class="folder" text-anchor="middle">data/source/</text>
+  <text x="364.5" y="530" class="pill-label" text-anchor="middle">FAIR</text><rect x="309" y="540" width="111" height="40" rx="20" fill="#eaf2e1" stroke="#7fa36b" stroke-width="2"/><text x="364.5" y="565" class="fair" text-anchor="middle">F · A</text>
+
+  <!-- 3 Exploración -->
+  <g filter="url(#shadow)"><rect x="489" y="135" width="205" height="465" rx="18" fill="#eaf1f8" stroke="#5b6bb5" stroke-width="3"/></g>
+  <circle cx="591.5" cy="151" r="29" fill="#5b6bb5"/><text x="591.5" y="152" class="num">3</text>
+  <text x="591.5" y="218" class="phase" text-anchor="middle">Exploración</text>
+  <text x="591.5" y="270" class="copy" text-anchor="middle"><tspan x="591.5">Revisar formato,</tspan><tspan x="591.5" dy="23">campos y posibles</tspan><tspan x="591.5" dy="23">problemas.</tspan></text>
+  <text x="591.5" y="445" class="pill-label" text-anchor="middle">CARPETA</text><text x="591.5" y="486" class="dash" text-anchor="middle">—</text>
+  <text x="591.5" y="530" class="pill-label" text-anchor="middle">FAIR</text><rect x="536" y="540" width="111" height="40" rx="20" fill="#eaf2e1" stroke="#7fa36b" stroke-width="2"/><text x="591.5" y="565" class="fair" text-anchor="middle">I</text>
+
+  <!-- 4 Limpieza / transformación -->
+  <g filter="url(#shadow)"><rect x="716" y="135" width="205" height="465" rx="18" fill="#eaf1f8" stroke="#2e75b6" stroke-width="3"/></g>
+  <circle cx="818.5" cy="151" r="29" fill="#2e75b6"/><text x="818.5" y="152" class="num">4</text>
+  <text x="818.5" y="205" class="phase" text-anchor="middle"><tspan x="818.5">Limpieza /</tspan><tspan x="818.5" dy="24">transformación</tspan></text>
+  <text x="818.5" y="285" class="copy" text-anchor="middle"><tspan x="818.5">Preparar los datos</tspan><tspan x="818.5" dy="23">generando</tspan><tspan x="818.5" dy="23">archivos nuevos.</tspan></text>
+  <text x="818.5" y="445" class="pill-label" text-anchor="middle">CARPETA</text><rect x="736" y="458" width="165" height="42" rx="21" fill="#fff" stroke="#1f4e79" stroke-width="2"/><text x="818.5" y="484" class="folder" text-anchor="middle">data/processed/</text>
+  <text x="818.5" y="530" class="pill-label" text-anchor="middle">FAIR</text><text x="818.5" y="568" class="dash" text-anchor="middle">—</text>
+
+  <!-- 5 Análisis -->
+  <g filter="url(#shadow)"><rect x="943" y="135" width="205" height="465" rx="18" fill="#eaf1f8" stroke="#7a4f9e" stroke-width="3"/></g>
+  <circle cx="1045.5" cy="151" r="29" fill="#7a4f9e"/><text x="1045.5" y="152" class="num">5</text>
+  <text x="1045.5" y="218" class="phase" text-anchor="middle">Análisis</text>
+  <text x="1045.5" y="270" class="copy" text-anchor="middle"><tspan x="1045.5">Filtrar, contar</tspan><tspan x="1045.5" dy="23">y comparar para</tspan><tspan x="1045.5" dy="23">producir evidencia.</tspan></text>
+  <text x="1045.5" y="445" class="pill-label" text-anchor="middle">CARPETA</text><rect x="963" y="458" width="165" height="42" rx="21" fill="#fff" stroke="#1f4e79" stroke-width="2"/><text x="1045.5" y="484" class="folder" text-anchor="middle">results/</text>
+  <text x="1045.5" y="530" class="pill-label" text-anchor="middle">FAIR</text><text x="1045.5" y="568" class="dash" text-anchor="middle">—</text>
+
+  <!-- 6 Conservación -->
+  <g filter="url(#shadow)"><rect x="1170" y="135" width="205" height="465" rx="18" fill="#eaf1f8" stroke="#b8860b" stroke-width="3"/></g>
+  <circle cx="1272.5" cy="151" r="29" fill="#b8860b"/><text x="1272.5" y="152" class="num">6</text>
+  <text x="1272.5" y="218" class="phase" text-anchor="middle">Conservación</text>
+  <text x="1272.5" y="270" class="copy" text-anchor="middle"><tspan x="1272.5">Original intacto</tspan><tspan x="1272.5" dy="23">y derivados</tspan><tspan x="1272.5" dy="23">por separado.</tspan></text>
+  <text x="1272.5" y="425" class="pill-label" text-anchor="middle">CARPETAS</text><rect x="1190" y="438" width="165" height="36" rx="18" fill="#fff" stroke="#1f4e79" stroke-width="2"/><text x="1272.5" y="461" class="folder" text-anchor="middle">data/source/</text><rect x="1190" y="480" width="165" height="36" rx="18" fill="#fff" stroke="#1f4e79" stroke-width="2"/><text x="1272.5" y="503" class="folder" text-anchor="middle">data/processed/</text>
+  <text x="1272.5" y="538" class="pill-label" text-anchor="middle">FAIR</text><rect x="1195" y="546" width="155" height="40" rx="20" fill="#eaf2e1" stroke="#7fa36b" stroke-width="2"/><text x="1272.5" y="564" class="fair" text-anchor="middle"><tspan x="1272.5">R</tspan><tspan x="1272.5" dy="15" font-size="11">checksum</tspan></text>
+
+  <!-- 7 Documentación y comunicación -->
+  <g filter="url(#shadow)"><rect x="1397" y="135" width="205" height="465" rx="18" fill="#eaf1f8" stroke="#2e8b84" stroke-width="3"/></g>
+  <circle cx="1499.5" cy="151" r="29" fill="#2e8b84"/><text x="1499.5" y="152" class="num">7</text>
+  <text x="1499.5" y="198" class="phase" text-anchor="middle"><tspan x="1499.5">Documentación</tspan><tspan x="1499.5" dy="24">y comunicación</tspan></text>
+  <text x="1499.5" y="285" class="copy" text-anchor="middle"><tspan x="1499.5">Registrar y reportar</tspan><tspan x="1499.5" dy="23">de forma</tspan><tspan x="1499.5" dy="23">reproducible.</tspan></text>
+  <text x="1499.5" y="435" class="pill-label" text-anchor="middle">CARPETA</text><rect x="1417" y="448" width="165" height="52" rx="22" fill="#fff" stroke="#1f4e79" stroke-width="2"/><text x="1499.5" y="469" class="folder" text-anchor="middle"><tspan x="1499.5">doc/</tspan><tspan x="1499.5" dy="16" font-size="10.5">README · protocolo</tspan></text>
+  <text x="1499.5" y="530" class="pill-label" text-anchor="middle">FAIR</text><rect x="1419" y="540" width="161" height="44" rx="22" fill="#eaf2e1" stroke="#7fa36b" stroke-width="2"/><text x="1499.5" y="558" class="fair" text-anchor="middle"><tspan x="1499.5">R</tspan><tspan x="1499.5" dy="15" font-size="10.5">licencia · estándar</tspan></text>
+
+  <!-- Banda y leyenda -->
+  <rect x="35" y="630" width="1567" height="115" rx="20" fill="#1f7a70"/>
+  <text x="70" y="666" class="band-title">MANEJO DE DATOS + FAIR</text>
+  <text x="70" y="696" class="band-copy"><tspan x="70">El manejo de datos (proceso A) se ejecuta con calidad FAIR y se organiza en las carpetas del proyecto.</tspan><tspan x="70" dy="24">Los metadatos viven junto a los datos en data/source/.</tspan></text>
+  <rect x="1120" y="654" width="205" height="42" rx="21" fill="#fff" stroke="#1f4e79" stroke-width="2"/><text x="1222.5" y="680" class="legend" text-anchor="middle">Carpeta del proyecto</text>
+  <rect x="1340" y="654" width="225" height="42" rx="21" fill="#eaf2e1" stroke="#7fa36b" stroke-width="2"/><text x="1452.5" y="680" class="fair" text-anchor="middle">Principio FAIR · F A I R</text>
+</svg>

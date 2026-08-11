@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">La frontera entre el procedimiento y sus datos</title>
+  <desc id="desc">Un mismo script se divide en dos zonas separadas por una pregunta: ¿esto cambiaría si analizara otro organismo? A la izquierda, lo que sí cambia y por tanto debe entrar desde fuera: el archivo FASTA y el archivo GFF3, que llegan como argumentos al invocar el script. A la derecha, lo que no cambia y por tanto permanece dentro, dividido en dos bloques: el método, con las decisiones tomadas en la Unidad 4 —qué registros cuentan como gen, que las directivas del GFF3 no son anotaciones, el orden de los pasos y las fórmulas de longitud—, y la convención del proyecto, con las carpetas de derivados y resultados y los nombres de salida. Una franja inferior advierte que la frontera no la marca la sintaxis del lenguaje, sino una decisión científica: distinguir lo que describe el análisis de lo que describe el organismo.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrow" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto">
+      <path d="M0 0 L11 5.5 L0 11z" fill="#2878a9"/>
+    </marker>
+    <style>
+      .title{font:700 40px Arial;fill:#17365d}
+      .subtitle{font:400 20px Arial;fill:#526270}
+      .tag{font:700 15px Arial;fill:#fff}
+      .copy{font:400 16px Arial;fill:#34495e}
+      .small{font:400 14px Arial;fill:#526270}
+      .code{font:400 15px 'Courier New';fill:#17365d}
+      .codew{font:400 18px 'Courier New';fill:#ffffff}
+      .h3{font:700 19px Arial;fill:#17365d}
+      .band{font:400 19px Arial;fill:#17365d}
+      .ask{font:700 18px Arial;fill:#7d5ba6}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+
+  <text x="800" y="52" class="title" text-anchor="middle">La frontera entre el procedimiento y sus datos</text>
+  <text x="800" y="88" class="subtitle" text-anchor="middle">Una sola pregunta decide de qué lado cae cada cosa.</text>
+
+  <!-- pregunta central -->
+  <rect x="470" y="112" width="660" height="52" rx="14" fill="#f3eefa" stroke="#7d5ba6"/>
+  <text x="800" y="146" class="ask" text-anchor="middle">¿Esto cambiaría si analizara otro organismo?</text>
+
+  <!-- ================= IZQUIERDA: SÍ ================= -->
+  <g filter="url(#shadow)"><rect x="55" y="200" width="620" height="450" rx="16" fill="#eef5fb" stroke="#2878a9"/></g>
+  <rect x="55" y="200" width="120" height="34" rx="10" fill="#2878a9"/>
+  <text x="75" y="225" class="tag">SÍ CAMBIA</text>
+  <text x="195" y="225" class="h3">→ entra desde fuera</text>
+
+  <text x="85" y="272" class="copy">Son <tspan font-weight="700">los datos</tspan>. Describen el organismo,</text>
+  <text x="85" y="296" class="copy">no el análisis.</text>
+
+  <rect x="85" y="322" width="560" height="52" rx="8" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="105" y="354" class="code">data/source/ecoli.fna</text>
+  <text x="470" y="354" class="small">el genoma</text>
+
+  <rect x="85" y="386" width="560" height="52" rx="8" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="105" y="418" class="code">data/source/anotacion.gff3</text>
+  <text x="470" y="418" class="small">la anotación</text>
+
+  <path d="M365 448 L365 486" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="85" y="494" width="560" height="56" rx="10" fill="#17365d"/>
+  <text x="105" y="530" class="codew">./analizar-genoma.sh  $1  $2</text>
+
+  <text x="85" y="588" class="copy">Llegan al invocar el script. El archivo</text>
+  <text x="85" y="612" class="copy"><tspan font-weight="700">no se abre ni se edita</tspan> para cambiarlos.</text>
+
+  <!-- ================= DERECHA: NO ================= -->
+  <g filter="url(#shadow)"><rect x="925" y="200" width="620" height="450" rx="16" fill="#eef8f2" stroke="#1e7a52"/></g>
+  <rect x="925" y="200" width="130" height="34" rx="10" fill="#1e7a52"/>
+  <text x="945" y="225" class="tag">NO CAMBIA</text>
+  <text x="1075" y="225" class="h3">→ permanece dentro</text>
+
+  <text x="955" y="272" class="copy">Es <tspan font-weight="700">el procedimiento</tspan>. Describe el análisis,</text>
+  <text x="955" y="296" class="copy">no los archivos.</text>
+
+  <rect x="955" y="316" width="560" height="176" rx="8" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="975" y="344" class="h3">El método · decisiones de U4</text>
+  <text x="975" y="376" class="copy">· qué registros cuentan como gen <tspan class="code">$3=="gene"</tspan> (S18)</text>
+  <text x="975" y="404" class="copy">· las directivas <tspan class="code">##</tspan> no son anotaciones (S12)</text>
+  <text x="975" y="432" class="copy">· el orden de los pasos y sus controles (S23)</text>
+  <text x="975" y="460" class="copy">· las fórmulas y sus unidades (S22)</text>
+  <text x="975" y="482" class="small">Cambiarlas cambiaría el resultado, no el objeto de estudio.</text>
+
+  <rect x="955" y="504" width="560" height="120" rx="8" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="975" y="532" class="h3">La convención del proyecto</text>
+  <text x="975" y="562" class="copy">· <tspan class="code">data/processed/</tspan> para los derivados</text>
+  <text x="975" y="590" class="copy">· <tspan class="code">results/</tspan> para los resultados</text>
+  <text x="975" y="612" class="small">Es la estructura desde U1: no depende del organismo.</text>
+
+  <!-- linea divisoria -->
+  <path d="M800 176 L800 668" stroke="#7d5ba6" stroke-width="3" stroke-dasharray="10 8" fill="none"/>
+  <circle cx="800" cy="668" r="7" fill="#7d5ba6"/>
+
+  <!-- ================= FRANJA ================= -->
+  <rect x="55" y="704" width="1490" height="136" rx="14" fill="#f3eefa" stroke="#7d5ba6"/>
+  <text x="85" y="746" class="band">La frontera no la marca el lenguaje: <tspan font-weight="700">la marcas tú</tspan>, y es una decisión científica.</text>
+  <text x="85" y="784" class="copy">Separar el procedimiento de sus datos es la misma distinción de S23 entre <tspan font-style="italic">entradas de datos</tspan> y <tspan font-style="italic">entradas metodológicas</tspan>,</text>
+  <text x="85" y="812" class="copy">ahora escrita de forma que el sistema la respete: los datos entran, el método se queda.</text>
+</svg>

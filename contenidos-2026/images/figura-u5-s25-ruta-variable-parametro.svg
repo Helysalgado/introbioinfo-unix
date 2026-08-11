@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">De la ruta escrita a la variable y al parámetro</title>
+  <desc id="desc">Tres etapas de un mismo script. En la primera, la ruta del archivo está escrita dentro y repetida en muchas líneas: para cambiar de genoma hay que abrir el archivo y corregir todas las apariciones, y hace falta una copia del script por cada genoma. En la segunda, la ruta se declara una sola vez en una variable al principio y el resto del script la usa por su nombre: cambiar de genoma exige editar una sola línea, pero sigue habiendo que abrir el archivo y sigue haciendo falta una copia por genoma. En la tercera, el dato lo aporta quien invoca el script y llega como argumento, que se recoge en una variable: el archivo no se abre nunca y hay un único script para todos los genomas. Una franja inferior resume que la variable agrupa el cambio mientras que el parámetro lo saca del archivo, y que solo la tercera etapa convierte el script en una herramienta.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrow" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto">
+      <path d="M0 0 L11 5.5 L0 11z" fill="#2878a9"/>
+    </marker>
+    <marker id="arrowbig" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto">
+      <path d="M0 0 L12 6 L0 12z" fill="#7d5ba6"/>
+    </marker>
+    <style>
+      .title{font:700 40px Arial;fill:#17365d}
+      .subtitle{font:400 20px Arial;fill:#526270}
+      .tag{font:700 15px Arial;fill:#fff}
+      .copy{font:400 15px Arial;fill:#34495e}
+      .small{font:400 13px Arial;fill:#526270}
+      .code{font:400 14px 'Courier New';fill:#17365d}
+      .h3{font:700 18px Arial;fill:#17365d}
+      .band{font:400 19px Arial;fill:#17365d}
+      .who{font:700 14px Arial;fill:#7d5ba6}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+
+  <text x="800" y="52" class="title" text-anchor="middle">De la ruta escrita al parámetro</text>
+  <text x="800" y="88" class="subtitle" text-anchor="middle">Tres etapas del mismo script. Solo la tercera lo convierte en una herramienta.</text>
+
+  <!-- ============ 1. RUTA ESCRITA ============ -->
+  <g filter="url(#shadow)"><rect x="45" y="128" width="470" height="540" rx="16" fill="#fdf1ef" stroke="#b03a2e"/></g>
+  <rect x="45" y="128" width="230" height="34" rx="10" fill="#b03a2e"/>
+  <text x="65" y="153" class="tag">1 · RUTA ESCRITA · S24</text>
+
+  <rect x="75" y="182" width="410" height="132" rx="8" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="93" y="208" class="code">grep -Ev '^#' anotacion.gff3 &gt; …</text>
+  <text x="93" y="234" class="code">cut -f3 anotacion.gff3 | …</text>
+  <text x="93" y="260" class="code">awk … anotacion.gff3</text>
+  <text x="93" y="286" class="code">wc -l anotacion.gff3</text>
+  <text x="93" y="306" class="small">la misma ruta, repetida por todo el archivo</text>
+
+  <text x="75" y="352" class="who">¿QUIÉN DECIDE EL DATO?</text>
+  <text x="75" y="378" class="copy">Quien <tspan font-weight="700">edita</tspan> el archivo.</text>
+
+  <text x="75" y="420" class="who">PARA CAMBIAR DE GENOMA</text>
+  <text x="75" y="446" class="copy">· abrir el script</text>
+  <text x="75" y="472" class="copy">· corregir <tspan font-weight="700">todas</tspan> las apariciones</text>
+  <text x="75" y="498" class="copy">· esperar no dejarse ninguna</text>
+
+  <rect x="75" y="522" width="410" height="60" rx="8" fill="#fff" stroke="#b03a2e"/>
+  <text x="95" y="548" class="copy">Una copia del script</text>
+  <text x="95" y="570" class="copy"><tspan font-weight="700">por cada genoma</tspan></text>
+
+  <text x="75" y="618" class="small">Dos copias del mismo análisis dejan de ser</text>
+  <text x="75" y="640" class="small">el mismo análisis en cuanto tocas una.</text>
+
+  <path d="M528 400 L558 400" stroke="#7d5ba6" stroke-width="3.5" marker-end="url(#arrowbig)"/>
+
+  <!-- ============ 2. VARIABLE ============ -->
+  <g filter="url(#shadow)"><rect x="570" y="128" width="470" height="540" rx="16" fill="#fdf7e8" stroke="#d18b16"/></g>
+  <rect x="570" y="128" width="200" height="34" rx="10" fill="#d18b16"/>
+  <text x="590" y="153" class="tag">2 · VARIABLE</text>
+
+  <rect x="600" y="182" width="410" height="132" rx="8" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="618" y="208" class="code">GFF="anotacion.gff3"</text>
+  <text x="618" y="240" class="code">grep -Ev '^#' "$GFF" &gt; …</text>
+  <text x="618" y="266" class="code">cut -f3 "$GFF" | …</text>
+  <text x="618" y="292" class="code">awk … "$GFF"</text>
+  <text x="618" y="308" class="small">se declara una vez, arriba</text>
+
+  <text x="600" y="352" class="who">¿QUIÉN DECIDE EL DATO?</text>
+  <text x="600" y="378" class="copy">Quien <tspan font-weight="700">edita</tspan> el archivo. Todavía.</text>
+
+  <text x="600" y="420" class="who">PARA CAMBIAR DE GENOMA</text>
+  <text x="600" y="446" class="copy">· abrir el script</text>
+  <text x="600" y="472" class="copy">· corregir <tspan font-weight="700">una</tspan> línea</text>
+  <text x="600" y="498" class="copy">· (el riesgo baja, no desaparece)</text>
+
+  <rect x="600" y="522" width="410" height="60" rx="8" fill="#fff" stroke="#d18b16"/>
+  <text x="620" y="548" class="copy">Sigue haciendo falta una copia</text>
+  <text x="620" y="570" class="copy"><tspan font-weight="700">por cada genoma</tspan></text>
+
+  <text x="600" y="618" class="small">La variable <tspan font-weight="700">agrupa</tspan> el cambio.</text>
+  <text x="600" y="640" class="small">No lo elimina.</text>
+
+  <path d="M1053 400 L1083 400" stroke="#7d5ba6" stroke-width="3.5" marker-end="url(#arrowbig)"/>
+
+  <!-- ============ 3. PARÁMETRO ============ -->
+  <g filter="url(#shadow)"><rect x="1095" y="128" width="460" height="540" rx="16" fill="#eef8f2" stroke="#1e7a52"/></g>
+  <rect x="1095" y="128" width="210" height="34" rx="10" fill="#1e7a52"/>
+  <text x="1115" y="153" class="tag">3 · PARÁMETRO · S25</text>
+
+  <rect x="1125" y="182" width="400" height="132" rx="8" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="1143" y="208" class="code">GFF="$2"</text>
+  <text x="1143" y="240" class="code">grep -Ev '^#' "$GFF" &gt; …</text>
+  <text x="1143" y="266" class="code">cut -f3 "$GFF" | …</text>
+  <text x="1143" y="292" class="code">awk … "$GFF"</text>
+  <text x="1143" y="308" class="small">el archivo ya no nombra ningún dato</text>
+
+  <text x="1125" y="352" class="who">¿QUIÉN DECIDE EL DATO?</text>
+  <text x="1125" y="378" class="copy">Quien lo <tspan font-weight="700">invoca</tspan>.</text>
+
+  <text x="1125" y="420" class="who">PARA CAMBIAR DE GENOMA</text>
+  <text x="1125" y="446" class="copy">· escribir otra orden</text>
+  <text x="1125" y="472" class="copy">· el archivo <tspan font-weight="700">no se abre</tspan></text>
+  <text x="1125" y="498" class="copy">· nada que corregir</text>
+
+  <rect x="1125" y="522" width="400" height="60" rx="8" fill="#fff" stroke="#1e7a52"/>
+  <text x="1145" y="548" class="copy">Un único script</text>
+  <text x="1145" y="570" class="copy"><tspan font-weight="700">para todos los genomas</tspan></text>
+
+  <text x="1125" y="618" class="small">El parámetro <tspan font-weight="700">saca</tspan> el cambio</text>
+  <text x="1125" y="640" class="small">fuera del archivo.</text>
+
+  <!-- ============ CADENA INFERIOR ============ -->
+  <rect x="45" y="700" width="1510" height="150" rx="14" fill="#f3eefa" stroke="#7d5ba6"/>
+  <text x="75" y="740" class="band"><tspan font-weight="700">La variable agrupa el cambio; el parámetro lo saca del archivo.</tspan></text>
+
+  <text x="75" y="790" class="copy">antes:</text>
+  <text x="160" y="790" class="code">archivo escrito dentro  →  script</text>
+  <text x="75" y="822" class="copy">ahora:</text>
+  <text x="160" y="822" class="code">quien lo invoca  →  parámetro  →  variable  →  script</text>
+  <text x="900" y="822" class="small">— y por eso el mismo procedimiento puede analizar datos que aún no existen.</text>
+</svg>

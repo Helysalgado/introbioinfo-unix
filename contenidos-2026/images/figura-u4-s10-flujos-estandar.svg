@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Los tres flujos estándar de un programa de Unix</title>
+  <desc id="desc">Un programa recibe datos por la entrada estándar, entrega su resultado por la salida estándar y sus mensajes de error por la salida de error, que es un canal independiente.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0 0 L12 6 L0 12z" fill="#2878a9"/>
+    </marker>
+    <marker id="arrowG" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0 0 L12 6 L0 12z" fill="#208b82"/>
+    </marker>
+    <marker id="arrowR" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0 0 L12 6 L0 12z" fill="#b4553f"/>
+    </marker>
+    <style>.title{font:700 42px Arial;fill:#17365d}.subtitle{font:400 20px Arial;fill:#526270}.h2{font:700 22px Arial;fill:#17365d}.copy{font:400 18px Arial;fill:#34495e}.small{font:400 15px Arial;fill:#526270}.code{font:700 25px 'Courier New';fill:#17365d}.codeS{font:700 17px 'Courier New';fill:#17365d}.white{font:700 20px Arial;fill:#fff}.num{font:700 22px Arial;fill:#fff;text-anchor:middle;dominant-baseline:middle}</style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+  <text x="800" y="58" class="title" text-anchor="middle">Los tres flujos estándar de un programa</text>
+  <text x="800" y="95" class="subtitle" text-anchor="middle">Los datos y los mensajes de error viajan por canales distintos: por eso un error nunca se mezcla con el resultado.</text>
+
+  <!-- ENTRADA -->
+  <g filter="url(#shadow)">
+    <rect x="70" y="330" width="330" height="200" rx="20" fill="#f3f8fc" stroke="#8bb4cf" stroke-width="3"/>
+  </g>
+  <text x="235" y="400" class="h2" text-anchor="middle">ENTRADA ESTÁNDAR</text>
+  <text x="235" y="440" class="code" text-anchor="middle">stdin</text>
+  <text x="235" y="480" class="copy" text-anchor="middle">
+    <tspan x="235" dy="0">De dónde lee el programa:</tspan>
+    <tspan x="235" dy="26">un archivo, el teclado o</tspan>
+    <tspan x="235" dy="26">la salida de otro programa</tspan>
+  </text>
+
+  <!-- PROGRAMA -->
+  <g filter="url(#shadow)">
+    <rect x="560" y="300" width="380" height="260" rx="24" fill="#18232c"/>
+  </g>
+  <text x="750" y="375" font-family="Arial" font-size="22" font-weight="700" fill="#eaf6f7" text-anchor="middle">PROGRAMA</text>
+  <text x="750" y="440" font-family="Courier New" font-size="40" font-weight="700" fill="#68b5df" text-anchor="middle">wc -l</text>
+  <text x="750" y="490" font-family="Arial" font-size="17" fill="#b9c8d4" text-anchor="middle">
+    <tspan x="750" dy="0">Recibe texto, hace una sola cosa</tspan>
+    <tspan x="750" dy="25">y entrega texto</tspan>
+  </text>
+
+  <!-- flecha entrada -> programa -->
+  <path d="M405 430 H545" fill="none" stroke="#2878a9" stroke-width="6" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <text x="465" y="398" class="codeS" text-anchor="middle" fill="#2878a9">datos</text>
+
+  <!-- SALIDA ESTANDAR -->
+  <g filter="url(#shadow)">
+    <rect x="1100" y="190" width="430" height="215" rx="20" fill="#f1faf9" stroke="#7ebdb8" stroke-width="3"/>
+  </g>
+  <text x="1315" y="260" class="h2" text-anchor="middle">SALIDA ESTÁNDAR</text>
+  <text x="1315" y="300" class="code" text-anchor="middle">stdout</text>
+  <text x="1315" y="340" class="copy" text-anchor="middle">
+    <tspan x="1315" dy="0">El resultado del programa.</tspan>
+    <tspan x="1315" dy="26">Aquí viajan los datos que</tspan>
+    <tspan x="1315" dy="26">se guardan o se encadenan</tspan>
+  </text>
+
+  <!-- SALIDA DE ERROR -->
+  <g filter="url(#shadow)">
+    <rect x="1100" y="475" width="430" height="215" rx="20" fill="#fdf5f2" stroke="#d59a86" stroke-width="3"/>
+  </g>
+  <text x="1315" y="545" class="h2" text-anchor="middle">SALIDA DE ERROR</text>
+  <text x="1315" y="585" class="code" text-anchor="middle">stderr</text>
+  <text x="1315" y="625" class="copy" text-anchor="middle">
+    <tspan x="1315" dy="0">Avisos y mensajes de error.</tspan>
+    <tspan x="1315" dy="26">Nunca se mezclan con los</tspan>
+    <tspan x="1315" dy="26">datos del resultado</tspan>
+  </text>
+
+  <!-- flechas salida -->
+  <path d="M940 390 H1010 V300 H1085" fill="none" stroke="#208b82" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowG)"/>
+  <path d="M940 470 H1010 V580 H1085" fill="none" stroke="#b4553f" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowR)"/>
+
+  <!-- ejemplos -->
+  <g filter="url(#shadow)">
+    <rect x="1100" y="120" width="430" height="52" rx="12" fill="#18232c"/>
+  </g>
+  <text x="1315" y="154" font-family="Courier New" font-size="22" font-weight="700" fill="#71c6b8" text-anchor="middle">4641652</text>
+
+  <g filter="url(#shadow)">
+    <rect x="1100" y="710" width="430" height="52" rx="12" fill="#18232c"/>
+  </g>
+  <text x="1315" y="744" font-family="Courier New" font-size="18" font-weight="700" fill="#e79f88" text-anchor="middle">wc: no existe el archivo</text>
+
+  <!-- pie conceptual -->
+  <rect x="70" y="790" width="1460" height="72" rx="18" fill="#1f6d7a"/>
+  <text x="800" y="824" class="white" text-anchor="middle">Por omisión, stdout y stderr llegan a la pantalla; con redirecciones cada uno puede dirigirse a un archivo distinto</text>
+  <text x="800" y="850" font-family="Courier New" font-size="18" font-weight="700" fill="#c8e6e9" text-anchor="middle">comando &gt; resultado.txt   2&gt; errores.txt</text>
+</svg>

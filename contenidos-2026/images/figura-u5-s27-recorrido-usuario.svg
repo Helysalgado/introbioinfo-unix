@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">El recorrido de alguien que usa tu herramienta por primera vez</title>
+  <desc id="desc">A la izquierda, la estructura final del proyecto entregable: el archivo léeme en la raíz, la carpeta de código con las dos herramientas, la carpeta de documentación con el protocolo y la bitácora de inteligencia artificial, la carpeta de datos con los originales y los derivados, y la carpeta de resultados; se indica qué se entrega y qué no, y que los datos originales no se copian sino que se documenta cómo obtenerlos. A la derecha, las seis etapas que recorre una persona nueva: leer el archivo léeme para saber qué hace la herramienta, conseguir los datos siguiendo las instrucciones de procedencia, organizar la colección según el contrato descrito, ejecutar con el ejemplo del léeme, comprobar que salió bien con la bitácora de ejecuciones y los controles indicados, e interpretar el resumen con ayuda del diccionario de columnas. Cada etapa señala qué documento la sostiene. Una franja inferior indica que la prueba de que la documentación funciona no es que esté escrita, sino que otra persona llegue al final del recorrido sin preguntar nada.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrow" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto">
+      <path d="M0 0 L11 5.5 L0 11z" fill="#1e7a52"/>
+    </marker>
+    <style>
+      .title{font:700 38px Arial;fill:#17365d}
+      .subtitle{font:400 19px Arial;fill:#526270}
+      .tag{font:700 14px Arial;fill:#fff}
+      .copy{font:400 15px Arial;fill:#34495e}
+      .small{font:400 13px Arial;fill:#526270}
+      .code{font:400 15px 'Courier New';fill:#17365d}
+      .dim{font:400 15px 'Courier New';fill:#8a99a8}
+      .h3{font:700 17px Arial;fill:#17365d}
+      .band{font:400 19px Arial;fill:#17365d}
+      .src{font:700 13px Arial;fill:#2878a9}
+      .num{font:700 19px Arial;fill:#fff}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+
+  <text x="800" y="48" class="title" text-anchor="middle">El recorrido de quien usa tu herramienta por primera vez</text>
+  <text x="800" y="82" class="subtitle" text-anchor="middle">Seis etapas. En cada una, un documento tiene que sostenerla.</text>
+
+  <!-- ESTRUCTURA -->
+  <g filter="url(#shadow)"><rect x="45" y="120" width="470" height="600" rx="16" fill="#eef5fb" stroke="#2878a9"/></g>
+  <rect x="45" y="120" width="290" height="34" rx="10" fill="#2878a9"/>
+  <text x="65" y="145" class="tag">EL PROYECTO QUE SE ENTREGA</text>
+
+  <text x="75" y="190" class="code">proyecto/</text>
+  <text x="93" y="218" class="code">├── README.md</text>
+  <text x="320" y="218" class="small">← la puerta de entrada</text>
+  <text x="93" y="246" class="code">├── src/</text>
+  <text x="121" y="272" class="code">│   analizar-genoma.sh</text>
+  <text x="121" y="298" class="code">│   procesar-lote.sh</text>
+  <text x="93" y="326" class="code">├── doc/</text>
+  <text x="121" y="352" class="code">│   protocolo.md</text>
+  <text x="121" y="378" class="code">│   bitacora-ia.md</text>
+  <text x="93" y="406" class="code">├── data/</text>
+  <text x="121" y="432" class="dim">│   source/   (no se copia)</text>
+  <text x="121" y="458" class="code">│   processed/</text>
+  <text x="93" y="486" class="code">└── results/</text>
+
+  <rect x="75" y="518" width="410" height="180" rx="8" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="95" y="548" class="h3">Los datos originales no se entregan</text>
+  <text x="95" y="578" class="copy">Pesan, y ya tienen su propia procedencia.</text>
+  <text x="95" y="606" class="copy">Lo que se entrega es <tspan font-weight="700">cómo obtenerlos</tspan>:</text>
+  <text x="95" y="632" class="small">recurso, versión, fecha, checksum — la ficha de U3.</text>
+  <text x="95" y="668" class="copy">Así el proyecto cabe en un correo</text>
+  <text x="95" y="690" class="copy">y sigue siendo reproducible.</text>
+
+  <!-- RECORRIDO -->
+  <g filter="url(#shadow)"><rect x="545" y="120" width="1010" height="600" rx="16" fill="#eef8f2" stroke="#1e7a52"/></g>
+  <rect x="545" y="120" width="300" height="34" rx="10" fill="#1e7a52"/>
+  <text x="565" y="145" class="tag">LO QUE HACE UNA PERSONA NUEVA</text>
+
+  <circle cx="600" cy="200" r="17" fill="#1e7a52"/><text x="600" y="207" class="num" text-anchor="middle">1</text>
+  <text x="632" y="206" class="h3">Lee el README y decide si le sirve</text>
+  <text x="632" y="230" class="small">qué hace la herramienta y qué necesita — en menos de dos minutos</text>
+  <text x="1290" y="216" class="src">README</text>
+  <path d="M600 224 L600 252" stroke="#1e7a52" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <circle cx="600" cy="286" r="17" fill="#1e7a52"/><text x="600" y="293" class="num" text-anchor="middle">2</text>
+  <text x="632" y="292" class="h3">Consigue los datos</text>
+  <text x="632" y="316" class="small">sigue la ficha de procedencia: recurso, versión, fecha</text>
+  <text x="1290" y="302" class="src">README + ficha</text>
+  <path d="M600 310 L600 338" stroke="#1e7a52" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <circle cx="600" cy="372" r="17" fill="#1e7a52"/><text x="600" y="379" class="num" text-anchor="middle">3</text>
+  <text x="632" y="378" class="h3">Organiza su colección</text>
+  <text x="632" y="402" class="small">una carpeta por organismo, con los nombres del contrato</text>
+  <text x="1290" y="388" class="src">README</text>
+  <path d="M600 396 L600 424" stroke="#1e7a52" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <circle cx="600" cy="458" r="17" fill="#1e7a52"/><text x="600" y="465" class="num" text-anchor="middle">4</text>
+  <text x="632" y="464" class="h3">Ejecuta</text>
+  <text x="632" y="488" class="code">./src/procesar-lote.sh data/source/genomas</text>
+  <text x="1290" y="474" class="src">README + ayuda -h</text>
+  <path d="M600 482 L600 510" stroke="#1e7a52" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <circle cx="600" cy="544" r="17" fill="#1e7a52"/><text x="600" y="551" class="num" text-anchor="middle">5</text>
+  <text x="632" y="550" class="h3">Comprueba que salió bien</text>
+  <text x="632" y="574" class="small">la bitácora de ejecuciones y los controles que el README indica</text>
+  <text x="1290" y="560" class="src">README + mensajes</text>
+  <path d="M600 568 L600 596" stroke="#1e7a52" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <circle cx="600" cy="630" r="17" fill="#1e7a52"/><text x="600" y="637" class="num" text-anchor="middle">6</text>
+  <text x="632" y="636" class="h3">Interpreta el resumen</text>
+  <text x="632" y="660" class="small">con el diccionario de columnas; y si quiere discutir el método, abre el protocolo</text>
+  <text x="1290" y="646" class="src">diccionario + protocolo</text>
+
+  <rect x="580" y="676" width="950" height="32" rx="8" fill="#fff" stroke="#1e7a52"/>
+  <text x="600" y="698" class="copy">Y en ningún momento ha tenido que preguntarte nada.</text>
+
+  <!-- FRANJA -->
+  <rect x="45" y="748" width="1510" height="104" rx="14" fill="#f3eefa" stroke="#7d5ba6"/>
+  <text x="75" y="790" class="band"><tspan font-weight="700">La prueba de que tu documentación funciona no es que esté escrita.</tspan></text>
+  <text x="75" y="826" class="copy">Es que otra persona llegue al final de este recorrido, con sus propios datos, y obtenga un resultado que pueda interpretar.</text>
+</svg>

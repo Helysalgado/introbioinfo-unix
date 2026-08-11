@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="780" viewBox="0 0 1600 780" role="img" aria-labelledby="title desc">
+  <title id="title">Principios FAIR para datos y software</title>
+  <desc id="desc">Infografía de cuatro pilares: Findable o localizable, Accessible o accesible, Interoperable y Reusable o reutilizable. Una nota inferior aclara que FAIR no significa necesariamente abierto o gratuito.</desc>
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <style>
+      .title { font: 700 40px Arial, Helvetica, sans-serif; fill: #17365d; }
+      .subtitle { font: 400 20px Arial, Helvetica, sans-serif; fill: #526270; }
+      .letter { font: 700 58px Arial, Helvetica, sans-serif; fill: #ffffff; text-anchor: middle; dominant-baseline: middle; }
+      .english { font: 700 26px Arial, Helvetica, sans-serif; fill: #17365d; text-anchor: middle; }
+      .spanish { font: 600 20px Arial, Helvetica, sans-serif; fill: #526270; text-anchor: middle; }
+      .copy { font: 400 18px Arial, Helvetica, sans-serif; fill: #34495e; text-anchor: middle; }
+      .keyword { font: 700 16px Arial, Helvetica, sans-serif; fill: #ffffff; text-anchor: middle; letter-spacing: 0.4px; }
+      .note-title { font: 700 23px Arial, Helvetica, sans-serif; fill: #ffffff; }
+      .note-copy { font: 400 18px Arial, Helvetica, sans-serif; fill: #eaf6f7; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="780" fill="#ffffff"/>
+  <text x="800" y="58" class="title" text-anchor="middle">Principios FAIR para datos y software</text>
+  <text x="800" y="94" class="subtitle" text-anchor="middle">Cuatro condiciones complementarias para que los recursos científicos conserven su valor y puedan volver a utilizarse.</text>
+
+  <!-- F: Findable -->
+  <g filter="url(#shadow)">
+    <rect x="70" y="188" width="340" height="420" rx="22" fill="#f3f8fc" stroke="#8bb4cf" stroke-width="2"/>
+  </g>
+  <circle cx="240" cy="184" r="64" fill="#2878a9"/>
+  <text x="240" y="188" class="letter">F</text>
+  <text x="240" y="286" class="english">Findable</text>
+  <text x="240" y="318" class="spanish">LOCALIZABLE</text>
+  <line x1="126" y1="344" x2="354" y2="344" stroke="#b9d2e3" stroke-width="2"/>
+  <text x="240" y="386" class="copy">
+    <tspan x="240" dy="0">Identificadores persistentes</tspan>
+    <tspan x="240" dy="28">y metadatos descriptivos</tspan>
+    <tspan x="240" dy="28">permiten encontrar los datos</tspan>
+    <tspan x="240" dy="28">y el software.</tspan>
+  </text>
+  <rect x="126" y="522" width="228" height="42" rx="21" fill="#2878a9"/>
+  <text x="240" y="548" class="keyword">ID + METADATOS</text>
+
+  <!-- A: Accessible -->
+  <g filter="url(#shadow)">
+    <rect x="443" y="188" width="340" height="420" rx="22" fill="#f1faf9" stroke="#7ebdb8" stroke-width="2"/>
+  </g>
+  <circle cx="613" cy="184" r="64" fill="#208b82"/>
+  <text x="613" y="188" class="letter">A</text>
+  <text x="613" y="286" class="english">Accessible</text>
+  <text x="613" y="318" class="spanish">ACCESIBLE</text>
+  <line x1="499" y1="344" x2="727" y2="344" stroke="#b4d9d5" stroke-width="2"/>
+  <text x="613" y="386" class="copy">
+    <tspan x="613" dy="0">Se recuperan mediante</tspan>
+    <tspan x="613" dy="28">protocolos claros,</tspan>
+    <tspan x="613" dy="28">estandarizados y</tspan>
+    <tspan x="613" dy="28">documentados.</tspan>
+  </text>
+  <rect x="499" y="522" width="228" height="42" rx="21" fill="#208b82"/>
+  <text x="613" y="548" class="keyword">ACCESO CLARO</text>
+
+  <!-- I: Interoperable -->
+  <g filter="url(#shadow)">
+    <rect x="816" y="188" width="340" height="420" rx="22" fill="#f6f8fc" stroke="#9caed1" stroke-width="2"/>
+  </g>
+  <circle cx="986" cy="184" r="64" fill="#5a73a8"/>
+  <text x="986" y="188" class="letter">I</text>
+  <text x="986" y="286" class="english">Interoperable</text>
+  <text x="986" y="318" class="spanish">INTEROPERABLE</text>
+  <line x1="872" y1="344" x2="1100" y2="344" stroke="#c4cde2" stroke-width="2"/>
+  <text x="986" y="386" class="copy">
+    <tspan x="986" dy="0">Usan formatos y</tspan>
+    <tspan x="986" dy="28">vocabularios estándar</tspan>
+    <tspan x="986" dy="28">que otras herramientas</tspan>
+    <tspan x="986" dy="28">pueden comprender.</tspan>
+  </text>
+  <rect x="872" y="522" width="228" height="42" rx="21" fill="#5a73a8"/>
+  <text x="986" y="548" class="keyword">ESTÁNDARES</text>
+
+  <!-- R: Reusable -->
+  <g filter="url(#shadow)">
+    <rect x="1189" y="188" width="340" height="420" rx="22" fill="#f8f6fb" stroke="#aa98c5" stroke-width="2"/>
+  </g>
+  <circle cx="1359" cy="184" r="64" fill="#76629a"/>
+  <text x="1359" y="188" class="letter">R</text>
+  <text x="1359" y="286" class="english">Reusable</text>
+  <text x="1359" y="318" class="spanish">REUTILIZABLE</text>
+  <line x1="1245" y1="344" x2="1473" y2="344" stroke="#d2c8df" stroke-width="2"/>
+  <text x="1359" y="386" class="copy">
+    <tspan x="1359" dy="0">Incluyen procedencia,</tspan>
+    <tspan x="1359" dy="28">licencia y documentación</tspan>
+    <tspan x="1359" dy="28">suficiente para volver</tspan>
+    <tspan x="1359" dy="28">a utilizarlos.</tspan>
+  </text>
+  <rect x="1245" y="522" width="228" height="42" rx="21" fill="#76629a"/>
+  <text x="1359" y="548" class="keyword">LICENCIA + ORIGEN</text>
+
+  <!-- Aclaración inferior -->
+  <rect x="70" y="654" width="1460" height="88" rx="18" fill="#1f6d7a"/>
+  <g transform="translate(112 676)" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="0" y="14" width="42" height="32" rx="6"/>
+    <path d="M10 14 V6 a11 11 0 0 1 22 0 v8"/>
+    <circle cx="21" cy="29" r="3" fill="#ffffff" stroke="none"/>
+    <path d="M21 32 v7"/>
+  </g>
+  <text x="180" y="686" class="note-title">FAIR no significa necesariamente “abierto” o “gratuito”.</text>
+  <text x="180" y="718" class="note-copy">Los permisos pueden variar; lo esencial es que el recurso sea localizable, recuperable, comprensible y reutilizable bajo condiciones claras.</text>
+</svg>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Una diferencia de formato puede producir una discrepancia aparente</title>
+  <desc id="desc">Arriba, dos listas pequeñas entran directamente a una comparación literal: una contiene chr dos puntos NC guion bajo 000913 punto 3 y la otra NC guion bajo 000913 punto 3. La comparación las coloca en zonas distintas y reporta dos objetos diferentes, aunque ambos nombres designen la misma secuencia; eso es un falso positivo de diferencia. Abajo, las mismas listas pasan antes por una regla documentada que retira únicamente el prefijo chr dos puntos cuando aparece al inicio; ambas producen la misma clave y la discrepancia desaparece. Un recuadro final advierte que la regla solo es válida si la fuente documenta que ese prefijo no forma parte de la identidad del objeto, y que retirar en cambio el sufijo de versión sería una decisión distinta y de mucho mayor riesgo.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrow" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto">
+      <path d="M0 0 L11 5.5 L0 11z" fill="#2878a9"/>
+    </marker>
+    <style>
+      .title{font:700 42px Arial;fill:#17365d}
+      .subtitle{font:400 20px Arial;fill:#526270}
+      .h2{font:700 21px Arial;fill:#17365d}
+      .tag{font:700 16px Arial;fill:#fff}
+      .copy{font:400 18px Arial;fill:#34495e}
+      .small{font:400 15px Arial;fill:#526270}
+      .code{font:400 20px 'Courier New';fill:#17365d}
+      .codeB{font:700 20px 'Courier New';fill:#17365d}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+
+  <text x="800" y="56" class="title" text-anchor="middle">Cuando la diferencia está en el formato, no en el objeto</text>
+  <text x="800" y="92" class="subtitle" text-anchor="middle">`comm` compara cadenas, no significados: dos nombres del mismo replicón le parecen dos objetos distintos.</text>
+
+  <!-- ESCENARIO 1 -->
+  <g filter="url(#shadow)"><rect x="60" y="130" width="1480" height="300" rx="16" fill="#fdf1ef" stroke="#e0a79c"/></g>
+  <rect x="60" y="130" width="480" height="34" rx="10" fill="#b03a2e"/>
+  <text x="80" y="155" class="tag">SIN NORMALIZAR · discrepancia aparente</text>
+
+  <rect x="90" y="190" width="330" height="80" rx="10" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="108" y="216" class="small">lista del FASTA</text>
+  <text x="108" y="252" class="code"><tspan fill="#b03a2e" font-weight="700">chr:</tspan>NC_000913.3</text>
+
+  <rect x="90" y="290" width="330" height="80" rx="10" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="108" y="316" class="small">lista del GFF3</text>
+  <text x="108" y="352" class="code">NC_000913.3</text>
+
+  <path d="M440 280 L560 280" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="580" y="255" width="200" height="50" rx="10" fill="#17365d"/>
+  <text x="680" y="287" class="tag" text-anchor="middle" font-size="19">comm</text>
+  <path d="M790 280 L910 280" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="930" y="190" width="580" height="180" rx="10" fill="#fff" stroke="#b03a2e" stroke-width="2"/>
+  <text x="955" y="228" class="copy" font-weight="700" fill="#b03a2e">Resultado: dos objetos distintos</text>
+  <text x="955" y="266" class="code" font-size="18">solo FASTA:  chr:NC_000913.3</text>
+  <text x="955" y="298" class="code" font-size="18">solo GFF3:   NC_000913.3</text>
+  <text x="955" y="340" class="small">Ninguno aparece en la zona común. La discrepancia es real para el programa</text>
+  <text x="955" y="360" class="small">y falsa para la biología: es el mismo replicón.</text>
+
+  <!-- ESCENARIO 2 -->
+  <g filter="url(#shadow)"><rect x="60" y="460" width="1480" height="300" rx="16" fill="#eef8f2" stroke="#8cc9a9"/></g>
+  <rect x="60" y="460" width="520" height="34" rx="10" fill="#1e7a52"/>
+  <text x="80" y="485" class="tag">CON UNA REGLA DOCUMENTADA · sin discrepancia</text>
+
+  <rect x="90" y="520" width="330" height="80" rx="10" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="108" y="546" class="small">lista del FASTA</text>
+  <text x="108" y="582" class="code"><tspan fill="#b03a2e" font-weight="700">chr:</tspan>NC_000913.3</text>
+
+  <rect x="90" y="620" width="330" height="80" rx="10" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="108" y="646" class="small">lista del GFF3</text>
+  <text x="108" y="682" class="code">NC_000913.3</text>
+
+  <path d="M440 610 L560 610" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="580" y="575" width="250" height="70" rx="10" fill="#1e7a52"/>
+  <text x="705" y="605" class="tag" text-anchor="middle" font-size="17">sed 's/^chr://'</text>
+  <text x="705" y="630" class="tag" text-anchor="middle" font-size="14" font-weight="400">solo al inicio</text>
+  <path d="M840 610 L910 610" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="930" y="520" width="580" height="180" rx="10" fill="#fff" stroke="#1e7a52" stroke-width="2"/>
+  <text x="955" y="558" class="copy" font-weight="700" fill="#1e7a52">Resultado: un solo objeto, en ambas</text>
+  <text x="955" y="596" class="code" font-size="18">en ambos:  NC_000913.3</text>
+  <text x="955" y="638" class="small">La versión `.3` se conserva: no se tocó. Solo se retiró la etiqueta que</text>
+  <text x="955" y="658" class="small">la fuente documenta como añadido de exportación.</text>
+
+  <!-- ADVERTENCIA -->
+  <rect x="60" y="790" width="1480" height="80" rx="12" fill="#fff8e6" stroke="#e0b84c" stroke-width="2"/>
+  <text x="95" y="828" class="copy"><tspan font-weight="700">La regla vale por su justificación, no por su resultado.</tspan> Retirar `chr:` es válido porque la fuente declara que no forma parte del identificador.</text>
+  <text x="95" y="856" class="copy">Retirar la versión `.3` haría coincidir todavía más cadenas — y sería una decisión distinta, de mucho mayor riesgo.</text>
+</svg>

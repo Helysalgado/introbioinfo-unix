@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">De respuestas dispersas a un procedimiento ejecutable</title>
+  <desc id="desc">A la izquierda, el estado en que queda la investigación al terminar la sesión anterior: comandos correctos pero repartidos entre secciones distintas del protocolo, resultados en carpetas separadas, flechas rotas entre ellos, y tres cosas que solo existen en la memoria de quien hizo el análisis: el orden en que se ejecutan, qué archivo necesita cada paso y cuáles ya no se pueden regenerar. A la derecha, el mismo material convertido en un procedimiento: entradas declaradas, una secuencia ordenada de bloques con sus verificaciones intercaladas, salidas con nombre y una síntesis final. Una franja inferior precisa que ningún comando cambió: lo que se añadió fue el orden, las dependencias y los puntos de control, y que esa diferencia es la que separa un conjunto de resultados correctos de una investigación que otra persona puede ejecutar.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrow" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto">
+      <path d="M0 0 L11 5.5 L0 11z" fill="#2878a9"/>
+    </marker>
+    <style>
+      .title{font:700 42px Arial;fill:#17365d}
+      .subtitle{font:400 20px Arial;fill:#526270}
+      .tag{font:700 16px Arial;fill:#fff}
+      .copy{font:400 17px Arial;fill:#34495e}
+      .small{font:400 14px Arial;fill:#526270}
+      .code{font:400 15px 'Courier New';fill:#17365d}
+      .h3{font:700 20px Arial;fill:#17365d}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+
+  <text x="800" y="56" class="title" text-anchor="middle">Correcto no es lo mismo que ejecutable</text>
+  <text x="800" y="92" class="subtitle" text-anchor="middle">Todos tus comandos funcionan. Lo que falta no está en ninguno de ellos: está entre ellos.</text>
+
+  <!-- IZQUIERDA -->
+  <g filter="url(#shadow)"><rect x="60" y="130" width="700" height="620" rx="16" fill="#fdf7e8" stroke="#d18b16"/></g>
+  <rect x="60" y="130" width="420" height="34" rx="10" fill="#d18b16"/>
+  <text x="80" y="155" class="tag">AL TERMINAR S22 · piezas sueltas</text>
+
+  <rect x="95" y="190" width="290" height="52" rx="8" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="112" y="213" class="small">protocolo · sección S18</text>
+  <text x="112" y="234" class="code">grep -Ec '^gene$'</text>
+
+  <rect x="425" y="215" width="300" height="52" rx="8" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="442" y="238" class="small">protocolo · sección S20</text>
+  <text x="442" y="259" class="code">sed 's/^chr://'</text>
+
+  <rect x="95" y="285" width="310" height="52" rx="8" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="112" y="308" class="small">protocolo · sección S21</text>
+  <text x="112" y="329" class="code">comm -23 … …</text>
+
+  <rect x="440" y="330" width="285" height="52" rx="8" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="457" y="353" class="small">protocolo · sección S22</text>
+  <text x="457" y="374" class="code">awk '$3=="gene"…'</text>
+
+  <path d="M300 250 L420 245" stroke="#b03a2e" stroke-width="2.5" stroke-dasharray="6 6"/>
+  <path d="M250 345 L430 350" stroke="#b03a2e" stroke-width="2.5" stroke-dasharray="6 6"/>
+  <path d="M420 300 L300 300" stroke="#b03a2e" stroke-width="2.5" stroke-dasharray="6 6"/>
+  <text x="640" y="410" class="small" fill="#b03a2e" text-anchor="end">flechas que solo existen en tu cabeza</text>
+
+  <rect x="95" y="440" width="630" height="290" rx="12" fill="#fff" stroke="#d18b16" stroke-width="2"/>
+  <text x="120" y="480" class="h3" fill="#d18b16">Lo que no está escrito en ninguna parte</text>
+  <text x="120" y="522" class="copy">· En qué <tspan font-weight="700">orden</tspan> se ejecutan</text>
+  <text x="120" y="556" class="copy">· Qué archivo necesita cada paso <tspan font-weight="700">antes</tspan> de empezar</text>
+  <text x="120" y="590" class="copy">· Cuál produce la entrada del siguiente</text>
+  <text x="120" y="624" class="copy">· Cuáles se pueden <tspan font-weight="700">regenerar</tspan> y cuáles no</text>
+  <text x="120" y="658" class="copy">· Cómo saber que una etapa terminó <tspan font-weight="700">bien</tspan></text>
+  <text x="120" y="700" class="small">Todo eso vive en la memoria de quien hizo el análisis. Y la memoria no es reproducible.</text>
+
+  <!-- FLECHA CENTRAL -->
+  <path d="M775 440 L825 440" stroke="#2878a9" stroke-width="5" marker-end="url(#arrow)"/>
+
+  <!-- DERECHA -->
+  <g filter="url(#shadow)"><rect x="850" y="130" width="690" height="620" rx="16" fill="#eef8f2" stroke="#8cc9a9"/></g>
+  <rect x="850" y="130" width="420" height="34" rx="10" fill="#1e7a52"/>
+  <text x="870" y="155" class="tag">EN S23 · un procedimiento</text>
+
+  <rect x="885" y="185" width="620" height="46" rx="8" fill="#fff" stroke="#1e7a52" stroke-width="2"/>
+  <text x="905" y="215" class="copy" font-weight="700">ENTRADAS declaradas · data/source/</text>
+
+  <line x1="1195" y1="235" x2="1195" y2="258" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="885" y="265" width="620" height="44" rx="8" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="905" y="294" class="copy">A · Preparar la evidencia</text>
+  <text x="1440" y="294" class="small" text-anchor="end" fill="#1e7a52">✓ control</text>
+
+  <line x1="1195" y1="313" x2="1195" y2="330" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="885" y="337" width="620" height="44" rx="8" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="905" y="366" class="copy">B · Identificar los objetos</text>
+  <text x="1440" y="366" class="small" text-anchor="end" fill="#1e7a52">✓ control</text>
+
+  <line x1="1195" y1="385" x2="1195" y2="402" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="885" y="409" width="620" height="44" rx="8" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="905" y="438" class="copy">C · Confrontar con la fuente externa</text>
+  <text x="1440" y="438" class="small" text-anchor="end" fill="#1e7a52">✓ control</text>
+
+  <line x1="1195" y1="457" x2="1195" y2="474" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="885" y="481" width="620" height="44" rx="8" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="905" y="510" class="copy">D · Medir</text>
+  <text x="1440" y="510" class="small" text-anchor="end" fill="#1e7a52">✓ control</text>
+
+  <line x1="1195" y1="529" x2="1195" y2="546" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="885" y="553" width="620" height="44" rx="8" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="905" y="582" class="copy">E · Sintetizar</text>
+
+  <line x1="1195" y1="601" x2="1195" y2="618" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="885" y="625" width="620" height="105" rx="10" fill="#fff" stroke="#1e7a52" stroke-width="3"/>
+  <text x="1195" y="663" class="h3" text-anchor="middle" fill="#1e7a52">SALIDAS con nombre + SÍNTESIS</text>
+  <text x="1195" y="695" class="small" text-anchor="middle">Cualquiera puede partir de los originales y llegar aquí</text>
+  <text x="1195" y="717" class="small" text-anchor="middle">sin preguntarte nada.</text>
+
+  <!-- CIERRE -->
+  <rect x="60" y="780" width="1480" height="80" rx="12" fill="#eef5fb" stroke="#2878a9" stroke-width="2"/>
+  <text x="95" y="820" class="copy"><tspan font-weight="700">Ningún comando cambió.</tspan> Lo que se añadió fue el orden, las dependencias y los puntos de control —es decir, todo lo que estaba</text>
+  <text x="95" y="848" class="copy">en tu cabeza y no en el documento—. Esa es la diferencia entre tener resultados correctos y tener una investigación.</text>
+</svg>

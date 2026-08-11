@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="t d">
+  <title id="t">El mismo par de secuencias admite muchos alineamientos distintos</title>
+  <desc id="d">Arriba, el extremo N de las proteínas ubiE de Rickettsia conorii y Orientia tsutsugamushi alineado dos veces con el mismo programa y los mismos datos, cambiando solo el costo de abrir un hueco. Con un costo alto los nueve huecos forman un único bloque; con un costo bajo el mismo material se reparte en dos bloques separados y aparecen huecos nuevos en el interior. Debajo, una tabla muestra que al abaratar la apertura el número de sucesos de indel pasa de uno a sesenta y nueve mientras la identidad apenas se mueve. Una franja final concluye que dos programas pueden producir alineamientos distintos sin que ninguno esté mal: están optimizando hipótesis distintas.</desc>
+  <defs>
+    <filter id="sh" x="-6%" y="-10%" width="112%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <style>
+      .title{font:700 36px Arial;fill:#17365d}
+      .sub{font:400 18px Arial;fill:#526270}
+      .h{font:700 22px Arial;fill:#17365d}
+      .copy{font:400 15px Arial;fill:#34495e}
+      .small{font:400 13px Arial;fill:#526270}
+      .seq{font:400 21px 'Courier New';fill:#17365d}
+      .lab{font:400 14px Arial;fill:#526270}
+      .tag{font:700 14px Arial;fill:#ffffff}
+      .th{font:700 15px Arial;fill:#17365d}
+      .td{font:400 16px Arial;fill:#34495e}
+      .band{font:400 18px Arial;fill:#17365d}
+      .hyp{font:700 17px Arial;fill:#7d5ba6}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+
+  <text x="800" y="48" class="title" text-anchor="middle">Un alineamiento no es único: es una hipótesis entre muchas</text>
+  <text x="800" y="80" class="sub" text-anchor="middle">Los mismos datos, el mismo programa. Solo cambia lo que cuesta abrir un hueco.</text>
+  <text x="800" y="104" class="sub" text-anchor="middle">Extremo N de ubiE — R. conorii frente a O. tsutsugamushi</text>
+
+  <!-- HIPOTESIS 1 -->
+  <g filter="url(#sh)"><rect x="45" y="132" width="740" height="230" rx="16" fill="#eef8f2" stroke="#1e7a52" stroke-width="2"/></g>
+  <rect x="45" y="132" width="740" height="42" rx="16" fill="#1e7a52"/><rect x="45" y="158" width="740" height="16" fill="#1e7a52"/>
+  <text x="70" y="161" class="tag">HIPÓTESIS 1 · abrir un hueco cuesta 11</text>
+
+  <rect x="88" y="196" width="118" height="66" fill="#b03a2e" opacity="0.13"/>
+  <text x="75" y="222" class="seq" xml:space="preserve">M---------NQTNFGFKKVDY</text>
+  <text x="75" y="252" class="seq" xml:space="preserve">MTKNYNHNNGNKSTFGFQLVDS</text>
+
+  <text x="75" y="298" class="hyp">Un solo suceso</text>
+  <text x="75" y="324" class="copy">Los nueve huecos forman un bloque único:</text>
+  <text x="75" y="346" class="copy">una sola extensión del extremo N.</text>
+
+  <!-- HIPOTESIS 2 -->
+  <g filter="url(#sh)"><rect x="815" y="132" width="740" height="230" rx="16" fill="#fdf7e8" stroke="#d18b16" stroke-width="2"/></g>
+  <rect x="815" y="132" width="740" height="42" rx="16" fill="#d18b16"/><rect x="815" y="158" width="740" height="16" fill="#d18b16"/>
+  <text x="840" y="161" class="tag">HIPÓTESIS 2 · abrir un hueco cuesta 3</text>
+
+  <rect x="858" y="196" width="53" height="66" fill="#b03a2e" opacity="0.13"/>
+  <rect x="963" y="196" width="66" height="66" fill="#b03a2e" opacity="0.13"/>
+  <text x="845" y="222" class="seq" xml:space="preserve">M----NQTN-----FGFKKVDY</text>
+  <text x="845" y="252" class="seq" xml:space="preserve">MTKNYNHNNGNKSTFGFQLVDS</text>
+
+  <text x="845" y="298" class="hyp">Dos sucesos independientes</text>
+  <text x="845" y="324" class="copy">El mismo material se reparte en dos bloques,</text>
+  <text x="845" y="346" class="copy">y NQTN queda alineado con otras posiciones.</text>
+
+  <!-- FLECHA CENTRAL -->
+  <text x="800" y="240" class="th" text-anchor="middle">≠</text>
+
+  <!-- TABLA -->
+  <g filter="url(#sh)"><rect x="45" y="386" width="1510" height="286" rx="16" fill="#ffffff" stroke="#c9d6e2" stroke-width="2"/></g>
+  <rect x="45" y="386" width="1510" height="42" rx="16" fill="#17365d"/><rect x="45" y="412" width="1510" height="16" fill="#17365d"/>
+  <text x="70" y="415" class="tag">LA PROTEÍNA COMPLETA, CON CUATRO COSTOS DE APERTURA — CIFRAS REALES DE ESTOS ARCHIVOS</text>
+
+  <text x="90"   y="464" class="th">Costo de abrir un hueco</text>
+  <text x="470"  y="464" class="th" text-anchor="middle">Huecos en total</text>
+  <text x="760"  y="464" class="th" text-anchor="middle">Sucesos de indel distintos</text>
+  <text x="1060" y="464" class="th" text-anchor="middle">Identidad</text>
+  <text x="1330" y="464" class="th" text-anchor="middle">Qué historia propone</text>
+  <line x1="80" y1="478" x2="1520" y2="478" stroke="#c9d6e2" stroke-width="2"/>
+
+  <rect x="80" y="486" width="1440" height="38" rx="6" fill="#eef8f2"/>
+  <text x="90"   y="512" class="td">11  (el valor habitual)</text>
+  <text x="470"  y="512" class="td" text-anchor="middle">9</text>
+  <text x="760"  y="512" class="td" text-anchor="middle">1</text>
+  <text x="1060" y="512" class="td" text-anchor="middle">49.0 %</text>
+  <text x="1330" y="512" class="td" text-anchor="middle">una extensión terminal</text>
+
+  <text x="90"   y="556" class="td">5</text>
+  <text x="470"  y="556" class="td" text-anchor="middle">11</text>
+  <text x="760"  y="556" class="td" text-anchor="middle">3</text>
+  <text x="1060" y="556" class="td" text-anchor="middle">49.2 %</text>
+  <text x="1330" y="556" class="td" text-anchor="middle">tres sucesos</text>
+
+  <text x="90"   y="598" class="td">3</text>
+  <text x="470"  y="598" class="td" text-anchor="middle">23</text>
+  <text x="760"  y="598" class="td" text-anchor="middle">16</text>
+  <text x="1060" y="598" class="td" text-anchor="middle">50.4 %</text>
+  <text x="1330" y="598" class="td" text-anchor="middle">dieciséis sucesos</text>
+
+  <rect x="80" y="614" width="1440" height="38" rx="6" fill="#fdf1ef"/>
+  <text x="90"   y="640" class="td">1</text>
+  <text x="470"  y="640" class="td" text-anchor="middle">79</text>
+  <text x="760"  y="640" class="td" text-anchor="middle">69</text>
+  <text x="1060" y="640" class="td" text-anchor="middle">49.0 %</text>
+  <text x="1330" y="640" class="td" text-anchor="middle">sesenta y nueve sucesos</text>
+
+  <!-- LECTURA -->
+  <g filter="url(#sh)"><rect x="45" y="694" width="740" height="112" rx="14" fill="#fdf1ef" stroke="#b03a2e" stroke-width="2"/></g>
+  <text x="80" y="730" class="h">Fíjate en la columna de la identidad</text>
+  <text x="80" y="760" class="copy">Apenas se mueve: del 49.0 % al 50.4 %. Pero la historia evolutiva</text>
+  <text x="80" y="782" class="copy">que se está proponiendo pasa de un suceso a sesenta y nueve.</text>
+
+  <g filter="url(#sh)"><rect x="815" y="694" width="740" height="112" rx="14" fill="#eef5fb" stroke="#2878a9" stroke-width="2"/></g>
+  <text x="850" y="730" class="h">Por eso 11 y no 1</text>
+  <text x="850" y="760" class="copy">Un costo alto obliga al programa a postular indeles solo cuando de verdad</text>
+  <text x="850" y="782" class="copy">hacen falta. Un 1 % de identidad no compensa inventar 68 sucesos evolutivos.</text>
+
+  <!-- FRANJA -->
+  <rect x="45" y="828" width="1510" height="58" rx="14" fill="#f3eefa" stroke="#7d5ba6"/>
+  <text x="80" y="864" class="band">Dos programas distintos pueden producir alineamientos distintos. <tspan font-weight="700">No significa que uno esté mal: están optimizando hipótesis distintas.</tspan></text>
+</svg>

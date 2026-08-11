@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">El error que borra diecinueve resultados</title>
+  <desc id="desc">Comparación de dos formas de escribir dentro de un ciclo. A la izquierda, el error: cada vuelta redirige su resultado con la flecha sencilla, que vacía el archivo antes de escribir, de modo que cada organismo borra al anterior y al terminar las veinte vueltas solo sobrevive el último; el mismo efecto se produce cuando el nombre del archivo de salida no depende de la variable de la vuelta, porque las veinte iteraciones escriben en el mismo sitio. A la derecha, la forma correcta: el encabezado se escribe una sola vez antes del ciclo con la flecha sencilla, y dentro del ciclo cada vuelta añade su fila con la flecha doble, de modo que al terminar hay veinte filas; además, cada organismo escribe sus resultados en una carpeta cuyo nombre se deriva de la variable de la vuelta. Una franja inferior advierte que este fallo no produce ningún error visible: el ciclo termina, el archivo existe y su contenido parece correcto, y la única forma de detectarlo es contar las filas y compararlas con el número de organismos.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrowred" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto">
+      <path d="M0 0 L11 5.5 L0 11z" fill="#b03a2e"/>
+    </marker>
+    <marker id="arrowgrn" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto">
+      <path d="M0 0 L11 5.5 L0 11z" fill="#1e7a52"/>
+    </marker>
+    <style>
+      .title{font:700 40px Arial;fill:#17365d}
+      .subtitle{font:400 20px Arial;fill:#526270}
+      .tag{font:700 15px Arial;fill:#fff}
+      .copy{font:400 16px Arial;fill:#34495e}
+      .small{font:400 14px Arial;fill:#526270}
+      .code{font:400 15px 'Courier New';fill:#17365d}
+      .dim{font:400 15px 'Courier New';fill:#b6c2ce}
+      .h3{font:700 19px Arial;fill:#17365d}
+      .band{font:400 19px Arial;fill:#17365d}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+
+  <text x="800" y="52" class="title" text-anchor="middle">Un archivo o veinte</text>
+  <text x="800" y="88" class="subtitle" text-anchor="middle">El fallo más frecuente de esta sesión no da ningún error: solo se lleva por delante diecinueve resultados.</text>
+
+  <!-- ============ MAL ============ -->
+  <g filter="url(#shadow)"><rect x="55" y="126" width="690" height="580" rx="16" fill="#fdf1ef" stroke="#b03a2e"/></g>
+  <rect x="55" y="126" width="150" height="34" rx="10" fill="#b03a2e"/>
+  <text x="75" y="151" class="tag">EL ERROR</text>
+
+  <rect x="85" y="180" width="630" height="110" rx="8" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="105" y="208" class="code">for DIR in genomas/*/ ; do</text>
+  <text x="105" y="234" class="code">   … &gt; resumen-global.tsv</text>
+  <text x="105" y="260" class="code">done</text>
+  <text x="105" y="282" class="small">la flecha sencilla vacía el archivo antes de escribir</text>
+
+  <text x="85" y="332" class="h3">Lo que ocurre en cada vuelta</text>
+  <text x="105" y="366" class="dim">vuelta 1 · ecoli        →  se escribe … y se borra</text>
+  <text x="105" y="394" class="dim">vuelta 2 · salmonella   →  se escribe … y se borra</text>
+  <text x="105" y="422" class="dim">vuelta 3 · shigella     →  se escribe … y se borra</text>
+  <text x="105" y="450" class="dim">…</text>
+  <text x="105" y="478" class="code">vuelta 20 · vibrio      →  sobrevive</text>
+
+  <rect x="85" y="504" width="630" height="76" rx="8" fill="#fff" stroke="#b03a2e" stroke-width="2"/>
+  <text x="105" y="532" class="code">$ wc -l resumen-global.tsv</text>
+  <text x="105" y="562" class="code">1</text>
+
+  <rect x="85" y="600" width="630" height="88" rx="8" fill="#fff" stroke="#c9d6e2"/>
+  <text x="105" y="630" class="copy">El mismo desastre, por otra vía:</text>
+  <text x="105" y="658" class="copy">un nombre de salida que <tspan font-weight="700">no depende</tspan> de la</text>
+  <text x="105" y="680" class="copy">variable de la vuelta.</text>
+
+  <!-- ============ BIEN ============ -->
+  <g filter="url(#shadow)"><rect x="855" y="126" width="690" height="580" rx="16" fill="#eef8f2" stroke="#1e7a52"/></g>
+  <rect x="855" y="126" width="235" height="34" rx="10" fill="#1e7a52"/>
+  <text x="875" y="151" class="tag">LA FORMA CORRECTA</text>
+
+  <rect x="885" y="180" width="630" height="136" rx="8" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="905" y="208" class="code">printf 'organismo\tgenes\n' \</text>
+  <text x="905" y="232" class="code">   &gt; resumen-global.tsv</text>
+  <text x="905" y="256" class="code">for DIR in genomas/*/ ; do</text>
+  <text x="905" y="280" class="code">   … &gt;&gt; resumen-global.tsv</text>
+  <text x="905" y="304" class="code">done</text>
+
+  <text x="885" y="356" class="h3">El encabezado, fuera. Las filas, dentro.</text>
+  <text x="905" y="390" class="code">vuelta 1 · ecoli        →  añade su fila</text>
+  <text x="905" y="418" class="code">vuelta 2 · salmonella   →  añade su fila</text>
+  <text x="905" y="446" class="code">vuelta 3 · shigella     →  añade su fila</text>
+  <text x="905" y="474" class="code">…</text>
+
+  <rect x="885" y="500" width="630" height="76" rx="8" fill="#fff" stroke="#1e7a52" stroke-width="2"/>
+  <text x="905" y="528" class="code">$ wc -l resumen-global.tsv</text>
+  <text x="905" y="558" class="code">21    <tspan class="small">20 organismos + encabezado</tspan></text>
+
+  <rect x="885" y="596" width="630" height="92" rx="8" fill="#fff" stroke="#c9d6e2"/>
+  <text x="905" y="626" class="copy">Y cada organismo escribe sus resultados en</text>
+  <text x="905" y="652" class="code">results/s26/$ORGANISMO/</text>
+  <text x="905" y="678" class="small">un nombre derivado de la vuelta: nadie pisa a nadie.</text>
+
+  <!-- FRANJA -->
+  <rect x="55" y="740" width="1490" height="110" rx="14" fill="#fdf7e8" stroke="#d18b16"/>
+  <text x="85" y="782" class="band"><tspan font-weight="700">Este fallo no da ningún error.</tspan> El ciclo termina, el archivo existe y su contenido parece correcto.</text>
+  <text x="85" y="818" class="copy">La única forma de detectarlo es contar las filas y compararlas con el número de organismos. Por eso ese conteo es un punto de control obligatorio.</text>
+</svg>

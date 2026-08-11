@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1160" viewBox="0 0 1600 1160" role="img" aria-labelledby="title desc">
+  <title id="title">Componentes principales de la interfaz de StackEdit</title>
+  <desc id="desc">Captura de StackEdit anotada con cinco componentes: panel de edición, panel de vista previa, barra de herramientas, menú lateral y explorador de documentos.</desc>
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.16"/>
+    </filter>
+    <style>
+      .title { font: 700 40px Arial, Helvetica, sans-serif; fill: #17365d; }
+      .subtitle { font: 400 20px Arial, Helvetica, sans-serif; fill: #526270; }
+      .num { font: 700 22px Arial, Helvetica, sans-serif; fill: #ffffff; text-anchor: middle; dominant-baseline: middle; }
+      .legend { font: 600 18px Arial, Helvetica, sans-serif; fill: #17365d; }
+      .source { font: 400 16px Arial, Helvetica, sans-serif; fill: #667785; }
+      .callout { fill: none; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="1160" fill="#ffffff"/>
+  <text x="800" y="58" class="title" text-anchor="middle">Componentes principales de StackEdit</text>
+  <text x="800" y="94" class="subtitle" text-anchor="middle">El texto fuente se escribe a la izquierda y el resultado renderizado aparece a la derecha.</text>
+
+  <!-- Captura real de la interfaz -->
+  <g filter="url(#shadow)">
+    <rect x="68" y="158" width="1464" height="825" rx="10" fill="#ffffff" stroke="#b6c4cf" stroke-width="2"/>
+    <image href="stackedit-captura-base.png" x="70" y="160" width="1460" height="821" preserveAspectRatio="none"/>
+  </g>
+
+  <!-- Resaltado de zonas -->
+  <rect x="72" y="211" width="712" height="767" fill="#2878a9" fill-opacity="0.025" stroke="#2878a9" stroke-width="3"/>
+  <rect x="785" y="211" width="743" height="767" fill="#208b82" fill-opacity="0.025" stroke="#208b82" stroke-width="3"/>
+  <rect x="72" y="161" width="1456" height="50" fill="#5a73a8" fill-opacity="0.06" stroke="#5a73a8" stroke-width="3"/>
+  <rect x="1490" y="162" width="38" height="47" rx="5" fill="none" stroke="#337f9b" stroke-width="4"/>
+  <rect x="72" y="162" width="48" height="47" rx="5" fill="none" stroke="#76629a" stroke-width="4"/>
+
+  <!-- Indicadores y líneas -->
+  <g>
+    <path d="M48 480 H155 L265 420" class="callout" stroke="#2878a9"/>
+    <circle cx="48" cy="480" r="28" fill="#2878a9"/><text x="48" y="481" class="num">1</text>
+
+    <path d="M1552 480 H1445 L1335 420" class="callout" stroke="#208b82"/>
+    <circle cx="1552" cy="480" r="28" fill="#208b82"/><text x="1552" y="481" class="num">2</text>
+
+    <path d="M800 132 V148 L650 184" class="callout" stroke="#5a73a8"/>
+    <circle cx="800" cy="128" r="28" fill="#5a73a8"/><text x="800" y="129" class="num">3</text>
+
+    <path d="M1498 132 V150 L1509 172" class="callout" stroke="#337f9b"/>
+    <circle cx="1498" cy="128" r="28" fill="#337f9b"/><text x="1498" y="129" class="num">4</text>
+
+    <path d="M102 132 V150 L96 172" class="callout" stroke="#76629a"/>
+    <circle cx="102" cy="128" r="28" fill="#76629a"/><text x="102" y="129" class="num">5</text>
+  </g>
+
+  <!-- Leyenda -->
+  <rect x="70" y="1010" width="1460" height="90" rx="18" fill="#f3f6f8" stroke="#d4dde4" stroke-width="2"/>
+
+  <circle cx="123" cy="1055" r="24" fill="#2878a9"/><text x="123" y="1056" class="num">1</text>
+  <text x="158" y="1062" class="legend">Panel de edición</text>
+
+  <circle cx="415" cy="1055" r="24" fill="#208b82"/><text x="415" y="1056" class="num">2</text>
+  <text x="450" y="1062" class="legend">Vista previa</text>
+
+  <circle cx="680" cy="1055" r="24" fill="#5a73a8"/><text x="680" y="1056" class="num">3</text>
+  <text x="715" y="1062" class="legend">Barra de herramientas</text>
+
+  <circle cx="1040" cy="1055" r="24" fill="#337f9b"/><text x="1040" y="1056" class="num">4</text>
+  <text x="1075" y="1062" class="legend">Menú lateral</text>
+
+  <circle cx="1290" cy="1055" r="24" fill="#76629a"/><text x="1290" y="1056" class="num">5</text>
+  <text x="1325" y="1050" class="legend">Explorador de</text>
+  <text x="1325" y="1072" class="legend">documentos</text>
+
+  <text x="800" y="1135" class="source" text-anchor="middle">Captura propia de StackEdit (stackedit.io), consultado el 17 de julio de 2026.</text>
+</svg>

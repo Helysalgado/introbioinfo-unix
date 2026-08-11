@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">El recorrido de una colección completa</title>
+  <desc id="desc">Esquema del flujo de un análisis por lotes. A la izquierda, la colección organizada: un directorio con una carpeta por organismo, y dentro de cada una el genoma y su anotación. Un ciclo recorre esas carpetas una por una y, en cada vuelta, entrega el genoma y la anotación correspondientes a la herramienta construida en la sesión anterior, que es siempre la misma. Cada ejecución produce los resultados de su organismo en una carpeta propia, y su código de salida se anota en una bitácora que distingue las ejecuciones correctas de las fallidas; una ejecución que falla no detiene el recorrido. Al final, cuando todas las vueltas han terminado, se construye un resumen que reúne una fila por organismo. Una franja inferior señala que ese resumen responde preguntas que ninguna ejecución individual contenía, porque solo existen cuando existe el conjunto.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrow" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto">
+      <path d="M0 0 L11 5.5 L0 11z" fill="#2878a9"/>
+    </marker>
+    <marker id="arrowred" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto">
+      <path d="M0 0 L11 5.5 L0 11z" fill="#b03a2e"/>
+    </marker>
+    <marker id="arrowgrn" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto">
+      <path d="M0 0 L11 5.5 L0 11z" fill="#1e7a52"/>
+    </marker>
+    <style>
+      .title{font:700 38px Arial;fill:#17365d}
+      .subtitle{font:400 19px Arial;fill:#526270}
+      .tag{font:700 14px Arial;fill:#fff}
+      .copy{font:400 15px Arial;fill:#34495e}
+      .small{font:400 13px Arial;fill:#526270}
+      .code{font:400 14px 'Courier New';fill:#17365d}
+      .h3{font:700 17px Arial;fill:#17365d}
+      .band{font:400 19px Arial;fill:#17365d}
+      .step{font:700 15px Arial;fill:#7d5ba6}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+
+  <text x="800" y="48" class="title" text-anchor="middle">El recorrido de una colección completa</text>
+  <text x="800" y="82" class="subtitle" text-anchor="middle">La herramienta es la misma en cada vuelta. Lo nuevo es el recorrido — y lo que aparece al final.</text>
+
+  <!-- 1. COLECCIÓN -->
+  <text x="50" y="122" class="step">1 · LA COLECCIÓN</text>
+  <g filter="url(#shadow)"><rect x="40" y="134" width="270" height="330" rx="14" fill="#eef5fb" stroke="#2878a9"/></g>
+  <text x="62" y="164" class="code">data/source/genomas/</text>
+  <text x="76" y="196" class="code">├── ecoli/</text>
+  <text x="96" y="218" class="small">genome.fna · annotation.gff3</text>
+  <text x="76" y="248" class="code">├── salmonella/</text>
+  <text x="96" y="270" class="small">genome.fna · annotation.gff3</text>
+  <text x="76" y="300" class="code">├── shigella/</text>
+  <text x="96" y="322" class="small">genome.fna · annotation.gff3</text>
+  <text x="76" y="352" class="code">└── vibrio/</text>
+  <text x="96" y="374" class="small">genome.fna · annotation.gff3</text>
+  <text x="62" y="414" class="copy">Una carpeta por organismo,</text>
+  <text x="62" y="436" class="copy">siempre con la misma forma.</text>
+
+  <path d="M320 300 L360 300" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- 2. EL CICLO -->
+  <text x="380" y="122" class="step">2 · EL RECORRIDO</text>
+  <g filter="url(#shadow)"><rect x="370" y="134" width="290" height="330" rx="14" fill="#f3eefa" stroke="#7d5ba6"/></g>
+  <rect x="392" y="160" width="246" height="86" rx="8" fill="#fff" stroke="#c9d6e2"/>
+  <text x="408" y="186" class="code">for DIR in genomas/*/</text>
+  <text x="408" y="210" class="code">do</text>
+  <text x="408" y="234" class="code">   … ; done</text>
+  <text x="392" y="278" class="copy">Se escribe <tspan font-weight="700">una vez</tspan>.</text>
+  <text x="392" y="304" class="copy">Se ejecuta una vez</text>
+  <text x="392" y="326" class="copy">por cada carpeta.</text>
+  <text x="392" y="366" class="small">La variable de la vuelta</text>
+  <text x="392" y="388" class="small">guarda el organismo actual:</text>
+  <text x="392" y="416" class="code">ecoli → salmonella → …</text>
+
+  <path d="M670 300 L710 300" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- 3. HERRAMIENTA -->
+  <text x="730" y="122" class="step">3 · LA HERRAMIENTA · S25</text>
+  <g filter="url(#shadow)"><rect x="720" y="134" width="290" height="330" rx="14" fill="#eef8f2" stroke="#1e7a52"/></g>
+  <rect x="742" y="160" width="246" height="100" rx="8" fill="#fff" stroke="#c9d6e2"/>
+  <text x="758" y="186" class="code">analizar-genoma.sh</text>
+  <text x="758" y="212" class="code">  $1 genoma</text>
+  <text x="758" y="236" class="code">  $2 anotación</text>
+  <text x="758" y="256" class="small">la misma, sin tocar</text>
+  <text x="742" y="296" class="copy">Valida sus entradas</text>
+  <text x="742" y="322" class="copy">y devuelve un código.</text>
+  <rect x="742" y="342" width="246" height="46" rx="8" fill="#eef8f2" stroke="#1e7a52"/>
+  <text x="758" y="371" class="code">$? = 0   →  salió bien</text>
+  <rect x="742" y="396" width="246" height="46" rx="8" fill="#fdf1ef" stroke="#b03a2e"/>
+  <text x="758" y="425" class="code">$? ≠ 0   →  algo faltó</text>
+
+  <!-- salidas -->
+  <path d="M1020 250 L1060 250" stroke="#1e7a52" stroke-width="3" marker-end="url(#arrowgrn)"/>
+  <path d="M1020 420 L1060 420" stroke="#b03a2e" stroke-width="3" marker-end="url(#arrowred)"/>
+
+  <text x="1080" y="122" class="step">4 · RESULTADOS POR ORGANISMO</text>
+  <g filter="url(#shadow)"><rect x="1070" y="134" width="300" height="200" rx="14" fill="#eef8f2" stroke="#1e7a52"/></g>
+  <text x="1092" y="164" class="code">results/s26/</text>
+  <text x="1106" y="190" class="code">├── ecoli/</text>
+  <text x="1106" y="214" class="code">├── salmonella/</text>
+  <text x="1106" y="238" class="code">└── shigella/</text>
+  <text x="1092" y="274" class="copy">Cada organismo conserva</text>
+  <text x="1092" y="296" class="copy">sus propios resultados.</text>
+  <text x="1092" y="318" class="small">El nombre lo da la carpeta, no tú.</text>
+
+  <g filter="url(#shadow)"><rect x="1070" y="356" width="300" height="130" rx="14" fill="#fdf1ef" stroke="#b03a2e"/></g>
+  <text x="1092" y="386" class="h3">La bitácora del lote</text>
+  <text x="1092" y="414" class="code">vibrio   fallo   1</text>
+  <text x="1092" y="442" class="copy">Un fallo <tspan font-weight="700">no detiene</tspan></text>
+  <text x="1092" y="464" class="copy">el recorrido: queda anotado.</text>
+
+  <path d="M1220 496 L1220 540" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+  <path d="M1220 346 L1220 356" stroke="#2878a9" stroke-width="0" />
+
+  <!-- 5. RESUMEN -->
+  <text x="480" y="558" class="step">5 · Y SOLO CUANDO TERMINAN TODAS LAS VUELTAS…</text>
+  <g filter="url(#shadow)"><rect x="470" y="570" width="900" height="150" rx="14" fill="#eef5fb" stroke="#2878a9"/></g>
+  <text x="494" y="602" class="h3">results/s26/resumen-global.tsv</text>
+  <text x="494" y="632" class="code">organismo     tipos  genes   cds</text>
+  <text x="494" y="656" class="code">ecoli            18   4401   4298</text>
+  <text x="494" y="680" class="code">salmonella       17   4632   4501</text>
+  <text x="494" y="704" class="code">shigella         19   4210   3789</text>
+  <text x="1000" y="632" class="copy">Una fila por organismo.</text>
+  <text x="1000" y="660" class="copy">Ninguna ejecución individual</text>
+  <text x="1000" y="682" class="copy">contenía esta tabla.</text>
+
+  <path d="M440 645 L460 645" stroke="#2878a9" stroke-width="0"/>
+
+  <!-- FRANJA -->
+  <rect x="55" y="748" width="1490" height="120" rx="14" fill="#eef5fb" stroke="#2878a9"/>
+  <text x="85" y="790" class="band"><tspan font-weight="700">El resumen responde preguntas que ninguna ejecución individual podía responder.</tspan></text>
+  <text x="85" y="828" class="copy">Cuántos genes tiene tu genoma lo sabías ayer. Cómo se reparten entre veinte organismos, cuál se sale de la norma y por qué, solo existe cuando existe el conjunto.</text>
+</svg>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Dos caminos independientes hasta un inventario de loci con producto proteico</title>
+  <desc id="desc">Dos columnas describen dos rutas paralelas que terminan en una lista de identificadores de locus. La columna izquierda parte del FASTA y el GFF3 del ensamblado: se seleccionan los registros de tipo CDS, se recupera su atributo locus_tag y se obtiene la lista propia de loci con producto proteico. La columna derecha parte de una tabla descargada de una fuente independiente: se localiza la columna que contiene el identificador de locus, se recuperan sus valores y se obtiene la lista ajena. Las operaciones son las mismas —seleccionar, identificar, normalizar— pero los comandos concretos cambian porque los formatos son distintos. Las dos listas convergen en una comparación que produce tres zonas: solo en la fuente propia, en ambas, y solo en la fuente ajena. Un recuadro final subraya que lo que se compara son dos productos elaborados, no dos archivos crudos, y que la definición del objeto biológico tuvo que ser la misma en ambos caminos para que la comparación signifique algo.</desc>
+  <defs>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#17365d" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrow" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto">
+      <path d="M0 0 L11 5.5 L0 11z" fill="#2878a9"/>
+    </marker>
+    <style>
+      .title{font:700 42px Arial;fill:#17365d}
+      .subtitle{font:400 20px Arial;fill:#526270}
+      .tag{font:700 16px Arial;fill:#fff}
+      .copy{font:400 17px Arial;fill:#34495e}
+      .small{font:400 14px Arial;fill:#526270}
+      .code{font:400 16px 'Courier New';fill:#17365d}
+      .step{font:700 17px Arial;fill:#17365d}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+
+  <text x="800" y="56" class="title" text-anchor="middle">Dos caminos hasta el mismo inventario</text>
+  <text x="800" y="92" class="subtitle" text-anchor="middle">Mismo universo biológico —loci con producto proteico—, mismas operaciones, comandos distintos: por eso la comparación significa algo.</text>
+
+  <!-- COLUMNA IZQUIERDA -->
+  <g filter="url(#shadow)"><rect x="70" y="130" width="640" height="480" rx="16" fill="#eef5fb" stroke="#2878a9"/></g>
+  <rect x="70" y="130" width="330" height="34" rx="10" fill="#2878a9"/>
+  <text x="90" y="155" class="tag">MI FUENTE · el ensamblado</text>
+
+  <rect x="100" y="185" width="580" height="56" rx="10" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="120" y="219" class="code">data/source/anotacion.gff3</text>
+
+  <line x1="390" y1="247" x2="390" y2="275" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="100" y="285" width="580" height="66" rx="10" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="120" y="311" class="step">SELECCIONAR el registro</text>
+  <text x="120" y="337" class="code">cut -f3,9 | grep -E '^CDS\t'</text>
+
+  <line x1="390" y1="357" x2="390" y2="385" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="100" y="395" width="580" height="66" rx="10" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="120" y="421" class="step">IDENTIFICAR el objeto</text>
+  <text x="120" y="447" class="code">grep -oE 'locus_tag=[^;]+' | cut -d= -f2</text>
+
+  <line x1="390" y1="467" x2="390" y2="495" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="100" y="505" width="580" height="66" rx="10" fill="#fff" stroke="#2878a9" stroke-width="3"/>
+  <text x="120" y="531" class="step">NORMALIZAR y ordenar</text>
+  <text x="120" y="557" class="code" font-size="14">locus-codificantes-propio-normalizado.txt</text>
+
+  <!-- COLUMNA DERECHA -->
+  <g filter="url(#shadow)"><rect x="890" y="130" width="640" height="480" rx="16" fill="#eef8f2" stroke="#8cc9a9"/></g>
+  <rect x="890" y="130" width="380" height="34" rx="10" fill="#1e7a52"/>
+  <text x="910" y="155" class="tag">FUENTE INDEPENDIENTE · otra curación</text>
+
+  <rect x="920" y="185" width="580" height="56" rx="10" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="940" y="219" class="code">data/source/uniprot-proteoma.tsv</text>
+
+  <line x1="1210" y1="247" x2="1210" y2="275" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="920" y="285" width="580" height="66" rx="10" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="940" y="311" class="step">SELECCIONAR el registro</text>
+  <text x="940" y="337" class="code">grep -v '^Entry\t'   (quitar encabezado)</text>
+
+  <line x1="1210" y1="357" x2="1210" y2="385" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="920" y="395" width="580" height="66" rx="10" fill="#fff" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="940" y="421" class="step">IDENTIFICAR el objeto</text>
+  <text x="940" y="447" class="code">cut -f3        (columna del locus)</text>
+
+  <line x1="1210" y1="467" x2="1210" y2="495" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="920" y="505" width="580" height="66" rx="10" fill="#fff" stroke="#1e7a52" stroke-width="3"/>
+  <text x="940" y="531" class="step">NORMALIZAR y ordenar</text>
+  <text x="940" y="557" class="code" font-size="14">locus-uniprot-normalizado.txt</text>
+
+  <!-- CONVERGENCIA -->
+  <path d="M390 585 C 390 640, 700 640, 760 660" fill="none" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+  <path d="M1210 585 C 1210 640, 900 640, 840 660" fill="none" stroke="#2878a9" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="660" y="655" width="280" height="50" rx="10" fill="#17365d"/>
+  <text x="800" y="688" class="tag" text-anchor="middle" font-size="19">comm</text>
+
+  <rect x="180" y="740" width="380" height="60" rx="10" fill="#fdf7e8" stroke="#d18b16" stroke-width="2"/>
+  <text x="370" y="766" class="copy" text-anchor="middle" font-weight="700">Solo en mi anotación</text>
+  <text x="370" y="789" class="small" text-anchor="middle">lo que la otra fuente no reconoce</text>
+
+  <rect x="610" y="740" width="380" height="60" rx="10" fill="#eef8f2" stroke="#1e7a52" stroke-width="2"/>
+  <text x="800" y="766" class="copy" text-anchor="middle" font-weight="700">En ambas</text>
+  <text x="800" y="789" class="small" text-anchor="middle">lo que se sostiene por dos caminos</text>
+
+  <rect x="1040" y="740" width="380" height="60" rx="10" fill="#fdf1ef" stroke="#b03a2e" stroke-width="2"/>
+  <text x="1230" y="766" class="copy" text-anchor="middle" font-weight="700">Solo en la fuente ajena</text>
+  <text x="1230" y="789" class="small" text-anchor="middle">lo que mi anotación no recoge</text>
+
+  <rect x="60" y="825" width="1480" height="55" rx="12" fill="#f7fafc" stroke="#c9d6e2" stroke-width="2"/>
+  <text x="95" y="859" class="copy"><tspan font-weight="700">Lo que se compara son dos productos, no dos archivos.</tspan> Los loci sin CDS —RNA, pseudogenes— quedan fuera de esta comparación: no son discrepancias, son alcance.</text>
+</svg>
