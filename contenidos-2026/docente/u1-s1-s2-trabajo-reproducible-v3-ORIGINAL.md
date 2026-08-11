@@ -1,5 +1,12 @@
 # Unidad 1. Trabajo reproducible y comunicación técnica
 
+> **DOCUMENTO CONSERVADO — no es material vigente (ago-2026).** Esta es la versión **anterior a la
+> partición** de la Unidad 1, cuando S1 y S2 compartían un solo archivo. Se conserva íntegra como
+> registro del reparto y porque el canon la declaraba «estándar de oro». El material vigente son
+> [`u1-trabajo-reproducible.md`](../u1-trabajo-reproducible.md) (portada),
+> [`u1-s1-documentar-markdown-fases.md`](../u1-s1-documentar-markdown-fases.md) y
+> [`u1-s2-organizar-fair-ia.md`](../u1-s2-organizar-fair-ia.md). **No se edita ni se publica.**
+
 > **NOTA — Cómo se estudia esta unidad (aula invertida):** Esta unidad funciona en tres momentos.
 > **(1) Antes de clase** lees este material y haces un **primer intento** de las prácticas. No se
 > espera que tu intento esté completo ni perfecto: los errores, los resultados inesperados y las
@@ -91,7 +98,7 @@ acceder y analizar** esa avalancha de datos biológicos. La única forma prácti
 tantos datos es a través de la computadora, automatizando tareas para ahorrar tiempo y reducir
 errores.
 
-![La bioinformática en cinco pasos: (1) una pregunta biológica, (2) experimentos y repositorios que generan datos, (3) datos biológicos (secuencias, anotaciones, tablas, imágenes), (4) la bioinformática que almacena, accede, explora y analiza a escala, y (5) evidencia e interpretación; el trabajo científico confiable —automatización, documentación, verificación y reproducibilidad— atraviesa todo el proceso.](images/figura-u1-s01-introduccion-bioinformatica.png)
+![La bioinformática en cinco pasos: (1) una pregunta biológica, (2) experimentos y repositorios que generan datos, (3) datos biológicos (secuencias, anotaciones, tablas, imágenes), (4) la bioinformática que almacena, accede, explora y analiza a escala, y (5) evidencia e interpretación; el trabajo científico confiable —automatización, documentación, verificación y reproducibilidad— atraviesa todo el proceso.](../images/figura-u1-s01-introduccion-bioinformatica.png)
 
 **Figura 1.** Qué hace la bioinformática: transforma una pregunta y datos biológicos en evidencia interpretable mediante herramientas computacionales. Las habilidades con datos y el trabajo confiable atraviesan todo el proceso.
 
@@ -180,7 +187,7 @@ forma consistente. Evitamos la palabra ambigua "repetir".
   silenciosos ni de una única comprobación insuficiente.
   *Ejemplo:* obtienes el mismo conteo por dos caminos distintos.
 
-![Comparación entre investigación reproducible (regenerar los mismos resultados con los mismos datos, código y documentación) e investigación robusta (que el resultado sea correcto y resista cambios); ambas juntas dan una investigación confiable.](images/figura-u1-s01-reproducible-vs-robusta.png)
+![Comparación entre investigación reproducible (regenerar los mismos resultados con los mismos datos, código y documentación) e investigación robusta (que el resultado sea correcto y resista cambios); ambas juntas dan una investigación confiable.](../images/figura-u1-s01-reproducible-vs-robusta.png)
 
 **Figura 2.** Reproducible no es lo mismo que robusto: un análisis puede regenerarse exactamente y aun así estar equivocado. La investigación confiable es a la vez reproducible y robusta.
 
@@ -200,7 +207,7 @@ forma consistente. Evitamos la palabra ambigua "repetir".
 Trabajar con datos implica **dos procesos que se relacionan pero no son equivalentes**. Distinguirlos
 evita confundir "mover datos de un lado a otro" con "responder una pregunta".
 
-![Ciclo del análisis de datos en bioinformática en seis fases: Pregunta, Datos, Exploración, Análisis, Interpretación y Comunicación, sobre una banda que indica documentación y metadatos en todas las fases.](images/figura-u1-s01-ciclo-analisis.png)
+![Ciclo del análisis de datos en bioinformática en seis fases: Pregunta, Datos, Exploración, Análisis, Interpretación y Comunicación, sobre una banda que indica documentación y metadatos en todas las fases.](../images/figura-u1-s01-ciclo-analisis.png)
 
 **Figura 3.** El ciclo del análisis de datos. Cada fase responde una pregunta distinta, pero la documentación y los metadatos acompañan a todas.
 
@@ -233,7 +240,7 @@ FAIR es un acrónimo:
 - **I**nteroperable (interoperable): usa formatos y vocabularios estándar.
 - **R**eusable (reutilizable): está bien documentado y con licencia clara.
 
-![Los cuatro principios FAIR presentados en tarjetas: Findable (localizable, con identificadores y metadatos), Accessible (accesible mediante protocolos claros), Interoperable (formatos y vocabularios estándar) y Reusable (con procedencia, licencia y documentación).](images/figura-u1-s01-principios-fair.png)
+![Los cuatro principios FAIR presentados en tarjetas: Findable (localizable, con identificadores y metadatos), Accessible (accesible mediante protocolos claros), Interoperable (formatos y vocabularios estándar) y Reusable (con procedencia, licencia y documentación).](../images/figura-u1-s01-principios-fair.png)
 
 **Figura 4.** Los principios FAIR para datos y software. Son cuatro condiciones complementarias para que un recurso científico conserve su valor y pueda reutilizarse; FAIR no significa necesariamente "abierto" o "gratuito".
 
@@ -266,7 +273,7 @@ lograrlo**:
 > resuelven con un solo archivo. La **ficha de metadatos** que contribuye a ellos la construyes en la
 > sección 4, y la estructura de carpetas donde vive, en la sección 6.
 
-![Las siete fases del manejo de datos de un proyecto (obtención, registro de procedencia, exploración, limpieza o transformación, análisis, conservación y documentación), cada una con la carpeta del proyecto donde cae (data/source, data/processed, results, doc) y los principios FAIR que aplica (F, A, I, R).](images/figura-u1-s01-proyecto-fases-fair.png)
+![Las siete fases del manejo de datos de un proyecto (obtención, registro de procedencia, exploración, limpieza o transformación, análisis, conservación y documentación), cada una con la carpeta del proyecto donde cae (data/source, data/processed, results, doc) y los principios FAIR que aplica (F, A, I, R).](../images/figura-u1-s01-proyecto-fases-fair.png)
 
 **Figura 5.** Dónde encajan el manejo de datos y FAIR en un proyecto: cada fase del proceso A produce algo, se guarda en una carpeta y aplica los principios FAIR que le corresponden. Los metadatos viven junto a los datos en `data/source/`.
 
@@ -456,9 +463,9 @@ científico. Usa esta correspondencia:
 > **interpretación**.
 
 Puedes consultar la plantilla en blanco
-[`formato_protocolo_v1.0.md`](../introBioInfo/ejemplos/formato_protocolo_v1.0.md) y un ejemplo ya
+[`formato_protocolo_v1.0.md`](../../introBioInfo/ejemplos/formato_protocolo_v1.0.md) y un ejemplo ya
 trabajado en
-[`ReporteGenomeEcoli_Formato_v2.md`](../introBioInfo/ejemplos/ReporteGenomeEcoli_Formato_v2.md).
+[`ReporteGenomeEcoli_Formato_v2.md`](../../introBioInfo/ejemplos/ReporteGenomeEcoli_Formato_v2.md).
 
 ### 4.2 La ficha de cada dato: los metadatos
 
@@ -495,7 +502,7 @@ cuando descargues datos reales en unidades posteriores:
 Cuando los datos vienen en forma de tabla (columnas), los metadatos deben incluir un **diccionario de
 variables**: qué significa cada columna, su tipo y sus unidades. Puedes ver un ejemplo que **modela
 la conducta correcta** (documenta solo lo comprobable y marca lo demás como "no documentado") en
-[`ejemplos/metadatos_pacientes.md`](ejemplos/metadatos_pacientes.md).
+[`ejemplos/metadatos_pacientes.md`](../ejemplos/metadatos_pacientes.md).
 
 > **TIP:** El **checksum** es una "huella digital" del archivo (un código que cambia si el archivo se
 > altera). Sirve para verificar que una descarga llegó íntegra. Aprenderás a calcularlo en la
@@ -529,7 +536,7 @@ instalar nada (<https://stackedit.io>). Muestra, lado a lado, **lo que escribes*
 que inserta las marcas por ti, un explorador de documentos y opciones para **exportar** a `.md`, HTML
 o PDF.
 
-![Interfaz de StackEdit con cinco componentes señalados: (1) panel de edición a la izquierda donde se escribe el texto fuente, (2) vista previa a la derecha con el resultado renderizado, (3) barra de herramientas superior, (4) menú lateral y (5) explorador de documentos.](images/figura-u1-s01-interfaz-stackedit.png)
+![Interfaz de StackEdit con cinco componentes señalados: (1) panel de edición a la izquierda donde se escribe el texto fuente, (2) vista previa a la derecha con el resultado renderizado, (3) barra de herramientas superior, (4) menú lateral y (5) explorador de documentos.](../images/figura-u1-s01-interfaz-stackedit.png)
 
 **Figura 6.** Componentes principales de StackEdit: (1) panel de edición, (2) vista previa, (3) barra de herramientas, (4) menú lateral y (5) explorador de documentos. Captura propia de StackEdit (stackedit.io).
 
@@ -614,7 +621,7 @@ proyecto/
 > (Noble, 2009), por ser más clara y escalable. Ambas cumplen el mismo principio (separar originales
 > de derivados); se documenta aquí la diferencia sin modificar el programa.
 
-![Estructura de un proyecto bioinformático reproducible que separa los datos originales, el código, los resultados y la documentación, con la regla de nunca modificar los datos originales.](images/figura-u1-s01-estructura-proyecto.png)
+![Estructura de un proyecto bioinformático reproducible que separa los datos originales, el código, los resultados y la documentación, con la regla de nunca modificar los datos originales.](../images/figura-u1-s01-estructura-proyecto.png)
 
 **Figura 7.** Organización de un proyecto reproducible: separa los datos (originales en `data/source/` y derivados en `data/processed/`) del código, los resultados y la documentación (Noble, 2009).
 
@@ -675,7 +682,7 @@ Un buen *prompt* (instrucción) mejora la respuesta. Un prompt científico inclu
 9. **Fuentes o documentación** que deberían consultarse.
 10. **Plan de verificación** (cómo comprobarás la respuesta).
 
-![Anatomía de un prompt científico efectivo con cuatro bloques esenciales: Contexto (qué datos tienes y en qué entorno), Objetivo (qué resultado necesitas), Formato (cómo debe responder) y Verificación (cómo comprobarás que es correcto), con un ejemplo integrado sobre contar secuencias en un archivo FASTA.](images/figura-u1-s01-anatomia-prompt.png)
+![Anatomía de un prompt científico efectivo con cuatro bloques esenciales: Contexto (qué datos tienes y en qué entorno), Objetivo (qué resultado necesitas), Formato (cómo debe responder) y Verificación (cómo comprobarás que es correcto), con un ejemplo integrado sobre contar secuencias en un archivo FASTA.](../images/figura-u1-s01-anatomia-prompt.png)
 
 **Figura 8.** Los cuatro bloques esenciales de un prompt científico —contexto, objetivo, formato y verificación— con un ejemplo integrado. La lista de arriba los desarrolla en detalle.
 
@@ -688,7 +695,7 @@ Tras recibir una respuesta de IA: **(1)** entiéndela —si no puedes explicar q
 **(2)** pruébala en datos pequeños de resultado conocido; **(3)** contrástala con la documentación
 oficial o el material del curso.
 
-![Ciclo de validación de una respuesta de IA: entender, probar con un caso controlado y contrastar con una fuente independiente; si la respuesta es correcta y está sustentada se acepta (con registro), y si es dudosa se corrige y se vuelve a entender.](images/figura-u1-s01-validacion-ia.png)
+![Ciclo de validación de una respuesta de IA: entender, probar con un caso controlado y contrastar con una fuente independiente; si la respuesta es correcta y está sustentada se acepta (con registro), y si es dudosa se corrige y se vuelve a entender.](../images/figura-u1-s01-validacion-ia.png)
 
 **Figura 9.** Antes de usar una respuesta de IA hay que entenderla, probarla y contrastarla. Si no es confiable, se corrige y se vuelve a validar; la responsabilidad del resultado es siempre de quien realiza el análisis.
 
@@ -767,7 +774,7 @@ enlace; tabla y bloque de código solo donde tengan función). Verifica que se v
 ### Práctica 2 — Organización del proyecto y metadatos (parte de la Tarea 2)
 
 **Antes de clase (primer intento).** Trabajarás con el conjunto de datos pequeño del curso
-[`ejemplos/pacientes.md`](ejemplos/pacientes.md), un conjunto de datos **sintético** (creado
+[`ejemplos/pacientes.md`](../ejemplos/pacientes.md), un conjunto de datos **sintético** (creado
 para el ejercicio, no proviene de personas reales) con tres registros y fines exclusivamente
 educativos.
 

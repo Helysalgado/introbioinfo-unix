@@ -7,7 +7,8 @@
 >
 > **Cómo trabajar cada unidad:** generar/redactar → revisar contra la **checklist de calidad** →
 > ajustar sección por sección con visto bueno. Unidad de referencia (estándar de oro):
-> `u1-s1-s2-trabajo-reproducible-v3.md`.
+> `u1-s1-documentar-markdown-fases.md` y `u1-s2-organizar-fair-ia.md`, con su portada
+> `u1-trabajo-reproducible.md`.
 >
 > **Alcance: unidad completa vs. módulo.** Algunos requisitos de esta plantilla se aplican a la
 > **unidad completa** (ficha de unidad, resultados generales, tabla acumulativa de competencia);

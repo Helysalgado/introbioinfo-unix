@@ -621,6 +621,17 @@ parte no?
    `solo-uniprot.txt`.
 3. **Cuenta las tres zonas.** Solo los tres números: los porcentajes y las magnitudes son de S22.
 
+> **TIP — no hay tres números correctos.** El tamaño de cada zona depende de tu organismo, de la
+> versión del ensamblado y de qué recorta la fuente independiente, así que no compares tus cifras con
+> las de otro equipo ni esperes que la intersección sea casi total.
+>
+> Lo que sí puedes anticipar es la **dirección** de la asimetría, y conviene que la razones antes de
+> mirar: una fuente que solo cataloga proteínas revisadas casi siempre reconocerá **menos** entradas
+> que tu anotación completa, porque tu GFF3 incluye categorías que aquella no contempla. Si te sale
+> al revés —muchas entradas que solo existen en la fuente ajena—, no es un error: es una pista de que
+> las dos listas no describen el mismo universo, y eso es exactamente lo que la Práctica 6 te pide
+> explicar.
+
 **Parte B — Caracterizar**
 
 4. **Contrasta con tu predicción** de la Práctica 1, paso 6. ¿Acertaste la magnitud? ¿Y la dirección

@@ -435,9 +435,27 @@ marcadores editoriales como "FIGURA SUGERIDA" o "Crear figura".
 
 ### Unidad 1 --- Trabajo reproducible y comunicación técnica
 
--   [`u1-s1-s2-trabajo-reproducible-v3.md`](u1-s1-s2-trabajo-reproducible-v3.md):
-    versión vigente de la unidad (S1--S2). **Unidad de referencia
-    (estándar de oro)** para generar las demás.
+-   [`u1-trabajo-reproducible.md`](u1-trabajo-reproducible.md): portada de
+    la unidad --- ficha, ruta S1--S2, cierre de unidad con quiz y reto
+    final, anexos y glosario.
+-   [`u1-s1-documentar-markdown-fases.md`](u1-s1-documentar-markdown-fases.md):
+    bioinformática y reproducibilidad, fases del análisis y de
+    resolución, de la pregunta biológica a la estrategia, el protocolo y
+    Markdown. Desarrolla la **Tarea 1**.
+-   [`u1-s2-organizar-fair-ia.md`](u1-s2-organizar-fair-ia.md): principios
+    FAIR, ficha de metadatos, organización reproducible del proyecto y
+    cápsula de uso crítico de IA. Desarrolla la **Tarea 2**.
+
+**Unidad de referencia (estándar de oro)** para generar las demás.
+
+Hasta agosto de 2026, S1 y S2 compartían un archivo
+(`u1-s1-s2-trabajo-reproducible-v3.md`): U1 era la única unidad sin
+portada y sin un documento por sesión. Se dividió siguiendo las **Tareas
+del plan** ---la Tarea 1 define S1 y la Tarea 2 define S2---, lo que
+obligó a partir dos secciones: los principios FAIR y la ficha de
+metadatos pasaron a S2, mientras las fases del análisis y el protocolo se
+quedaron en S1. La versión previa se conserva íntegra, sin publicar, en
+[`docente/u1-s1-s2-trabajo-reproducible-v3-ORIGINAL.md`](docente/u1-s1-s2-trabajo-reproducible-v3-ORIGINAL.md).
 
 ### Unidad 2 --- Entorno Unix/Linux y cómputo científico
 

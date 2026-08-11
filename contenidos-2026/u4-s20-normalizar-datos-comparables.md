@@ -593,6 +593,17 @@ separados los objetos que deben seguir siendo distintos?
    puedes justificarla**.
 6. Completa la tabla:
 
+> **TIP — dos controles no admiten interpretación; el tercero sí.** Sea cual sea tu genoma, la
+> **idempotencia** debe cumplirse siempre: reaplicar la política a una lista ya normalizada tiene que
+> devolver exactamente lo mismo. Si cambia, tu política no es una función, es una secuencia de
+> parches. Y `sort -c` o pasa o falla: no hay término medio.
+>
+> El que sí depende de tus datos es el recuento de valores únicos. Que **disminuya** no significa
+> automáticamente que la normalización esté mal: significa que dos identificadores convergieron, y
+> tú tienes que decidir si esa fusión es legítima para tu pregunta. Lo que no vale es no mirarlo. Una
+> pérdida justificada y documentada es un resultado; una pérdida no advertida es un error que
+> aparecerá en S21 disfrazado de discrepancia entre fuentes.
+
    | Control | FASTA | GFF3 | Resultado esperado | Decisión |
    | --- | ---: | ---: | --- | --- |
    | Líneas antes | … | … | Línea base | — |

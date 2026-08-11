@@ -829,6 +829,43 @@ de líneas de salida.
 6. **Comprueba la separación de canales:** ejecuta con una entrada mala redirigiendo la salida normal
    a un archivo (`> /tmp/prueba.txt`). ¿Viste el error en pantalla? ¿Qué quedó en el archivo?
 
+<details>
+<summary>Ver retroalimentación</summary>
+
+**Ábrelo después de haber recorrido los seis casos.** El comportamiento de las comprobaciones no
+depende de tu genoma.
+
+**`-f` y `-s` no comprueban lo mismo, y la diferencia es el caso 4.**
+
+| Prueba | Es cierta cuando… | Deja pasar |
+| --- | --- | --- |
+| `-f archivo` | existe y es un archivo regular | un archivo **vacío** |
+| `-s archivo` | existe **y tiene tamaño mayor que cero** | — |
+
+Por eso el GFF3 se comprueba con `-s`: un GFF3 de cero bytes existe, supera `-f` y produce
+silenciosamente un inventario vacío. Es el caso 4 de tu tabla, y es el que `-f` no atrapa.
+
+**Códigos de salida esperados.** Con las comprobaciones puestas, los casos 1 a 4 terminan con `$?`
+igual a **1** —el error que tú decidiste— y **sin crear ningún archivo**, porque el script se detiene
+antes de la primera redirección. Si alguno te devuelve 0, la comprobación está después de donde
+debería.
+
+**Lo que sigue sin quedar resuelto.** Repasa tu tabla: de los seis casos, las comprobaciones de
+existencia arreglan cuatro. Quedan dos.
+
+- **Caso 5, orden invertido.** Los dos archivos existen y ninguno está vacío: todas las
+  comprobaciones pasan y el script produce resultados equivocados. Solo se detecta mirando el
+  contenido, como anticipaste en la Práctica 2.
+- **Caso 6, ruta con espacio.** No lo arregla ninguna comprobación: lo arregla **entrecomillar las
+  variables**. Si no lo hiciste, la ruta se parte en dos argumentos antes de que el script pueda
+  examinarla, y el mensaje de error nombrará solo el primer trozo.
+
+Que dos de seis sigan abiertos no es un fallo de la práctica: es el resultado. Comprobar que un
+archivo existe es la comprobación más barata, no la que importa.
+
+</details>
+
+
 **Parte C — El caso que no se puede comprobar**
 
 7. **Vuelve al caso 5** —los argumentos invertidos—. Las comprobaciones que añadiste no lo detectan:

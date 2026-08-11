@@ -382,6 +382,34 @@ sin fundamento.
 
    Dentro de `less`, `q` sale, `/` busca y `G` va al final.
 
+<details>
+<summary>Ver retroalimentación</summary>
+
+Lo que sigue es **estructura de formato**: vale para cualquier FASTA o GFF3, venga de donde venga.
+Las cifras concretas —cuántas líneas de comentario, qué longitud— sí dependen de tu archivo.
+
+**En el FASTA.** La primera línea empieza por `>` siempre: es el encabezado, y todo lo que va después
+del `>` hasta el primer espacio es el identificador de la secuencia. Las líneas de secuencia suelen
+tener una anchura fija —60, 70 u 80 caracteres, según quién generó el archivo— salvo la última de
+cada secuencia, que es la que sobra. Si tu `tail` muestra una línea más corta, no está cortada: está
+completa.
+
+**En el GFF3.** La primera línea es `##gff-version 3`; es obligatoria y sirve para reconocer el
+formato. Las líneas que empiezan por `##` son **directivas** —instrucciones para el programa que lee
+el archivo—, y `##sequence-region` declara, para cada molécula, su identificador y su longitud en
+pares de bases. Ojo con esa línea: es una **declaración**, no una medición, y en S12 volverás sobre
+ella para medir el genoma.
+
+Las líneas que empiezan con un solo `#` son comentarios libres. La primera línea de datos es la
+primera que **no** empieza por `#`, y tiene nueve columnas separadas por tabuladores.
+
+> **NOTA:** Que un archivo esté comprimido no cambia nada de lo anterior; solo obliga a descomprimir
+> una copia antes de mirarlo. `file` te lo dijo en el paso 2, y el original de `data/source/` no se
+> toca.
+
+</details>
+
+
 **Producto.** En tu primer intento, marca cada predicción como *confirmada*, *refutada* o
 *indeterminada con esta evidencia*, y explica en una frase, para cada refutación, si falló el
 supuesto biológico o el informático.
@@ -769,6 +797,23 @@ una tubería, salvo en el primer eslabón, la respuesta correcta es siempre la s
 
    Debe devolver `5`. Si devuelve otra cosa, algo no está haciendo lo que supones: revisa cada
    eslabón por separado.
+
+<details>
+<summary>Ver retroalimentación</summary>
+
+**Si no devuelve `5`**, hay tres causas posibles y se distinguen mirando dónde falla la tubería:
+
+| Qué obtienes | Causa | Cómo confirmarlo |
+| --- | --- | --- |
+| Menos de 5 | Tu `N` es mayor que el número real de líneas de comentario, o el archivo tiene menos líneas de las que pides | Ejecuta solo el primer `head` y cuenta |
+| 5, pero con líneas que empiezan por `#` | Tu `N` es **menor** que el número real de comentarios: te llevaste directivas | Mira la salida, no solo el conteo |
+| Un error | Escribiste `<N+5>` literalmente en vez de sustituirlo por el número | El mensaje nombrará el argumento |
+
+El segundo caso es el importante: **`wc -l` diría `5` igualmente**. Contar confirma cuántas líneas
+salieron, no cuáles. Que el número cuadre no demuestra que el flujo haga lo que crees; por eso el
+paso 4 te pide mirar el archivo, no solo contarlo.
+
+</details>
 
 4. Guarda el resultado:
 
