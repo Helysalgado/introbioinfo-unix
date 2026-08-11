@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="720" viewBox="0 0 1600 720" role="img" aria-labelledby="t d">
-  <title id="t">El primer hit no siempre es el más útil</title>
-  <desc id="d">Tres columnas: lo que BLAST ordenó, lo que miraste al integrar métricas, y tu ranking final con un hit de cobertura completa por delante del primero de la lista.</desc>
+  <title id="t">El primer hit no siempre es el mÃ¡s Ãºtil</title>
+  <desc id="d">Tres columnas: lo que BLAST ordenÃ³, lo que miraste al integrar mÃ©tricas, y tu ranking final con un hit de cobertura completa por delante del primero de la lista.</desc>
   <defs>
     <filter id="sh" x="-10%" y="-10%" width="120%" height="135%">
       <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#17365d" flood-opacity="0.12"/>
@@ -16,58 +16,58 @@
     </style>
   </defs>
   <rect width="1600" height="720" fill="#fff"/>
-  <text x="800" y="46" class="title" text-anchor="middle">Principio 3: el mejor hit no es automáticamente la mejor explicación</text>
+  <text x="800" y="46" class="title" text-anchor="middle">Principio 3: el mejor hit no es automÃ¡ticamente la mejor explicaciÃ³n</text>
   <text x="800" y="76" class="sub" text-anchor="middle">El orden del programa es un punto de partida, no un veredicto</text>
 
   <!-- COL 1 -->
   <g filter="url(#sh)"><rect x="60" y="110" width="460" height="480" rx="16" fill="#eef4fa" stroke="#17365d" stroke-width="2"/></g>
   <rect x="60" y="110" width="460" height="50" rx="16" fill="#17365d"/>
   <rect x="60" y="140" width="460" height="20" fill="#17365d"/>
-  <text x="290" y="145" class="h" text-anchor="middle">1 · Lo que BLAST ordenó</text>
+  <text x="290" y="145" class="h" text-anchor="middle">1 Â· Lo que BLAST ordenÃ³</text>
   <rect x="90" y="190" width="400" height="70" rx="10" fill="#fff" stroke="#17365d"/>
-  <text x="110" y="220" class="item">Hit 1 · bitscore máximo</text>
-  <text x="110" y="245" class="small">pident alto · cobertura baja</text>
+  <text x="110" y="220" class="item">Hit 1 Â· bitscore mÃ¡ximo</text>
+  <text x="110" y="245" class="small">pident alto Â· cobertura baja</text>
   <rect x="90" y="280" width="400" height="70" rx="10" fill="#fff" stroke="#c9d6e2"/>
-  <text x="110" y="310" class="item">Hit 2 · casi idéntico a Hit 3</text>
+  <text x="110" y="310" class="item">Hit 2 Â· casi idÃ©ntico a Hit 3</text>
   <text x="110" y="335" class="small">redundante</text>
   <rect x="90" y="370" width="400" height="70" rx="10" fill="#fff" stroke="#c9d6e2"/>
-  <text x="110" y="400" class="item">Hit 3 · eco de Hit 2</text>
+  <text x="110" y="400" class="item">Hit 3 Â· eco de Hit 2</text>
   <text x="110" y="425" class="small">misma evidencia, otra entrada</text>
   <rect x="90" y="460" width="400" height="70" rx="10" fill="#fff" stroke="#c9d6e2"/>
-  <text x="110" y="490" class="item">Hit 7 · más abajo</text>
-  <text x="110" y="515" class="small">cobertura completa · identidad moderada</text>
+  <text x="110" y="490" class="item">Hit 7 Â· mÃ¡s abajo</text>
+  <text x="110" y="515" class="small">cobertura completa Â· identidad moderada</text>
 
   <!-- COL 2 -->
   <g filter="url(#sh)"><rect x="570" y="110" width="460" height="480" rx="16" fill="#fff8e8" stroke="#d18b16" stroke-width="2"/></g>
   <rect x="570" y="110" width="460" height="50" rx="16" fill="#d18b16"/>
   <rect x="570" y="140" width="460" height="20" fill="#d18b16"/>
-  <text x="800" y="145" class="h" text-anchor="middle">2 · Lo que miraste</text>
+  <text x="800" y="145" class="h" text-anchor="middle">2 Â· Lo que miraste</text>
   <text x="800" y="220" class="copy" text-anchor="middle">Hit 1: cobertura parcial</text>
-  <text x="800" y="250" class="small" text-anchor="middle">’ evidencia de un dominio, no del todo</text>
+  <text x="800" y="250" class="small" text-anchor="middle">â€™ evidencia de un dominio, no del todo</text>
   <text x="800" y="310" class="copy" text-anchor="middle">Hits 2 y 3: redundancia</text>
-  <text x="800" y="340" class="small" text-anchor="middle">’ un representante basta</text>
+  <text x="800" y="340" class="small" text-anchor="middle">â€™ un representante basta</text>
   <text x="800" y="400" class="copy" text-anchor="middle">Hit 7: cubre toda la consulta</text>
-  <text x="800" y="430" class="small" text-anchor="middle">’ mejor para TU pregunta</text>
-  <text x="800" y="500" class="copy" text-anchor="middle">Anotación + base documentada</text>
-  <text x="800" y="530" class="small" text-anchor="middle">’ contexto de S31</text>
+  <text x="800" y="430" class="small" text-anchor="middle">â€™ mejor para TU pregunta</text>
+  <text x="800" y="500" class="copy" text-anchor="middle">AnotaciÃ³n + base documentada</text>
+  <text x="800" y="530" class="small" text-anchor="middle">â€™ contexto de S31</text>
 
   <!-- COL 3 -->
   <g filter="url(#sh)"><rect x="1080" y="110" width="460" height="480" rx="16" fill="#eef8f2" stroke="#1e7a52" stroke-width="2"/></g>
   <rect x="1080" y="110" width="460" height="50" rx="16" fill="#1e7a52"/>
   <rect x="1080" y="140" width="460" height="20" fill="#1e7a52"/>
-  <text x="1310" y="145" class="h" text-anchor="middle">3 · Tu ranking</text>
+  <text x="1310" y="145" class="h" text-anchor="middle">3 Â· Tu ranking</text>
   <rect x="1110" y="190" width="400" height="90" rx="10" fill="#fff" stroke="#1e7a52" stroke-width="2"/>
-  <text x="1130" y="225" class="item">1º Hit 7</text>
+  <text x="1130" y="225" class="item">1Âº Hit 7</text>
   <text x="1130" y="255" class="small">mejor sustentado para la pregunta</text>
   <rect x="1110" y="300" width="400" height="70" rx="10" fill="#fff" stroke="#c9d6e2"/>
-  <text x="1130" y="330" class="item">2º Hit 2 (representante)</text>
+  <text x="1130" y="330" class="item">2Âº Hit 2 (representante)</text>
   <text x="1130" y="355" class="small">Hit 3 descartado por redundancia</text>
   <rect x="1110" y="390" width="400" height="90" rx="10" fill="#fff" stroke="#b03a2e"/>
-  <text x="1130" y="425" class="item">Hit 1 ’ evidencia parcial</text>
-  <text x="1130" y="455" class="small">útil con límites; no como «la respuesta»</text>
-  <text x="1310" y="530" class="small" text-anchor="middle">Cada decisión lleva un motivo</text>
+  <text x="1130" y="425" class="item">Hit 1 â€™ evidencia parcial</text>
+  <text x="1130" y="455" class="small">Ãºtil con lÃ­mites; no como Â«la respuestaÂ»</text>
+  <text x="1310" y="530" class="small" text-anchor="middle">Cada decisiÃ³n lleva un motivo</text>
   <text x="1310" y="555" class="small" text-anchor="middle">escrito en el protocolo</text>
 
   <rect x="60" y="620" width="1480" height="70" rx="12" fill="#fdf1ef" stroke="#b03a2e" stroke-width="2"/>
-  <text x="800" y="662" style="font:600 17px Arial;fill:#17365d" text-anchor="middle">Si tu elección coincide con la fila 1, dilo  y explica por las métricas, no porque estaba primero.</text>
+  <text x="800" y="662" style="font:600 17px Arial;fill:#17365d" text-anchor="middle">Si tu elecciÃ³n coincide con la fila 1, dilo  y explica por las mÃ©tricas, no porque estaba primero.</text>
 </svg>

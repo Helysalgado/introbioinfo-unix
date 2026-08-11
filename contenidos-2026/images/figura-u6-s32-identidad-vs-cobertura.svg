@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="780" viewBox="0 0 1600 780" role="img" aria-labelledby="t d">
   <title id="t">Identidad frente a cobertura</title>
-  <desc id="d">Dos barras que representan la misma proteína consulta. Hit A cubre casi toda la barra con 55 por ciento de identidad. Hit B cubre solo un extremo con 92 por ciento de identidad. La pregunta al pie es cuál aporta mejor evidencia para explicar toda la proteína.</desc>
+  <desc id="d">Dos barras que representan la misma proteÃ­na consulta. Hit A cubre casi toda la barra con 55 por ciento de identidad. Hit B cubre solo un extremo con 92 por ciento de identidad. La pregunta al pie es cuÃ¡l aporta mejor evidencia para explicar toda la proteÃ­na.</desc>
   <defs>
     <filter id="sh" x="-10%" y="-10%" width="120%" height="135%">
       <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#17365d" flood-opacity="0.12"/>
@@ -34,7 +34,7 @@
 
   <text x="1260" y="210" class="metric">identidad 55 %</text>
   <text x="1260" y="240" class="metric">cobertura 98 %</text>
-  <text x="120" y="310" class="copy">Parecido a lo largo de casi toda la proteína. Menos «brillante», más completo.</text>
+  <text x="120" y="310" class="copy">Parecido a lo largo de casi toda la proteÃ­na. Menos Â«brillanteÂ», mÃ¡s completo.</text>
 
   <!-- HIT B -->
   <g filter="url(#sh)"><rect x="80" y="390" width="1440" height="240" rx="16" fill="#fdf1ef" stroke="#b03a2e" stroke-width="2"/></g>
@@ -50,10 +50,10 @@
 
   <text x="1260" y="480" class="metric">identidad 92 %</text>
   <text x="1260" y="510" class="metric">cobertura 18 %</text>
-  <text x="120" y="580" class="copy">Parecido fuerte en un pedazo corto. Puede ser un dominio compartido, no «la misma proteína».</text>
+  <text x="120" y="580" class="copy">Parecido fuerte en un pedazo corto. Puede ser un dominio compartido, no Â«la misma proteÃ­naÂ».</text>
 
   <!-- PIE -->
   <rect x="80" y="660" width="1440" height="80" rx="12" fill="#eef4fa" stroke="#17365d" stroke-width="2"/>
-  <text x="800" y="695" class="foot" text-anchor="middle">¿Cuál aporta mejor evidencia para explicar toda la proteína?  ’  a menudo A, no B</text>
-  <text x="800" y="722" class="small" text-anchor="middle">El ranking por una sola métrica miente. Hay que leer identidad y cobertura juntas.</text>
+  <text x="800" y="695" class="foot" text-anchor="middle">Â¿CuÃ¡l aporta mejor evidencia para explicar toda la proteÃ­na?  â€™  a menudo A, no B</text>
+  <text x="800" y="722" class="small" text-anchor="middle">El ranking por una sola mÃ©trica miente. Hay que leer identidad y cobertura juntas.</text>
 </svg>

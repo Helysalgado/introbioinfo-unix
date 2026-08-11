@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="520" viewBox="0 0 1600 520" role="img" aria-labelledby="t d">
-  <title id="t">Anatomía del informe integrador</title>
+  <title id="t">AnatomÃ­a del informe integrador</title>
   <desc id="d">Doce apartados del informe agrupados en cuatro bloques.</desc>
   <defs>
     <style>
@@ -17,35 +17,35 @@
   <rect x="40" y="80" width="360" height="44" rx="14" fill="#17365d"/>
   <rect x="40" y="108" width="360" height="16" fill="#17365d"/>
   <text x="220" y="112" class="h" text-anchor="middle">Preguntar y situar</text>
-  <text x="70" y="180" class="n">1 · Pregunta biológica</text>
-  <text x="70" y="220" class="n">2 · Procedencia</text>
-  <text x="220" y="300" class="small" text-anchor="middle">U1 · U3 · curso entero</text>
+  <text x="70" y="180" class="n">1 Â· Pregunta biolÃ³gica</text>
+  <text x="70" y="220" class="n">2 Â· Procedencia</text>
+  <text x="220" y="300" class="small" text-anchor="middle">U1 Â· U3 Â· curso entero</text>
 
   <rect x="420" y="80" width="360" height="360" rx="14" fill="#eef8f2" stroke="#1e7a52" stroke-width="2"/>
   <rect x="420" y="80" width="360" height="44" rx="14" fill="#1e7a52"/>
   <rect x="420" y="108" width="360" height="16" fill="#1e7a52"/>
   <text x="600" y="112" class="h" text-anchor="middle">Obtener evidencia</text>
-  <text x="450" y="170" class="n">3 · Estrategia</text>
-  <text x="450" y="205" class="n">4 · Parámetros y base</text>
-  <text x="450" y="240" class="n">5 · Resultados</text>
-  <text x="450" y="275" class="n">6 · Métricas integradas</text>
-  <text x="600" y="340" class="small" text-anchor="middle">S30 · S31 · S32</text>
+  <text x="450" y="170" class="n">3 Â· Estrategia</text>
+  <text x="450" y="205" class="n">4 Â· ParÃ¡metros y base</text>
+  <text x="450" y="240" class="n">5 Â· Resultados</text>
+  <text x="450" y="275" class="n">6 Â· MÃ©tricas integradas</text>
+  <text x="600" y="340" class="small" text-anchor="middle">S30 Â· S31 Â· S32</text>
 
   <rect x="800" y="80" width="360" height="360" rx="14" fill="#fff8e8" stroke="#d18b16" stroke-width="2"/>
   <rect x="800" y="80" width="360" height="44" rx="14" fill="#d18b16"/>
   <rect x="800" y="108" width="360" height="16" fill="#d18b16"/>
-  <text x="980" y="112" class="h" text-anchor="middle">Inferir con límites</text>
-  <text x="830" y="170" class="n">7 · Hipótesis</text>
-  <text x="830" y="205" class="n">8 · Alternativas</text>
-  <text x="830" y="240" class="n">9 · Limitaciones</text>
-  <text x="830" y="275" class="n">10 · Evidencia faltante</text>
+  <text x="980" y="112" class="h" text-anchor="middle">Inferir con lÃ­mites</text>
+  <text x="830" y="170" class="n">7 Â· HipÃ³tesis</text>
+  <text x="830" y="205" class="n">8 Â· Alternativas</text>
+  <text x="830" y="240" class="n">9 Â· Limitaciones</text>
+  <text x="830" y="275" class="n">10 Â· Evidencia faltante</text>
   <text x="980" y="340" class="small" text-anchor="middle">S33</text>
 
   <rect x="1180" y="80" width="360" height="360" rx="14" fill="#f4f6f8" stroke="#526270" stroke-width="2"/>
   <rect x="1180" y="80" width="360" height="44" rx="14" fill="#526270"/>
   <rect x="1180" y="108" width="360" height="16" fill="#526270"/>
   <text x="1360" y="112" class="h" text-anchor="middle">Declarar y documentar</text>
-  <text x="1210" y="200" class="n">11 · Uso de IA</text>
-  <text x="1210" y="250" class="n">12 · Protocolo</text>
-  <text x="1360" y="340" class="small" text-anchor="middle">G · A · trazabilidad</text>
+  <text x="1210" y="200" class="n">11 Â· Uso de IA</text>
+  <text x="1210" y="250" class="n">12 Â· Protocolo</text>
+  <text x="1360" y="340" class="small" text-anchor="middle">G Â· A Â· trazabilidad</text>
 </svg>

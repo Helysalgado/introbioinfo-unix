@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="t d">
-  <title id="t">Árbol de decisiones de S34</title>
-  <desc id="d">Preguntas en cascada que remiten a S30S33 o a las prácticas cuando la respuesta es no; al final, conclusión provisional.</desc>
+  <title id="t">Ãrbol de decisiones de S34</title>
+  <desc id="d">Preguntas en cascada que remiten a S30S33 o a las prÃ¡cticas cuando la respuesta es no; al final, conclusiÃ³n provisional.</desc>
   <defs>
     <style>
       .title{font:700 30px Arial;fill:#17365d}
@@ -14,47 +14,47 @@
     </style>
   </defs>
   <rect width="1600" height="900" fill="#fff"/>
-  <text x="800" y="42" class="title" text-anchor="middle">Si te atascas, no inventes teoría: elige la siguiente pregunta</text>
-  <text x="800" y="72" class="sub" text-anchor="middle">Índice operativo de S30S33 · sin conceptos nuevos</text>
+  <text x="800" y="42" class="title" text-anchor="middle">Si te atascas, no inventes teorÃ­a: elige la siguiente pregunta</text>
+  <text x="800" y="72" class="sub" text-anchor="middle">Ãndice operativo de S30S33 Â· sin conceptos nuevos</text>
 
   <!-- Q1 -->
   <rect x="450" y="100" width="700" height="70" rx="12" fill="#eef4fa" stroke="#17365d" stroke-width="2"/>
-  <text x="800" y="142" class="q" text-anchor="middle">¿Pregunta biológica operable?</text>
-  <text x="280" y="142" class="no">no ’ P1</text>
-  <text x="1280" y="142" class="yes">sí “</text>
+  <text x="800" y="142" class="q" text-anchor="middle">Â¿Pregunta biolÃ³gica operable?</text>
+  <text x="280" y="142" class="no">no â€™ P1</text>
+  <text x="1280" y="142" class="yes">sÃ­ â€œ</text>
 
   <!-- Q2 -->
   <rect x="450" y="200" width="700" height="70" rx="12" fill="#eef4fa" stroke="#17365d" stroke-width="2"/>
-  <text x="800" y="242" class="q" text-anchor="middle">¿Alfabeto y base justificados (qué NO contiene)?</text>
-  <text x="250" y="242" class="no">no ’ S30S31</text>
-  <text x="1280" y="242" class="yes">sí “</text>
+  <text x="800" y="242" class="q" text-anchor="middle">Â¿Alfabeto y base justificados (quÃ© NO contiene)?</text>
+  <text x="250" y="242" class="no">no â€™ S30S31</text>
+  <text x="1280" y="242" class="yes">sÃ­ â€œ</text>
 
   <!-- Q3 -->
   <rect x="450" y="300" width="700" height="70" rx="12" fill="#fff8e8" stroke="#d18b16" stroke-width="2"/>
-  <text x="800" y="342" class="q" text-anchor="middle">¿Identidad + cobertura + score + E-value?</text>
-  <text x="280" y="342" class="no">no ’ S32</text>
-  <text x="1280" y="342" class="yes">sí “</text>
+  <text x="800" y="342" class="q" text-anchor="middle">Â¿Identidad + cobertura + score + E-value?</text>
+  <text x="280" y="342" class="no">no â€™ S32</text>
+  <text x="1280" y="342" class="yes">sÃ­ â€œ</text>
 
   <!-- Q4 -->
   <rect x="450" y="400" width="700" height="70" rx="12" fill="#fff8e8" stroke="#d18b16" stroke-width="2"/>
-  <text x="800" y="442" class="q" text-anchor="middle">¿Observación / inferencia / límites separados?</text>
-  <text x="280" y="442" class="no">no ’ S33</text>
-  <text x="1280" y="442" class="yes">sí “</text>
+  <text x="800" y="442" class="q" text-anchor="middle">Â¿ObservaciÃ³n / inferencia / lÃ­mites separados?</text>
+  <text x="280" y="442" class="no">no â€™ S33</text>
+  <text x="1280" y="442" class="yes">sÃ­ â€œ</text>
 
   <!-- Q5 -->
   <rect x="450" y="500" width="700" height="70" rx="12" fill="#eef8f2" stroke="#1e7a52" stroke-width="2"/>
-  <text x="800" y="542" class="q" text-anchor="middle">¿Hay hipótesis alternativa escrita?</text>
-  <text x="280" y="542" class="no">no ’ P4</text>
-  <text x="1280" y="542" class="yes">sí “</text>
+  <text x="800" y="542" class="q" text-anchor="middle">Â¿Hay hipÃ³tesis alternativa escrita?</text>
+  <text x="280" y="542" class="no">no â€™ P4</text>
+  <text x="1280" y="542" class="yes">sÃ­ â€œ</text>
 
   <!-- Q6 -->
   <rect x="450" y="600" width="700" height="70" rx="12" fill="#eef8f2" stroke="#1e7a52" stroke-width="2"/>
-  <text x="800" y="642" class="q" text-anchor="middle">¿Audité el informe de IA contra MIS datos?</text>
-  <text x="280" y="642" class="no">no ’ P5</text>
-  <text x="1280" y="642" class="yes">sí “</text>
+  <text x="800" y="642" class="q" text-anchor="middle">Â¿AuditÃ© el informe de IA contra MIS datos?</text>
+  <text x="280" y="642" class="no">no â€™ P5</text>
+  <text x="1280" y="642" class="yes">sÃ­ â€œ</text>
 
   <!-- END -->
   <rect x="450" y="720" width="700" height="90" rx="14" fill="#1e7a52"/>
-  <text x="800" y="760" class="end" text-anchor="middle">Conclusión provisional (d5 líneas)</text>
-  <text x="800" y="790" class="small" text-anchor="middle" fill="#eef8f2" style="font:400 14px Arial;fill:#eef8f2">qué afirmo · con qué evidencia · qué no puedo afirmar</text>
+  <text x="800" y="760" class="end" text-anchor="middle">ConclusiÃ³n provisional (d5 lÃ­neas)</text>
+  <text x="800" y="790" class="small" text-anchor="middle" fill="#eef8f2" style="font:400 14px Arial;fill:#eef8f2">quÃ© afirmo Â· con quÃ© evidencia Â· quÃ© no puedo afirmar</text>
 </svg>

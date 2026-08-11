@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="680" viewBox="0 0 1600 680" role="img" aria-labelledby="t d">
-  <title id="t">Varios HSP para la misma proteÌna</title>
-  <desc id="d">Una consulta como barra. El mismo sujeto aparece con dos HSP, uno N-terminal y otro C-terminal. Cada HSP es una fila distinta en la tabla. Etiqueta: dos filas, una proteÌna.</desc>
+  <title id="t">Varios HSP para la misma prote√≠na</title>
+  <desc id="d">Una consulta como barra. El mismo sujeto aparece con dos HSP, uno N-terminal y otro C-terminal. Cada HSP es una fila distinta en la tabla. Etiqueta: dos filas, una prote√≠na.</desc>
   <defs>
     <filter id="sh" x="-10%" y="-10%" width="120%" height="135%">
       <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#17365d" flood-opacity="0.12"/>
@@ -17,7 +17,7 @@
     </style>
   </defs>
   <rect width="1600" height="680" fill="#fff"/>
-  <text x="800" y="48" class="title" text-anchor="middle">Dos filas pueden ser la misma proteÌna</text>
+  <text x="800" y="48" class="title" text-anchor="middle">Dos filas pueden ser la misma prote√≠na</text>
   <text x="800" y="80" class="sub" text-anchor="middle">Cada fila de -outfmt 6 es un HSP, no un sujeto completo</text>
 
   <text x="120" y="140" class="h">Consulta</text>
@@ -35,11 +35,11 @@
   <!-- tabla -->
   <g filter="url(#sh)"><rect x="120" y="380" width="1360" height="180" rx="12" fill="#ffffff" stroke="#17365d" stroke-width="2"/></g>
   <text x="150" y="420" class="h">En el .tsv</text>
-  <text x="150" y="460" class="mono">WP_0109&typhi   88.0   120   &   1e-40   145     ê fila / HSP 1</text>
-  <text x="150" y="495" class="mono">WP_0109&typhi   81.0   110   &   3e-35   132     ê fila / HSP 2</text>
-  <text x="150" y="535" class="copy">Mismo identificador. Dos alineamientos. Contar con wc -l sobreestima el n˙mero de proteÌnas.</text>
+  <text x="150" y="460" class="mono">WP_0109&typhi   88.0   120   &   1e-40   145     ‚Üí fila / HSP 1</text>
+  <text x="150" y="495" class="mono">WP_0109&typhi   81.0   110   &   3e-35   132     ‚Üí fila / HSP 2</text>
+  <text x="150" y="535" class="copy">Mismo identificador. Dos alineamientos. Contar con wc -l sobreestima el n√∫mero de prote√≠nas.</text>
 
   <rect x="1200" y="160" width="280" height="120" rx="12" fill="#fff8e8" stroke="#d18b16" stroke-width="2"/>
   <text x="1340" y="210" style="font:700 18px Arial;fill:#17365d" text-anchor="middle">2 filas</text>
-  <text x="1340" y="245" style="font:700 18px Arial;fill:#d18b16" text-anchor="middle">1 proteÌna</text>
+  <text x="1340" y="245" style="font:700 18px Arial;fill:#d18b16" text-anchor="middle">1 prote√≠na</text>
 </svg>

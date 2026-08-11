@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="720" viewBox="0 0 1600 720" role="img" aria-labelledby="t d">
-  <title id="t">Especiación frente a duplicación</title>
-  <desc id="d">Dos paneles. Izquierda ortólogos por especiación. Derecha parálogos por duplicación génica.</desc>
+  <title id="t">EspeciaciÃ³n frente a duplicaciÃ³n</title>
+  <desc id="d">Dos paneles. Izquierda ortÃ³logos por especiaciÃ³n. Derecha parÃ¡logos por duplicaciÃ³n gÃ©nica.</desc>
   <defs>
     <filter id="sh" x="-10%" y="-10%" width="120%" height="135%"><feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#17365d" flood-opacity="0.12"/></filter>
     <style>
@@ -14,14 +14,14 @@
     </style>
   </defs>
   <rect width="1600" height="720" fill="#fff"/>
-  <text x="800" y="44" class="title" text-anchor="middle">Dos historias detrás de un parecido</text>
-  <text x="800" y="74" class="sub" text-anchor="middle">Ortología y paralogía responden «¿cómo se separaron?», no «¿cuánto miden?»</text>
+  <text x="800" y="44" class="title" text-anchor="middle">Dos historias detrÃ¡s de un parecido</text>
+  <text x="800" y="74" class="sub" text-anchor="middle">OrtologÃ­a y paralogÃ­a responden Â«Â¿cÃ³mo se separaron?Â», no Â«Â¿cuÃ¡nto miden?Â»</text>
 
   <!-- ORTOLOGOS -->
   <g filter="url(#sh)"><rect x="60" y="110" width="700" height="480" rx="16" fill="#eef8f2" stroke="#1e7a52" stroke-width="2"/></g>
   <rect x="60" y="110" width="700" height="48" rx="16" fill="#1e7a52"/>
   <rect x="60" y="138" width="700" height="20" fill="#1e7a52"/>
-  <text x="410" y="144" class="h" text-anchor="middle">ESPECIACIÓN ’ ortólogos</text>
+  <text x="410" y="144" class="h" text-anchor="middle">ESPECIACIÃ“N â€™ ortÃ³logos</text>
 
   <circle cx="410" cy="230" r="28" fill="#fff8e8" stroke="#d18b16" stroke-width="3"/>
   <text x="410" y="236" class="small" text-anchor="middle">ancestro</text>
@@ -38,16 +38,16 @@
   <text x="540" y="380" class="copy" text-anchor="middle">especie B</text>
   <text x="540" y="405" class="small" text-anchor="middle">copia del gen</text>
 
-  <text x="410" y="470" class="copy" text-anchor="middle">Ejemplo: ± humana ” ± de ratón</text>
-  <text x="410" y="500" class="small" text-anchor="middle">~86.6 % identidad · misma cadena · especies distintas</text>
-  <text x="410" y="545" class="lab" text-anchor="middle">Expectativa: función a menudo similar</text>
+  <text x="410" y="470" class="copy" text-anchor="middle">Ejemplo: Â± humana â€ Â± de ratÃ³n</text>
+  <text x="410" y="500" class="small" text-anchor="middle">~86.6 % identidad Â· misma cadena Â· especies distintas</text>
+  <text x="410" y="545" class="lab" text-anchor="middle">Expectativa: funciÃ³n a menudo similar</text>
   <text x="410" y="570" class="small" text-anchor="middle">(no garantizada)</text>
 
   <!-- PARALOGOS -->
   <g filter="url(#sh)"><rect x="840" y="110" width="700" height="480" rx="16" fill="#fff8e8" stroke="#d18b16" stroke-width="2"/></g>
   <rect x="840" y="110" width="700" height="48" rx="16" fill="#d18b16"/>
   <rect x="840" y="138" width="700" height="20" fill="#d18b16"/>
-  <text x="1190" y="144" class="h" text-anchor="middle">DUPLICACIÓN ’ parálogos</text>
+  <text x="1190" y="144" class="h" text-anchor="middle">DUPLICACIÃ“N â€™ parÃ¡logos</text>
 
   <circle cx="1190" cy="230" r="28" fill="#eef4fa" stroke="#17365d" stroke-width="3"/>
   <text x="1190" y="236" class="small" text-anchor="middle">un gen</text>
@@ -58,16 +58,16 @@
 
   <rect x="980" y="350" width="160" height="70" rx="10" fill="#fff" stroke="#d18b16" stroke-width="2"/>
   <text x="1060" y="380" class="copy" text-anchor="middle">copia 1</text>
-  <text x="1060" y="405" class="small" text-anchor="middle">p. ej. ±</text>
+  <text x="1060" y="405" class="small" text-anchor="middle">p. ej. Â±</text>
   <rect x="1240" y="350" width="160" height="70" rx="10" fill="#fff" stroke="#d18b16" stroke-width="2"/>
   <text x="1320" y="380" class="copy" text-anchor="middle">copia 2</text>
-  <text x="1320" y="405" class="small" text-anchor="middle">p. ej. ¶</text>
+  <text x="1320" y="405" class="small" text-anchor="middle">p. ej. Â¶</text>
 
-  <text x="1190" y="470" class="copy" text-anchor="middle">Ejemplo: ± humana ” ¶ humana</text>
-  <text x="1190" y="500" class="small" text-anchor="middle">~59.9 % identidad · misma especie · cadenas distintas</text>
-  <text x="1190" y="545" class="lab" text-anchor="middle">Expectativa: función a menudo divergente</text>
-  <text x="1190" y="570" class="small" text-anchor="middle">(transferir anotación es más arriesgado)</text>
+  <text x="1190" y="470" class="copy" text-anchor="middle">Ejemplo: Â± humana â€ Â¶ humana</text>
+  <text x="1190" y="500" class="small" text-anchor="middle">~59.9 % identidad Â· misma especie Â· cadenas distintas</text>
+  <text x="1190" y="545" class="lab" text-anchor="middle">Expectativa: funciÃ³n a menudo divergente</text>
+  <text x="1190" y="570" class="small" text-anchor="middle">(transferir anotaciÃ³n es mÃ¡s arriesgado)</text>
 
   <rect x="60" y="620" width="1480" height="70" rx="12" fill="#eef4fa" stroke="#17365d" stroke-width="2"/>
-  <text x="800" y="662" style="font:600 17px Arial;fill:#17365d" text-anchor="middle">La pregunta útil: ¿qué historia explica mejor el parecido que estoy viendo?</text>
+  <text x="800" y="662" style="font:600 17px Arial;fill:#17365d" text-anchor="middle">La pregunta Ãºtil: Â¿quÃ© historia explica mejor el parecido que estoy viendo?</text>
 </svg>

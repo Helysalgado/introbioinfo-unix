@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="620" viewBox="0 0 1600 620" role="img" aria-labelledby="t d">
-  <title id="t">Límites de la transferencia de función</title>
-  <desc id="d">Semáforo de tres estados para decidir si transferir función como hipótesis de trabajo.</desc>
+  <title id="t">LÃ­mites de la transferencia de funciÃ³n</title>
+  <desc id="d">SemÃ¡foro de tres estados para decidir si transferir funciÃ³n como hipÃ³tesis de trabajo.</desc>
   <defs>
     <filter id="sh" x="-10%" y="-10%" width="120%" height="135%"><feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#17365d" flood-opacity="0.12"/></filter>
     <style>
@@ -13,42 +13,42 @@
     </style>
   </defs>
   <rect width="1600" height="620" fill="#fff"/>
-  <text x="800" y="44" class="title" text-anchor="middle">¿Transferir la función? Depende  y siempre es provisional</text>
-  <text x="800" y="74" class="sub" text-anchor="middle">Homología ` misma función</text>
+  <text x="800" y="44" class="title" text-anchor="middle">Â¿Transferir la funciÃ³n? Depende  y siempre es provisional</text>
+  <text x="800" y="74" class="sub" text-anchor="middle">HomologÃ­a ` misma funciÃ³n</text>
 
   <g filter="url(#sh)"><rect x="60" y="110" width="460" height="380" rx="16" fill="#eef8f2" stroke="#1e7a52" stroke-width="2"/></g>
   <rect x="60" y="110" width="460" height="50" rx="16" fill="#1e7a52"/>
   <rect x="60" y="140" width="460" height="20" fill="#1e7a52"/>
   <text x="290" y="145" class="h" text-anchor="middle">VERDE</text>
-  <text x="290" y="210" class="copy" text-anchor="middle">Hipótesis de trabajo razonable</text>
-  <text x="100" y="260" class="copy">· homología plausible</text>
-  <text x="100" y="295" class="copy">· cobertura casi completa</text>
-  <text x="100" y="330" class="copy">· anotación coherente</text>
-  <text x="100" y="365" class="copy">· alternativas consideradas</text>
-  <text x="290" y="430" class="small" text-anchor="middle">Aún así: provisional</text>
+  <text x="290" y="210" class="copy" text-anchor="middle">HipÃ³tesis de trabajo razonable</text>
+  <text x="100" y="260" class="copy">Â· homologÃ­a plausible</text>
+  <text x="100" y="295" class="copy">Â· cobertura casi completa</text>
+  <text x="100" y="330" class="copy">Â· anotaciÃ³n coherente</text>
+  <text x="100" y="365" class="copy">Â· alternativas consideradas</text>
+  <text x="290" y="430" class="small" text-anchor="middle">AÃºn asÃ­: provisional</text>
 
   <g filter="url(#sh)"><rect x="570" y="110" width="460" height="380" rx="16" fill="#fff8e8" stroke="#d18b16" stroke-width="2"/></g>
   <rect x="570" y="110" width="460" height="50" rx="16" fill="#d18b16"/>
   <rect x="570" y="140" width="460" height="20" fill="#d18b16"/>
   <text x="800" y="145" class="h" text-anchor="middle">AMARILLO</text>
   <text x="800" y="210" class="copy" text-anchor="middle">Declara incertidumbre</text>
-  <text x="610" y="260" class="copy">· posible paralogía</text>
-  <text x="610" y="295" class="copy">· dominio parcial</text>
-  <text x="610" y="330" class="copy">· anotación genérica</text>
-  <text x="610" y="365" class="copy">· dos historias empatadas</text>
-  <text x="800" y="430" class="small" text-anchor="middle">No cierres; pide más evidencia</text>
+  <text x="610" y="260" class="copy">Â· posible paralogÃ­a</text>
+  <text x="610" y="295" class="copy">Â· dominio parcial</text>
+  <text x="610" y="330" class="copy">Â· anotaciÃ³n genÃ©rica</text>
+  <text x="610" y="365" class="copy">Â· dos historias empatadas</text>
+  <text x="800" y="430" class="small" text-anchor="middle">No cierres; pide mÃ¡s evidencia</text>
 
   <g filter="url(#sh)"><rect x="1080" y="110" width="460" height="380" rx="16" fill="#fdf1ef" stroke="#b03a2e" stroke-width="2"/></g>
   <rect x="1080" y="110" width="460" height="50" rx="16" fill="#b03a2e"/>
   <rect x="1080" y="140" width="460" height="20" fill="#b03a2e"/>
   <text x="1310" y="145" class="h" text-anchor="middle">ROJO</text>
   <text x="1310" y="210" class="copy" text-anchor="middle">No transferir</text>
-  <text x="1120" y="260" class="copy">· identidad alta, cobertura baja</text>
-  <text x="1120" y="295" class="copy">· salto de % a función</text>
-  <text x="1120" y="330" class="copy">· «ortólogo» sin argumento</text>
-  <text x="1120" y="365" class="copy">· solo porque era el hit 1</text>
+  <text x="1120" y="260" class="copy">Â· identidad alta, cobertura baja</text>
+  <text x="1120" y="295" class="copy">Â· salto de % a funciÃ³n</text>
+  <text x="1120" y="330" class="copy">Â· Â«ortÃ³logoÂ» sin argumento</text>
+  <text x="1120" y="365" class="copy">Â· solo porque era el hit 1</text>
   <text x="1310" y="430" class="small" text-anchor="middle">Rehaz el razonamiento</text>
 
   <rect x="60" y="520" width="1480" height="70" rx="12" fill="#eef4fa" stroke="#17365d" stroke-width="2"/>
-  <text x="800" y="562" style="font:600 17px Arial;fill:#17365d" text-anchor="middle">La anotación del hit es un dato más. Tu conclusión es tu responsabilidad.</text>
+  <text x="800" y="562" style="font:600 17px Arial;fill:#17365d" text-anchor="middle">La anotaciÃ³n del hit es un dato mÃ¡s. Tu conclusiÃ³n es tu responsabilidad.</text>
 </svg>

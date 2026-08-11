@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="780" viewBox="0 0 1600 780" role="img" aria-labelledby="t d">
-  <title id="t">Anatomía de una fila del formato tabular de BLAST</title>
+  <title id="t">AnatomÃ­a de una fila del formato tabular de BLAST</title>
   <desc id="d">Una fila de BLAST despiezada en casillas. Cada campo muestra su nombre corto y la pregunta que responde. Identidad, longitud, coordenadas de consulta, E-value y bit score destacan; el resto queda en gris.</desc>
   <defs>
     <filter id="sh" x="-10%" y="-10%" width="120%" height="135%">
@@ -20,7 +20,7 @@
     </style>
   </defs>
   <rect width="1600" height="780" fill="#fff"/>
-  <text x="800" y="46" class="title" text-anchor="middle">Una fila de -outfmt 6 es un HSP, no una conclusión</text>
+  <text x="800" y="46" class="title" text-anchor="middle">Una fila de -outfmt 6 es un HSP, no una conclusiÃ³n</text>
   <text x="800" y="76" class="sub" text-anchor="middle">Lee cada columna como una pregunta</text>
 
   <!-- fila de valores ejemplo -->
@@ -33,49 +33,49 @@
     <g filter="url(#sh)"><rect x="40" y="0" width="240" height="110" rx="10" fill="#f4f6f8" stroke="#c9d6e2"/></g>
     <rect x="40" y="0" width="240" height="28" rx="10" fill="#c9d6e2"/>
     <rect x="40" y="14" width="240" height="14" fill="#c9d6e2"/>
-    <text x="160" y="20" class="nameg" text-anchor="middle">1 · qseqid</text>
+    <text x="160" y="20" class="nameg" text-anchor="middle">1 Â· qseqid</text>
     <text x="160" y="58" class="valg" text-anchor="middle">ubiE_con</text>
-    <text x="160" y="86" class="qg" text-anchor="middle">¿Cuál es mi consulta?</text>
+    <text x="160" y="86" class="qg" text-anchor="middle">Â¿CuÃ¡l es mi consulta?</text>
 
     <!-- sseqid destacado -->
     <g filter="url(#sh)"><rect x="300" y="0" width="240" height="110" rx="10" fill="#eef4fa" stroke="#17365d" stroke-width="2"/></g>
     <rect x="300" y="0" width="240" height="28" rx="10" fill="#17365d"/>
     <rect x="300" y="14" width="240" height="14" fill="#17365d"/>
-    <text x="420" y="20" class="name" text-anchor="middle">2 · sseqid</text>
+    <text x="420" y="20" class="name" text-anchor="middle">2 Â· sseqid</text>
     <text x="420" y="58" class="val" text-anchor="middle">WP_&typhi</text>
-    <text x="420" y="86" class="q" text-anchor="middle">¿Cuál es el acierto?</text>
+    <text x="420" y="86" class="q" text-anchor="middle">Â¿CuÃ¡l es el acierto?</text>
 
     <!-- pident -->
     <g filter="url(#sh)"><rect x="560" y="0" width="240" height="110" rx="10" fill="#eef8f2" stroke="#1e7a52" stroke-width="2"/></g>
     <rect x="560" y="0" width="240" height="28" rx="10" fill="#1e7a52"/>
     <rect x="560" y="14" width="240" height="14" fill="#1e7a52"/>
-    <text x="680" y="20" class="name" text-anchor="middle">3 · pident</text>
+    <text x="680" y="20" class="name" text-anchor="middle">3 Â· pident</text>
     <text x="680" y="58" class="val" text-anchor="middle">86.1</text>
-    <text x="680" y="86" class="q" text-anchor="middle">¿Cuán idéntico es el tramo?</text>
+    <text x="680" y="86" class="q" text-anchor="middle">Â¿CuÃ¡n idÃ©ntico es el tramo?</text>
 
     <!-- length -->
     <g filter="url(#sh)"><rect x="820" y="0" width="240" height="110" rx="10" fill="#eef8f2" stroke="#1e7a52" stroke-width="2"/></g>
     <rect x="820" y="0" width="240" height="28" rx="10" fill="#1e7a52"/>
     <rect x="820" y="14" width="240" height="14" fill="#1e7a52"/>
-    <text x="940" y="20" class="name" text-anchor="middle">4 · length</text>
+    <text x="940" y="20" class="name" text-anchor="middle">4 Â· length</text>
     <text x="940" y="58" class="val" text-anchor="middle">248</text>
-    <text x="940" y="86" class="q" text-anchor="middle">¿Cuántas columnas?</text>
+    <text x="940" y="86" class="q" text-anchor="middle">Â¿CuÃ¡ntas columnas?</text>
 
     <!-- mismatch gris -->
     <g filter="url(#sh)"><rect x="1080" y="0" width="230" height="110" rx="10" fill="#f4f6f8" stroke="#c9d6e2"/></g>
     <rect x="1080" y="0" width="230" height="28" rx="10" fill="#c9d6e2"/>
     <rect x="1080" y="14" width="230" height="14" fill="#c9d6e2"/>
-    <text x="1195" y="20" class="nameg" text-anchor="middle">5 · mismatch</text>
+    <text x="1195" y="20" class="nameg" text-anchor="middle">5 Â· mismatch</text>
     <text x="1195" y="58" class="valg" text-anchor="middle">34</text>
-    <text x="1195" y="86" class="qg" text-anchor="middle">¿Cuántas no coinciden?</text>
+    <text x="1195" y="86" class="qg" text-anchor="middle">Â¿CuÃ¡ntas no coinciden?</text>
 
     <!-- gapopen gris -->
     <g filter="url(#sh)"><rect x="1330" y="0" width="230" height="110" rx="10" fill="#f4f6f8" stroke="#c9d6e2"/></g>
     <rect x="1330" y="0" width="230" height="28" rx="10" fill="#c9d6e2"/>
     <rect x="1330" y="14" width="230" height="14" fill="#c9d6e2"/>
-    <text x="1445" y="20" class="nameg" text-anchor="middle">6 · gapopen</text>
+    <text x="1445" y="20" class="nameg" text-anchor="middle">6 Â· gapopen</text>
     <text x="1445" y="58" class="valg" text-anchor="middle">1</text>
-    <text x="1445" y="86" class="qg" text-anchor="middle">¿Cuántos huecos?</text>
+    <text x="1445" y="86" class="qg" text-anchor="middle">Â¿CuÃ¡ntos huecos?</text>
   </g>
 
   <g transform="translate(0,280)">
@@ -83,64 +83,64 @@
     <g filter="url(#sh)"><rect x="40" y="0" width="240" height="110" rx="10" fill="#fff8e8" stroke="#d18b16" stroke-width="2"/></g>
     <rect x="40" y="0" width="240" height="28" rx="10" fill="#d18b16"/>
     <rect x="40" y="14" width="240" height="14" fill="#d18b16"/>
-    <text x="160" y="20" class="name" text-anchor="middle">7 · qstart</text>
+    <text x="160" y="20" class="name" text-anchor="middle">7 Â· qstart</text>
     <text x="160" y="58" class="val" text-anchor="middle">1</text>
-    <text x="160" y="86" class="q" text-anchor="middle">¿Dónde empieza en mí?</text>
+    <text x="160" y="86" class="q" text-anchor="middle">Â¿DÃ³nde empieza en mÃ­?</text>
 
     <!-- qend -->
     <g filter="url(#sh)"><rect x="300" y="0" width="240" height="110" rx="10" fill="#fff8e8" stroke="#d18b16" stroke-width="2"/></g>
     <rect x="300" y="0" width="240" height="28" rx="10" fill="#d18b16"/>
     <rect x="300" y="14" width="240" height="14" fill="#d18b16"/>
-    <text x="420" y="20" class="name" text-anchor="middle">8 · qend</text>
+    <text x="420" y="20" class="name" text-anchor="middle">8 Â· qend</text>
     <text x="420" y="58" class="val" text-anchor="middle">248</text>
-    <text x="420" y="86" class="q" text-anchor="middle">¿Dónde termina en mí?</text>
+    <text x="420" y="86" class="q" text-anchor="middle">Â¿DÃ³nde termina en mÃ­?</text>
 
     <!-- sstart gris -->
     <g filter="url(#sh)"><rect x="560" y="0" width="240" height="110" rx="10" fill="#f4f6f8" stroke="#c9d6e2"/></g>
     <rect x="560" y="0" width="240" height="28" rx="10" fill="#c9d6e2"/>
     <rect x="560" y="14" width="240" height="14" fill="#c9d6e2"/>
-    <text x="680" y="20" class="nameg" text-anchor="middle">9 · sstart</text>
+    <text x="680" y="20" class="nameg" text-anchor="middle">9 Â· sstart</text>
     <text x="680" y="58" class="valg" text-anchor="middle">1</text>
-    <text x="680" y="86" class="qg" text-anchor="middle">¿Dónde en el sujeto?</text>
+    <text x="680" y="86" class="qg" text-anchor="middle">Â¿DÃ³nde en el sujeto?</text>
 
     <!-- send gris -->
     <g filter="url(#sh)"><rect x="820" y="0" width="240" height="110" rx="10" fill="#f4f6f8" stroke="#c9d6e2"/></g>
     <rect x="820" y="0" width="240" height="28" rx="10" fill="#c9d6e2"/>
     <rect x="820" y="14" width="240" height="14" fill="#c9d6e2"/>
-    <text x="940" y="20" class="nameg" text-anchor="middle">10 · send</text>
+    <text x="940" y="20" class="nameg" text-anchor="middle">10 Â· send</text>
     <text x="940" y="58" class="valg" text-anchor="middle">248</text>
-    <text x="940" y="86" class="qg" text-anchor="middle">¿Hasta dónde sujeto?</text>
+    <text x="940" y="86" class="qg" text-anchor="middle">Â¿Hasta dÃ³nde sujeto?</text>
 
     <!-- evalue -->
     <g filter="url(#sh)"><rect x="1080" y="0" width="230" height="110" rx="10" fill="#fdf1ef" stroke="#b03a2e" stroke-width="2"/></g>
     <rect x="1080" y="0" width="230" height="28" rx="10" fill="#b03a2e"/>
     <rect x="1080" y="14" width="230" height="14" fill="#b03a2e"/>
-    <text x="1195" y="20" class="name" text-anchor="middle">11 · evalue</text>
+    <text x="1195" y="20" class="name" text-anchor="middle">11 Â· evalue</text>
     <text x="1195" y="58" class="val" text-anchor="middle">2e-155</text>
-    <text x="1195" y="86" class="q" text-anchor="middle">¿Cuán sorprendente?</text>
+    <text x="1195" y="86" class="q" text-anchor="middle">Â¿CuÃ¡n sorprendente?</text>
 
     <!-- bitscore -->
     <g filter="url(#sh)"><rect x="1330" y="0" width="230" height="110" rx="10" fill="#eef4fa" stroke="#17365d" stroke-width="2"/></g>
     <rect x="1330" y="0" width="230" height="28" rx="10" fill="#17365d"/>
     <rect x="1330" y="14" width="230" height="14" fill="#17365d"/>
-    <text x="1445" y="20" class="name" text-anchor="middle">12 · bitscore</text>
+    <text x="1445" y="20" class="name" text-anchor="middle">12 Â· bitscore</text>
     <text x="1445" y="58" class="val" text-anchor="middle">448</text>
-    <text x="1445" y="86" class="q" text-anchor="middle">¿Qué tan bueno?</text>
+    <text x="1445" y="86" class="q" text-anchor="middle">Â¿QuÃ© tan bueno?</text>
   </g>
 
   <!-- cobertura callout -->
   <rect x="40" y="430" width="1520" height="100" rx="12" fill="#fff8e8" stroke="#d18b16" stroke-width="2"/>
   <text x="80" y="470" class="foot">Cobertura de la consulta (no viene impresa):  (qend  qstart + 1) / longitud_consulta</text>
-  <text x="80" y="502" class="small">Con qstart=1, qend=248 y consulta de 248 aa ’ cobertura H 100 %. Las columnas 78 son las que la hacen calculable.</text>
+  <text x="80" y="502" class="small">Con qstart=1, qend=248 y consulta de 248 aa â€™ cobertura H 100 %. Las columnas 78 son las que la hacen calculable.</text>
 
   <rect x="40" y="560" width="1520" height="160" rx="12" fill="#eef8f2" stroke="#1e7a52" stroke-width="2"/>
-  <text x="800" y="605" class="foot" text-anchor="middle">Orden de aprendizaje en la sesión</text>
+  <text x="800" y="605" class="foot" text-anchor="middle">Orden de aprendizaje en la sesiÃ³n</text>
   <text x="200" y="655" class="small" text-anchor="middle">1. identidad</text>
   <text x="450" y="655" class="small" text-anchor="middle">2. cobertura</text>
   <text x="700" y="655" class="small" text-anchor="middle">3. bit score</text>
   <text x="950" y="655" class="small" text-anchor="middle">4. E-value</text>
-  <text x="1250" y="655" class="small" text-anchor="middle">5. integración</text>
+  <text x="1250" y="655" class="small" text-anchor="middle">5. integraciÃ³n</text>
   <path d="M280 650 L380 650 M530 650 L630 650 M780 650 L880 650 M1030 650 L1130 650" stroke="#1e7a52" stroke-width="2" marker-end="url(#ar)"/>
   <defs><marker id="ar" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#1e7a52"/></marker></defs>
-  <text x="800" y="695" class="small" text-anchor="middle">No enseñar las doce a la vez: cada métrica aparece cuando ya tienes una pregunta para ella.</text>
+  <text x="800" y="695" class="small" text-anchor="middle">No enseÃ±ar las doce a la vez: cada mÃ©trica aparece cuando ya tienes una pregunta para ella.</text>
 </svg>

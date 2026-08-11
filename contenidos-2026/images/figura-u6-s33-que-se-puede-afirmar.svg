@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="640" viewBox="0 0 1600 640" role="img" aria-labelledby="t d">
-  <title id="t">Qué se puede afirmar y qué no</title>
-  <desc id="d">Dos columnas: afirmaciones legítimas frente a afirmaciones que la evidencia de la unidad no sostiene.</desc>
+  <title id="t">QuÃ© se puede afirmar y quÃ© no</title>
+  <desc id="d">Dos columnas: afirmaciones legÃ­timas frente a afirmaciones que la evidencia de la unidad no sostiene.</desc>
   <defs>
     <filter id="sh" x="-10%" y="-10%" width="120%" height="135%"><feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#17365d" flood-opacity="0.12"/></filter>
     <style>
@@ -14,31 +14,31 @@
     </style>
   </defs>
   <rect width="1600" height="640" fill="#fff"/>
-  <text x="800" y="44" class="title" text-anchor="middle">Una hipótesis declara sus límites</text>
-  <text x="800" y="74" class="sub" text-anchor="middle">Principio 6 de la unidad  y criterio de evaluación del informe</text>
+  <text x="800" y="44" class="title" text-anchor="middle">Una hipÃ³tesis declara sus lÃ­mites</text>
+  <text x="800" y="74" class="sub" text-anchor="middle">Principio 6 de la unidad  y criterio de evaluaciÃ³n del informe</text>
 
   <g filter="url(#sh)"><rect x="80" y="110" width="680" height="380" rx="16" fill="#eef8f2" stroke="#1e7a52" stroke-width="2"/></g>
   <rect x="80" y="110" width="680" height="50" rx="16" fill="#1e7a52"/>
   <rect x="80" y="140" width="680" height="20" fill="#1e7a52"/>
-  <text x="420" y="145" class="h" text-anchor="middle">Sí puedes afirmar</text>
-  <text x="120" y="210" class="ok"> hipótesis de homología con alcance</text>
-  <text x="120" y="255" class="ok"> por qué ortología parece más simple (o no)</text>
-  <text x="120" y="300" class="ok"> función como punto de partida experimental</text>
+  <text x="420" y="145" class="h" text-anchor="middle">SÃ­ puedes afirmar</text>
+  <text x="120" y="210" class="ok"> hipÃ³tesis de homologÃ­a con alcance</text>
+  <text x="120" y="255" class="ok"> por quÃ© ortologÃ­a parece mÃ¡s simple (o no)</text>
+  <text x="120" y="300" class="ok"> funciÃ³n como punto de partida experimental</text>
   <text x="120" y="345" class="ok"> alternativas consideradas</text>
-  <text x="120" y="390" class="ok"> qué evidencia adicional falta</text>
-  <text x="120" y="435" class="ok"> «hoy no puedo decidir entre A y B»</text>
+  <text x="120" y="390" class="ok"> quÃ© evidencia adicional falta</text>
+  <text x="120" y="435" class="ok"> Â«hoy no puedo decidir entre A y BÂ»</text>
 
   <g filter="url(#sh)"><rect x="840" y="110" width="680" height="380" rx="16" fill="#fdf1ef" stroke="#b03a2e" stroke-width="2"/></g>
   <rect x="840" y="110" width="680" height="50" rx="16" fill="#b03a2e"/>
   <rect x="840" y="140" width="680" height="20" fill="#b03a2e"/>
   <text x="1180" y="145" class="h" text-anchor="middle">No puedes afirmar</text>
-  <text x="880" y="210" class="no"> «ortología demostrada» solo con BLAST</text>
-  <text x="880" y="255" class="no"> «misma función garantizada»</text>
-  <text x="880" y="300" class="no"> «80 % de homología»</text>
+  <text x="880" y="210" class="no"> Â«ortologÃ­a demostradaÂ» solo con BLAST</text>
+  <text x="880" y="255" class="no"> Â«misma funciÃ³n garantizadaÂ»</text>
+  <text x="880" y="300" class="no"> Â«80 % de homologÃ­aÂ»</text>
   <text x="880" y="345" class="no"> certeza del 99 % por el E-value</text>
   <text x="880" y="390" class="no"> cerrar el caso porque era el hit 1</text>
-  <text x="880" y="435" class="no"> árboles inventados «para verse bien»</text>
+  <text x="880" y="435" class="no"> Ã¡rboles inventados Â«para verse bienÂ»</text>
 
   <rect x="80" y="520" width="1440" height="80" rx="12" fill="#eef4fa" stroke="#17365d" stroke-width="2"/>
-  <text x="800" y="568" class="foot" text-anchor="middle">Una conclusión prudente y bien sostenida vale más que adivinar el identificador.</text>
+  <text x="800" y="568" class="foot" text-anchor="middle">Una conclusiÃ³n prudente y bien sostenida vale mÃ¡s que adivinar el identificador.</text>
 </svg>

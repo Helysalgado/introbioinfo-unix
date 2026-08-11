@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="580" viewBox="0 0 1600 580" role="img" aria-labelledby="t d">
-  <title id="t">IA frente a evidencia científica</title>
-  <desc id="d">Dos columnas: informe de IA con certezas frente a versión del estudiante con hipótesis provisional y límites.</desc>
+  <title id="t">IA frente a evidencia cientÃ­fica</title>
+  <desc id="d">Dos columnas: informe de IA con certezas frente a versiÃ³n del estudiante con hipÃ³tesis provisional y lÃ­mites.</desc>
   <defs>
     <filter id="sh" x="-10%" y="-10%" width="120%" height="135%"><feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#17365d" flood-opacity="0.12"/></filter>
     <style>
@@ -14,28 +14,28 @@
     </style>
   </defs>
   <rect width="1600" height="580" fill="#fff"/>
-  <text x="800" y="44" class="title" text-anchor="middle">La IA propone · la evidencia decide · tú argumentas</text>
+  <text x="800" y="44" class="title" text-anchor="middle">La IA propone Â· la evidencia decide Â· tÃº argumentas</text>
 
   <g filter="url(#sh)"><rect x="80" y="90" width="680" height="340" rx="16" fill="#fdf1ef" stroke="#b03a2e" stroke-width="2"/></g>
   <rect x="80" y="90" width="680" height="48" rx="16" fill="#b03a2e"/>
   <rect x="80" y="118" width="680" height="20" fill="#b03a2e"/>
   <text x="420" y="124" class="h" text-anchor="middle">Informe de la IA</text>
-  <text x="120" y="190" class="bad">«Son ortólogos&»</text>
-  <text x="120" y="230" class="bad">«&misma función exactamente&»</text>
-  <text x="120" y="270" class="bad">«&demostrado por el E-value&»</text>
-  <text x="120" y="310" class="bad">«&el primer hit es suficiente&»</text>
+  <text x="120" y="190" class="bad">Â«Son ortÃ³logos&Â»</text>
+  <text x="120" y="230" class="bad">Â«&misma funciÃ³n exactamente&Â»</text>
+  <text x="120" y="270" class="bad">Â«&demostrado por el E-value&Â»</text>
+  <text x="120" y="310" class="bad">Â«&el primer hit es suficiente&Â»</text>
   <text x="120" y="370" class="copy">Suena impecable. Puede estar mal.</text>
 
   <g filter="url(#sh)"><rect x="840" y="90" width="680" height="340" rx="16" fill="#eef8f2" stroke="#1e7a52" stroke-width="2"/></g>
   <rect x="840" y="90" width="680" height="48" rx="16" fill="#1e7a52"/>
   <rect x="840" y="118" width="680" height="20" fill="#1e7a52"/>
-  <text x="1180" y="124" class="h" text-anchor="middle">Tu versión</text>
-  <text x="880" y="190" class="ok">Observación verificada en el .tsv</text>
+  <text x="1180" y="124" class="h" text-anchor="middle">Tu versiÃ³n</text>
+  <text x="880" y="190" class="ok">ObservaciÃ³n verificada en el .tsv</text>
   <text x="880" y="230" class="ok">Evidencia: identidad + cobertura + &</text>
-  <text x="880" y="270" class="ok">Hipótesis provisional de homología</text>
-  <text x="880" y="310" class="ok">Alternativas y límites explícitos</text>
-  <text x="880" y="370" class="copy">Menos rotunda. Más defendible.</text>
+  <text x="880" y="270" class="ok">HipÃ³tesis provisional de homologÃ­a</text>
+  <text x="880" y="310" class="ok">Alternativas y lÃ­mites explÃ­citos</text>
+  <text x="880" y="370" class="copy">Menos rotunda. MÃ¡s defendible.</text>
 
   <rect x="80" y="460" width="1440" height="80" rx="12" fill="#eef4fa" stroke="#17365d" stroke-width="2"/>
-  <text x="800" y="508" class="foot" text-anchor="middle">En la era de la IA, evaluar evidencia importa más  no menos.</text>
+  <text x="800" y="508" class="foot" text-anchor="middle">En la era de la IA, evaluar evidencia importa mÃ¡s  no menos.</text>
 </svg>

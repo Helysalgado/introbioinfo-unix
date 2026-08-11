@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="720" viewBox="0 0 1600 720" role="img" aria-labelledby="t d">
-  <title id="t">Resultado de BLAST frente a conclusión biológica</title>
-  <desc id="d">A la izquierda, una tabla de BLAST con muchas filas etiquetada como resultado observado. A la derecha, un bloque vacío etiquetado conclusión biológica. Entre ambos, una flecha rota con la leyenda no es automáticamente. Debajo, una franja recuerda que entre ambos hay un proceso de razonamiento.</desc>
+  <title id="t">Resultado de BLAST frente a conclusiÃ³n biolÃ³gica</title>
+  <desc id="d">A la izquierda, una tabla de BLAST con muchas filas etiquetada como resultado observado. A la derecha, un bloque vacÃ­o etiquetado conclusiÃ³n biolÃ³gica. Entre ambos, una flecha rota con la leyenda no es automÃ¡ticamente. Debajo, una franja recuerda que entre ambos hay un proceso de razonamiento.</desc>
   <defs>
     <filter id="sh" x="-10%" y="-10%" width="120%" height="135%">
       <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#17365d" flood-opacity="0.13"/>
@@ -19,7 +19,7 @@
     </style>
   </defs>
   <rect width="1600" height="720" fill="#fff"/>
-  <text x="800" y="48" class="title" text-anchor="middle">Resultado de BLAST ` conclusión biológica</text>
+  <text x="800" y="48" class="title" text-anchor="middle">Resultado de BLAST ` conclusiÃ³n biolÃ³gica</text>
   <text x="800" y="80" class="sub" text-anchor="middle">Entre los dos hay un proceso de razonamiento</text>
 
   <!-- IZQUIERDA -->
@@ -38,7 +38,7 @@
   <text x="120" y="370" class="mono">WP_&bellii        52.1     245   3e-72    229</text>
   <text x="120" y="398" class="mono">&</text>
   <text x="120" y="430" class="small">Filas = HSP reportados. Candidatos, no respuestas.</text>
-  <text x="120" y="462" class="small">Los números son ilustrativos del formato, no una corrida.</text>
+  <text x="120" y="462" class="small">Los nÃºmeros son ilustrativos del formato, no una corrida.</text>
 
   <!-- FLECHA ROTA -->
   <path d="M660 320 L760 320" stroke="#b03a2e" stroke-width="5"/>
@@ -47,23 +47,23 @@
   <circle cx="790" cy="320" r="18" fill="#fff" stroke="#b03a2e" stroke-width="3"/>
   <text x="790" y="326" class="warn" text-anchor="middle" font-size="22">`</text>
   <text x="790" y="290" class="warn" text-anchor="middle">no es</text>
-  <text x="790" y="368" class="small" text-anchor="middle">automáticamente</text>
+  <text x="790" y="368" class="small" text-anchor="middle">automÃ¡ticamente</text>
 
   <!-- DERECHA -->
   <g filter="url(#sh)"><rect x="970" y="120" width="560" height="430" rx="16" fill="#fdf1ef" stroke="#b03a2e" stroke-width="2"/></g>
   <rect x="970" y="120" width="560" height="46" rx="16" fill="#b03a2e"/>
   <rect x="970" y="150" width="560" height="16" fill="#b03a2e"/>
-  <text x="1250" y="152" class="tag" text-anchor="middle">CONCLUSIÓN BIOLÓGICA</text>
+  <text x="1250" y="152" class="tag" text-anchor="middle">CONCLUSIÃ“N BIOLÃ“GICA</text>
 
-  <text x="1250" y="280" class="h" text-anchor="middle">¿Cuál importa?</text>
-  <text x="1250" y="320" class="h" text-anchor="middle">¿Qué evidencia aporta?</text>
-  <text x="1250" y="360" class="h" text-anchor="middle">¿Qué no puedo afirmar?</text>
-  <text x="1250" y="430" class="copy" text-anchor="middle">Aquí no hay salida automática.</text>
+  <text x="1250" y="280" class="h" text-anchor="middle">Â¿CuÃ¡l importa?</text>
+  <text x="1250" y="320" class="h" text-anchor="middle">Â¿QuÃ© evidencia aporta?</text>
+  <text x="1250" y="360" class="h" text-anchor="middle">Â¿QuÃ© no puedo afirmar?</text>
+  <text x="1250" y="430" class="copy" text-anchor="middle">AquÃ­ no hay salida automÃ¡tica.</text>
   <text x="1250" y="462" class="copy" text-anchor="middle">Hay que construir el argumento.</text>
   <text x="1250" y="510" style="font:700 72px Arial;fill:#b03a2e;opacity:0.25" text-anchor="middle">?</text>
 
   <!-- PIE -->
   <rect x="70" y="580" width="1460" height="90" rx="12" fill="#eef8f2" stroke="#1e7a52" stroke-width="2"/>
-  <text x="800" y="620" class="foot" text-anchor="middle">resultado observado  ’  integrar métricas  ’  rankear evidencia  ’  (después) hipótesis</text>
-  <text x="800" y="650" class="small" text-anchor="middle">Hoy terminamos en el ranking. La hipótesis evolutiva es S33.</text>
+  <text x="800" y="620" class="foot" text-anchor="middle">resultado observado  â€™  integrar mÃ©tricas  â€™  rankear evidencia  â€™  (despuÃ©s) hipÃ³tesis</text>
+  <text x="800" y="650" class="small" text-anchor="middle">Hoy terminamos en el ranking. La hipÃ³tesis evolutiva es S33.</text>
 </svg>
