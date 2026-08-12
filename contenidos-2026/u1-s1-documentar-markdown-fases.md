@@ -23,8 +23,8 @@ persona pueda seguirte, y abres el documento que crecerá durante todo el semest
 | **Evidencia** | **Tarea 1**: `protocolo.md` iniciado (pregunta, subpreguntas, estrategia) + reporte de lectura del cap. 1. Bitácora de IA abierta |
 | **Ajuste integrado** | **[Nuevo]** inicio del eje de reproducibilidad del curso |
 
-> **NOTA — dónde guardar.** Crea tu carpeta de trabajo local antes de empezar las prácticas. La
-> estructura completa del proyecto se construye en **S2**; hoy basta con `doc/`.
+> **NOTA — dónde guardar.** Crea tu carpeta de trabajo en tu computadora local antes de empezar las prácticas. La
+> estructura completa del proyecto se construye en **S2**; hoy basta con crear una carpeta llamada `introbionfo` y dentro una carpeta llamada `doc/`.
 
 ## Relación con lo anterior
 

@@ -240,7 +240,7 @@ educativos.
    `pacientes.md` dentro de esa estructura.
 
 2. Redacta un borrador de metadatos llamado `pacientes-metadatos.md` y colócalo junto al archivo de
-   datos. Incluye los campos **mínimo U1** de la sección 4.2 y un diccionario para
+   datos. Incluye los campos **mínimo U1** de la sección 2 y un diccionario para
    las variables `id`, `peso`, `altura`, `sexo`, `edad` y `dx`.
 
 3. Examina el contenido del archivo y distingue entre lo que realmente puedes comprobar y lo que
@@ -290,9 +290,20 @@ Un **modelo de lenguaje grande** (LLM) predice la **continuación más probable*
 equivocado**: a esas respuestas falsas pero verosímiles —un comando que no existe, una opción
 inventada, una cita inexistente— se les llama **alucinaciones**.
 
-### 4.2 Estructura de un prompt científico
+### 4.2 Qué es un prompt
 
-Un buen *prompt* (instrucción) mejora la respuesta. Un prompt científico incluye:
+Un **prompt** es el texto que le das a un asistente de IA para pedirle una tarea: la instrucción,
+la pregunta o el encargo con el que orientas su respuesta. No es un comando de la terminal ni un
+programa que se ejecuta solo: es **lenguaje natural** (a veces mezclado con datos de ejemplo) que el
+modelo usa como punto de partida para generar texto.
+
+La calidad de lo que obtienes depende en buena medida de lo que pediste. Por eso, en este curso no
+bastará con “preguntarle algo”: aprenderás a formular un **prompt científico** —una instrucción
+completa y verificable— y a contrastar siempre la respuesta.
+
+### 4.3 Estructura de un prompt científico
+
+Un buen prompt científico incluye:
 
 1. **Contexto** (qué estás haciendo).
 2. **Pregunta u objetivo** (qué quieres lograr).
@@ -312,7 +323,7 @@ Un buen *prompt* (instrucción) mejora la respuesta. Un prompt científico inclu
 > **IMPORTANTE:** Un mejor prompt **no sustituye** la validación independiente. Aunque la respuesta
 > parezca perfecta, debes comprobarla tú.
 
-### 4.3 Validación independiente
+### 4.4 Validación independiente
 
 Tras recibir una respuesta de IA: **(1)** entiéndela —si no puedes explicar qué hace, no la uses—;
 **(2)** pruébala en datos pequeños de resultado conocido; **(3)** contrástala con la documentación
@@ -322,7 +333,7 @@ oficial o el material del curso.
 
 **Figura 9.** Antes de usar una respuesta de IA hay que entenderla, probarla y contrastarla. Si no es confiable, se corrige y se vuelve a validar; la responsabilidad del resultado es siempre de quien realiza el análisis.
 
-### 4.4 Actividad: detectar una respuesta de IA defectuosa
+### 4.5 Actividad: detectar una respuesta de IA defectuosa
 
 Un estudiante preguntó a una IA cómo contar los genes de un archivo GFF y recibió esta respuesta
 (que contiene errores deliberados):
@@ -335,7 +346,7 @@ probablemente inventada**. Tu tarea (se detalla en la Práctica 4) será identif
 explicar por qué es sospechoso, contrastarlo con una fuente confiable, y concluir si la respuesta era
 **totalmente, parcialmente o nada** confiable.
 
-### 4.5 Política de uso de IA del curso
+### 4.6 Política de uso de IA del curso
 
 - **Usos permitidos:** entender conceptos, explicar comandos, sugerir estrategias, revisar redacción.
 - **Usos no permitidos:** entregar como propio texto o código generado sin comprender ni validar;
@@ -347,7 +358,7 @@ explicar por qué es sospechoso, contrastarlo con una fuente confiable, y conclu
 - **Responsabilidad:** el resultado es **tuyo**; respondes por él.
 - **Declaración obligatoria:** todo uso de IA se declara en la bitácora.
 
-### 4.6 Bitácora de IA
+### 4.7 Bitácora de IA
 
 Registra, por cada uso: **fecha**, **actividad**, **herramienta y modelo** (si se conoce), **consulta
 o prompt**, **respuesta relevante**, **error o limitación detectada**, **fuente usada para validar**,
