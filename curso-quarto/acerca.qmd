@@ -1,0 +1,18 @@
+---
+title: "Acerca"
+---
+
+## Heladia Salgado Osorio
+
+Técnica Académica Titular C de tiempo completo en el Programa de [Genómica Computacional](https://www.ccg.unam.mx/genomica-computacional/) del [Centro de Ciencias Genómicas (CCG)](https://www.ccg.unam.mx/) de la UNAM. Su trabajo combina bioinformática, regulación génica bacteriana e infraestructura científica —en particular [RegulonDB](https://regulondb.ccg.unam.mx/)— con la formación de estudiantes.
+
+Imparte y mantiene este material para la **Licenciatura en Ciencias Genómicas**. Es instructora certificada por [The Carpentries](https://carpentries.org/), con énfasis en reproducibilidad y buenas prácticas.
+
+## Este sitio
+
+Aquí está el material 2026 del curso **Introducción a la Bioinformática**, pensado para un modelo de aula invertida: lectura previa, taller presencial y evidencia documentada.
+
+## Contacto
+
+- Correo: [heladia\@ccg.unam.mx](mailto:heladia@ccg.unam.mx)
+- Perfil institucional: [Heladia Salgado Osorio en el CCG](https://www.ccg.unam.mx/heladia-salgado-osorio/)

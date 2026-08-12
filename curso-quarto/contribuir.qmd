@@ -1,0 +1,27 @@
+---
+title: "Contribuir"
+---
+
+Si encuentras un error, un enlace roto o un paso confuso —o si quieres proponer un ejemplo más claro—, tu ayuda es bienvenida. Las propuestas se revisan con el criterio pedagógico del curso: no todo se incorpora tal cual.
+
+## Cómo ayudar
+
+Ayuda especialmente:
+
+- Corregir erratas o redacción poco clara
+- Reportar figuras faltantes o enlaces muertos
+- Señalar un paso de práctica difícil de seguir
+- Mejoras pequeñas de usabilidad del sitio
+
+La fuente canónica del material didáctico está en `contenidos-2026/`; `curso-quarto/` es la capa de publicación web.
+
+## En GitHub
+
+- Repositorio: [Helysalgado/introbioinfo-unix](https://github.com/Helysalgado/introbioinfo-unix)
+- Canal preferido: [abrir un issue](https://github.com/Helysalgado/introbioinfo-unix/issues/new)
+
+Los *pull requests* de correcciones pequeñas son bienvenidos. Para cambios grandes de contenido, abre primero un issue o escribe por correo.
+
+## Por correo
+
+Para temas que no encajan en un issue público: [heladia\@ccg.unam.mx](mailto:heladia@ccg.unam.mx)

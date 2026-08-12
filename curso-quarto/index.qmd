@@ -36,3 +36,7 @@ La vista compacta está en [Programa](programa.qmd). Datos, lecturas y plantilla
 
 - Material interno docente (borradores, auditorías, notas de revisión).
 - El sitio legacy del ciclo anterior; este es el material 2026.
+
+---
+
+[Acerca](acerca.qmd) · [Contribuir](contribuir.qmd)

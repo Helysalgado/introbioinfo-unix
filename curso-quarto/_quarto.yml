@@ -46,6 +46,11 @@ website:
             text: "Transversal S14–S17"
       - href: recursos.qmd
         text: Recursos
+    right:
+      - href: acerca.qmd
+        text: Acerca
+      - href: contribuir.qmd
+        text: Contribuir
   sidebar:
     style: docked
     search: true
