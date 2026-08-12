@@ -1533,6 +1533,7 @@ sesión desarrolla la **Tarea 4**.
 
 ## Distribución orientativa de los 120 minutos
 
+::: {.tabla-agenda}
 | Tiempo | Actividad |
 | --- | --- |
 | 0–15 min | Recuperación activa: genoma, gen, transcrito, proteína y procesos |
@@ -1543,6 +1544,7 @@ sesión desarrolla la **Tarea 4**.
 | 82–104 min | Práctica 5: ¿es suficiente la información para reproducir un análisis? |
 | 104–115 min | Selección provisional de datos y pendiente para S8 |
 | 115–120 min | Autoevaluación y semáforo de salida |
+:::
 
 ## Anexo A. Correspondencia resultado–actividad–evidencia–criterio
 

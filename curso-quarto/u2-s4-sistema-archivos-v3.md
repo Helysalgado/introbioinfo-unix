@@ -971,6 +971,7 @@ puntos por preparación y por corrección argumentada). La **Tarea 3** (entrega 
 
 ## Distribución orientativa de las dos horas (120 min)
 
+::: {.tabla-agenda}
 | Tiempo | Actividad |
 | --- | --- |
 | 0–8 min | Recuperación activa de la lectura y S2–S3: productos disponibles y problema conductor |
@@ -984,6 +985,7 @@ puntos por preparación y por corrección argumentada). La **Tarea 3** (entrega 
 | 105–114 min | Actualizar `doc/protocolo.md` con `nano`; verificar y documentar decisiones y problemas |
 | 114–118 min | Micropráctica 3: diagnóstico y eliminación segura con `rm -i`/`rmdir` solo en `prueba-s4/` |
 | 118–120 min | Semáforo de salida y registro de dudas |
+:::
 
 ::: {.callout-note}
 Son estimaciones; ajústalas al ritmo del grupo. La **Actividad

@@ -545,6 +545,7 @@ Añade solo esta reflexión en la bitácora:
 
 ## Distribución estimada de las dos horas
 
+::: {.tabla-agenda}
 | Tiempo | Actividad |
 | --- | --- |
 | 0:00–0:10 | El arco S30→S34. **Figura 34.1**. Criterios de evaluación en voz alta |
@@ -554,6 +555,7 @@ Añade solo esta reflexión en la bitácora:
 | 1:25–1:45 | **Práctica 5** — auditoría del informe de IA. **Figura 34.4** |
 | 1:45–1:55 | **Práctica 6** — defensas de 1–2 min. **Figura 34.5** si hace falta |
 | 1:55–2:00 | Mensaje final del curso. Semáforo |
+:::
 
 ## Mensaje final del curso
 

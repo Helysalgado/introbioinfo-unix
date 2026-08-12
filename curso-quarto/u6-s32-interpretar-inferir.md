@@ -739,6 +739,7 @@ Ya hiciste a mano el ranking de la Práctica 3.
 
 ## Distribución estimada de las dos horas
 
+::: {.tabla-agenda}
 | Tiempo | Actividad |
 | --- | --- |
 | 0:00–0:10 | Puesta en común de la Práctica 1: qué columnas creían importantes |
@@ -749,6 +750,7 @@ Ya hiciste a mano el ranking de la Práctica 3.
 | 1:20–1:45 | **Práctica 3** — ranking argumentado. **Figuras 32.6 y 32.7** |
 | 1:45–1:55 | **Práctica 5** — la frase de la IA, en voz alta |
 | 1:55–2:00 | **Figura 32.8** y puente a S33. Semáforo de salida |
+:::
 
 ::: {.callout-note title="carga cognitiva"}
 No proyectes identidad, cobertura, score y *E-value* en el mismo

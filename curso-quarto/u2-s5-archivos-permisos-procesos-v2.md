@@ -1456,6 +1456,7 @@ Una captura de pantalla sin explicación no sustituye estas evidencias.
 
 ## 14. Distribución orientativa de los 120 minutos
 
+::: {.tabla-agenda}
 | Tiempo | Actividad |
 | --- | --- |
 | 0–10 min | Recuperación activa: tipo de objeto, tipo de contenido, permiso, proceso, trabajo y PID |
@@ -1466,6 +1467,7 @@ Una captura de pantalla sin explicación no sustituye estas evidencias.
 | 78–105 min | Actividad 5: `Ctrl-C`, `jobs -l`, PID, estados, `fg`, `Ctrl-Z`, `bg` y SIGTERM |
 | 105–114 min | Diagnóstico de errores preparados y corrección del registro |
 | 114–120 min | Verificación de que no quedan procesos, semáforo de salida y delimitación de la entrega |
+:::
 
 La actividad de IA y la edición final de `doc/protocolo.md` se realizan después de la sesión.
 

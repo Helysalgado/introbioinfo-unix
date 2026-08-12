@@ -569,6 +569,7 @@ Ya escribiste a mano la hipótesis del protocolo.
 
 ## Distribución estimada de las dos horas
 
+::: {.tabla-agenda}
 | Tiempo | Actividad |
 | --- | --- |
 | 0:00–0:10 | Qué dejó abierto S32. Las dos fronteras en el pizarrón |
@@ -579,6 +580,7 @@ Ya escribiste a mano la hipótesis del protocolo.
 | 1:25–1:40 | **Práctica 5** — la frase de la IA |
 | 1:40–1:55 | **Práctica 6** — puente a S34 |
 | 1:55–2:00 | Semáforo. Próxima: integrar todo sobre una secuencia desconocida |
+:::
 
 ## Lo que todavía falta
 

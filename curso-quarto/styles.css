@@ -18,8 +18,8 @@ pre {
 
 /*
  * Tablas: Pandoc a veces asigna anchos absurdos vía <colgroup>
- * (p. ej. columna "Tiempo" al 57% + text-align:right → texto flotando a la derecha).
- * Anulamos esos anchos y pegamos la tabla al margen izquierdo del contenido.
+ * (p. ej. columna "Tiempo" al 57% + text-align:right → texto flotando).
+ * Anulamos esos anchos y dejamos que el contenido reparta el espacio.
  */
 main.content table {
   width: 100%;
@@ -36,14 +36,20 @@ main.content table colgroup col {
 main.content table th,
 main.content table td {
   vertical-align: top;
+  text-align: left;
 }
 
-/* Tablas de 2 columnas tipo Tiempo|Actividad: primera columna compacta y a la izquierda */
-main.content table:has(tr th:nth-child(2):last-child) th:first-child,
-main.content table:has(tr th:nth-child(2):last-child) td:first-child {
+/*
+ * Agenda (Tiempo | Actividad): marcar en Markdown con
+ *   {.tabla-agenda} antes de la tabla, o envolver en ::: {.tabla-agenda}
+ * Primera columna compacta; el resto de tablas (Recurso|Uso, fichas) no se tocan.
+ */
+main.content table.tabla-agenda th:first-child,
+main.content table.tabla-agenda td:first-child,
+main.content .tabla-agenda table th:first-child,
+main.content .tabla-agenda table td:first-child {
   width: 1%;
   white-space: nowrap;
-  text-align: left !important;
 }
 
 /* Blockquotes tip (fallback) */

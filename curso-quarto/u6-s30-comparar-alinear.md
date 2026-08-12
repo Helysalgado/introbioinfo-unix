@@ -973,6 +973,7 @@ el punto de referencia **independiente** que te permite detectar cuándo la IA y
 
 ## Distribución estimada de las dos horas
 
+::: {.tabla-agenda}
 | Tiempo | Actividad |
 | --- | --- |
 | 0:00–0:15 | Puesta en común de los primeros intentos (Práctica 2). Se recogen las estimaciones «a ojo» en el pizarrón |
@@ -983,6 +984,7 @@ el punto de referencia **independiente** que te permite detectar cuándo la IA y
 | 1:30–1:44 | **Práctica 5** — los 19 organismos |
 | 1:44–1:52 | **Práctica 6** — el párrafo de la IA, en voz alta |
 | 1:52–2:00 | Cierre con la **figura 30.6** y la cuenta de «Lo que todavía falta»: un día de cómputo por consulta. Semáforo de salida |
+:::
 
 ::: {.callout-note title="el cierre no es relleno"}
 Los últimos ocho minutos son los que hacen que S31 tenga

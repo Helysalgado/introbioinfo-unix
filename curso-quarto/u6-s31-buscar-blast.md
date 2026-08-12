@@ -751,6 +751,7 @@ Ya hiciste a mano la Práctica 4.
 
 ## Distribución estimada de las dos horas
 
+::: {.tabla-agenda}
 | Tiempo | Actividad |
 | --- | --- |
 | 0:00–0:12 | Puesta en común de los diseños de la Práctica 1. Se recogen en el pizarrón las ideas del punto 4 |
@@ -761,6 +762,7 @@ Ya hiciste a mano la Práctica 4.
 | 1:30–1:45 | **Práctica 5** — el otro alfabeto |
 | 1:45–1:55 | **Práctica 6** — la recomendación de la IA, en voz alta |
 | 1:55–2:00 | Cierre: BLAST devolvió candidatos. ¿Cuál importa? Semáforo de salida |
+:::
 
 ::: {.callout-note title="el orden importa"}
 La figura 31.2 se enseña **después** de la Práctica 4, no antes. Si se

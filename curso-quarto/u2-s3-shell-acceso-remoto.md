@@ -847,6 +847,7 @@ de la sesión. Una captura de pantalla, por sí sola, **no** sustituye ninguna d
 
 ## Distribución orientativa de las dos horas
 
+::: {.tabla-agenda}
 | Tiempo | Actividad |
 | --- | --- |
 | 0–10 min | Recuperación: reproducibilidad, Unix y caso `pacientes.md` |
@@ -858,6 +859,7 @@ de la sesión. Una captura de pantalla, por sí sola, **no** sustituye ninguna d
 | 95–110 min | Actualización y transferencia de `protocolo.md` |
 | 110–115 min | Margen para diagnosticar problemas y confirmar los tres archivos |
 | 115–120 min | Semáforo de salida y registro de dudas |
+:::
 
 La revisión crítica con IA y su registro en `bitacora-ia.md` se realizan **después de la sesión**.
 
