@@ -906,7 +906,7 @@ sustituye ninguna de estas evidencias.
 ## Distribución orientativa de las dos horas (120 min)
 
 | Tiempo | Actividad |
-| ---: | --- |
+| --- | --- |
 | 0–8 min | Recuperación activa de la lectura y S2–S3: productos disponibles y problema conductor |
 | 8–18 min | Comparar el primer intento; distinguir con comandos el home y el espacio institucional |
 | 18–32 min | Micropráctica 1: contexto y navegación por rutas absolutas y relativas |

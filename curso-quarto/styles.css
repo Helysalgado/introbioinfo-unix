@@ -16,7 +16,37 @@ pre {
   font-size: 0.9em;
 }
 
-/* Blockquotes tip (mientras los callouts no estén convertidos) */
+/*
+ * Tablas: Pandoc a veces asigna anchos absurdos vía <colgroup>
+ * (p. ej. columna "Tiempo" al 57% + text-align:right → texto flotando a la derecha).
+ * Anulamos esos anchos y pegamos la tabla al margen izquierdo del contenido.
+ */
+main.content table {
+  width: 100%;
+  max-width: 100%;
+  margin-left: 0;
+  margin-right: auto;
+  table-layout: auto;
+}
+
+main.content table colgroup col {
+  width: auto !important;
+}
+
+main.content table th,
+main.content table td {
+  vertical-align: top;
+}
+
+/* Tablas de 2 columnas tipo Tiempo|Actividad: primera columna compacta y a la izquierda */
+main.content table:has(tr th:nth-child(2):last-child) th:first-child,
+main.content table:has(tr th:nth-child(2):last-child) td:first-child {
+  width: 1%;
+  white-space: nowrap;
+  text-align: left !important;
+}
+
+/* Blockquotes tip (fallback) */
 blockquote {
   border-left: 4px solid #2c7fb8;
   background: #f7fafc;
@@ -43,7 +73,7 @@ details[open] {
   background: #fff;
 }
 
-/* Pies de figura en negrita que siguen a la imagen */
+/* Pies de figura */
 main.content p > img {
   max-width: 100%;
   height: auto;

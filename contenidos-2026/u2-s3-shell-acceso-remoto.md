@@ -820,7 +820,7 @@ de la sesión. Una captura de pantalla, por sí sola, **no** sustituye ninguna d
 ## Distribución orientativa de las dos horas
 
 | Tiempo | Actividad |
-| ---: | --- |
+| --- | --- |
 | 0–10 min | Recuperación: reproducibilidad, Unix y caso `pacientes.md` |
 | 10–25 min | Primera conexión SSH acompañada (Práctica 1) |
 | 25–35 min | Tres ciclos de conexión, reconocimiento y salida (Práctica 2) |

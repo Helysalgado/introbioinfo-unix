@@ -974,7 +974,7 @@ el punto de referencia **independiente** que te permite detectar cuándo la IA y
 ## Distribución estimada de las dos horas
 
 | Tiempo | Actividad |
-| ---: | --- |
+| --- | --- |
 | 0:00–0:15 | Puesta en común de los primeros intentos (Práctica 2). Se recogen las estimaciones «a ojo» en el pizarrón |
 | 0:15–0:30 | Del fracaso de `grep` al alineamiento: **comparar** es el objetivo, **alinear** la herramienta. Figuras 30.1 y 30.3 |
 | 0:30–0:58 | **Práctica 3** — las tres parejas |

@@ -534,7 +534,7 @@ Añade solo esta reflexión en la bitácora:
 ## Distribución estimada de las dos horas
 
 | Tiempo | Actividad |
-| ---: | --- |
+| --- | --- |
 | 0:00–0:10 | El arco S30→S34. **Figura 34.1**. Criterios de evaluación en voz alta |
 | 0:10–0:25 | Puesta en común de preguntas (Práctica 1) e inventarios (Práctica 2) |
 | 0:25–1:05 | **Práctica 3** — búsqueda y ranking |

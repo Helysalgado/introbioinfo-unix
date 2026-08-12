@@ -570,7 +570,7 @@ Ya escribiste a mano la hipótesis del protocolo.
 ## Distribución estimada de las dos horas
 
 | Tiempo | Actividad |
-| ---: | --- |
+| --- | --- |
 | 0:00–0:10 | Qué dejó abierto S32. Las dos fronteras en el pizarrón |
 | 0:10–0:25 | Similitud ≠ homología. **Figuras 33.1 y 33.2**. Puesta en común de la Práctica 1 |
 | 0:25–0:50 | Globinas. **Práctica 2**. **Figura 33.3** |

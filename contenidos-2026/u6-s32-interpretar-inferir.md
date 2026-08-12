@@ -718,7 +718,7 @@ Ya hiciste a mano el ranking de la Práctica 3.
 ## Distribución estimada de las dos horas
 
 | Tiempo | Actividad |
-| ---: | --- |
+| --- | --- |
 | 0:00–0:10 | Puesta en común de la Práctica 1: qué columnas creían importantes |
 | 0:10–0:25 | Resultado ≠ conclusión. Anatomía de la fila. **Figuras 32.1 y 32.2** |
 | 0:25–0:50 | Identidad → cobertura. **Práctica 2**. **Figuras 32.3 y 32.4** |

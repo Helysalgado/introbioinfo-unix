@@ -722,7 +722,7 @@ Ya hiciste a mano la Práctica 4.
 ## Distribución estimada de las dos horas
 
 | Tiempo | Actividad |
-| ---: | --- |
+| --- | --- |
 | 0:00–0:12 | Puesta en común de los diseños de la Práctica 1. Se recogen en el pizarrón las ideas del punto 4 |
 | 0:12–0:28 | De la cuenta de S30 a la idea de descartar. Figuras 31.1 y 31.3 |
 | 0:28–0:45 | **Práctica 2** — construir y auditar la base |

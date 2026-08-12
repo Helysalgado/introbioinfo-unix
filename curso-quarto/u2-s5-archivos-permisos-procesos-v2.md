@@ -1457,7 +1457,7 @@ Una captura de pantalla sin explicación no sustituye estas evidencias.
 ## 14. Distribución orientativa de los 120 minutos
 
 | Tiempo | Actividad |
-| ---: | --- |
+| --- | --- |
 | 0–10 min | Recuperación activa: tipo de objeto, tipo de contenido, permiso, proceso, trabajo y PID |
 | 10–25 min | Comparación del primer intento y diagnóstico de rutas/archivos elegidos |
 | 25–42 min | Actividad 1 y selección razonada de herramientas de inspección |

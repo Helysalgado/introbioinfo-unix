@@ -1534,7 +1534,7 @@ sesión desarrolla la **Tarea 4**.
 ## Distribución orientativa de los 120 minutos
 
 | Tiempo | Actividad |
-| ---: | --- |
+| --- | --- |
 | 0–15 min | Recuperación activa: genoma, gen, transcrito, proteína y procesos |
 | 15–30 min | Comparación y corrección del test y la matriz iniciales |
 | 30–45 min | Del objeto biológico a secuencia, coordenadas y atributos |
