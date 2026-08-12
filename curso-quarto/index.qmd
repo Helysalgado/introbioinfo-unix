@@ -1,0 +1,38 @@
+---
+title: "Introducción a la Bioinformática"
+subtitle: "Curso LCG · UNAM"
+---
+
+Este sitio reúne el material de lectura y práctica del curso. **No es un curso de Unix ni de comandos**: es un curso de bioinformática en el que las herramientas computacionales aparecen solo como medios para responder preguntas biológicas.
+
+> **Las preguntas biológicas permanecen; las estrategias de análisis evolucionan.**
+
+## Cómo usar este sitio
+
+El curso sigue un modelo de **aula invertida**:
+
+1. **Antes de clase** lees el módulo de la sesión (conceptos y primer intento de las prácticas).
+2. **En el taller** contrastas, ejecutas y corrige con evidencia.
+3. **Después** entregas lo que el módulo pide (tareas, protocolo, bitácora).
+
+Empieza por la [Unidad 1 — Trabajo reproducible](u1-trabajo-reproducible.md). Es la base del resto del curso y aún no usa la terminal: Markdown, pregunta biológica, protocolo y organización del proyecto.
+
+## Unidades
+
+| Unidad | Tema |
+| --- | --- |
+| [U1](u1-trabajo-reproducible.md) | Trabajo reproducible y comunicación técnica |
+| [U2](u2-entorno-unix.md) | Entorno Unix/Linux y cómputo científico |
+| [U3](u3-datos-bases-datos.md) | Datos y bases de datos biológicas |
+| [U4](u4-procesamiento-exploracion.md) | Procesamiento y exploración de datos genómicos |
+| [U5](u5-automatizacion-scripting.md) | Automatización de análisis con Shell |
+| [U6](u6-comparacion-homologia.md) | Comparar secuencias para construir hipótesis |
+
+Entre U4 y U5 está el bloque [transversal S14–S17](s14-s15-mini-proyecto-investigacion-I.md) (mini-proyecto, pares y evaluación demostrativa).
+
+La vista compacta está en [Programa](programa.qmd). Datos, lecturas y plantillas, en [Recursos](recursos.qmd).
+
+## Qué no encontrarás aquí
+
+- Material interno docente (borradores, auditorías, notas de revisión).
+- El sitio legacy del ciclo anterior; este es el material 2026.

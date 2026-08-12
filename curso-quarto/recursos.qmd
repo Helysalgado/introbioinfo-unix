@@ -1,0 +1,23 @@
+---
+title: "Recursos"
+---
+
+## Datos y plantillas
+
+Todo vive en [`ejemplos/`](ejemplos/) (rutas relativas desde las lecciones):
+
+| Recurso | Uso |
+| --- | --- |
+| [`formato_protocolo_v1.0.md`](ejemplos/formato_protocolo_v1.0.md) | Plantilla del protocolo (U1) |
+| [`ReporteGenomeEcoli_Formato_v2.md`](ejemplos/ReporteGenomeEcoli_Formato_v2.md) | Ejemplo de reporte |
+| [`pacientes.md`](ejemplos/pacientes.md) / [`metadatos_pacientes.md`](ejemplos/metadatos_pacientes.md) | Datos sintéticos (U1) |
+| [`datos-alineamientos/`](ejemplos/datos-alineamientos/) | Secuencias de trabajo de U6 |
+| [`s34-casos-secuencia-desconocida.zip`](ejemplos/s34-casos-secuencia-desconocida.zip) | Casos ciegos de S34 |
+
+## Lecturas
+
+- Buffalo, V. (2015). *Bioinformatics Data Skills* — [PDF en este sitio](referencias/bioinformatics-data-skills.pdf) (cap. 1 obligatorio en U1; cap. 2 consulta dirigida). También enlazado desde S4 y S5.
+
+## Figuras
+
+Las figuras publicadas están en [`images/`](images/) con el patrón `figura-uN-sNN-….png`.

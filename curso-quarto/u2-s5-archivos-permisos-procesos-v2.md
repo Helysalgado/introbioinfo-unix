@@ -1,11 +1,13 @@
 # S5 — Gestionar: archivos, compresión, permisos y procesos
 
-> **NOTA — Aula invertida.** Este documento se estudia **antes de la sesión S5**. Antes del taller
-> leerás los conceptos esenciales, harás predicciones y realizarás un primer intento seguro dentro de
-> `~/proyecto/`. Durante la sesión compararás resultados, diagnosticarás errores, corregirás tus
-> decisiones y practicarás con archivos y procesos controlados. Después de la sesión entregarás una
-> evidencia corregida en `doc/protocolo.md` y registrarás, cuando corresponda, la revisión crítica con
-> IA en `doc/bitacora-ia.md`.
+::: {.callout-note title="Aula invertida"}
+Este documento se estudia **antes de la sesión S5**. Antes del taller
+leerás los conceptos esenciales, harás predicciones y realizarás un primer intento seguro dentro de
+`~/proyecto/`. Durante la sesión compararás resultados, diagnosticarás errores, corregirás tus
+decisiones y practicarás con archivos y procesos controlados. Después de la sesión entregarás una
+evidencia corregida en `doc/protocolo.md` y registrarás, cuando corresponda, la revisión crítica con
+IA en `doc/bitacora-ia.md`.
+:::
 
 Tercer módulo de la [Unidad 2](u2-entorno-unix.md). En S3 transferiste al servidor
 `pacientes.md`, `pacientes-metadatos.md` y `protocolo.md`. En S4 construiste por primera vez la
@@ -19,10 +21,12 @@ permiso que necesita y controlar un proceso ligero creado por ti. Estas habilida
 de los procesos interactivos al procesamiento reproducible de datos. Más adelante, después de
 trabajar con tuberías y scripts, también servirán para comprender el sistema de colas del cluster.
 
-> **IMPORTANTE — espacio de trabajo.** Todas las prácticas de S5 se realizan en el ***home***, dentro
-> de `~/proyecto/`, con archivos pequeños. No uses `/export/space3/users/$USER`: ese espacio se
-> reservará para descargas de genomas, BLAST, análisis pesados y resultados voluminosos cuando
-> corresponda.
+::: {.callout-important title="espacio de trabajo"}
+Todas las prácticas de S5 se realizan en el ***home***, dentro
+de `~/proyecto/`, con archivos pequeños. No uses `/export/space3/users/$USER`: ese espacio se
+reservará para descargas de genomas, BLAST, análisis pesados y resultados voluminosos cuando
+corresponda.
+:::
 
 ## Ficha del módulo
 
@@ -86,17 +90,21 @@ Tiempo previo estimado: lectura esencial 40–50 min · microprácticas y predic
 consulta opcional 15–20 min. La práctica presencial dura 120 min y la corrección posterior, 30–45
 min.
 
-> **NOTA — cómo leer las salidas orientativas.** En algunos puntos se muestra una salida de ejemplo
-> para que reconozcas la **forma** del resultado y puedas detectar diferencias importantes. No tiene
-> que coincidir carácter por carácter con la tuya: pueden variar usuario, grupo, PID, tamaño, fecha,
-> idioma, permisos iniciales y descripción de `file`. Tu evidencia debe contener la salida que
-> obtuviste realmente, no una copia del ejemplo.
+::: {.callout-note title="cómo leer las salidas orientativas"}
+En algunos puntos se muestra una salida de ejemplo
+para que reconozcas la **forma** del resultado y puedas detectar diferencias importantes. No tiene
+que coincidir carácter por carácter con la tuya: pueden variar usuario, grupo, PID, tamaño, fecha,
+idioma, permisos iniciales y descripción de `file`. Tu evidencia debe contener la salida que
+obtuviste realmente, no una copia del ejemplo.
+:::
 
-> **NOTA — un comando exitoso puede no imprimir nada.** `mkdir`, `cp`, `gzip`, `gunzip`, `chmod` y
-> `kill` suelen permanecer en silencio cuando terminan correctamente. La ausencia de un error es una
-> primera señal, pero no demuestra por sí sola que obtuviste el resultado deseado. Por eso las
-> prácticas añaden una comprobación posterior con `ls`, `file`, `sha256sum`, `jobs` o `ps`, según la
-> operación.
+::: {.callout-note title="un comando exitoso puede no imprimir nada"}
+`mkdir`, `cp`, `gzip`, `gunzip`, `chmod` y
+`kill` suelen permanecer en silencio cuando terminan correctamente. La ausencia de un error es una
+primera señal, pero no demuestra por sí sola que obtuviste el resultado deseado. Por eso las
+prácticas añaden una comprobación posterior con `ls`, `file`, `sha256sum`, `jobs` o `ps`, según la
+operación.
+:::
 
 ## Antes de la sesión — preflight
 
@@ -112,15 +120,19 @@ Comprueba lo siguiente antes de practicar:
   y el que ejecuta la sesión actual.
 - [ ] No usarás `/export/space3/users/$USER` para esta sesión.
 
-> **NOTA — shell interactivo.** `echo "$SHELL"` suele indicar el shell configurado para la cuenta;
-> `ps -p "$$" -o comm=` ayuda a identificar el proceso que ejecuta la sesión actual. El script declara
-> Bash mediante `#!/bin/bash`, y las instrucciones de control de trabajos y los comandos `help` están
-> redactados para Bash. Si observas otro shell, no cambies tu configuración: informa a la docente y
-> usa las indicaciones correspondientes al entorno común del curso.
+::: {.callout-note title="shell interactivo"}
+`echo "$SHELL"` suele indicar el shell configurado para la cuenta;
+`ps -p "$$" -o comm=` ayuda a identificar el proceso que ejecuta la sesión actual. El script declara
+Bash mediante `#!/bin/bash`, y las instrucciones de control de trabajos y los comandos `help` están
+redactados para Bash. Si observas otro shell, no cambies tu configuración: informa a la docente y
+usa las indicaciones correspondientes al entorno común del curso.
+:::
 
-> **ADVERTENCIA:** No cambies permisos, no edites y no comprimas directamente ningún archivo de
-> `data/source/`. No ejecutes `chmod` sobre `~/proyecto/` completo. No uses `chmod 777`. No envíes
-> señales a procesos que no hayas iniciado tú para esta práctica.
+::: {.callout-warning}
+No cambies permisos, no edites y no comprimas directamente ningún archivo de
+`data/source/`. No ejecutes `chmod` sobre `~/proyecto/` completo. No uses `chmod 777`. No envíes
+señales a procesos que no hayas iniciado tú para esta práctica.
+:::
 
 ### Archivos que generará la sesión
 
@@ -259,14 +271,18 @@ tail data/source/pacientes-metadatos.md
 less data/source/pacientes.md
 ```
 
-> **IMPORTANTE:** `head`, `tail`, `less` y `cat` no editan el archivo. Aun así, evita `cat` con
-> archivos grandes porque puede llenar la pantalla. Más adelante trabajarás con genomas y elegir el
-> visor adecuado será importante.
+::: {.callout-important}
+`head`, `tail`, `less` y `cat` no editan el archivo. Aun así, evita `cat` con
+archivos grandes porque puede llenar la pantalla. Más adelante trabajarás con genomas y elegir el
+visor adecuado será importante.
+:::
 
-> **NOTA — archivos comprimidos.** `zcat archivo.gz` muestra todo el contenido descomprimido en la
-> terminal y puede inundar la pantalla, igual que `cat`. Si `zless` está disponible, permite navegar
-> por un `.gz` sin restaurarlo. En S5 usaremos un archivo pequeño y verificaremos la herramienta
-> disponible antes de depender de ella.
+::: {.callout-note title="archivos comprimidos"}
+`zcat archivo.gz` muestra todo el contenido descomprimido en la
+terminal y puede inundar la pantalla, igual que `cat`. Si `zless` está disponible, permite navegar
+por un `.gz` sin restaurarlo. En S5 usaremos un archivo pequeño y verificaremos la herramienta
+disponible antes de depender de ella.
+:::
 
 ### Pausa de predicción 2
 
@@ -315,11 +331,13 @@ produce habitualmente un `.tar.gz`.
 | Inspeccionar un archivo `.gz` pequeño o navegar por él | `zcat` o `zless`, según disponibilidad | Permite observar sin crear una copia restaurada |
 | Archivo ya comprimido, como BAM/CRAM, ZIP o una imagen PNG | No aplicar `gzip` automáticamente | Puede ahorrar muy poco y dificultar el uso por otras herramientas |
 
-> **IMPORTANTE:** Comprimir no demuestra que el archivo sea correcto, no sustituye un *checksum* y
-> no constituye por sí solo un respaldo. Además, descomprimir no es siempre un paso necesario: si un
-> dato biológico llega como `.gz` y la herramienta de análisis lo admite, puede conservarse en ese
-> formato. La decisión debe responder al flujo de trabajo, no a la idea de que “descomprimido es
-> mejor”.
+::: {.callout-important}
+Comprimir no demuestra que el archivo sea correcto, no sustituye un *checksum* y
+no constituye por sí solo un respaldo. Además, descomprimir no es siempre un paso necesario: si un
+dato biológico llega como `.gz` y la herramienta de análisis lo admite, puede conservarse en ese
+formato. La decisión debe responder al flujo de trabajo, no a la idea de que “descomprimido es
+mejor”.
+:::
 
 > **CONEXIÓN CON EL PROYECTO:** En S5 no descargaremos archivos biológicos grandes. Usaremos una copia
 > pequeña de `README.md` para aprender el comportamiento de `gzip` sin poner en riesgo los originales.
@@ -344,9 +362,11 @@ no sustituyen la verificación de integridad.
 `tar` reúne varios elementos en un archivo contenedor. Con la opción `z` también usa gzip (GNU
 Project, *GNU Tar Manual*):
 
-> **NOTA — sintaxis de consulta, no ejecutar.** `carpeta/`, `paquete.tar.gz` y
-> `directorio-vacio/` son nombres ilustrativos y no corresponden a artefactos de la práctica. Este
-> bloque muestra la forma general del comando; la actividad evaluada utiliza `gzip`/`gunzip`.
+::: {.callout-note title="sintaxis de consulta, no ejecutar"}
+`carpeta/`, `paquete.tar.gz` y
+`directorio-vacio/` son nombres ilustrativos y no corresponden a artefactos de la práctica. Este
+bloque muestra la forma general del comando; la actividad evaluada utiliza `gzip`/`gunzip`.
+:::
 
 ```bash
 tar -czf paquete.tar.gz carpeta/
@@ -379,9 +399,11 @@ ni crea esas rutas en el directorio actual; permite revisar qué se restauraría
 - `f`: el siguiente argumento es el nombre del archivo;
 - `-C`: extraer dentro del directorio indicado.
 
-> **NOTA — alcance.** La práctica evaluada utiliza `gzip`/`gunzip`. `tar` queda como consulta o como
-> demostración guiada si el tiempo lo permite. Antes de extraer un paquete, conviene listar su
-> contenido y utilizar un directorio vacío para evitar colisiones con archivos existentes.
+::: {.callout-note title="alcance"}
+La práctica evaluada utiliza `gzip`/`gunzip`. `tar` queda como consulta o como
+demostración guiada si el tiempo lo permite. Antes de extraer un paquete, conviene listar su
+contenido y utilizar un directorio vacío para evitar colisiones con archivos existentes.
+:::
 
 ### Pausa de predicción 3
 
@@ -447,19 +469,25 @@ head prueba.sh
 La salida de `head` debe mostrar las dos líneas que acabas de guardar. Si el archivo ya existía de un
 intento anterior, verifica primero su contenido y no crees otro con un nombre diferente.
 
-> **NOTA — recuperación de S4.** `nano` no es un contenido nuevo: ya aprendiste a abrir, guardar,
-> salir y verificar un archivo en S4. Aquí lo utilizas para generar el objeto sobre el que estudiarás
-> permisos.
+::: {.callout-note title="recuperación de S4"}
+`nano` no es un contenido nuevo: ya aprendiste a abrir, guardar,
+salir y verificar un archivo en S4. Aquí lo utilizas para generar el objeto sobre el que estudiarás
+permisos.
+:::
 
-> **NOTA — contenido del script.** Por ahora no necesitas analizar ni modificar la sintaxis. La
-> primera línea indica qué intérprete debe leer el archivo y la segunda imprime un mensaje. En las
-> lecciones posteriores de automatización y *scripting* estudiarás con detalle el *shebang*, los
-> comandos, las variables, los parámetros y la construcción de scripts reutilizables. En S5 la
-> pregunta es más acotada: ¿qué permiso necesita este archivo para ejecutarse directamente?
+::: {.callout-note title="contenido del script"}
+Por ahora no necesitas analizar ni modificar la sintaxis. La
+primera línea indica qué intérprete debe leer el archivo y la segunda imprime un mensaje. En las
+lecciones posteriores de automatización y *scripting* estudiarás con detalle el *shebang*, los
+comandos, las variables, los parámetros y la construcción de scripts reutilizables. En S5 la
+pregunta es más acotada: ¿qué permiso necesita este archivo para ejecutarse directamente?
+:::
 
-> **IMPORTANTE:** No ejecutes todavía `prueba.sh` y no le añadas permiso `x`. Primero aprenderás a
-> interpretar su estado inicial en `ls -l`; después predecirás y comprobarás qué ocurre antes y
-> después de conceder el permiso mínimo.
+::: {.callout-important}
+No ejecutes todavía `prueba.sh` y no le añadas permiso `x`. Primero aprenderás a
+interpretar su estado inicial en `ls -l`; después predecirás y comprobarás qué ocurre antes y
+después de conceder el permiso mínimo.
+:::
 
 ---
 
@@ -503,10 +531,12 @@ es una recomendación general ni el permiso que necesita el script personal de e
 | `w` | Modificar el contenido | Crear, eliminar o renombrar entradas, normalmente junto con `x` |
 | `x` | Solicitar su ejecución como programa | Atravesarlo y acceder a entradas conocidas |
 
-> **IMPORTANTE:** Poder eliminar un archivo depende principalmente de los permisos del directorio que
-> lo contiene, no solo del permiso `w` del archivo. Tampoco basta siempre con añadir `x` para ejecutar
-> un script: debe tener un intérprete válido, contenido legible para ese intérprete y estar en un
-> sistema de archivos que permita ejecución.
+::: {.callout-important}
+Poder eliminar un archivo depende principalmente de los permisos del directorio que
+lo contiene, no solo del permiso `w` del archivo. Tampoco basta siempre con añadir `x` para ejecutar
+un script: debe tener un intérprete válido, contenido legible para ese intérprete y estar en un
+sistema de archivos que permita ejecución.
+:::
 
 ### 4.2 Cambiar solo lo necesario con `chmod`
 
@@ -536,10 +566,12 @@ los tres bloques completos**; por eso puede conceder o retirar permisos que no p
 En S5 la forma numérica se interpreta como ejercicio de lectura, pero la práctica utiliza
 `chmod u+x`, que expresa el cambio mínimo necesario.
 
-> **ADVERTENCIA — `chmod 777`.** Concede lectura, escritura y ejecución a dueño, grupo y demás
-> usuarios. No es una solución apropiada a `Permission denied`: oculta la causa y concede permisos
-> excesivos. Primero inspecciona el objeto, el directorio, el intérprete y el permiso realmente
-> necesario.
+::: {.callout-warning title="`chmod 777`"}
+Concede lectura, escritura y ejecución a dueño, grupo y demás
+usuarios. No es una solución apropiada a `Permission denied`: oculta la causa y concede permisos
+excesivos. Primero inspecciona el objeto, el directorio, el intérprete y el permiso realmente
+necesario.
+:::
 
 ### Pausa de predicción 4
 
@@ -581,8 +613,10 @@ sistema, pero en el servidor Linux verás con frecuencia:
 | `T` | detenido, por ejemplo después de `Ctrl-Z` |
 | `Z` **(consulta)** | terminado, pero aún no recolectado por su proceso padre (*zombie*) |
 
-> **IMPORTANTE:** “En segundo plano” no es un estado de CPU. Describe la relación del trabajo con la
-> terminal. Un `sleep` puede estar en segundo plano y mostrar estado `S` porque está esperando.
+::: {.callout-important}
+“En segundo plano” no es un estado de CPU. Describe la relación del trabajo con la
+terminal. Un `sleep` puede estar en segundo plano y mostrar estado `S` porque está esperando.
+:::
 
 ### 5.1 Observar procesos propios con `ps`
 
@@ -741,9 +775,11 @@ Antes de enviar una señal:
 3. usa `SIGTERM` primero;
 4. verifica después que el proceso terminó.
 
-> **ADVERTENCIA:** No pruebes con PIDs ajenos ni con procesos del sistema. No uses `kill -9` o
-> `SIGKILL` como primera opción: fuerza la terminación sin permitir limpieza. En S5 no es necesario
-> practicarla.
+::: {.callout-warning}
+No pruebes con PIDs ajenos ni con procesos del sistema. No uses `kill -9` o
+`SIGKILL` como primera opción: fuerza la terminación sin permitir limpieza. En S5 no es necesario
+practicarla.
+:::
 
 ### 6.4 Consulta — ¿qué continúa si se cierra la conexión?
 
@@ -758,11 +794,13 @@ nohup comando &
 conectada a la terminal, normalmente se guarda en `nohup.out`. Esto no protege frente a otros
 errores, reinicios, límites del sistema o señales distintas.
 
-> **IMPORTANTE — preparación para trabajo futuro.** `nohup`, `screen` y `tmux` no autorizan ejecutar análisis
-> pesados en un nodo de acceso. Los trabajos prolongados o intensivos del *cluster* se envían al
-> planificador institucional. Ese tema se estudiará más adelante, cuando ya hayas practicado
-> procesamiento de datos y scripts. En S5 `nohup`, `screen` y `tmux` son conceptos de consulta; la
-> práctica utiliza únicamente `sleep` y termina el proceso antes de cerrar la sesión.
+::: {.callout-important title="preparación para trabajo futuro"}
+`nohup`, `screen` y `tmux` no autorizan ejecutar análisis
+pesados en un nodo de acceso. Los trabajos prolongados o intensivos del *cluster* se envían al
+planificador institucional. Ese tema se estudiará más adelante, cuando ya hayas practicado
+procesamiento de datos y scripts. En S5 `nohup`, `screen` y `tmux` son conceptos de consulta; la
+práctica utiliza únicamente `sleep` y termina el proceso antes de cerrar la sesión.
+:::
 
 ### Pausa de predicción 6
 

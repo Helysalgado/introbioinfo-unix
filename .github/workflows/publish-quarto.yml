@@ -1,0 +1,37 @@
+name: Publish Quarto site
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "curso-quarto/**"
+      - ".github/workflows/publish-quarto.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Render site
+        working-directory: curso-quarto
+        run: quarto render
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: curso-quarto/_site
+          force_orphan: true

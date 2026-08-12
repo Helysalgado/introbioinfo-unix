@@ -1,0 +1,25 @@
+---
+title: "Programa"
+---
+
+Ruta del curso 2026. Usa la barra lateral para abrir cada sesión.
+
+## Unidades
+
+| Unidad | Sesiones | Enfoque |
+| --- | --- | --- |
+| [U1 — Trabajo reproducible](u1-trabajo-reproducible.md) | S1–S2 | Documentar, FAIR, protocolo, uso crítico de IA |
+| [U2 — Entorno Unix](u2-entorno-unix.md) | S3–S6 | Shell, archivos, permisos, consolidación del entorno |
+| [U3 — Datos y bases](u3-datos-bases-datos.md) | S7–S9 | Formatos, descarga, integridad, transferencia |
+| [U4 — Procesamiento genómico](u4-procesamiento-exploracion.md) | S10–S13, S18–S23 | De la anatomía del archivo al protocolo ejecutable |
+| [U5 — Automatización](u5-automatizacion-scripting.md) | S24–S29 | Scripts, lotes, herramienta científica, cluster |
+| [U6 — Comparar / hipótesis](u6-comparacion-homologia.md) | S30–S34 | Alinear, buscar, interpretar, inferir, integrar |
+
+## Transversal (entre U4)
+
+| Bloque | Rol |
+| --- | --- |
+| [S14–S15](s14-s15-mini-proyecto-investigacion-I.md) | Mini-proyecto de investigación I |
+| [S16](s16-mini-proyecto-revision-pares.md) | Revisión por pares |
+| [S17](s17-evaluacion-individual-demostrativa.md) | Evaluación individual demostrativa |
+| [Dictamen científico](mini-proyecto-dictamen-cientifico.md) | Marco del producto transversal |

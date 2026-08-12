@@ -1,0 +1,159 @@
+project:
+  type: website
+  output-dir: _site
+  render:
+    - "*.qmd"
+    - "u*.md"
+    - "s*.md"
+    - "mini-proyecto*.md"
+    - "!ejemplos/**"
+  resources:
+    - ejemplos/**
+    - images/**
+    - referencias/**
+
+lang: es
+
+website:
+  title: "Introducción a la Bioinformática"
+  site-url: https://helysalgado.github.io/introbioinfo-unix/
+  repo-url: https://github.com/Helysalgado/introbioinfo-unix
+  repo-actions: [edit, issue]
+  reader-mode: true
+  page-navigation: true
+  navbar:
+    background: primary
+    left:
+      - href: index.qmd
+        text: Inicio
+      - href: programa.qmd
+        text: Programa
+      - text: Unidades
+        menu:
+          - href: u1-trabajo-reproducible.md
+            text: "U1 — Trabajo reproducible"
+          - href: u2-entorno-unix.md
+            text: "U2 — Entorno Unix"
+          - href: u3-datos-bases-datos.md
+            text: "U3 — Datos y bases"
+          - href: u4-procesamiento-exploracion.md
+            text: "U4 — Procesamiento genómico"
+          - href: u5-automatizacion-scripting.md
+            text: "U5 — Automatización"
+          - href: u6-comparacion-homologia.md
+            text: "U6 — Comparar / hipótesis"
+          - href: s14-s15-mini-proyecto-investigacion-I.md
+            text: "Transversal S14–S17"
+      - href: recursos.qmd
+        text: Recursos
+  sidebar:
+    style: docked
+    search: true
+    collapse-level: 1
+    contents:
+      - section: "Unidad 1"
+        contents:
+          - href: u1-trabajo-reproducible.md
+            text: Portada
+          - href: u1-s1-documentar-markdown-fases.md
+            text: "S1 — Documentar"
+          - href: u1-s2-organizar-fair-ia.md
+            text: "S2 — Organizar"
+      - section: "Unidad 2"
+        contents:
+          - href: u2-entorno-unix.md
+            text: Portada
+          - href: u2-s3-shell-acceso-remoto.md
+            text: "S3 — Conectar"
+          - href: u2-s4-sistema-archivos-v3.md
+            text: "S4 — Navegar"
+          - href: u2-s5-archivos-permisos-procesos-v2.md
+            text: "S5 — Archivos y procesos"
+          - href: u2-s6-consolidacion-entorno-unix.md
+            text: "S6 — Consolidar"
+      - section: "Unidad 3"
+        contents:
+          - href: u3-datos-bases-datos.md
+            text: Portada
+          - href: u3-s7-secuencias-formatos-genbank.md
+            text: "S7 — Formatos"
+          - href: u3-s8-bases-datos-descarga-integridad.md
+            text: "S8 — Descargar"
+          - href: u3-s9-inspeccion-transferencia-verificable.md
+            text: "S9 — Transferir"
+      - section: "Unidad 4"
+        contents:
+          - href: u4-procesamiento-exploracion.md
+            text: Portada
+          - href: u4-s10-anatomia-flujos-datos.md
+            text: "S10 — Anatomía y flujos"
+          - href: u4-s11-estructura-tabular-anotacion.md
+            text: "S11 — Anotación tabular"
+          - href: u4-s12-filtrado-conteos-genoma.md
+            text: "S12 — Filtrar y contar"
+          - href: u4-s13-inventario-resumen-genoma.md
+            text: "S13 — Inventario"
+          - href: u4-s18-precision-patrones-expresiones-regulares.md
+            text: "S18 — Patrones"
+          - href: u4-s19-extraccion-identificadores-correspondencia.md
+            text: "S19 — Identificadores"
+          - href: u4-s20-normalizar-datos-comparables.md
+            text: "S20 — Normalizar"
+          - href: u4-s21-confrontar-fuente-independiente.md
+            text: "S21 — Confrontar"
+          - href: u4-s22-condicionar-calcular-columnas.md
+            text: "S22 — Condicionar"
+          - href: u4-s23-protocolo-ejecutable-genoma.md
+            text: "S23 — Protocolo ejecutable"
+      - section: "Transversal"
+        contents:
+          - href: s14-s15-mini-proyecto-investigacion-I.md
+            text: "S14–S15 — Mini-proyecto I"
+          - href: s16-mini-proyecto-revision-pares.md
+            text: "S16 — Revisión por pares"
+          - href: s17-evaluacion-individual-demostrativa.md
+            text: "S17 — Evaluación demostrativa"
+          - href: mini-proyecto-dictamen-cientifico.md
+            text: Dictamen científico
+      - section: "Unidad 5"
+        contents:
+          - href: u5-automatizacion-scripting.md
+            text: Portada
+          - href: u5-s24-del-protocolo-al-script.md
+            text: "S24 — Del protocolo al script"
+          - href: u5-s25-separar-procedimiento-datos.md
+            text: "S25 — Separar datos"
+          - href: u5-s26-procesamiento-por-lotes.md
+            text: "S26 — Por lotes"
+          - href: u5-s27-herramienta-cientifica.md
+            text: "S27 — Herramienta científica"
+          - href: u5-s28-proyecto-integrador.md
+            text: "S28 — Proyecto integrador"
+          - href: u5-s29-cluster-hpc-sge.md
+            text: "S29 — Cluster SGE"
+      - section: "Unidad 6"
+        contents:
+          - href: u6-comparacion-homologia.md
+            text: Portada
+          - href: u6-s30-comparar-alinear.md
+            text: "S30 — Comparar / alinear"
+          - href: u6-s31-buscar-blast.md
+            text: "S31 — Buscar (BLAST)"
+          - href: u6-s32-interpretar-inferir.md
+            text: "S32 — Interpretar"
+          - href: u6-s33-defender-hipotesis.md
+            text: "S33 — Inferir"
+          - href: u6-s34-integrar-hipotesis-casos-ciegos.md
+            text: "S34 — Integrar"
+      - recursos.qmd
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    toc-depth: 3
+    toc-location: right
+    code-copy: true
+    code-overflow: wrap
+    link-external-newwindow: true

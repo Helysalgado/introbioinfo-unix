@@ -1,9 +1,11 @@
 # S1 — Documentar: Markdown y las fases del análisis de datos
 
-> **NOTA — Aula invertida.** Esta es la primera sesión del curso, así que aquí no hay lectura previa
-> que traer hecha: el material se lee **junto con la sesión** y las dos prácticas se completan
-> después. A partir de S2 el orden será el habitual —leer antes, practicar en el taller, corregir
-> después—.
+::: {.callout-note title="Aula invertida"}
+Esta es la primera sesión del curso, así que aquí no hay lectura previa
+que traer hecha: el material se lee **junto con la sesión** y las dos prácticas se completan
+después. A partir de S2 el orden será el habitual —leer antes, practicar en el taller, corregir
+después—.
+:::
 
 Primer módulo de la [Unidad 1](u1-trabajo-reproducible.md). Antes de tocar un solo dato biológico hay
 que responder algo más básico: **qué distingue un análisis del que uno puede fiarse de otro que
@@ -23,8 +25,10 @@ persona pueda seguirte, y abres el documento que crecerá durante todo el semest
 | **Evidencia** | **Tarea 1**: `protocolo.md` iniciado (pregunta, subpreguntas, estrategia) + reporte de lectura del cap. 1. Bitácora de IA abierta |
 | **Ajuste integrado** | **[Nuevo]** inicio del eje de reproducibilidad del curso |
 
-> **NOTA — dónde guardar.** Crea tu carpeta de trabajo local antes de empezar las prácticas. La
-> estructura completa del proyecto se construye en **S2**; hoy basta con `doc/`.
+::: {.callout-note title="dónde guardar"}
+Crea tu carpeta de trabajo local antes de empezar las prácticas. La
+estructura completa del proyecto se construye en **S2**; hoy basta con `doc/`.
+:::
 
 ## Relación con lo anterior
 
@@ -79,10 +83,12 @@ errores.
 
 **Figura 1.** Qué hace la bioinformática: transforma una pregunta y datos biológicos en evidencia interpretable mediante herramientas computacionales. Las habilidades con datos y el trabajo confiable atraviesan todo el proceso.
 
-> **NOTA:** Aprender bioinformática no es memorizar programas, sino desarrollar **habilidades con
-> datos**: *"la capacidad de improvisar rápidamente una forma de ver conjuntos de datos complejos,
-> usando un conjunto conocido de herramientas"* (Buffalo, 2015). Se aprende como lo hace un
-> bioinformático: **probando cosas con datos en la computadora y comprendiendo sus resultados.**
+::: {.callout-note}
+Aprender bioinformática no es memorizar programas, sino desarrollar **habilidades con
+datos**: *"la capacidad de improvisar rápidamente una forma de ver conjuntos de datos complejos,
+usando un conjunto conocido de herramientas"* (Buffalo, 2015). Se aprende como lo hace un
+bioinformático: **probando cosas con datos en la computadora y comprendiendo sus resultados.**
+:::
 
 ### 1.2 Cuando descuidamos el trabajo: dos casos reales
 
@@ -100,10 +106,12 @@ reproducible. Dos casos famosos muestran qué ocurre cuando esto falla.
   de proteínas equivocadas. No hubo mala fe: fue un **error de software no detectado** (Miller, 2006,
   *Science*).
 
-> **IMPORTANTE:** *"Non-reproducible single occurrences are of no significance to science"* (Karl
-> Popper, *The Logic of Scientific Discovery*, 1959). Un resultado que ocurre una sola vez y no puede
-> regenerarse no aporta a la ciencia. Por eso el trabajo reproducible y verificado es parte del
-> método, no un trámite.
+::: {.callout-important}
+*"Non-reproducible single occurrences are of no significance to science"* (Karl
+Popper, *The Logic of Scientific Discovery*, 1959). Un resultado que ocurre una sola vez y no puede
+regenerarse no aporta a la ciencia. Por eso el trabajo reproducible y verificado es parte del
+método, no un trámite.
+:::
 
 ### 1.3 Cómo se ve el trabajo bien hecho
 
@@ -125,15 +133,19 @@ software documentado** (`recount`) para consultarlos, descargarlos y analizarlos
 reproducible** que permite rehacer los análisis paso a paso. En otras palabras, cualquier persona
 puede **regenerar y reutilizar** su trabajo: justo lo contrario de los dos casos anteriores.
 
-> **¿SABÍAS QUE?:** Leonardo Collado-Torres, uno de los autores de recount2, imparte el módulo de
-> transcriptómica en *Bioinformática y Estadística II*, más adelante en tu formación. El estilo de
-> trabajo reproducible que empiezas a aprender aquí es el mismo que verás en la investigación real.
+::: {.callout-tip title="¿Sabías que?"}
+Leonardo Collado-Torres, uno de los autores de recount2, imparte el módulo de
+transcriptómica en *Bioinformática y Estadística II*, más adelante en tu formación. El estilo de
+trabajo reproducible que empiezas a aprender aquí es el mismo que verás en la investigación real.
+:::
 
-> **TIP — Un modelo para construir en el curso:** A menor escala, el reporte
-> `ejemplos/ReporteGenomeEcoli_Formato_v2.md` muestra ese mismo cuidado aplicado al genoma de
-> *E. coli*: plantea preguntas, registra la procedencia de los datos, documenta los comandos, muestra
-> los resultados y los interpreta. Tenlo como referencia de la calidad que construiremos durante el
-> semestre.
+::: {.callout-tip title="Un modelo para construir en el curso:"}
+A menor escala, el reporte
+`ejemplos/ReporteGenomeEcoli_Formato_v2.md` muestra ese mismo cuidado aplicado al genoma de
+*E. coli*: plantea preguntas, registra la procedencia de los datos, documenta los comandos, muestra
+los resultados y los interpreta. Tenlo como referencia de la calidad que construiremos durante el
+semestre.
+:::
 
 ### 1.4 ¿Por qué la reproducibilidad?
 
@@ -168,14 +180,18 @@ forma consistente. Evitamos la palabra ambigua "repetir".
 
 **Figura 2.** Reproducible no es lo mismo que robusto: un análisis puede regenerarse exactamente y aun así estar equivocado. La investigación confiable es a la vez reproducible y robusta.
 
-> **IMPORTANTE — La Regla de Oro de la Bioinformática** (Buffalo, 2015, Cap. 1): *nunca confíes
-> ciegamente en tus herramientas ni en tus datos*. Verifica todo —supuestos, formatos, resultados
-> intermedios—, porque los conjuntos de datos son enormes y un error silencioso puede propagarse sin
-> que lo notes. Verificación, validación y robustez son la Regla de Oro convertida en acciones.
+::: {.callout-important title="La Regla de Oro de la Bioinformática"}
+(Buffalo, 2015, Cap. 1): *nunca confíes
+ciegamente en tus herramientas ni en tus datos*. Verifica todo —supuestos, formatos, resultados
+intermedios—, porque los conjuntos de datos son enormes y un error silencioso puede propagarse sin
+que lo notes. Verificación, validación y robustez son la Regla de Oro convertida en acciones.
+:::
 
-> **COMENTARIO:** Estos cuatro principios no son solo teoría: aparecerán como **acciones observables**
-> dentro de cada práctica, y se retomarán progresivamente en las siguientes unidades y en el
-> proyecto integrador.
+::: {.callout-tip}
+Estos cuatro principios no son solo teoría: aparecerán como **acciones observables**
+dentro de cada práctica, y se retomarán progresivamente en las siguientes unidades y en el
+proyecto integrador.
+:::
 
 ---
 
@@ -200,9 +216,11 @@ Describen el **ciclo de vida de los datos**:
 6. **Conservación.** Resguardar los datos originales intactos y los derivados por separado.
 7. **Documentación y comunicación.** Registrar y reportar todo de forma reproducible.
 
-> **NOTA:** El **cómo** hacer bien estas fases se reparte en el resto de la unidad: los **principios
-> FAIR** que las guían se ven enseguida; la **ficha de metadatos** de cada dato, en la sección 4; y la
-> **organización del proyecto**, en la sección 6.
+::: {.callout-note}
+El **cómo** hacer bien estas fases se reparte en el resto de la unidad: los **principios
+FAIR** que las guían se ven enseguida; la **ficha de metadatos** de cada dato, en la sección 4; y la
+**organización del proyecto**, en la sección 6.
+:::
 
 ### B. Fases de resolución de un problema bioinformático
 
@@ -242,10 +260,12 @@ problema (B)**:
 | Conservación | Atraviesa B: resguardar el original y guardar los derivados aparte |
 | Documentación y comunicación | Atraviesa todo B: se registra en cada paso y culmina en B12 (conclusión) |
 
-> **NOTA:** El proceso **B** organiza el *razonamiento* y el proceso **A** cuida los *datos*: A no es
-> un proceso paralelo, sino el **manejo de datos que se ejecuta dentro de B**. Primero razonas qué
-> necesitas (B); en el momento de tocar los datos, lo haces con cuidado (A). No son lo mismo, pero se
-> encajan uno dentro del otro.
+::: {.callout-note}
+El proceso **B** organiza el *razonamiento* y el proceso **A** cuida los *datos*: A no es
+un proceso paralelo, sino el **manejo de datos que se ejecuta dentro de B**. Primero razonas qué
+necesitas (B); en el momento de tocar los datos, lo haces con cuidado (A). No son lo mismo, pero se
+encajan uno dentro del otro.
+:::
 
 Estas dos secciones que siguen **desarrollan lo que acabamos de ver**: la **sección 3** pone en
 práctica el proceso B con un ejemplo concreto, y la **sección 4** muestra cómo todo ese razonamiento
@@ -261,12 +281,16 @@ pasos sobre un ejemplo. La idea central es la misma: **no se empieza eligiendo c
 por la pregunta, luego se define qué evidencia la responde, qué datos la contienen y, **al final**,
 qué herramienta la obtiene.
 
-> **IMPORTANTE:** El orden correcto es **pregunta → evidencia → datos → operación → herramienta**.
-> Empezar por el comando es la causa más común de análisis que "corren" pero no responden nada.
+::: {.callout-important}
+El orden correcto es **pregunta → evidencia → datos → operación → herramienta**.
+Empezar por el comando es la causa más común de análisis que "corren" pero no responden nada.
+:::
 
-> **NOTA:** A lo largo del curso trabajarás con **varios conjuntos de datos** —el genoma de
-> *E. coli*, sRNAs, datos de ratón y una red de regulación, entre otros—. Aquí ilustramos el proceso
-> con **uno** de ellos, pero **el mismo razonamiento (pasos B1–B12 de la sección 2) se aplica a todos**.
+::: {.callout-note}
+A lo largo del curso trabajarás con **varios conjuntos de datos** —el genoma de
+*E. coli*, sRNAs, datos de ratón y una red de regulación, entre otros—. Aquí ilustramos el proceso
+con **uno** de ellos, pero **el mismo razonamiento (pasos B1–B12 de la sección 2) se aplica a todos**.
+:::
 
 El siguiente diagrama resume los pasos que recorreremos:
 
@@ -309,8 +333,10 @@ valida y cómo se interpreta.
 | ¿Cuántos genes hay? | Número de renglones de tipo "gene" | Columna 3 del GFF | Filtrar por "gene" y contar | Filtro + conteo | Comparar con el número reportado por NCBI | Densidad génica del genoma |
 | ¿Cómo se distribuyen por cadena? | Conteo de genes en cadena `+` y `-` | Columna 7 del GFF | Agrupar por cadena y contar | Filtro + conteo | La suma `+` y `-` debe igualar el total de genes | Organización del genoma en ambas hebras |
 
-> **NOTA:** Esta tabla es el **artefacto central** de la sección: es lo que construirás en la
-> Práctica 3 y lo que registrarás en el protocolo (sección 4).
+::: {.callout-note}
+Esta tabla es el **artefacto central** de la sección: es lo que construirás en la
+Práctica 3 y lo que registrarás en el protocolo (sección 4).
+:::
 
 **B8–B9. Elegir la herramienta y probar en pequeño.**
 Las herramientas de la tabla son "posibles": las aprenderás a ejecutar en las unidades siguientes.
@@ -327,9 +353,11 @@ Con las respuestas validadas se **integra una conclusión** que responde la preg
 *"El genoma de* E. coli *K-12 mide ~4.6 Mb y contiene N genes distribuidos en ambas cadenas, lo que
 indica una alta densidad génica característica de las bacterias."*
 
-> **¿SABÍAS QUE?:** Casi cualquier análisis bioinformático, por complejo que parezca, se resuelve
-> así: una pregunta grande se parte en subpreguntas pequeñas y verificables. Dominar esta
-> descomposición es más importante que memorizar comandos.
+::: {.callout-tip title="¿Sabías que?"}
+Casi cualquier análisis bioinformático, por complejo que parezca, se resuelve
+así: una pregunta grande se parte en subpreguntas pequeñas y verificables. Dominar esta
+descomposición es más importante que memorizar comandos.
+:::
 
 ---
 
@@ -416,10 +444,12 @@ Sus secciones y la función de cada una:
 | Discusión | Interpretar su significado biológico |
 | Conclusiones | Integrar las respuestas |
 
-> **NOTA:** En la Unidad 1 iniciarás las secciones **Introducción, Pregunta central, Subpreguntas,
-> Datos y Estrategia**. Las secciones **Comandos, Resultados, Validación, Discusión y Conclusiones**
-> se completarán en las unidades posteriores, conforme aprendas a ejecutar y verificar los análisis.
-> Consérvalas en tu plantilla aunque todavía estén vacías.
+::: {.callout-note}
+En la Unidad 1 iniciarás las secciones **Introducción, Pregunta central, Subpreguntas,
+Datos y Estrategia**. Las secciones **Comandos, Resultados, Validación, Discusión y Conclusiones**
+se completarán en las unidades posteriores, conforme aprendas a ejecutar y verificar los análisis.
+Consérvalas en tu plantilla aunque todavía estén vacías.
+:::
 
 ### 4.1 El protocolo y la escritura científica
 
@@ -434,9 +464,11 @@ científico. Usa esta correspondencia:
 - **Respuesta integrada → Conclusiones.**
 - **Documentación y metadatos → atraviesan todo el proceso.**
 
-> **IMPORTANTE:** Los **procedimientos analíticos** (cómo obtuviste la evidencia) pertenecen a la
-> **Metodología**, no a Resultados. En Resultados va la **evidencia**; en Discusión, su
-> **interpretación**.
+::: {.callout-important}
+Los **procedimientos analíticos** (cómo obtuviste la evidencia) pertenecen a la
+**Metodología**, no a Resultados. En Resultados va la **evidencia**; en Discusión, su
+**interpretación**.
+:::
 
 Puedes consultar la plantilla en blanco
 [`formato_protocolo_v1.0.md`](ejemplos/formato_protocolo_v1.0.md) y un ejemplo ya
@@ -485,13 +517,17 @@ o PDF.
 
 **Figura 6.** Componentes principales de StackEdit: (1) panel de edición, (2) vista previa, (3) barra de herramientas, (4) menú lateral y (5) explorador de documentos. Captura propia de StackEdit (stackedit.io).
 
-> **ADVERTENCIA:** StackEdit guarda tus documentos en el **navegador**. Para conservar tu trabajo,
-> **exporta el archivo `.md`** (menú ☰ → Export) y guárdalo en tu carpeta de proyecto. El `.md`
-> exportado es lo que entregas.
+::: {.callout-warning}
+StackEdit guarda tus documentos en el **navegador**. Para conservar tu trabajo,
+**exporta el archivo `.md`** (menú ☰ → Export) y guárdalo en tu carpeta de proyecto. El `.md`
+exportado es lo que entregas.
+:::
 
-> **TIP — Sin conexión:** Como Markdown es texto plano, si no tienes internet puedes escribir tu
-> `.md` en **cualquier editor de texto** (por ejemplo, el Bloc de notas, TextEdit en modo texto o
-> VS Code) y ver la vista previa más tarde. No dependes de una herramienta específica.
+::: {.callout-tip title="Sin conexión:"}
+Como Markdown es texto plano, si no tienes internet puedes escribir tu
+`.md` en **cualquier editor de texto** (por ejemplo, el Bloc de notas, TextEdit en modo texto o
+VS Code) y ver la vista previa más tarde. No dependes de una herramienta específica.
+:::
 
 ### 5.2 Elementos de Markdown
 
@@ -526,10 +562,12 @@ mostrar. El siguiente bloque muestra una tabla:
 | anotacion.gff3 | GFF3    | Anotación de features |
 ```
 
-> **TIP — Ejemplos correcto e incorrecto.** Un buen documento usa cada elemento con propósito.
-> *Incorrecto:* poner todo en negrita (nada resalta) o meter una tabla de una sola celda.
-> *Correcto:* un título por sección, listas para pasos y una tabla solo cuando hay varias columnas
-> de datos que comparar.
+::: {.callout-tip title="Ejemplos correcto e incorrecto"}
+Un buen documento usa cada elemento con propósito.
+*Incorrecto:* poner todo en negrita (nada resalta) o meter una tabla de una sola celda.
+*Correcto:* un título por sección, listas para pasos y una tabla solo cuando hay varias columnas
+de datos que comparar.
+:::
 
 ### 5.3 Diagramas con Mermaid (ampliación, opcional)
 

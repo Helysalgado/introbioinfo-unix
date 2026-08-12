@@ -1,9 +1,11 @@
 # S4 — Navegar: el sistema de archivos, su organización y su edición
 
-> **NOTA:** Este documento se lee **antes de la sesión S4**. En el
-> taller construiremos en vivo la **estructura real del proyecto** sobre el servidor, con repetición
-> del estudiante. Trae tu **primer intento** y tus dudas. Al final hay una **práctica (Tarea 3)** con
-> tres momentos: antes de clase, durante el taller y entrega final.
+::: {.callout-note}
+Este documento se lee **antes de la sesión S4**. En el
+taller construiremos en vivo la **estructura real del proyecto** sobre el servidor, con repetición
+del estudiante. Trae tu **primer intento** y tus dudas. Al final hay una **práctica (Tarea 3)** con
+tres momentos: antes de clase, durante el taller y entrega final.
+:::
 
 Segundo módulo de la [Unidad 2](u2-entorno-unix.md). En S3 aprendiste a conectarte por SSH y a
 **transferir** tus archivos al servidor comprobando su integridad. Hoy aprenderás a **moverte por el
@@ -13,11 +15,13 @@ que ya transferiste.
 
 ## El problema que resolveremos hoy
 
-> **IMPORTANTE:** Los archivos que transferiste en S3 (`pacientes.md`,
-> `pacientes-metadatos.md` y `protocolo.md`) quedaron **juntos en tu *home* (`~`)** del servidor. Tu
-> tarea de hoy es **crear la estructura que diseñaste en la Unidad 1
-> (Tarea 2, S2)**, **colocar cada archivo donde corresponde** y **comprobar que los datos originales
-> no cambiaron** en el proceso.
+::: {.callout-important}
+Los archivos que transferiste en S3 (`pacientes.md`,
+`pacientes-metadatos.md` y `protocolo.md`) quedaron **juntos en tu *home* (`~`)** del servidor. Tu
+tarea de hoy es **crear la estructura que diseñaste en la Unidad 1
+(Tarea 2, S2)**, **colocar cada archivo donde corresponde** y **comprobar que los datos originales
+no cambiaron** en el proceso.
+:::
 
 En la Unidad 1 (S1–S2) hiciste un trabajo que hoy vas a materializar:
 
@@ -47,11 +51,13 @@ proyecto/
     └── bitacora-ia.md
 ```
 
-> **ADVERTENCIA:** En S3 solo transferiste tres archivos
-> (`pacientes.md`, `pacientes-metadatos.md` y `protocolo.md`). Tu `bitacora-ia.md` **todavía vive en tu
-> computadora**. Para completar la organización tendrás que **transferirlo** al servidor; lo haremos en
-> el taller como aplicación de `scp` (§9). No supongas que ya está disponible: primero
-> compruébalo con `ls`.
+::: {.callout-warning}
+En S3 solo transferiste tres archivos
+(`pacientes.md`, `pacientes-metadatos.md` y `protocolo.md`). Tu `bitacora-ia.md` **todavía vive en tu
+computadora**. Para completar la organización tendrás que **transferirlo** al servidor; lo haremos en
+el taller como aplicación de `scp` (§9). No supongas que ya está disponible: primero
+compruébalo con `ls`.
+:::
 
 ## Ficha del módulo
 
@@ -105,15 +111,19 @@ Al terminar S4, el estudiante es capaz de:
 | **Primer intento** | Ver la Práctica S4 → *Antes de clase*. |
 | **Producto para el taller** | Tu primer intento (comandos, errores y dudas) y la ubicación de `bitacora-ia.md` en tu equipo. |
 
-> **NOTA:** Los tiempos son estimaciones: lectura del módulo ~60–75 min · consulta dirigida de Buffalo
-> Cap. 3 ~20 min · Shotts ~20 min opcional · primer intento ~25 min · taller presencial 120 min ·
-> corrección y entrega posterior ~30 min · actividad formativa de IA ~25 min.
+::: {.callout-note}
+Los tiempos son estimaciones: lectura del módulo ~60–75 min · consulta dirigida de Buffalo
+Cap. 3 ~20 min · Shotts ~20 min opcional · primer intento ~25 min · taller presencial 120 min ·
+corrección y entrega posterior ~30 min · actividad formativa de IA ~25 min.
+:::
 
-> **NOTA:** Igual que en S3, los bloques de las prácticas indican **desde dónde** se
-> ejecutan: `[LOCAL]` en tu computadora y `[REMOTO]` dentro del servidor. Los bloques conceptuales
-> muestran sintaxis general. Antes de cualquier operación,
-> comprueba el contexto con `hostname`, `whoami` y `pwd`. `scp` (§9) **se lanza desde tu computadora**
-> (`[LOCAL]`), aunque copie hacia el servidor.
+::: {.callout-note}
+Igual que en S3, los bloques de las prácticas indican **desde dónde** se
+ejecutan: `[LOCAL]` en tu computadora y `[REMOTO]` dentro del servidor. Los bloques conceptuales
+muestran sintaxis general. Antes de cualquier operación,
+comprueba el contexto con `hostname`, `whoami` y `pwd`. `scp` (§9) **se lanza desde tu computadora**
+(`[LOCAL]`), aunque copie hacia el servidor.
+:::
 
 ---
 
@@ -138,17 +148,21 @@ Conceptos clave:
 - **Directorio actual:** el lugar donde "estás parado" en este momento (lo consultas con `pwd`).
 - **Ruta (*path*):** la dirección de un archivo o directorio dentro del árbol.
 
-> **IMPORTANTE:** El *home* (`~`) y el espacio institucional
-> `/export/space3/users/$USER` son **directorios distintos**. En esta sesión construiremos
-> `~/proyecto/` en el *home* porque trabajaremos con archivos pequeños y el objetivo es aprender rutas,
-> navegación y organización sin mezclar todavía los espacios. Más adelante, cuando descarguemos
-> genomas o ejecutemos análisis que producen archivos grandes —por ejemplo BLAST—, trabajaremos en el
-> espacio institucional, que está destinado a cargas de datos y cómputo mayores. No copies datos
-> grandes al *home*.
+::: {.callout-important}
+El *home* (`~`) y el espacio institucional
+`/export/space3/users/$USER` son **directorios distintos**. En esta sesión construiremos
+`~/proyecto/` en el *home* porque trabajaremos con archivos pequeños y el objetivo es aprender rutas,
+navegación y organización sin mezclar todavía los espacios. Más adelante, cuando descarguemos
+genomas o ejecutemos análisis que producen archivos grandes —por ejemplo BLAST—, trabajaremos en el
+espacio institucional, que está destinado a cargas de datos y cómputo mayores. No copies datos
+grandes al *home*.
+:::
 
-> **TIP:** Ejecuta `echo $HOME` y luego `pwd` después de `cd ~` para conocer la ruta absoluta de tu
-> *home*. Después ejecuta `ls -ld /export/space3/users/$USER` para reconocer el espacio institucional.
-> Comprobarás que son ubicaciones diferentes.
+::: {.callout-tip}
+Ejecuta `echo $HOME` y luego `pwd` después de `cd ~` para conocer la ruta absoluta de tu
+*home*. Después ejecuta `ls -ld /export/space3/users/$USER` para reconocer el espacio institucional.
+Comprobarás que son ubicaciones diferentes.
+:::
 
 ## 2. Rutas absolutas y relativas
 
@@ -173,14 +187,18 @@ Símbolos útiles en las rutas:
 **Figura 2.** El mismo archivo, dos rutas: la absoluta parte de `/`; la relativa parte del directorio
 actual (aquí, `proyecto/`). Elaboración propia.
 
-> **IMPORTANTE:** Una ruta **relativa** empieza en tu **directorio actual**, no necesariamente en tu
-> *home* (`~`). Si te confundes de punto de partida, terminarás creando o buscando carpetas donde no
-> querías. Ante la duda, ejecuta `pwd` para saber desde dónde parte tu ruta relativa.
+::: {.callout-important}
+Una ruta **relativa** empieza en tu **directorio actual**, no necesariamente en tu
+*home* (`~`). Si te confundes de punto de partida, terminarás creando o buscando carpetas donde no
+querías. Ante la duda, ejecuta `pwd` para saber desde dónde parte tu ruta relativa.
+:::
 
-> **¿SABÍAS QUE?:** Una misma ubicación se puede alcanzar por **muchos caminos**. Desde
-> `.../proyecto/doc` puedes llegar a `pacientes.md` con la ruta relativa `../data/source/pacientes.md`
-> (subes con `..` y bajas por `data/source`). Comprobar que dos caminos distintos llevan al mismo sitio
-> es una forma sencilla de **robustez** (§11).
+::: {.callout-tip title="¿Sabías que?"}
+Una misma ubicación se puede alcanzar por **muchos caminos**. Desde
+`.../proyecto/doc` puedes llegar a `pacientes.md` con la ruta relativa `../data/source/pacientes.md`
+(subes con `..` y bajas por `data/source`). Comprobar que dos caminos distintos llevan al mismo sitio
+es una forma sencilla de **robustez** (§11).
+:::
 
 ### Pausa de predicción — antes de ejecutar
 
@@ -221,14 +239,18 @@ cd ~                # va a tu home
 cd -                # regresa al directorio anterior
 ```
 
-> **TIP:** Combina la tecla **Tab** para autocompletar nombres de rutas y evitar errores de tipeo;
-> `ls -lh` muestra los tamaños en formato legible (KB, MB, GB) y `cd -` te devuelve al directorio donde
-> estabas antes.
+::: {.callout-tip}
+Combina la tecla **Tab** para autocompletar nombres de rutas y evitar errores de tipeo;
+`ls -lh` muestra los tamaños en formato legible (KB, MB, GB) y `cd -` te devuelve al directorio donde
+estabas antes.
+:::
 
 ### Micropráctica 1 — Reconocer el contexto y navegar
 
-> **NOTA:** **Problema.** Antes de crear la estructura necesitas confirmar en qué máquina estás, con qué cuenta y
-> en qué ubicación, y saber moverte con seguridad.
+::: {.callout-note}
+**Problema.** Antes de crear la estructura necesitas confirmar en qué máquina estás, con qué cuenta y
+en qué ubicación, y saber moverte con seguridad.
+:::
 
 **[LOCAL] En tu computadora, conéctate:**
 
@@ -254,9 +276,11 @@ Debes ver `pacientes.md`, `pacientes-metadatos.md` y `protocolo.md`, que transfe
 Si alguno no aparece, detente y revisa la evidencia de S3 antes de continuar: puede haber faltado una
 transferencia o quizá estás en otra ubicación.
 
-> **TIP:** **Después de la micropráctica, responde:** (1) ¿Cuál es la ruta absoluta de tu *home*? (2) ¿En qué se
-> diferencia de `/export/space3/users/$USER`? (3) ¿Aparecen en `~` los tres archivos de S3? (4) ¿Ves
-> también `bitacora-ia.md`?
+::: {.callout-tip}
+**Después de la micropráctica, responde:** (1) ¿Cuál es la ruta absoluta de tu *home*? (2) ¿En qué se
+diferencia de `/export/space3/users/$USER`? (3) ¿Aparecen en `~` los tres archivos de S3? (4) ¿Ves
+también `bitacora-ia.md`?
+:::
 
 <details>
 <summary>Ver retroalimentación — Micropráctica 1</summary>
@@ -306,15 +330,19 @@ mv -i origen destino     # mueve o renombra; pregunta antes de sobrescribir
   mismo lugar, renombra. Con `-i` te avisa antes de sobrescribir.
 - Las versiones **sin `-i`** (`cp`, `mv`) hacen lo mismo pero **sin preguntar**.
 
-> **ADVERTENCIA:** `cp` y `mv` pueden sobrescribir. Si el destino ya existe, `cp` y `mv` **sin `-i`**
-> lo **reemplazan sin avisar** y el contenido anterior se pierde. Mientras te acostumbras, usa siempre
-> `cp -i` y `mv -i`. En este módulo **copiamos antes de mover**: conservamos una copia provisional
-> hasta terminar de verificar (§8).
+::: {.callout-warning}
+`cp` y `mv` pueden sobrescribir. Si el destino ya existe, `cp` y `mv` **sin `-i`**
+lo **reemplazan sin avisar** y el contenido anterior se pierde. Mientras te acostumbras, usa siempre
+`cp -i` y `mv -i`. En este módulo **copiamos antes de mover**: conservamos una copia provisional
+hasta terminar de verificar (§8).
+:::
 
 ### Micropráctica 2 — Copiar, mover y renombrar en una carpeta de prueba
 
-> **NOTA:** **Problema.** Antes de tocar tus archivos reales, practica copia, movimiento y renombrado en un lugar
-> donde un error no tenga consecuencias.
+::: {.callout-note}
+**Problema.** Antes de tocar tus archivos reales, practica copia, movimiento y renombrado en un lugar
+donde un error no tenga consecuencias.
+:::
 
 **[REMOTO] En el servidor, dentro de tu espacio de trabajo:**
 
@@ -330,8 +358,10 @@ ls -R                       # observa el resultado
 cd ..
 ```
 
-> **TIP:** **Después de la micropráctica, responde:** (1) ¿En qué se diferenció **renombrar** (`mv a b` en el
-> mismo directorio) de **mover** (`mv a carpeta/`)? (2) ¿Por qué conviene usar `-i`?
+::: {.callout-tip}
+**Después de la micropráctica, responde:** (1) ¿En qué se diferenció **renombrar** (`mv a b` en el
+mismo directorio) de **mover** (`mv a carpeta/`)? (2) ¿Por qué conviene usar `-i`?
+:::
 
 <details>
 <summary>Ver retroalimentación — Micropráctica 2</summary>
@@ -355,16 +385,20 @@ rm -i archivo          # borra un archivo, pidiendo confirmación
 rmdir carpeta          # borra un directorio VACÍO (falla si tiene contenido)
 ```
 
-> **ADVERTENCIA:** Antes de ejecutar cualquier `rm`, comprueba **dónde
-> estás** y **qué hay** con `pwd` y `ls`. Borra solo dentro de `prueba-s4/`. En la **Tarea 3
-> obligatoria no se borra ningún archivo del proyecto**: eliminar es una habilidad que se practica
-> aparte, en la carpeta de prueba.
+::: {.callout-warning}
+Antes de ejecutar cualquier `rm`, comprueba **dónde
+estás** y **qué hay** con `pwd` y `ls`. Borra solo dentro de `prueba-s4/`. En la **Tarea 3
+obligatoria no se borra ningún archivo del proyecto**: eliminar es una habilidad que se practica
+aparte, en la carpeta de prueba.
+:::
 
-> **NOTA:** Existe la opción `rm -r`, que borra un directorio **y todo su contenido**.
-> Es potente y peligrosa: un error de ruta puede eliminar mucho más de lo que querías. En este módulo
-> **no** la usamos en la práctica obligatoria, y **no** conviene adoptar `rm -ri` como hábito rutinario:
-> la costumbre de confirmar "sí" a todo anula la protección. Para vaciar una carpeta de prueba, borra
-> primero sus archivos con `rm -i` y luego el directorio vacío con `rmdir`.
+::: {.callout-note}
+Existe la opción `rm -r`, que borra un directorio **y todo su contenido**.
+Es potente y peligrosa: un error de ruta puede eliminar mucho más de lo que querías. En este módulo
+**no** la usamos en la práctica obligatoria, y **no** conviene adoptar `rm -ri` como hábito rutinario:
+la costumbre de confirmar "sí" a todo anula la protección. Para vaciar una carpeta de prueba, borra
+primero sus archivos con `rm -i` y luego el directorio vacío con `rmdir`.
+:::
 
 ### Micropráctica 3 — Eliminación segura (solo en `prueba-s4/`)
 
@@ -381,8 +415,10 @@ rm -i a.txt            # borra el resto de archivos de prueba
 cd ..
 ```
 
-> **TIP:** **Después de la micropráctica, responde:** (1) ¿Por qué `rmdir sub` falló si `sub/` aún contenía
-> `c.txt`? (2) ¿Cómo te protegió comprobar `pwd` y `ls` antes de borrar?
+::: {.callout-tip}
+**Después de la micropráctica, responde:** (1) ¿Por qué `rmdir sub` falló si `sub/` aún contenía
+`c.txt`? (2) ¿Cómo te protegió comprobar `pwd` y `ls` antes de borrar?
+:::
 
 <details>
 <summary>Ver retroalimentación — Micropráctica 3</summary>
@@ -407,8 +443,10 @@ ls -R             # lista recursivamente el contenido (alternativa siempre dispo
 
 Si `tree` no está disponible en el servidor, `ls -R` cumple la misma función de verificación.
 
-> **NOTA:** `tree` puede no estar instalado. `ls -R`, disponible habitualmente en sistemas Unix,
-> presenta la información en otro formato pero permite comprobar los mismos directorios y archivos.
+::: {.callout-note}
+`tree` puede no estar instalado. `ls -R`, disponible habitualmente en sistemas Unix,
+presenta la información en otro formato pero permite comprobar los mismos directorios y archivos.
+:::
 
 ## 8. La estructura canónica del proyecto
 
@@ -425,11 +463,13 @@ proyecto/
 └── doc/               # documentación (protocolo, bitácora)
 ```
 
-> **IMPORTANTE:** Los datos originales se conservan en `data/source/`
-> **sin modificarse**: se leen y se copian, pero no se editan. Cualquier transformación produce
-> archivos nuevos que van a `data/processed/`, nunca encima del original. Conservar el original con su
-> nombre y su *checksum* preserva la **procedencia** y la trazabilidad de tu análisis (Noble, 2009;
-> Buffalo, 2015, Cap. 3).
+::: {.callout-important}
+Los datos originales se conservan en `data/source/`
+**sin modificarse**: se leen y se copian, pero no se editan. Cualquier transformación produce
+archivos nuevos que van a `data/processed/`, nunca encima del original. Conservar el original con su
+nombre y su *checksum* preserva la **procedencia** y la trazabilidad de tu análisis (Noble, 2009;
+Buffalo, 2015, Cap. 3).
+:::
 
 ### En S4 la construiremos directamente
 
@@ -438,8 +478,10 @@ partirás de una plantilla ni ejecutarás un comando que oculte la estructura co
 el directorio principal y después cada rama. Esta secuencia permite detectar dónde estás, qué ruta
 estás construyendo y por qué cada archivo tiene un destino específico.
 
-> **NOTA:** Cuando ya domines la estructura podrás conservar un esqueleto vacío como plantilla para
-> proyectos futuros. Esa automatización es una ampliación; no forma parte obligatoria de la Tarea 3.
+::: {.callout-note}
+Cuando ya domines la estructura podrás conservar un esqueleto vacío como plantilla para
+proyectos futuros. Esa automatización es una ampliación; no forma parte obligatoria de la Tarea 3.
+:::
 
 ## 9. Transferir el archivo que falta con `scp`
 
@@ -458,13 +500,17 @@ scp bitacora-ia.md usuario@servidor:/ruta/absoluta/de/tu/home/proyecto/doc/
 - La ruta después de `:` debe ser la ruta absoluta que obtuviste con `pwd` dentro de tu *home*. No
   escribas `$USER` en un comando local: podría expandirse al usuario de tu computadora y no al remoto.
 
-> **IMPORTANTE:** `scp` se ejecuta **desde tu computadora**, con el servidor como destino tras el `:`.
-> Comprueba con `hostname` que estás en `[LOCAL]` antes de lanzarlo.
-> No compartas tu contraseña, llaves ni la dirección real del servidor en registros o capturas.
+::: {.callout-important}
+`scp` se ejecuta **desde tu computadora**, con el servidor como destino tras el `:`.
+Comprueba con `hostname` que estás en `[LOCAL]` antes de lanzarlo.
+No compartas tu contraseña, llaves ni la dirección real del servidor en registros o capturas.
+:::
 
-> **NOTA:** En S4, `scp` es una aplicación puntual para completar la organización. `rsync -avP` queda
-> como herramienta de consulta para sincronizar muchos archivos o reanudar transferencias parciales;
-> se retomará con datos mayores en unidades posteriores.
+::: {.callout-note}
+En S4, `scp` es una aplicación puntual para completar la organización. `rsync -avP` queda
+como herramienta de consulta para sincronizar muchos archivos o reanudar transferencias parciales;
+se retomará con datos mayores en unidades posteriores.
+:::
 
 ## 10. Editar en el servidor con `nano`
 
@@ -480,8 +526,10 @@ Elegimos `nano` por su simplicidad para esta primera edición remota, no porque 
 adelante podrás aprender otro editor; los archivos producidos siguen siendo texto plano y pueden
 abrirse con cualquiera de ellos.
 
-> **IMPORTANTE:** Edita documentación y scripts, pero no modifiques los datos originales de
-> `data/source/`. En S4 usarás `nano` con `README.md` y `doc/protocolo.md`.
+::: {.callout-important}
+Edita documentación y scripts, pero no modifiques los datos originales de
+`data/source/`. En S4 usarás `nano` con `README.md` y `doc/protocolo.md`.
+:::
 
 ### Anatomía básica de `nano`
 
@@ -525,9 +573,11 @@ ls -l README.md
 cat README.md
 ```
 
-> **ADVERTENCIA:** `Ctrl-S` no es el atajo de guardado de `nano` y en algunas terminales puede pausar
-> la salida en pantalla. Si parece que la terminal quedó congelada después de pulsarlo, prueba
-> `Ctrl-Q`. Para guardar en `nano` usa `Ctrl-O`.
+::: {.callout-warning}
+`Ctrl-S` no es el atajo de guardado de `nano` y en algunas terminales puede pausar
+la salida en pantalla. Si parece que la terminal quedó congelada después de pulsarlo, prueba
+`Ctrl-Q`. Para guardar en `nano` usa `Ctrl-O`.
+:::
 
 ### Micropráctica 4 — Editar y comprobar `README.md`
 
@@ -571,14 +621,18 @@ editor que el archivo se guardó?, y (3) ¿por qué no debes ejecutar `nano data
 
 </details>
 
-> **NOTA:** En el servidor también existe `vi` (o `vim`), un editor
-> muy potente pero de manejo distinto. En este curso lo tratamos **solo como consulta**: lo importante
-> es que, si entras a `vi` por accidente, sepas **salir** pulsando `Esc` y escribiendo `:q!` seguido de
-> Enter (salir sin guardar). Para editar en S4 usa `nano`.
+::: {.callout-note}
+En el servidor también existe `vi` (o `vim`), un editor
+muy potente pero de manejo distinto. En este curso lo tratamos **solo como consulta**: lo importante
+es que, si entras a `vi` por accidente, sepas **salir** pulsando `Esc` y escribiendo `:q!` seguido de
+Enter (salir sin guardar). Para editar en S4 usa `nano`.
+:::
 
-> **TIP:** No es necesario editar archivos enormes en la terminal. `nano` es ideal para retoques
-> rápidos —completar un `README.md`, añadir una sección a `protocolo.md`— directamente en el servidor,
-> sin transferir de ida y vuelta.
+::: {.callout-tip}
+No es necesario editar archivos enormes en la terminal. `nano` es ideal para retoques
+rápidos —completar un `README.md`, añadir una sección a `protocolo.md`— directamente en el servidor,
+sin transferir de ida y vuelta.
+:::
 
 ## Clasificación de los comandos de S4
 
@@ -593,10 +647,12 @@ editor que el archivo se guardó?, y (3) ¿por qué no debes ejecutar `nano data
 
 ## Práctica S4 — Estructura de directorios del proyecto (Tarea 3)
 
-> **IMPORTANTE:** Primero construyes y organizas la estructura **tú**, paso a
-> paso. Después la comparas con una propuesta de IA en la **Actividad formativa de IA** (§ siguiente).
-> Tu trabajo manual es la **línea base de comparación, no una verdad absoluta**: tanto tu solución como
-> la de la IA se contrastan con la lección, con `man` y con una prueba controlada.
+::: {.callout-important}
+Primero construyes y organizas la estructura **tú**, paso a
+paso. Después la comparas con una propuesta de IA en la **Actividad formativa de IA** (§ siguiente).
+Tu trabajo manual es la **línea base de comparación, no una verdad absoluta**: tanto tu solución como
+la de la IA se contrastan con la lección, con `man` y con una prueba controlada.
+:::
 
 Conserva la numeración oficial: esta es la **Tarea 3** del plan.
 
@@ -615,9 +671,11 @@ taller.
    `proyecto/` definitivo que construirás durante el taller.
 5. **Registra** los comandos que usaste, los errores que aparecieron y tus dudas.
 
-> **NOTA:** El primer intento es **formativo**: da puntos por
-> **preparación**, no por acierto. Los errores razonables **no se penalizan**; su valor es llegar al
-> taller con preguntas concretas.
+::: {.callout-note}
+El primer intento es **formativo**: da puntos por
+**preparación**, no por acierto. Los errores razonables **no se penalizan**; su valor es llegar al
+taller con preguntas concretas.
+:::
 
 ### Durante el taller — *formativo (participación y corrección)*
 
@@ -705,8 +763,10 @@ presencial se dedica a **ejecutar, diagnosticar, comparar y corregir** el primer
 11. **Practica `mv -i`, `rm -i` y `rmdir`** exclusivamente dentro de `prueba-s4/`, nunca con los
     archivos del proyecto.
 
-> **IMPORTANTE:** En S4 no se elimina ninguna copia provisional de los archivos reales. Primero se
-> verifica la nueva organización; la limpieza de duplicados se decidirá después con la docente.
+::: {.callout-important}
+En S4 no se elimina ninguna copia provisional de los archivos reales. Primero se
+verifica la nueva organización; la limpieza de duplicados se decidirá después con la docente.
+:::
 
 ### Después del taller (entrega final) — *Tarea 3 · calificación principal*
 
@@ -774,10 +834,12 @@ Por qué esta organización favorece la reproducibilidad.
 
 ## Actividad formativa de IA — revisar la estructura ya creada
 
-> **NOTA:** Se llama **Actividad formativa de IA** (no "Tarea A") para no confundirla con las tareas
-> oficiales del plan. Es **formativa**: su valor está en la comparación, no en una calificación aparte.
-> La IA **revisa la misma estructura que ya creaste a mano**; **no** propone un proyecto nuevo ni opera
-> el servidor.
+::: {.callout-note}
+Se llama **Actividad formativa de IA** (no "Tarea A") para no confundirla con las tareas
+oficiales del plan. Es **formativa**: su valor está en la comparación, no en una calificación aparte.
+La IA **revisa la misma estructura que ya creaste a mano**; **no** propone un proyecto nuevo ni opera
+el servidor.
+:::
 
 Realízala **después** de construir la estructura tú. Trabaja sobre una **copia** de tu registro.
 
@@ -808,9 +870,11 @@ Realízala **después** de construir la estructura tú. Trabaja sobre una **copi
 
 </details>
 
-> **IMPORTANTE:** No ejecutes un comando sugerido por la IA sobre tu `proyecto/` solo porque parezca
-> correcto. En esta actividad la IA funciona como **revisora**, no como operadora del servidor. Todo lo
-> que valides, pruébalo antes en `prueba-s4/`.
+::: {.callout-important}
+No ejecutes un comando sugerido por la IA sobre tu `proyecto/` solo porque parezca
+correcto. En esta actividad la IA funciona como **revisora**, no como operadora del servidor. Todo lo
+que valides, pruébalo antes en `prueba-s4/`.
+:::
 
 ## Los cuatro principios, hechos observables en S4
 
@@ -852,10 +916,12 @@ sustituye ninguna de estas evidencias.
 
 ## Rúbricas
 
-> **NOTA:** **Cómo se evalúa cada momento.** El **primer intento** y la **participación** son **formativos** (dan
-> puntos por preparación y por corrección argumentada). La **Tarea 3** (entrega posterior) lleva la
-> **calificación principal**. La **Actividad formativa de IA** es formativa. Tres niveles:
-> **Logrado**, **Parcialmente logrado**, **Aún no logrado**.
+::: {.callout-note}
+**Cómo se evalúa cada momento.** El **primer intento** y la **participación** son **formativos** (dan
+puntos por preparación y por corrección argumentada). La **Tarea 3** (entrega posterior) lleva la
+**calificación principal**. La **Actividad formativa de IA** es formativa. Tres niveles:
+**Logrado**, **Parcialmente logrado**, **Aún no logrado**.
+:::
 
 ### Primer intento (formativa · puntos por preparación)
 
@@ -919,8 +985,10 @@ sustituye ninguna de estas evidencias.
 | 114–118 min | Micropráctica 3: diagnóstico y eliminación segura con `rm -i`/`rmdir` solo en `prueba-s4/` |
 | 118–120 min | Semáforo de salida y registro de dudas |
 
-> **NOTA:** Son estimaciones; ajústalas al ritmo del grupo. La **Actividad
-> formativa de IA** y su registro en `bitacora-ia.md` se realizan **después** de la sesión.
+::: {.callout-note}
+Son estimaciones; ajústalas al ritmo del grupo. La **Actividad
+formativa de IA** y su registro en `bitacora-ia.md` se realizan **después** de la sesión.
+:::
 
 ## Preparación para la siguiente sesión (S5)
 
@@ -954,9 +1022,11 @@ acercamiento a un archivo con `file` y `head`.
 | Operar con seguridad (RA4, RA7) | Microprácticas 2–3; §9 | Registro de operaciones seguras | Registro reproducible de cada operación | Probar en `prueba-s4/` | Contrastar sintaxis con `man` | Comprobar contexto con `hostname`/`whoami`/`pwd` |
 | Usar IA de forma crítica (RA8) | Actividad formativa de IA | Entrada en `bitacora-ia.md` | Prompt y decisión registrados | Validar con `man` y prueba controlada | Confirmar que la propuesta resuelve la tarea | Comparar la solución manual con la de IA |
 
-> **NOTA:** Cuando aún no sea posible una comprobación completa de robustez, basta una actividad
-> inicial: llegar a un mismo directorio por dos rutas distintas y comparar `pwd`, o copiar en lugar de
-> mover para conservar el original mientras verificas.
+::: {.callout-note}
+Cuando aún no sea posible una comprobación completa de robustez, basta una actividad
+inicial: llegar a un mismo directorio por dos rutas distintas y comparar `pwd`, o copiar en lugar de
+mover para conservar el original mientras verificas.
+:::
 
 ## Glosario
 
@@ -984,7 +1054,9 @@ acercamiento a un archivo con `file` y `head`.
   Biology*, 5(7), e1000424. <https://doi.org/10.1371/journal.pcbi.1000424> — organización de proyectos
   y conservación de datos originales.
 
-> **NOTA:** El plan operativo asigna a S4 la consulta previa "L3-shell,
-> diapositivas 39–60". Este módulo cubre esos contenidos como lectura previa autocontenida. Las
-> diapositivas y Shotts quedan como consulta; Buffalo Cap. 3 se utiliza como consulta dirigida. La
-> docente puede indicar un fragmento adicional cuando el grupo necesite refuerzo.
+::: {.callout-note}
+El plan operativo asigna a S4 la consulta previa "L3-shell,
+diapositivas 39–60". Este módulo cubre esos contenidos como lectura previa autocontenida. Las
+diapositivas y Shotts quedan como consulta; Buffalo Cap. 3 se utiliza como consulta dirigida. La
+docente puede indicar un fragmento adicional cuando el grupo necesite refuerzo.
+:::
