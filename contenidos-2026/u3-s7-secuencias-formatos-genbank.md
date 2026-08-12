@@ -758,6 +758,18 @@ FASTA, por sí solo, no representa de manera normalizada:
 
 Aprender a identificar la estructura de un archivo FASTA, distinguir entre identificadores y descripciones, e interpretar correctamente la información que puede obtenerse del archivo sin consultar la base de datos.
 
+**Actividad interactiva — FASTA Detective.** Usa el laboratorio para inspeccionar
+encabezados y secuencias, diagnosticar errores frecuentes y practicar el control de
+calidad de un archivo FASTA antes (o además) de resolver las actividades escritas.
+
+[FASTA Detective (HTML)](html/practica_3_fasta_detective.html)
+
+<iframe
+  src="html/practica_3_fasta_detective.html"
+  title="Práctica 3 — FASTA Detective: control de calidad de secuencias"
+  style="width:100%;min-height:860px;border:1px solid #d7cdc7;border-radius:12px;background:#fff;"
+  loading="lazy"></iframe>
+
 ---
 
 #### Archivo FASTA
