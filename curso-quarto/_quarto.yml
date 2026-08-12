@@ -10,6 +10,7 @@ project:
   resources:
     - ejemplos/**
     - images/**
+    - html/**
     - referencias/**
 
 lang: es

@@ -211,6 +211,17 @@ def sync_ejemplos() -> None:
     shutil.copytree(SRC / "ejemplos", dest)
 
 
+def sync_html() -> int:
+    src = SRC / "html"
+    dest = DST / "html"
+    if dest.exists():
+        shutil.rmtree(dest)
+    if not src.is_dir():
+        return 0
+    shutil.copytree(src, dest)
+    return sum(1 for _ in dest.rglob("*") if _.is_file())
+
+
 def sync_buffalo() -> None:
     pdf_src = ROOT / "introBioInfo" / "referencias" / "bioinformatics-data-skills.pdf"
     pdf_dst_dir = DST / "referencias"
@@ -234,6 +245,8 @@ def main() -> int:
     print(f"  Imágenes PNG: {sync_images()}")
     sync_ejemplos()
     print("  ejemplos/ sincronizado")
+    n_html = sync_html()
+    print(f"  html/ sincronizado ({n_html} archivos)")
     sync_buffalo()
     print("Listo. Revisa con: cd curso-quarto && quarto preview")
     return 0

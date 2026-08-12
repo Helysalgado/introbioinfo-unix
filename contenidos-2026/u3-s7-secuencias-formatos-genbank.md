@@ -1285,28 +1285,18 @@ No es necesario escribir exactamente estos ejemplos; cualquier respuesta correct
 
 ##### Actividad 3. Evaluando los formatos
 
-Completa la siguiente tabla.
+Marca, para cada necesidad, **todos** los formatos que sirven (puede haber más de
+uno). Al comprobar tu respuesta verás una explicación breve de cada fila, no solo
+si acertaste.
 
-| Necesito... | FASTA | GFF3 | GenBank |
-|-------------|:----:|:----:|:-------:|
-| Obtener la secuencia | ☐ | ☐ | ☐ |
-| Localizar un gen | ☐ | ☐ | ☐ |
-| Consultar coordenadas | ☐ | ☐ | ☐ |
-| Ver referencias bibliográficas | ☐ | ☐ | ☐ |
-| Identificar accession y versión | ☐ | ☐ | ☐ |
+**Actividad interactiva:**
+[¿Qué archivo necesito? (HTML)](html/interactive_s7_qu_archivo_necesito.html)
 
-<details>
-<summary><strong>Ver respuesta</strong></summary>
-
-| Necesito... | FASTA | GFF3 | GenBank |
-|-------------|:----:|:----:|:-------:|
-| Obtener la secuencia | ✅ | ❌ | ✅ |
-| Localizar un gen | ❌ | ✅ | ✅ |
-| Consultar coordenadas | ❌ | ✅ | ✅ |
-| Ver referencias bibliográficas | ❌ | ❌ | ✅ |
-| Identificar accession y versión | ✅ | ✅ | ✅ |
-
-</details>
+<iframe
+  src="html/interactive_s7_qu_archivo_necesito.html"
+  title="Actividad 3. Evaluando los formatos — ¿Qué archivo necesito?"
+  style="width:100%;min-height:820px;border:1px solid #d7cdc7;border-radius:12px;background:#fff;"
+  loading="lazy"></iframe>
 
 
 

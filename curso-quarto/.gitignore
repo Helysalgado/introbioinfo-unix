@@ -2,6 +2,7 @@
 /_site/
 *.html
 !ejemplos/**/*.html
+!html/**/*.html
 .DS_Store
 
 **/*.quarto_ipynb
