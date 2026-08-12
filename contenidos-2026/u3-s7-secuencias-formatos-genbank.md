@@ -758,186 +758,19 @@ FASTA, por sí solo, no representa de manera normalizada:
 
 Aprender a identificar la estructura de un archivo FASTA, distinguir entre identificadores y descripciones, e interpretar correctamente la información que puede obtenerse del archivo sin consultar la base de datos.
 
-**Actividad interactiva — FASTA Detective.** Usa el laboratorio para inspeccionar
-encabezados y secuencias, diagnosticar errores frecuentes y practicar el control de
-calidad de un archivo FASTA antes (o además) de resolver las actividades escritas.
+Esta práctica se realiza en el laboratorio interactivo **FASTA Detective**, que
+recorre la misma secuencia conceptual de las cinco actividades originales:
+observar el archivo → interpretar el encabezado → separar identificador y
+descripción → distinguir evidencia directa de información externa → conectar
+accession, versión y reproducibilidad.
 
 [FASTA Detective (HTML)](html/practica_3_fasta_detective.html)
 
 <iframe
   src="html/practica_3_fasta_detective.html"
-  title="Práctica 3 — FASTA Detective: control de calidad de secuencias"
+  title="Práctica 3 — FASTA Detective: interpretar la estructura de un archivo FASTA"
   style="width:100%;min-height:860px;border:1px solid #d7cdc7;border-radius:12px;background:#fff;"
   loading="lazy"></iframe>
-
----
-
-#### Archivo FASTA
-
-```text
->NC_000001.11 Homo sapiens chromosome 1, GRCh38.p14 Primary Assembly
-NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN...
-
->NC_000002.12 Homo sapiens chromosome 2, GRCh38.p14 Primary Assembly
-NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN...
-
->NC_000003.12 Homo sapiens chromosome 3, GRCh38.p14 Primary Assembly
-NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN...
-```
-
-> **Nota:** Las secuencias se muestran truncadas para simplificar la actividad.
-
-
-
-##### Actividad 1. Observación
-
-Responde únicamente con base en el contenido del archivo.
-
-1. ¿Cuántos registros contiene el archivo?
-2. ¿Cuántas secuencias contiene?
-3. ¿Cómo identificaste el inicio de cada registro?
-4. ¿Qué símbolo indica el encabezado de un registro FASTA?
-
-<details>
-<summary><strong>Ver respuesta</strong></summary>
-
-1. El archivo contiene **tres registros**.
-2. Contiene **tres secuencias**, una por cada registro.
-3. Cada registro comienza con una línea que inicia con el carácter `>`.
-4. El símbolo `>` identifica el encabezado de un registro FASTA.
-
-</details>
-
-
-
-##### Actividad 2. Analizando el encabezado
-
-Observa el primer registro.
-
-```text
->NC_000001.11 Homo sapiens chromosome 1, GRCh38.p14 Primary Assembly
-```
-
-Completa la tabla.
-
-| Elemento | Valor |
-|----------|-------|
-| Accession (con versión) | |
-| Accession (sin versión) | |
-| Número de versión | |
-| Descripción | |
-
-**Pregunta**
-
-¿Todo el encabezado corresponde al identificador?
-
-- ☐ Sí
-- ☐ No
-
-Justifica tu respuesta.
-
-<details>
-<summary><strong>Ver respuesta</strong></summary>
-
-| Elemento | Valor |
-|----------|-------|
-| Accession (con versión) | **NC_000001.11** |
-| Accession (sin versión) | **NC_000001** |
-| Número de versión | **11** |
-| Descripción | **Homo sapiens chromosome 1, GRCh38.p14 Primary Assembly** |
-
-La respuesta correcta es **No**.
-
-El identificador es únicamente **NC_000001.11**.
-
-Todo lo demás corresponde a la descripción del registro.
-
-</details>
-
-
-
-##### Actividad 3. ¿Qué puedes afirmar únicamente con el archivo?
-
-Marca la opción correcta.
-
-| Afirmación | Sí | No | Requiere consultar el registro |
-|------------|:--:|:--:|:-----------------------------:|
-| El archivo contiene tres registros. | ☐ | ☐ | ☐ |
-| El primer accession es **NC_000001.11**. | ☐ | ☐ | ☐ |
-| El primer registro corresponde al cromosoma 1 humano. | ☐ | ☐ | ☐ |
-| El ensamblado es **GRCh38.p14**. | ☐ | ☐ | ☐ |
-| El cromosoma tiene exactamente 248,956,422 nucleótidos. | ☐ | ☐ | ☐ |
-| Este es el ensamblado más reciente disponible en NCBI. | ☐ | ☐ | ☐ |
-
-<details>
-<summary><strong>Ver respuesta</strong></summary>
-
-| Afirmación | Respuesta |
-|------------|-----------|
-| El archivo contiene tres registros. | ✅ Sí |
-| El primer accession es **NC_000001.11**. | ✅ Sí |
-| El primer registro corresponde al cromosoma 1 humano. | ✅ Sí |
-| El ensamblado es **GRCh38.p14**. | ✅ Sí |
-| El cromosoma tiene exactamente 248,956,422 nucleótidos. | ⚠️ Requiere consultar el registro. |
-| Este es el ensamblado más reciente disponible en NCBI. | ⚠️ Requiere consultar la base de datos. |
-
-</details>
-
-
-
-##### Actividad 4. Identificando la versión
-
-Completa la tabla.
-
-| Parte | Significado |
-|--------|-------------|
-| **NC_** | |
-| **000001** | |
-| **.11** | |
-
-Después responde:
-
-1. ¿Qué información aporta el número de versión?
-2. ¿Qué problema podría surgir si registraras únicamente **NC_000001**?
-
-<details>
-<summary><strong>Ver respuesta</strong></summary>
-
-| Parte | Significado |
-|--------|-------------|
-| **NC_** | Prefijo RefSeq para una secuencia cromosómica. |
-| **000001** | Identificador estable del registro. |
-| **.11** | Número de versión del registro. |
-
-El número de versión identifica el estado específico del registro.
-
-Si se omite, otra persona podría recuperar una versión distinta y obtener resultados diferentes.
-
-</details>
-
-
-
-
-##### Actividad 5. Reflexión
-
-Responde brevemente.
-
-1. ¿Qué información puedes obtener directamente del archivo FASTA?
-2. ¿Qué información requiere consultar el registro de la base de datos?
-3. ¿Por qué es importante conservar el accession junto con su versión?
-
-<details>
-<summary><strong>Ver respuesta sugerida</strong></summary>
-
-El archivo FASTA proporciona el accession, la versión, la descripción y la secuencia.
-
-Información como longitud oficial, anotaciones, referencias, taxonomía completa e historial de cambios debe consultarse en el registro de la base de datos.
-
-Registrar el accession junto con su versión garantiza la reproducibilidad del análisis.
-
-</details>
-
-
 
 #### Criterio de logro
 
