@@ -533,12 +533,51 @@ mostrar. El siguiente bloque muestra una tabla:
 
 ### 5.3 Diagramas con Mermaid (ampliación, opcional)
 
-**Mermaid** permite crear diagramas escribiéndolos como texto (<https://mermaid.js.org>). En esta
-unidad es **opcional**; resulta útil sobre todo para representar las **fases de solución** de un
-problema, como en el diagrama de la sección 3. El tipo más frecuente es el diagrama de flujo
-(`flowchart`).
+**mermaid** permite crear diagramas **escribiéndolos como texto**, en lugar de dibujarlos a mano.
+Se escribe dentro de un bloque de código etiquetado como `mermaid` y la herramienta lo convierte en
+una figura. Es útil para representar flujos de trabajo, pasos de un análisis o decisiones. La
+primera palabra del bloque indica el **tipo de diagrama**.
 
----
+Documentación oficial: <https://mermaid.js.org/>. Editor en vivo para probar diagramas:
+<https://mermaid.live>.
+
+**a) Diagrama de flujo (`flowchart`) — el más frecuente.** El siguiente bloque genera un flujo de
+izquierda a derecha:
+
+````markdown
+```mermaid
+flowchart LR
+  A[Descarga] --> B[Exploración] --> C[Análisis] --> D[Reporte]
+```
+````
+
+Elementos que se usan casi siempre:
+
+- **Dirección:** `LR` (izquierda→derecha), `TD` o `TB` (arriba→abajo).
+- **Nodos según su forma:** `A[texto]` rectángulo, `A(texto)` bordes redondeados,
+  `A{texto}` rombo (se usa para **decisiones**), `A([texto])` tipo píldora.
+- **Conexiones:** `-->` flecha, `---` línea sin punta, `-->|etiqueta|` flecha con texto.
+
+**b) Diagrama de flujo con decisión.** El rombo `{}` y las flechas etiquetadas permiten representar
+una bifurcación (sí/no):
+
+````markdown
+```mermaid
+flowchart TD
+  A{¿La descarga está íntegra?} -->|sí| B[Continuar el análisis]
+  A -->|no| C[Volver a descargar]
+```
+````
+
+**c) Otros tipos frecuentes** (para consulta; no son necesarios en esta unidad):
+
+- `sequenceDiagram`: mensajes o interacciones entre participantes a lo largo del tiempo.
+- `mindmap`: mapas mentales para organizar ideas.
+- `gantt`: cronogramas de tareas con fechas.
+
+> **COMENTARIO:** Para este curso, el `flowchart` cubre prácticamente todo lo que necesitarás
+> (representar las fases de un análisis o un flujo de comandos).
+
 
 ---
 
