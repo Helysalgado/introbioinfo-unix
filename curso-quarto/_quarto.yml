@@ -26,8 +26,12 @@ website:
     left:
       - href: index.qmd
         text: Inicio
-      - href: programa.qmd
-        text: Programa
+      - text: Programa
+        menu:
+          - href: programa.qmd
+            text: "Ruta de sesiones"
+          - href: programa-detallado.qmd
+            text: "Programa detallado"
       - text: Unidades
         menu:
           - href: u1-trabajo-reproducible.md
@@ -150,6 +154,7 @@ website:
             text: "S33 — Inferir"
           - href: u6-s34-integrar-hipotesis-casos-ciegos.md
             text: "S34 — Integrar"
+      - programa-detallado.qmd
       - recursos.qmd
 
 format:

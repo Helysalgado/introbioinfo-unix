@@ -1,4 +1,4 @@
-# S24 — Guardar el procedimiento: del protocolo ejecutable al script
+# S24 — Guardar: del protocolo ejecutable al script
 
 ::: {.callout-note title="Aula invertida"}
 Antes de clase harás un primer intento sin ejecutar nada: elegir qué

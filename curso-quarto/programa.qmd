@@ -4,6 +4,12 @@ title: "Programa"
 
 Ruta del curso 2026. Usa la barra lateral para abrir cada sesión.
 
+::: {.callout-note appearance="simple"}
+Esta es la vista compacta. El [**Programa detallado**](programa-detallado.qmd) contiene la
+descripción del curso, el propósito, el enfoque formativo, los ejes de contenido, el contenido
+por unidad, las competencias, la metodología, la evaluación y el perfil de egreso.
+:::
+
 ## Unidades
 
 | Unidad | Sesiones | Enfoque |

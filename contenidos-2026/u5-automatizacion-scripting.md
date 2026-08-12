@@ -151,7 +151,7 @@ S29  ESCALARLO    fuera de mi sesión  ¿y cuando ya no cabe en mi terminal?
 
 | Sesión | Módulo | Qué resuelve | Con qué limitación cierra |
 | --- | --- | --- | --- |
-| **S24** | [`u5-s24-del-protocolo-al-script.md`](u5-s24-del-protocolo-al-script.md) — *Guardar el procedimiento: del protocolo ejecutable al script* | El análisis deja de copiarse: se ejecuta con una orden | Las rutas están dentro del archivo: sirve para **este** genoma, y no comprueba nada |
+| **S24** | [`u5-s24-del-protocolo-al-script.md`](u5-s24-del-protocolo-al-script.md) — *Guardar: del protocolo ejecutable al script* | El análisis deja de copiarse: se ejecuta con una orden | Las rutas están dentro del archivo: sirve para **este** genoma, y no comprueba nada |
 | **S25** | [`u5-s25-separar-procedimiento-datos.md`](u5-s25-separar-procedimiento-datos.md) — *Separar el procedimiento de sus datos* | El dato entra desde fuera; el script comprueba sus entradas y se detiene si falta algo | Sirve para cualquier genoma, **de uno en uno** |
 | **S26** | [`u5-s26-procesamiento-por-lotes.md`](u5-s26-procesamiento-por-lotes.md) — *De un genoma a una colección: el análisis por lotes* | Un conjunto completo se procesa con una orden, y el resumen responde una pregunta nueva | Funciona, y aun así otra persona no sabría usarlo |
 | **S27** | [`u5-s27-herramienta-cientifica.md`](u5-s27-herramienta-cientifica.md) — *De un script que funciona a una herramienta que otros usan* | Organización, documentación, mensajes, registro de parámetros y pruebas | La herramienta se puede usar, pero aún no se ha sostenido con argumentos |

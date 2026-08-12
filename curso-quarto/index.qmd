@@ -1,42 +1,124 @@
 ---
 title: "Introducción a la Bioinformática"
-subtitle: "Curso LCG · UNAM"
+subtitle: "Licenciatura en Ciencias Genómicas · UNAM · 2026"
+toc: false
 ---
 
-Este sitio reúne el material de lectura y práctica del curso. **No es un curso de Unix ni de comandos**: es un curso de bioinformática en el que las herramientas computacionales aparecen solo como medios para responder preguntas biológicas.
+Este sitio reúne el material de lectura y práctica del curso. **No es un curso de Unix ni de
+comandos**: es un curso de bioinformática en el que las herramientas computacionales aparecen solo
+como medios para responder preguntas biológicas.
 
 > **Las preguntas biológicas permanecen; las estrategias de análisis evolucionan.**
 
+De ahí se sigue todo lo demás. Ejecutar correctamente una herramienta no equivale a resolver un
+problema bioinformático: hace falta entender qué representan los datos, justificar la estrategia,
+comprobar los resultados y distinguir entre lo que la evidencia muestra y lo que permite inferir.
+
+## Cómo se resuelve un problema aquí
+
+Cada sesión del curso recorre, entera o en parte, la misma progresión. No es un adorno: es el orden
+en que se toman las decisiones, y el motivo de que nunca se empiece por el comando.
+
+``` text
+pregunta biológica
+→ evidencia necesaria
+→ datos
+→ operación
+→ herramienta
+→ resultado
+→ verificación / validación
+→ interpretación
+→ conclusión y límites
+```
+
+## Qué vas a aprender
+
+Cinco dimensiones avanzan a la vez a lo largo del semestre. No se imparten como bloques
+independientes: se integran en cada problema.
+
+| Dimensión | La pregunta que responde |
+| --- | --- |
+| **Biología** | ¿Qué representa el dato? |
+| **Datos** | ¿De dónde provienen y cómo están representados? |
+| **Cómputo** | ¿Qué operación y qué herramienta necesito? |
+| **Reproducibilidad** | ¿Cómo documento, verifico y repito el análisis? |
+| **Interpretación** | ¿Qué puedo concluir y cuáles son los límites? |
+
 ## Cómo usar este sitio
 
-El curso sigue un modelo de **aula invertida**:
+El curso sigue un modelo de **aula invertida con aprendizaje basado en problemas**:
 
-1. **Antes de clase** lees el módulo de la sesión (conceptos y primer intento de las prácticas).
-2. **En el taller** contrastas, ejecutas y corrige con evidencia.
-3. **Después** entregas lo que el módulo pide (tareas, protocolo, bitácora).
+1. **Antes de clase** lees el módulo de la sesión y haces un primer intento de sus prácticas. Que
+   aciertes es lo de menos; lo que cuenta es llegar con una predicción escrita.
+2. **En el taller** predices, ejecutas, observas, comparas, diagnosticas, corriges, discutes,
+   interpretas y documentas.
+3. **Después** consolidas la evidencia y actualizas los productos acumulativos.
 
-Empieza por la [Unidad 1 — Trabajo reproducible](u1-trabajo-reproducible.md). Es la base del resto del curso y aún no usa la terminal: Markdown, pregunta biológica, protocolo y organización del proyecto.
+Las prácticas están **intercaladas** con los conceptos que las hacen posibles, y cada herramienta
+nueva aparece cuando la estrategia anterior alcanza una limitación reconocible —no porque «toque
+verla»—.
+
+::: {.callout-tip}
+## Por dónde empezar
+Abre la [Unidad 1 — Trabajo reproducible](u1-trabajo-reproducible.md). Es la base del resto del curso
+y todavía no usa la terminal: Markdown, pregunta biológica, protocolo y organización del proyecto.
+:::
 
 ## Unidades
 
-| Unidad | Tema |
-| --- | --- |
-| [U1](u1-trabajo-reproducible.md) | Trabajo reproducible y comunicación técnica |
-| [U2](u2-entorno-unix.md) | Entorno Unix/Linux y cómputo científico |
-| [U3](u3-datos-bases-datos.md) | Datos y bases de datos biológicas |
-| [U4](u4-procesamiento-exploracion.md) | Procesamiento y exploración de datos genómicos |
-| [U5](u5-automatizacion-scripting.md) | Automatización de análisis con Shell |
-| [U6](u6-comparacion-homologia.md) | Comparar secuencias para construir hipótesis |
+| Unidad | Sesiones | Tema |
+| --- | --- | --- |
+| [U1](u1-trabajo-reproducible.md) | S1–S2 | Trabajo reproducible y comunicación técnica |
+| [U2](u2-entorno-unix.md) | S3–S6 | Entorno Unix/Linux y cómputo científico |
+| [U3](u3-datos-bases-datos.md) | S7–S9 | Datos y bases de datos biológicas |
+| [U4](u4-procesamiento-exploracion.md) | S10–S13 · S18–S23 | Procesamiento y exploración de datos genómicos |
+| [U5](u5-automatizacion-scripting.md) | S24–S29 | Automatización de análisis con Shell |
+| [U6](u6-comparacion-homologia.md) | S30–S34 | Comparar secuencias para construir hipótesis |
 
-Entre U4 y U5 está el bloque [transversal S14–S17](s14-s15-mini-proyecto-investigacion-I.md) (mini-proyecto, pares y evaluación demostrativa).
+Entre los dos bloques de U4 está el
+[bloque transversal S14–S17](s14-s15-mini-proyecto-investigacion-I.md): mini-proyecto de
+investigación, revisión por pares y evaluación individual demostrativa. No introduce contenido
+nuevo; pone a prueba lo construido hasta S13.
 
-La vista compacta está en [Programa](programa.qmd). Datos, lecturas y plantillas, en [Recursos](recursos.qmd).
+## Lo que se te queda al terminar
 
-## Qué no encontrarás aquí
+Al acabar el curso podrás abordar un problema bioinformático introductorio de principio a fin:
+formular la pregunta, localizar y recuperar los datos, documentar su procedencia, verificar su
+integridad, diseñar y ejecutar el análisis, comprobar los resultados, automatizar lo repetitivo,
+interpretar en términos biológicos y **declarar la incertidumbre y los límites** de tu conclusión.
 
-- Material interno docente (borradores, auditorías, notas de revisión).
-- El sitio legacy del ciclo anterior; este es el material 2026.
+Dicho de otro modo: no una colección de comandos, sino una forma de trabajo científico-computacional
+que las materias siguientes dan por sabida.
 
----
+## Productos que construyes durante el semestre
 
-[Acerca](acerca.qmd) · [Contribuir](contribuir.qmd)
+Tres documentos vivos crecen contigo y nunca se reinician:
+
+- **`doc/protocolo.md`** — el registro del razonamiento, no un entregable. Cada sesión añade su
+  apartado y conserva las versiones anteriores de una respuesta cuando la mejora.
+- **`doc/bitacora-ia.md`** — cada uso relevante de IA, con su prompt, su verificación independiente y
+  la decisión final.
+- **El proyecto** — `data/source/` con los originales intactos, `data/processed/`, `src/`,
+  `results/` y `doc/`.
+
+## Uso de inteligencia artificial
+
+La IA se usa en el curso, con una regla que no cambia: **primero a mano, después con IA**. El trabajo
+manual es la línea base de comparación, no una verdad absoluta —también puede contener errores—, y la
+respuesta de la IA se contrasta con documentación, `man` y pruebas controladas. Todo uso relevante se
+registra en la bitácora, que forma parte de la evaluación.
+
+***
+
+## Más información
+
+- [Programa](programa.qmd) — la ruta de sesiones, en vista compacta.
+- [Programa detallado](programa-detallado.qmd) — descripción, propósito, enfoque formativo, ejes de
+  contenido, contenido por unidad, competencias, metodología, evaluación y perfil de egreso.
+- [Recursos](recursos.qmd) — datos, lecturas y plantillas.
+- [Acerca](acerca.qmd) · [Contribuir](contribuir.qmd)
+
+::: {.callout-note appearance="simple"}
+Aquí no encontrarás material interno docente —borradores, auditorías, notas de revisión— ni el sitio
+del ciclo anterior. Este es el material 2026.
+:::

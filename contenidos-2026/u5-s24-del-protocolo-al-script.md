@@ -1,4 +1,4 @@
-# S24 — Guardar el procedimiento: del protocolo ejecutable al script
+# S24 — Guardar: del protocolo ejecutable al script
 
 > **NOTA — Aula invertida:** Antes de clase harás un primer intento sin ejecutar nada: elegir qué
 > fragmento de tu protocolo de S23 merece convertirse en el primer script, y predecir por escrito qué
@@ -1323,7 +1323,7 @@ escribir → dar permiso → ejecutar → comparar con el resultado manual
 
 > **NOTA DOCENTE — alineación con el Plan de clases.** Este módulo se verifica contra
 > `Plan-Clases-BioInfo-2026-final-S34.xlsx`, pestaña **`PlanClases-2026-final S34`** (34 sesiones),
-> fila S24: *Guardar el procedimiento: del protocolo ejecutable al script*, Comp. **A, E**, ajuste
+> fila S24: *Guardar: del protocolo ejecutable al script*, Comp. **A, E**, ajuste
 > **[Ajustado]**, evidencia *«primer script que reproduce un bloque validado»*. **Sin
 > discrepancias.**
 >
