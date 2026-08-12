@@ -1,6 +1,6 @@
 # S19 — Extraer: identificadores, encabezados y campos dentro del texto
 
-::: {.callout-note title="Aula invertida:"}
+::: {.callout-note title="Aula invertida"}
 Antes de clase leerás las secciones marcadas como **indispensables** y
 harás un primer intento: escribir, sin abrir los archivos, qué replicones crees que tiene tu genoma
 y si esperas que el FASTA y el GFF3 coincidan. Durante el taller extraerás esas dos listas de

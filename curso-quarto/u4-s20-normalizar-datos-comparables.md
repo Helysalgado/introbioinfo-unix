@@ -1,6 +1,6 @@
 # S20 — Normalizar: preparar los datos para compararlos
 
-::: {.callout-note title="Aula invertida:"}
+::: {.callout-note title="Aula invertida"}
 Antes de clase leerás las secciones marcadas como **indispensables** y
 harás un primer intento con las listas reales que generaste en S19: identificarás qué diferencias
 textuales podrían impedir una comparación justa y decidirás cuáles transformaciones parecen

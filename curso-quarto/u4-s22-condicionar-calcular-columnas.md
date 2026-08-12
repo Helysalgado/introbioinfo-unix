@@ -1,6 +1,6 @@
 # S22 — Condicionar y calcular: preguntas complejas sobre columnas
 
-::: {.callout-note title="Aula invertida:"}
+::: {.callout-note title="Aula invertida"}
 Antes de clase leerás las secciones marcadas como **indispensables** y
 harás un primer intento: descomponer tres preguntas biológicas en registros, columnas, condición y
 cálculo, **sin escribir un solo comando**. Durante el taller aprenderás a expresar esas condiciones

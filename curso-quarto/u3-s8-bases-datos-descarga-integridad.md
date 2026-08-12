@@ -1,6 +1,6 @@
 # S8 — Recuperar: bases de datos, descarga y verificación de integridad
 
-::: {.callout-note title="Aula invertida:"}
+::: {.callout-note title="Aula invertida"}
 Antes de clase lee las secciones marcadas como **indispensables** y
 realiza el primer intento sin IA: la estrategia de búsqueda de tu conjunto de datos. Durante el
 taller navegarás recursos reales de NCBI, corregirás tu estrategia y practicarás con roles

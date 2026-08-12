@@ -9,13 +9,20 @@ Publicar el sitio Quarto de [`curso-quarto/`](../curso-quarto/) como HTML estát
 | Fuente | rama `main`, carpeta `curso-quarto/` |
 | Build | GitHub Action con Quarto |
 | Publicación | rama `gh-pages` (solo el contenido de `_site/`) |
-| URL típica | `https://<usuario-o-org>.github.io/<repo>/` |
+| Repo | https://github.com/Helysalgado/introbioinfo-unix |
+| Sitio | https://helysalgado.github.io/introbioinfo-unix/ |
 
 No se commitea `_site/` en `main`.
 
 ## Estado del remoto
 
-Si el repo **aún no tiene** `origin`, créalo en GitHub y enlázalo:
+Remoto y Pages **ya configurados** (agosto 2026). Workflow: [`.github/workflows/publish-quarto.yml`](../.github/workflows/publish-quarto.yml).
+
+Si clonas el repo en otra máquina, `origin` ya apunta al remoto. Para republicar: push a `main` (o `gh workflow run publish-quarto.yml`).
+
+### Alta inicial (referencia histórica)
+
+Si partieras de cero otra vez:
 
 ```bash
 git remote add origin git@github.com:ORG/REPO.git

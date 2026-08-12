@@ -166,8 +166,7 @@ demuestra que el estudiante puede integrar el arco. Queda registrado en la nota 
 
 ## Los datos: tres conjuntos, tres funciones
 
-Los archivos están en [`ejemplos/datos-alineamientos/`](ejemplos/datos-alineamientos/). La auditoría
-docente del conjunto (qué contiene cada archivo y para qué sirve) no se publica en este sitio.
+Los archivos están en [`ejemplos/datos-alineamientos/`](ejemplos/datos-alineamientos/) La auditoría docente del conjunto (qué contiene cada archivo y para qué sirve) no se publica en este sitio.
 
 | Conjunto | Qué es | Qué permite descubrir |
 | --- | --- | --- |

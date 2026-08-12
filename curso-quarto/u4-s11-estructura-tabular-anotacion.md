@@ -1,6 +1,6 @@
 # S11 — Localizar: la estructura tabular de la anotación
 
-::: {.callout-note title="Aula invertida:"}
+::: {.callout-note title="Aula invertida"}
 Antes de clase leerás las secciones marcadas como **indispensables** y
 harás un primer intento: traducir tus preguntas biológicas a **datos concretos**, decidiendo qué
 información mínima necesitarías para responder cada una, sin abrir todavía ningún archivo. Durante

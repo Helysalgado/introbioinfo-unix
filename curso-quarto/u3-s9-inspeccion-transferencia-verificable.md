@@ -1,6 +1,6 @@
 # S9 — Verificar: inspección y transferencia de datos biológicos
 
-::: {.callout-note title="Aula invertida:"}
+::: {.callout-note title="Aula invertida"}
 Antes de clase repasarás brevemente qué ya sabes hacer (S3–S5) y leerás
 las secciones marcadas como **indispensables**, además de completar un primer intento breve: un
 plan de inspección y transferencia para tus propios archivos, sin ejecutar todavía ningún comando.

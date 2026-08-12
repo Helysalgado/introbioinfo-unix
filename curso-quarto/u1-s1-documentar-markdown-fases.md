@@ -139,7 +139,7 @@ transcriptómica en *Bioinformática y Estadística II*, más adelante en tu for
 trabajo reproducible que empiezas a aprender aquí es el mismo que verás en la investigación real.
 :::
 
-::: {.callout-tip title="Un modelo para construir en el curso:"}
+::: {.callout-tip title="Un modelo para construir en el curso"}
 A menor escala, el reporte
 `ejemplos/ReporteGenomeEcoli_Formato_v2.md` muestra ese mismo cuidado aplicado al genoma de
 *E. coli*: plantea preguntas, registra la procedencia de los datos, documenta los comandos, muestra
@@ -523,7 +523,7 @@ StackEdit guarda tus documentos en el **navegador**. Para conservar tu trabajo,
 exportado es lo que entregas.
 :::
 
-::: {.callout-tip title="Sin conexión:"}
+::: {.callout-tip title="Sin conexión"}
 Como Markdown es texto plano, si no tienes internet puedes escribir tu
 `.md` en **cualquier editor de texto** (por ejemplo, el Bloc de notas, TextEdit en modo texto o
 VS Code) y ver la vista previa más tarde. No dependes de una herramienta específica.

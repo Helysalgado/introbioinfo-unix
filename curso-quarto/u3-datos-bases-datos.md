@@ -1,6 +1,6 @@
 # Unidad 3 — Datos y bases de datos biológicas
 
-::: {.callout-note title="Aula invertida:"}
+::: {.callout-note title="Aula invertida"}
 Esta unidad se estudia en tres sesiones. Antes de cada sesión leerás
 las secciones indispensables y realizarás un primer intento breve. Durante el taller compararás
 decisiones, explorarás registros y archivos reales y corregirás tu trabajo con evidencia. Después

@@ -1,6 +1,6 @@
 # S14–S15 — Investigar: del assembly al Estado 1 del genoma
 
-::: {.callout-note title="Aula invertida:"}
+::: {.callout-note title="Aula invertida"}
 Antes de la primera sesión localizarás tu ensamblado y prepararás un
 primer intento de identificación del organismo con la evidencia que encuentres. Durante S14
 recuperarás, verificarás y analizarás los archivos oficiales. Entre sesiones consolidarás el

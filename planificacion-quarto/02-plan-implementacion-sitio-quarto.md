@@ -266,14 +266,16 @@ Conversión según el mapa del README de contenidos:
 
 ## 8. Criterios de aceptación (v1)
 
-- [ ] `quarto preview` muestra Curso → U1–U6 → sesiones en el orden del plan.
-- [ ] Portadas y sesiones conservan H1, prácticas, tablas y código.
-- [ ] Figuras de `images/` y enlaces a `ejemplos/` resuelven.
-- [ ] `<details>` de retroalimentación funciona en el navegador.
-- [ ] `docente/` no aparece en el sitio ni en el sidebar.
-- [ ] Página de inicio explica aula invertida sin jerga de implementación.
-- [ ] Deploy a GitHub Pages sirve el sitio por HTTPS.
-- [ ] No hay segundo proyecto Book ni carpeta de slides obligatoria.
+Cumplidos el 2026-08-11 — ver [04-cierre-v1.md](04-cierre-v1.md).
+
+- [x] `quarto preview` muestra Curso → U1–U6 → sesiones en el orden del plan.
+- [x] Portadas y sesiones conservan H1, prácticas, tablas y código.
+- [x] Figuras de `images/` y enlaces a `ejemplos/` resuelven.
+- [x] `<details>` de retroalimentación funciona en el navegador.
+- [x] `docente/` no aparece en el sitio ni en el sidebar.
+- [x] Página de inicio explica aula invertida sin jerga de implementación.
+- [x] Deploy a GitHub Pages sirve el sitio por HTTPS.
+- [x] No hay segundo proyecto Book ni carpeta de slides obligatoria.
 
 ---
 
@@ -305,4 +307,5 @@ Cuando se pida **Paso A — esqueleto**:
 | --- | --- |
 | [01-estudio-formatos-quarto-github.md](01-estudio-formatos-quarto-github.md) | Hecho — decide Website |
 | **Este archivo (02)** | Hecho — plan operativo |
-| `03-despliegue-github-pages.md` | Pendiente — con el Paso E |
+| [03-despliegue-github-pages.md](03-despliegue-github-pages.md) | Hecho — Action + Pages en producción |
+| [04-cierre-v1.md](04-cierre-v1.md) | Hecho — criterios v1 cumplidos |

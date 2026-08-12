@@ -1,6 +1,6 @@
 # S18 — Precisar: decir exactamente lo que se quiere buscar
 
-::: {.callout-note title="Aula invertida:"}
+::: {.callout-note title="Aula invertida"}
 Antes de clase leerás las secciones marcadas como **indispensables** y
 harás un primer intento: escribir en español, con toda la precisión de que seas capaz, qué debería
 cumplir una línea de tu archivo para que la cuentes como un gen. Durante el taller traducirás esa

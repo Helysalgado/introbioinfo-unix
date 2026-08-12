@@ -1,6 +1,6 @@
 # S10 — Reconocer: anatomía de un archivo biológico y flujos de datos
 
-::: {.callout-note title="Aula invertida:"}
+::: {.callout-note title="Aula invertida"}
 Antes de clase leerás las secciones marcadas como **indispensables** y
 harás un primer intento: **sin ejecutar nada todavía**, predecir con cifras cómo está organizado
 por dentro cada archivo, cómo medirías el tamaño del genoma y —esto es lo importante— en qué

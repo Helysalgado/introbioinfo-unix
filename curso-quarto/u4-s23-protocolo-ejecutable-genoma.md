@@ -1,6 +1,6 @@
 # S23 — Integrar: el protocolo como cuaderno de laboratorio ejecutable
 
-::: {.callout-note title="Aula invertida:"}
+::: {.callout-note title="Aula invertida"}
 Antes de clase harás un primer intento sin ejecutar nada: dibujar el
 orden en que reconstruirías toda tu investigación partiendo solo de `data/source/`, y auditar qué
 piezas tienes realmente. Durante el taller ordenarás el flujo, integrarás los comandos ya validados

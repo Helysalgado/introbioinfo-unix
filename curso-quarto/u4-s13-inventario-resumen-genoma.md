@@ -1,6 +1,6 @@
 # S13 — Resumir y cuantificar: inventario del genoma
 
-::: {.callout-note title="Aula invertida:"}
+::: {.callout-note title="Aula invertida"}
 Antes de clase leerás las secciones marcadas como **indispensables** y
 harás un primer intento: escribir, de memoria, la lista de tipos de elementos que crees que contiene
 la anotación de tu genoma. Durante el taller dejarás de adivinar: el propio archivo te dirá qué

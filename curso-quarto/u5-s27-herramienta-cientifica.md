@@ -1,6 +1,6 @@
 # S27 — Entregar: de un script que funciona a una herramienta que otros usan
 
-::: {.callout-note title="Aula invertida:"}
+::: {.callout-note title="Aula invertida"}
 Antes de clase harás un experimento incómodo: entregar tu proyecto a un
 compañero **sin poder hablar** y anotar exactamente dónde deja de poder continuar. Durante el taller
 convertirás esa lista de barreras en documentación: el contrato escrito de tu herramienta, su ayuda

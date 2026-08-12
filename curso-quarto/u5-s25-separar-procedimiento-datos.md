@@ -1,6 +1,6 @@
 # S25 — Parametrizar: separar el procedimiento de sus datos
 
-::: {.callout-note title="Aula invertida:"}
+::: {.callout-note title="Aula invertida"}
 Antes de clase harás un primer intento sin ejecutar nada: auditar tu
 propio script y decidir, línea por línea, qué describe el análisis y qué describe el organismo.
 Durante el taller transformarás el script para que los datos entren desde fuera, y le enseñarás a

@@ -1,6 +1,6 @@
 # S21 — Confrontar: validar un resultado con una fuente independiente
 
-::: {.callout-note title="Aula invertida:"}
+::: {.callout-note title="Aula invertida"}
 Antes de clase descargarás una tabla de una fuente independiente,
 registrarás su procedencia y la auditarás, igual que hiciste en la Unidad 3 con tus archivos.
 Durante el taller recuperarás de esa tabla la misma evidencia biológica que obtuviste del GFF3,

@@ -1,6 +1,6 @@
 # S12 — Filtrar y contar: primeras preguntas sobre el genoma
 
-::: {.callout-note title="Aula invertida:"}
+::: {.callout-note title="Aula invertida"}
 Antes de clase leerás las secciones marcadas como **indispensables** y
 harás un primer intento: predecir cuántos genes tiene tu genoma y escribir, con lo que ya sabes
 hacer, la estrategia con la que los contarías. Durante el taller obtendrás tus primeros números

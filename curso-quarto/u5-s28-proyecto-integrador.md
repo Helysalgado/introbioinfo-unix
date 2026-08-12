@@ -1,6 +1,6 @@
 # S28 — Defender: demostrar que una herramienta bioinformática es reproducible
 
-::: {.callout-note title="Aula invertida:"}
+::: {.callout-note title="Aula invertida"}
 Esta sesión **no es un examen**. Es la defensa de un proyecto. Antes de
 clase reunirás la evidencia que ya produjiste a lo largo de la unidad y prepararás cómo la vas a
 sostener. Durante el taller ejecutarás tu herramienta con **datos que no has visto**, un compañero

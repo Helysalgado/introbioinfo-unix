@@ -1,6 +1,6 @@
 # S29 — Escalar: la misma herramienta, otra infraestructura
 
-::: {.callout-note title="Aula invertida:"}
+::: {.callout-note title="Aula invertida"}
 Antes de clase ejecutarás tu herramienta localmente, medirás cuánto tarda
 y escribirás —sin enviarlo— el archivo que pedirá su ejecución en el clúster. Durante el taller
 enviarás ese trabajo, lo monitorearás, cancelarás uno a propósito y recuperarás los resultados.

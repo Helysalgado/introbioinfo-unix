@@ -1,6 +1,6 @@
 # S24 — Guardar el procedimiento: del protocolo ejecutable al script
 
-::: {.callout-note title="Aula invertida:"}
+::: {.callout-note title="Aula invertida"}
 Antes de clase harás un primer intento sin ejecutar nada: elegir qué
 fragmento de tu protocolo de S23 merece convertirse en el primer script, y predecir por escrito qué
 ocurrirá cuando el sistema intente ejecutarlo. Durante el taller construirás ese script, lo

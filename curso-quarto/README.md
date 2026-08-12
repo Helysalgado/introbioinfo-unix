@@ -2,8 +2,9 @@
 
 Proyecto **Quarto Website** para publicar el material de `contenidos-2026/`.
 
-Estado: **U1–U6 + transversal**, callouts Quarto y workflow de Pages listos.
-Pendiente al publicar: configurar `origin`, `site-url` / `repo-url` en `_quarto.yml`.
+Estado: **v1 en producción** (U1–U6, callouts, Pages).
+
+Sitio: https://helysalgado.github.io/introbioinfo-unix/
 
 ## Vista previa local
 
@@ -11,6 +12,17 @@ Pendiente al publicar: configurar `origin`, `site-url` / `repo-url` en `_quarto.
 cd curso-quarto
 quarto preview
 ```
+
+## Sincronizar desde la fuente canónica
+
+Tras editar `contenidos-2026/`:
+
+```bash
+python3 curso-quarto/scripts/sync-from-contenidos.py
+cd curso-quarto && quarto preview
+```
+
+El script copia lecciones/imágenes/ejemplos, convierte callouts, quita notas docentes y corrige enlaces legacy. No sobrescribe `index.qmd`, `programa.qmd`, `recursos.qmd` ni `_quarto.yml`.
 
 ## Si aparece `ERROR: BadResource` (SassCache / Deno KV)
 

@@ -1,6 +1,6 @@
 # Unidad 4 — Procesamiento y exploración de datos genómicos
 
-::: {.callout-note title="Aula invertida:"}
+::: {.callout-note title="Aula invertida"}
 Esta unidad se estudia en diez sesiones. Antes de cada una leerás las
 secciones marcadas como **indispensables** y harás un primer intento breve: casi siempre, escribir
 qué estrategia usarías para responder una pregunta biológica, **sin ejecutar todavía nada**. Durante

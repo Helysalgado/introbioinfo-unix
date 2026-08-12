@@ -1,6 +1,6 @@
 # S7 — Representar: de los objetos biológicos a FASTA, GFF3 y GenBank
 
-::: {.callout-note title="Aula invertida:"}
+::: {.callout-note title="Aula invertida"}
 Antes de clase lee las secciones marcadas como **indispensables** y
 realiza el primer intento sin IA. Lleva tu matriz objeto–evidencia–formato y las dudas que no
 pudiste resolver. Durante el taller trabajarás con fragmentos y registros reales, compararás tu

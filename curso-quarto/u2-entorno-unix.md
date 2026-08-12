@@ -1,6 +1,6 @@
 # Unidad 2 — Entorno Unix/Linux y cómputo científico
 
-::: {.callout-note title="Aula invertida:"}
+::: {.callout-note title="Aula invertida"}
 Esta unidad se estudia en cuatro sesiones. Antes de cada una leerás las
 secciones indispensables del módulo y harás un primer intento breve. Durante el taller ejecutarás en
 vivo sobre el servidor del curso, compararás decisiones y corregirás con evidencia. Después

@@ -1,6 +1,6 @@
 # S26 — Iterar: de un genoma a una colección
 
-::: {.callout-note title="Aula invertida:"}
+::: {.callout-note title="Aula invertida"}
 Antes de clase harás un primer intento sin ejecutar nada: organizar la
 colección de genomas y escribir en español el recorrido que quieres que ocurra. Durante el taller
 construirás el script que lo recorre, provocarás a propósito el error que borra diecinueve
