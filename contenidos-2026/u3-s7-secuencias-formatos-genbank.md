@@ -345,116 +345,18 @@ estudiarás los alineamientos y el significado de las brechas.
 
 ### Práctica 1 — Test de repaso: procesos, elementos y alfabetos
 
-#### Antes de clase — primer intento individual
+Esta práctica se realiza en el laboratorio interactivo **Bio Detective**: procesos del dogma
+central, elementos de un gen y alfabetos de secuencia. Responde sin IA y sin volver a mirar las
+secciones anteriores mientras contestas. Es un test formativo: importa tu razonamiento, no un
+puntaje perfecto.
 
-Responde sin IA y sin volver a mirar las secciones anteriores mientras contestas. Es un test
-formativo: importa tu razonamiento, no un puntaje perfecto. Despliega cada retroalimentación solo
-después de responder.
+[Bio Detective (HTML)](html/u3-s7-p1-bio_detective.html)
 
-**Parte A. Verdadero o falso — procesos**
-
-1. La replicación usa ADN como molde para producir ARN.
-2. La traducción usa un ARNm como molde para producir una proteína.
-3. Todos los genes producen una proteína.
-4. Un mismo gen puede producir más de un transcrito.
-5. La transcripción ocurre después de la traducción.
-6. Un operón procariota puede producir varias proteínas a partir de un solo ARN policistrónico.
-
-<details>
-<summary>Ver retroalimentación — Parte A</summary>
-
-1. Falso. La replicación usa ADN como molde para producir ADN; la transcripción es la que produce
-   ARN a partir de ADN.
-2. Verdadero.
-3. Falso. Algunos genes producen ARN funcional (ARNr, ARNt, ARN regulador) y nunca se traducen.
-4. Verdadero, por splicing alternativo: distintas combinaciones de exones generan transcritos
-   distintos a partir del mismo gen.
-5. Falso. La transcripción ocurre antes: primero se produce el ARN y, si corresponde, ese ARN se
-   traduce.
-6. Verdadero. Varias regiones codificantes de un operón se transcriben juntas en un solo ARN
-   policistrónico y después pueden traducirse por separado.
-
-</details>
-
-**Parte B. De la definición al elemento**
-
-Elige el término que corresponde a cada definición. Bolsa de términos: promotor, TSS, 5′ UTR, CDS,
-3′ UTR, exón, intrón, operón, gen.
-
-1. Región donde se organiza el inicio de la transcripción.
-2. Primera posición transcrita de un gen.
-3. Parte del transcrito, anterior a la región codificante, que no se traduce.
-4. Parte de un transcrito que se traduce en una secuencia de aminoácidos.
-5. Segmento que se elimina del transcrito primario durante el splicing.
-6. Segmento que permanece en el ARN maduro después del splicing.
-7. Conjunto de regiones codificantes procariotas transcritas juntas en un solo ARN.
-8. Región de material genético que contribuye a producir un ARN o una proteína funcional.
-
-<details>
-<summary>Ver retroalimentación — Parte B</summary>
-
-1. Promotor
-2. TSS (sitio de inicio de transcripción)
-3. 5′ UTR
-4. CDS (región codificante)
-5. Intrón
-6. Exón
-7. Operón
-8. Gen
-
-</details>
-
-**Parte C. ¿Qué tipo de secuencia es?**
-
-Para cada fragmento escribe ADN, ARN, proteína o “no se puede determinar sin más contexto”, y en una
-frase justifica con la letra o letras que te dieron la pista.
-
-1. `ACAATGTT`
-2. `ACAAUGUU`
-3. `PAFFNK`
-4. `ACGT`
-5. `MSTAC`
-6. `LWTKQ`
-7. `NNNNN`
-
-<details>
-<summary>Ver retroalimentación — Parte C</summary>
-
-1. ADN. Solo contiene `A`, `C`, `G`, `T`; la `T` descarta el ARN.
-2. ARN. Contiene `U` en vez de `T`.
-3. Proteína. `P` y `F` no son símbolos válidos de nucleótido, ni siquiera como código de ambigüedad
-   IUPAC.
-4. No se puede determinar sin más contexto. `A`, `C`, `G` y `T` son válidas como nucleótidos, pero
-   también son los códigos de una letra de alanina, cisteína, glicina y treonina: podría ser ADN o
-   una proteína de cuatro aminoácidos.
-5. No se puede determinar sin más contexto. Cada letra (`M`, `S`, `T`, `A`, `C`) es válida a la vez
-   como código de ambigüedad de nucleótido y como aminoácido.
-6. Proteína. `Q` no existe como símbolo de nucleótido ni como código de ambigüedad IUPAC; solo tiene
-   sentido como aminoácido.
-7. No se puede afirmar con certeza sin el archivo o el registro de origen. `N` es un uso frecuente
-   para una región no determinada en ADN o ARN (por ejemplo, en ensamblados con huecos), pero
-   también es el código de un aminoácido (asparagina).
-
-</details>
-
-#### Durante el taller — comparación y corrección
-
-1. Intercambia tu test con otra persona antes de ver la retroalimentación colapsable.
-2. Revisen juntos los desacuerdos de las tres partes; despliega la retroalimentación solo después de
-   discutir cada caso.
-3. Para la Parte C, ubiquen los fragmentos de ARN y de proteína en el mapa del dogma central: ¿qué
-   proceso los produjo y a partir de qué molde?
-4. Para los fragmentos marcados como “no se puede determinar sin más contexto”, discutan qué
-   información adicional (extensión típica, encabezado del archivo, base de datos de origen)
-   permitiría resolver la ambigüedad.
-5. Corrige tus respuestas con una marca visible; no borres el primer intento.
-
-#### Después del taller — evidencia final
-
-Conserva el test con el primer intento y la corrección visibles. En `doc/protocolo.md` escribe tres
-oraciones: qué relación gen → transcrito → proteína no es uno a uno y por qué, qué elemento genético
-de la Parte B te costó más distinguir, y qué pista de alfabeto usarías para reconocer una proteína a
-primera vista.
+<iframe
+  src="html/u3-s7-p1-bio_detective.html"
+  title="Práctica 1 — Bio Detective: procesos, elementos y alfabetos"
+  style="width:100%;min-height:860px;border:1px solid #d7cdc7;border-radius:12px;background:#fff;"
+  loading="lazy"></iframe>
 
 **Criterio de logro:** distingue correctamente los procesos que conectan ADN, ARN y proteína;
 relaciona cada elemento genético con su función; clasifica los fragmentos inequívocos y reconoce, sin
@@ -764,10 +666,10 @@ observar el archivo → interpretar el encabezado → separar identificador y
 descripción → distinguir evidencia directa de información externa → conectar
 accession, versión y reproducibilidad.
 
-[FASTA Detective (HTML)](html/practica_3_fasta_detective.html)
+[FASTA Detective (HTML)](html/u3-s7-p3-fasta_detective.html)
 
 <iframe
-  src="html/practica_3_fasta_detective.html"
+  src="html/u3-s7-p3-fasta_detective.html"
   title="Práctica 3 — FASTA Detective: interpretar la estructura de un archivo FASTA"
   style="width:100%;min-height:860px;border:1px solid #d7cdc7;border-radius:12px;background:#fff;"
   loading="lazy"></iframe>
@@ -843,148 +745,15 @@ secuencia y versión para que las coordenadas tengan sentido.
 
 Aprender a interpretar la estructura de una línea GFF3, identificar sus nueve campos y distinguir la información explícita de aquella que requiere consultar otras anotaciones o el registro original.
 
----
+Esta práctica se realiza en el laboratorio interactivo **GFF3 Explorer**.
 
-#### Fragmento GFF3
+[GFF3 Explorer (HTML)](html/u3-s7-p4-gff3_explorer.html)
 
-```text
-NC_000913.3	RefSeq	gene	190	255	.	+	.	ID=gene-b0001;Name=thrL;locus_tag=b0001
-```
-
-> **Nota:** Los campos están separados por tabuladores (`TAB`), aunque aquí puedan verse como espacios dependiendo del visor.
-
----
-
-##### Actividad 1. Observando la estructura
-
-Responde únicamente con base en la línea anterior.
-
-1. ¿Cuántos campos contiene?
-2. ¿Qué carácter separa los campos?
-3. ¿Representa un gen completo o una anotación (*feature*)?
-4. ¿Qué tipo de feature se está describiendo?
-
-<details>
-<summary><strong>Ver respuesta</strong></summary>
-
-1. Contiene **9 campos**.
-2. Los campos están separados por **tabuladores**.
-3. La línea representa **una feature** del archivo GFF3.
-4. El tipo de feature es **gene**.
-
-</details>
-
----
-
-##### Actividad 2. Identificando los campos
-
-Completa la siguiente tabla.
-
-| Campo | Valor |
-|--------|-------|
-| seqid | |
-| source | |
-| type | |
-| start | |
-| end | |
-| score | |
-| strand | |
-| phase | |
-| attributes | |
-
-<details>
-<summary><strong>Ver respuesta</strong></summary>
-
-| Campo | Valor |
-|--------|-------|
-| seqid | NC_000913.3 |
-| source | RefSeq |
-| type | gene |
-| start | 190 |
-| end | 255 |
-| score | . |
-| strand | + |
-| phase | . |
-| attributes | ID=gene-b0001;Name=thrL;locus_tag=b0001 |
-
-</details>
-
----
-
-##### Actividad 3. Interpretando la información
-
-Completa.
-
-| Pregunta | Respuesta |
-|----------|-----------|
-| ¿En qué secuencia se encuentra la anotación? | |
-| ¿Entre qué coordenadas está localizada? | |
-| ¿En qué hebra (*strand*) se encuentra? | |
-| ¿Cuál es el nombre del gen? | |
-| ¿Cuál es el identificador interno (ID)? | |
-
-<details>
-<summary><strong>Ver respuesta</strong></summary>
-
-| Pregunta | Respuesta |
-|----------|-----------|
-| ¿En qué secuencia se encuentra la anotación? | NC_000913.3 |
-| ¿Entre qué coordenadas está localizada? | 190–255 |
-| ¿En qué hebra se encuentra? | + |
-| ¿Cuál es el nombre del gen? | thrL |
-| ¿Cuál es el ID interno? | gene-b0001 |
-
-</details>
-
----
-
-##### Actividad 4. ¿Qué puedes afirmar?
-
-Marca la opción correcta.
-
-| Afirmación | Sí | No | Requiere más información |
-|------------|:--:|:--:|:-----------------------:|
-| La anotación pertenece a la secuencia NC_000913.3. | ☐ | ☐ | ☐ |
-| El gen se llama **thrL**. | ☐ | ☐ | ☐ |
-| El gen codifica una proteína. | ☐ | ☐ | ☐ |
-| El gen mide 66 nucleótidos. | ☐ | ☐ | ☐ |
-| El identificador estable es **gene-b0001**. | ☐ | ☐ | ☐ |
-
-<details>
-<summary><strong>Ver respuesta</strong></summary>
-
-| Afirmación | Respuesta |
-|------------|-----------|
-| La anotación pertenece a NC_000913.3. | ✅ Sí |
-| El gen se llama **thrL**. | ✅ Sí |
-| El gen codifica una proteína. | ⚠️ Requiere consultar otras anotaciones. |
-| El gen mide 66 nucleótidos. | ✅ Sí (255 − 190 + 1 = 66). |
-| El identificador estable es **gene-b0001**. | ❌ No. Es un ID interno de la anotación; debe verificarse si existe un identificador estable asociado. |
-
-</details>
-
----
-
-##### Actividad 5. Reflexión
-
-Responde brevemente.
-
-1. ¿Por qué las coordenadas no tienen significado si desconoces el ensamblado?
-2. ¿Por qué no debe asumirse que el campo **ID** corresponde a un identificador estable?
-3. ¿Qué información adicional necesitarías para reconstruir completamente un gen eucariota?
-
-<details>
-<summary><strong>Ver respuesta sugerida</strong></summary>
-
-Las coordenadas solo tienen sentido respecto a una secuencia específica (seqid) y una versión del ensamblado.
-
-El atributo **ID** identifica una feature dentro del archivo GFF3, pero no necesariamente corresponde a un identificador estable en una base de datos.
-
-Para reconstruir un gen eucariota sería necesario consultar otras líneas del archivo (mRNA, exon, CDS, UTR, etc.) y las relaciones establecidas mediante los atributos **ID** y **Parent**.
-
-</details>
-
----
+<iframe
+  src="html/u3-s7-p4-gff3_explorer.html"
+  title="Práctica 4 — GFF3 Explorer: de nueve campos a una anotación biológica"
+  style="width:100%;min-height:860px;border:1px solid #d7cdc7;border-radius:12px;background:#fff;"
+  loading="lazy"></iframe>
 
 #### Criterio de logro
 
@@ -995,7 +764,6 @@ Al finalizar esta práctica serás capaz de:
 - Distinguir entre el nombre de una feature, un ID interno y un identificador estable.
 - Comprender que las coordenadas solo son interpretables respecto a una secuencia y un ensamblado concretos.
 - Reconocer que una sola línea GFF3 no describe necesariamente toda la estructura de un gen.
-
 
 
 ## 6. GenBank: un registro estructurado que integra contexto [Indispensable]
@@ -1062,156 +830,15 @@ curso, basada en el registro [U49845.1 de NCBI](https://www.ncbi.nlm.nih.gov/nuc
 
 Integrar los conceptos estudiados en este capítulo para evaluar si un conjunto de datos genómicos está documentado de manera suficiente para que otra persona pueda reproducir un análisis.
 
+Esta práctica se realiza en el laboratorio interactivo **Reproducibility Review**.
 
-
-#### Caso de estudio
-
-Lee el siguiente fragmento de un artículo científico ficticio.
-
-> *"El análisis se realizó utilizando el genoma de **Escherichia coli**. Las secuencias fueron descargadas en formato FASTA y las anotaciones en formato GFF3."*
-
-
-
-##### Actividad 1. Como revisor de una revista científica
-
-Imagina que eres revisor de una revista científica.
-
-**¿Aceptarías esta descripción para permitir que otro investigador reproduzca el análisis?**
-
-- ☐ Sí
-- ☐ No
-
-Justifica tu respuesta.
-
-<details>
-<summary><strong>Ver respuesta sugerida</strong></summary>
-
-**No.**
-
-La información no identifica de manera única el conjunto de datos utilizado.
-
-Existen múltiples cepas, ensamblados y versiones de *E. coli*. Además, no se especifican los archivos utilizados ni sus identificadores.
-
-</details>
-
-
-
-##### Actividad 2. ¿Qué información hace falta?
-
-Escribe al menos **cinco datos** que solicitarías a los autores antes de aceptar el manuscrito.
-
-| Información faltante | ¿Por qué es importante? |
-|-----------------------|-------------------------|
-| | |
-| | |
-| | |
-| | |
-| | |
-
-<details>
-<summary><strong>Posible respuesta</strong></summary>
-
-Algunos ejemplos son:
-
-- Organismo completo.
-- Cepa o aislamiento.
-- Accession del ensamblado.
-- Número de versión.
-- Colección (RefSeq o GenBank).
-- Archivos utilizados (FASTA y GFF3).
-- Fecha de consulta o descarga.
-- Correspondencia entre el FASTA y el GFF3.
-
-No es necesario escribir exactamente estos ejemplos; cualquier respuesta correctamente justificada es válida.
-
-</details>
-
-
-
-##### Actividad 3. Evaluando los formatos
-
-Marca, para cada necesidad, **todos** los formatos que sirven (puede haber más de
-uno). Al comprobar tu respuesta verás una explicación breve de cada fila, no solo
-si acertaste.
-
-**Actividad interactiva:**
-[¿Qué archivo necesito? (HTML)](html/interactive_s7_qu_archivo_necesito.html)
+[Reproducibility Review (HTML)](html/u3-s7-p5-reproducibility_review.html)
 
 <iframe
-  src="html/interactive_s7_qu_archivo_necesito.html"
-  title="Actividad 3. Evaluando los formatos — ¿Qué archivo necesito?"
-  style="width:100%;min-height:820px;border:1px solid #d7cdc7;border-radius:12px;background:#fff;"
+  src="html/u3-s7-p5-reproducibility_review.html"
+  title="Práctica 5 — Reproducibility Review: ¿es suficiente la información?"
+  style="width:100%;min-height:860px;border:1px solid #d7cdc7;border-radius:12px;background:#fff;"
   loading="lazy"></iframe>
-
-
-
-##### Actividad 4. Analizando un protocolo
-
-Un estudiante documentó su práctica de la siguiente manera.
-
-```text
-Organismo:
-E. coli
-
-Archivo:
-genome.fasta
-```
-
-¿Qué información falta para que otra persona pueda repetir exactamente el análisis?
-
-<details>
-<summary><strong>Ver respuesta sugerida</strong></summary>
-
-Falta, entre otra información:
-
-- cepa o aislamiento;
-- accession;
-- versión;
-- ensamblado;
-- colección (RefSeq o GenBank);
-- nombre completo del archivo;
-- archivo de anotación correspondiente (por ejemplo, GFF3);
-- fecha de descarga o consulta.
-
-</details>
-
-
-
-##### Actividad 5. Desafío (opcional). Escribe un protocolo reproducible
-
-Reescribe el siguiente fragmento de un artículo científico para que cualquier investigador pueda reproducir exactamente el análisis realizado.
-
-**Texto original**
-
-> *"El análisis se realizó utilizando el genoma de **Escherichia coli**. Las secuencias fueron descargadas en formato FASTA y las anotaciones en formato GFF3."*
-
-Redacta una versión mejorada incluyendo toda la información que consideres necesaria.
-
-<details>
-<summary><strong>Ejemplo de respuesta</strong></summary>
-
-> El análisis se realizó utilizando el ensamblado **RefSeq GCF_000005845.2** de *Escherichia coli* str. K-12 substr. MG1655. Se emplearon los archivos **FASTA** correspondientes a la secuencia del genoma y el archivo **GFF3** de anotaciones asociados al mismo ensamblado y versión. Los datos fueron obtenidos de la colección **RefSeq** y se registraron el accession, la versión y la fecha de consulta para garantizar la reproducibilidad del análisis.
-
-**Observación:** No es necesario utilizar exactamente esta redacción. Lo importante es que el protocolo permita identificar de forma inequívoca el conjunto de datos empleado y que otra persona pueda recuperar los mismos archivos.
-
-</details>
-
-
-
-##### Actividad 6. Reflexión
-
-Completa la frase.
-
-> La reproducibilidad en bioinformática depende de _____________________________.
-
-<details>
-<summary><strong>Respuesta sugerida</strong></summary>
-
-La reproducibilidad en bioinformática depende de documentar de manera precisa los datos utilizados, incluyendo el organismo, el ensamblado, el accession con su versión y los archivos empleados durante el análisis.
-
-</details>
-
-
 
 #### Criterio de logro
 
@@ -1241,7 +868,7 @@ No memorices todos los símbolos en esta sesión. Aprende a reconocer que:
 
 Entrega o conserva, según indique el docente:
 
-1. test de repaso inicial y corregido (procesos, elementos y alfabetos);
+1. evidencia de Bio Detective (Práctica 1: procesos, elementos y alfabetos);
 2. matriz inicial y matriz corregida;
 3. interpretación de un archivo FASTA (Práctica 3);
 4. interpretación de una anotación GFF3 (Práctica 4);
