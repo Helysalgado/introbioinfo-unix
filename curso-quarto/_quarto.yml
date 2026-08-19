@@ -17,6 +17,8 @@ lang: es
 
 website:
   google-analytics: "G-QXNMZZP0K9"
+  page-footer:
+    center: "[![Visitas](https://hits.sh/helysalgado.github.io/introbioinfo-unix/.svg?style=flat-square&label=Visitas&color=4a7c9e)](https://hits.sh/helysalgado.github.io/introbioinfo-unix/)"
   title: "Introducción a la Bioinformática"
   site-url: https://helysalgado.github.io/introbioinfo-unix/
   repo-url: https://github.com/Helysalgado/introbioinfo-unix
