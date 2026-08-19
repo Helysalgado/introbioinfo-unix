@@ -1,0 +1,2787 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>u6-s30-comparar-alinear – Introducción a la Bioinformática</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./u6-s31-buscar-blast.html" rel="next">
+<link href="./u6-comparacion-homologia.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fe3756b78d23b7733c53f9ce5acac92a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXNMZZP0K9"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-QXNMZZP0K9', { 'anonymize_ip': true});
+</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Introducción a la Bioinformática</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Inicio</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-programa" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Programa</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-programa">    
+        <li>
+    <a class="dropdown-item" href="./programa.html">
+ <span class="dropdown-text">Ruta de sesiones</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./programa-detallado.html">
+ <span class="dropdown-text">Programa detallado</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-unidades" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Unidades</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-unidades">    
+        <li>
+    <a class="dropdown-item" href="./u1-trabajo-reproducible.html">
+ <span class="dropdown-text">U1 — Trabajo reproducible</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u2-entorno-unix.html">
+ <span class="dropdown-text">U2 — Entorno Unix</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u3-datos-bases-datos.html">
+ <span class="dropdown-text">U3 — Datos y bases</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u4-procesamiento-exploracion.html">
+ <span class="dropdown-text">U4 — Procesamiento genómico</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u5-automatizacion-scripting.html">
+ <span class="dropdown-text">U5 — Automatización</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u6-comparacion-homologia.html">
+ <span class="dropdown-text">U6 — Comparar / hipótesis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./s14-s15-mini-proyecto-investigacion-I.html">
+ <span class="dropdown-text">Transversal S14–S17</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="./recursos.html" aria-current="page"> 
+<span class="menu-text">Recursos</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./acerca.html"> 
+<span class="menu-text">Acerca</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./contribuir.html"> 
+<span class="menu-text">Contribuir</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Alternar modo lector">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./u6-comparacion-homologia.html">Unidad 6</a></li><li class="breadcrumb-item"><a href="./u6-s30-comparar-alinear.html">S30 — Comparar / alinear</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 1</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-trabajo-reproducible.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-s1-documentar-markdown-fases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S1 — Documentar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-s2-organizar-fair-ia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S2 — Organizar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 2</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-entorno-unix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s3-shell-acceso-remoto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S3 — Conectar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s4-sistema-archivos-v3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S4 — Navegar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s5-archivos-permisos-procesos-v2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S5 — Archivos y procesos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s6-consolidacion-entorno-unix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S6 — Consolidar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 3</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-datos-bases-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s7-secuencias-formatos-genbank.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S7 — Formatos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s8-bases-datos-descarga-integridad.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S8 — Descargar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s9-inspeccion-transferencia-verificable.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S9 — Transferir</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 4</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-procesamiento-exploracion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s10-anatomia-flujos-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S10 — Anatomía y flujos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s11-estructura-tabular-anotacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S11 — Anotación tabular</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s12-filtrado-conteos-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S12 — Filtrar y contar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s13-inventario-resumen-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S13 — Inventario</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s18-precision-patrones-expresiones-regulares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S18 — Patrones</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s19-extraccion-identificadores-correspondencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S19 — Identificadores</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s20-normalizar-datos-comparables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S20 — Normalizar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s21-confrontar-fuente-independiente.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S21 — Confrontar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s22-condicionar-calcular-columnas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S22 — Condicionar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s23-protocolo-ejecutable-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S23 — Protocolo ejecutable</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Transversal</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s14-s15-mini-proyecto-investigacion-I.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S14–S15 — Mini-proyecto I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s16-mini-proyecto-revision-pares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S16 — Revisión por pares</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s17-evaluacion-individual-demostrativa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S17 — Evaluación demostrativa</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mini-proyecto-dictamen-cientifico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dictamen científico</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 5</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-automatizacion-scripting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s24-del-protocolo-al-script.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S24 — Del protocolo al script</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s25-separar-procedimiento-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S25 — Separar datos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s26-procesamiento-por-lotes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S26 — Por lotes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s27-herramienta-cientifica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S27 — Herramienta científica</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s28-proyecto-integrador.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S28 — Proyecto integrador</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s29-cluster-hpc-sge.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S29 — Cluster SGE</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Unidad 6</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-comparacion-homologia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s30-comparar-alinear.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">S30 — Comparar / alinear</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s31-buscar-blast.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S31 — Buscar (BLAST)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s32-interpretar-inferir.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S32 — Interpretar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s33-defender-hipotesis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S33 — Inferir</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s34-integrar-hipotesis-casos-ciegos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S34 — Integrar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./programa-detallado.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programa detallado</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./recursos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recursos</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#s30-comparar-una-secuencia-adquiere-significado-en-contexto" id="toc-s30-comparar-una-secuencia-adquiere-significado-en-contexto" class="nav-link active" data-scroll-target="#s30-comparar-una-secuencia-adquiere-significado-en-contexto">S30 — Comparar: una secuencia adquiere significado en contexto</a>
+  <ul class="collapse">
+  <li><a href="#ficha-del-módulo" id="toc-ficha-del-módulo" class="nav-link" data-scroll-target="#ficha-del-módulo">Ficha del módulo</a></li>
+  <li><a href="#relación-con-lo-anterior" id="toc-relación-con-lo-anterior" class="nav-link" data-scroll-target="#relación-con-lo-anterior">Relación con lo anterior</a></li>
+  <li><a href="#resultados-de-aprendizaje" id="toc-resultados-de-aprendizaje" class="nav-link" data-scroll-target="#resultados-de-aprendizaje">Resultados de aprendizaje</a></li>
+  <li><a href="#antes-de-empezar-lista-de-verificación" id="toc-antes-de-empezar-lista-de-verificación" class="nav-link" data-scroll-target="#antes-de-empezar-lista-de-verificación">Antes de empezar: lista de verificación</a></li>
+  <li><a href="#ruta-de-la-sesión" id="toc-ruta-de-la-sesión" class="nav-link" data-scroll-target="#ruta-de-la-sesión">Ruta de la sesión</a></li>
+  <li><a href="#una-secuencia-aislada-dice-muy-poco-indispensable" id="toc-una-secuencia-aislada-dice-muy-poco-indispensable" class="nav-link" data-scroll-target="#una-secuencia-aislada-dice-muy-poco-indispensable">1. Una secuencia aislada dice muy poco [Indispensable]</a></li>
+  <li><a href="#los-datos-de-la-unidad-una-familia-en-distancias-crecientes-indispensable" id="toc-los-datos-de-la-unidad-una-familia-en-distancias-crecientes-indispensable" class="nav-link" data-scroll-target="#los-datos-de-la-unidad-una-familia-en-distancias-crecientes-indispensable">2. Los datos de la unidad: una familia en distancias crecientes [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#práctica-1-documentar-la-secuencia-consulta-antes-de-clase-primer-intento" id="toc-práctica-1-documentar-la-secuencia-consulta-antes-de-clase-primer-intento" class="nav-link" data-scroll-target="#práctica-1-documentar-la-secuencia-consulta-antes-de-clase-primer-intento">Práctica 1 — Documentar la secuencia consulta <em>(antes de clase, primer intento)</em></a></li>
+  </ul></li>
+  <li><a href="#por-qué-mirar-no-basta-y-por-qué-grep-tampoco-indispensable" id="toc-por-qué-mirar-no-basta-y-por-qué-grep-tampoco-indispensable" class="nav-link" data-scroll-target="#por-qué-mirar-no-basta-y-por-qué-grep-tampoco-indispensable">3. Por qué mirar no basta (y por qué <code>grep</code> tampoco) [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#práctica-2-comparar-a-ojo-y-fracasar-productivamente-antes-de-clase-primer-intento" id="toc-práctica-2-comparar-a-ojo-y-fracasar-productivamente-antes-de-clase-primer-intento" class="nav-link" data-scroll-target="#práctica-2-comparar-a-ojo-y-fracasar-productivamente-antes-de-clase-primer-intento">Práctica 2 — Comparar a ojo, y fracasar productivamente <em>(antes de clase, primer intento)</em></a></li>
+  </ul></li>
+  <li><a href="#el-alineamiento-una-hipótesis-de-correspondencia-indispensable" id="toc-el-alineamiento-una-hipótesis-de-correspondencia-indispensable" class="nav-link" data-scroll-target="#el-alineamiento-una-hipótesis-de-correspondencia-indispensable">4. El alineamiento: una hipótesis de correspondencia [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#práctica-3-alinear-las-tres-parejas-durante-el-taller" id="toc-práctica-3-alinear-las-tres-parejas-durante-el-taller" class="nav-link" data-scroll-target="#práctica-3-alinear-las-tres-parejas-durante-el-taller">Práctica 3 — Alinear las tres parejas <em>(durante el taller)</em></a></li>
+  </ul></li>
+  <li><a href="#lo-que-un-alineamiento-te-deja-medir-indispensable" id="toc-lo-que-un-alineamiento-te-deja-medir-indispensable" class="nav-link" data-scroll-target="#lo-que-un-alineamiento-te-deja-medir-indispensable">5. Lo que un alineamiento te deja medir [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#identidad" id="toc-identidad" class="nav-link" data-scroll-target="#identidad">5.1 Identidad</a></li>
+  <li><a href="#similitud" id="toc-similitud" class="nav-link" data-scroll-target="#similitud">5.2 Similitud</a></li>
+  <li><a href="#dónde-caen-las-diferencias" id="toc-dónde-caen-las-diferencias" class="nav-link" data-scroll-target="#dónde-caen-las-diferencias">5.3 Dónde caen las diferencias</a></li>
+  </ul></li>
+  <li><a href="#nucleótidos-o-aminoácidos-no-es-la-misma-pregunta-indispensable" id="toc-nucleótidos-o-aminoácidos-no-es-la-misma-pregunta-indispensable" class="nav-link" data-scroll-target="#nucleótidos-o-aminoácidos-no-es-la-misma-pregunta-indispensable">6. Nucleótidos o aminoácidos: no es la misma pregunta [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#tres-cambios-de-adn-un-cambio-de-proteína" id="toc-tres-cambios-de-adn-un-cambio-de-proteína" class="nav-link" data-scroll-target="#tres-cambios-de-adn-un-cambio-de-proteína">6.1 Tres cambios de ADN, un cambio de proteína</a></li>
+  <li><a href="#los-porcentajes-de-adn-y-de-proteína-no-son-comparables" id="toc-los-porcentajes-de-adn-y-de-proteína-no-son-comparables" class="nav-link" data-scroll-target="#los-porcentajes-de-adn-y-de-proteína-no-son-comparables">6.2 Los porcentajes de ADN y de proteína no son comparables</a></li>
+  <li><a href="#práctica-4-el-mismo-par-en-los-dos-alfabetos-durante-el-taller" id="toc-práctica-4-el-mismo-par-en-los-dos-alfabetos-durante-el-taller" class="nav-link" data-scroll-target="#práctica-4-el-mismo-par-en-los-dos-alfabetos-durante-el-taller">Práctica 4 — El mismo par en los dos alfabetos <em>(durante el taller)</em></a></li>
+  <li><a href="#práctica-5-diecinueve-organismos-a-la-vez-durante-el-taller" id="toc-práctica-5-diecinueve-organismos-a-la-vez-durante-el-taller" class="nav-link" data-scroll-target="#práctica-5-diecinueve-organismos-a-la-vez-durante-el-taller">Práctica 5 — Diecinueve organismos a la vez <em>(durante el taller)</em></a></li>
+  </ul></li>
+  <li><a href="#de-dónde-salen-esos-alineamientos-consulta" id="toc-de-dónde-salen-esos-alineamientos-consulta" class="nav-link" data-scroll-target="#de-dónde-salen-esos-alineamientos-consulta">7. De dónde salen esos alineamientos [Consulta]</a>
+  <ul class="collapse">
+  <li><a href="#hay-muchísimos-alineamientos-posibles" id="toc-hay-muchísimos-alineamientos-posibles" class="nav-link" data-scroll-target="#hay-muchísimos-alineamientos-posibles">7.1 Hay muchísimos alineamientos posibles</a></li>
+  <li><a href="#una-función-de-puntuación-las-ordena" id="toc-una-función-de-puntuación-las-ordena" class="nav-link" data-scroll-target="#una-función-de-puntuación-las-ordena">7.2 Una función de puntuación las ordena</a></li>
+  <li><a href="#la-programación-dinámica-encuentra-el-mejor-sin-probarlos-todos" id="toc-la-programación-dinámica-encuentra-el-mejor-sin-probarlos-todos" class="nav-link" data-scroll-target="#la-programación-dinámica-encuentra-el-mejor-sin-probarlos-todos">7.3 La programación dinámica encuentra el mejor sin probarlos todos</a></li>
+  <li><a href="#global-y-local-responden-preguntas-distintas" id="toc-global-y-local-responden-preguntas-distintas" class="nav-link" data-scroll-target="#global-y-local-responden-preguntas-distintas">7.4 Global y local responden preguntas distintas</a></li>
+  </ul></li>
+  <li><a href="#lo-que-hoy-no-puedes-afirmar-indispensable" id="toc-lo-que-hoy-no-puedes-afirmar-indispensable" class="nav-link" data-scroll-target="#lo-que-hoy-no-puedes-afirmar-indispensable">8. Lo que hoy NO puedes afirmar [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#todo-lo-de-hoy-en-un-solo-lugar" id="toc-todo-lo-de-hoy-en-un-solo-lugar" class="nav-link" data-scroll-target="#todo-lo-de-hoy-en-un-solo-lugar">Todo lo de hoy, en un solo lugar</a></li>
+  <li><a href="#práctica-6-qué-respondería-la-ia-y-cómo-lo-verificarías-taller-y-entrega-posterior" id="toc-práctica-6-qué-respondería-la-ia-y-cómo-lo-verificarías-taller-y-entrega-posterior" class="nav-link" data-scroll-target="#práctica-6-qué-respondería-la-ia-y-cómo-lo-verificarías-taller-y-entrega-posterior">Práctica 6 — ¿Qué respondería la IA y cómo lo verificarías? <em>(taller y entrega posterior)</em></a></li>
+  </ul></li>
+  <li><a href="#la-sección-del-protocolo" id="toc-la-sección-del-protocolo" class="nav-link" data-scroll-target="#la-sección-del-protocolo">La sección del protocolo</a></li>
+  <li><a href="#evidencia-de-la-sesión" id="toc-evidencia-de-la-sesión" class="nav-link" data-scroll-target="#evidencia-de-la-sesión">Evidencia de la sesión</a></li>
+  <li><a href="#errores-frecuentes-y-estrategias-de-diagnóstico" id="toc-errores-frecuentes-y-estrategias-de-diagnóstico" class="nav-link" data-scroll-target="#errores-frecuentes-y-estrategias-de-diagnóstico">Errores frecuentes y estrategias de diagnóstico</a></li>
+  <li><a href="#rúbricas" id="toc-rúbricas" class="nav-link" data-scroll-target="#rúbricas">Rúbricas</a>
+  <ul class="collapse">
+  <li><a href="#primer-intento-práctica-2-formativo" id="toc-primer-intento-práctica-2-formativo" class="nav-link" data-scroll-target="#primer-intento-práctica-2-formativo">Primer intento (Práctica 2) — formativo</a></li>
+  <li><a href="#participación-en-el-taller-formativo" id="toc-participación-en-el-taller-formativo" class="nav-link" data-scroll-target="#participación-en-el-taller-formativo">Participación en el taller — formativo</a></li>
+  <li><a href="#tarea-1-tabla-de-comparaciones-prácticas-3-y-4" id="toc-tarea-1-tabla-de-comparaciones-prácticas-3-y-4" class="nav-link" data-scroll-target="#tarea-1-tabla-de-comparaciones-prácticas-3-y-4">Tarea 1 — Tabla de comparaciones (Prácticas 3 y 4)</a></li>
+  <li><a href="#tarea-2-protocolo-y-bitácora-de-ia-prácticas-1-5-y-6" id="toc-tarea-2-protocolo-y-bitácora-de-ia-prácticas-1-5-y-6" class="nav-link" data-scroll-target="#tarea-2-protocolo-y-bitácora-de-ia-prácticas-1-5-y-6">Tarea 2 — Protocolo y bitácora de IA (Prácticas 1, 5 y 6)</a></li>
+  </ul></li>
+  <li><a href="#autoevaluación" id="toc-autoevaluación" class="nav-link" data-scroll-target="#autoevaluación">Autoevaluación</a></li>
+  <li><a href="#cierre-con-ia-clásico-frente-a-asistido" id="toc-cierre-con-ia-clásico-frente-a-asistido" class="nav-link" data-scroll-target="#cierre-con-ia-clásico-frente-a-asistido">Cierre con IA: clásico frente a asistido</a></li>
+  <li><a href="#anexo-a.-correspondencia-resultadoactividadevidenciacriterio" id="toc-anexo-a.-correspondencia-resultadoactividadevidenciacriterio" class="nav-link" data-scroll-target="#anexo-a.-correspondencia-resultadoactividadevidenciacriterio">Anexo A. Correspondencia resultado–actividad–evidencia–criterio</a></li>
+  <li><a href="#anexo-b.-alineación-transversal" id="toc-anexo-b.-alineación-transversal" class="nav-link" data-scroll-target="#anexo-b.-alineación-transversal">Anexo B. Alineación transversal</a></li>
+  <li><a href="#glosario" id="toc-glosario" class="nav-link" data-scroll-target="#glosario">Glosario</a></li>
+  <li><a href="#distribución-estimada-de-las-dos-horas" id="toc-distribución-estimada-de-las-dos-horas" class="nav-link" data-scroll-target="#distribución-estimada-de-las-dos-horas">Distribución estimada de las dos horas</a></li>
+  <li><a href="#lo-que-todavía-falta" id="toc-lo-que-todavía-falta" class="nav-link" data-scroll-target="#lo-que-todavía-falta">Lo que todavía falta</a>
+  <ul class="collapse">
+  <li><a href="#primero-el-alineamiento-ya-no-es-gratis" id="toc-primero-el-alineamiento-ya-no-es-gratis" class="nav-link" data-scroll-target="#primero-el-alineamiento-ya-no-es-gratis">Primero: el alineamiento ya no es gratis</a></li>
+  <li><a href="#segundo-los-números-no-perdonan" id="toc-segundo-los-números-no-perdonan" class="nav-link" data-scroll-target="#segundo-los-números-no-perdonan">Segundo: los números no perdonan</a></li>
+  <li><a href="#tercero-por-qué-el-método-exacto-sobra-aquí" id="toc-tercero-por-qué-el-método-exacto-sobra-aquí" class="nav-link" data-scroll-target="#tercero-por-qué-el-método-exacto-sobra-aquí">Tercero: por qué el método exacto sobra aquí</a></li>
+  </ul></li>
+  <li><a href="#referencias" id="toc-referencias" class="nav-link" data-scroll-target="#referencias">Referencias</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/Helysalgado/introbioinfo-unix/edit/main/u6-s30-comparar-alinear.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/Helysalgado/introbioinfo-unix/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./u6-comparacion-homologia.html">Unidad 6</a></li><li class="breadcrumb-item"><a href="./u6-s30-comparar-alinear.html">S30 — Comparar / alinear</a></li></ol></nav></header>
+
+
+
+
+<section id="s30-comparar-una-secuencia-adquiere-significado-en-contexto" class="level1">
+<h1>S30 — Comparar: una secuencia adquiere significado en contexto</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="Aula invertida">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Aula invertida
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Esta sesión tiene tres momentos. <strong>Antes de clase</strong> lees este módulo y haces un primer intento: comparar dos secuencias reales <em>a ojo</em> y describir lo que ves. <strong>Durante el taller</strong> construyes alineamientos de verdad y compruebas cuánto de tu descripción se sostenía. <strong>Después del taller</strong> entregas la versión corregida, con argumentos, más la sección correspondiente del protocolo. El primer intento es <strong>formativo</strong>: se califica por haberlo intentado y por la calidad de la corrección posterior, no por acertar.</p>
+</div>
+</div>
+<section id="ficha-del-módulo" class="level2">
+<h2 class="anchored" data-anchor-id="ficha-del-módulo">Ficha del módulo</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Elemento</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Unidad</strong></td>
+<td>6 — Comparar secuencias para construir hipótesis biológicas (<a href="./u6-comparacion-homologia.html">portada</a>)</td>
+</tr>
+<tr class="even">
+<td><strong>Sesión</strong></td>
+<td>S30 · 2 h</td>
+</tr>
+<tr class="odd">
+<td><strong>Competencias</strong></td>
+<td>F (principal); C, D, A, G (integradas)</td>
+</tr>
+<tr class="even">
+<td><strong>Pregunta de la sesión</strong></td>
+<td>¿Qué puedo aprender al comparar esta secuencia con otras, y qué posiciones puedo comparar de forma razonable?</td>
+</tr>
+<tr class="odd">
+<td><strong>Datos</strong></td>
+<td><code>ubiE</code> en Rickettsiales: tres parejas de distancia creciente y un grupo de 19 organismos, en versión de nucleótidos y de proteína</td>
+</tr>
+<tr class="even">
+<td><strong>Herramientas</strong></td>
+<td>Clustal Omega en <code>chaac</code>; Unix de la Unidad 4 para inspeccionar y contar</td>
+</tr>
+<tr class="odd">
+<td><strong>Lectura previa</strong></td>
+<td>Este módulo. Al terminar la sesión, empieza Pearson (2013), primera mitad</td>
+</tr>
+<tr class="even">
+<td><strong>Producto</strong></td>
+<td>Descripción razonada de semejanzas y diferencias entre secuencias reales, <strong>sin afirmar todavía homología ni función</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>Cambio conceptual</strong></td>
+<td>Secuencia aislada → secuencia en contexto; parecido intuitivo → correspondencia explícita y evaluable</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="relación-con-lo-anterior" class="level2">
+<h2 class="anchored" data-anchor-id="relación-con-lo-anterior">Relación con lo anterior</h2>
+<p>Al cerrar la Unidad 5 tienes algo que no tenías en marzo: <strong>una herramienta</strong>. Un conjunto de scripts documentados, probados por otras personas, defendidos en público y capaces de correr en un clúster sobre doce genomas o sobre doce mil. Eso responde preguntas como <em>cuántos genes hay</em>, <em>cuántos son CDS</em> o <em>cómo se reparten entre las hebras</em>.</p>
+<p>Todas esas preguntas tienen una cosa en común: <strong>se responden contando lo que hay dentro de tus archivos</strong>.</p>
+<p>Ahora aparece una que no:</p>
+<blockquote class="blockquote">
+<p>Este gen se llama <code>ubiE</code>. ¿De dónde viene ese nombre? ¿Existe en otros organismos? ¿Qué hace?</p>
+</blockquote>
+<p>Ninguna cantidad de <code>grep</code>, <code>cut</code> o <code>awk</code> sobre tu GFF3 te lo va a decir, porque <strong>la respuesta no está en tu archivo</strong>. Está en la comparación con el resto de la vida.</p>
+<blockquote class="blockquote">
+<p><strong>IDEA CLAVE.</strong> Hasta la Unidad 5 el objetivo era <strong>construir la evidencia</strong>. A partir de ahora el objetivo será <strong>interpretarla</strong>. Es un cambio de oficio, no solo de tema.</p>
+</blockquote>
+</section>
+<section id="resultados-de-aprendizaje" class="level2">
+<h2 class="anchored" data-anchor-id="resultados-de-aprendizaje">Resultados de aprendizaje</h2>
+<p>Al terminar S30 podrás:</p>
+<ol type="1">
+<li><strong>Explicar</strong> por qué una secuencia aislada aporta poca información biológica.</li>
+<li><strong>Reconocer</strong> que la búsqueda de texto exacto no sirve para comparar secuencias biológicas, y explicar por qué.</li>
+<li><strong>Interpretar</strong> un alineamiento como una <strong>hipótesis de correspondencia</strong> entre posiciones, y explicar por qué dos programas pueden proponer hipótesis distintas sobre los mismos datos.</li>
+<li><strong>Distinguir</strong> sustitución, inserción y deleción, y explicar por qué aparecen los gaps.</li>
+<li><strong>Distinguir</strong> identidad de similitud, y <strong>calcular</strong> un porcentaje de identidad declarando su denominador.</li>
+<li><strong>Justificar</strong> cuándo conviene comparar nucleótidos y cuándo aminoácidos.</li>
+<li><strong>Explicar</strong> qué preguntas distintas responden un alineamiento global y uno local.</li>
+<li><strong>Separar</strong>, por escrito, lo que <strong>observaste</strong> de lo que <strong>inferiste</strong>.</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled" title="el punto 8 es el difícil">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>el punto 8 es el difícil
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Los siete primeros se aprenden en una tarde. El octavo es el que se evalúa durante toda la unidad, y el que ninguna herramienta puede hacer por ti.</p>
+</div>
+</div>
+</section>
+<section id="antes-de-empezar-lista-de-verificación" class="level2">
+<h2 class="anchored" data-anchor-id="antes-de-empezar-lista-de-verificación">Antes de empezar: lista de verificación</h2>
+<p>Deberías poder responder que sí a todo esto. Si algo falla, revísalo antes del taller.</p>
+<ul class="task-list">
+<li><label><input type="checkbox">Tengo acceso a <code>chaac.lcg.unam.mx</code> y sé entrar (U2, S3).</label></li>
+<li><label><input type="checkbox">Sé qué es un archivo <strong>FASTA</strong> y distingo encabezado de secuencia (U3).</label></li>
+<li><label><input type="checkbox">Sé usar <code>head</code>, <code>grep</code>, <code>wc</code>, <code>cut</code> y <code>sort</code> (U4).</label></li>
+<li><label><input type="checkbox">Mi proyecto tiene <code>data/source/</code>, <code>results/</code>, <code>doc/</code> y <code>src/</code> (U1).</label></li>
+<li><label><input type="checkbox">Tengo <code>doc/protocolo.md</code> abierto y <strong>no lo he reiniciado</strong> desde la Unidad 1.</label></li>
+<li><label><input type="checkbox">Sé enviar un trabajo con <code>qsub</code> y consultarlo con <code>qstat</code> (U5, S29). <em>Hoy no hará falta, pero conviene tenerlo fresco.</em></label></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled" title="dónde guardar">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>dónde guardar
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Trabaja dentro de tu proyecto y guarda los resultados en <code>results/s30/</code>.</p>
+</div>
+</div>
+</section>
+<section id="ruta-de-la-sesión" class="level2">
+<h2 class="anchored" data-anchor-id="ruta-de-la-sesión">Ruta de la sesión</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 30%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Momento</th>
+<th>Qué hacer</th>
+<th style="text-align: right;">Tiempo estimado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Antes de clase</strong></td>
+<td>Leer las secciones 1–5 · Práctica 1 (inspección) · Práctica 2 (comparar a ojo)</td>
+<td style="text-align: right;">45 + 40 min</td>
+</tr>
+<tr class="even">
+<td><strong>Durante el taller</strong></td>
+<td>Prácticas 3, 4 y 5 · discusión de la Práctica 6</td>
+<td style="text-align: right;">2 h</td>
+</tr>
+<tr class="odd">
+<td><strong>Después del taller</strong></td>
+<td>Corregir el primer intento · escribir la sección del protocolo · entregar</td>
+<td style="text-align: right;">60 min</td>
+</tr>
+</tbody>
+</table>
+<p>Las secciones 1–5 y 8 son [Indispensable]. La sección 7 es [Consulta]: explica de dónde salen los números y ayuda mucho, pero no se evalúa en esta sesión.</p>
+<hr>
+</section>
+<section id="una-secuencia-aislada-dice-muy-poco-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="una-secuencia-aislada-dice-muy-poco-indispensable">1. Una secuencia aislada dice muy poco [Indispensable]</h2>
+<p>Aquí está el principio del gen que vas a investigar durante toda la unidad, tal como aparece en el archivo:</p>
+<pre class="text"><code>MNQTNFGFKKVDYTKKQGLVNNVFSNVADKYDLMNDLMSLGLHRLWKDEFIRQIPNLNSH</code></pre>
+<p>Mírala un momento. ¿Qué puedes afirmar?</p>
+<p>Puedes afirmar cosas <strong>estructurales</strong>: que son aminoácidos, que hay 60 en esta línea, que empieza con metionina, que no contiene caracteres raros. Todo eso lo sabías desde la Unidad 3 y se comprueba con Unix.</p>
+<p>Lo que <strong>no</strong> puedes afirmar es nada biológico. No sabes qué hace, ni si es antigua o reciente, ni si existe en otros organismos, ni qué partes de ella importan.</p>
+<p>Y esa última pregunta —<strong>qué partes importan</strong>— es la que abre la unidad. Porque una proteína no es una lista de letras igualmente relevantes. Algunas posiciones pueden mutar sin consecuencias y otras no. Pero <strong>eso no se ve mirando una sola secuencia</strong>.</p>
+<blockquote class="blockquote">
+<p><strong>Concepto esencial — el significado biológico es comparativo.</strong> Una posición no es «importante» por sí misma. Es importante porque <strong>se ha mantenido igual</strong> mientras el resto cambiaba, a lo largo de millones de años y en linajes que se separaron hace mucho. Y para observar eso hacen falta, como mínimo, dos secuencias.</p>
+</blockquote>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u6-s30-aislada-vs-contexto.png" class="img-fluid figure-img"></p>
+<figcaption>Una secuencia aislada frente a la misma secuencia comparada con otras. A la izquierda, un solo renglón de aminoácidos del que solo pueden leerse propiedades estructurales: longitud, alfabeto, primer residuo. A la derecha, cinco renglones apilados y alineados de organismos distintos en los que aparecen columnas donde todos coinciden y columnas donde cada uno tiene una letra diferente; las columnas conservadas se destacan. Un pie señala que las preguntas biológicas solo pueden formularse en el panel derecho.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 30.1.</strong> Lo que se puede preguntar cambia por completo cuando la secuencia deja de estar sola.</p>
+</section>
+<section id="los-datos-de-la-unidad-una-familia-en-distancias-crecientes-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="los-datos-de-la-unidad-una-familia-en-distancias-crecientes-indispensable">2. Los datos de la unidad: una familia en distancias crecientes [Indispensable]</h2>
+<p>Vas a trabajar con <code>ubiE</code>, un gen presente en muchas bacterias. Los archivos están en <a href="ejemplos/datos-alineamientos/"><code>ejemplos/datos-alineamientos/</code></a> y hay que copiarlos a tu <code>data/source/</code> con su ficha de procedencia, igual que cualquier otro dato (U1, U3).</p>
+<p>La <strong>secuencia consulta</strong> de toda la unidad es esta:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Campo</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identificador</td>
+<td><code>WP_010977615.1</code></td>
+</tr>
+<tr class="even">
+<td>Organismo</td>
+<td><em>Rickettsia conorii</em> str. Malish 7</td>
+</tr>
+<tr class="odd">
+<td>Gen</td>
+<td><code>ubiE</code></td>
+</tr>
+<tr class="even">
+<td>Longitud, proteína</td>
+<td><strong>248 aminoácidos</strong> (<code>ubiE_con.faa</code>)</td>
+</tr>
+<tr class="odd">
+<td>Longitud, nucleótidos</td>
+<td><strong>747 nucleótidos</strong> (<code>ubiE_con.fna</code>)</td>
+</tr>
+</tbody>
+</table>
+<p>Y hay tres parejas preparadas, que no son tres archivos cualesquiera: son <strong>tres distancias evolutivas crecientes</strong> desde esa misma consulta.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Archivo</th>
+<th>La consulta se compara con</th>
+<th>Relación</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>ubiE_con_afr.faa</code></td>
+<td><em>Rickettsia africae</em> ESF-5</td>
+<td>Otra especie del <strong>mismo género</strong></td>
+</tr>
+<tr class="even">
+<td><code>ubiE_con_typ.faa</code></td>
+<td><em>Rickettsia typhi</em> str. Wilmington</td>
+<td>Otra especie del mismo género, de <strong>otro grupo</strong> dentro de <em>Rickettsia</em></td>
+</tr>
+<tr class="odd">
+<td><code>ubiE_con_tsu.faa</code></td>
+<td><em>Orientia tsutsugamushi</em></td>
+<td><strong>Otro género</strong> de la misma familia</td>
+</tr>
+</tbody>
+</table>
+<p>Cada archivo <code>.faa</code> tiene su gemelo <code>.fna</code> con las mismas secuencias en nucleótidos. Y hay dos archivos con más miembros: <code>ubiE_4_org</code> (4 organismos) y <code>ubiE_19_org</code> (<strong>19 organismos</strong>, con longitudes que van de <strong>230 a 257 aminoácidos</strong>).</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="mira los encabezados antes de tocar nada">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>mira los encabezados antes de tocar nada
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Los encabezados de estos FASTA son excepcionalmente ricos: traen el identificador, el organismo, la cepa, el ensamble de origen, el nombre del gen, la longitud, las coordenadas, la hebra y hasta los genes vecinos. Son campos separados por <code>|</code>, es decir, <strong>exactamente el tipo de archivo que aprendiste a diseccionar con <code>cut</code> en la Unidad 4</strong>. Los vas a usar mucho.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled" title="747 = 248 × 3 + 3">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>747 = 248 × 3 + 3
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Los tres nucleótidos que sobran son el codón de paro. Si esa aritmética no cuadrara, tendrías un problema con tus datos antes de empezar a compararlos — y comprobarlo es, literalmente, la primera línea de defensa que aprendiste en la Unidad 3.</p>
+</div>
+</div>
+<section id="práctica-1-documentar-la-secuencia-consulta-antes-de-clase-primer-intento" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-1-documentar-la-secuencia-consulta-antes-de-clase-primer-intento">Práctica 1 — Documentar la secuencia consulta <em>(antes de clase, primer intento)</em></h3>
+<p><strong>Antes de clase.</strong> No se puede investigar una secuencia que no sabes de dónde salió.</p>
+<ol type="1">
+<li><p>Copia los archivos de <code>ejemplos/datos-alineamientos/</code> a tu <code>data/source/ubiE/</code>. <strong>No los edites nunca.</strong></p></li>
+<li><p>Mira el encabezado completo de la consulta:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">'^&gt;'</span> data/source/ubiE/ubiE_con.faa</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Sepáralo en campos con la herramienta de la Unidad 4:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">'^&gt;'</span> data/source/ubiE/ubiE_con.faa <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-d</span> <span class="st">'|'</span> <span class="at">-f</span> 1,2,3</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Comprueba las dos longitudes:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-v</span> <span class="st">'^&gt;'</span> data/source/ubiE/ubiE_con.faa <span class="kw">|</span> <span class="fu">tr</span> <span class="at">-d</span> <span class="st">'\n'</span> <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-c</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-v</span> <span class="st">'^&gt;'</span> data/source/ubiE/ubiE_con.fna <span class="kw">|</span> <span class="fu">tr</span> <span class="at">-d</span> <span class="st">'\n'</span> <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-c</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Escribe en <code>doc/protocolo.md</code> una ficha con: identificador, organismo, cepa, gen, longitud en aminoácidos, longitud en nucleótidos, archivo de origen y fecha de copia.</p></li>
+<li><p>Comprueba la aritmética: ¿cuadran los 747 con los 248? Escribe la cuenta y su explicación.</p></li>
+</ol>
+<p><strong>Durante el taller.</strong> Compara tu ficha con la de otra persona. Si un campo no está documentado en el encabezado, <strong>escribe «no documentado»</strong>; no lo inventes ni lo deduzcas del nombre del archivo.</p>
+<p><strong>Entrega.</strong> La ficha corregida dentro del protocolo.</p>
+</section>
+</section>
+<section id="por-qué-mirar-no-basta-y-por-qué-grep-tampoco-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="por-qué-mirar-no-basta-y-por-qué-grep-tampoco-indispensable">3. Por qué mirar no basta (y por qué <code>grep</code> tampoco) [Indispensable]</h2>
+<p>El instinto razonable, con las herramientas que ya tienes, es buscar trozos en común. Si dos proteínas hacen lo mismo, algo tendrán idéntico, y <code>grep</code> lo encontrará.</p>
+<p>Pruébalo con el grupo de 19 organismos: busca el fragmento más largo que aparezca <strong>exacto</strong> en las 19 secuencias.</p>
+<p>El resultado es desalentador. La cadena más larga que comparten los 19 organismos tiene <strong>cuatro aminoácidos</strong>: <code>CLEF</code>. Cuatro letras, en 230–257 posiciones.</p>
+<p>¿Significa eso que las 19 proteínas no se parecen? No.&nbsp;Significa que <strong>la búsqueda de texto exacto es la herramienta equivocada</strong>. Compara <em>cadenas</em>, y la evolución no conserva cadenas: conserva <em>posiciones</em>, y las conserva de forma imperfecta.</p>
+<p>Fíjate en lo que pasa alrededor de la posición 65 de la consulta:</p>
+<pre class="text"><code>R. conorii        LNSHILDVASGSGDIALKLA
+R. typhi          LNSNILDVASGSGDIALQLA
+O. tsutsugamushi  FNGSLIDVASGTGDIALTFY</code></pre>
+<p>A ojo se ve que ahí hay algo. Pero <code>grep 'LDVASGSGDIALKLA'</code> no encuentra a <em>Orientia</em>, porque una sola letra distinta rompe la coincidencia exacta. La región <strong>está conservada</strong>, y la herramienta de texto <strong>no puede verla</strong>.</p>
+<blockquote class="blockquote">
+<p><strong>Concepto esencial — la limitación que abre la sesión.</strong> Comparar secuencias biológicas requiere una herramienta que tolere diferencias: que reconozca que dos posiciones se corresponden <strong>aunque no sean iguales</strong>, y que decida qué se corresponde con qué cuando las secuencias ni siquiera miden lo mismo.</p>
+<p>Esa herramienta es el <strong>alineamiento</strong>.</p>
+</blockquote>
+<section id="práctica-2-comparar-a-ojo-y-fracasar-productivamente-antes-de-clase-primer-intento" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-2-comparar-a-ojo-y-fracasar-productivamente-antes-de-clase-primer-intento">Práctica 2 — Comparar a ojo, y fracasar productivamente <em>(antes de clase, primer intento)</em></h3>
+<p><strong>Antes de clase.</strong> Este es el primer intento propiamente dicho. Se califica por haberlo hecho.</p>
+<ol type="1">
+<li><p>Mira las dos secuencias de la pareja más lejana, sin alinearlas:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-v</span> <span class="st">'^&gt;'</span> data/source/ubiE/ubiE_con_tsu.faa <span class="kw">|</span> <span class="fu">head</span> <span class="at">-20</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Intenta la búsqueda de texto exacto:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-c</span> <span class="st">'DVASGSGDIAL'</span> data/source/ubiE/ubiE_19_org.faa</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-c</span> <span class="st">'DVASG'</span> data/source/ubiE/ubiE_19_org.faa</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Escribe media página respondiendo, <strong>sin usar ninguna herramienta más</strong>:</p>
+<ul>
+<li>¿Se parecen estas dos proteínas? ¿En qué te basas?</li>
+<li>¿Puedes decir en qué porcentaje? ¿Cómo lo calcularías a mano?</li>
+<li>¿Qué encontró <code>grep</code> y qué se le escapó? ¿Por qué?</li>
+</ul></li>
+</ol>
+<p><strong>Durante el taller.</strong> Guarda ese texto sin tocarlo. Al final de la sesión volverás a él.</p>
+<p><strong>Entrega.</strong> El texto original <strong>y</strong> una corrección argumentada de al menos tres frases: qué dijiste, qué mostraron los datos y por qué te equivocaste (o por qué acertaste sin poder demostrarlo).</p>
+<div class="callout callout-style-default callout-note callout-titled" title="para qué sirve equivocarse aquí">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>para qué sirve equivocarse aquí
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El objetivo de esta práctica no es que aciertes. Es que experimentes en carne propia el límite que hace necesario el alineamiento. Una respuesta como <em>«se parecen bastante, quizá un 80 %»</em> es un excelente primer intento si después eres capaz de explicar por qué la impresión visual sobreestimó el parecido.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="el-alineamiento-una-hipótesis-de-correspondencia-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="el-alineamiento-una-hipótesis-de-correspondencia-indispensable">4. El alineamiento: una hipótesis de correspondencia [Indispensable]</h2>
+<p>Antes de seguir, conviene fijar quién manda:</p>
+<pre class="text"><code>COMPARAR
+   ↓
+es el objetivo científico
+   ↓
+ALINEAR
+   ↓
+es la herramienta para conseguirlo</code></pre>
+<p>El título de la sesión no dice «alinear» por casualidad. La pregunta —<em>¿qué puedo aprender al comparar esta secuencia con otras?</em>— existía antes de que apareciera ningún programa, y seguirá existiendo cuando Clustal Omega sea obsoleto. El alineamiento entra ahora porque <code>grep</code> no alcanzó, no porque toque enseñarlo.</p>
+<p>Alinear dos secuencias es escribirlas una encima de otra e insertar huecos donde haga falta, de modo que <strong>cada columna reúna posiciones que se consideran equivalentes</strong>.</p>
+<p>Esa última frase tiene una palabra clave: <em>se consideran</em>.</p>
+<blockquote class="blockquote">
+<p><strong>Concepto esencial — un alineamiento es una hipótesis, no un dato.</strong> El dato es la secuencia: está en el archivo y no admite discusión. El alineamiento es una <strong>propuesta</strong> sobre qué posición de una secuencia corresponde a qué posición de la otra. Es una afirmación sobre lo que ocurrió durante la evolución, y como toda afirmación, <strong>puede estar equivocada</strong>.</p>
+</blockquote>
+<p>Y esto no es una sutileza filosófica: se puede comprobar con tus propios archivos.</p>
+<p>Toma la pareja más lejana de la sesión y alinéala <strong>dos veces con el mismo programa</strong>, cambiando una sola cosa: lo que cuesta abrir un hueco. Esto es lo que sale:</p>
+<pre class="text"><code>Si abrir un hueco cuesta 11        Si abrir un hueco cuesta 3
+
+M---------NQTNFGFKKVDY             M----NQTN-----FGFKKVDY
+MTKNYNHNNGNKSTFGFQLVDS             MTKNYNHNNGNKSTFGFQLVDS
+
+un solo suceso                     dos sucesos independientes</code></pre>
+<p>Los datos son idénticos. El programa es el mismo. Y las dos propuestas dicen cosas <strong>distintas sobre lo que ocurrió</strong>: una postula una única extensión del extremo N; la otra, dos indeles separados que además emparejan <code>NQTN</code> con otros residuos.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u6-s30-alineamiento-no-unico.png" class="img-fluid figure-img"></p>
+<figcaption>El mismo par de secuencias alineado dos veces con distinto costo de apertura de hueco. En el primer panel los nueve huecos forman un bloque único; en el segundo, el mismo material se reparte en dos bloques y NQTN queda alineado con otras posiciones. Debajo, una tabla con cuatro costos de apertura muestra que al abaratar la apertura el número de sucesos de indel pasa de uno a sesenta y nueve mientras la identidad apenas se mueve, del 49.0 al 50.4 por ciento. Una franja final concluye que dos programas pueden producir alineamientos distintos sin que ninguno esté mal, porque están optimizando hipótesis distintas.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 30.2.</strong> El mismo par, cuatro alineamientos. Fíjate en la columna de la identidad: <strong>apenas se mueve</strong> (49.0 % → 50.4 %) mientras la historia evolutiva propuesta pasa de <strong>un</strong> suceso a <strong>sesenta y nueve</strong>. El porcentaje casi no distingue entre hipótesis que son biológicamente muy distintas.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="dos programas pueden darte dos alineamientos distintos">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>dos programas pueden darte dos alineamientos distintos
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>No significa que uno esté mal. Significa que están optimizando hipótesis distintas.</strong></p>
+<p>Esta idea es incómoda al principio y es fundamental después. Un alineamiento no se «verifica» comparándolo con el verdadero, porque nadie tiene el verdadero: la historia evolutiva real no está disponible. Lo que se puede hacer es <strong>saber qué supuestos usó el programa</strong> y decidir si son razonables para tu pregunta.</p>
+<p>Por eso el protocolo de esta unidad registra los parámetros. No es burocracia: sin ellos, el alineamiento que entregas no es reproducible <strong>ni interpretable</strong>.</p>
+</div>
+</div>
+<p>Un alineamiento propone tres tipos de suceso:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>En el alineamiento ves</th>
+<th>La hipótesis es</th>
+<th>Se llama</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Dos letras <strong>distintas</strong> en la misma columna</td>
+<td>En esa posición hubo un cambio de residuo</td>
+<td><strong>Sustitución</strong></td>
+</tr>
+<tr class="even">
+<td>Una letra frente a un <strong>hueco</strong> en la otra secuencia</td>
+<td>O una secuencia ganó residuos, o la otra los perdió</td>
+<td><strong>Inserción</strong> o <strong>deleción</strong></td>
+</tr>
+<tr class="odd">
+<td>Un bloque de huecos</td>
+<td>Un suceso de inserción/deleción de varios residuos</td>
+<td><strong>Gap</strong> (o <em>indel</em>)</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-important callout-titled" title="el gap no es un hueco de imprenta">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>el gap no es un hueco de imprenta
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Muchas personas leen los guiones como «falta información» o «no se pudo secuenciar». No es eso. <strong>Un gap es una afirmación biológica</strong>: dice que ahí hubo una inserción o una deleción. Por eso los programas los penalizan: postular un suceso evolutivo debe costar algo, o el programa llenaría el alineamiento de huecos para hacer coincidir cualquier cosa con cualquier cosa.</p>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u6-s30-sustitucion-insercion-delecion.png" class="img-fluid figure-img"></p>
+<figcaption>Tres paneles que muestran, sobre la misma pareja de secuencias cortas, los tres sucesos que un alineamiento propone. En el primero, dos columnas tienen letras distintas y se marcan como sustitución. En el segundo, una secuencia tiene tres residuos frente a huecos en la otra, y una flecha indica que la interpretación puede ser una inserción en la secuencia de arriba o una deleción en la de abajo, según cuál se tome como referencia. En el tercero, un bloque de huecos en un extremo se identifica como una extensión terminal. Un pie recuerda que ninguno de los tres se observa: los tres se infieren.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 30.3.</strong> Sustitución, inserción y deleción. Fíjate en el panel central: sin una tercera secuencia que sirva de referencia, <strong>no puedes saber si hubo una inserción o una deleción</strong>. Por eso se usa el término neutro <em>indel</em>.</p>
+<section id="práctica-3-alinear-las-tres-parejas-durante-el-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-3-alinear-las-tres-parejas-durante-el-taller">Práctica 3 — Alinear las tres parejas <em>(durante el taller)</em></h3>
+<p><strong>Durante el taller.</strong> Entra a <code>chaac</code> y trabaja en tu espacio de la Unidad 5.</p>
+<p>Divídela en tres partes.</p>
+<p><strong>Parte A — la pareja más cercana.</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> results/s30</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="ex">clustalo</span> <span class="at">-i</span> data/source/ubiE/ubiE_con_afr.faa <span class="dt">\</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">-o</span> results/s30/ubiE_con_afr.aln <span class="dt">\</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">--outfmt</span><span class="op">=</span>clu <span class="at">--force</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Ábrela y responde: ¿cuántas columnas no son idénticas? ¿Dónde está esa posición? ¿Hay algún gap? ¿Por qué crees que no lo hay?</p>
+<p><strong>Parte B — la pareja intermedia.</strong> Repite con <code>ubiE_con_typ.faa</code>. Cuenta cuántas columnas están marcadas con <code>*</code> y calcula el porcentaje. <strong>Declara el denominador que usaste.</strong></p>
+<p><strong>Parte C — la pareja lejana.</strong> Repite con <code>ubiE_con_tsu.faa</code>. Aquí sí aparecen huecos.</p>
+<ol type="1">
+<li>¿Cuántos huecos hay en total?</li>
+<li>¿Están repartidos o agrupados? ¿Dónde?</li>
+<li>¿La secuencia que tiene los huecos es la más corta o la más larga? ¿Qué significa eso?</li>
+<li>Marca en el alineamiento las <strong>tres regiones</strong> más largas sin ninguna diferencia.</li>
+</ol>
+<p><strong>Entrega.</strong> Una tabla con las tres parejas: longitudes, columnas del alineamiento, columnas idénticas, porcentaje (con denominador declarado) y número de gaps. Debajo, tres frases sobre lo que cambia al aumentar la distancia evolutiva.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si prefieres que el programa calcule los porcentajes por ti, Clustal Omega puede escribir una matriz de identidades:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">clustalo</span> <span class="at">-i</span> data/source/ubiE/ubiE_19_org.faa <span class="dt">\</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">-o</span> results/s30/ubiE_19_org.aln <span class="at">--outfmt</span><span class="op">=</span>clu <span class="at">--force</span> <span class="dt">\</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">--distmat-out</span><span class="op">=</span>results/s30/ubiE_19_org.dist <span class="at">--full</span> <span class="at">--percent-id</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Úsalo <strong>después</strong> de haber contado a mano al menos una pareja. El trabajo manual es tu línea base: si el programa y tú discrepan, lo primero que hay que averiguar es sobre qué denominador está calculando cada uno.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="lo-que-un-alineamiento-te-deja-medir-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="lo-que-un-alineamiento-te-deja-medir-indispensable">5. Lo que un alineamiento te deja medir [Indispensable]</h2>
+<p>Una vez alineadas, dos secuencias se pueden describir con números. Aquí están los tres que importan hoy, con el gen de la unidad.</p>
+<section id="identidad" class="level3">
+<h3 class="anchored" data-anchor-id="identidad">5.1 Identidad</h3>
+<p><strong>Identidad</strong> es el porcentaje de columnas en las que ambas secuencias tienen <strong>exactamente la misma letra</strong>. Es la medida más simple, la más citada y la peor usada.</p>
+<p>Estos son los resultados reales de las tres parejas, en proteína:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 18%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Pareja</th>
+<th>Longitudes</th>
+<th style="text-align: right;">Columnas</th>
+<th style="text-align: right;">Idénticas</th>
+<th style="text-align: right;">Identidad</th>
+<th style="text-align: right;">Gaps</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>conorii vs <strong>africae</strong></td>
+<td>248 y 248</td>
+<td style="text-align: right;">248</td>
+<td style="text-align: right;">247</td>
+<td style="text-align: right;"><strong>99.6 %</strong></td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td>conorii vs <strong>typhi</strong></td>
+<td>248 y 248</td>
+<td style="text-align: right;">248</td>
+<td style="text-align: right;">213</td>
+<td style="text-align: right;"><strong>85.9 %</strong></td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td>conorii vs <strong>tsutsugamushi</strong></td>
+<td>248 y 257</td>
+<td style="text-align: right;">257</td>
+<td style="text-align: right;">126</td>
+<td style="text-align: right;"><strong>49.0 %</strong></td>
+<td style="text-align: right;">9</td>
+</tr>
+</tbody>
+</table>
+<p>Tres observaciones que conviene hacer antes de seguir:</p>
+<p><strong>a) La primera pareja difiere en una sola posición.</strong> De 248 aminoácidos, 247 coinciden. La única diferencia está en la <strong>posición 247</strong>: <em>R. conorii</em> tiene isoleucina (I) y <em>R. africae</em> tiene treonina (T).</p>
+<p><strong>b) Los gaps aparecen solo cuando los datos los exigen.</strong> En las dos primeras parejas ambas proteínas miden 248 y el alineamiento no necesita ni un hueco. En la tercera miden 248 y 257: hay que colocar <strong>9 huecos</strong>, y no se reparten al azar —caen todos juntos, al principio.</p>
+<p><strong>c) El porcentaje depende del denominador.</strong> En la tercera pareja hay 126 columnas idénticas. Si divides entre las 257 columnas del alineamiento, obtienes 49.0 %. Si divides entre los 248 aminoácidos de la consulta, obtienes <strong>50.8 %</strong>. Los dos son correctos y ninguno es <em>el</em> porcentaje.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="declara siempre el denominador">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Advertencia</span>declara siempre el denominador
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>«49 % de identidad» es una frase incompleta. La frase completa es «49 % de identidad sobre las 257 columnas del alineamiento». Cuando leas un porcentaje en un artículo o en la salida de un programa, <strong>la primera pregunta es sobre qué se calculó</strong>. Es exactamente el mismo hábito de los metadatos de la Unidad 1, aplicado a un número.</p>
+</div>
+</div>
+</section>
+<section id="similitud" class="level3">
+<h3 class="anchored" data-anchor-id="similitud">5.2 Similitud</h3>
+<p>Dos aminoácidos distintos no son necesariamente <em>muy</em> distintos. Una leucina y una isoleucina se parecen mucho en tamaño y en química; una leucina y un ácido aspártico, casi nada. Sustituir la primera por la segunda suele ser inocuo; la otra sustitución suele no serlo.</p>
+<p><strong>Similitud</strong> es la proporción de columnas en las que los residuos son iguales <strong>o químicamente equivalentes</strong>. Se calcula con una <strong>matriz de sustitución</strong> —BLOSUM62 es la más común— que asigna a cada par de aminoácidos una puntuación según la frecuencia con que se sustituyen entre sí en proteínas emparentadas reales.</p>
+<p>Clustal Omega te muestra esto debajo del alineamiento con tres símbolos:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Símbolo</th>
+<th>Significa</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>*</code></td>
+<td>La columna es <strong>idéntica</strong> en todas las secuencias</td>
+</tr>
+<tr class="even">
+<td><code>:</code></td>
+<td>Los residuos son <strong>distintos pero muy parecidos</strong> (sustitución conservativa)</td>
+</tr>
+<tr class="odd">
+<td><code>.</code></td>
+<td>Los residuos son <strong>distintos y poco parecidos</strong>, pero no opuestos</td>
+</tr>
+<tr class="even">
+<td>(espacio)</td>
+<td>Sin conservación apreciable</td>
+</tr>
+</tbody>
+</table>
+<blockquote class="blockquote">
+<p><strong>Concepto esencial — identidad y similitud no son sinónimos.</strong> Dos proteínas pueden tener una identidad modesta y una similitud alta: han cambiado en muchas posiciones, pero casi siempre por residuos equivalentes. Eso es señal de <strong>conservación funcional</strong>, y la identidad sola no lo ve. Decir «49 % de similitud» cuando lo que mediste fue identidad es un error frecuente y no es menor: son dos afirmaciones distintas sobre los datos.</p>
+</blockquote>
+</section>
+<section id="dónde-caen-las-diferencias" class="level3">
+<h3 class="anchored" data-anchor-id="dónde-caen-las-diferencias">5.3 Dónde caen las diferencias</h3>
+<p>El número resume; el alineamiento explica. Este es el resultado real de la pareja más distante:</p>
+<pre class="text"><code>R_conorii      M---------NQTNFGFKKVDYTKKQGLVNNVFSNVADKYDLMNDLMSLGLHRLWKDEFI
+O_tsutsug.     MTKNYNHNNGNKSTFGFQLVDSDKKNQLVAKVFDSVTQQYDLMNNILSLGVHYFWKQEFC
+               *         *   ***  **  **  **  **  *   *****   *** *  ** **
+
+R_conorii      RQIPNLNSHILDVASGSGDIALKLAKKARDRVNNISLTLSDINEEMLKQAKKKAIDLNLF
+O_tsutsug.     NRFFDFNGSLIDVASGTGDIALTFYRKAKKYHTIPNVTICDINYNMLQKCREKAVDSNLL
+                     *    ***** *****    **         *  ***  **     ** * **
+
+R_conorii      QNLKFTVASAEELPFPDDSFDYYTIAFGIRNVPDINKALKEACRVLKPMGKFICLEFSKV
+O_tsutsug.     ENIHYINCNAENLPFADNSFDNYSIAFGIRNVTNIKASLQEAYRVLKPGGQFLCLEFSKV
+                *       ** *** * *** * ********  *   * ** ***** * * *******
+
+R_conorii      KEGYIKDFYKFYSFNIIPSIGQMIAGNKEAYEYLVESIDLFPSQDEFRIMIKDAGFEEVG
+O_tsutsug.     ENLYVSKLYDLYSFNLIPLIGKIVANNQQAYQYLVESIRTFPEQQDFCQIINSVGFQKVK
+                  *    *  **** ** **   * *  ** ******  ** *  *   *   **  *
+
+R_conorii      YKNLSGGIVAIHSAYIQ
+O_tsutsug.     FCNLTFGIVAIHSALKL
+                 **  ********</code></pre>
+<p><em>(Solo se marcan las columnas idénticas. Clustal Omega añade además los símbolos <code>:</code> y <code>.</code>)</em></p>
+<p>Mira el patrón, no el porcentaje. Las coincidencias <strong>no están repartidas de manera uniforme</strong>:</p>
+<ul>
+<li>El bloque de 9 huecos está <strong>todo al principio</strong>. <em>Orientia</em> tiene nueve residuos extra en el extremo N; el resto de la proteína se alinea sin un solo hueco más. Un indel terminal es un suceso muy distinto de nueve inserciones dispersas.</li>
+<li>Hay <strong>islas de identidad casi perfecta</strong>: <code>DVASG.GDIAL</code>, <code>AFGIRNV</code>, <code>YSFN.IP</code>, <code>LKP</code>, <code>CLEFSKV</code>, <code>GIVAIHSA</code>. Ahí no hay ninguna diferencia en varios residuos seguidos, en dos organismos separados por mucho tiempo evolutivo.</li>
+<li>Y hay regiones donde apenas coincide nada, sobre todo cerca de los extremos.</li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>Concepto esencial — la conservación no es uniforme y ahí está la biología.</strong> Que una región concreta se mantenga intacta mientras el resto acumula cambios es la observación más informativa de toda esta sesión: sugiere que esa región <strong>no puede cambiar sin romper algo</strong>. Suele coincidir con el sitio activo, con un sitio de unión o con un elemento estructural.</p>
+<p>Fíjate en que acabas de encontrar el bloque <code>CLEF</code> de la sección 3 —el único que <code>grep</code> sí veía— en su contexto real: <code>GQFLCLEFSKV</code> / <code>GKFICLEFSKV</code>. No era una casualidad de texto. Era la punta de una región conservada mucho más grande que el texto exacto no podía mostrarte.</p>
+</blockquote>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u6-s30-conservacion-no-uniforme.png" class="img-fluid figure-img"></p>
+<figcaption>Un alineamiento esquemático de varias secuencias en el que la fila inferior es un perfil de conservación en forma de barras de altura variable. Se ven dos zonas de barras muy altas separadas por zonas de barras bajas, y flechas que apuntan a las zonas altas con la etiqueta «no puede cambiar sin romper algo». Una nota lateral advierte que esta es una observación, y que atribuirle una función concreta ya sería una inferencia que hoy no se hace.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 30.4.</strong> La conservación se reparte de forma desigual, y ese reparto es el dato interesante. Ojo con el letrero de la derecha: hasta aquí has <strong>observado</strong>. Decir <em>«esa región es el sitio activo»</em> sería <strong>inferir</strong>, y todavía no tienes con qué.</p>
+</section>
+</section>
+<section id="nucleótidos-o-aminoácidos-no-es-la-misma-pregunta-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="nucleótidos-o-aminoácidos-no-es-la-misma-pregunta-indispensable">6. Nucleótidos o aminoácidos: no es la misma pregunta [Indispensable]</h2>
+<p>Cada pareja de esta sesión existe en dos versiones. Podrías pensar que da igual cuál uses, ya que una es la traducción de la otra. No da igual, y el propio archivo te lo demuestra.</p>
+<section id="tres-cambios-de-adn-un-cambio-de-proteína" class="level3">
+<h3 class="anchored" data-anchor-id="tres-cambios-de-adn-un-cambio-de-proteína">6.1 Tres cambios de ADN, un cambio de proteína</h3>
+<p><em>R. conorii</em> y <em>R. africae</em> difieren en <strong>3 de 747 nucleótidos</strong> y en <strong>1 de 248 aminoácidos</strong>. Los tres cambios son estos:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 22%">
+<col style="width: 22%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Nucleótido</th>
+<th style="text-align: right;">Codón</th>
+<th style="text-align: right;">Posición en el codón</th>
+<th>Cambio</th>
+<th>Efecto</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">3.ª</td>
+<td><code>GGT</code> → <code>GGC</code></td>
+<td>Ninguno: ambos codifican glicina</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">672</td>
+<td style="text-align: right;">224</td>
+<td style="text-align: right;">3.ª</td>
+<td><code>GAC</code> → <code>GAT</code></td>
+<td>Ninguno: ambos codifican ácido aspártico</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">740</td>
+<td style="text-align: right;">247</td>
+<td style="text-align: right;">2.ª</td>
+<td><code>ATT</code> → <code>ACT</code></td>
+<td><strong>Isoleucina → treonina</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Ahí está, en tus propios datos, la <strong>degeneración del código genético</strong>: dos de los tres cambios caen en la tercera posición del codón y no alteran la proteína. Se llaman <strong>sustituciones sinónimas</strong>. El tercero cae en la segunda posición y sí la altera: es una <strong>sustitución no sinónima</strong>, y es exactamente la diferencia de la posición 247 que viste en la sección 5.1.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="¿Sabías que?">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>¿Sabías que?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La proporción entre cambios sinónimos y no sinónimos es una de las señales más usadas en biología evolutiva para detectar si un gen está bajo selección. Aquí solo la estás observando en su forma más simple —tres cambios—, pero el principio es el mismo que sostiene análisis mucho más grandes.</p>
+</div>
+</div>
+</section>
+<section id="los-porcentajes-de-adn-y-de-proteína-no-son-comparables" class="level3">
+<h3 class="anchored" data-anchor-id="los-porcentajes-de-adn-y-de-proteína-no-son-comparables">6.2 Los porcentajes de ADN y de proteína no son comparables</h3>
+<p>Aquí conviene ir despacio, porque es donde casi todo el mundo se equivoca. Estos son los números reales de las tres parejas, en los dos alfabetos:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Pareja</th>
+<th style="text-align: right;">Identidad en proteína</th>
+<th style="text-align: right;">Identidad en nucleótidos</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>conorii vs africae</td>
+<td style="text-align: right;">99.6 %</td>
+<td style="text-align: right;">99.6 %</td>
+</tr>
+<tr class="even">
+<td>conorii vs typhi</td>
+<td style="text-align: right;">85.9 %</td>
+<td style="text-align: right;">85.8 %</td>
+</tr>
+<tr class="odd">
+<td>conorii vs tsutsugamushi</td>
+<td style="text-align: right;"><strong>49.0 %</strong></td>
+<td style="text-align: right;"><strong>≈ 62 %</strong></td>
+</tr>
+</tbody>
+</table>
+<p>La tercera fila parece decir que el ADN está <em>más</em> conservado que la proteína. <strong>No dice eso.</strong> Dice que los dos porcentajes se calcularon sobre alfabetos distintos y no se pueden comparar directamente:</p>
+<ul>
+<li>El ADN tiene <strong>4 letras</strong>. Dos secuencias sin ningún parentesco coinciden por azar alrededor del <strong>25 %</strong>. Un 62 % está por encima del azar, pero no tan por encima como parece.</li>
+<li>Las proteínas tienen <strong>20 letras</strong>. Dos secuencias sin parentesco coinciden por azar alrededor del <strong>5 %</strong>. Un 49 % está <strong>diez veces</strong> por encima del azar.</li>
+</ul>
+<p>Medida contra su propio punto de partida, la señal de la proteína es mucho más fuerte.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="el alineamiento de ADN entre secuencias distantes es inestable">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Advertencia</span>el alineamiento de ADN entre secuencias distantes es inestable
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El porcentaje de la tercera fila lleva un «≈» a propósito. En esa pareja el alineamiento de nucleótidos necesita unos 45 huecos, y <strong>dónde los coloque el programa depende de los parámetros que uses</strong>: cambia las penalizaciones y el porcentaje se mueve. En proteína, el mismo par se alinea con 9 huecos en un solo bloque y el resultado es mucho más estable.</p>
+<p>Esa inestabilidad no es un defecto de la herramienta. Es la razón práctica de la regla siguiente.</p>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>Concepto esencial — cuándo usar cada alfabeto.</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Usa <strong>nucleótidos</strong> cuando</th>
+<th>Usa <strong>aminoácidos</strong> cuando</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Las secuencias son muy parecidas</td>
+<td>Las secuencias son distantes</td>
+</tr>
+<tr class="even">
+<td>Quieres ver cambios sinónimos</td>
+<td>Te interesa la función</td>
+</tr>
+<tr class="odd">
+<td>Trabajas con regiones no codificantes, ARN o ADN intergénico</td>
+<td>Comparas entre organismos lejanos</td>
+</tr>
+<tr class="even">
+<td>Necesitas resolución fina dentro de una especie</td>
+<td>Quieres que la señal sobreviva al tiempo</td>
+</tr>
+</tbody>
+</table>
+<p>La razón de fondo es que la selección actúa sobre la proteína. El ADN puede cambiar mucho sin que la proteína cambie —lo acabas de ver tres veces— y por eso <strong>la señal de parentesco se borra antes en el ADN</strong>.</p>
+</blockquote>
+</section>
+<section id="práctica-4-el-mismo-par-en-los-dos-alfabetos-durante-el-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-4-el-mismo-par-en-los-dos-alfabetos-durante-el-taller">Práctica 4 — El mismo par en los dos alfabetos <em>(durante el taller)</em></h3>
+<p><strong>Durante el taller.</strong> Vuelve a la pareja más cercana, ahora en nucleótidos.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">clustalo</span> <span class="at">-i</span> data/source/ubiE/ubiE_con_afr.fna <span class="dt">\</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">-o</span> results/s30/ubiE_con_afr_nt.aln <span class="dt">\</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">--outfmt</span><span class="op">=</span>clu <span class="at">--force</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<ol type="1">
+<li>¿Cuántas diferencias hay en el alineamiento de nucleótidos? ¿Y en el de proteína?</li>
+<li>Localiza las posiciones de las diferencias de nucleótidos. Para cada una, calcula a qué codón pertenece y qué posición ocupa dentro del codón.</li>
+<li>¿Cuáles cambiaron el aminoácido y cuáles no? ¿Qué patrón ves en la posición dentro del codón?</li>
+<li>Repite el alineamiento de nucleótidos con la pareja <strong>más lejana</strong> (<code>ubiE_con_tsu.fna</code>). Cuenta los huecos. Compáralo con el de proteína.</li>
+<li>Escribe dos frases explicando por qué el alineamiento de nucleótidos de la pareja lejana es menos fiable, aunque su porcentaje sea más alto.</li>
+</ol>
+<p><strong>Entrega.</strong> La tabla de las tres diferencias de nucleótidos con su codón y su efecto, más las dos frases del punto 5.</p>
+</section>
+<section id="práctica-5-diecinueve-organismos-a-la-vez-durante-el-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-5-diecinueve-organismos-a-la-vez-durante-el-taller">Práctica 5 — Diecinueve organismos a la vez <em>(durante el taller)</em></h3>
+<p><strong>Durante el taller.</strong> Hasta ahora comparaste de dos en dos. Ahora, todos contra todos.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">clustalo</span> <span class="at">-i</span> data/source/ubiE/ubiE_19_org.faa <span class="dt">\</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">-o</span> results/s30/ubiE_19_org.aln <span class="dt">\</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">--outfmt</span><span class="op">=</span>clu <span class="at">--force</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<ol type="1">
+<li><p>Antes de abrirlo, revisa las longitudes de entrada. ¿Cuál es la más corta y cuál la más larga?</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">'^&gt;'</span> data/source/ubiE/ubiE_19_org.faa <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-d</span> <span class="st">'|'</span> <span class="at">-f</span> 2 <span class="kw">|</span> <span class="fu">head</span> <span class="at">-20</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Abre el alineamiento y localiza <strong>tres columnas idénticas en los 19 organismos</strong>. Anota su posición.</p></li>
+<li><p>Localiza la región conservada más larga. ¿Coincide con alguna de las que encontraste en la Práctica 3 con solo dos secuencias?</p></li>
+<li><p>Localiza la región <strong>peor</strong> conservada. ¿Dónde está: en los extremos o en el centro?</p></li>
+<li><p>Escribe: ¿qué te dice el grupo de 19 que no te decían las parejas? ¿Y qué te decían las parejas que el grupo esconde?</p></li>
+</ol>
+<p><strong>Entrega.</strong> Las respuestas 2–5, con las posiciones concretas.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="por qué la escala cambia la interpretación">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>por qué la escala cambia la interpretación
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Con dos secuencias, una columna idéntica puede ser casualidad. Con diecinueve organismos que llevan mucho tiempo separados, una columna idéntica en las diecinueve es <strong>muy improbable por azar</strong>. El mismo tipo de observación cambia de peso según cuántos datos la sostengan, y saber leer eso es parte del oficio.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="de-dónde-salen-esos-alineamientos-consulta" class="level2">
+<h2 class="anchored" data-anchor-id="de-dónde-salen-esos-alineamientos-consulta">7. De dónde salen esos alineamientos [Consulta]</h2>
+<p>Esta sección no se evalúa hoy, pero contesta la pregunta que probablemente ya te hiciste: si un alineamiento es una hipótesis, ¿cómo decide el programa cuál proponer?</p>
+<section id="hay-muchísimos-alineamientos-posibles" class="level3">
+<h3 class="anchored" data-anchor-id="hay-muchísimos-alineamientos-posibles">7.1 Hay muchísimos alineamientos posibles</h3>
+<p>Para dos secuencias de unos 250 residuos, el número de formas de alinearlas insertando huecos es astronómico. No se pueden examinar todas.</p>
+</section>
+<section id="una-función-de-puntuación-las-ordena" class="level3">
+<h3 class="anchored" data-anchor-id="una-función-de-puntuación-las-ordena">7.2 Una función de puntuación las ordena</h3>
+<p>Cada alineamiento posible recibe una puntuación:</p>
+<pre class="text"><code>score = (premio por columnas idénticas o parecidas)
+      − (castigo por abrir un gap)
+      − (castigo por extender un gap)</code></pre>
+<p>Los premios vienen de la <strong>matriz de sustitución</strong> (BLOSUM62 para proteínas), que no es una tabla inventada: se obtuvo midiendo, en bloques de proteínas emparentadas reales, con qué frecuencia cada aminoácido aparece en lugar de cada otro (Henikoff &amp; Henikoff, 1992).</p>
+<p>Abrir un gap cuesta mucho más que extenderlo. Eso codifica un supuesto biológico: <strong>es más probable un único indel de cinco residuos que cinco indeles de uno</strong>.</p>
+</section>
+<section id="la-programación-dinámica-encuentra-el-mejor-sin-probarlos-todos" class="level3">
+<h3 class="anchored" data-anchor-id="la-programación-dinámica-encuentra-el-mejor-sin-probarlos-todos">7.3 La programación dinámica encuentra el mejor sin probarlos todos</h3>
+<p>En 1970, Needleman y Wunsch demostraron que el alineamiento de mayor puntuación se puede encontrar construyendo la solución por partes, sin enumerar las posibilidades. En 1981, Smith y Waterman adaptaron la misma idea al caso local.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="qué debes retener de esta sección">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>qué debes retener de esta sección
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No se espera que implementes ninguno de los dos algoritmos ni que memorices sus ecuaciones. Basta con que entiendas cuatro cosas: que <strong>hay muchos alineamientos posibles</strong>, que <strong>una función de puntuación permite compararlos</strong>, que <strong>los gaps y las sustituciones cuestan</strong>, y que <strong>el resultado depende de esos costos</strong>. La última es la importante: explica por qué dos programas pueden darte alineamientos distintos sin que ninguno esté «roto».</p>
+</div>
+</div>
+</section>
+<section id="global-y-local-responden-preguntas-distintas" class="level3">
+<h3 class="anchored" data-anchor-id="global-y-local-responden-preguntas-distintas">7.4 Global y local responden preguntas distintas</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Global</strong> (Needleman–Wunsch)</th>
+<th><strong>Local</strong> (Smith–Waterman)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Alinea</td>
+<td>Las secuencias <strong>completas</strong>, de extremo a extremo</td>
+<td>Solo el <strong>mejor tramo</strong> de cada una</td>
+</tr>
+<tr class="even">
+<td>La pregunta que responde</td>
+<td>¿Se corresponden <strong>en toda su longitud</strong>?</td>
+<td>¿Comparten <strong>alguna región</strong>?</td>
+</tr>
+<tr class="odd">
+<td>Va bien cuando</td>
+<td>Las secuencias son de longitud parecida y se sospecha parentesco completo</td>
+<td>Las secuencias son muy distintas en longitud, o solo comparten un dominio</td>
+</tr>
+<tr class="even">
+<td>Va mal cuando</td>
+<td>Una es mucho más larga: fuerza huecos absurdos para estirarla</td>
+<td>Interesa la comparación completa: puede ignorar el resto</td>
+</tr>
+</tbody>
+</table>
+<p>Hoy usas alineamiento <strong>global</strong>, y con razón: son proteínas completas, de longitud parecida y de la misma familia. La distinción importará mucho en S31, porque <strong>BLAST es local</strong> — y esa decisión de diseño explica buena parte de su comportamiento.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u6-s30-global-vs-local.png" class="img-fluid figure-img"></p>
+<figcaption>Dos filas. Arriba, dos secuencias de longitud parecida alineadas de extremo a extremo, con la etiqueta global y la pregunta «¿se corresponden en toda su longitud?». Abajo, una secuencia corta y una mucho más larga: a la izquierda se muestra el resultado de forzar un alineamiento global, con largos tramos de huecos a ambos lados y un aviso de que el porcentaje resultante engaña; a la derecha, un alineamiento local que recorta solo el tramo coincidente, con la pregunta «¿comparten alguna región?».</figcaption>
+</figure>
+</div>
+<p><strong>Figura 30.5.</strong> La misma pareja de secuencias, dos preguntas y dos respuestas legítimas. Elegir mal no produce un error: produce <strong>un número que engaña</strong>.</p>
+<blockquote class="blockquote">
+<p><strong>IDEA CLAVE — la frase que sí conviene recordar de esta sección.</strong></p>
+<p><strong>No necesitas recordar el algoritmo. Necesitas recordar por qué existe.</strong></p>
+<p>Existe porque hay demasiados alineamientos posibles para mirarlos todos, y porque para elegir entre ellos hay que decir explícitamente <strong>qué se considera mejor</strong>. Esa decisión —no el algoritmo— es la que puedes discutir, justificar y cambiar.</p>
+</blockquote>
+</section>
+</section>
+<section id="lo-que-hoy-no-puedes-afirmar-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="lo-que-hoy-no-puedes-afirmar-indispensable">8. Lo que hoy NO puedes afirmar [Indispensable]</h2>
+<p>Esta es la sección más importante del módulo.</p>
+<p>Al terminar la sesión tendrás alineamientos, porcentajes y regiones conservadas. La tentación de cerrar la frase será enorme. Y sin embargo, con lo que tienes hoy, esto es lo que puedes y no puedes decir:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Puedes afirmarlo — es una <strong>observación</strong></th>
+<th>No puedes afirmarlo todavía — es una <strong>inferencia</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>«Comparten 213 de 248 columnas idénticas»</td>
+<td>«Son homólogas»</td>
+</tr>
+<tr class="even">
+<td>«Hay un bloque de 9 huecos en el extremo N»</td>
+<td>«<em>Orientia</em> perdió nueve residuos»</td>
+</tr>
+<tr class="odd">
+<td>«La región 65–76 se mantiene casi sin cambios»</td>
+<td>«Esa región es el sitio activo»</td>
+</tr>
+<tr class="even">
+<td>«Ambas se anotan como <code>ubiE</code>»</td>
+<td>«Ambas hacen lo mismo»</td>
+</tr>
+<tr class="odd">
+<td>«Dos de los tres cambios son sinónimos»</td>
+<td>«Este gen está bajo selección purificadora»</td>
+</tr>
+</tbody>
+</table>
+<p>Ninguna de las afirmaciones de la derecha es descabellada. Varias son probablemente ciertas. Pero <strong>hoy no tienes con qué sostenerlas</strong>, y el objetivo de la unidad es precisamente que la diferencia entre las dos columnas te resulte evidente.</p>
+<blockquote class="blockquote">
+<p><strong>Concepto esencial — el vocabulario ya tiene la trampa dentro.</strong> Los archivos de esta unidad se llaman <code>ubiE</code>. Esa anotación viene de una base de datos, no de tu análisis. Usar el nombre para concluir la función es razonar en círculo. Durante toda la unidad, <strong>la anotación es un dato más que hay que evaluar</strong>, no la respuesta.</p>
+</blockquote>
+<div class="callout callout-style-default callout-important callout-titled" title="la palabra prohibida de hoy">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>la palabra prohibida de hoy
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>En tu entrega de esta sesión <strong>no puede aparecer la palabra «homólogo»</strong>, ni «ortólogo», ni «parálogo». No porque estén mal, sino porque significan algo preciso que todavía no has justificado. Las recuperarás en S32, cuando puedas defenderlas.</p>
+</div>
+</div>
+<p>Y conviene decir para qué sirve todo este cuidado, porque no es una manía de la sesión:</p>
+<blockquote class="blockquote">
+<p><strong>IDEA CLAVE.</strong> Esa frontera entre las dos columnas no se cruza nunca: se cruza <strong>con argumentos</strong>. <strong>Toda la Unidad 6 consiste en aprender a cruzarla sin dar saltos injustificados.</strong> S31 te dará más evidencia, S32 el vocabulario para nombrarla y S33 la obligación de defenderla. Pero el hábito de mirar una afirmación y preguntarte de qué columna viene empieza hoy.</p>
+</blockquote>
+<section id="todo-lo-de-hoy-en-un-solo-lugar" class="level3">
+<h3 class="anchored" data-anchor-id="todo-lo-de-hoy-en-un-solo-lugar">Todo lo de hoy, en un solo lugar</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u6-s30-de-comparar-a-interpretar.png" class="img-fluid figure-img"></p>
+<figcaption>Cinco escalones apilados. El primero, comparar, es el objetivo científico. El segundo, alinear, es la herramienta que lo hace posible. El tercero, observar, reúne lo que se ve en el alineamiento: sustituciones, inserciones y deleciones, regiones conservadas y dónde caen los huecos. El cuarto, medir, reúne identidad, similitud y gaps, cada uno con su advertencia, más la pregunta previa de si se comparan nucleótidos o aminoácidos. El quinto, interpretar, aparece atenuado y con borde discontinuo, marcado como pendiente para S31, S32 y S33. Una franja final señala que la frontera está entre el escalón cuatro y el cinco.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 30.6.</strong> El camino completo de la sesión. Los cuatro primeros escalones ya los recorriste; el quinto es el resto de la unidad.</p>
+<hr>
+</section>
+<section id="práctica-6-qué-respondería-la-ia-y-cómo-lo-verificarías-taller-y-entrega-posterior" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-6-qué-respondería-la-ia-y-cómo-lo-verificarías-taller-y-entrega-posterior">Práctica 6 — ¿Qué respondería la IA y cómo lo verificarías? <em>(taller y entrega posterior)</em></h3>
+<p><strong>Durante el taller (discusión) y después (entrega).</strong></p>
+<p>Alguien le pide a una IA que interprete tu tercera pareja. La respuesta es esta:</p>
+<blockquote class="blockquote">
+<p><em>«Las proteínas de</em> Rickettsia conorii <em>y</em> Orientia tsutsugamushi <em>presentan un 49 % de homología, lo que confirma que son ortólogos y desempeñan la misma función. La región conservada corresponde al sitio activo de la enzima. Un valor por encima del umbral estándar del 30 % permite transferir la anotación funcional con seguridad.»</em></p>
+</blockquote>
+<p>El texto está bien escrito, suena competente y <strong>contiene al menos cinco problemas</strong>.</p>
+<ol type="1">
+<li>Identifícalos uno por uno. Para cada uno, escribe: qué afirma, por qué es problemático, y qué evidencia haría falta para sostenerlo o para refutarlo.</li>
+<li>Comprueba con tus propios datos cuáles de las cifras son siquiera correctas.</li>
+<li><strong>Reescribe el párrafo</strong> de manera que todo lo que afirme esté sustentado por lo que hiciste hoy. Debería quedarte bastante más corto y bastante menos rotundo.</li>
+<li>Registra el ejercicio completo en <code>doc/bitacora-ia.md</code>.</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si te cuesta encontrar los cinco, revisa la sección 8 y la tabla de observación frente a inferencia. Cada fila de esa tabla corresponde a por lo menos uno de los errores.</p>
+</div>
+</div>
+<p><strong>Entrega.</strong> La lista de problemas, la comprobación numérica y el párrafo reescrito.</p>
+<hr>
+</section>
+</section>
+<section id="la-sección-del-protocolo" class="level2">
+<h2 class="anchored" data-anchor-id="la-sección-del-protocolo">La sección del protocolo</h2>
+<p>Añade a <code>doc/protocolo.md</code> —sin borrar nada anterior— una sección nueva:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Unidad 6 · S30 — Comparación de secuencias</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">### Pregunta</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Qué quiero averiguar sobre esta secuencia</span><span class="co">]</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">### Secuencia consulta</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Identificador y versión:</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Organismo y cepa:</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Tipo de molécula:</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Longitud:</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Archivo de origen y fecha de copia:</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Campos del encabezado que NO están documentados:</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="fu">### Comparaciones realizadas</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Contra <span class="pp">|</span> Alfabeto <span class="pp">|</span> Programa y versión <span class="pp">|</span> Parámetros <span class="pp">|</span> Archivo de salida <span class="pp">|</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|---|</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="fu">### Resultados observados</span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Pareja <span class="pp">|</span> Columnas <span class="pp">|</span> Idénticas <span class="pp">|</span> % (denominador) <span class="pp">|</span> Gaps <span class="pp">|</span> Dónde caen <span class="pp">|</span></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|---|---|</span></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a><span class="fu">### Lo que observé</span></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Solo hechos verificables en los archivos de salida</span><span class="co">]</span></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a><span class="fu">### Lo que NO puedo afirmar todavía</span></span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Y por qué</span><span class="co">]</span></span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a><span class="fu">### Uso de IA</span></span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Qué consulté, qué errores detecté, cómo los verifiqué</span><span class="co">]</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Las dos últimas secciones no son un adorno. En la rúbrica valen tanto como los resultados, porque son la parte que ninguna herramienta produce por ti.</p>
+</div>
+</div>
+</section>
+<section id="evidencia-de-la-sesión" class="level2">
+<h2 class="anchored" data-anchor-id="evidencia-de-la-sesión">Evidencia de la sesión</h2>
+<p>Al terminar, en tu repositorio debe haber:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Archivo</th>
+<th>Contenido</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>data/source/ubiE/</code></td>
+<td>Los datos originales, <strong>sin modificar</strong>, con su ficha de procedencia</td>
+</tr>
+<tr class="even">
+<td><code>results/s30/*.aln</code></td>
+<td>Los cinco alineamientos (tres parejas en proteína, uno en nucleótidos, el de 19)</td>
+</tr>
+<tr class="odd">
+<td><code>results/s30/tabla-comparaciones.md</code></td>
+<td>La tabla de la Práctica 3</td>
+</tr>
+<tr class="even">
+<td><code>doc/protocolo.md</code></td>
+<td>La sección nueva, sin haber borrado las anteriores</td>
+</tr>
+<tr class="odd">
+<td><code>doc/bitacora-ia.md</code></td>
+<td>La Práctica 6</td>
+</tr>
+<tr class="even">
+<td>El primer intento y su corrección</td>
+<td>La Práctica 2, en los dos estados</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="errores-frecuentes-y-estrategias-de-diagnóstico" class="level2">
+<h2 class="anchored" data-anchor-id="errores-frecuentes-y-estrategias-de-diagnóstico">Errores frecuentes y estrategias de diagnóstico</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Error</th>
+<th>Por qué ocurre</th>
+<th>Cómo se corrige</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Decir «49 % de homología»</td>
+<td>Se usa «homología» como sinónimo elegante de «parecido»</td>
+<td>La homología no tiene porcentaje. Di «49 % de identidad»</td>
+</tr>
+<tr class="even">
+<td>Dar un porcentaje sin denominador</td>
+<td>La salida del programa da un número y se copia</td>
+<td>Declara siempre sobre qué se calculó</td>
+</tr>
+<tr class="odd">
+<td>Leer los gaps como «falta información»</td>
+<td>Los guiones parecen un hueco tipográfico</td>
+<td>Un gap es una <strong>hipótesis de indel</strong></td>
+</tr>
+<tr class="even">
+<td>Comparar el % de ADN con el % de proteína</td>
+<td>Los dos son porcentajes, luego parecen comparables</td>
+<td>Alfabetos distintos, azares distintos: 25 % frente a 5 %</td>
+</tr>
+<tr class="odd">
+<td>Concluir la función a partir del nombre <code>ubiE</code></td>
+<td>El nombre está en el archivo y parece un dato</td>
+<td>La anotación es un dato <strong>a evaluar</strong>, no la respuesta</td>
+</tr>
+<tr class="even">
+<td>Buscar regiones conservadas con <code>grep</code></td>
+<td>Es la herramienta que ya se domina</td>
+<td><code>grep</code> compara texto exacto; la conservación es posicional</td>
+</tr>
+<tr class="odd">
+<td>Alinear globalmente secuencias de longitudes muy distintas</td>
+<td>Es lo que hace el comando por omisión</td>
+<td>Elige el tipo de alineamiento según la pregunta (sección 7.4)</td>
+</tr>
+<tr class="even">
+<td>Editar los archivos de <code>data/source/</code></td>
+<td>«Solo era arreglar un encabezado»</td>
+<td>Los datos originales no se tocan (U1). Deriva a <code>data/processed/</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="rúbricas" class="level2">
+<h2 class="anchored" data-anchor-id="rúbricas">Rúbricas</h2>
+<section id="primer-intento-práctica-2-formativo" class="level3">
+<h3 class="anchored" data-anchor-id="primer-intento-práctica-2-formativo">Primer intento (Práctica 2) — formativo</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Nivel</th>
+<th>Descriptor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Logrado</strong></td>
+<td>Entregó la comparación visual antes de clase y, después, una corrección que identifica con precisión qué sobreestimó o subestimó y por qué</td>
+</tr>
+<tr class="even">
+<td><strong>Parcialmente logrado</strong></td>
+<td>Entregó el primer intento, pero la corrección se limita a sustituir la respuesta por la correcta sin explicar el origen del error</td>
+</tr>
+<tr class="odd">
+<td><strong>Aún no logrado</strong></td>
+<td>No entregó primer intento, o lo reescribió después para que pareciera acertado</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="participación-en-el-taller-formativo" class="level3">
+<h3 class="anchored" data-anchor-id="participación-en-el-taller-formativo">Participación en el taller — formativo</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Nivel</th>
+<th>Descriptor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Logrado</strong></td>
+<td>Ejecutó los alineamientos, contrastó su lectura con la de otra persona y señaló al menos una discrepancia argumentada</td>
+</tr>
+<tr class="even">
+<td><strong>Parcialmente logrado</strong></td>
+<td>Ejecutó los alineamientos pero no contrastó ni discutió resultados</td>
+</tr>
+<tr class="odd">
+<td><strong>Aún no logrado</strong></td>
+<td>No ejecutó los alineamientos</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tarea-1-tabla-de-comparaciones-prácticas-3-y-4" class="level3">
+<h3 class="anchored" data-anchor-id="tarea-1-tabla-de-comparaciones-prácticas-3-y-4">Tarea 1 — Tabla de comparaciones (Prácticas 3 y 4)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Nivel</th>
+<th>Descriptor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Logrado</strong></td>
+<td>Los cinco alineamientos están; la tabla es correcta; <strong>todos</strong> los porcentajes declaran su denominador; la ubicación de los gaps está descrita; la relación entre cambios sinónimos y posición del codón está explicada con los datos propios</td>
+</tr>
+<tr class="even">
+<td><strong>Parcialmente logrado</strong></td>
+<td>La tabla está completa pero falta el denominador, o los gaps se cuentan sin describir dónde caen, o la parte de nucleótidos se resuelve sin analizar los codones</td>
+</tr>
+<tr class="odd">
+<td><strong>Aún no logrado</strong></td>
+<td>Faltan alineamientos, o las cifras no coinciden con los archivos de salida entregados</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tarea-2-protocolo-y-bitácora-de-ia-prácticas-1-5-y-6" class="level3">
+<h3 class="anchored" data-anchor-id="tarea-2-protocolo-y-bitácora-de-ia-prácticas-1-5-y-6">Tarea 2 — Protocolo y bitácora de IA (Prácticas 1, 5 y 6)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Nivel</th>
+<th>Descriptor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Logrado</strong></td>
+<td>La sección del protocolo está completa, incluida <strong>«Lo que NO puedo afirmar todavía»</strong> con razones; los campos no documentados se declaran como tales; la crítica a la IA identifica al menos cuatro problemas reales, los verifica contra los datos y el párrafo reescrito no contiene ninguna afirmación no sustentada</td>
+</tr>
+<tr class="even">
+<td><strong>Parcialmente logrado</strong></td>
+<td>El protocolo está pero la sección de límites es genérica; o la crítica a la IA señala errores sin verificarlos con los archivos propios</td>
+</tr>
+<tr class="odd">
+<td><strong>Aún no logrado</strong></td>
+<td>El protocolo se limita a registrar comandos; o el párrafo reescrito conserva afirmaciones de homología o de función</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="autoevaluación" class="level2">
+<h2 class="anchored" data-anchor-id="autoevaluación">Autoevaluación</h2>
+<p>Responde con sinceridad. Si algo queda en rojo, revísalo antes de S31.</p>
+<ol type="1">
+<li>¿Puedo explicar, sin mirar el módulo, por qué <code>grep</code> no sirve para comparar secuencias?</li>
+<li>¿Puedo explicar qué afirma un gap?</li>
+<li>Si alguien me da un porcentaje de identidad, ¿sé qué preguntarle?</li>
+<li>¿Puedo justificar por qué comparé proteína en un caso y nucleótidos en otro?</li>
+<li>¿Puedo separar tres cosas que observé de tres que estuve tentado de inferir?</li>
+</ol>
+<p><strong>Semáforo de salida</strong> — entrégalo al final del taller, en una línea:</p>
+<ul>
+<li>🟢 Podría explicarle a alguien más por qué un alineamiento es una hipótesis.</li>
+<li>🟡 Ejecuté todo y entendí los números, pero la distinción observación/inferencia todavía se me escapa.</li>
+<li>🔴 No logré ejecutar los alineamientos o no entendí la salida.</li>
+</ul>
+</section>
+<section id="cierre-con-ia-clásico-frente-a-asistido" class="level2">
+<h2 class="anchored" data-anchor-id="cierre-con-ia-clásico-frente-a-asistido">Cierre con IA: clásico frente a asistido</h2>
+<p>Ya hiciste a mano la Práctica 3. Ahora, y <strong>solo ahora</strong>:</p>
+<ol type="1">
+<li>Pídele a una IA que calcule el porcentaje de identidad de la pareja <code>conorii</code>/<code>typhi</code> y que explique cómo lo obtuvo.</li>
+<li>Compara su respuesta con tu conteo. ¿Coinciden? Si no, <strong>¿usó otro denominador?</strong></li>
+<li>Pregúntale qué región de la proteína es funcionalmente importante. Después pregúntale <strong>en qué evidencia se basa</strong>.</li>
+<li>Anota si la segunda respuesta fue más prudente que la primera. Suele serlo — y ese es el hallazgo.</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled" title="el trabajo manual es la línea base">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>el trabajo manual es la línea base
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No es «la verdad»: tú también puedes contar mal. Es el punto de referencia <strong>independiente</strong> que te permite detectar cuándo la IA y tú discrepan. Sin él, no tendrías forma de notar el desacuerdo.</p>
+</div>
+</div>
+</section>
+<section id="anexo-a.-correspondencia-resultadoactividadevidenciacriterio" class="level2">
+<h2 class="anchored" data-anchor-id="anexo-a.-correspondencia-resultadoactividadevidenciacriterio">Anexo A. Correspondencia resultado–actividad–evidencia–criterio</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>RA</th>
+<th>Actividad</th>
+<th>Evidencia</th>
+<th>Criterio</th>
+<th>Momento</th>
+<th>Nivel en S30</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Sección 1 y Práctica 2</td>
+<td>Primer intento + corrección</td>
+<td>Explica el límite de la secuencia aislada</td>
+<td>Antes / después</td>
+<td>Comprensión</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Práctica 2, pasos 2–3</td>
+<td>Corrección argumentada</td>
+<td>Explica por qué falla el texto exacto</td>
+<td>Antes / taller</td>
+<td>Comprensión</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Práctica 3</td>
+<td>Alineamientos + tabla</td>
+<td>Describe el alineamiento como propuesta revisable</td>
+<td>Taller</td>
+<td>Comprensión</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Práctica 3, parte C</td>
+<td>Descripción de los gaps</td>
+<td>Ubica los gaps y explica qué afirman</td>
+<td>Taller</td>
+<td>Ejecución</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Prácticas 3 y 5</td>
+<td>Tabla con denominadores</td>
+<td>Todo porcentaje declara su base</td>
+<td>Taller / después</td>
+<td>Ejecución</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>Práctica 4</td>
+<td>Tabla de codones + dos frases</td>
+<td>Justifica el alfabeto según la pregunta</td>
+<td>Taller / después</td>
+<td>Ejecución</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>Sección 7.4</td>
+<td>Respuesta del quiz</td>
+<td>Distingue las dos preguntas</td>
+<td>Taller</td>
+<td>Comprensión</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>Práctica 6 y protocolo</td>
+<td>Sección de límites + bitácora</td>
+<td>Separa observación de inferencia</td>
+<td>Después</td>
+<td>Diseño anticipado</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="anexo-b.-alineación-transversal" class="level2">
+<h2 class="anchored" data-anchor-id="anexo-b.-alineación-transversal">Anexo B. Alineación transversal</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Dimensión</th>
+<th>Cómo se trabaja en S30</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Reproducibilidad</strong></td>
+<td>Comandos, programa, versión y parámetros registrados en el protocolo; salidas en <code>results/s30/</code>; originales intactos en <code>data/source/</code></td>
+</tr>
+<tr class="even">
+<td><strong>Verificación</strong></td>
+<td>La aritmética 747 = 248 × 3 + 3; los porcentajes contados a mano frente a los del programa</td>
+</tr>
+<tr class="odd">
+<td><strong>Validación</strong></td>
+<td>La lectura propia contrastada con la de otra persona y con la salida de la IA</td>
+</tr>
+<tr class="even">
+<td><strong>Robustez</strong></td>
+<td>El mismo par alineado en dos alfabetos, comprobando que el resultado de nucleótidos es sensible a los parámetros y el de proteína no</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="glosario" class="level2">
+<h2 class="anchored" data-anchor-id="glosario">Glosario</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Español</th>
+<th>Inglés</th>
+<th>Qué es</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Alineamiento</td>
+<td><em>Alignment</em></td>
+<td>Hipótesis de correspondencia entre posiciones de dos o más secuencias</td>
+</tr>
+<tr class="even">
+<td>Alineamiento múltiple</td>
+<td><em>Multiple sequence alignment (MSA)</em></td>
+<td>Alineamiento de tres o más secuencias a la vez</td>
+</tr>
+<tr class="odd">
+<td>Columna conservada</td>
+<td><em>Conserved column</em></td>
+<td>Posición del alineamiento en la que todas las secuencias coinciden</td>
+</tr>
+<tr class="even">
+<td>Cobertura</td>
+<td><em>Coverage</em></td>
+<td>Proporción de la secuencia consulta incluida en el alineamiento</td>
+</tr>
+<tr class="odd">
+<td>Gap / hueco</td>
+<td><em>Gap</em></td>
+<td>Espacio insertado que postula una inserción o una deleción</td>
+</tr>
+<tr class="even">
+<td>Identidad</td>
+<td><em>Identity</em></td>
+<td>Porcentaje de columnas con el mismo residuo</td>
+</tr>
+<tr class="odd">
+<td>Indel</td>
+<td><em>Indel</em></td>
+<td>Inserción o deleción, cuando no puede distinguirse cuál fue</td>
+</tr>
+<tr class="even">
+<td>Matriz de sustitución</td>
+<td><em>Substitution matrix</em></td>
+<td>Tabla de puntuaciones entre pares de residuos (p.&nbsp;ej. BLOSUM62)</td>
+</tr>
+<tr class="odd">
+<td>Penalización por gap</td>
+<td><em>Gap penalty</em></td>
+<td>Costo de abrir o extender un hueco</td>
+</tr>
+<tr class="even">
+<td>Programación dinámica</td>
+<td><em>Dynamic programming</em></td>
+<td>Estrategia que halla el alineamiento óptimo sin enumerar todos</td>
+</tr>
+<tr class="odd">
+<td>Secuencia consulta</td>
+<td><em>Query sequence</em></td>
+<td>La secuencia que se investiga</td>
+</tr>
+<tr class="even">
+<td>Similitud</td>
+<td><em>Similarity</em></td>
+<td>Proporción de columnas con residuos iguales o químicamente equivalentes</td>
+</tr>
+<tr class="odd">
+<td>Sustitución</td>
+<td><em>Substitution</em></td>
+<td>Cambio de un residuo por otro en una posición</td>
+</tr>
+<tr class="even">
+<td>Sustitución sinónima</td>
+<td><em>Synonymous substitution</em></td>
+<td>Cambio de nucleótido que no altera el aminoácido</td>
+</tr>
+<tr class="odd">
+<td>Sustitución no sinónima</td>
+<td><em>Non-synonymous substitution</em></td>
+<td>Cambio de nucleótido que sí altera el aminoácido</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="distribución-estimada-de-las-dos-horas" class="level2">
+<h2 class="anchored" data-anchor-id="distribución-estimada-de-las-dos-horas">Distribución estimada de las dos horas</h2>
+<div class="tabla-agenda">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tiempo</th>
+<th>Actividad</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0:00–0:15</td>
+<td>Puesta en común de los primeros intentos (Práctica 2). Se recogen las estimaciones «a ojo» en el pizarrón</td>
+</tr>
+<tr class="even">
+<td>0:15–0:30</td>
+<td>Del fracaso de <code>grep</code> al alineamiento: <strong>comparar</strong> es el objetivo, <strong>alinear</strong> la herramienta. Figuras 30.1 y 30.3</td>
+</tr>
+<tr class="odd">
+<td>0:30–0:58</td>
+<td><strong>Práctica 3</strong> — las tres parejas</td>
+</tr>
+<tr class="even">
+<td>0:58–1:12</td>
+<td>Puesta en común: qué cambia al aumentar la distancia. Se contrastan las estimaciones del pizarrón con los números reales. <strong>Figura 30.2</strong>: el mismo par, cuatro alineamientos</td>
+</tr>
+<tr class="odd">
+<td>1:12–1:30</td>
+<td><strong>Práctica 4</strong> — los dos alfabetos</td>
+</tr>
+<tr class="even">
+<td>1:30–1:44</td>
+<td><strong>Práctica 5</strong> — los 19 organismos</td>
+</tr>
+<tr class="odd">
+<td>1:44–1:52</td>
+<td><strong>Práctica 6</strong> — el párrafo de la IA, en voz alta</td>
+</tr>
+<tr class="even">
+<td>1:52–2:00</td>
+<td>Cierre con la <strong>figura 30.6</strong> y la cuenta de «Lo que todavía falta»: un día de cómputo por consulta. Semáforo de salida</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="el cierre no es relleno">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>el cierre no es relleno
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Los últimos ocho minutos son los que hacen que S31 tenga sentido. Si el tiempo aprieta, es mejor recortar la Práctica 5 que saltarse la cuenta del final.</p>
+</div>
+</div>
+</section>
+<section id="lo-que-todavía-falta" class="level2">
+<h2 class="anchored" data-anchor-id="lo-que-todavía-falta">Lo que todavía falta</h2>
+<p>Terminas la sesión sabiendo alinear. Conviene mirar de cerca <strong>por qué funcionó</strong>.</p>
+<p>Funcionó porque alguien ya había elegido con qué comparar. Las tres parejas venían preparadas. El grupo de 19 venía preparado. Todo el trabajo difícil —decidir cuáles de todas las secuencias del mundo merecían entrar en el archivo— <strong>ya estaba hecho antes de que abrieras la terminal</strong>.</p>
+<p>Y esa es exactamente la parte que no vas a tener cuando la pregunta sea real:</p>
+<blockquote class="blockquote">
+<p>Tengo una secuencia y <strong>no sé con qué compararla</strong>.</p>
+</blockquote>
+<section id="primero-el-alineamiento-ya-no-es-gratis" class="level3">
+<h3 class="anchored" data-anchor-id="primero-el-alineamiento-ya-no-es-gratis">Primero: el alineamiento ya no es gratis</h3>
+<p>Fíjate en lo que acaba de pasar. Para comparar <strong>dos</strong> proteínas de 248 residuos no bastó con mirar, no bastó con <code>grep</code>, y no bastó con nada de lo que traías de las cinco unidades anteriores. Hizo falta <strong>un programa especializado</strong>, escrito por otras personas, que resuelve un problema con demasiadas soluciones posibles para enumerarlas.</p>
+<p>Eso ya debería inquietarte un poco. Porque la pregunta siguiente casi se escribe sola:</p>
+<blockquote class="blockquote">
+<p><strong>Si para comparar tu proteína con una sola necesitaste un programa especializado, ¿cómo la buscarías dentro de cientos de millones de secuencias?</strong></p>
+</blockquote>
+</section>
+<section id="segundo-los-números-no-perdonan" class="level3">
+<h3 class="anchored" data-anchor-id="segundo-los-números-no-perdonan">Segundo: los números no perdonan</h3>
+<p>No es una pregunta retórica. Se puede calcular.</p>
+<p>El alineamiento exacto de hoy tiene que llenar una tabla de aproximadamente el largo de una secuencia por el largo de la otra: unas <strong>62 000 casillas</strong> por pareja. En una computadora normal, y con el programa bien escrito, eso tarda <strong>menos de un milisegundo</strong>. Parece que no cuesta nada.</p>
+<p>Ahora multiplícalo por el tamaño de una base de proteínas de verdad:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 36%">
+<col style="width: 36%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Contra cuántas secuencias</th>
+<th style="text-align: right;">Casillas por calcular</th>
+<th style="text-align: right;">Tiempo aproximado, una consulta</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Las 2 de una pareja de hoy</td>
+<td style="text-align: right;">62 000</td>
+<td style="text-align: right;">instantáneo</td>
+</tr>
+<tr class="even">
+<td>Las 19 del grupo</td>
+<td style="text-align: right;">~1.2 millones</td>
+<td style="text-align: right;">instantáneo</td>
+</tr>
+<tr class="odd">
+<td><strong>~250 millones</strong> (una base de proteínas actual)</td>
+<td style="text-align: right;"><strong>~1.5 × 10¹³</strong></td>
+<td style="text-align: right;"><strong>más de un día</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Un día entero de cómputo. Para <strong>una</strong> secuencia. Y con la respuesta llegando cuando ya dejó de importarte.</p>
+<blockquote class="blockquote">
+<p><strong>IDEA CLAVE — la limitación no es tuya, es del método.</strong> No te falta potencia de cálculo: te sobra. Aunque mandaras el trabajo al clúster con lo que aprendiste en S29 y usaras cien núcleos, seguirías gastando quince minutos por consulta en un problema que la gente resuelve en segundos, todos los días, miles de veces. <strong>El algoritmo exacto no escala, y ninguna cantidad de máquina lo arregla.</strong></p>
+</blockquote>
+</section>
+<section id="tercero-por-qué-el-método-exacto-sobra-aquí" class="level3">
+<h3 class="anchored" data-anchor-id="tercero-por-qué-el-método-exacto-sobra-aquí">Tercero: por qué el método exacto sobra aquí</h3>
+<p>Y hay algo más incómodo todavía. De esos 250 millones de alineamientos, <strong>la inmensa mayoría no se parecerá en nada</strong> a tu consulta. Estarías dedicando un día entero a calcular con precisión milimétrica el parecido entre proteínas que no tienen absolutamente nada que ver.</p>
+<p>Ahí está la salida, y es una idea de ingeniería preciosa: si supieras <strong>descartar rápido</strong> casi todo, podrías gastar el cálculo caro solo en los pocos candidatos que valen la pena.</p>
+<p>Eso significa renunciar a la garantía de encontrar siempre el óptimo. Significa <strong>aceptar una respuesta aproximada a cambio de obtenerla</strong>. Y esa renuncia —qué se sacrifica, qué se gana y qué riesgos trae— tiene nombre propio:</p>
+<blockquote class="blockquote">
+<p><strong>BLAST.</strong></p>
+</blockquote>
+<p><strong>Esa limitación es el punto de partida de S31.</strong></p>
+</section>
+</section>
+<section id="referencias" class="level2">
+<h2 class="anchored" data-anchor-id="referencias">Referencias</h2>
+<ul>
+<li>Henikoff, S., &amp; Henikoff, J. G. (1992). Amino acid substitution matrices from protein blocks. <em>PNAS</em>, 89(22), 10915–10919. <a href="https://doi.org/10.1073/pnas.89.22.10915" class="uri">https://doi.org/10.1073/pnas.89.22.10915</a></li>
+<li>Needleman, S. B., &amp; Wunsch, C. D. (1970). A general method applicable to the search for similarities in the amino acid sequence of two proteins. <em>Journal of Molecular Biology</em>, 48(3), 443–453. <a href="https://doi.org/10.1016/0022-2836(70)90057-4" class="uri">https://doi.org/10.1016/0022-2836(70)90057-4</a></li>
+<li>Pearson, W. R. (2013). An introduction to sequence similarity («homology») searching. <em>Current Protocols in Bioinformatics</em>, 42, 3.1.1–3.1.8. <a href="https://doi.org/10.1002/0471250953.bi0301s42" class="uri">https://doi.org/10.1002/0471250953.bi0301s42</a></li>
+<li>Sievers, F., Wilm, A., Dineen, D., Gibson, T. J., Karplus, K., Li, W., … Higgins, D. G. (2011). Fast, scalable generation of high-quality protein multiple sequence alignments using Clustal Omega. <em>Molecular Systems Biology</em>, 7, 539. <a href="https://doi.org/10.1038/msb.2011.75" class="uri">https://doi.org/10.1038/msb.2011.75</a></li>
+<li>Smith, T. F., &amp; Waterman, M. S. (1981). Identification of common molecular subsequences. <em>Journal of Molecular Biology</em>, 147(1), 195–197. <a href="https://doi.org/10.1016/0022-2836(81)90087-5" class="uri">https://doi.org/10.1016/0022-2836(81)90087-5</a></li>
+</ul>
+<hr>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/helysalgado\.github\.io\/introbioinfo-unix\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./u6-comparacion-homologia.html" class="pagination-link" aria-label="Portada">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Portada</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./u6-s31-buscar-blast.html" class="pagination-link" aria-label="S31 — Buscar (BLAST)">
+        <span class="nav-page-text">S31 — Buscar (BLAST)</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://hits.sh/helysalgado.github.io/introbioinfo-unix/"><img src="https://hits.sh/helysalgado.github.io/introbioinfo-unix/.svg?style=flat-square&amp;label=Visitas&amp;color=4a7c9e" class="img-fluid figure-img"></a></p>
+<figcaption>Visitas</figcaption>
+</figure>
+</div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Helysalgado/introbioinfo-unix/edit/main/u6-s30-comparar-alinear.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/Helysalgado/introbioinfo-unix/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

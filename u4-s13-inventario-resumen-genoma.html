@@ -1,0 +1,2984 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>u4-s13-inventario-resumen-genoma – Introducción a la Bioinformática</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./u4-s18-precision-patrones-expresiones-regulares.html" rel="next">
+<link href="./u4-s12-filtrado-conteos-genoma.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fe3756b78d23b7733c53f9ce5acac92a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXNMZZP0K9"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-QXNMZZP0K9', { 'anonymize_ip': true});
+</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Introducción a la Bioinformática</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Inicio</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-programa" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Programa</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-programa">    
+        <li>
+    <a class="dropdown-item" href="./programa.html">
+ <span class="dropdown-text">Ruta de sesiones</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./programa-detallado.html">
+ <span class="dropdown-text">Programa detallado</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-unidades" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Unidades</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-unidades">    
+        <li>
+    <a class="dropdown-item" href="./u1-trabajo-reproducible.html">
+ <span class="dropdown-text">U1 — Trabajo reproducible</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u2-entorno-unix.html">
+ <span class="dropdown-text">U2 — Entorno Unix</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u3-datos-bases-datos.html">
+ <span class="dropdown-text">U3 — Datos y bases</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u4-procesamiento-exploracion.html">
+ <span class="dropdown-text">U4 — Procesamiento genómico</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u5-automatizacion-scripting.html">
+ <span class="dropdown-text">U5 — Automatización</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u6-comparacion-homologia.html">
+ <span class="dropdown-text">U6 — Comparar / hipótesis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./s14-s15-mini-proyecto-investigacion-I.html">
+ <span class="dropdown-text">Transversal S14–S17</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="./recursos.html" aria-current="page"> 
+<span class="menu-text">Recursos</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./acerca.html"> 
+<span class="menu-text">Acerca</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./contribuir.html"> 
+<span class="menu-text">Contribuir</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Alternar modo lector">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./u4-procesamiento-exploracion.html">Unidad 4</a></li><li class="breadcrumb-item"><a href="./u4-s13-inventario-resumen-genoma.html">S13 — Inventario</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 1</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-trabajo-reproducible.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-s1-documentar-markdown-fases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S1 — Documentar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-s2-organizar-fair-ia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S2 — Organizar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 2</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-entorno-unix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s3-shell-acceso-remoto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S3 — Conectar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s4-sistema-archivos-v3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S4 — Navegar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s5-archivos-permisos-procesos-v2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S5 — Archivos y procesos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s6-consolidacion-entorno-unix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S6 — Consolidar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 3</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-datos-bases-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s7-secuencias-formatos-genbank.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S7 — Formatos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s8-bases-datos-descarga-integridad.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S8 — Descargar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s9-inspeccion-transferencia-verificable.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S9 — Transferir</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Unidad 4</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-procesamiento-exploracion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s10-anatomia-flujos-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S10 — Anatomía y flujos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s11-estructura-tabular-anotacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S11 — Anotación tabular</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s12-filtrado-conteos-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S12 — Filtrar y contar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s13-inventario-resumen-genoma.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">S13 — Inventario</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s18-precision-patrones-expresiones-regulares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S18 — Patrones</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s19-extraccion-identificadores-correspondencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S19 — Identificadores</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s20-normalizar-datos-comparables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S20 — Normalizar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s21-confrontar-fuente-independiente.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S21 — Confrontar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s22-condicionar-calcular-columnas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S22 — Condicionar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s23-protocolo-ejecutable-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S23 — Protocolo ejecutable</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Transversal</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s14-s15-mini-proyecto-investigacion-I.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S14–S15 — Mini-proyecto I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s16-mini-proyecto-revision-pares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S16 — Revisión por pares</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s17-evaluacion-individual-demostrativa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S17 — Evaluación demostrativa</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mini-proyecto-dictamen-cientifico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dictamen científico</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 5</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-automatizacion-scripting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s24-del-protocolo-al-script.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S24 — Del protocolo al script</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s25-separar-procedimiento-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S25 — Separar datos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s26-procesamiento-por-lotes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S26 — Por lotes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s27-herramienta-cientifica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S27 — Herramienta científica</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s28-proyecto-integrador.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S28 — Proyecto integrador</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s29-cluster-hpc-sge.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S29 — Cluster SGE</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 6</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-comparacion-homologia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s30-comparar-alinear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S30 — Comparar / alinear</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s31-buscar-blast.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S31 — Buscar (BLAST)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s32-interpretar-inferir.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S32 — Interpretar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s33-defender-hipotesis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S33 — Inferir</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s34-integrar-hipotesis-casos-ciegos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S34 — Integrar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./programa-detallado.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programa detallado</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./recursos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recursos</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#s13-resumir-y-cuantificar-inventario-del-genoma" id="toc-s13-resumir-y-cuantificar-inventario-del-genoma" class="nav-link active" data-scroll-target="#s13-resumir-y-cuantificar-inventario-del-genoma">S13 — Resumir y cuantificar: inventario del genoma</a>
+  <ul class="collapse">
+  <li><a href="#ficha-del-módulo" id="toc-ficha-del-módulo" class="nav-link" data-scroll-target="#ficha-del-módulo">Ficha del módulo</a></li>
+  <li><a href="#relación-con-lo-que-ya-sabes" id="toc-relación-con-lo-que-ya-sabes" class="nav-link" data-scroll-target="#relación-con-lo-que-ya-sabes">Relación con lo que ya sabes</a></li>
+  <li><a href="#dónde-estás-en-la-investigación" id="toc-dónde-estás-en-la-investigación" class="nav-link" data-scroll-target="#dónde-estás-en-la-investigación">Dónde estás en la investigación</a></li>
+  <li><a href="#resultados-de-aprendizaje" id="toc-resultados-de-aprendizaje" class="nav-link" data-scroll-target="#resultados-de-aprendizaje">Resultados de aprendizaje</a></li>
+  <li><a href="#lista-de-verificación-previa" id="toc-lista-de-verificación-previa" class="nav-link" data-scroll-target="#lista-de-verificación-previa">Lista de verificación previa</a></li>
+  <li><a href="#ruta-de-s13" id="toc-ruta-de-s13" class="nav-link" data-scroll-target="#ruta-de-s13">Ruta de S13</a></li>
+  <li><a href="#la-limitación-que-dejó-s12-indispensable" id="toc-la-limitación-que-dejó-s12-indispensable" class="nav-link" data-scroll-target="#la-limitación-que-dejó-s12-indispensable">1. La limitación que dejó S12 [Indispensable]</a></li>
+  <li><a href="#darle-la-vuelta-a-la-pregunta-indispensable" id="toc-darle-la-vuelta-a-la-pregunta-indispensable" class="nav-link" data-scroll-target="#darle-la-vuelta-a-la-pregunta-indispensable">2. Darle la vuelta a la pregunta [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#buscar-algo-frente-a-describir-una-variable" id="toc-buscar-algo-frente-a-describir-una-variable" class="nav-link" data-scroll-target="#buscar-algo-frente-a-describir-una-variable">2.1 Buscar algo frente a describir una variable</a></li>
+  <li><a href="#el-obstáculo-los-valores-distintos-están-mezclados" id="toc-el-obstáculo-los-valores-distintos-están-mezclados" class="nav-link" data-scroll-target="#el-obstáculo-los-valores-distintos-están-mezclados">2.2 El obstáculo: los valores distintos están mezclados</a></li>
+  <li><a href="#las-herramientas" id="toc-las-herramientas" class="nav-link" data-scroll-target="#las-herramientas">2.3 Las herramientas</a></li>
+  <li><a href="#práctica-1-qué-esperas-que-contenga-la-anotación-antes-de-clase-primer-intento" id="toc-práctica-1-qué-esperas-que-contenga-la-anotación-antes-de-clase-primer-intento" class="nav-link" data-scroll-target="#práctica-1-qué-esperas-que-contenga-la-anotación-antes-de-clase-primer-intento">Práctica 1 — ¿Qué esperas que contenga la anotación? <em>(antes de clase, primer intento)</em></a></li>
+  </ul></li>
+  <li><a href="#del-catálogo-a-la-distribución-indispensable" id="toc-del-catálogo-a-la-distribución-indispensable" class="nav-link" data-scroll-target="#del-catálogo-a-la-distribución-indispensable">3. Del catálogo a la distribución [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#práctica-2-qué-categorías-existen-realmente-durante-el-taller" id="toc-práctica-2-qué-categorías-existen-realmente-durante-el-taller" class="nav-link" data-scroll-target="#práctica-2-qué-categorías-existen-realmente-durante-el-taller">Práctica 2 — ¿Qué categorías existen realmente? <em>(durante el taller)</em></a></li>
+  <li><a href="#práctica-3-cuántas-veces-aparece-cada-categoría-durante-el-taller" id="toc-práctica-3-cuántas-veces-aparece-cada-categoría-durante-el-taller" class="nav-link" data-scroll-target="#práctica-3-cuántas-veces-aparece-cada-categoría-durante-el-taller">Práctica 3 — ¿Cuántas veces aparece cada categoría? <em>(durante el taller)</em></a></li>
+  </ul></li>
+  <li><a href="#leer-una-distribución-indispensable" id="toc-leer-una-distribución-indispensable" class="nav-link" data-scroll-target="#leer-una-distribución-indispensable">4. Leer una distribución [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#las-cuatro-preguntas" id="toc-las-cuatro-preguntas" class="nav-link" data-scroll-target="#las-cuatro-preguntas">4.1 Las cuatro preguntas</a></li>
+  <li><a href="#la-advertencia-que-gobierna-toda-la-sesión" id="toc-la-advertencia-que-gobierna-toda-la-sesión" class="nav-link" data-scroll-target="#la-advertencia-que-gobierna-toda-la-sesión">4.2 La advertencia que gobierna toda la sesión</a></li>
+  <li><a href="#práctica-4-qué-nos-dice-esta-distribución-sobre-el-genoma-durante-el-taller" id="toc-práctica-4-qué-nos-dice-esta-distribución-sobre-el-genoma-durante-el-taller" class="nav-link" data-scroll-target="#práctica-4-qué-nos-dice-esta-distribución-sobre-el-genoma-durante-el-taller">Práctica 4 — ¿Qué nos dice esta distribución sobre el genoma? <em>(durante el taller)</em></a></li>
+  </ul></li>
+  <li><a href="#quién-produjo-esta-anotación-indispensable" id="toc-quién-produjo-esta-anotación-indispensable" class="nav-link" data-scroll-target="#quién-produjo-esta-anotación-indispensable">5. Quién produjo esta anotación [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#práctica-5-quién-produjo-esta-anotación-durante-el-taller" id="toc-práctica-5-quién-produjo-esta-anotación-durante-el-taller" class="nav-link" data-scroll-target="#práctica-5-quién-produjo-esta-anotación-durante-el-taller">Práctica 5 — ¿Quién produjo esta anotación? <em>(durante el taller)</em></a></li>
+  </ul></li>
+  <li><a href="#una-respuesta-sostenida-por-tres-evidencias-indispensable" id="toc-una-respuesta-sostenida-por-tres-evidencias-indispensable" class="nav-link" data-scroll-target="#una-respuesta-sostenida-por-tres-evidencias-indispensable">6. Una respuesta sostenida por tres evidencias [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#no-todas-las-evidencias-son-igual-de-independientes" id="toc-no-todas-las-evidencias-son-igual-de-independientes" class="nav-link" data-scroll-target="#no-todas-las-evidencias-son-igual-de-independientes">6.1 No todas las evidencias son igual de independientes</a></li>
+  <li><a href="#práctica-6-cuántos-replicones-tiene-realmente-el-genoma-durante-el-taller" id="toc-práctica-6-cuántos-replicones-tiene-realmente-el-genoma-durante-el-taller" class="nav-link" data-scroll-target="#práctica-6-cuántos-replicones-tiene-realmente-el-genoma-durante-el-taller">Práctica 6 — ¿Cuántos replicones tiene realmente el genoma? <em>(durante el taller)</em></a></li>
+  </ul></li>
+  <li><a href="#el-estado-1-del-genoma-indispensable" id="toc-el-estado-1-del-genoma-indispensable" class="nav-link" data-scroll-target="#el-estado-1-del-genoma-indispensable">7. El Estado 1 del genoma [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#práctica-7-cerrar-el-estado-1-durante-el-taller" id="toc-práctica-7-cerrar-el-estado-1-durante-el-taller" class="nav-link" data-scroll-target="#práctica-7-cerrar-el-estado-1-durante-el-taller">Práctica 7 — Cerrar el Estado 1 <em>(durante el taller)</em></a></li>
+  </ul></li>
+  <li><a href="#qué-mejoró-hoy-y-qué-sigue-sin-resolverse-indispensable" id="toc-qué-mejoró-hoy-y-qué-sigue-sin-resolverse-indispensable" class="nav-link" data-scroll-target="#qué-mejoró-hoy-y-qué-sigue-sin-resolverse-indispensable">8. Qué mejoró hoy y qué sigue sin resolverse [Indispensable]</a></li>
+  <li><a href="#documentar-la-sección-del-protocolo-indispensable" id="toc-documentar-la-sección-del-protocolo-indispensable" class="nav-link" data-scroll-target="#documentar-la-sección-del-protocolo-indispensable">9. Documentar: la sección del protocolo [Indispensable]</a></li>
+  <li><a href="#evidencia-de-la-sesión" id="toc-evidencia-de-la-sesión" class="nav-link" data-scroll-target="#evidencia-de-la-sesión">Evidencia de la sesión</a></li>
+  <li><a href="#errores-frecuentes-y-estrategias-de-diagnóstico" id="toc-errores-frecuentes-y-estrategias-de-diagnóstico" class="nav-link" data-scroll-target="#errores-frecuentes-y-estrategias-de-diagnóstico">Errores frecuentes y estrategias de diagnóstico</a></li>
+  <li><a href="#rúbricas" id="toc-rúbricas" class="nav-link" data-scroll-target="#rúbricas">Rúbricas</a></li>
+  <li><a href="#autoevaluación" id="toc-autoevaluación" class="nav-link" data-scroll-target="#autoevaluación">Autoevaluación</a>
+  <ul class="collapse">
+  <li><a href="#comprobación-rápida-formativa-al-final-del-taller" id="toc-comprobación-rápida-formativa-al-final-del-taller" class="nav-link" data-scroll-target="#comprobación-rápida-formativa-al-final-del-taller">Comprobación rápida — formativa, al final del taller</a></li>
+  <li><a href="#semáforo" id="toc-semáforo" class="nav-link" data-scroll-target="#semáforo">Semáforo</a></li>
+  </ul></li>
+  <li><a href="#cierre-de-s13-y-puente-hacia-s18" id="toc-cierre-de-s13-y-puente-hacia-s18" class="nav-link" data-scroll-target="#cierre-de-s13-y-puente-hacia-s18">Cierre de S13 y puente hacia S18</a></li>
+  <li><a href="#anexo-a.-correspondencia-resultadoactividadevidenciacriterio" id="toc-anexo-a.-correspondencia-resultadoactividadevidenciacriterio" class="nav-link" data-scroll-target="#anexo-a.-correspondencia-resultadoactividadevidenciacriterio">Anexo A. Correspondencia resultado–actividad–evidencia–criterio</a></li>
+  <li><a href="#anexo-b.-alineación-transversal" id="toc-anexo-b.-alineación-transversal" class="nav-link" data-scroll-target="#anexo-b.-alineación-transversal">Anexo B. Alineación transversal</a></li>
+  <li><a href="#glosario" id="toc-glosario" class="nav-link" data-scroll-target="#glosario">Glosario</a></li>
+  <li><a href="#referencias" id="toc-referencias" class="nav-link" data-scroll-target="#referencias">Referencias</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/Helysalgado/introbioinfo-unix/edit/main/u4-s13-inventario-resumen-genoma.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/Helysalgado/introbioinfo-unix/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./u4-procesamiento-exploracion.html">Unidad 4</a></li><li class="breadcrumb-item"><a href="./u4-s13-inventario-resumen-genoma.html">S13 — Inventario</a></li></ol></nav></header>
+
+
+
+
+<section id="s13-resumir-y-cuantificar-inventario-del-genoma" class="level1">
+<h1>S13 — Resumir y cuantificar: inventario del genoma</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="Aula invertida">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Aula invertida
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Antes de clase leerás las secciones marcadas como <strong>indispensables</strong> y harás un primer intento: escribir, de memoria, la lista de tipos de elementos que crees que contiene la anotación de tu genoma. Durante el taller dejarás de adivinar: el propio archivo te dirá qué contiene, cuántas veces aparece cada categoría y de qué fuentes proviene. Después integrarás en <code>doc/protocolo.md</code> el <strong>inventario completo del genoma</strong>, que cierra el primer bloque de la investigación. El primer intento es formativo: importa qué esperabas encontrar y qué se te escapó.</p>
+</div>
+</div>
+<section id="ficha-del-módulo" class="level2">
+<h2 class="anchored" data-anchor-id="ficha-del-módulo">Ficha del módulo</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Elemento</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Sesión</strong></td>
+<td>S13, 2 horas</td>
+</tr>
+<tr class="even">
+<td><strong>Unidad</strong></td>
+<td>U4. Procesamiento y exploración de datos genómicos</td>
+</tr>
+<tr class="odd">
+<td><strong>Competencia principal</strong></td>
+<td>D. Análisis y exploración de datos genómicos</td>
+</tr>
+<tr class="even">
+<td><strong>Competencias integradas</strong></td>
+<td>A. Documentación reproducible; B. Entorno Unix; C. Manejo de datos biológicos</td>
+</tr>
+<tr class="odd">
+<td><strong>Propósito</strong></td>
+<td>Pasar del conteo puntual al <strong>inventario exhaustivo</strong>: obtener el catálogo completo de las categorías presentes en la anotación y su frecuencia, sin conocerlas de antemano</td>
+</tr>
+<tr class="even">
+<td><strong>Consulta previa del Plan</strong></td>
+<td>Material clásico L6-filtros y L7-filtros; este módulo los sustituye como lectura autocontenida</td>
+</tr>
+<tr class="odd">
+<td><strong>Lectura indispensable</strong></td>
+<td>Secciones 1–9 de este módulo (~45 min)</td>
+</tr>
+<tr class="even">
+<td><strong>Lectura de consulta</strong></td>
+<td>Buffalo (2015), Cap. 7; manuales de <code>sort</code> y <code>uniq</code>; ProfeUnix Bioinfo</td>
+</tr>
+<tr class="odd">
+<td><strong>Primer intento</strong></td>
+<td>Práctica 1: predecir el catálogo de categorías, 20–25 min, sin abrir archivos</td>
+</tr>
+<tr class="even">
+<td><strong>Evidencia</strong></td>
+<td><strong>Estado 1 del genoma</strong>: inventario de tipos de <em>feature</em> con frecuencias, inventario de fuentes de anotación, número de replicones establecido por tres caminos con su independencia valorada, y los límites de cada afirmación</td>
+</tr>
+<tr class="odd">
+<td><strong>Tarea numerada</strong></td>
+<td>Ninguna nueva. La evidencia de esta sesión cierra el material que se evalúa en S16 y S17</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="relación-con-lo-que-ya-sabes" class="level2">
+<h2 class="anchored" data-anchor-id="relación-con-lo-que-ya-sabes">Relación con lo que ya sabes</h2>
+<pre class="text"><code>S12                                   S13
+Decidir qué información entra    →    Describir todo lo que hay
+"cuento lo que se me ocurre"          "el archivo declara lo que contiene"</code></pre>
+<p>En S12 obtuviste tus primeros números defendibles, pero para conseguirlos tuviste que <strong>saber por adelantado qué buscar</strong>. Escribiste <code>gene</code>, <code>CDS</code>, <code>origin</code>. Los dos primeros existían; el tercero quizá no, y ese cero no significaba nada.</p>
+<p>Hoy inviertes la dirección de la pregunta. En lugar de llevarle al archivo una lista de candidatos, le pides que te entregue la suya.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Habilidad que ya tienes</th>
+<th>Dónde la aprendiste</th>
+<th>Qué cambia en S13</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Extraer una columna con <code>cut</code></td>
+<td>S11</td>
+<td>La columna deja de ser un paso intermedio: se convierte en la <strong>variable</strong> que vas a describir</td>
+</tr>
+<tr class="even">
+<td>Filtrar líneas con <code>grep</code> / <code>grep -v</code></td>
+<td>S12</td>
+<td>Filtras para limpiar, no para seleccionar: hoy quieres verlo <strong>todo</strong></td>
+</tr>
+<tr class="odd">
+<td>Contar con <code>wc -l</code> y <code>grep -c</code></td>
+<td>S10, S12</td>
+<td>Cuentas <strong>cada categoría a la vez</strong>, no una por una</td>
+</tr>
+<tr class="even">
+<td>Encadenar tuberías y verificarlas eslabón por eslabón</td>
+<td>S10</td>
+<td>Las tuberías de hoy tienen cuatro eslabones y cada uno transforma el conjunto entero</td>
+</tr>
+<tr class="odd">
+<td>Auditar un conteo y cuantificar su error</td>
+<td>S12</td>
+<td>Hoy auditas algo distinto: si tu inventario <strong>está completo</strong></td>
+</tr>
+<tr class="even">
+<td>Sostener una respuesta con tres evidencias</td>
+<td>S11, Práctica 4</td>
+<td>Esa respuesta provisional se cierra hoy, y las tres evidencias se comparan una a una</td>
+</tr>
+</tbody>
+</table>
+<p>Lo nuevo de hoy es un cambio de <strong>tipo de pregunta</strong>. Hasta ahora preguntabas <em>“¿cuántos hay de esto?”</em>, y la respuesta era un número. Hoy preguntas <em>“¿qué hay, y en qué proporciones?”</em>, y la respuesta es una <strong>distribución</strong>: la descripción completa de una variable.</p>
+</section>
+<section id="dónde-estás-en-la-investigación" class="level2">
+<h2 class="anchored" data-anchor-id="dónde-estás-en-la-investigación">Dónde estás en la investigación</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Pregunta de la investigación</th>
+<th>En S13</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>¿Cómo está organizado por dentro un archivo biológico?</td>
+<td>✔ Resuelta en S10–S11</td>
+</tr>
+<tr class="even">
+<td>¿Qué información codifica cada campo de la anotación?</td>
+<td>✔ Resuelta en S11</td>
+</tr>
+<tr class="odd">
+<td>¿De qué tamaño es el genoma?</td>
+<td>✔ <strong>Cuarta respuesta hoy</strong>: contraste con la longitud declarada en el GFF3 (se cierra en S22)</td>
+</tr>
+<tr class="even">
+<td>¿Qué tipos de <em>features</em> contiene la anotación?</td>
+<td>✔ <strong>Se resuelve hoy</strong></td>
+</tr>
+<tr class="odd">
+<td>¿Cuántos tipos distintos existen?</td>
+<td>✔ <strong>Se resuelve hoy</strong></td>
+</tr>
+<tr class="even">
+<td>¿Cuántos registros hay de cada tipo?</td>
+<td>✔ <strong>Se resuelve hoy</strong> (se refinará en S18 y S22)</td>
+</tr>
+<tr class="odd">
+<td>¿Cuáles son las fuentes de anotación y en qué proporción?</td>
+<td>✔ <strong>Se resuelve hoy</strong> (se contrastará con otra fuente en S21)</td>
+</tr>
+<tr class="even">
+<td>¿Cuántos cromosomas o replicones tiene?</td>
+<td>✔ <strong>Se resuelve hoy</strong>, con validación por tres caminos</td>
+</tr>
+<tr class="odd">
+<td>¿Cuántos genes existen?</td>
+<td>◐ Número de S12 revisado dentro del inventario; se refina en S18</td>
+</tr>
+<tr class="even">
+<td>¿Cuántos genes existen por cadena?</td>
+<td>☐ S18 y S22</td>
+</tr>
+<tr class="odd">
+<td>¿Cómo organizar la información para responder nuevas preguntas?</td>
+<td>☐ S20–S23</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Esta es la sesión con más casillas cerradas de todo el bloque. Al terminar habrás establecido el <strong>Estado 1 del genoma</strong>: lo que puedes afirmar sobre él con la evidencia y las herramientas de las cuatro primeras sesiones.</p>
+</div>
+</div>
+</section>
+<section id="resultados-de-aprendizaje" class="level2">
+<h2 class="anchored" data-anchor-id="resultados-de-aprendizaje">Resultados de aprendizaje</h2>
+<p>Al finalizar la sesión podrás:</p>
+<ol type="1">
+<li><strong>Distinguir</strong> una pregunta de búsqueda (“¿cuántos hay de esto?”) de una pregunta descriptiva (“¿qué hay y en qué proporciones?”).</li>
+<li><strong>Obtener</strong> el catálogo completo de valores distintos de una columna, sin conocerlos de antemano.</li>
+<li><strong>Explicar</strong> por qué agrupar exige ordenar primero, y demostrarlo con un contraejemplo propio.</li>
+<li><strong>Construir</strong> la distribución de frecuencias de una variable categórica y ordenarla por frecuencia.</li>
+<li><strong>Leer</strong> esa distribución: categoría dominante, categorías raras, categorías ausentes, proporciones.</li>
+<li><strong>Distinguir</strong> un conteo de <strong>registros</strong> de un conteo de <strong>objetos biológicos</strong>, y aplicar la distinción a tus propios números de S12.</li>
+<li><strong>Establecer</strong> el número de replicones por tres caminos, <strong>valorar el grado de independencia</strong> de cada uno y <strong>argumentar</strong> qué significa que coincidan o que no coincidan.</li>
+<li><strong>Formular</strong> predicciones antes de ejecutar y <strong>analizar</strong> por qué acertaron o fallaron.</li>
+<li><strong>Delimitar</strong>, para cada resultado, qué autoriza a afirmar y qué no.</li>
+<li><strong>Documentar</strong> el inventario del genoma como Estado 1 de la investigación, con su interpretación biológica, sus limitaciones y lo que queda pendiente de verificar.</li>
+</ol>
+</section>
+<section id="lista-de-verificación-previa" class="level2">
+<h2 class="anchored" data-anchor-id="lista-de-verificación-previa">Lista de verificación previa</h2>
+<p>Antes de comenzar confirma:</p>
+<ul class="task-list">
+<li><label><input type="checkbox">Tienes en <code>data/source/</code> los archivos FASTA y GFF3, intactos.</label></li>
+<li><label><input type="checkbox">Conservas <code>results/s12/anotaciones-sin-directivas.gff</code> (Práctica 2 de S12).</label></li>
+<li><label><input type="checkbox">Tienes a la vista tu <strong>tabla de la diferencia</strong> de S12: conteos brutos y corregidos de <code>gene</code>, <code>CDS</code> y origen de replicación.</label></li>
+<li><label><input type="checkbox">Recuerdas cuál fue tu resultado al buscar el origen de replicación y qué palabra usaste.</label></li>
+<li><label><input type="checkbox">Conservas de S11 la <strong>respuesta provisional</strong> sobre replicones con sus tres evidencias.</label></li>
+<li><label><input type="checkbox">Anotaste las longitudes declaradas en las directivas <code>##sequence-region</code>.</label></li>
+<li><label><input type="checkbox">Sabes verificar una tubería eslabón por eslabón con <code>head</code> (S10, sección 6).</label></li>
+</ul>
+</section>
+<section id="ruta-de-s13" class="level2">
+<h2 class="anchored" data-anchor-id="ruta-de-s13">Ruta de S13</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 23%">
+<col style="width: 23%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Momento</th>
+<th>Actividad</th>
+<th>Producto</th>
+<th style="text-align: right;">Tiempo estimado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Antes de clase</td>
+<td>Leer secciones 1–9</td>
+<td>Notas y dudas</td>
+<td style="text-align: right;">40–50 min</td>
+</tr>
+<tr class="even">
+<td>Antes de clase</td>
+<td>Práctica 1: predecir el catálogo</td>
+<td>Lista razonada de categorías esperadas</td>
+<td style="text-align: right;">20–25 min</td>
+</tr>
+<tr class="odd">
+<td>Taller</td>
+<td>Retomar S12 y contrastar predicciones</td>
+<td>Punto de partida compartido</td>
+<td style="text-align: right;">10 min</td>
+</tr>
+<tr class="even">
+<td>Taller</td>
+<td>Práctica 2: ¿qué categorías existen?</td>
+<td>Catálogo de tipos en <code>results/s13/</code></td>
+<td style="text-align: right;">20 min</td>
+</tr>
+<tr class="odd">
+<td>Taller</td>
+<td>Práctica 3: ¿cuántas veces aparece cada una?</td>
+<td>Tabla de frecuencias</td>
+<td style="text-align: right;">20 min</td>
+</tr>
+<tr class="even">
+<td>Taller °</td>
+<td>Práctica 4: ¿qué dice esa distribución?</td>
+<td>Interpretación biológica escrita</td>
+<td style="text-align: right;">15 min</td>
+</tr>
+<tr class="odd">
+<td>Taller °</td>
+<td>Práctica 5: ¿quién produjo esta anotación?</td>
+<td>Inventario de fuentes</td>
+<td style="text-align: right;">15 min</td>
+</tr>
+<tr class="even">
+<td>Taller</td>
+<td>Práctica 6: ¿cuántos replicones hay realmente?</td>
+<td>Tres evidencias ponderadas</td>
+<td style="text-align: right;">25 min</td>
+</tr>
+<tr class="odd">
+<td>Taller</td>
+<td>Práctica 7: cerrar el Estado 1</td>
+<td>Inventario completo del genoma</td>
+<td style="text-align: right;">15 min</td>
+</tr>
+<tr class="even">
+<td>Después</td>
+<td>Completar el protocolo</td>
+<td>Sección <em>Inventario del genoma</em></td>
+<td style="text-align: right;">45–60 min</td>
+</tr>
+</tbody>
+</table>
+<p>° <strong>Prácticas 4 y 5:</strong> se ejecutan en el taller, pero su parte escrita —interpretación, comparación con el caso eucarionte, clasificación de fuentes— puede terminarse después. Las <strong>Prácticas 6 y 7 son irremplazables en el aula</strong>: la primera exige discutir a qué evidencia creerle, y la segunda, contrastar tu genoma con el de un compañero. Ninguna de las dos funciona en solitario.</p>
+<hr>
+</section>
+<section id="la-limitación-que-dejó-s12-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="la-limitación-que-dejó-s12-indispensable">1. La limitación que dejó S12 [Indispensable]</h2>
+<p>Al terminar S12 tenías números defendibles y un problema del que quizá no habías medido el tamaño.</p>
+<p>Míralo en el orden en que ocurrió. Para contar genes escribiste <code>gene</code>. Para contar regiones codificantes escribiste <code>CDS</code>. Para el origen de replicación escribiste <code>origin</code>… y ahí se rompió algo, porque esa palabra la pusiste tú, no el archivo.</p>
+<pre class="text"><code>Para contar un tipo, primero tienes que saber que existe.
+Y solo puedes preguntar por los tipos que se te ocurren.</code></pre>
+<p>La consecuencia es incómoda: <strong>tu conocimiento del genoma está limitado por tu imaginación</strong>, no por los datos. Si tu archivo anota tRNA, rRNA, secuencias de inserción, regiones reguladoras o cualquier otra categoría que no se te ocurrió nombrar, esas categorías no aparecen en tu análisis y <strong>nada te avisa de que faltan</strong>.</p>
+<p>Es un error nuevo, distinto de los de S12. El falso positivo mete de más y se puede detectar mirando las líneas seleccionadas. El falso negativo saca de más y suele delatarse en el número. Esto otro no mete ni saca: <strong>no existe</strong>. Es una categoría entera del genoma sobre la que nunca preguntaste, y por lo tanto sobre la que nunca obtuviste ni un número correcto ni uno incorrecto.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Un análisis puede estar completamente libre de falsos positivos y aun así ser <strong>incompleto</strong>. Auditar un conteo responde “¿este número es correcto?”. Hoy respondes una pregunta anterior y más importante: <strong>“¿estoy mirando todo lo que hay?”</strong></p>
+</div>
+</div>
+</section>
+<section id="darle-la-vuelta-a-la-pregunta-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="darle-la-vuelta-a-la-pregunta-indispensable">2. Darle la vuelta a la pregunta [Indispensable]</h2>
+<section id="buscar-algo-frente-a-describir-una-variable" class="level3">
+<h3 class="anchored" data-anchor-id="buscar-algo-frente-a-describir-una-variable">2.1 Buscar algo frente a describir una variable</h3>
+<p>Las dos preguntas de esta sesión parecen la misma y no lo son:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Pregunta de búsqueda</th>
+<th>Pregunta descriptiva</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Formulación</td>
+<td>¿Cuántos hay de <strong>esto</strong>?</td>
+<td>¿<strong>Qué</strong> hay, y en qué proporciones?</td>
+</tr>
+<tr class="even">
+<td>Qué aportas tú</td>
+<td>El valor que te interesa</td>
+<td>Solo la columna</td>
+</tr>
+<tr class="odd">
+<td>Qué aporta el archivo</td>
+<td>Un número</td>
+<td>El catálogo completo <strong>y</strong> los números</td>
+</tr>
+<tr class="even">
+<td>Riesgo característico</td>
+<td>Preguntar por lo que no existe</td>
+<td>Ninguno: no puedes omitir lo que no nombraste</td>
+</tr>
+<tr class="odd">
+<td>Resultado</td>
+<td>Un dato</td>
+<td>Una <strong>distribución</strong></td>
+</tr>
+<tr class="even">
+<td>Sesión</td>
+<td>S12</td>
+<td>S13</td>
+</tr>
+</tbody>
+</table>
+<p>En la segunda columna eres tú quien pone el vocabulario. En la tercera, el vocabulario <strong>sale del archivo</strong>. Ese es todo el cambio conceptual de la sesión, y es más profundo de lo que parece: pasas de comprobar hipótesis sobre el contenido a <strong>describirlo</strong>.</p>
+<p>Para describir una variable categórica —una columna cuyos valores son etiquetas, no cantidades— necesitas exactamente dos cosas:</p>
+<ol type="1">
+<li>la lista de sus <strong>valores distintos</strong> (el catálogo, o <em>vocabulario</em>, de la variable);</li>
+<li><strong>cuántas veces aparece cada uno</strong> (la frecuencia).</li>
+</ol>
+<p>Con esas dos cosas tienes la descripción completa. Y ninguna de las dos requiere que sepas nada de antemano.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="el archivo sabe cosas que tú todavía no sabes">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>el archivo sabe cosas que tú todavía no sabes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Un investigador no solo comprueba lo que sospecha. También <strong>diseña estrategias para descubrir aquello que no sabía que debía preguntar</strong>. Las dos actividades son necesarias y no son intercambiables: la primera pone a prueba tus ideas, la segunda las amplía. Hoy haces la segunda por primera vez en el curso, y la harás con una operación sorprendentemente sencilla: en lugar de llevarle preguntas al archivo, le pides que te diga de qué está hecho.</p>
+</div>
+</div>
+</section>
+<section id="el-obstáculo-los-valores-distintos-están-mezclados" class="level3">
+<h3 class="anchored" data-anchor-id="el-obstáculo-los-valores-distintos-están-mezclados">2.2 El obstáculo: los valores distintos están mezclados</h3>
+<p>Ya sabes obtener la columna. Si haces esto sobre el archivo sin directivas que guardaste en S12:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f3</span> results/s12/anotaciones-sin-directivas.gff <span class="kw">|</span> <span class="fu">head</span> <span class="at">-n</span> 12</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>verás algo parecido a:</p>
+<pre class="text"><code>region
+gene
+CDS
+gene
+CDS
+gene
+gene
+CDS
+tRNA
+gene
+CDS
+...</code></pre>
+<p>Están todos los valores, pero <strong>mezclados y repetidos</strong> miles de veces. Para saber cuáles son distintos tendrías que recorrer el archivo entero recordando lo ya visto. Es exactamente el tipo de tarea que no puedes hacer a ojo y que sí puedes hacer en dos pasos:</p>
+<pre class="text"><code>1. Reunir los valores iguales, poniéndolos juntos    → ordenar
+2. Colapsar cada grupo en una sola línea             → deduplicar</code></pre>
+<p>Ese es el orden natural, y también el orden de las dos herramientas de hoy.</p>
+</section>
+<section id="las-herramientas" class="level3">
+<h3 class="anchored" data-anchor-id="las-herramientas">2.3 Las herramientas</h3>
+<p>Las cuatro cajas que siguen no son cuatro comandos que memorizar: son los <strong>cuatro pasos del razonamiento</strong> que acabas de deducir, cada uno con la herramienta que lo ejecuta.</p>
+<pre class="text"><code>reunir  →  catalogar  →  agrupar  →  contar
+ sort       sort -u        uniq      uniq -c</code></pre>
+<p>Si en algún momento olvidas la sintaxis, la puedes consultar. Lo que no se consulta es saber <strong>qué paso del razonamiento necesitas</strong>.</p>
+<section id="sintaxis-mínima-sort-reunir" class="level4">
+<h4 class="anchored" data-anchor-id="sintaxis-mínima-sort-reunir">Sintaxis mínima — <code>sort</code> · <em>reunir</em></h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> archivo.txt</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>¿Qué hace?</strong> Ordena las líneas alfabéticamente. Su efecto secundario es el que te interesa hoy: <strong>deja juntas todas las líneas iguales</strong>.</p>
+<p><strong>¿Por qué aparece en esta sesión?</strong> Porque para agrupar hay que reunir, y para reunir hay que ordenar. Sin este paso no existe ninguna de las dos operaciones siguientes.</p>
+</section>
+<section id="sintaxis-mínima-sort--u-catalogar" class="level4">
+<h4 class="anchored" data-anchor-id="sintaxis-mínima-sort--u-catalogar">Sintaxis mínima — <code>sort -u</code> · <em>catalogar</em></h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> <span class="at">-u</span> archivo.txt</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>¿Qué hace?</strong> Ordena y deja <strong>una sola aparición</strong> de cada valor distinto: devuelve el catálogo.</p>
+<p><strong>¿Por qué aparece en esta sesión?</strong> Porque es la respuesta directa a <em>“¿qué categorías contiene esta columna?”</em>, que es la pregunta con la que S12 se quedó sin recursos.</p>
+</section>
+<section id="sintaxis-mínima-uniq-agrupar" class="level4">
+<h4 class="anchored" data-anchor-id="sintaxis-mínima-uniq-agrupar">Sintaxis mínima — <code>uniq</code> · <em>agrupar</em></h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> archivo.txt <span class="kw">|</span> <span class="fu">uniq</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>¿Qué hace?</strong> Colapsa en una sola línea las repeticiones <strong>consecutivas</strong>. Nota la palabra <em>consecutivas</em>: <code>uniq</code> solo compara cada línea con la anterior.</p>
+<p><strong>¿Por qué aparece en esta sesión?</strong> Porque es la operación de agrupar, y porque su opción <code>-c</code> —la siguiente— es la que convierte un catálogo en una distribución.</p>
+</section>
+<section id="sintaxis-mínima-uniq--c-contar" class="level4">
+<h4 class="anchored" data-anchor-id="sintaxis-mínima-uniq--c-contar">Sintaxis mínima — <code>uniq -c</code> · <em>contar</em></h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> archivo.txt <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>¿Qué hace?</strong> Colapsa las repeticiones consecutivas <strong>y antepone a cada valor el número de veces que aparecía</strong>.</p>
+<p><strong>¿Por qué aparece en esta sesión?</strong> Porque responde de una vez la pregunta que en S12 exigía un <code>grep -c</code> por cada tipo: cuenta <strong>todas</strong> las categorías, incluidas las que no sabías que existían.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="`uniq` no funciona solo">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Advertencia</span><code>uniq</code> no funciona solo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>uniq</code> compara cada línea con la inmediatamente anterior, nunca con el resto del archivo. Si los valores iguales no están juntos, los cuenta como grupos separados: <code>gene</code> aparecerá muchas veces en tu “catálogo”, cada una con su cuenta parcial. El resultado no da error y parece razonable. <strong><code>uniq</code> siempre va precedido de <code>sort</code>.</strong> Lo comprobarás tú mismo en la Práctica 3.</p>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u4-s13-inventario-sort-uniq.png" class="img-fluid figure-img"></p>
+<figcaption>Esquema de la construcción de una distribución de frecuencias en cuatro pasos. A la izquierda, una columna extraída de un archivo con valores repetidos y desordenados: gene, CDS, gene, tRNA, CDS, gene. Una primera flecha, etiquetada sort, produce la misma columna con los valores iguales agrupados. Una segunda flecha, etiquetada uniq, colapsa cada grupo en una sola línea y produce el catálogo de valores distintos. Una tercera flecha, etiquetada uniq -c, produce el mismo catálogo con el número de repeticiones delante de cada valor. Una cuarta flecha, etiquetada sort -nr, reordena esas líneas de mayor a menor frecuencia. Un recuadro inferior advierte que uniq solo compara cada línea con la anterior, de modo que sin ordenar primero el conteo se fragmenta en grupos parciales.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 1.</strong> De una columna desordenada a una distribución de frecuencias. Cada eslabón hace una sola cosa: reunir, colapsar, contar y jerarquizar. Elaboración propia.</p>
+<p>🤖 <strong>Prompt para <a href="https://chatgpt.com/g/g-6893cf2451d88191b11cd0c87de045ab-profeunix-bioinfo">ProfeUnix Bioinfo</a>:</strong> &gt; Explícame la diferencia entre <code>sort -u</code> y <code>sort | uniq</code> sobre un archivo de texto. ¿Hay algún caso &gt; en que den resultados distintos? Muéstrame también qué pasa si uso <code>uniq</code> sin ordenar antes.</p>
+<hr>
+</section>
+</section>
+<section id="práctica-1-qué-esperas-que-contenga-la-anotación-antes-de-clase-primer-intento" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-1-qué-esperas-que-contenga-la-anotación-antes-de-clase-primer-intento">Práctica 1 — ¿Qué esperas que contenga la anotación? <em>(antes de clase, primer intento)</em></h3>
+<p><strong>Pregunta biológica.</strong> ¿Qué tipos de elementos crees que están anotados en el genoma de tu organismo, y cuál esperas que sea el más frecuente?</p>
+<p><strong>Objetivo.</strong> Comprometerte con un catálogo <strong>antes</strong> de que el archivo te dé el suyo. La distancia entre las dos listas es la medida exacta de lo que hoy vas a aprender.</p>
+<p><strong>Antes de clase (primer intento).</strong> En <code>doc/s13-primer-intento.md</code>:</p>
+<ol type="1">
+<li><p><strong>Enumera.</strong> Escribe todos los tipos de elementos que crees que puede contener la anotación de tu genoma. Piensa como biólogo, no como usuario de Unix: ¿qué cosas hay en un genoma que alguien querría marcar sobre una coordenada? No consultes el archivo ni internet.</p></li>
+<li><p><strong>Ordena tu predicción.</strong> Ordena tu lista de más a menos frecuente, según lo que esperas. Escribe al lado de las tres primeras <strong>por qué</strong> crees que serán las más abundantes.</p></li>
+<li><p><strong>Estima una proporción.</strong> Del total de registros de anotación que contaste en S12, ¿qué porcentaje crees que corresponde al tipo más frecuente? Da un número, aunque sea aproximado.</p></li>
+<li><p><strong>Anticipa lo desconocido.</strong> Escribe esta frase y complétala: <em>“Es probable que el archivo contenga categorías que no he escrito, por ejemplo…”</em>. Nombra al menos una y explica por qué se te podría haber escapado.</p></li>
+<li><p><strong>Recupera tu duda de S12.</strong> ¿Con qué palabra buscaste el origen de replicación? ¿Sigues creyendo que es la que usa tu archivo? Escribe tu apuesta.</p></li>
+</ol>
+<p><strong>Durante el taller.</strong> Compararás tu lista con el catálogo real: cuántas categorías acertaste, cuántas te sobraron, cuántas ni siquiera imaginaste. Y comprobarás por fin si la palabra que usaste en S12 estaba en el vocabulario del archivo.</p>
+<p><strong>Después del taller.</strong> La comparación entre tu predicción y el catálogo real se integra al protocolo (Sección 9).</p>
+<p><strong>Criterio de logro:</strong> presentas una lista razonada y ordenada, justificas tus tres primeras categorías con argumentos biológicos y reconoces explícitamente que tu lista puede ser incompleta.</p>
+<hr>
+</section>
+</section>
+<section id="del-catálogo-a-la-distribución-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="del-catálogo-a-la-distribución-indispensable">3. Del catálogo a la distribución [Indispensable]</h2>
+<p>El catálogo te dice <strong>qué</strong> hay. No te dice <strong>cuánto</strong> pesa cada cosa, y sin eso no hay interpretación posible: una anotación con 4 000 genes y 3 tRNA no se parece en nada a una con 4 000 genes y 900 tRNA, aunque su catálogo sea idéntico.</p>
+<p>Añadiendo <code>uniq -c</code> a la tubería, cada categoría llega acompañada de su frecuencia:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f3</span> results/s12/anotaciones-sin-directivas.gff <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>La salida viene ordenada <strong>alfabéticamente</strong>, porque ese fue el criterio de <code>sort</code>. Para leerla como lo que es —una jerarquía— conviene reordenarla por el número, de mayor a menor. Y ese número es ahora la primera cosa de cada línea:</p>
+<section id="sintaxis-mínima-sort--n-y-sort--r" class="level4">
+<h4 class="anchored" data-anchor-id="sintaxis-mínima-sort--n-y-sort--r">Sintaxis mínima — <code>sort -n</code> y <code>sort -r</code></h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> <span class="at">-n</span> archivo.txt</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> <span class="at">-nr</span> archivo.txt</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>¿Qué hace?</strong> <code>-n</code> ordena por <strong>valor numérico</strong> en lugar de alfabéticamente; <code>-r</code> invierte el orden. Combinados, <code>-nr</code> ordena de mayor a menor.</p>
+<p><strong>¿Por qué aparece en esta sesión?</strong> Porque la salida de <code>uniq -c</code> empieza por un número, y sin <code>-n</code> se ordenaría como texto: <code>1000</code> quedaría antes que <code>999</code>, igual que “casa” va antes que “perro”.</p>
+</section>
+<section id="sintaxis-mínima-sort--k" class="level4">
+<h4 class="anchored" data-anchor-id="sintaxis-mínima-sort--k">Sintaxis mínima — <code>sort -k</code></h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> <span class="at">-k2</span> archivo.txt</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>¿Qué hace?</strong> Ordena usando como criterio un <strong>campo concreto</strong> de la línea, no la línea entera. Aquí, el segundo campo. Los campos se separan por espacios en blanco, salvo que se indique otro delimitador.</p>
+<p><strong>¿Por qué aparece en esta sesión?</strong> Porque hoy trabajas con líneas que tienen <strong>más de un campo</strong> y el criterio de ordenamiento no siempre es el primero. La salida de <code>uniq -c</code> tiene dos campos —frecuencia y categoría—: ordenarla por el segundo produce la tabla alfabética, que es la que se puede comparar entre archivos. Y las directivas <code>##sequence-region</code> tienen cuatro: el nombre del replicón en el segundo y su <strong>longitud</strong> en el cuarto. Ordenar por ese cuarto campo, y numéricamente, es lo que te muestra de un vistazo cuál es el cromosoma y cuáles los replicones pequeños (Práctica 6).</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sin <code>-k</code>, <code>sort</code> compara la línea completa empezando por el primer carácter. Sobre una tabla de dos o más columnas eso ordena por la columna equivocada y el resultado no da ninguna señal de error: simplemente está ordenado por otra cosa. Antes de ordenar, pregúntate siempre <strong>cuál es el campo que decide</strong>.</p>
+</div>
+</div>
+<p>Con eso, la tubería completa de la sesión queda así:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f3</span> results/s12/anotaciones-sin-directivas.gff <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-nr</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Léela como una frase: <em>quédate con la columna del tipo, agrupa los valores iguales, cuenta cada grupo y ordena los grupos de mayor a menor.</em></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Cuatro eslabones son muchos para verificar de una vez. Constrúyela como en S10: ejecuta el primero y mira su salida con <code>head</code>; añade el segundo y vuelve a mirar; y así hasta el final. Si te saltas ese hábito, el día que la tubería devuelva algo raro no sabrás en qué eslabón se torció.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="práctica-2-qué-categorías-existen-realmente-durante-el-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-2-qué-categorías-existen-realmente-durante-el-taller">Práctica 2 — ¿Qué categorías existen realmente? <em>(durante el taller)</em></h3>
+<p><strong>Pregunta biológica.</strong> ¿Qué tipos de elementos están anotados en este genoma, y cuántos tipos distintos hay?</p>
+<p><strong>Objetivo.</strong> Obtener del archivo su propio vocabulario y contrastarlo con el que tú imaginaste.</p>
+<p><strong>Pasos.</strong></p>
+<ol type="1">
+<li><p><strong>Prepara.</strong> Crea el directorio de la sesión:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> results/s13</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p><strong>Ten a la vista tu predicción.</strong> Abre <code>doc/s13-primer-intento.md</code>. No lo modifiques todavía.</p></li>
+<li><p><strong>Pide el catálogo.</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f3</span> results/s12/anotaciones-sin-directivas.gff <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-u</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Léelo entero, sin prisa. Es la primera vez en el curso que el archivo te dice qué contiene en lugar de responder a lo que le preguntaste.</p></li>
+<li><p><strong>Cuenta las categorías.</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f3</span> results/s12/anotaciones-sin-directivas.gff <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-u</span> <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p><strong>Revisa el catálogo con ojo crítico.</strong> ¿Todas las líneas que aparecen son tipos de <em>feature</em> legítimos? Mira con atención las primeras y las últimas.</p></li>
+</ol>
+<details>
+<summary>
+Ver retroalimentación
+</summary>
+<p>Es muy probable que en tu catálogo aparezcan una o dos entradas que <strong>no son tipos de <em>feature</em></strong>: líneas largas y con aspecto de encabezado, del estilo <code>#!processor NCBI annotwriter</code> o <code>#!genome-build-accession …</code>.</p>
+<p>Son las mismas líneas que sobrevivieron a tu filtro en S12, porque llevan un solo <code>#</code>. Al aplicarles <code>cut -f3</code> ocurre algo que conviene entender: esas líneas <strong>no tienen tabuladores</strong>, así que <code>cut</code> no encuentra una tercera columna y devuelve la línea completa. El residuo de S12 acaba de reaparecer, esta vez disfrazado de categoría del genoma.</p>
+<p>Es una buena noticia disfrazada de estorbo. Tu inventario <strong>delata</strong> un problema que el conteo de S12 solo insinuaba: cuando describes una variable completa, cualquier basura que quede en el flujo se hace visible. Un conteo puntual la habría escondido.</p>
+<p>Puedes quitarla hoy encadenando <code>| grep -v "#!"</code>, y así lo harás. Pero fíjate otra vez en lo que estás haciendo: apilar filtros porque todavía no puedes escribir de una vez <em>“las líneas que empiezan por almohadilla”</em>. La deuda con S18 crece.</p>
+</details>
+<ol start="6" type="1">
+<li><p><strong>Limpia y guarda el catálogo definitivo.</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f3</span> results/s12/anotaciones-sin-directivas.gff <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-v</span> <span class="st">"#!"</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-u</span> <span class="op">&gt;</span> results/s13/catalogo-tipos.txt</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> results/s13/catalogo-tipos.txt</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p><strong>Compara con tu predicción.</strong> Completa esta tabla en tu bitácora:</p>
+<pre class="text"><code>Categorías que predije y existen:          ....
+Categorías que predije y NO existen:       ....
+Categorías que existen y NO predije:       ....
+Total de tipos distintos en el archivo:    ....</code></pre></li>
+<li><p><strong>Cierra la duda de S12.</strong> Busca en el catálogo el origen de replicación. ¿Aparece? ¿Con qué nombre exacto? Compáralo con la palabra que usaste en S12.</p>
+<p>Esto es lo importante, y merece que te detengas: en S12 tu búsqueda <strong>falló y no hubo ninguna señal de error</strong>. Obtuviste un número —quizá un cero, quizá cientos— perfectamente formado y completamente ajeno a tu pregunta. Hoy el archivo te ha dicho el nombre verdadero, y solo por eso sabes que aquello falló.</p>
+<p>Escribe la respuesta a esta pregunta, que vale para todo lo que hagas de aquí en adelante: <strong>¿qué otro resultado de tu protocolo podría estar fallando exactamente de este modo, sin que nada te lo indique?</strong></p></li>
+</ol>
+<p><strong>Producto.</strong> <code>results/s13/catalogo-tipos.txt</code>, el número de tipos distintos y la tabla de comparación con tu predicción.</p>
+<p><strong>Interpretación.</strong> Responde en dos o tres frases: de las categorías que no habías imaginado, ¿cuál te sorprende más y por qué? ¿Alguna de ellas cambia lo que creías saber sobre este genoma?</p>
+<p><strong>Qué puedo y qué no puedo afirmar.</strong> Completa las dos frases en tu bitácora:</p>
+<ul>
+<li><em>Puedo afirmar que la anotación de este genoma contiene exactamente estas N categorías, porque…</em></li>
+<li><em>Todavía no puedo afirmar nada sobre cuánto pesa cada una, porque…</em></li>
+</ul>
+<p><strong>Criterio de logro:</strong> obtienes el catálogo completo, detectas por ti mismo la entrada que no es un tipo de <em>feature</em> y explicas su origen, comparas la lista real con tu predicción en las tres direcciones (acertadas, sobrantes, faltantes) y delimitas por escrito el alcance del resultado.</p>
+<hr>
+</section>
+<section id="práctica-3-cuántas-veces-aparece-cada-categoría-durante-el-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-3-cuántas-veces-aparece-cada-categoría-durante-el-taller">Práctica 3 — ¿Cuántas veces aparece cada categoría? <em>(durante el taller)</em></h3>
+<p><strong>Pregunta biológica.</strong> ¿Cómo se reparten los registros de anotación entre los tipos de <em>feature</em> de este genoma?</p>
+<p><strong>Objetivo.</strong> Construir la distribución de frecuencias completa y comprobar en carne propia por qué agrupar exige ordenar.</p>
+<p><strong>Pasos.</strong></p>
+<ol type="1">
+<li><p><strong>Haz el contraejemplo primero.</strong> Antes de la tubería correcta, ejecuta la incorrecta:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f3</span> results/s12/anotaciones-sin-directivas.gff <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span> <span class="kw">|</span> <span class="fu">head</span> <span class="at">-n</span> 20</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Mira la salida con calma. ¿Cuántas veces aparece la categoría más frecuente en esa lista? ¿Qué tamaño tienen las cuentas? Escribe en una frase qué crees que hizo <code>uniq</code> aquí.</p></li>
+</ol>
+<details>
+<summary>
+Ver retroalimentación
+</summary>
+<p>Verás la misma categoría repetida muchísimas veces, cada una con una cuenta pequeña: <code>1 gene</code>, <code>1 CDS</code>, <code>2 exon</code>, <code>1 gene</code>, … El resultado no es un inventario, es una <strong>lista de rachas</strong>: cada vez que un valor aparece seguido de sí mismo, <code>uniq</code> lo colapsa; en cuanto cambia, empieza un grupo nuevo.</p>
+<p>Y aquí está lo importante: <strong>no hay ningún error</strong>. <code>uniq</code> hizo exactamente lo que hace —comparar cada línea con la anterior— y devolvió una salida perfectamente formada. Si no supieras qué esperar, podrías interpretar esa lista como un inventario legítimo con muchas categorías pequeñas.</p>
+<p>Es el mismo tipo de fallo que el falso positivo de S12: silencioso, plausible y detectable solo si entiendes lo que la herramienta hace realmente. Por eso el contraejemplo va <strong>antes</strong> que la tubería correcta.</p>
+<p>Un detalle que merece la pena notar: en un GFF3 esta salida no es del todo inútil. Las rachas reflejan el orden en que el archivo enumera los elementos —gen, luego su CDS, luego su exón— y por eso ves grupos pequeños que se repiten. Estás viendo la <strong>estructura jerárquica</strong> de la anotación, no un conteo.</p>
+</details>
+<ol start="2" type="1">
+<li><p><strong>Ahora la tubería correcta.</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f3</span> results/s12/anotaciones-sin-directivas.gff <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-v</span> <span class="st">"#!"</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span> <span class="kw">|</span> <span class="fu">head</span> <span class="at">-n</span> 20</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>¿En qué orden salen las categorías? ¿Es el orden que necesitas para leer la tabla?</p></li>
+<li><p><strong>Ordena por frecuencia y guarda.</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f3</span> results/s12/anotaciones-sin-directivas.gff <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-v</span> <span class="st">"#!"</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-nr</span> <span class="op">&gt;</span> results/s13/inventario-tipos.txt</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> results/s13/inventario-tipos.txt</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p><strong>Comprueba que la suma cuadra.</strong> Un inventario completo debe sumar exactamente el total de registros de anotación que contaste en S12. Suma a mano las frecuencias —son pocas líneas— y compara con:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f3</span> results/s12/anotaciones-sin-directivas.gff <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-v</span> <span class="st">"#!"</span> <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Si no cuadra, no sigas: hay líneas entrando o saliendo del flujo sin que lo sepas.</p></li>
+<li><p><strong>Cambia el criterio de ordenamiento.</strong> La misma tabla admite dos lecturas distintas según por qué campo la ordenes. Primero, el orden ingenuo —sin indicar campo—:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> results/s13/inventario-tipos.txt</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Mira el resultado: <code>sort</code> compara la línea entera desde el primer carácter, y el primer carácter es la frecuencia. ¿Quedó ordenada por número o por texto? ¿Dónde acabó la categoría con más registros?</p>
+<p>Ahora indica explícitamente el campo que debe decidir:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> <span class="at">-k2</span> results/s13/inventario-tipos.txt</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Escribe una frase por cada orden: ¿para qué sirve la tabla ordenada <strong>por frecuencia</strong> y para qué la ordenada <strong>por nombre de categoría</strong>? Pista para la segunda: piensa en qué orden necesitas tener las dos tablas si quieres compararlas línea a línea con las de un compañero, o con las que tú mismo generarás en S18 sobre este mismo archivo.</p></li>
+<li><p><strong>Vuelve sobre S12.</strong> Localiza en tu inventario las filas de <code>gene</code> y <code>CDS</code>. Compáralas con la tabla de la diferencia de S12:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 22%">
+<col style="width: 22%">
+<col style="width: 22%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tipo</th>
+<th style="text-align: right;">Conteo bruto S12</th>
+<th style="text-align: right;">Conteo corregido S12</th>
+<th style="text-align: right;">Frecuencia en el inventario S13</th>
+<th>¿Coinciden?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>gene</code></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>CDS</code></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Si el valor de hoy coincide con tu conteo corregido de S12, acabas de <strong>validar</strong> aquel resultado por un camino distinto. Si no coincide, tienes una discrepancia que investigar: anótala y busca la causa antes de seguir.</p></li>
+</ol>
+<p><strong>Producto.</strong> <code>results/s13/inventario-tipos.txt</code>, la comprobación de la suma y la tabla de comparación con S12.</p>
+<p><strong>Interpretación.</strong> ¿Cuántos tipos distintos tiene tu genoma anotado? ¿La categoría más frecuente es la que predijiste? Escribe la proporción del tipo dominante sobre el total de registros, en porcentaje.</p>
+<p><strong>Qué puedo y qué no puedo afirmar.</strong></p>
+<ul>
+<li><em>Puedo afirmar que el archivo contiene N registros de cada tipo, porque…</em></li>
+<li><em>Todavía no puedo afirmar que el organismo tenga N objetos de cada tipo, porque…</em></li>
+</ul>
+<p><strong>La pregunta que se lleva a casa.</strong> Recorre tu tabla y localiza <strong>una categoría cuya frecuencia no sabes explicar</strong>: demasiado alta, demasiado baja, o simplemente inesperada. Escríbela con su número. No la resuelvas hoy. Es tu pregunta abierta de la sesión, y va al apartado <em>Nuevas preguntas que abre</em> del protocolo.</p>
+<p><strong>Criterio de logro:</strong> produces la distribución completa ordenada por frecuencia, demuestras con tu propio contraejemplo por qué <code>uniq</code> necesita <code>sort</code>, verificas que las frecuencias suman el total de registros y formulas al menos una pregunta abierta a partir de la tabla.</p>
+<hr>
+</section>
+</section>
+<section id="leer-una-distribución-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="leer-una-distribución-indispensable">4. Leer una distribución [Indispensable]</h2>
+<p>Tienes una tabla de frecuencias. Una tabla no es una conclusión: hay que <strong>leerla</strong>, y leerla tiene reglas. No hacen falta estadísticos ni fórmulas; hacen falta cuatro preguntas y honestidad biológica.</p>
+<section id="las-cuatro-preguntas" class="level3">
+<h3 class="anchored" data-anchor-id="las-cuatro-preguntas">4.1 Las cuatro preguntas</h3>
+<p><strong>¿Cuál domina?</strong> La categoría más frecuente marca el carácter de la anotación. Si domina <code>CDS</code>, estás ante una anotación centrada en el contenido codificante. Si domina <code>exon</code>, ante una anotación que descompone cada gen en sus partes. Si domina <code>gene</code>, ante una anotación compacta, típica de procariontes.</p>
+<p><strong>¿Cuáles son raras?</strong> Las categorías con frecuencias muy bajas —una, dos, cinco apariciones— casi siempre corresponden a elementos <strong>estructuralmente únicos</strong> (origen de replicación, región telomérica) o a elementos poco representados (un tRNA concreto, un RNA no codificante particular). Una frecuencia baja no significa poco importante: el origen de replicación aparece una vez y sin él no hay replicación.</p>
+<p><strong>¿Cuáles faltan?</strong> Esta es la pregunta que casi nadie hace, y la más informativa. Compara el catálogo con lo que esperabas de la biología del organismo. Si es una bacteria y no hay <code>tRNA</code>, algo pasa: o la anotación es parcial, o el archivo que descargaste no es el que crees. La ausencia de una categoría es un dato sobre <strong>el archivo</strong>, no necesariamente sobre el organismo.</p>
+<p><strong>¿En qué proporción?</strong> Un número absoluto no se puede comparar entre genomas; una proporción sí. Divide la frecuencia de cada categoría entre el total de registros y exprésalo en porcentaje. Con eso puedes decir frases como <em>“el 41 % de los registros son CDS”</em>, que sí significan algo fuera de tu archivo.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Esto es análisis descriptivo, y es todo lo que necesitas por ahora: describir cómo se reparte una variable. No hay pruebas de hipótesis, ni intervalos, ni significancia. Lo que sí hay —y hay que cuidarlo— es la <strong>interpretación</strong>: qué dice ese reparto sobre el organismo y sobre quien anotó su genoma.</p>
+</div>
+</div>
+</section>
+<section id="la-advertencia-que-gobierna-toda-la-sesión" class="level3">
+<h3 class="anchored" data-anchor-id="la-advertencia-que-gobierna-toda-la-sesión">4.2 La advertencia que gobierna toda la sesión</h3>
+<div class="callout callout-style-default callout-important callout-titled" title="un registro no es un objeto biológico">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>un registro no es un objeto biológico
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Tu inventario cuenta <strong>líneas de un archivo</strong>, no cosas del organismo. Las dos cantidades se parecen lo bastante como para confundirlas y difieren lo bastante como para arruinar una conclusión.</p>
+<ul>
+<li>Un mismo gen genera <strong>varios registros</strong>: uno de tipo <code>gene</code>, uno o varios de tipo <code>CDS</code>, a veces <code>exon</code>, <code>mRNA</code> o <code>start_codon</code>. Sumarlos sería contar el mismo objeto muchas veces.</li>
+<li>En organismos con genes interrumpidos, <strong>una sola proteína puede producir varios registros <code>CDS</code></strong>, uno por fragmento codificante. El número de <code>CDS</code> no es entonces el número de proteínas.</li>
+<li>Los registros de tipo <code>region</code> describen el replicón completo, no un elemento dentro de él.</li>
+<li><code>gene</code> incluye pseudogenes, que no son genes funcionales (lo comprobaste en S12).</li>
+</ul>
+<p>Regla práctica: escribe siempre <em>“el archivo contiene N registros de tipo X”</em>. Solo cuando puedas justificar la equivalencia —por ejemplo, tras comprobar que en tu genoma hay un <code>CDS</code> por gen— podrás escribir <em>“el organismo tiene N genes”</em>. Esa justificación es parte de la evidencia, no un detalle de redacción.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="¿Sabías que?">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>¿Sabías que?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Dos bases de datos pueden publicar cifras distintas de “genes” para el mismo organismo sin que ninguna esté equivocada: cada una decide de forma distinta qué registros cuentan como un gen. Cuando en S21 compares tu inventario con el de otra fuente, esa será la primera explicación que tendrás que descartar antes de buscar un error propio.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="práctica-4-qué-nos-dice-esta-distribución-sobre-el-genoma-durante-el-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-4-qué-nos-dice-esta-distribución-sobre-el-genoma-durante-el-taller">Práctica 4 — ¿Qué nos dice esta distribución sobre el genoma? <em>(durante el taller)</em></h3>
+<p><strong>Pregunta biológica.</strong> ¿Qué revela el perfil de anotación sobre este organismo y sobre quienes anotaron su genoma?</p>
+<p><strong>Objetivo.</strong> Convertir una tabla de frecuencias en afirmaciones biológicas defendibles, y marcar con precisión dónde termina lo que la evidencia permite afirmar.</p>
+<p><strong>Pasos.</strong></p>
+<ol type="1">
+<li><p><strong>Calcula proporciones.</strong> Toma tu <code>results/s13/inventario-tipos.txt</code> y añade una columna de porcentaje sobre el total de registros. Hazlo con calculadora: son pocas filas y el cálculo automático llega en S22.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 28%">
+<col style="width: 28%">
+<col style="width: 21%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tipo de <em>feature</em></th>
+<th style="text-align: right;">Frecuencia</th>
+<th style="text-align: right;">% del total</th>
+<th>Interpretación en una frase</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td></td>
+</tr>
+</tbody>
+</table></li>
+<li><p><strong>Nombra la dominante.</strong> ¿Cuál es y qué porcentaje ocupa? ¿Qué tipo de anotación sugiere eso?</p></li>
+<li><p><strong>Nombra las raras.</strong> Lista las categorías con menos de cinco apariciones. Para cada una, responde: ¿es rara porque el elemento es único en el genoma, o porque la anotación es incompleta? Si no puedes decidirlo, escríbelo así: <em>“no determinable con la evidencia actual”</em>.</p></li>
+<li><p><strong>Busca las ausentes.</strong> Vuelve a tu predicción de la Práctica 1. ¿Qué categorías esperabas y no están? Para cada una, escribe la explicación más probable entre estas tres: (a) el organismo no tiene ese elemento; (b) lo tiene pero esta anotación no lo incluye; (c) está, pero con otro nombre.</p>
+<p>Y para cada una, una pregunta más: <strong>¿qué información adicional necesitarías para decidir entre las tres?</strong> No la busques hoy; nómbrala. Saber qué dato falta es tan parte del análisis como tener el dato.</p></li>
+</ol>
+<section id="la-pregunta-más-interesante-de-la-tabla-cuántas-cds-por-gen" class="level4">
+<h4 class="anchored" data-anchor-id="la-pregunta-más-interesante-de-la-tabla-cuántas-cds-por-gen">La pregunta más interesante de la tabla: ¿cuántas CDS por gen?</h4>
+<p>Hasta aquí has leído las categorías <strong>una por una</strong>. La lectura que de verdad dice algo del organismo aparece cuando <strong>relacionas dos</strong> de ellas: cada gen que se traduce debería aportar al menos un registro <code>CDS</code>, así que el cociente entre ambas frecuencias es una afirmación biológica encubierta.</p>
+<ol start="5" type="1">
+<li><p><strong>Predice antes de dividir.</strong> Sin mirar la tabla: ¿esperas más registros <code>CDS</code> que <code>gene</code>, menos, o aproximadamente los mismos? Escribe tu predicción y el razonamiento biológico que la sostiene.</p></li>
+<li><p><strong>Calcula el cociente.</strong> Divide el número de registros <code>CDS</code> entre el número de registros <code>gene</code>. ¿Coincide con tu predicción? ¿Es cercano a 1, mayor o menor?</p></li>
+<li><p><strong>Explica la desviación.</strong> Si el cociente no es exactamente 1, tu inventario contiene la explicación. Búscala en las demás filas de la tabla antes de leer la retroalimentación: ¿qué categorías podrían estar sumando a un lado del cociente y no al otro?</p></li>
+</ol>
+<details>
+<summary>
+Ver retroalimentación
+</summary>
+<p>En una bacteria típica el cociente CDS/gene suele quedar <strong>algo por debajo de 1</strong>. La razón es biológica y se lee directamente en tu inventario: entre los registros <code>gene</code> hay pseudogenes y hay genes de RNA —<code>tRNA</code>, <code>rRNA</code>, <code>ncRNA</code>— que <strong>no se traducen</strong> y por lo tanto no generan ningún <code>CDS</code>. Cada uno de ellos suma un <code>gene</code> sin sumar un <code>CDS</code>.</p>
+<p>Si tu cociente es mucho <strong>mayor</strong> que 1, la explicación más probable es que los genes de tu organismo estén interrumpidos y cada uno produzca varios registros <code>CDS</code>. Es lo esperable en un eucarionte y casi nunca en una bacteria: si te ocurre con una bacteria, revisa primero de qué archivo se trata.</p>
+<p>Y si es <strong>exactamente</strong> 1, no lo des por bueno sin mirar: comprueba que no estés comparando el conteo bruto de uno con el corregido del otro.</p>
+<p>Fíjate en lo que acabas de hacer. Has usado dos números de tu propia tabla para plantear una hipótesis sobre la biología del organismo, y la has puesto a prueba contra lo esperable para su grupo. Eso ya no es contar: es interpretar.</p>
+</details>
+<ol start="8" type="1">
+<li><p><strong>Cambia de organismo, sin cambiar de archivo.</strong> Imagina que este mismo análisis se hiciera sobre un genoma <strong>eucarionte</strong>. Responde sin ejecutar nada, razonando desde la estructura de los genes:</p>
+<ul>
+<li>¿Qué categorías aparecerían que en tu tabla no están?</li>
+<li>¿Seguiría dominando la misma? Si no, ¿cuál pasaría a dominar y por qué?</li>
+<li>¿En qué dirección se movería el cociente CDS/gene?</li>
+</ul>
+<p>Este ejercicio no es un adorno: te obliga a explicar tu distribución <strong>por sus causas biológicas</strong>, no por sus números. Una distribución que no sabes cómo cambiaría en otro organismo es una distribución que en realidad no has interpretado.</p></li>
+<li><p><strong>Escribe el párrafo.</strong> Con todo lo anterior, redacta cinco o seis líneas que describan el perfil de anotación de tu genoma, dirigidas a alguien que no ha visto el archivo. Usa proporciones, no solo números absolutos.</p></li>
+<li><p><strong>Marca el límite.</strong> Termina el párrafo con una frase que empiece por <em>“Estos números describen registros del archivo, no objetos biológicos, porque…”</em>.</p></li>
+</ol>
+<p><strong>Producto.</strong> Tabla de proporciones, interpretación escrita del perfil de anotación y comparación razonada con un genoma eucarionte.</p>
+<p><strong>Qué puedo y qué no puedo afirmar.</strong></p>
+<ul>
+<li><em>Puedo afirmar que el perfil de anotación de este genoma es…, porque…</em></li>
+<li><em>Todavía no puedo afirmar que ese perfil describa al organismo y no a quien lo anotó, porque…</em></li>
+</ul>
+<p><strong>Interpretación.</strong> La pregunta de fondo: si mañana descargas la anotación del mismo genoma desde otro recurso, ¿esperarías exactamente estas mismas frecuencias? ¿Por qué? <em>(La comprobarás en S21.)</em></p>
+<p><strong>Criterio de logro:</strong> interpretas la distribución con proporciones, distingues categorías raras de categorías ausentes, predices y explicas el cociente CDS/gene a partir de tu propia tabla, razonas cómo cambiaría el perfil en otro tipo de organismo y declaras explícitamente que cuentas registros.</p>
+<hr>
+</section>
+</section>
+</section>
+<section id="quién-produjo-esta-anotación-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="quién-produjo-esta-anotación-indispensable">5. Quién produjo esta anotación [Indispensable]</h2>
+<p>La columna 2 del GFF3 —la que en S11 llamaste <code>source</code>— responde una pregunta distinta de todas las anteriores: no <em>qué</em> hay en el genoma, sino <strong>quién dice que está ahí</strong>.</p>
+<p>Es una columna de <strong>procedencia</strong>, y por eso enlaza directamente con la Unidad 3. Allí documentaste de dónde venía el archivo completo; aquí descubres que dentro del archivo puede haber anotaciones de varios orígenes, cada una con su método y su fiabilidad.</p>
+<p>Valores típicos: <code>RefSeq</code>, <code>Genbank</code>, <code>Protein Homology</code>, <code>GeneMarkS-2+</code>, <code>cmsearch</code>, <code>tRNAscan-SE</code>. Algunos nombran una base de datos; otros, un <strong>programa predictor</strong>. La diferencia importa: una anotación producida por homología con proteínas conocidas y otra producida por un modelo estadístico <em>ab initio</em> no tienen la misma clase de respaldo.</p>
+<p>La operación es exactamente la misma de la sección anterior, cambiando la columna:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f2</span> results/s12/anotaciones-sin-directivas.gff <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-v</span> <span class="st">"#!"</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-nr</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Que la tubería sea idéntica salvo por el número de columna no es casualidad: acabas de aprender un <strong>patrón de análisis</strong>, no un comando. Sirve para cualquier variable categórica de cualquier tabla —la cadena, el marco de lectura, o una columna de un archivo clínico—. En S21 la aplicarás a una tabla que todavía no has visto.</p>
+</div>
+</div>
+<hr>
+<section id="práctica-5-quién-produjo-esta-anotación-durante-el-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-5-quién-produjo-esta-anotación-durante-el-taller">Práctica 5 — ¿Quién produjo esta anotación? <em>(durante el taller)</em></h3>
+<p><strong>Pregunta biológica.</strong> ¿De qué fuentes proviene la anotación de este genoma y qué proporción aporta cada una?</p>
+<p><strong>Objetivo.</strong> Inventariar las fuentes y valorar qué respaldo tiene la evidencia con la que llevas tres sesiones trabajando.</p>
+<p><strong>Pasos.</strong></p>
+<ol type="1">
+<li><p><strong>Predice, antes de ejecutar nada.</strong> Escribe tus respuestas en la bitácora:</p>
+<ul>
+<li>¿Cuántas fuentes distintas esperas encontrar?</li>
+<li>¿Crees que una sola entidad anotó todo el genoma, o que intervinieron varias?</li>
+<li>¿Esperas nombres de bases de datos, nombres de programas, o nombres de personas?</li>
+<li>Si hubiera varias, ¿esperas que se repartan el trabajo por igual o que una domine?</li>
+</ul>
+<p>Esta predicción importa más de lo que parece: llevas tres sesiones tratando la anotación como si fuera <strong>un solo bloque de evidencia</strong>. Estás a punto de comprobar si lo es.</p></li>
+<li><p><strong>Inventaría las fuentes.</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f2</span> results/s12/anotaciones-sin-directivas.gff <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-v</span> <span class="st">"#!"</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-nr</span> <span class="op">&gt;</span> results/s13/inventario-fuentes.txt</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> results/s13/inventario-fuentes.txt</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p><strong>Contrasta con tu predicción.</strong> ¿Una sola fuente o varias? Calcula el porcentaje que aporta cada una. ¿Qué parte de tu predicción falló, y por qué crees que la formulaste así?</p></li>
+<li><p><strong>Clasifícalas.</strong> Para cada fuente, decide si es una <strong>base de datos</strong>, un <strong>programa predictor</strong> o no puedes determinarlo. Si el nombre no te dice nada, búscalo: forma parte de documentar tu evidencia.</p></li>
+<li><p><strong>Cruza fuente y tipo.</strong> Elige la fuente menos frecuente y mira qué tipos de <em>feature</em> produce:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">"&lt;nombre-de-la-fuente&gt;"</span> results/s12/anotaciones-sin-directivas.gff <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f3</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-nr</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>¿Esa fuente se especializa en un tipo concreto de elemento? ¿Tiene sentido biológico que así sea?</p></li>
+<li><p><strong>Conecta con U3.</strong> Abre tu ficha de procedencia de la Unidad 3. ¿La fuente que documentaste allí coincide con lo que declara la columna 2? Si el archivo lo produjo un pipeline de anotación automática, ¿queda eso reflejado en tu ficha? Si no, añádelo.</p></li>
+</ol>
+<details>
+<summary>
+Ver retroalimentación
+</summary>
+<p>En un archivo de RefSeq lo más común es encontrar una fuente dominante —<code>RefSeq</code> o <code>Genbank</code>— y una o varias minoritarias correspondientes a programas especializados: <code>tRNAscan-SE</code> para los tRNA, <code>cmsearch</code> para RNA estructurales, <code>GeneMarkS-2+</code> o <code>Protein Homology</code> para las regiones codificantes.</p>
+<p>El cruce del paso 4 suele mostrar una especialización nítida: cada predictor aporta exactamente el tipo de elemento para el que fue diseñado. No es un detalle administrativo. Significa que <strong>distintas partes de tu inventario tienen distinto tipo de respaldo</strong>: unas provienen de similitud con secuencias conocidas y otras de un modelo estadístico, y su fiabilidad no es la misma.</p>
+<p>Es la primera vez en el curso que compruebas que la evidencia dentro de un mismo archivo <strong>no es homogénea</strong>. Anótalo en las limitaciones: cuando en S21 compares con otra fuente, las discrepancias se concentrarán muy probablemente en las categorías anotadas por predicción.</p>
+</details>
+<p><strong>Producto.</strong> <code>results/s13/inventario-fuentes.txt</code> con sus porcentajes y la clasificación de cada fuente.</p>
+<p><strong>Interpretación.</strong> ¿Tu genoma está anotado por una sola vía o por varias? ¿Qué proporción de tu inventario depende de predicción computacional y no de evidencia experimental o de homología? ¿Cómo afecta eso a la confianza en el número de genes que reportaste en S12?</p>
+<p><strong>Qué puedo y qué no puedo afirmar.</strong></p>
+<ul>
+<li><em>Puedo afirmar que esta anotación proviene de N fuentes, con estos pesos relativos, porque…</em></li>
+<li><em>Todavía no puedo afirmar que unas sean más fiables que otras, porque… (qué información me faltaría para sostenerlo)</em></li>
+</ul>
+<p><strong>Criterio de logro:</strong> predices antes de ejecutar y contrastas, inventarías las fuentes con sus proporciones, distingues bases de datos de programas predictores, relacionas el resultado con la ficha de procedencia de U3 y delimitas qué no autoriza a concluir esta evidencia.</p>
+<hr>
+</section>
+</section>
+<section id="una-respuesta-sostenida-por-tres-evidencias-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="una-respuesta-sostenida-por-tres-evidencias-indispensable">6. Una respuesta sostenida por tres evidencias [Indispensable]</h2>
+<p>Queda pendiente desde S11 una pregunta que dejaste marcada como <strong>provisional</strong>: cuántos replicones —cromosomas, plásmidos, <em>contigs</em>— componen tu genoma. Entonces reuniste tres indicios, pero no podías recorrer el archivo completo ni enumerar valores distintos. Ahora sí puedes.</p>
+<p>Los tres caminos usan partes distintas de tus datos, producidas en momentos distintos del proceso:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Camino</th>
+<th>Archivo del que sale</th>
+<th>Qué mide</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1. Encabezados del FASTA</strong></td>
+<td><strong>FASTA</strong> (secuencia)</td>
+<td>Cuántas secuencias contiene el ensamblado</td>
+</tr>
+<tr class="even">
+<td><strong>2. Columna 1 del GFF3</strong></td>
+<td><strong>GFF3</strong> (cuerpo de datos)</td>
+<td>Sobre cuántas secuencias distintas hay anotaciones</td>
+</tr>
+<tr class="odd">
+<td><strong>3. Directivas <code>##sequence-region</code></strong></td>
+<td><strong>GFF3</strong> (encabezado)</td>
+<td>Cuántas secuencias <strong>declara</strong> el productor del archivo, con su longitud</td>
+</tr>
+</tbody>
+</table>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-c</span> <span class="st">"&gt;"</span> data/source/<span class="op">&lt;</span>tu_archivo<span class="op">&gt;</span>.fna</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f1</span> results/s12/anotaciones-sin-directivas.gff <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-v</span> <span class="st">"#!"</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-u</span> <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-c</span> <span class="st">"##sequence-region"</span> data/source/<span class="op">&lt;</span>tu_archivo<span class="op">&gt;</span>.gff</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Obtener la misma cantidad por varios caminos <strong>no es redundancia: es validación</strong>. Repetir el mismo comando tres veces no aporta nada; llegar al mismo número por vías que <strong>podrían haber fallado de formas distintas</strong> convierte un resultado en una conclusión. Y si los números no coinciden, has encontrado algo real: una secuencia sin anotar, una anotación que menciona una secuencia ausente del FASTA, o dos archivos de versiones distintas. Eso no es un fracaso del análisis; suele ser su hallazgo más valioso.</p>
+</div>
+</div>
+<section id="no-todas-las-evidencias-son-igual-de-independientes" class="level3">
+<h3 class="anchored" data-anchor-id="no-todas-las-evidencias-son-igual-de-independientes">6.1 No todas las evidencias son igual de independientes</h3>
+<p>Fíjate en la segunda columna de la tabla, porque ahí hay una lección que va mucho más allá de esta sesión. Los caminos 2 y 3 <strong>salen del mismo archivo</strong>: uno del cuerpo del GFF3 y otro de su encabezado, pero ambos los escribió el mismo proceso de anotación, en la misma ejecución. El camino 1 viene de otro archivo, generado en otra etapa: el ensamblado.</p>
+<p>Eso significa que las tres evidencias <strong>no valen lo mismo</strong>:</p>
+<pre class="text"><code>FASTA          ─┐
+                ├── evidencia realmente independiente entre sí
+GFF3 (cuerpo)  ─┤
+GFF3 (encabezado) ─── comparten origen: mismo productor, misma ejecución</code></pre>
+<p>Si el proceso que generó tu GFF3 cometió un error —olvidó un replicón, arrastró un encabezado de una versión anterior—, ese error aparecería <strong>idéntico en los caminos 2 y 3</strong>, y su coincidencia no probaría nada. Lo único que puede delatarlo es el camino 1.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La independencia de las evidencias tiene <strong>grados</strong>, y las conclusiones se sostienen en el grado real, no en el número de comprobaciones. Tres comprobaciones que comparten origen valen menos que dos que no lo comparten. Cuando en S21 confrontes tu inventario con otra base de datos, estarás buscando exactamente esto: una evidencia que no dependa de quien produjo la tuya.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="práctica-6-cuántos-replicones-tiene-realmente-el-genoma-durante-el-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-6-cuántos-replicones-tiene-realmente-el-genoma-durante-el-taller">Práctica 6 — ¿Cuántos replicones tiene realmente el genoma? <em>(durante el taller)</em></h3>
+<p><strong>Pregunta biológica.</strong> ¿De cuántas moléculas de DNA está compuesto este genoma, y coinciden todas las evidencias disponibles?</p>
+<p><strong>Objetivo.</strong> Cerrar una respuesta que lleva dos sesiones provisional, sosteniéndola en tres evidencias independientes, y aprovechar las longitudes declaradas para volver sobre el tamaño del genoma.</p>
+<p><strong>Pasos.</strong></p>
+<ol start="0" type="1">
+<li><p><strong>Razona antes de ejecutar.</strong> Vas a obtener el mismo número por tres vías. Antes de escribir un solo comando, responde en tu bitácora:</p>
+<ul>
+<li>Según tu respuesta provisional de S11, <strong>¿cuántos replicones esperas?</strong></li>
+<li>De las tres evidencias, <strong>¿cuál te parece la más fuerte y por qué?</strong></li>
+<li>Si dos de ellas discreparan, <strong>¿a cuál le creerías?</strong> ¿Cambia tu respuesta según <em>qué</em> dos sean las que discrepan?</li>
+<li>¿Hay algún error que las tres evidencias fallarían en detectar <strong>a la vez</strong>?</li>
+</ul>
+<p>Escríbelo ahora. Después de ver los números será demasiado tarde: ya sabrás la respuesta y tu razonamiento se acomodará a ella sin que lo notes.</p></li>
+<li><p><strong>Camino 1 — el FASTA.</strong> Cuenta y mira los encabezados:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-c</span> <span class="st">"&gt;"</span> data/source/<span class="op">&lt;</span>tu_archivo<span class="op">&gt;</span>.fna</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">"&gt;"</span> data/source/<span class="op">&lt;</span>tu_archivo<span class="op">&gt;</span>.fna</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>¿Qué son esas secuencias? ¿Los nombres indican cromosoma, plásmido o <em>contig</em>?</p></li>
+<li><p><strong>Camino 2 — la anotación.</strong> Enumera los identificadores distintos de la columna 1:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f1</span> results/s12/anotaciones-sin-directivas.gff <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-v</span> <span class="st">"#!"</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-u</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f1</span> results/s12/anotaciones-sin-directivas.gff <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-v</span> <span class="st">"#!"</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-u</span> <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p><strong>Camino 3 — la declaración del formato.</strong> Mira las directivas y ordénalas:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">"##sequence-region"</span> data/source/<span class="op">&lt;</span>tu_archivo<span class="op">&gt;</span>.gff <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-u</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Cada línea declara un replicón con su nombre y su longitud.</p></li>
+<li><p><strong>Compara los tres.</strong> Completa la tabla, incluida la columna de origen:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 25%">
+<col style="width: 18%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Camino</th>
+<th>Evidencia</th>
+<th>Archivo del que proviene</th>
+<th style="text-align: right;">Número obtenido</th>
+<th>Identificadores observados</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Encabezados <code>&gt;</code> del FASTA</td>
+<td></td>
+<td style="text-align: right;"></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Valores distintos de la columna 1</td>
+<td></td>
+<td style="text-align: right;"></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Directivas <code>##sequence-region</code></td>
+<td></td>
+<td style="text-align: right;"></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Tres preguntas sobre esta tabla:</p>
+<ul>
+<li>¿Los tres números coinciden? ¿Y los <strong>nombres</strong>, coinciden uno a uno? Un número igual con nombres distintos sería una coincidencia engañosa.</li>
+<li>Mirando la columna de origen: <strong>¿cuáles dos comparten archivo?</strong> ¿Qué clase de error no podrían detectar entre ellas por más que coincidan?</li>
+<li>¿Se confirmó tu apuesta del paso 0 sobre cuál era la evidencia más fuerte? Si cambiaste de opinión, escribe qué te hizo cambiarla.</li>
+</ul></li>
+</ol>
+<details>
+<summary>
+Ver retroalimentación
+</summary>
+<p>Lo más frecuente en un ensamblado completo de RefSeq es que los tres caminos den el mismo número y los mismos identificadores. Cuando ocurre, tienes una conclusión sólida: tres procesos distintos —ensamblado, anotación y declaración del formato— cuentan la misma historia.</p>
+<p>Si <strong>no</strong> coinciden, las explicaciones más probables son estas, y conviene distinguirlas:</p>
+<ul>
+<li><strong>El FASTA tiene más secuencias que la anotación.</strong> Hay replicones o <em>contigs</em> sin ningún elemento anotado. Es normal en ensamblados fragmentados: un <em>contig</em> corto puede no contener ningún gen.</li>
+<li><strong>La anotación menciona una secuencia que no está en el FASTA.</strong> Esto es más serio: sugiere que los dos archivos no corresponden exactamente a la misma versión del ensamblado. Vuelve a la ficha de procedencia de U3 y comprueba las versiones.</li>
+<li><strong>Las directivas declaran más de lo que hay.</strong> El encabezado quedó de una versión previa del archivo.</li>
+</ul>
+<p>Comparar los identificadores <strong>uno a uno</strong> —y no solo los totales— es lo que te permite distinguir estos casos. Hoy los comparas mirando dos listas cortas; cuando sean listas largas necesitarás compararlas de forma sistemática, y eso llega en S19.</p>
+<p>Sobre a cuál creerle: no hay una respuesta universal, pero sí un criterio. Ante una discrepancia, pregúntate <strong>qué proceso pudo equivocarse</strong> en cada caso. El FASTA es el registro de lo que se ensambló; el GFF3 es el registro de lo que se anotó <strong>sobre</strong> ese ensamblado. Una secuencia que existe en el FASTA y no aparece en la anotación es un hecho perfectamente normal —nadie encontró nada que anotar ahí—. Lo contrario, en cambio, es una señal de alarma: no se puede anotar algo sobre una secuencia que no existe.</p>
+</details>
+<ol start="5" type="1">
+<li><p><strong>Concluye.</strong> Escribe la respuesta definitiva con esta forma: <em>“El genoma está compuesto por N replicones, cuyos identificadores son … Esta respuesta se apoya en tres evidencias, dos de ellas procedentes del mismo archivo, que [coinciden / difieren en …]. La evidencia que más peso aporta es … porque …”</em>.</p></li>
+<li><p><strong>Aprovecha las longitudes.</strong> Las directivas <code>##sequence-region</code> declaran la longitud de cada replicón, y esa longitud es el <strong>cuarto campo</strong> de la línea:</p>
+<pre class="text"><code>##sequence-region   NC_000913.3   1   4641652
+     campo 1          campo 2   campo 3  campo 4</code></pre>
+<p>Ordenar aquí por la línea completa no serviría de nada: todas empiezan igual. Hay que decirle a <code>sort</code> cuál es el campo que decide, y que lo compare como número:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">"##sequence-region"</span> data/source/<span class="op">&lt;</span>tu_archivo<span class="op">&gt;</span>.gff <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-k4</span> <span class="at">-nr</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>El replicón más largo queda arriba. ¿Es un cromosoma único, o hay uno grande y varios pequeños? Ese perfil de longitudes es la primera descripción de la <strong>arquitectura</strong> del genoma, y la obtienes sin más herramienta que elegir bien el campo de ordenamiento.</p>
+<p>Suma a mano las longitudes declaradas y compara con la medición directa de bases que hiciste en S12:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Fuente</th>
+<th style="text-align: right;">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Medición directa de bases (S12)</td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td>Suma de longitudes declaradas (S13)</td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td>Diferencia</td>
+<td style="text-align: right;"></td>
+</tr>
+</tbody>
+</table>
+<p>¿Coinciden dígito a dígito? Si difieren, ¿la diferencia es del tamaño de un replicón pequeño, o son unas pocas bases?</p></li>
+<li><p><strong>Guarda la evidencia.</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f1</span> results/s12/anotaciones-sin-directivas.gff <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-v</span> <span class="st">"#!"</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-u</span> <span class="op">&gt;</span> results/s13/replicones-gff.txt</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">"##sequence-region"</span> data/source/<span class="op">&lt;</span>tu_archivo<span class="op">&gt;</span>.gff <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-u</span> <span class="op">&gt;</span> results/s13/replicones-declarados.txt</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ol>
+<p><strong>Producto.</strong> Tabla de las tres evidencias, conclusión escrita, tabla de contraste del tamaño del genoma y los dos archivos en <code>results/s13/</code>.</p>
+<p><strong>Interpretación.</strong> ¿Qué tipo de genoma es este: un cromosoma único, un cromosoma con plásmidos, un ensamblado fragmentado? ¿Qué te dice el reparto de longitudes sobre la calidad del ensamblado?</p>
+<p><strong>Qué puedo y qué no puedo afirmar.</strong></p>
+<ul>
+<li><em>Puedo afirmar que este genoma está compuesto por N replicones, porque…</em></li>
+<li><em>Todavía no puedo descartar que el productor del GFF3 haya cometido un error, porque… (qué evidencia externa lo despejaría)</em></li>
+</ul>
+<p><strong>Criterio de logro:</strong> razonas sobre el peso de cada evidencia <strong>antes</strong> de ejecutar, obtienes el número por tres caminos, comparas números <strong>y</strong> nombres, reconoces que dos de las evidencias comparten origen, explicas qué significaría cada discrepancia y contrastas el tamaño del genoma con la suma de las longitudes declaradas.</p>
+<hr>
+</section>
+</section>
+<section id="el-estado-1-del-genoma-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="el-estado-1-del-genoma-indispensable">7. El Estado 1 del genoma [Indispensable]</h2>
+<p>Con lo de hoy cierras el primer bloque de la investigación. Conviene medir la distancia recorrida.</p>
+<p>Al empezar S10, todo lo que podías decir de tu genoma era esto: que existía, de dónde lo habías descargado, qué versión era y que nadie lo había alterado desde entonces. Todo cierto, todo importante, y nada de ello <strong>sobre el genoma</strong>: eran afirmaciones sobre el archivo.</p>
+<p>Hoy puedes decir esto otro:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Pregunta</th>
+<th>Respuesta actual</th>
+<th>Sesión que la estableció</th>
+<th>Calidad de la evidencia</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>¿De qué tamaño es el genoma?</td>
+<td></td>
+<td>S12, contrastada en S13</td>
+<td>Medición directa + declaración del archivo</td>
+</tr>
+<tr class="even">
+<td>¿Cuántos replicones lo componen?</td>
+<td></td>
+<td>S13</td>
+<td>Tres caminos, dos con origen común</td>
+</tr>
+<tr class="odd">
+<td>¿Qué tipos de <em>feature</em> contiene?</td>
+<td></td>
+<td>S13</td>
+<td>Catálogo exhaustivo del archivo</td>
+</tr>
+<tr class="even">
+<td>¿Cuántos tipos distintos?</td>
+<td></td>
+<td>S13</td>
+<td>Conteo exhaustivo</td>
+</tr>
+<tr class="odd">
+<td>¿Cuántos registros de cada tipo?</td>
+<td></td>
+<td>S13</td>
+<td>Distribución completa</td>
+</tr>
+<tr class="even">
+<td>¿Qué fuentes lo anotaron?</td>
+<td></td>
+<td>S13</td>
+<td>Distribución completa</td>
+</tr>
+<tr class="odd">
+<td>¿Cuántos genes? ¿Cuántas CDS?</td>
+<td></td>
+<td>S12, validada en S13</td>
+<td>Conteo acotado, con falsos positivos documentados</td>
+</tr>
+</tbody>
+</table>
+<p>Ese conjunto es el <strong>Estado 1 del genoma</strong>: la descripción más completa que se puede sostener con las herramientas de S10–S13. Es también el material de la semana de práctica integradora (S14–S15), de la revisión por pares (S16) y de la evaluación individual demostrativa (S17).</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Lee la última columna de arriba abajo. Ninguna celda dice “correcto” o “definitivo”: todas dicen <strong>de qué tipo</strong> es la evidencia y <strong>cómo</strong> se obtuvo. Un resultado sin esa columna es una cifra suelta; con ella, es un hallazgo.</p>
+</div>
+</div>
+<hr>
+<section id="práctica-7-cerrar-el-estado-1-durante-el-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-7-cerrar-el-estado-1-durante-el-taller">Práctica 7 — Cerrar el Estado 1 <em>(durante el taller)</em></h3>
+<p><strong>Pregunta biológica.</strong> ¿Qué puedo afirmar hoy sobre este genoma, y con qué respaldo?</p>
+<p><strong>Objetivo.</strong> Consolidar las cuatro sesiones en un documento único que otra persona pueda leer sin haber estado presente.</p>
+<p><strong>Pasos.</strong></p>
+<ol type="1">
+<li><p><strong>Reúne los archivos.</strong> Comprueba que en <code>results/s13/</code> tienes:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> results/s13/</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Deberían estar <code>catalogo-tipos.txt</code>, <code>inventario-tipos.txt</code>, <code>inventario-fuentes.txt</code>, <code>replicones-gff.txt</code> y <code>replicones-declarados.txt</code>.</p></li>
+<li><p><strong>Completa la tabla del Estado 1</strong> con tus valores, incluida la columna de calidad de la evidencia.</p></li>
+<li><p><strong>Escribe la síntesis.</strong> Un párrafo de seis a ocho líneas que responda la pregunta rectora de la unidad —<em>¿qué puedo afirmar sobre este genoma a partir de la evidencia contenida en sus archivos?</em>— usando solo lo que has demostrado.</p></li>
+<li><p><strong>Escribe las limitaciones.</strong> Tres frases, cada una empezando por <em>“No puedo afirmar…”</em>, con la razón técnica o biológica de cada límite. Reúne aquí las que fuiste anotando al cierre de cada práctica.</p></li>
+<li><p><strong>Marca lo que habrá que verificar.</strong> Recorre tu tabla y señala <strong>qué resultados requieren comprobación posterior</strong>, con la sesión en la que podrás hacerla. Un cuaderno de laboratorio no solo registra lo hecho: registra lo pendiente.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Resultado</th>
+<th>Por qué requiere verificación</th>
+<th>Cuándo se podrá</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></li>
+<li><p><strong>Prueba de lectura cruzada.</strong> Intercambia tu tabla con la de un compañero que trabaje otro organismo. Sin ver sus archivos, ¿puedes decir qué clase de genoma analizó? Si no puedes, a su tabla le falta información; dile cuál.</p>
+<p>Esto es, en pequeño, un <strong>contraste entre fuentes independientes</strong>: dos análisis hechos por separado que se someten mutuamente a prueba. En S21 harás lo mismo, pero contra una base de datos pública en vez de contra un compañero.</p></li>
+</ol>
+<p><strong>Producto.</strong> Tabla del Estado 1, síntesis, lista de limitaciones y tabla de verificaciones pendientes, listos para pasar al protocolo.</p>
+<p><strong>Criterio de logro:</strong> tu Estado 1 es legible por alguien ajeno, cada afirmación indica de qué evidencia procede, las limitaciones están formuladas en términos de lo que la estrategia no puede garantizar, y las verificaciones pendientes tienen fecha y motivo.</p>
+<hr>
+</section>
+</section>
+<section id="qué-mejoró-hoy-y-qué-sigue-sin-resolverse-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="qué-mejoró-hoy-y-qué-sigue-sin-resolverse-indispensable">8. Qué mejoró hoy y qué sigue sin resolverse [Indispensable]</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Pregunta</th>
+<th>Estrategia en S12</th>
+<th>Estrategia en S13</th>
+<th>Qué mejoró</th>
+<th>Qué sigue faltando</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>¿Qué tipos de <em>feature</em> hay?</td>
+<td>Preguntar por los que se te ocurrían</td>
+<td>Catálogo exhaustivo desde el archivo</td>
+<td>De <strong>adivinar</strong> a <strong>enumerar</strong>: ya no puedes omitir una categoría</td>
+<td>El catálogo aún incluye residuos <code>#!</code> que hay que filtrar aparte</td>
+</tr>
+<tr class="even">
+<td>¿Cuántos hay de cada tipo?</td>
+<td><code>grep -c</code> uno por uno</td>
+<td>Distribución completa en un paso</td>
+<td>De artesanal a <strong>exhaustivo y ordenable</strong></td>
+<td>Cuenta registros de la columna 3, no objetos biológicos</td>
+</tr>
+<tr class="odd">
+<td>¿Cuántas fuentes de anotación?</td>
+<td>No se podía responder</td>
+<td>Distribución completa</td>
+<td>Aparece la <strong>procedencia interna</strong> del archivo</td>
+<td>No se puede contrastar con otra fuente todavía (S21)</td>
+</tr>
+<tr class="even">
+<td>¿Cuántos replicones?</td>
+<td>Provisional desde S11</td>
+<td>Tres caminos, con su independencia evaluada</td>
+<td>De <strong>indicio</strong> a <strong>conclusión validada y ponderada</strong></td>
+<td>Dos de las tres evidencias comparten origen: falta una fuente externa (S21)</td>
+</tr>
+<tr class="odd">
+<td>¿De qué tamaño es el genoma?</td>
+<td>Medición directa de bases</td>
+<td>Contraste con las longitudes declaradas</td>
+<td>Segunda evidencia independiente del mismo valor</td>
+<td>No se puede sumar ni separar por replicón sin calcular (S22)</td>
+</tr>
+<tr class="even">
+<td>¿Cuántos genes?</td>
+<td>Conteo acotado a columna y palabra</td>
+<td>Validado contra el inventario</td>
+<td>El número <strong>coincide por dos caminos</strong></td>
+<td>Sigue incluyendo pseudogenes; el patrón sigue siendo literal</td>
+</tr>
+</tbody>
+</table>
+<p>Hoy dejaste de depender de tu imaginación para saber qué hay en el archivo. Pero mira la última fila con atención, porque ahí está la deuda que no has pagado: <strong>tu forma de nombrar lo que buscas sigue siendo un texto suelto</strong>, que puede aparecer en cualquier posición y dentro de cualquier palabra.</p>
+<p>Concretamente, hoy no puedes expresar ninguna de estas tres ideas:</p>
+<ul>
+<li><em>la palabra completa</em>, no una parte de otra palabra;</li>
+<li><em>al principio del campo</em>, no en cualquier lugar de la línea;</li>
+<li><em>exactamente esto y nada más</em>, no “esto en algún sitio”.</li>
+</ul>
+<p>Rodeaste el problema encadenando <code>cut</code> y <code>grep -w</code>, y funcionó. Pero funcionó por las características concretas de tu archivo, no porque hayas dicho lo que querías decir. Y lo mismo te pasó con los residuos <code>#!</code>: tuviste que apilar un filtro más porque no puedes escribir <em>“las líneas que empiezan por almohadilla”</em>.</p>
+<p>Esas frases existen, se escriben y se pueden ejecutar. Es el contenido de <strong>S18</strong>.</p>
+</section>
+<section id="documentar-la-sección-del-protocolo-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="documentar-la-sección-del-protocolo-indispensable">9. Documentar: la sección del protocolo [Indispensable]</h2>
+<p>Agrega a <code>doc/protocolo.md</code>, después de la sección de S12, la sección que cierra el bloque. No reinicies nada: es el mismo documento desde U1.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## S13 — Inventario del genoma (Estado 1)</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Pregunta biológica:** ¿Qué contiene la anotación de este genoma, en qué proporciones, quién la</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  produjo y de cuántos replicones está compuesto?</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Hipótesis o expectativa previa:** (catálogo predicho en la Práctica 1, con su orden esperado)</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Datos necesarios y archivo utilizado:** …</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Estrategia de análisis:** describir la variable completa en lugar de buscar valores concretos:</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>  extraer la columna, agrupar los valores iguales, contar cada grupo y ordenar por frecuencia.</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Comandos ejecutados:** (exactos, ejecutables tal cual)</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Resultados obtenidos:**</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>  **Inventario de tipos de *feature***</span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>  | Tipo | Frecuencia | % del total | Interpretación |</span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>  | --- | ---: | ---: | --- |</span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>  | … | … | … | … |</span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a>  Tipos distintos: … · Total de registros: … *(la suma de frecuencias debe cuadrar con este total)*</span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a>  **Fuentes de anotación**</span>
+<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a>  | Fuente | Frecuencia | % del total | ¿Base de datos o predictor? |</span>
+<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a>  | --- | ---: | ---: | --- |</span>
+<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a>  | … | … | … | … |</span>
+<span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-26"><a href="#cb38-26" aria-hidden="true" tabindex="-1"></a>  **Número de replicones — tres evidencias y su grado de independencia**</span>
+<span id="cb38-27"><a href="#cb38-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-28"><a href="#cb38-28" aria-hidden="true" tabindex="-1"></a>  | Camino | Evidencia | Archivo de origen | Número | Identificadores | ¿Coincide? |</span>
+<span id="cb38-29"><a href="#cb38-29" aria-hidden="true" tabindex="-1"></a>  | --- | --- | --- | ---: | --- | --- |</span>
+<span id="cb38-30"><a href="#cb38-30" aria-hidden="true" tabindex="-1"></a>  | 1 | Encabezados <span class="in">`&gt;`</span> del FASTA | FASTA | … | … | … |</span>
+<span id="cb38-31"><a href="#cb38-31" aria-hidden="true" tabindex="-1"></a>  | 2 | Valores distintos de la columna 1 del GFF3 | GFF3 (cuerpo) | … | … | … |</span>
+<span id="cb38-32"><a href="#cb38-32" aria-hidden="true" tabindex="-1"></a>  | 3 | Directivas <span class="in">`##sequence-region`</span> | GFF3 (encabezado) | … | … | … |</span>
+<span id="cb38-33"><a href="#cb38-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-34"><a href="#cb38-34" aria-hidden="true" tabindex="-1"></a>  Conclusión: el genoma está compuesto por … replicones. Los caminos 2 y 3 comparten origen, de modo</span>
+<span id="cb38-35"><a href="#cb38-35" aria-hidden="true" tabindex="-1"></a>  que la evidencia que aporta contraste real es …</span>
+<span id="cb38-36"><a href="#cb38-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-37"><a href="#cb38-37" aria-hidden="true" tabindex="-1"></a>  **Refinamiento de la pregunta "tamaño del genoma"**</span>
+<span id="cb38-38"><a href="#cb38-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-39"><a href="#cb38-39" aria-hidden="true" tabindex="-1"></a>  | Sesión | Estrategia | Valor | Naturaleza | Error conocido |</span>
+<span id="cb38-40"><a href="#cb38-40" aria-hidden="true" tabindex="-1"></a>  | --- | --- | ---: | --- | --- |</span>
+<span id="cb38-41"><a href="#cb38-41" aria-hidden="true" tabindex="-1"></a>  | S10 | <span class="in">`wc -c`</span> del archivo | … | Medición del archivo | Desconocido |</span>
+<span id="cb38-42"><a href="#cb38-42" aria-hidden="true" tabindex="-1"></a>  | S11 | Estimación por estructura | … | Estimación | ≈ …% |</span>
+<span id="cb38-43"><a href="#cb38-43" aria-hidden="true" tabindex="-1"></a>  | S12 | <span class="in">`grep -v "&gt;" \| tr -d "\n" \| wc -c`</span> | … | Medición de bases | … |</span>
+<span id="cb38-44"><a href="#cb38-44" aria-hidden="true" tabindex="-1"></a>  | S13 | Suma de longitudes declaradas en <span class="in">`##sequence-region`</span> | … | Declaración del productor | … |</span>
+<span id="cb38-45"><a href="#cb38-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-46"><a href="#cb38-46" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Qué aprendí hoy sobre este genoma:** tres o cuatro frases en prosa, no en tabla. Qué sé ahora</span>
+<span id="cb38-47"><a href="#cb38-47" aria-hidden="true" tabindex="-1"></a>  que no sabía al empezar la sesión, y qué de lo que creía saber resultó ser distinto (empieza por</span>
+<span id="cb38-48"><a href="#cb38-48" aria-hidden="true" tabindex="-1"></a>  la comparación entre tu catálogo predicho y el real).</span>
+<span id="cb38-49"><a href="#cb38-49" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Interpretación biológica:** perfil de anotación (categoría dominante, categorías raras,</span>
+<span id="cb38-50"><a href="#cb38-50" aria-hidden="true" tabindex="-1"></a>  categorías ausentes y su explicación); cociente CDS/gene y lo que sugiere; naturaleza de las</span>
+<span id="cb38-51"><a href="#cb38-51" aria-hidden="true" tabindex="-1"></a>  fuentes y qué proporción del inventario depende de predicción; tipo de genoma según el número y</span>
+<span id="cb38-52"><a href="#cb38-52" aria-hidden="true" tabindex="-1"></a>  las longitudes de sus replicones.</span>
+<span id="cb38-53"><a href="#cb38-53" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Consistencia de la evidencia:** qué resultados se obtuvieron por más de un camino y si</span>
+<span id="cb38-54"><a href="#cb38-54" aria-hidden="true" tabindex="-1"></a>  coincidieron; **qué grado de independencia** tienen entre sí esos caminos; cómo se explica cada</span>
+<span id="cb38-55"><a href="#cb38-55" aria-hidden="true" tabindex="-1"></a>  discrepancia encontrada.</span>
+<span id="cb38-56"><a href="#cb38-56" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Resultados que requieren verificación posterior:**</span>
+<span id="cb38-57"><a href="#cb38-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-58"><a href="#cb38-58" aria-hidden="true" tabindex="-1"></a>  | Resultado de hoy | Por qué no es definitivo | Con qué se verificará | Sesión |</span>
+<span id="cb38-59"><a href="#cb38-59" aria-hidden="true" tabindex="-1"></a>  | --- | --- | --- | --- |</span>
+<span id="cb38-60"><a href="#cb38-60" aria-hidden="true" tabindex="-1"></a>  | Conteo de <span class="in">`gene`</span> | Incluye pseudogenes; el patrón es literal | Patrón anclado al campo exacto | S18 |</span>
+<span id="cb38-61"><a href="#cb38-61" aria-hidden="true" tabindex="-1"></a>  | Frecuencias por tipo y por fuente | Sin contraste con una fuente ajena a este archivo | Comparación con otra base de datos | S21 |</span>
+<span id="cb38-62"><a href="#cb38-62" aria-hidden="true" tabindex="-1"></a>  | Tamaño del genoma | Suma manual; no separable por replicón | Cálculo sobre coordenadas | S22 |</span>
+<span id="cb38-63"><a href="#cb38-63" aria-hidden="true" tabindex="-1"></a>  | *(añade los tuyos)* | | | |</span>
+<span id="cb38-64"><a href="#cb38-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-65"><a href="#cb38-65" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Limitaciones de esta estrategia:**</span>
+<span id="cb38-66"><a href="#cb38-66" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>El inventario cuenta **registros del archivo**, no objetos biológicos: un gen genera varios</span>
+<span id="cb38-67"><a href="#cb38-67" aria-hidden="true" tabindex="-1"></a>    registros y <span class="in">`gene`</span> incluye pseudogenes.</span>
+<span id="cb38-68"><a href="#cb38-68" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>El catálogo requiere filtrar aparte los residuos <span class="in">`#!`</span>, porque el patrón no puede describir el</span>
+<span id="cb38-69"><a href="#cb38-69" aria-hidden="true" tabindex="-1"></a>    inicio de línea.</span>
+<span id="cb38-70"><a href="#cb38-70" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span><span class="in">`gene`</span> y <span class="in">`pseudogene`</span> son categorías distintas en el archivo, pero un patrón literal no puede</span>
+<span id="cb38-71"><a href="#cb38-71" aria-hidden="true" tabindex="-1"></a>    pedir una sin la otra.</span>
+<span id="cb38-72"><a href="#cb38-72" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Las proporciones se calcularon a mano; no hay todavía forma de calcularlas sobre el archivo.</span>
+<span id="cb38-73"><a href="#cb38-73" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Dos de las tres evidencias sobre replicones provienen del mismo archivo: un error de su</span>
+<span id="cb38-74"><a href="#cb38-74" aria-hidden="true" tabindex="-1"></a>    productor no sería detectable con ellas.</span>
+<span id="cb38-75"><a href="#cb38-75" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Mejoras respecto a la estrategia anterior:** el conteo dejó de depender de qué tipos se le</span>
+<span id="cb38-76"><a href="#cb38-76" aria-hidden="true" tabindex="-1"></a>  ocurrían al analista; el número de replicones pasó de provisional a validado, y además con el peso</span>
+<span id="cb38-77"><a href="#cb38-77" aria-hidden="true" tabindex="-1"></a>  de cada evidencia declarado.</span>
+<span id="cb38-78"><a href="#cb38-78" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Conclusiones provisionales — Estado 1 del genoma:** (tabla del Estado 1 y síntesis de la</span>
+<span id="cb38-79"><a href="#cb38-79" aria-hidden="true" tabindex="-1"></a>  Práctica 7)</span>
+<span id="cb38-80"><a href="#cb38-80" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Nuevas preguntas que abre:** ¿cómo se pide exactamente una categoría y no las que la contienen?</span>
+<span id="cb38-81"><a href="#cb38-81" aria-hidden="true" tabindex="-1"></a>  Más la pregunta abierta que anotaste en la Práctica 3: la categoría cuya frecuencia no supiste</span>
+<span id="cb38-82"><a href="#cb38-82" aria-hidden="true" tabindex="-1"></a>  explicar.</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Conserva el bloque de S12 tal como está. En S18 volverás sobre estos mismos números con patrones más precisos, y la comparación entre las tres versiones —S12, S13, S18— es la evidencia de que tu análisis mejoró. Un protocolo del que se borran las versiones anteriores pierde exactamente aquello que lo hace un cuaderno de laboratorio.</p>
+</div>
+</div>
+</section>
+<section id="evidencia-de-la-sesión" class="level2">
+<h2 class="anchored" data-anchor-id="evidencia-de-la-sesión">Evidencia de la sesión</h2>
+<p>Entrega o conserva, según indique el docente:</p>
+<ol type="1">
+<li>catálogo predicho y su comparación con el real (Práctica 1 y Práctica 2);</li>
+<li><code>results/s13/catalogo-tipos.txt</code> y el número de tipos distintos;</li>
+<li><code>results/s13/inventario-tipos.txt</code> con la comprobación de que las frecuencias suman el total;</li>
+<li>tabla de proporciones, cociente CDS/gene predicho y explicado, y comparación razonada con un genoma eucarionte (Práctica 4);</li>
+<li><code>results/s13/inventario-fuentes.txt</code> con su predicción previa y la clasificación de cada fuente (Práctica 5);</li>
+<li>razonamiento previo sobre el peso de las evidencias, tabla de las tres evidencias con su origen y contraste del tamaño del genoma (Práctica 6);</li>
+<li>tabla del <strong>Estado 1 del genoma</strong> con su síntesis, sus limitaciones y sus verificaciones pendientes (Práctica 7);</li>
+<li>las declaraciones <em>«puedo afirmar / todavía no puedo afirmar»</em> de cada práctica;</li>
+<li>sección S13 de <code>doc/protocolo.md</code>.</li>
+</ol>
+</section>
+<section id="errores-frecuentes-y-estrategias-de-diagnóstico" class="level2">
+<h2 class="anchored" data-anchor-id="errores-frecuentes-y-estrategias-de-diagnóstico">Errores frecuentes y estrategias de diagnóstico</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Error</th>
+<th>Por qué ocurre</th>
+<th>Estrategia de diagnóstico</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Usar <code>uniq</code> sin ordenar antes</td>
+<td>Se supone que <code>uniq</code> compara con todo el archivo, no con la línea anterior</td>
+<td>Comparar el número de líneas de la salida con el del catálogo <code>sort -u</code>: si es mucho mayor, faltó ordenar</td>
+</tr>
+<tr class="even">
+<td>Ordenar la salida de <code>uniq -c</code> con <code>sort -r</code> sin <code>-n</code></td>
+<td>Se olvida que el orden por defecto es alfabético</td>
+<td>Comprobar si <code>1000</code> aparece antes que <code>999</code>; si es así, falta <code>-n</code></td>
+</tr>
+<tr class="odd">
+<td>Ordenar una tabla de varios campos sin indicar cuál decide</td>
+<td>Se supone que <code>sort</code> “entiende” la tabla, cuando compara la línea desde el primer carácter</td>
+<td>Preguntarse cuál es el campo que decide y pasarlo con <code>-k</code>; verificar mirando la primera y la última línea</td>
+</tr>
+<tr class="even">
+<td>Aceptar como categoría una línea <code>#!</code></td>
+<td>Se confía en que el archivo ya estaba limpio</td>
+<td>Leer el catálogo completo: una “categoría” con espacios y aspecto de frase no es un tipo de <em>feature</em></td>
+</tr>
+<tr class="odd">
+<td>Leer el inventario como número de objetos biológicos</td>
+<td>Registro y objeto se parecen demasiado</td>
+<td>Escribir siempre “N registros de tipo X”; comprobar el cociente CDS/gene antes de afirmar nada</td>
+</tr>
+<tr class="even">
+<td>Sumar las frecuencias de <code>gene</code> y <code>CDS</code> como si fueran cosas distintas</td>
+<td>Se ignora la jerarquía de la anotación</td>
+<td>Localizar un gen concreto y ver cuántos registros genera</td>
+</tr>
+<tr class="odd">
+<td>Concluir que una categoría no existe en el organismo porque no está en el archivo</td>
+<td>Se confunde ausencia en el archivo con ausencia biológica</td>
+<td>Escribir “no aparece en esta anotación”; comprobar la fuente y la completitud del archivo</td>
+</tr>
+<tr class="even">
+<td>Dar por validado el número de replicones porque los tres totales coinciden</td>
+<td>Se comparan cantidades, no identidades</td>
+<td>Comparar también los <strong>nombres</strong> uno a uno</td>
+</tr>
+<tr class="odd">
+<td>Contar el número de comprobaciones en vez de valorar su independencia</td>
+<td>Se supone que más evidencias es siempre más solidez</td>
+<td>Preguntar de qué archivo sale cada una: las que comparten origen comparten sus errores</td>
+</tr>
+<tr class="even">
+<td>Interpretar frecuencias absolutas entre genomas distintos</td>
+<td>Los tamaños no son comparables</td>
+<td>Convertir siempre a proporción antes de comparar</td>
+</tr>
+<tr class="odd">
+<td>Reejecutar toda la tubería sin verificar eslabón por eslabón</td>
+<td>Se confía en que si no hay error, está bien</td>
+<td>Añadir un eslabón por vez y mirar con <code>head</code></td>
+</tr>
+<tr class="even">
+<td>Perder la trazabilidad del archivo derivado</td>
+<td>Se guarda la salida sin anotar el comando</td>
+<td>Cada archivo de <code>results/s13/</code> va al protocolo con su comando exacto</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="rúbricas" class="level2">
+<h2 class="anchored" data-anchor-id="rúbricas">Rúbricas</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterio</th>
+<th>Logrado</th>
+<th>Parcialmente logrado</th>
+<th>Aún no logrado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Primer intento</td>
+<td>Predice un catálogo ordenado, lo justifica biológicamente y admite su posible incompletitud</td>
+<td>Predice una lista sin ordenar ni justificar</td>
+<td>No presenta predicción</td>
+</tr>
+<tr class="even">
+<td>Catálogo completo</td>
+<td>Obtiene el catálogo, detecta el residuo <code>#!</code> y explica su origen</td>
+<td>Obtiene el catálogo pero acepta el residuo como categoría</td>
+<td>No consigue enumerar los valores distintos</td>
+</tr>
+<tr class="odd">
+<td>Distribución de frecuencias</td>
+<td>Construye la distribución ordenada y comprueba que las frecuencias suman el total</td>
+<td>Construye la distribución sin verificar la suma</td>
+<td>Presenta conteos sueltos o una salida sin ordenar</td>
+</tr>
+<tr class="even">
+<td>Comprensión de <code>sort</code> + <code>uniq</code></td>
+<td>Demuestra con su contraejemplo por qué <code>uniq</code> requiere <code>sort</code> y lo explica</td>
+<td>Sabe que hay que ordenar pero no explica por qué</td>
+<td>Usa <code>uniq</code> sin ordenar y no detecta el problema</td>
+</tr>
+<tr class="odd">
+<td>Predicción y contraste</td>
+<td>Predice antes de ejecutar en las prácticas que lo piden y analiza por qué acertó o falló</td>
+<td>Predice pero no vuelve sobre la predicción</td>
+<td>Ejecuta primero y racionaliza después</td>
+</tr>
+<tr class="even">
+<td>Lectura descriptiva</td>
+<td>Identifica dominante, raras y ausentes, usa proporciones y razona cómo cambiaría el perfil en otro organismo</td>
+<td>Describe solo la categoría dominante</td>
+<td>Se limita a transcribir la tabla</td>
+</tr>
+<tr class="odd">
+<td>Declaración de límites</td>
+<td>Cierra cada práctica distinguiendo lo que puede y lo que no puede afirmar, con la razón</td>
+<td>Declara límites solo al final de la sesión</td>
+<td>No delimita el alcance de sus resultados</td>
+</tr>
+<tr class="even">
+<td>Registro vs.&nbsp;objeto biológico</td>
+<td>Formula todos sus resultados como registros y justifica cualquier equivalencia</td>
+<td>Lo menciona pero luego escribe “N genes” sin justificar</td>
+<td>Presenta el inventario como recuento de objetos biológicos</td>
+</tr>
+<tr class="odd">
+<td>Fuentes de anotación</td>
+<td>Inventaría, clasifica y relaciona con la ficha de procedencia de U3</td>
+<td>Inventaría sin clasificar ni conectar con U3</td>
+<td>No trabaja la columna de fuentes</td>
+</tr>
+<tr class="even">
+<td>Validación de replicones</td>
+<td>Anticipa qué evidencia pesa más, obtiene los tres caminos, compara números <strong>y</strong> nombres, y reconoce que dos comparten origen</td>
+<td>Obtiene los tres números pero no compara identificadores ni pondera las evidencias</td>
+<td>Presenta un solo camino</td>
+</tr>
+<tr class="odd">
+<td>Estado 1 e interpretación</td>
+<td>La tabla es legible por alguien ajeno y cada afirmación indica su evidencia</td>
+<td>La tabla está completa pero sin indicar la calidad de la evidencia</td>
+<td>No consolida los resultados</td>
+</tr>
+<tr class="even">
+<td>Documentación</td>
+<td>El protocolo incluye inventarios, validación, interpretación y limitaciones</td>
+<td>Documenta resultados sin limitaciones ni consistencia</td>
+<td>No documenta o borra lo anterior</td>
+</tr>
+</tbody>
+</table>
+<p>La rúbrica es formativa: en esta sesión no hay entrega calificada; la evidencia constituye el <strong>Estado 1 del genoma</strong> que se somete a revisión por pares en S16 y se evalúa individualmente en S17.</p>
+</section>
+<section id="autoevaluación" class="level2">
+<h2 class="anchored" data-anchor-id="autoevaluación">Autoevaluación</h2>
+<section id="comprobación-rápida-formativa-al-final-del-taller" class="level3">
+<h3 class="anchored" data-anchor-id="comprobación-rápida-formativa-al-final-del-taller">Comprobación rápida — formativa, al final del taller</h3>
+<ol type="1">
+<li>¿Qué diferencia hay entre preguntar “¿cuántos hay de esto?” y “¿qué hay y en qué proporciones?”</li>
+<li>¿Por qué <code>uniq</code> necesita que las líneas estén ordenadas? ¿Qué devuelve si no lo están?</li>
+<li>¿Qué hace <code>sort -u</code> que no hace <code>sort</code> a secas?</li>
+<li>¿Por qué la salida de <code>uniq -c</code> se ordena con <code>-n</code> y no solo con <code>-r</code>?</li>
+<li>Sobre una línea con varios campos, ¿qué compara <code>sort</code> si no le indicas ninguno? ¿Qué campo tuviste que indicarle para ordenar los replicones por longitud, y por qué ese y no otro?</li>
+<li>¿Por qué el número de registros <code>CDS</code> no es necesariamente el número de proteínas del organismo?</li>
+<li>Tu inventario no contiene la categoría <code>tRNA</code>. ¿Qué puedes y qué no puedes concluir?</li>
+<li>Los tres caminos para contar replicones dan el mismo número. ¿Por qué eso vale más que repetir tres veces el mismo comando? ¿Y por qué esas tres coincidencias <strong>no</strong> valen lo mismo entre sí?</li>
+<li>¿Qué error de tu análisis no podrían detectar los caminos 2 y 3 aunque coincidieran perfectamente?</li>
+<li>¿Qué limitación te impide hoy contar <code>gene</code> sin contar <code>pseudogene</code>?</li>
+</ol>
+</section>
+<section id="semáforo" class="level3">
+<h3 class="anchored" data-anchor-id="semáforo">Semáforo</h3>
+<ul>
+<li>🟢 <strong>Verde:</strong> construyo la distribución completa de una columna, la interpreto con proporciones, distingo registros de objetos biológicos, sostengo el número de replicones con evidencias cuyo peso sé valorar, y digo con claridad qué no puedo afirmar todavía.</li>
+<li>🟡 <strong>Amarillo:</strong> obtengo el inventario pero me cuesta interpretarlo, no verifico que las frecuencias sumen el total, o enumero evidencias sin distinguir cuáles son realmente independientes.</li>
+<li>🔴 <strong>Rojo:</strong> uso <code>uniq</code> sin ordenar, o presento el inventario como el número de objetos biológicos del organismo.</li>
+</ul>
+<p>Si estás en amarillo o rojo, repite las Prácticas 3 y 4: la habilidad central de hoy no es escribir la tubería, es <strong>leer</strong> lo que produce.</p>
+</section>
+</section>
+<section id="cierre-de-s13-y-puente-hacia-s18" class="level2">
+<h2 class="anchored" data-anchor-id="cierre-de-s13-y-puente-hacia-s18">Cierre de S13 y puente hacia S18</h2>
+<p>Cuatro sesiones atrás, todo lo que sabías de tu genoma era su procedencia. Hoy cierras el bloque sabiendo de qué está hecho:</p>
+<pre class="text"><code>S10   el archivo existe y puedo medirlo         →  bytes y líneas, con su advertencia
+S11   el archivo es una tabla con significado   →  columnas, coordenadas, replicones (provisional)
+S12   puedo seleccionar lo pertinente           →  primeros números defendibles, y sus falsos positivos
+S13   el archivo me dice de qué está hecho      →  inventario completo, fuentes, replicones validados</code></pre>
+<p>Ese es el <strong>Estado 1 del genoma</strong>: tamaño, replicones, tipos de <em>feature</em>, distribución de las anotaciones, fuentes que las produjeron y —tan importante como lo anterior— las limitaciones conocidas de cada una de esas afirmaciones. Es lo que llevas a la semana de práctica integradora y a las sesiones de evaluación S16–S17, y es también la primera vez en el curso que puedes <strong>describir un genoma a alguien que no ha visto tus archivos</strong>.</p>
+<p>Si tuvieras que resumir la sesión en una frase, no sería “aprendí <code>sort</code> y <code>uniq</code>”. Sería <em>“aprendí a pedirle a un archivo que me diga qué contiene, en lugar de preguntarle solo por lo que se me ocurría”</em>. Y esa es una diferencia entre dos formas de investigar, no entre dos comandos.</p>
+<p>Y sin embargo, mira una última vez tu inventario. Ahí están, en líneas separadas y con frecuencias distintas —los números serán los de tu organismo, pero el patrón será este—:</p>
+<pre class="text"><code>   N  gene
+   n  pseudogene</code></pre>
+<p>El archivo distingue las dos categorías sin ninguna dificultad. Tú no. Cada vez que has necesitado precisión, la has conseguido <strong>rodeando</strong> el problema: recortando la columna antes, exigiendo palabra completa, apilando un filtro más. Funcionó, pero funcionó por cómo es tu archivo, no porque hayas dicho lo que querías decir.</p>
+<p>Lo que falta es poder <strong>decir exactamente lo que quieres decir</strong>: la palabra completa, al inicio del campo, esto y nada más. Es un lenguaje, existe, y lo aprenderás en <strong>S18</strong>, cuando vuelvas sobre estos mismos números para corregirlos y documentar cuánto se equivocaban.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Guarda <code>results/s13/</code> completo y no lo modifiques. En S18 compararás tus conteos de hoy con los que obtengas entonces, y la diferencia entre ambos será la evidencia de que tu análisis mejoró. Entre tanto, S14–S15 te darán la oportunidad de aplicar todo esto a datos nuevos.</p>
+</div>
+</div>
+</section>
+<section id="anexo-a.-correspondencia-resultadoactividadevidenciacriterio" class="level2">
+<h2 class="anchored" data-anchor-id="anexo-a.-correspondencia-resultadoactividadevidenciacriterio">Anexo A. Correspondencia resultado–actividad–evidencia–criterio</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Resultado</th>
+<th>Actividad</th>
+<th>Evidencia</th>
+<th>Criterio</th>
+<th>Momento</th>
+<th>Nivel en U4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RA1 Distinguir pregunta de búsqueda de pregunta descriptiva</td>
+<td>Sección 2, Práctica 1</td>
+<td>Predicción del catálogo</td>
+<td>Reconoce que el vocabulario debe salir del archivo</td>
+<td>Antes/taller</td>
+<td>Comprensión</td>
+</tr>
+<tr class="even">
+<td>RA2 Obtener el catálogo completo</td>
+<td>Sección 2, Práctica 2</td>
+<td><code>results/s13/catalogo-tipos.txt</code></td>
+<td>Enumera valores distintos sin conocerlos de antemano</td>
+<td>Taller</td>
+<td>Aplicación guiada</td>
+</tr>
+<tr class="odd">
+<td>RA3 Explicar por qué agrupar exige ordenar</td>
+<td>Sección 2, Práctica 3</td>
+<td>Contraejemplo con su explicación</td>
+<td>Ejecuta <code>uniq</code> sin <code>sort</code> e interpreta la salida</td>
+<td>Taller</td>
+<td>Comprensión demostrada</td>
+</tr>
+<tr class="even">
+<td>RA4 Construir la distribución de frecuencias</td>
+<td>Sección 3, Práctica 3</td>
+<td><code>results/s13/inventario-tipos.txt</code></td>
+<td>Las frecuencias suman el total de registros</td>
+<td>Taller</td>
+<td>Aplicación guiada</td>
+</tr>
+<tr class="odd">
+<td>RA5 Leer la distribución</td>
+<td>Sección 4, Práctica 4</td>
+<td>Tabla de proporciones e interpretación</td>
+<td>Identifica dominante, raras y ausentes con proporciones y razona el caso eucarionte</td>
+<td>Taller</td>
+<td>Aplicación autónoma</td>
+</tr>
+<tr class="even">
+<td>RA6 Distinguir registros de objetos biológicos</td>
+<td>Sección 4, Prácticas 4 y 7</td>
+<td>Frase de límite en la interpretación</td>
+<td>Formula los resultados como registros y justifica toda equivalencia</td>
+<td>Taller/después</td>
+<td>Aplicación autónoma</td>
+</tr>
+<tr class="odd">
+<td>RA7 Establecer los replicones por tres caminos</td>
+<td>Sección 6, Práctica 6</td>
+<td>Tabla de las tres evidencias con su origen</td>
+<td>Compara números <strong>e</strong> identificadores, pondera la independencia e interpreta discrepancias</td>
+<td>Taller</td>
+<td>Aplicación autónoma</td>
+</tr>
+<tr class="even">
+<td>RA8 Documentar el inventario como Estado 1</td>
+<td>Secciones 7 y 9, Práctica 7</td>
+<td>Sección S13 del protocolo</td>
+<td>Incluye interpretación, consistencia, limitaciones y verificaciones pendientes</td>
+<td>Después</td>
+<td>Aplicación autónoma</td>
+</tr>
+<tr class="odd">
+<td>RA9 Formular predicciones y contrastarlas con la evidencia</td>
+<td>Prácticas 1, 4, 5 y 6</td>
+<td>Predicciones escritas antes de ejecutar, con su contraste posterior</td>
+<td>La predicción está justificada y se analiza por qué acertó o falló</td>
+<td>Antes/taller</td>
+<td>Aplicación autónoma</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="anexo-b.-alineación-transversal" class="level2">
+<h2 class="anchored" data-anchor-id="anexo-b.-alineación-transversal">Anexo B. Alineación transversal</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Actividad</th>
+<th>Reproducibilidad</th>
+<th>Verificación</th>
+<th>Validación</th>
+<th>Robustez</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Catálogo de tipos</td>
+<td>El comando queda junto al archivo en <code>results/s13/</code></td>
+<td>Se lee el catálogo completo antes de aceptarlo</td>
+<td>Se contrasta con el catálogo predicho en el primer intento</td>
+<td>Se detecta el residuo <code>#!</code> y se documenta por qué aparece</td>
+</tr>
+<tr class="even">
+<td>Distribución de frecuencias</td>
+<td>Tubería completa registrada en el protocolo</td>
+<td>Contraejemplo <code>uniq</code> sin <code>sort</code> antes de la versión correcta</td>
+<td>La suma de frecuencias cuadra con el total de registros; <code>gene</code> y <code>CDS</code> coinciden con S12</td>
+<td>Se declara que el conteo es de registros, no de objetos</td>
+</tr>
+<tr class="odd">
+<td>Inventario de fuentes</td>
+<td>Comando y archivo derivado documentados</td>
+<td>Cruce fuente × tipo para comprobar la especialización</td>
+<td>Se contrasta con la ficha de procedencia de U3</td>
+<td>Se distingue evidencia por homología de evidencia por predicción</td>
+</tr>
+<tr class="even">
+<td>Número de replicones</td>
+<td>Los tres comandos quedan en el protocolo</td>
+<td>Se inspeccionan los identificadores, no solo los totales</td>
+<td>Tres caminos —FASTA, columna 1 y directivas— con su grado de independencia declarado</td>
+<td>Se razona antes de ejecutar a qué evidencia creer, y qué error no detectarían las que comparten origen</td>
+</tr>
+<tr class="odd">
+<td>Tamaño del genoma</td>
+<td>Tabla de versiones S10 → S13</td>
+<td>Suma manual de longitudes declaradas</td>
+<td>Contraste entre medición directa (S12) y declaración (S13)</td>
+<td>Se explicita que la suma no separa por replicón</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="glosario" class="level2">
+<h2 class="anchored" data-anchor-id="glosario">Glosario</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Español</th>
+<th>Inglés</th>
+<th>Definición breve</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Variable categórica</td>
+<td>Categorical variable</td>
+<td>Columna cuyos valores son etiquetas, no cantidades</td>
+</tr>
+<tr class="even">
+<td>Catálogo de valores</td>
+<td>Value set, vocabulary</td>
+<td>Conjunto de los valores distintos que toma una variable</td>
+</tr>
+<tr class="odd">
+<td>Frecuencia</td>
+<td>Count, frequency</td>
+<td>Número de veces que aparece un valor</td>
+</tr>
+<tr class="even">
+<td>Distribución de frecuencias</td>
+<td>Frequency distribution</td>
+<td>Lista de los valores distintos con su frecuencia</td>
+</tr>
+<tr class="odd">
+<td>Proporción</td>
+<td>Proportion</td>
+<td>Frecuencia de una categoría respecto al total, en fracción o porcentaje</td>
+</tr>
+<tr class="even">
+<td>Categoría dominante</td>
+<td>Modal category</td>
+<td>La de mayor frecuencia en la distribución</td>
+</tr>
+<tr class="odd">
+<td>Deduplicar</td>
+<td>Deduplicate</td>
+<td>Conservar una sola aparición de cada valor repetido</td>
+</tr>
+<tr class="even">
+<td>Campo</td>
+<td>Field</td>
+<td>Cada una de las partes en que se divide una línea; para <code>sort</code>, separadas por espacios en blanco</td>
+</tr>
+<tr class="odd">
+<td>Clave de ordenamiento</td>
+<td>Sort key</td>
+<td>Campo que decide el orden cuando la línea tiene varios</td>
+</tr>
+<tr class="even">
+<td>Inventario</td>
+<td>Inventory</td>
+<td>Descripción completa del contenido de una variable, con sus frecuencias</td>
+</tr>
+<tr class="odd">
+<td>Replicón</td>
+<td>Replicon</td>
+<td>Molécula de DNA que se replica como unidad: cromosoma, plásmido</td>
+</tr>
+<tr class="even">
+<td>Fuente de anotación</td>
+<td>Annotation source</td>
+<td>Base de datos o programa que generó un registro de anotación</td>
+</tr>
+<tr class="odd">
+<td>Evidencia convergente</td>
+<td>Converging evidence</td>
+<td>Resultado obtenido por caminos independientes que coinciden</td>
+</tr>
+<tr class="even">
+<td>Independencia de la evidencia</td>
+<td>Evidential independence</td>
+<td>Grado en que dos comprobaciones podrían fallar por causas distintas; si comparten origen, comparten sus errores</td>
+</tr>
+<tr class="odd">
+<td>Registro</td>
+<td>Record</td>
+<td>Una línea de datos del archivo; no equivale a un objeto biológico</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="referencias" class="level2">
+<h2 class="anchored" data-anchor-id="referencias">Referencias</h2>
+<ul>
+<li>Sequence Ontology. (2020). <em>Generic Feature Format Version 3 (GFF3) specification</em>. <a href="https://github.com/The-Sequence-Ontology/Specifications/blob/master/gff3.md" class="uri">https://github.com/The-Sequence-Ontology/Specifications/blob/master/gff3.md</a></li>
+<li>Buffalo, V. (2015). <em>Bioinformatics Data Skills</em>. O’Reilly Media. — Cap. 7 (<em>Unix Data Tools</em>: <code>sort</code>, <code>uniq</code> y construcción de tablas de frecuencias sobre archivos tabulares).</li>
+<li>Free Software Foundation. (2024). <em>GNU Coreutils Manual</em> — <code>sort</code>, <code>uniq</code>, <code>cut</code>, <code>wc</code>. <a href="https://www.gnu.org/software/coreutils/manual/coreutils.html" class="uri">https://www.gnu.org/software/coreutils/manual/coreutils.html</a></li>
+<li>National Center for Biotechnology Information (NCBI). (2024). <em>Prokaryotic Genome Annotation Pipeline (PGAP)</em> (fuentes y tipos de <em>feature</em> de los archivos de anotación). <a href="https://www.ncbi.nlm.nih.gov/genome/annotation_prok/" class="uri">https://www.ncbi.nlm.nih.gov/genome/annotation_prok/</a></li>
+<li>Noble, W. S. (2009). A quick guide to organizing computational biology projects. <em>PLoS Computational Biology</em>, 5(7), e1000424. <a href="https://doi.org/10.1371/journal.pcbi.1000424" class="uri">https://doi.org/10.1371/journal.pcbi.1000424</a></li>
+<li>Wilson, G., Bryan, J., Cranston, K., Kitzes, J., Nederbragt, L., &amp; Teal, T. K. (2017). Good enough practices in scientific computing. <em>PLoS Computational Biology</em>, 13(6), e1005510. <a href="https://doi.org/10.1371/journal.pcbi.1005510" class="uri">https://doi.org/10.1371/journal.pcbi.1005510</a></li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/helysalgado\.github\.io\/introbioinfo-unix\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./u4-s12-filtrado-conteos-genoma.html" class="pagination-link" aria-label="S12 — Filtrar y contar">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">S12 — Filtrar y contar</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./u4-s18-precision-patrones-expresiones-regulares.html" class="pagination-link" aria-label="S18 — Patrones">
+        <span class="nav-page-text">S18 — Patrones</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://hits.sh/helysalgado.github.io/introbioinfo-unix/"><img src="https://hits.sh/helysalgado.github.io/introbioinfo-unix/.svg?style=flat-square&amp;label=Visitas&amp;color=4a7c9e" class="img-fluid figure-img"></a></p>
+<figcaption>Visitas</figcaption>
+</figure>
+</div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Helysalgado/introbioinfo-unix/edit/main/u4-s13-inventario-resumen-genoma.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/Helysalgado/introbioinfo-unix/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

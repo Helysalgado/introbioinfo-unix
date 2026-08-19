@@ -1,0 +1,2782 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>u2-s4-sistema-archivos-v3 – Introducción a la Bioinformática</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./u2-s5-archivos-permisos-procesos-v2.html" rel="next">
+<link href="./u2-s3-shell-acceso-remoto.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fe3756b78d23b7733c53f9ce5acac92a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXNMZZP0K9"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-QXNMZZP0K9', { 'anonymize_ip': true});
+</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Introducción a la Bioinformática</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Inicio</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-programa" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Programa</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-programa">    
+        <li>
+    <a class="dropdown-item" href="./programa.html">
+ <span class="dropdown-text">Ruta de sesiones</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./programa-detallado.html">
+ <span class="dropdown-text">Programa detallado</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-unidades" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Unidades</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-unidades">    
+        <li>
+    <a class="dropdown-item" href="./u1-trabajo-reproducible.html">
+ <span class="dropdown-text">U1 — Trabajo reproducible</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u2-entorno-unix.html">
+ <span class="dropdown-text">U2 — Entorno Unix</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u3-datos-bases-datos.html">
+ <span class="dropdown-text">U3 — Datos y bases</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u4-procesamiento-exploracion.html">
+ <span class="dropdown-text">U4 — Procesamiento genómico</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u5-automatizacion-scripting.html">
+ <span class="dropdown-text">U5 — Automatización</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u6-comparacion-homologia.html">
+ <span class="dropdown-text">U6 — Comparar / hipótesis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./s14-s15-mini-proyecto-investigacion-I.html">
+ <span class="dropdown-text">Transversal S14–S17</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="./recursos.html" aria-current="page"> 
+<span class="menu-text">Recursos</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./acerca.html"> 
+<span class="menu-text">Acerca</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./contribuir.html"> 
+<span class="menu-text">Contribuir</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Alternar modo lector">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./u2-entorno-unix.html">Unidad 2</a></li><li class="breadcrumb-item"><a href="./u2-s4-sistema-archivos-v3.html">S4 — Navegar</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 1</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-trabajo-reproducible.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-s1-documentar-markdown-fases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S1 — Documentar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-s2-organizar-fair-ia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S2 — Organizar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Unidad 2</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-entorno-unix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s3-shell-acceso-remoto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S3 — Conectar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s4-sistema-archivos-v3.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">S4 — Navegar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s5-archivos-permisos-procesos-v2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S5 — Archivos y procesos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s6-consolidacion-entorno-unix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S6 — Consolidar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 3</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-datos-bases-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s7-secuencias-formatos-genbank.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S7 — Formatos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s8-bases-datos-descarga-integridad.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S8 — Descargar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s9-inspeccion-transferencia-verificable.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S9 — Transferir</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 4</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-procesamiento-exploracion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s10-anatomia-flujos-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S10 — Anatomía y flujos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s11-estructura-tabular-anotacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S11 — Anotación tabular</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s12-filtrado-conteos-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S12 — Filtrar y contar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s13-inventario-resumen-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S13 — Inventario</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s18-precision-patrones-expresiones-regulares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S18 — Patrones</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s19-extraccion-identificadores-correspondencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S19 — Identificadores</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s20-normalizar-datos-comparables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S20 — Normalizar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s21-confrontar-fuente-independiente.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S21 — Confrontar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s22-condicionar-calcular-columnas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S22 — Condicionar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s23-protocolo-ejecutable-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S23 — Protocolo ejecutable</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Transversal</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s14-s15-mini-proyecto-investigacion-I.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S14–S15 — Mini-proyecto I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s16-mini-proyecto-revision-pares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S16 — Revisión por pares</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s17-evaluacion-individual-demostrativa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S17 — Evaluación demostrativa</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mini-proyecto-dictamen-cientifico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dictamen científico</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 5</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-automatizacion-scripting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s24-del-protocolo-al-script.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S24 — Del protocolo al script</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s25-separar-procedimiento-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S25 — Separar datos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s26-procesamiento-por-lotes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S26 — Por lotes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s27-herramienta-cientifica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S27 — Herramienta científica</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s28-proyecto-integrador.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S28 — Proyecto integrador</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s29-cluster-hpc-sge.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S29 — Cluster SGE</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 6</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-comparacion-homologia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s30-comparar-alinear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S30 — Comparar / alinear</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s31-buscar-blast.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S31 — Buscar (BLAST)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s32-interpretar-inferir.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S32 — Interpretar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s33-defender-hipotesis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S33 — Inferir</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s34-integrar-hipotesis-casos-ciegos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S34 — Integrar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./programa-detallado.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programa detallado</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./recursos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recursos</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#s4-navegar-el-sistema-de-archivos-su-organización-y-su-edición" id="toc-s4-navegar-el-sistema-de-archivos-su-organización-y-su-edición" class="nav-link active" data-scroll-target="#s4-navegar-el-sistema-de-archivos-su-organización-y-su-edición">S4 — Navegar: el sistema de archivos, su organización y su edición</a>
+  <ul class="collapse">
+  <li><a href="#el-problema-que-resolveremos-hoy" id="toc-el-problema-que-resolveremos-hoy" class="nav-link" data-scroll-target="#el-problema-que-resolveremos-hoy">El problema que resolveremos hoy</a></li>
+  <li><a href="#ficha-del-módulo" id="toc-ficha-del-módulo" class="nav-link" data-scroll-target="#ficha-del-módulo">Ficha del módulo</a></li>
+  <li><a href="#relación-con-la-unidad-1-y-con-el-proyecto-integrador" id="toc-relación-con-la-unidad-1-y-con-el-proyecto-integrador" class="nav-link" data-scroll-target="#relación-con-la-unidad-1-y-con-el-proyecto-integrador">Relación con la Unidad 1 y con el proyecto integrador</a></li>
+  <li><a href="#resultados-de-aprendizaje" id="toc-resultados-de-aprendizaje" class="nav-link" data-scroll-target="#resultados-de-aprendizaje">Resultados de aprendizaje</a></li>
+  <li><a href="#antes-de-la-sesión" id="toc-antes-de-la-sesión" class="nav-link" data-scroll-target="#antes-de-la-sesión">Antes de la sesión</a></li>
+  <li><a href="#la-estructura-en-árbol-la-raíz-y-tu-espacio-de-trabajo" id="toc-la-estructura-en-árbol-la-raíz-y-tu-espacio-de-trabajo" class="nav-link" data-scroll-target="#la-estructura-en-árbol-la-raíz-y-tu-espacio-de-trabajo">1. La estructura en árbol, la raíz y tu espacio de trabajo</a></li>
+  <li><a href="#rutas-absolutas-y-relativas" id="toc-rutas-absolutas-y-relativas" class="nav-link" data-scroll-target="#rutas-absolutas-y-relativas">2. Rutas absolutas y relativas</a>
+  <ul class="collapse">
+  <li><a href="#pausa-de-predicción-antes-de-ejecutar" id="toc-pausa-de-predicción-antes-de-ejecutar" class="nav-link" data-scroll-target="#pausa-de-predicción-antes-de-ejecutar">Pausa de predicción — antes de ejecutar</a></li>
+  </ul></li>
+  <li><a href="#navegar-pwd-ls-cd" id="toc-navegar-pwd-ls-cd" class="nav-link" data-scroll-target="#navegar-pwd-ls-cd">3. Navegar: <code>pwd</code>, <code>ls</code>, <code>cd</code></a>
+  <ul class="collapse">
+  <li><a href="#micropráctica-1-reconocer-el-contexto-y-navegar" id="toc-micropráctica-1-reconocer-el-contexto-y-navegar" class="nav-link" data-scroll-target="#micropráctica-1-reconocer-el-contexto-y-navegar">Micropráctica 1 — Reconocer el contexto y navegar</a></li>
+  </ul></li>
+  <li><a href="#crear-directorios-y-archivos" id="toc-crear-directorios-y-archivos" class="nav-link" data-scroll-target="#crear-directorios-y-archivos">4. Crear directorios y archivos</a></li>
+  <li><a href="#copiar-mover-y-renombrar-de-forma-segura" id="toc-copiar-mover-y-renombrar-de-forma-segura" class="nav-link" data-scroll-target="#copiar-mover-y-renombrar-de-forma-segura">5. Copiar, mover y renombrar de forma segura</a>
+  <ul class="collapse">
+  <li><a href="#micropráctica-2-copiar-mover-y-renombrar-en-una-carpeta-de-prueba" id="toc-micropráctica-2-copiar-mover-y-renombrar-en-una-carpeta-de-prueba" class="nav-link" data-scroll-target="#micropráctica-2-copiar-mover-y-renombrar-en-una-carpeta-de-prueba">Micropráctica 2 — Copiar, mover y renombrar en una carpeta de prueba</a></li>
+  </ul></li>
+  <li><a href="#eliminar-de-forma-segura" id="toc-eliminar-de-forma-segura" class="nav-link" data-scroll-target="#eliminar-de-forma-segura">6. Eliminar de forma segura</a>
+  <ul class="collapse">
+  <li><a href="#micropráctica-3-eliminación-segura-solo-en-prueba-s4" id="toc-micropráctica-3-eliminación-segura-solo-en-prueba-s4" class="nav-link" data-scroll-target="#micropráctica-3-eliminación-segura-solo-en-prueba-s4">Micropráctica 3 — Eliminación segura (solo en <code>prueba-s4/</code>)</a></li>
+  </ul></li>
+  <li><a href="#ver-el-árbol-tree-o-ls--r" id="toc-ver-el-árbol-tree-o-ls--r" class="nav-link" data-scroll-target="#ver-el-árbol-tree-o-ls--r">7. Ver el árbol: <code>tree</code> o <code>ls -R</code></a></li>
+  <li><a href="#la-estructura-canónica-del-proyecto" id="toc-la-estructura-canónica-del-proyecto" class="nav-link" data-scroll-target="#la-estructura-canónica-del-proyecto">8. La estructura canónica del proyecto</a>
+  <ul class="collapse">
+  <li><a href="#en-s4-la-construiremos-directamente" id="toc-en-s4-la-construiremos-directamente" class="nav-link" data-scroll-target="#en-s4-la-construiremos-directamente">En S4 la construiremos directamente</a></li>
+  </ul></li>
+  <li><a href="#transferir-el-archivo-que-falta-con-scp" id="toc-transferir-el-archivo-que-falta-con-scp" class="nav-link" data-scroll-target="#transferir-el-archivo-que-falta-con-scp">9. Transferir el archivo que falta con <code>scp</code></a></li>
+  <li><a href="#editar-en-el-servidor-con-nano" id="toc-editar-en-el-servidor-con-nano" class="nav-link" data-scroll-target="#editar-en-el-servidor-con-nano">10. Editar en el servidor con <code>nano</code></a>
+  <ul class="collapse">
+  <li><a href="#anatomía-básica-de-nano" id="toc-anatomía-básica-de-nano" class="nav-link" data-scroll-target="#anatomía-básica-de-nano">Anatomía básica de <code>nano</code></a></li>
+  <li><a href="#ciclo-básico-abrir-editar-guardar-verificar" id="toc-ciclo-básico-abrir-editar-guardar-verificar" class="nav-link" data-scroll-target="#ciclo-básico-abrir-editar-guardar-verificar">Ciclo básico: abrir, editar, guardar, verificar</a></li>
+  <li><a href="#micropráctica-4-editar-y-comprobar-readme.md" id="toc-micropráctica-4-editar-y-comprobar-readme.md" class="nav-link" data-scroll-target="#micropráctica-4-editar-y-comprobar-readme.md">Micropráctica 4 — Editar y comprobar <code>README.md</code></a></li>
+  </ul></li>
+  <li><a href="#clasificación-de-los-comandos-de-s4" id="toc-clasificación-de-los-comandos-de-s4" class="nav-link" data-scroll-target="#clasificación-de-los-comandos-de-s4">Clasificación de los comandos de S4</a></li>
+  <li><a href="#práctica-s4-estructura-de-directorios-del-proyecto-tarea-3" id="toc-práctica-s4-estructura-de-directorios-del-proyecto-tarea-3" class="nav-link" data-scroll-target="#práctica-s4-estructura-de-directorios-del-proyecto-tarea-3">Práctica S4 — Estructura de directorios del proyecto (Tarea 3)</a>
+  <ul class="collapse">
+  <li><a href="#antes-de-clase-primer-intento-formativo" id="toc-antes-de-clase-primer-intento-formativo" class="nav-link" data-scroll-target="#antes-de-clase-primer-intento-formativo">Antes de clase (primer intento) — <em>formativo</em></a></li>
+  <li><a href="#durante-el-taller-formativo-participación-y-corrección" id="toc-durante-el-taller-formativo-participación-y-corrección" class="nav-link" data-scroll-target="#durante-el-taller-formativo-participación-y-corrección">Durante el taller — <em>formativo (participación y corrección)</em></a></li>
+  <li><a href="#después-del-taller-entrega-final-tarea-3-calificación-principal" id="toc-después-del-taller-entrega-final-tarea-3-calificación-principal" class="nav-link" data-scroll-target="#después-del-taller-entrega-final-tarea-3-calificación-principal">Después del taller (entrega final) — <em>Tarea 3 · calificación principal</em></a></li>
+  </ul></li>
+  <li><a href="#actividad-formativa-de-ia-revisar-la-estructura-ya-creada" id="toc-actividad-formativa-de-ia-revisar-la-estructura-ya-creada" class="nav-link" data-scroll-target="#actividad-formativa-de-ia-revisar-la-estructura-ya-creada">Actividad formativa de IA — revisar la estructura ya creada</a></li>
+  <li><a href="#los-cuatro-principios-hechos-observables-en-s4" id="toc-los-cuatro-principios-hechos-observables-en-s4" class="nav-link" data-scroll-target="#los-cuatro-principios-hechos-observables-en-s4">Los cuatro principios, hechos observables en S4</a></li>
+  <li><a href="#errores-frecuentes-y-cómo-diagnosticarlos" id="toc-errores-frecuentes-y-cómo-diagnosticarlos" class="nav-link" data-scroll-target="#errores-frecuentes-y-cómo-diagnosticarlos">Errores frecuentes y cómo diagnosticarlos</a></li>
+  <li><a href="#evidencia-de-aprendizaje" id="toc-evidencia-de-aprendizaje" class="nav-link" data-scroll-target="#evidencia-de-aprendizaje">Evidencia de aprendizaje</a></li>
+  <li><a href="#rúbricas" id="toc-rúbricas" class="nav-link" data-scroll-target="#rúbricas">Rúbricas</a>
+  <ul class="collapse">
+  <li><a href="#primer-intento-formativa-puntos-por-preparación" id="toc-primer-intento-formativa-puntos-por-preparación" class="nav-link" data-scroll-target="#primer-intento-formativa-puntos-por-preparación">Primer intento (formativa · puntos por preparación)</a></li>
+  <li><a href="#participación-y-corrección-durante-el-taller-formativa" id="toc-participación-y-corrección-durante-el-taller-formativa" class="nav-link" data-scroll-target="#participación-y-corrección-durante-el-taller-formativa">Participación y corrección durante el taller (formativa)</a></li>
+  <li><a href="#tarea-3-estructura-del-proyecto-en-el-servidor-entrega-final" id="toc-tarea-3-estructura-del-proyecto-en-el-servidor-entrega-final" class="nav-link" data-scroll-target="#tarea-3-estructura-del-proyecto-en-el-servidor-entrega-final">Tarea 3 — estructura del proyecto en el servidor (entrega final)</a></li>
+  <li><a href="#actividad-formativa-de-ia" id="toc-actividad-formativa-de-ia" class="nav-link" data-scroll-target="#actividad-formativa-de-ia">Actividad formativa de IA</a></li>
+  </ul></li>
+  <li><a href="#autoevaluación-semáforo-de-salida" id="toc-autoevaluación-semáforo-de-salida" class="nav-link" data-scroll-target="#autoevaluación-semáforo-de-salida">Autoevaluación — semáforo de salida</a></li>
+  <li><a href="#distribución-orientativa-de-las-dos-horas-120-min" id="toc-distribución-orientativa-de-las-dos-horas-120-min" class="nav-link" data-scroll-target="#distribución-orientativa-de-las-dos-horas-120-min">Distribución orientativa de las dos horas (120 min)</a></li>
+  <li><a href="#preparación-para-la-siguiente-sesión-s5" id="toc-preparación-para-la-siguiente-sesión-s5" class="nav-link" data-scroll-target="#preparación-para-la-siguiente-sesión-s5">Preparación para la siguiente sesión (S5)</a></li>
+  <li><a href="#anexo-a.-correspondencia-resultadoactividadevidenciacriterio" id="toc-anexo-a.-correspondencia-resultadoactividadevidenciacriterio" class="nav-link" data-scroll-target="#anexo-a.-correspondencia-resultadoactividadevidenciacriterio">Anexo A. Correspondencia resultado–actividad–evidencia–criterio</a></li>
+  <li><a href="#anexo-b.-alineación-transversal" id="toc-anexo-b.-alineación-transversal" class="nav-link" data-scroll-target="#anexo-b.-alineación-transversal">Anexo B. Alineación transversal</a></li>
+  <li><a href="#glosario" id="toc-glosario" class="nav-link" data-scroll-target="#glosario">Glosario</a></li>
+  <li><a href="#referencias" id="toc-referencias" class="nav-link" data-scroll-target="#referencias">Referencias</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/Helysalgado/introbioinfo-unix/edit/main/u2-s4-sistema-archivos-v3.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/Helysalgado/introbioinfo-unix/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./u2-entorno-unix.html">Unidad 2</a></li><li class="breadcrumb-item"><a href="./u2-s4-sistema-archivos-v3.html">S4 — Navegar</a></li></ol></nav></header>
+
+
+
+
+<section id="s4-navegar-el-sistema-de-archivos-su-organización-y-su-edición" class="level1">
+<h1>S4 — Navegar: el sistema de archivos, su organización y su edición</h1>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Este documento se lee <strong>antes de la sesión S4</strong>. En el taller construiremos en vivo la <strong>estructura real del proyecto</strong> sobre el servidor, con repetición del estudiante. Trae tu <strong>primer intento</strong> y tus dudas. Al final hay una <strong>práctica (Tarea 3)</strong> con tres momentos: antes de clase, durante el taller y entrega final.</p>
+</div>
+</div>
+<p>Segundo módulo de la <a href="./u2-entorno-unix.html">Unidad 2</a>. En S3 aprendiste a conectarte por SSH y a <strong>transferir</strong> tus archivos al servidor comprobando su integridad. Hoy aprenderás a <strong>moverte por el sistema de archivos</strong> y a <strong>crear y organizar</strong> directorios y archivos para levantar, por primera vez, la <strong>estructura real del proyecto</strong> en tu espacio del servidor y colocar dentro de ella los archivos que ya transferiste.</p>
+<section id="el-problema-que-resolveremos-hoy" class="level2">
+<h2 class="anchored" data-anchor-id="el-problema-que-resolveremos-hoy">El problema que resolveremos hoy</h2>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Los archivos que transferiste en S3 (<code>pacientes.md</code>, <code>pacientes-metadatos.md</code> y <code>protocolo.md</code>) quedaron <strong>juntos en tu <em>home</em> (<code>~</code>)</strong> del servidor. Tu tarea de hoy es <strong>crear la estructura que diseñaste en la Unidad 1 (Tarea 2, S2)</strong>, <strong>colocar cada archivo donde corresponde</strong> y <strong>comprobar que los datos originales no cambiaron</strong> en el proceso.</p>
+</div>
+</div>
+<p>En la Unidad 1 (S1–S2) hiciste un trabajo que hoy vas a materializar:</p>
+<ul>
+<li>En <strong>S1</strong> iniciaste <code>protocolo.md</code> y tu <strong>reporte de lectura</strong> (Tarea 1).</li>
+<li>En <strong>S2</strong> trabajaste <code>pacientes.md</code>, sus <strong>metadatos</strong> (<code>pacientes-metadatos.md</code>), tu <code>bitacora-ia.md</code> y el <strong>diseño conceptual</strong> de la organización del proyecto (Tarea 2). Ese diseño quedó <strong>en papel</strong>: todavía <strong>no</strong> construiste la estructura con Unix.</li>
+<li>En <strong>S3</strong> transferiste a tu <em>home</em> (<code>~</code>) del servidor <code>pacientes.md</code>, <code>pacientes-metadatos.md</code> y <code>protocolo.md</code>, y comprobaste su integridad con <em>checksums</em>.</li>
+<li>En <strong>S4</strong> (hoy) creas por <strong>primera vez</strong> la estructura real en el servidor y colocas dentro de ella los archivos ya transferidos.</li>
+</ul>
+<p>La estructura final a la que queremos llegar es:</p>
+<pre class="text"><code>proyecto/
+├── README.md
+├── data/
+│   ├── source/
+│   │   ├── pacientes.md
+│   │   └── pacientes-metadatos.md
+│   └── processed/
+├── src/
+├── results/
+└── doc/
+    ├── protocolo.md
+    └── bitacora-ia.md</code></pre>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Advertencia
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>En S3 solo transferiste tres archivos (<code>pacientes.md</code>, <code>pacientes-metadatos.md</code> y <code>protocolo.md</code>). Tu <code>bitacora-ia.md</code> <strong>todavía vive en tu computadora</strong>. Para completar la organización tendrás que <strong>transferirlo</strong> al servidor; lo haremos en el taller como aplicación de <code>scp</code> (§9). No supongas que ya está disponible: primero compruébalo con <code>ls</code>.</p>
+</div>
+</div>
+</section>
+<section id="ficha-del-módulo" class="level2">
+<h2 class="anchored" data-anchor-id="ficha-del-módulo">Ficha del módulo</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Elemento</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Sesión</strong></td>
+<td>S4 (2 h)</td>
+</tr>
+<tr class="even">
+<td><strong>Tema</strong></td>
+<td>Sistema de archivos, navegación, organización del proyecto en el <em>home</em> y edición en el servidor</td>
+</tr>
+<tr class="odd">
+<td><strong>Competencia</strong></td>
+<td>B — Dominio del entorno Unix y del cómputo científico</td>
+</tr>
+<tr class="even">
+<td><strong>Resultado (plan)</strong></td>
+<td>Navega el sistema de archivos y opera archivos y directorios; edita en el servidor</td>
+</tr>
+<tr class="odd">
+<td><strong>Consulta previa (plan)</strong></td>
+<td>Este módulo autocontenido; L3-shell, diapositivas 39–60, queda como consulta complementaria</td>
+</tr>
+<tr class="even">
+<td><strong>Lectura base</strong></td>
+<td>Buffalo (2015), Cap. 3 (navegación y manipulación de archivos)</td>
+</tr>
+<tr class="odd">
+<td><strong>Lectura de consulta</strong></td>
+<td>Shotts (2019), caps. 2–4 (navegación y manipulación de archivos y directorios)</td>
+</tr>
+<tr class="even">
+<td><strong>Tarea del plan</strong></td>
+<td><strong>Tarea 3</strong> — estructura de directorios del proyecto en el servidor</td>
+</tr>
+<tr class="odd">
+<td><strong>Evidencia</strong></td>
+<td>Estructura reproducible del proyecto en <code>~/proyecto/</code>, con los archivos de S2–S3 en su lugar, verificada con <code>tree</code>/<code>ls -R</code> y con checksum, y <code>protocolo.md</code> actualizado</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="relación-con-la-unidad-1-y-con-el-proyecto-integrador" class="level2">
+<h2 class="anchored" data-anchor-id="relación-con-la-unidad-1-y-con-el-proyecto-integrador">Relación con la Unidad 1 y con el proyecto integrador</h2>
+<p>En la Unidad 1 diseñaste la <strong>organización de un proyecto reproducible</strong> (Noble, 2009). Aquí la <strong>materializas</strong> en el servidor: creas las carpetas reales donde vivirán tus datos, scripts y resultados durante todo el curso, y colocas en ellas los archivos que ya produjiste y transferiste. La estructura que construyas hoy es la que usarás en las Unidades 3 a 6.</p>
+</section>
+<section id="resultados-de-aprendizaje" class="level2">
+<h2 class="anchored" data-anchor-id="resultados-de-aprendizaje">Resultados de aprendizaje</h2>
+<p>Al terminar S4, el estudiante es capaz de:</p>
+<ol type="1">
+<li><strong>Describir</strong> la estructura en árbol del sistema de archivos y el papel de <code>/</code>, <code>~</code> y el directorio actual, y <strong>distinguir</strong> el <em>home</em> del <strong>espacio institucional</strong> <code>/export/space3/users/$USER</code>.</li>
+<li><strong>Distinguir</strong> rutas absolutas y relativas y <strong>usar</strong> <code>.</code>, <code>..</code> y <code>~</code>, entendiendo que una ruta relativa <strong>parte del directorio actual</strong>.</li>
+<li><strong>Navegar</strong> entre directorios con <code>pwd</code>, <code>ls</code> y <code>cd</code> usando ambos tipos de ruta, tras <strong>comprobar el contexto</strong> con <code>hostname</code>, <code>whoami</code> y <code>pwd</code>.</li>
+<li><strong>Crear y organizar</strong> archivos y directorios (<code>mkdir</code>, <code>mkdir -p</code>, <code>touch</code>, <code>cp -i</code>, <code>mv -i</code>) y <strong>eliminar de forma segura</strong> (<code>rm -i</code>, <code>rmdir</code>) dentro de una carpeta de prueba.</li>
+<li><strong>Construir</strong> directamente <code>~/proyecto/</code> con la estructura canónica y <strong>colocar</strong> en ella los archivos transferidos en S3.</li>
+<li><strong>Verificar</strong> la estructura con <code>tree</code> o <code>ls -R</code> y <strong>comprobar la integridad</strong> de <code>pacientes.md</code> comparando su <em>checksum</em> con el registrado en S3.</li>
+<li><strong>Transferir</strong> con <code>scp</code> un archivo faltante (<code>bitacora-ia.md</code>) desde el equipo local directamente a <code>~/proyecto/doc/</code>; <strong>reconocer</strong> <code>rsync</code> como herramienta de consulta para transferencias grandes.</li>
+<li><strong>Editar</strong> en el servidor con <code>nano</code> para completar <code>README.md</code> y <strong>actualizar</strong> <code>doc/protocolo.md</code>.</li>
+</ol>
+</section>
+<section id="antes-de-la-sesión" class="level2">
+<h2 class="anchored" data-anchor-id="antes-de-la-sesión">Antes de la sesión</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Elemento</th>
+<th>Detalle</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Lectura obligatoria</strong></td>
+<td>Este módulo completo; contiene la preparación conceptual necesaria para llegar al taller.</td>
+</tr>
+<tr class="even">
+<td><strong>Consulta dirigida</strong></td>
+<td>Buffalo (2015), Cap. 3 — apartados de navegación y manipulación de archivos (~20 min).</td>
+</tr>
+<tr class="odd">
+<td><strong>Lectura de consulta</strong></td>
+<td>L3-shell, diapositivas 39–60, y Shotts (2019), caps. 2–4 (opcionales para profundizar).</td>
+</tr>
+<tr class="even">
+<td><strong>Preparación técnica</strong></td>
+<td>Conéctate al servidor (habilidad de S3). Ten a la vista el diseño de la estructura del proyecto de la Unidad 1 y tu <code>protocolo.md</code> (con el checksum de <code>pacientes.md</code> que registraste en S3). Localiza en tu computadora <code>bitacora-ia.md</code>.</td>
+</tr>
+<tr class="odd">
+<td><strong>Primer intento</strong></td>
+<td>Ver la Práctica S4 → <em>Antes de clase</em>.</td>
+</tr>
+<tr class="even">
+<td><strong>Producto para el taller</strong></td>
+<td>Tu primer intento (comandos, errores y dudas) y la ubicación de <code>bitacora-ia.md</code> en tu equipo.</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Los tiempos son estimaciones: lectura del módulo ~60–75 min · consulta dirigida de Buffalo Cap. 3 ~20 min · Shotts ~20 min opcional · primer intento ~25 min · taller presencial 120 min · corrección y entrega posterior ~30 min · actividad formativa de IA ~25 min.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Igual que en S3, los bloques de las prácticas indican <strong>desde dónde</strong> se ejecutan: <code>[LOCAL]</code> en tu computadora y <code>[REMOTO]</code> dentro del servidor. Los bloques conceptuales muestran sintaxis general. Antes de cualquier operación, comprueba el contexto con <code>hostname</code>, <code>whoami</code> y <code>pwd</code>. <code>scp</code> (§9) <strong>se lanza desde tu computadora</strong> (<code>[LOCAL]</code>), aunque copie hacia el servidor.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="la-estructura-en-árbol-la-raíz-y-tu-espacio-de-trabajo" class="level2">
+<h2 class="anchored" data-anchor-id="la-estructura-en-árbol-la-raíz-y-tu-espacio-de-trabajo">1. La estructura en árbol, la raíz y tu espacio de trabajo</h2>
+<p>En Unix, archivos y directorios (carpetas) se organizan en una <strong>jerarquía en forma de árbol</strong> que empieza en la <strong>raíz</strong>, representada por <code>/</code>. De la raíz cuelgan directorios que, a su vez, contienen otros directorios y archivos.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u2-s04-home-espacio-institucional.png" class="img-fluid figure-img"></p>
+<figcaption>Árbol que distingue el directorio home, donde se construye el proyecto en S4, del espacio institucional reservado para datos y análisis de mayor tamaño.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 1.</strong> El <em>home</em> y el espacio institucional son ramas distintas. En S4 trabajamos en <code>~/proyecto/</code>; el espacio <code>/export/space3/users/$USER</code> se utilizará más adelante para descargas y análisis de mayor tamaño. Elaboración propia.</p>
+<p>Conceptos clave:</p>
+<ul>
+<li><strong>Directorio raíz <code>/</code>:</strong> el origen de todo el árbol.</li>
+<li><strong>Directorio <em>home</em> (<code>~</code>):</strong> tu carpeta personal, aquella donde el sistema te sitúa al iniciar sesión y donde puedes mantener documentos, scripts y ejercicios pequeños. El símbolo <code>~</code> es un atajo que representa esa carpeta.</li>
+<li><strong>Directorio actual:</strong> el lugar donde “estás parado” en este momento (lo consultas con <code>pwd</code>).</li>
+<li><strong>Ruta (<em>path</em>):</strong> la dirección de un archivo o directorio dentro del árbol.</li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El <em>home</em> (<code>~</code>) y el espacio institucional <code>/export/space3/users/$USER</code> son <strong>directorios distintos</strong>. En esta sesión construiremos <code>~/proyecto/</code> en el <em>home</em> porque trabajaremos con archivos pequeños y el objetivo es aprender rutas, navegación y organización sin mezclar todavía los espacios. Más adelante, cuando descarguemos genomas o ejecutemos análisis que producen archivos grandes —por ejemplo BLAST—, trabajaremos en el espacio institucional, que está destinado a cargas de datos y cómputo mayores. No copies datos grandes al <em>home</em>.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Ejecuta <code>echo $HOME</code> y luego <code>pwd</code> después de <code>cd ~</code> para conocer la ruta absoluta de tu <em>home</em>. Después ejecuta <code>ls -ld /export/space3/users/$USER</code> para reconocer el espacio institucional. Comprobarás que son ubicaciones diferentes.</p>
+</div>
+</div>
+</section>
+<section id="rutas-absolutas-y-relativas" class="level2">
+<h2 class="anchored" data-anchor-id="rutas-absolutas-y-relativas">2. Rutas absolutas y relativas</h2>
+<p>Una <strong>ruta</strong> es la dirección que le das a un comando para que encuentre un archivo o directorio. Hay dos formas de escribirla:</p>
+<ul>
+<li><strong>Ruta absoluta:</strong> parte desde la raíz <code>/</code> y <strong>siempre apunta al mismo lugar</strong>, sin importar dónde estés. Ejemplo: <code>/home/usuario/proyecto/data/source/pacientes.md</code> en un sistema genérico. En el servidor del curso, descubre el prefijo real de tu <em>home</em> con <code>cd ~</code> y <code>pwd</code>.</li>
+<li><strong>Ruta relativa:</strong> parte <strong>desde tu directorio actual</strong> (no desde <code>~</code>). Ejemplo: si estás en <code>.../proyecto</code>, la ruta relativa <code>data/source/pacientes.md</code> apunta al mismo archivo.</li>
+</ul>
+<p>Símbolos útiles en las rutas:</p>
+<ul>
+<li><code>.</code> : el directorio actual.</li>
+<li><code>..</code> : el directorio padre (uno hacia arriba).</li>
+<li><code>~</code> : tu directorio <em>home</em>.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u2-s04-rutas-home.png" class="img-fluid figure-img"></p>
+<figcaption>Comparación entre una ruta absoluta genérica dentro del home y una ruta relativa que parte del directorio actual proyecto hasta el mismo archivo pacientes.md.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 2.</strong> El mismo archivo, dos rutas: la absoluta parte de <code>/</code>; la relativa parte del directorio actual (aquí, <code>proyecto/</code>). Elaboración propia.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Una ruta <strong>relativa</strong> empieza en tu <strong>directorio actual</strong>, no necesariamente en tu <em>home</em> (<code>~</code>). Si te confundes de punto de partida, terminarás creando o buscando carpetas donde no querías. Ante la duda, ejecuta <code>pwd</code> para saber desde dónde parte tu ruta relativa.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="¿Sabías que?">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>¿Sabías que?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Una misma ubicación se puede alcanzar por <strong>muchos caminos</strong>. Desde <code>.../proyecto/doc</code> puedes llegar a <code>pacientes.md</code> con la ruta relativa <code>../data/source/pacientes.md</code> (subes con <code>..</code> y bajas por <code>data/source</code>). Comprobar que dos caminos distintos llevan al mismo sitio es una forma sencilla de <strong>robustez</strong> (§11).</p>
+</div>
+</div>
+<section id="pausa-de-predicción-antes-de-ejecutar" class="level3">
+<h3 class="anchored" data-anchor-id="pausa-de-predicción-antes-de-ejecutar">Pausa de predicción — antes de ejecutar</h3>
+<p>Sin usar todavía el servidor, imagina que tu directorio actual es <code>~/proyecto/</code> y responde:</p>
+<ol type="1">
+<li>¿Cuál de estas rutas es absoluta: <code>/home/usuario/proyecto/data/source/</code> o <code>data/source/</code>?</li>
+<li>¿A qué lugar apunta <code>./data/source/</code>?</li>
+<li>Si estás en <code>~/proyecto/doc/</code>, ¿qué ruta relativa usarías para llegar a <code>pacientes.md</code>?</li>
+<li>¿La ruta relativa <code>data/source/</code> funcionará igual si tu directorio actual cambia a <code>~/proyecto/doc/</code>?</li>
+</ol>
+<details>
+<summary>
+Ver retroalimentación
+</summary>
+<ol type="1">
+<li><code>/home/usuario/proyecto/data/source/</code> es absoluta porque comienza en <code>/</code>; <code>data/source/</code> es relativa porque comienza en el directorio actual. <code>/home/usuario</code> es solo un ejemplo: la ruta real del <em>home</em> debe obtenerse con <code>cd ~</code> y <code>pwd</code>.</li>
+<li><code>.</code> representa el directorio actual. Desde <code>~/proyecto/</code>, <code>./data/source/</code> apunta al mismo lugar que <code>data/source/</code>.</li>
+<li><code>../data/source/pacientes.md</code>: <code>..</code> sube de <code>doc/</code> a <code>proyecto/</code> y después la ruta baja por <code>data/source/</code>.</li>
+<li>No.&nbsp;Desde <code>~/proyecto/doc/</code>, <code>data/source/</code> intentaría buscar <code>doc/data/source/</code>, que no existe en la estructura. Las rutas relativas dependen siempre del punto de partida.</li>
+</ol>
+</details>
+</section>
+</section>
+<section id="navegar-pwd-ls-cd" class="level2">
+<h2 class="anchored" data-anchor-id="navegar-pwd-ls-cd">3. Navegar: <code>pwd</code>, <code>ls</code>, <code>cd</code></h2>
+<p>Antes de crear nada, hay que saber orientarse. Estos son los comandos <strong>esenciales</strong> de navegación:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span>                 <span class="co"># muestra dónde estás (ruta absoluta actual)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>                  <span class="co"># lista el contenido del directorio actual</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lah</span>             <span class="co"># lista con detalle (l), incluye ocultos (a) y tamaños legibles (h)</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> carpeta          <span class="co"># entra a "carpeta" (ruta relativa)</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /ruta/absoluta   <span class="co"># entra usando una ruta absoluta</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ..               <span class="co"># sube al directorio padre</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~                <span class="co"># va a tu home</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="at">-</span>                <span class="co"># regresa al directorio anterior</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Combina la tecla <strong>Tab</strong> para autocompletar nombres de rutas y evitar errores de tipeo; <code>ls -lh</code> muestra los tamaños en formato legible (KB, MB, GB) y <code>cd -</code> te devuelve al directorio donde estabas antes.</p>
+</div>
+</div>
+<section id="micropráctica-1-reconocer-el-contexto-y-navegar" class="level3">
+<h3 class="anchored" data-anchor-id="micropráctica-1-reconocer-el-contexto-y-navegar">Micropráctica 1 — Reconocer el contexto y navegar</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Problema.</strong> Antes de crear la estructura necesitas confirmar en qué máquina estás, con qué cuenta y en qué ubicación, y saber moverte con seguridad.</p>
+</div>
+</div>
+<p><strong>[LOCAL] En tu computadora, conéctate:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> usuario@servidor        <span class="co"># usa las credenciales dadas en clase</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>[REMOTO] Ya dentro del servidor, comprueba el contexto y explora:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hostname</span>     <span class="co"># ¿en qué computadora estoy? (debe ser el servidor)</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">whoami</span>       <span class="co"># ¿con qué cuenta trabajo?</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~         <span class="co"># ve a tu home</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span>          <span class="co"># registra la ruta absoluta de tu home</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lah</span>      <span class="co"># ¿están aquí los archivos de S3?</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-ld</span> /export/space3/users/<span class="va">$USER</span>  <span class="co"># reconoce el espacio institucional, sin entrar todavía</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ..        <span class="co"># sube un nivel</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span>          <span class="co"># confirma que cambiaste de ubicación</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="at">-</span>         <span class="co"># regresa al directorio anterior</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Debes ver <code>pacientes.md</code>, <code>pacientes-metadatos.md</code> y <code>protocolo.md</code>, que transferiste al <em>home</em> en S3. Si alguno no aparece, detente y revisa la evidencia de S3 antes de continuar: puede haber faltado una transferencia o quizá estás en otra ubicación.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Después de la micropráctica, responde:</strong> (1) ¿Cuál es la ruta absoluta de tu <em>home</em>? (2) ¿En qué se diferencia de <code>/export/space3/users/$USER</code>? (3) ¿Aparecen en <code>~</code> los tres archivos de S3? (4) ¿Ves también <code>bitacora-ia.md</code>?</p>
+</div>
+</div>
+<details>
+<summary>
+Ver retroalimentación — Micropráctica 1
+</summary>
+<ol type="1">
+<li>La respuesta exacta es la salida de <code>pwd</code> inmediatamente después de <code>cd ~</code>; depende de la cuenta y de la configuración del servidor. Puede tener una forma semejante a <code>/home/usuario</code>, pero debes registrar <strong>tu salida real</strong>, no copiar este ejemplo.</li>
+<li>El <em>home</em> (<code>~</code>) es el directorio personal donde trabajaremos en S4. En cambio, <code>/export/space3/users/$USER</code> es el espacio institucional destinado a datos y procesos más pesados; es una ruta distinta y no se usará todavía para construir este proyecto.</li>
+<li>Sí. En <code>~</code> deben aparecer <code>pacientes.md</code>, <code>pacientes-metadatos.md</code> y <code>protocolo.md</code>, porque allí se transfirieron en S3. Si falta alguno, hay que confirmar la ubicación con <code>pwd</code> y revisar la transferencia antes de continuar.</li>
+<li>No se espera que <code>bitacora-ia.md</code> aparezca todavía en el servidor: permanece en la computadora local y se transferirá directamente a <code>~/proyecto/doc/</code> durante S4.</li>
+</ol>
+</details>
+</section>
+</section>
+<section id="crear-directorios-y-archivos" class="level2">
+<h2 class="anchored" data-anchor-id="crear-directorios-y-archivos">4. Crear directorios y archivos</h2>
+<p>Estas son las operaciones <strong>esenciales</strong> para construir la estructura:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> nueva            <span class="co"># crea el directorio "nueva"</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> a/b/c         <span class="co"># crea toda la ruta anidada de una vez</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">touch</span> archivo.txt      <span class="co"># crea un archivo vacío (o actualiza su fecha)</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li><code>mkdir</code> crea <strong>un</strong> directorio; falla si el directorio padre no existe.</li>
+<li><code>mkdir -p</code> crea <strong>directorios anidados</strong> en un solo paso (útil para <code>data/source</code>).</li>
+<li><code>touch</code> crea un archivo vacío; lo usaremos, por ejemplo, para dejar preparado <code>README.md</code> antes de editarlo.</li>
+</ul>
+</section>
+<section id="copiar-mover-y-renombrar-de-forma-segura" class="level2">
+<h2 class="anchored" data-anchor-id="copiar-mover-y-renombrar-de-forma-segura">5. Copiar, mover y renombrar de forma segura</h2>
+<p>Para <strong>colocar</strong> los archivos en su lugar usarás copia y movimiento. Presentamos <strong>primero las variantes seguras</strong>, con confirmación:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-i</span> origen destino     <span class="co"># copia; pregunta antes de sobrescribir el destino</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-r</span> carpeta destino    <span class="co"># consulta: copia una carpeta y su contenido</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> <span class="at">-i</span> origen destino     <span class="co"># mueve o renombra; pregunta antes de sobrescribir</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li><code>cp -i</code> <strong>copia</strong> y <strong>pide confirmación</strong> si el destino ya existe.</li>
+<li><code>mv -i</code> <strong>mueve</strong> o <strong>renombra</strong>: si el destino es otra carpeta, mueve; si es un nombre nuevo en el mismo lugar, renombra. Con <code>-i</code> te avisa antes de sobrescribir.</li>
+<li>Las versiones <strong>sin <code>-i</code></strong> (<code>cp</code>, <code>mv</code>) hacen lo mismo pero <strong>sin preguntar</strong>.</li>
+</ul>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Advertencia
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>cp</code> y <code>mv</code> pueden sobrescribir. Si el destino ya existe, <code>cp</code> y <code>mv</code> <strong>sin <code>-i</code></strong> lo <strong>reemplazan sin avisar</strong> y el contenido anterior se pierde. Mientras te acostumbras, usa siempre <code>cp -i</code> y <code>mv -i</code>. En este módulo <strong>copiamos antes de mover</strong>: conservamos una copia provisional hasta terminar de verificar (§8).</p>
+</div>
+</div>
+<section id="micropráctica-2-copiar-mover-y-renombrar-en-una-carpeta-de-prueba" class="level3">
+<h3 class="anchored" data-anchor-id="micropráctica-2-copiar-mover-y-renombrar-en-una-carpeta-de-prueba">Micropráctica 2 — Copiar, mover y renombrar en una carpeta de prueba</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Problema.</strong> Antes de tocar tus archivos reales, practica copia, movimiento y renombrado en un lugar donde un error no tenga consecuencias.</p>
+</div>
+</div>
+<p><strong>[REMOTO] En el servidor, dentro de tu espacio de trabajo:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> prueba-s4          <span class="co"># carpeta aislada solo para practicar</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> prueba-s4</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">touch</span> a.txt                 <span class="co"># crea un archivo de prueba</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-i</span> a.txt b.txt           <span class="co"># copia a.txt como b.txt</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> <span class="at">-i</span> b.txt c.txt           <span class="co"># renombra b.txt a c.txt</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> sub</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> <span class="at">-i</span> c.txt sub/            <span class="co"># mueve c.txt dentro de sub/</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-R</span>                       <span class="co"># observa el resultado</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ..</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Después de la micropráctica, responde:</strong> (1) ¿En qué se diferenció <strong>renombrar</strong> (<code>mv a b</code> en el mismo directorio) de <strong>mover</strong> (<code>mv a carpeta/</code>)? (2) ¿Por qué conviene usar <code>-i</code>?</p>
+</div>
+</div>
+<details>
+<summary>
+Ver retroalimentación — Micropráctica 2
+</summary>
+<ol type="1">
+<li>Al ejecutar <code>mv -i b.txt c.txt</code> dentro del mismo directorio, el archivo permaneció en ese lugar, pero cambió de nombre. Al ejecutar <code>mv -i c.txt sub/</code>, conservó su nombre y cambió de ubicación: pasó a ser <code>sub/c.txt</code>. El comando <code>mv</code> puede realizar ambas operaciones según el destino.</li>
+<li>La opción <code>-i</code> solicita confirmación antes de sobrescribir un archivo que ya existe. Es una barrera de seguridad útil mientras se aprende, aunque no sustituye comprobar <code>pwd</code>, inspeccionar el destino con <code>ls</code> y conservar respaldos.</li>
+</ol>
+</details>
+</section>
+</section>
+<section id="eliminar-de-forma-segura" class="level2">
+<h2 class="anchored" data-anchor-id="eliminar-de-forma-segura">6. Eliminar de forma segura</h2>
+<p>En Unix <strong>no hay papelera</strong>: <code>rm</code> borra de forma <strong>permanente e inmediata</strong>. Por eso, la eliminación se practica con cuidado y <strong>solo dentro de la carpeta de prueba</strong>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-i</span> archivo          <span class="co"># borra un archivo, pidiendo confirmación</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rmdir</span> carpeta          <span class="co"># borra un directorio VACÍO (falla si tiene contenido)</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Advertencia
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Antes de ejecutar cualquier <code>rm</code>, comprueba <strong>dónde estás</strong> y <strong>qué hay</strong> con <code>pwd</code> y <code>ls</code>. Borra solo dentro de <code>prueba-s4/</code>. En la <strong>Tarea 3 obligatoria no se borra ningún archivo del proyecto</strong>: eliminar es una habilidad que se practica aparte, en la carpeta de prueba.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Existe la opción <code>rm -r</code>, que borra un directorio <strong>y todo su contenido</strong>. Es potente y peligrosa: un error de ruta puede eliminar mucho más de lo que querías. En este módulo <strong>no</strong> la usamos en la práctica obligatoria, y <strong>no</strong> conviene adoptar <code>rm -ri</code> como hábito rutinario: la costumbre de confirmar “sí” a todo anula la protección. Para vaciar una carpeta de prueba, borra primero sus archivos con <code>rm -i</code> y luego el directorio vacío con <code>rmdir</code>.</p>
+</div>
+</div>
+<section id="micropráctica-3-eliminación-segura-solo-en-prueba-s4" class="level3">
+<h3 class="anchored" data-anchor-id="micropráctica-3-eliminación-segura-solo-en-prueba-s4">Micropráctica 3 — Eliminación segura (solo en <code>prueba-s4/</code>)</h3>
+<p><strong>[REMOTO] En el servidor:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> prueba-s4</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span>                    <span class="co"># confirma que estás en la carpeta de prueba</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-R</span>                  <span class="co"># confirma qué vas a borrar</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rmdir</span> sub              <span class="co"># observa el error: aún contiene c.txt</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-i</span> sub/c.txt        <span class="co"># ahora borra el archivo, confirmando</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">rmdir</span> sub              <span class="co"># sub/ ya está vacío: se puede borrar</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-i</span> a.txt            <span class="co"># borra el resto de archivos de prueba</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ..</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Después de la micropráctica, responde:</strong> (1) ¿Por qué <code>rmdir sub</code> falló si <code>sub/</code> aún contenía <code>c.txt</code>? (2) ¿Cómo te protegió comprobar <code>pwd</code> y <code>ls</code> antes de borrar?</p>
+</div>
+</div>
+<details>
+<summary>
+Ver retroalimentación — Micropráctica 3
+</summary>
+<ol type="1">
+<li><code>rmdir</code> solo elimina directorios vacíos. Falló porque <code>sub/</code> todavía contenía <code>c.txt</code>; después de borrar ese archivo de forma explícita con <code>rm -i sub/c.txt</code>, el directorio quedó vacío y <code>rmdir sub</code> pudo eliminarlo.</li>
+<li><code>pwd</code> permitió confirmar que la operación ocurriría dentro de <code>prueba-s4/</code>, no dentro del proyecto ni en otro directorio. <code>ls -R</code> mostró exactamente qué elementos existían y ayudó a identificar el blanco antes de ejecutar un borrado que en Unix no pasa por una papelera.</li>
+</ol>
+</details>
+</section>
+</section>
+<section id="ver-el-árbol-tree-o-ls--r" class="level2">
+<h2 class="anchored" data-anchor-id="ver-el-árbol-tree-o-ls--r">7. Ver el árbol: <code>tree</code> o <code>ls -R</code></h2>
+<p>Para comprobar que tu estructura quedó como esperabas:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tree</span>              <span class="co"># muestra el árbol de directorios (si está instalado)</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-R</span>             <span class="co"># lista recursivamente el contenido (alternativa siempre disponible)</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Si <code>tree</code> no está disponible en el servidor, <code>ls -R</code> cumple la misma función de verificación.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>tree</code> puede no estar instalado. <code>ls -R</code>, disponible habitualmente en sistemas Unix, presenta la información en otro formato pero permite comprobar los mismos directorios y archivos.</p>
+</div>
+</div>
+</section>
+<section id="la-estructura-canónica-del-proyecto" class="level2">
+<h2 class="anchored" data-anchor-id="la-estructura-canónica-del-proyecto">8. La estructura canónica del proyecto</h2>
+<p>Usaremos <strong>la misma</strong> estructura de la Unidad 1 (Noble, 2009), sin variaciones:</p>
+<pre class="text"><code>proyecto/
+├── README.md          # descripción del proyecto
+├── data/
+│   ├── source/        # datos originales, inmutables
+│   └── processed/     # datos derivados
+├── src/               # scripts
+├── results/           # resultados del análisis
+└── doc/               # documentación (protocolo, bitácora)</code></pre>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Los datos originales se conservan en <code>data/source/</code> <strong>sin modificarse</strong>: se leen y se copian, pero no se editan. Cualquier transformación produce archivos nuevos que van a <code>data/processed/</code>, nunca encima del original. Conservar el original con su nombre y su <em>checksum</em> preserva la <strong>procedencia</strong> y la trazabilidad de tu análisis (Noble, 2009; Buffalo, 2015, Cap. 3).</p>
+</div>
+</div>
+<section id="en-s4-la-construiremos-directamente" class="level3">
+<h3 class="anchored" data-anchor-id="en-s4-la-construiremos-directamente">En S4 la construiremos directamente</h3>
+<p>Para comprender qué contiene cada rama, en esta sesión crearás <code>~/proyecto/</code> <strong>paso a paso</strong>. No partirás de una plantilla ni ejecutarás un comando que oculte la estructura completa: primero crearás el directorio principal y después cada rama. Esta secuencia permite detectar dónde estás, qué ruta estás construyendo y por qué cada archivo tiene un destino específico.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Cuando ya domines la estructura podrás conservar un esqueleto vacío como plantilla para proyectos futuros. Esa automatización es una ampliación; no forma parte obligatoria de la Tarea 3.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="transferir-el-archivo-que-falta-con-scp" class="level2">
+<h2 class="anchored" data-anchor-id="transferir-el-archivo-que-falta-con-scp">9. Transferir el archivo que falta con <code>scp</code></h2>
+<p>Como viste en el problema conductor, <code>bitacora-ia.md</code> <strong>no</strong> se transfirió en S3: sigue en tu computadora. En S3 usaste SFTP/FileZilla de forma interactiva; ahora aplicamos <code>scp</code>, una herramienta de <strong>línea de comandos</strong> anunciada en S3. Se lanza desde tu computadora (<code>[LOCAL]</code>), no desde el servidor.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># [LOCAL] Sustituye "usuario" por tu cuenta remota:</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> bitacora-ia.md usuario@servidor:/ruta/absoluta/de/tu/home/proyecto/doc/</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li><code>scp origen usuario@servidor:destino</code> copia un archivo en <strong>una sola orden</strong>.</li>
+<li>El <code>:</code> separa la máquina remota de la <strong>ruta de destino</strong>; fíjate bien en los dos puntos.</li>
+<li>La ruta después de <code>:</code> debe ser la ruta absoluta que obtuviste con <code>pwd</code> dentro de tu <em>home</em>. No escribas <code>$USER</code> en un comando local: podría expandirse al usuario de tu computadora y no al remoto.</li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>scp</code> se ejecuta <strong>desde tu computadora</strong>, con el servidor como destino tras el <code>:</code>. Comprueba con <code>hostname</code> que estás en <code>[LOCAL]</code> antes de lanzarlo. No compartas tu contraseña, llaves ni la dirección real del servidor en registros o capturas.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>En S4, <code>scp</code> es una aplicación puntual para completar la organización. <code>rsync -avP</code> queda como herramienta de consulta para sincronizar muchos archivos o reanudar transferencias parciales; se retomará con datos mayores en unidades posteriores.</p>
+</div>
+</div>
+</section>
+<section id="editar-en-el-servidor-con-nano" class="level2">
+<h2 class="anchored" data-anchor-id="editar-en-el-servidor-con-nano">10. Editar en el servidor con <code>nano</code></h2>
+<p>En un servidor remoto normalmente editamos archivos de texto desde la terminal. Dos familias de editores que encontrarás con frecuencia son <code>vi</code>/<code>vim</code> y <code>nano</code>:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Editor</th>
+<th>Forma de trabajo</th>
+<th>Ventaja principal</th>
+<th>Decisión en S4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>vi</code> o <code>vim</code></td>
+<td><strong>Modal</strong>: las teclas hacen cosas distintas en modo normal, inserción o comandos</td>
+<td>Es potente, rápido y suele estar disponible en sistemas Unix</td>
+<td>Solo reconocerlo y saber salir si se abre por accidente</td>
+</tr>
+<tr class="even">
+<td><code>nano</code></td>
+<td><strong>Directa</strong>: al abrirlo puedes comenzar a escribir; muestra atajos en pantalla</td>
+<td>Tiene una curva de entrada corta y permite concentrarse en el contenido</td>
+<td>Es el editor que usaremos para <code>README.md</code> y <code>protocolo.md</code></td>
+</tr>
+</tbody>
+</table>
+<p>Elegimos <code>nano</code> por su simplicidad para esta primera edición remota, no porque <code>vi</code> sea inferior. Más adelante podrás aprender otro editor; los archivos producidos siguen siendo texto plano y pueden abrirse con cualquiera de ellos.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Edita documentación y scripts, pero no modifiques los datos originales de <code>data/source/</code>. En S4 usarás <code>nano</code> con <code>README.md</code> y <code>doc/protocolo.md</code>.</p>
+</div>
+</div>
+<section id="anatomía-básica-de-nano" class="level3">
+<h3 class="anchored" data-anchor-id="anatomía-básica-de-nano">Anatomía básica de <code>nano</code></h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u2-s04-nano-interfaz.png" class="img-fluid figure-img"></p>
+<figcaption>Esquema de la interfaz de nano con barra de título, área de edición, mensajes y atajos de teclado.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 3.</strong> Partes esenciales de <code>nano</code>. Los textos exactos pueden cambiar según la versión y el idioma del servidor, pero la lógica de los atajos es la misma. Elaboración propia.</p>
+<p>La pantalla tiene cuatro zonas importantes:</p>
+<ol type="1">
+<li><strong>Barra superior:</strong> muestra el programa y el nombre del archivo abierto.</li>
+<li><strong>Área de edición:</strong> aquí escribes y te desplazas con las flechas.</li>
+<li><strong>Línea de mensajes:</strong> muestra avisos y solicitudes, por ejemplo confirmar el nombre al guardar.</li>
+<li><strong>Atajos inferiores:</strong> recuerdan las acciones disponibles. El símbolo <code>^</code> significa <code>Ctrl</code>; por ejemplo, <code>^O</code> significa <code>Ctrl-O</code>, no escribir los caracteres <code>^</code> y <code>O</code>.</li>
+</ol>
+</section>
+<section id="ciclo-básico-abrir-editar-guardar-verificar" class="level3">
+<h3 class="anchored" data-anchor-id="ciclo-básico-abrir-editar-guardar-verificar">Ciclo básico: abrir, editar, guardar, verificar</h3>
+<p>Antes de abrir un archivo, confirma el contexto y usa una ruta explícita:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hostname</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/proyecto</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> README.md         <span class="co"># abre el archivo; si no existe, nano puede crearlo al guardar</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Dentro de <code>nano</code>:</p>
+<ul>
+<li><strong>escribir y desplazarte:</strong> escribe normalmente y usa las flechas;</li>
+<li><strong>buscar texto:</strong> <code>Ctrl-W</code>, escribe el término y pulsa Enter;</li>
+<li><strong>cortar una línea:</strong> <code>Ctrl-K</code>;</li>
+<li><strong>pegar lo cortado:</strong> <code>Ctrl-U</code>;</li>
+<li><strong>guardar</strong> (<em>Write Out</em>): <code>Ctrl-O</code>, revisa el nombre mostrado y pulsa Enter;</li>
+<li><strong>salir:</strong> <code>Ctrl-X</code>. Si hay cambios sin guardar, <code>nano</code> preguntará si deseas conservarlos.</li>
+</ul>
+<p>Ya en la terminal, verifica que el cambio realmente quedó guardado:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> README.md</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> README.md</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Advertencia
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>Ctrl-S</code> no es el atajo de guardado de <code>nano</code> y en algunas terminales puede pausar la salida en pantalla. Si parece que la terminal quedó congelada después de pulsarlo, prueba <code>Ctrl-Q</code>. Para guardar en <code>nano</code> usa <code>Ctrl-O</code>.</p>
+</div>
+</div>
+</section>
+<section id="micropráctica-4-editar-y-comprobar-readme.md" class="level3">
+<h3 class="anchored" data-anchor-id="micropráctica-4-editar-y-comprobar-readme.md">Micropráctica 4 — Editar y comprobar <code>README.md</code></h3>
+<p><strong>[REMOTO] En el servidor:</strong></p>
+<ol type="1">
+<li><p>Ejecuta <code>cd ~/proyecto</code>, confirma con <code>pwd</code> y abre <code>nano README.md</code>.</p></li>
+<li><p>Escribe un contenido mínimo con un título, una descripción y el propósito de cada directorio:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Proyecto de introducción a la bioinformática</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>Este proyecto organiza los archivos iniciados en las sesiones S1–S3.</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>data/source/: datos originales que no deben modificarse</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>data/processed/: datos derivados</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>src/: scripts</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>results/: resultados</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>doc/: protocolo y bitácora</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Busca la palabra <code>source</code> con <code>Ctrl-W</code>.</p></li>
+<li><p>Guarda con <code>Ctrl-O</code>, confirma <strong>el mismo nombre</strong> (<code>README.md</code>) con Enter y sal con <code>Ctrl-X</code>.</p></li>
+<li><p>Comprueba desde la terminal el nombre, tamaño y contenido con <code>ls -l README.md</code> y <code>cat README.md</code>.</p></li>
+<li><p>Vuelve a abrir el archivo con <code>nano README.md</code>; confirma que el contenido persiste y sal con <code>Ctrl-X</code> sin hacer cambios.</p></li>
+</ol>
+<p>Después responde: (1) ¿qué diferencia hay entre guardar y salir?, (2) ¿cómo comprobaste fuera del editor que el archivo se guardó?, y (3) ¿por qué no debes ejecutar <code>nano data/source/pacientes.md</code>?</p>
+<details>
+<summary>
+Ver retroalimentación — Micropráctica 4
+</summary>
+<ol type="1">
+<li>Guardar (<code>Ctrl-O</code> y Enter) escribe los cambios en el archivo, pero mantiene abierto el editor; salir (<code>Ctrl-X</code>) cierra <code>nano</code>. Si existen cambios sin guardar, <code>nano</code> solicita una decisión antes de salir.</li>
+<li><code>ls -l README.md</code> confirmó que el archivo existe y mostró sus metadatos; <code>cat README.md</code> permitió revisar el contenido desde la terminal. Volver a abrirlo confirmó que los cambios persistieron.</li>
+<li><code>data/source/pacientes.md</code> es un dato original. Editarlo rompería la política de inmutabilidad y cambiaría su <em>checksum</em>, afectando la procedencia y la reproducibilidad. Las transformaciones deben producir archivos nuevos en <code>data/processed/</code>.</li>
+</ol>
+</details>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>En el servidor también existe <code>vi</code> (o <code>vim</code>), un editor muy potente pero de manejo distinto. En este curso lo tratamos <strong>solo como consulta</strong>: lo importante es que, si entras a <code>vi</code> por accidente, sepas <strong>salir</strong> pulsando <code>Esc</code> y escribiendo <code>:q!</code> seguido de Enter (salir sin guardar). Para editar en S4 usa <code>nano</code>.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No es necesario editar archivos enormes en la terminal. <code>nano</code> es ideal para retoques rápidos —completar un <code>README.md</code>, añadir una sección a <code>protocolo.md</code>— directamente en el servidor, sin transferir de ida y vuelta.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="clasificación-de-los-comandos-de-s4" class="level2">
+<h2 class="anchored" data-anchor-id="clasificación-de-los-comandos-de-s4">Clasificación de los comandos de S4</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Categoría</th>
+<th>Comandos</th>
+<th>Para qué</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Esenciales</strong></td>
+<td><code>pwd</code>, <code>ls</code>, <code>cd</code>, <code>mkdir</code>, <code>mkdir -p</code>, <code>touch</code>, <code>cp -i</code>, <code>mv -i</code>, <code>tree</code>/<code>ls -R</code>, <code>nano</code></td>
+<td>Navegar, crear y organizar la estructura, editar en el servidor</td>
+</tr>
+<tr class="even">
+<td><strong>Seguridad</strong></td>
+<td><code>cp -i</code>, <code>mv -i</code>, <code>rm -i</code>, <code>rmdir</code>, <code>hostname</code>, <code>whoami</code>, <code>pwd</code> (antes de operar)</td>
+<td>Evitar sobrescrituras y borrados accidentales; confirmar el contexto</td>
+</tr>
+<tr class="odd">
+<td><strong>Aplicación</strong></td>
+<td><code>scp</code></td>
+<td>Transferir <code>bitacora-ia.md</code> desde el equipo local directamente a <code>~/proyecto/doc/</code></td>
+</tr>
+<tr class="even">
+<td><strong>Consulta/ampliación</strong></td>
+<td><code>man</code>, <code>vi</code> (solo salir), <code>cp -r</code>, <code>rsync -avP</code></td>
+<td>Resolver dudas; reconocer herramientas que se retomarán después</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="práctica-s4-estructura-de-directorios-del-proyecto-tarea-3" class="level2">
+<h2 class="anchored" data-anchor-id="práctica-s4-estructura-de-directorios-del-proyecto-tarea-3">Práctica S4 — Estructura de directorios del proyecto (Tarea 3)</h2>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Primero construyes y organizas la estructura <strong>tú</strong>, paso a paso. Después la comparas con una propuesta de IA en la <strong>Actividad formativa de IA</strong> (§ siguiente). Tu trabajo manual es la <strong>línea base de comparación, no una verdad absoluta</strong>: tanto tu solución como la de la IA se contrastan con la lección, con <code>man</code> y con una prueba controlada.</p>
+</div>
+</div>
+<p>Conserva la numeración oficial: esta es la <strong>Tarea 3</strong> del plan.</p>
+<section id="antes-de-clase-primer-intento-formativo" class="level3">
+<h3 class="anchored" data-anchor-id="antes-de-clase-primer-intento-formativo">Antes de clase (primer intento) — <em>formativo</em></h3>
+<p>Trabaja en tu espacio del servidor. Registra <strong>todo</strong> (comandos, errores y dudas) para llevarlo al taller.</p>
+<ol type="1">
+<li><strong>Revisa</strong> la estructura que diseñaste en S2 (Tarea 2) y tenla a la vista.</li>
+<li><strong>Identifica</strong> los archivos que produjiste o transferiste antes: <code>pacientes.md</code>, <code>pacientes-metadatos.md</code>, <code>protocolo.md</code> (ya en el servidor) y <code>bitacora-ia.md</code> (aún en tu computadora).</li>
+<li><strong>Decide</strong> en qué directorio debe vivir cada archivo (según la estructura canónica de §8).</li>
+<li><strong>Intenta</strong>, dentro de tu <em>home</em>, crear <code>proyecto-intento/</code> y al menos la rama <code>proyecto-intento/data/source/</code>. Usa ese nombre para que el primer intento no interfiera con el <code>proyecto/</code> definitivo que construirás durante el taller.</li>
+<li><strong>Registra</strong> los comandos que usaste, los errores que aparecieron y tus dudas.</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El primer intento es <strong>formativo</strong>: da puntos por <strong>preparación</strong>, no por acierto. Los errores razonables <strong>no se penalizan</strong>; su valor es llegar al taller con preguntas concretas.</p>
+</div>
+</div>
+</section>
+<section id="durante-el-taller-formativo-participación-y-corrección" class="level3">
+<h3 class="anchored" data-anchor-id="durante-el-taller-formativo-participación-y-corrección">Durante el taller — <em>formativo (participación y corrección)</em></h3>
+<p>Con repetición guiada y comprobando el contexto en cada paso. La teoría se estudió antes; el tiempo presencial se dedica a <strong>ejecutar, diagnosticar, comparar y corregir</strong> el primer intento.</p>
+<ol type="1">
+<li><p><strong>Confirma</strong> que estás en el servidor (<code>hostname</code>, <code>whoami</code>), entra a tu <em>home</em> con <code>cd ~</code> y registra su ruta absoluta con <code>pwd</code>. No trabajes en <code>/export/space3/users/$USER</code> durante esta sesión.</p></li>
+<li><p><strong>Localiza</strong> en el <em>home</em> los archivos transferidos en S3 (<code>pacientes.md</code>, <code>pacientes-metadatos.md</code> y <code>protocolo.md</code>) y confirma que <code>bitacora-ia.md</code> aún no está allí.</p></li>
+<li><p><strong>Revisa y corrige</strong> <code>proyecto-intento/</code>. Compara su árbol con la estructura esperada y anota qué faltó o quedó mal anidado.</p></li>
+<li><p><strong>Crea directamente</strong> el proyecto definitivo dentro del <em>home</em>. Antes, ejecuta <code>ls -ld proyecto</code>: si ya existe, detente, inspecciónalo con <code>ls -R proyecto</code> y corrige el intento con ayuda de la docente. No crees un proyecto dentro de otro. Si no existe, continúa:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> proyecto</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> proyecto</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> data/source data/processed</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> src results doc</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="fu">touch</span> README.md</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-R</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p><strong>Navega por tres caminos</strong> y registra siempre el punto de partida. Los dos primeros deben llevarte al mismo <code>data/source/</code>; el tercero practica <code>..</code> desde <code>doc/</code> hasta el archivo <code>pacientes.md</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># [REMOTO] ruta absoluta: sustituye el prefijo por la salida real de pwd en tu home</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /ruta/absoluta/de/tu/home/proyecto/data/source</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># [REMOTO] ruta relativa desde la raíz del proyecto</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/proyecto</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> data/source</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co"># [REMOTO] ruta relativa desde doc/: subir y entrar en otra rama</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/proyecto/doc</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> ../data/source/pacientes.md</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Compara las dos salidas de <code>pwd</code> de <code>data/source/</code>: deben ser idénticas. Después explica por qué <code>../data/source/pacientes.md</code> sí funciona desde <code>doc/</code>, pero <code>data/source/pacientes.md</code> no.</p>
+<details>
+<summary>
+<p>Ver retroalimentación</p>
+</summary>
+<p>La ruta absoluta comienza en <code>/</code> y no depende del directorio actual. La ruta <code>data/source/</code> parte de <code>~/proyecto/</code>; por eso llega al mismo directorio y ambas salidas de <code>pwd</code> coinciden. Desde <code>~/proyecto/doc/</code>, primero hay que subir al directorio padre (<code>..</code>, que es <code>proyecto/</code>) y después bajar por <code>data/source/</code>. Sin <code>..</code>, el sistema buscaría <code>~/proyecto/doc/data/source/pacientes.md</code>.</p>
+</details></li>
+<li><p><strong>Copia primero</strong> desde el <em>home</em> los datos, metadatos y protocolo que transferiste en S3:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/proyecto</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-i</span> ~/pacientes.md data/source/</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-i</span> ~/pacientes-metadatos.md data/source/</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-i</span> ~/protocolo.md doc/</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Conservar la copia provisional permite volver al punto de partida si detectas un problema.</p></li>
+<li><p><strong>Comprueba la integridad</strong> del dato copiado y compara la cadena con la registrada en S3:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sha256sum</span> ~/proyecto/data/source/pacientes.md</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Si no coincide, detente y vuelve a copiar desde el original; no borres ninguna copia.</p></li>
+<li><p><strong>Transfiere <code>bitacora-ia.md</code> directamente a <code>doc/</code></strong> con <code>scp</code> desde tu computadora. Usa la ruta absoluta del <em>home</em> que registraste con <code>pwd</code>; no uses <code>$USER</code> en el comando local.</p></li>
+<li><p><strong>Verifica</strong> desde el servidor que <code>bitacora-ia.md</code> está en <code>~/proyecto/doc/</code> y comprueba el árbol completo con <code>tree</code> o <code>ls -R</code>.</p></li>
+<li><p><strong>Realiza la Micropráctica 4</strong> con <code>README.md</code> y después <strong>actualiza</strong> <code>~/proyecto/doc/protocolo.md</code> con <code>nano</code> usando la plantilla de la entrega final. Verifica ambos archivos desde la terminal después de cerrar el editor.</p></li>
+<li><p><strong>Practica <code>mv -i</code>, <code>rm -i</code> y <code>rmdir</code></strong> exclusivamente dentro de <code>prueba-s4/</code>, nunca con los archivos del proyecto.</p></li>
+</ol>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>En S4 no se elimina ninguna copia provisional de los archivos reales. Primero se verifica la nueva organización; la limpieza de duplicados se decidirá después con la docente.</p>
+</div>
+</div>
+</section>
+<section id="después-del-taller-entrega-final-tarea-3-calificación-principal" class="level3">
+<h3 class="anchored" data-anchor-id="después-del-taller-entrega-final-tarea-3-calificación-principal">Después del taller (entrega final) — <em>Tarea 3 · calificación principal</em></h3>
+<p>Entrega, en tu espacio del servidor y documentado en <code>doc/protocolo.md</code>:</p>
+<ul>
+<li><strong>(Obligatorio)</strong> la <strong>estructura completa</strong> de <code>~/proyecto/</code>, construida directamente y con los archivos en su lugar;</li>
+<li><strong>(Obligatorio)</strong> la <strong>salida de <code>tree</code></strong> (o <code>ls -R</code>) que muestra el árbol;</li>
+<li><strong>(Obligatorio)</strong> la <strong>ubicación correcta</strong> de los archivos reutilizados (<code>pacientes.md</code> y <code>pacientes-metadatos.md</code> en <code>data/source/</code>; <code>protocolo.md</code> y <code>bitacora-ia.md</code> en <code>doc/</code>; <code>README.md</code> en la raíz);</li>
+<li><strong>(Obligatorio)</strong> el <strong>checksum</strong> de <code>pacientes.md</code> que demuestra que no cambió (comparado con S3);</li>
+<li><strong>(Obligatorio)</strong> una <strong>sección nueva</strong> en <code>doc/protocolo.md</code> (ver plantilla abajo);</li>
+<li><strong>(Obligatorio)</strong> el <strong>registro de los comandos</strong> utilizados;</li>
+<li><strong>(Obligatorio)</strong> la comparación de una <strong>ruta absoluta</strong> y una <strong>ruta relativa</strong> que conducen a <code>data/source/</code>, más la ruta relativa desde <code>doc/</code> hasta <code>pacientes.md</code>;</li>
+<li><strong>(Obligatorio)</strong> los <strong>problemas encontrados</strong> y cómo los resolviste (o indicar que no hubo);</li>
+<li><strong>(Obligatorio)</strong> una <strong>conclusión breve</strong> sobre por qué esta organización favorece la reproducibilidad;</li>
+<li><strong>(Formativo)</strong> el <code>README.md</code> <strong>completado</strong> con <code>nano</code> (descripción mínima del proyecto).</li>
+</ul>
+<p>No retires las copias provisionales como parte de esta tarea.</p>
+<p>Plantilla para la sección nueva de <code>doc/protocolo.md</code> (complétala con lo que <strong>realmente</strong> hiciste):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Organización del proyecto en el servidor (S4)</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">### Objetivo</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>Construir ~/proyecto/ dentro del home y colocar en él los archivos de S2–S3, comprobando que los datos</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>originales no cambiaron.</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="fu">### Estructura creada (salida de tree / ls -R de proyecto/)</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ubicación de cada archivo</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Archivo <span class="pp">|</span> Directorio destino <span class="pp">|</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">|</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> pacientes.md <span class="pp">|</span> data/source/ <span class="pp">|</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> pacientes-metadatos.md <span class="pp">|</span> data/source/ <span class="pp">|</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> protocolo.md <span class="pp">|</span> doc/ <span class="pp">|</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> bitacora-ia.md <span class="pp">|</span> doc/ <span class="pp">|</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> README.md <span class="pp">|</span> (raíz de proyecto/) <span class="pp">|</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="fu">### Verificación de integridad de pacientes.md</span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Momento <span class="pp">|</span> Checksum (SHA-256) <span class="pp">|</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">|</span></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> En S3 (transferencia) <span class="pp">|</span> <span class="pp">|</span></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> En S4 (tras copiar a data/source/) <span class="pp">|</span> <span class="pp">|</span></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ¿Coinciden? <span class="pp">|</span> <span class="pp">|</span></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a><span class="fu">### Práctica de rutas</span></span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Punto de partida <span class="pp">|</span> Ruta utilizada <span class="pp">|</span> Tipo (absoluta/relativa) <span class="pp">|</span> Resultado <span class="pp">|</span></span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">|</span></span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Cualquier directorio <span class="pp">|</span> /ruta/real/del/home/proyecto/data/source/ <span class="pp">|</span> Absoluta <span class="pp">|</span> <span class="pp">|</span></span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ~/proyecto/ <span class="pp">|</span> data/source/ <span class="pp">|</span> Relativa <span class="pp">|</span> <span class="pp">|</span></span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ~/proyecto/doc/ <span class="pp">|</span> ../data/source/pacientes.md <span class="pp">|</span> Relativa <span class="pp">|</span> <span class="pp">|</span></span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a><span class="fu">### Registro de comandos</span></span>
+<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a><span class="fu">### Problemas encontrados y solución</span></span>
+<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a><span class="fu">### Conclusión</span></span>
+<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a>Por qué esta organización favorece la reproducibilidad.</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="actividad-formativa-de-ia-revisar-la-estructura-ya-creada" class="level2">
+<h2 class="anchored" data-anchor-id="actividad-formativa-de-ia-revisar-la-estructura-ya-creada">Actividad formativa de IA — revisar la estructura ya creada</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Se llama <strong>Actividad formativa de IA</strong> (no “Tarea A”) para no confundirla con las tareas oficiales del plan. Es <strong>formativa</strong>: su valor está en la comparación, no en una calificación aparte. La IA <strong>revisa la misma estructura que ya creaste a mano</strong>; <strong>no</strong> propone un proyecto nuevo ni opera el servidor.</p>
+</div>
+</div>
+<p>Realízala <strong>después</strong> de construir la estructura tú. Trabaja sobre una <strong>copia</strong> de tu registro.</p>
+<ol type="1">
+<li><strong>Formula o adapta un prompt</strong> con contexto, objetivo, formato esperado y criterios de verificación.</li>
+<li><strong>Sustituye</strong> cualquier dato institucional por marcadores: <code>[SERVIDOR]</code>, <code>[USUARIO]</code> y <code>[RUTA]</code>. No incluyas contraseñas, IP, huellas, llaves ni tokens.</li>
+<li><strong>Pide</strong> a la IA una propuesta para <strong>crear y verificar la misma estructura</strong>.</li>
+<li><strong>Compara</strong> su propuesta con la tuya <strong>comando por comando</strong>.</li>
+<li><strong>Detecta</strong> comandos eficientes (p.&nbsp;ej. <code>mkdir -p</code> para varias carpetas), riesgosos (p.&nbsp;ej. un <code>rm -r</code> innecesario), redundantes o incorrectos. Comprueba también si la IA confunde el <em>home</em> con el espacio institucional o propone usar <code>/export/space3</code> sin que la tarea lo requiera.</li>
+<li><strong>Valida</strong> con <code>man</code> y probando en <code>prueba-s4/</code>, nunca directamente sobre <code>proyecto/</code>.</li>
+<li><strong>Registra</strong> en <code>bitacora-ia.md</code>: fecha; actividad; herramienta y modelo (si se conoce); prompt; respuesta relevante; verificación independiente; errores o alucinaciones; correcciones; observaciones aceptadas o rechazadas; y decisión final.</li>
+</ol>
+<details>
+<summary>
+Ver prompt sugerido
+</summary>
+<blockquote class="blockquote">
+<p>Estoy aprendiendo el sistema de archivos de Unix en un curso de bioinformática. Ya creé a mano, en <code>[SERVIDOR]</code> bajo <code>[RUTA]</code>, esta estructura de proyecto: <code>proyecto/</code> con <code>README.md</code>, <code>data/source</code>, <code>data/processed</code>, <code>src</code>, <code>results</code> y <code>doc</code>. Propón los comandos para <strong>crear y verificar</strong> esa misma estructura <strong>dentro de mi home</strong>; no uses el espacio institucional <code>/export/space3</code>, que se reserva para datos y análisis grandes en sesiones posteriores. Explica cómo comprobar que quedó bien. No incluyas datos sensibles ni ejecutes nada; solo propón comandos. Señala si algún comando podría sobrescribir o borrar archivos. Presenta el resultado como una tabla con columnas “comando”, “qué hace” y “riesgo”.</p>
+</blockquote>
+</details>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No ejecutes un comando sugerido por la IA sobre tu <code>proyecto/</code> solo porque parezca correcto. En esta actividad la IA funciona como <strong>revisora</strong>, no como operadora del servidor. Todo lo que valides, pruébalo antes en <code>prueba-s4/</code>.</p>
+</div>
+</div>
+</section>
+<section id="los-cuatro-principios-hechos-observables-en-s4" class="level2">
+<h2 class="anchored" data-anchor-id="los-cuatro-principios-hechos-observables-en-s4">Los cuatro principios, hechos observables en S4</h2>
+<p>Estos cuatro principios (Unidad 1) se distinguen entre sí; <strong>no</strong> son sinónimos:</p>
+<ul>
+<li><strong>Reproducibilidad:</strong> registra en <code>protocolo.md</code> las <strong>rutas, comandos, decisiones y resultados</strong>, de modo que otra persona pueda recrear la estructura.</li>
+<li><strong>Verificación:</strong> comprueba que el árbol quedó como esperabas (<code>tree</code>/<code>ls -R</code>) y que el archivo no cambió (<strong>checksum antes/después</strong> de copiar <code>pacientes.md</code>).</li>
+<li><strong>Validación:</strong> contrasta la <strong>sintaxis y el comportamiento</strong> de un comando con <code>man</code>, con la lección y con una <strong>prueba controlada</strong> en <code>prueba-s4/</code>.</li>
+<li><strong>Robustez:</strong> llega <strong>al mismo directorio por dos rutas</strong> —una absoluta y otra relativa—, comprueba ambas con <code>pwd</code> y confirma que el resultado es el mismo.</li>
+</ul>
+</section>
+<section id="errores-frecuentes-y-cómo-diagnosticarlos" class="level2">
+<h2 class="anchored" data-anchor-id="errores-frecuentes-y-cómo-diagnosticarlos">Errores frecuentes y cómo diagnosticarlos</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Síntoma</th>
+<th>Causa probable</th>
+<th>Cómo diagnosticar / corregir</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>No such file or directory</code></td>
+<td>Ruta mal escrita o punto de partida equivocado</td>
+<td>Ejecuta <code>pwd</code> y <code>ls</code>; revisa si la ruta es relativa o absoluta</td>
+</tr>
+<tr class="even">
+<td>Las carpetas no quedan anidadas</td>
+<td><code>mkdir</code> sin <code>-p</code>, o <code>cd</code> en el lugar equivocado</td>
+<td>Usa <code>mkdir -p a/b/c</code>; verifica con <code>tree</code>/<code>ls -R</code></td>
+</tr>
+<tr class="odd">
+<td><code>mkdir: cannot create ... No such file or directory</code></td>
+<td>Falta el directorio padre</td>
+<td>Crea el padre primero o usa <code>mkdir -p</code></td>
+</tr>
+<tr class="even">
+<td><code>cp: omitting directory</code></td>
+<td>Intentaste copiar una carpeta con <code>cp</code> sin <code>-r</code></td>
+<td><code>cp -r</code> copia carpetas completas; es una opción de ampliación en S4</td>
+</tr>
+<tr class="odd">
+<td><code>mv</code> “desapareció” un archivo</td>
+<td><code>mv</code> renombró o movió a otro sitio</td>
+<td>Revisa el destino; recuerda que <code>mv</code> mueve <strong>y</strong> renombra</td>
+</tr>
+<tr class="even">
+<td>Sobrescribí un archivo sin querer</td>
+<td><code>cp</code>/<code>mv</code> sin <code>-i</code></td>
+<td>Usa siempre <code>cp -i</code> y <code>mv -i</code>; conserva la copia provisional hasta verificar</td>
+</tr>
+<tr class="odd">
+<td><code>rmdir: Directory not empty</code></td>
+<td>La carpeta tiene contenido</td>
+<td>Borra su contenido con <code>rm -i</code> y luego <code>rmdir</code> (no adoptes <code>rm -ri</code> como rutina)</td>
+</tr>
+<tr class="even">
+<td>Los checksums no coinciden</td>
+<td>El archivo cambió o la copia no corresponde al original de S3</td>
+<td>No borres nada; vuelve a copiar desde el original y verifica</td>
+</tr>
+<tr class="odd">
+<td>Un archivo de S3 no aparece en <code>~</code></td>
+<td>La transferencia quedó incompleta o no estás en el home</td>
+<td>Ejecuta <code>cd ~</code>, confirma con <code>pwd</code> y revisa la evidencia de S3 antes de continuar</td>
+</tr>
+<tr class="even">
+<td><code>scp</code> crea una ruta con el usuario equivocado</td>
+<td><code>$USER</code> se expandió en la computadora local</td>
+<td>Escribe explícitamente el usuario remoto y la ruta absoluta del home remoto</td>
+</tr>
+<tr class="odd">
+<td>Quedé atrapado dentro de <code>vi</code></td>
+<td>Abriste <code>vi</code> por accidente</td>
+<td>Pulsa <code>Esc</code>, escribe <code>:q!</code> y Enter para salir sin guardar</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="evidencia-de-aprendizaje" class="level2">
+<h2 class="anchored" data-anchor-id="evidencia-de-aprendizaje">Evidencia de aprendizaje</h2>
+<p><strong>Estructura reproducible del proyecto</strong> en el servidor (Tarea 3): <strong><code>~/proyecto/</code> construido directamente</strong>, con los archivos de S2–S3 en su lugar, la salida de <code>tree</code>/<code>ls -R</code>, el <strong>checksum</strong> que confirma que <code>pacientes.md</code> no cambió, el registro de comandos y la sección nueva de <code>doc/protocolo.md</code>. Como evidencia complementaria, <code>bitacora-ia.md</code> registra la Actividad formativa de IA. Una captura de pantalla, por sí sola, <strong>no</strong> sustituye ninguna de estas evidencias.</p>
+</section>
+<section id="rúbricas" class="level2">
+<h2 class="anchored" data-anchor-id="rúbricas">Rúbricas</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Cómo se evalúa cada momento.</strong> El <strong>primer intento</strong> y la <strong>participación</strong> son <strong>formativos</strong> (dan puntos por preparación y por corrección argumentada). La <strong>Tarea 3</strong> (entrega posterior) lleva la <strong>calificación principal</strong>. La <strong>Actividad formativa de IA</strong> es formativa. Tres niveles: <strong>Logrado</strong>, <strong>Parcialmente logrado</strong>, <strong>Aún no logrado</strong>.</p>
+</div>
+</div>
+<section id="primer-intento-formativa-puntos-por-preparación" class="level3">
+<h3 class="anchored" data-anchor-id="primer-intento-formativa-puntos-por-preparación">Primer intento (formativa · puntos por preparación)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterio</th>
+<th>Logrado</th>
+<th>Parcialmente logrado</th>
+<th>Aún no logrado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Revisión del diseño de S2</td>
+<td>Retoma la estructura diseñada y decide dónde va cada archivo</td>
+<td>Retoma el diseño parcialmente</td>
+<td>No lo retoma</td>
+</tr>
+<tr class="even">
+<td>Intento de creación</td>
+<td>Intenta <code>proyecto-intento/</code> y al menos <code>data/source/</code> paso a paso</td>
+<td>Intento incompleto</td>
+<td>Sin intento</td>
+</tr>
+<tr class="odd">
+<td>Registro de comandos y errores</td>
+<td>Anota comandos, errores y ≥1 duda concreta</td>
+<td>Registro parcial</td>
+<td>Sin registro</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="participación-y-corrección-durante-el-taller-formativa" class="level3">
+<h3 class="anchored" data-anchor-id="participación-y-corrección-durante-el-taller-formativa">Participación y corrección durante el taller (formativa)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterio</th>
+<th>Logrado</th>
+<th>Parcialmente logrado</th>
+<th>Aún no logrado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Comprobación de contexto</td>
+<td>Usa <code>hostname</code>/<code>whoami</code>/<code>pwd</code> antes de operar</td>
+<td>Lo hace a veces</td>
+<td>No comprueba el contexto</td>
+</tr>
+<tr class="even">
+<td>Corrección argumentada</td>
+<td>Detecta y corrige sus errores explicando por qué</td>
+<td>Corrige sin justificar</td>
+<td>No corrige</td>
+</tr>
+<tr class="odd">
+<td>Práctica segura</td>
+<td>Usa <code>-i</code> y practica borrado solo en <code>prueba-s4/</code></td>
+<td>Cumple en parte</td>
+<td>Opera sin cuidado</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tarea-3-estructura-del-proyecto-en-el-servidor-entrega-final" class="level3">
+<h3 class="anchored" data-anchor-id="tarea-3-estructura-del-proyecto-en-el-servidor-entrega-final">Tarea 3 — estructura del proyecto en el servidor (entrega final)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterio</th>
+<th>Logrado</th>
+<th>Parcialmente logrado</th>
+<th>Aún no logrado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Estructura canónica</td>
+<td><code>proyecto/</code> con <code>README.md</code>, <code>data/source</code>, <code>data/processed</code>, <code>src</code>, <code>results</code>, <code>doc</code> correctamente anidados</td>
+<td>Falta alguna carpeta o anidación incorrecta</td>
+<td>Sin estructura o desordenada</td>
+</tr>
+<tr class="even">
+<td>Diferencia entre espacios</td>
+<td>Construye el proyecto en el home y explica cuándo se usará el espacio institucional</td>
+<td>Distingue los espacios pero confunde su uso</td>
+<td>Trata home y espacio institucional como la misma ruta</td>
+</tr>
+<tr class="odd">
+<td>Ubicación de los archivos de S2–S3</td>
+<td>Copia los datos a <code>data/source/</code> y coloca protocolo y bitácora en <code>doc/</code></td>
+<td>Algún archivo mal ubicado</td>
+<td>Archivos sueltos o ausentes</td>
+</tr>
+<tr class="even">
+<td>Verificación de integridad</td>
+<td>Incluye checksum de <code>pacientes.md</code> y lo compara con S3; coinciden</td>
+<td>Calcula sin comparar</td>
+<td>No verifica</td>
+</tr>
+<tr class="odd">
+<td>Verificación del árbol</td>
+<td>Incluye salida de <code>tree</code>/<code>ls -R</code> que confirma la estructura</td>
+<td>Verifica parcialmente</td>
+<td>No verifica</td>
+</tr>
+<tr class="even">
+<td>Registro y protocolo</td>
+<td><code>doc/protocolo.md</code> con comandos, problemas y conclusión de reproducibilidad</td>
+<td>Registro incompleto</td>
+<td>Sin registro</td>
+</tr>
+<tr class="odd">
+<td>Navegación con rutas</td>
+<td>Documenta acceso por ruta absoluta y relativa al mismo archivo</td>
+<td>Usa solo un tipo</td>
+<td>No documenta navegación</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="actividad-formativa-de-ia" class="level3">
+<h3 class="anchored" data-anchor-id="actividad-formativa-de-ia">Actividad formativa de IA</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterio</th>
+<th>Logrado</th>
+<th>Parcialmente logrado</th>
+<th>Aún no logrado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Prompt y anonimización</td>
+<td>Prompt con contexto, objetivo, formato y criterios; datos sustituidos por <code>[SERVIDOR]</code>/<code>[USUARIO]</code>/<code>[RUTA]</code></td>
+<td>Prompt incompleto o anonimización parcial</td>
+<td>Sin criterios o comparte datos sensibles</td>
+</tr>
+<tr class="even">
+<td>Comparación comando por comando</td>
+<td>Compara y detecta eficientes/riesgosos/incorrectos</td>
+<td>Compara sin analizar riesgos</td>
+<td>Acepta la IA sin comparar</td>
+</tr>
+<tr class="odd">
+<td>Validación independiente</td>
+<td>Valida con <code>man</code> y en <code>prueba-s4/</code></td>
+<td>Valida parcialmente</td>
+<td>No valida</td>
+</tr>
+<tr class="even">
+<td>Registro en <code>bitacora-ia.md</code></td>
+<td>Entrada completa (prompt, verificación, correcciones, decisión)</td>
+<td>Entrada incompleta</td>
+<td>Sin registro</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="autoevaluación-semáforo-de-salida" class="level2">
+<h2 class="anchored" data-anchor-id="autoevaluación-semáforo-de-salida">Autoevaluación — semáforo de salida</h2>
+<ul>
+<li>🟢 <strong>Verde:</strong> distinguí el <em>home</em> del espacio institucional, construí <code>~/proyecto/</code>, copié cada archivo de S2–S3 a su lugar, transferí <code>bitacora-ia.md</code>, verifiqué el árbol y el checksum coincidió con S3.</li>
+<li>🟡 <strong>Amarillo:</strong> creé la estructura, pero dudo de la ubicación de algún archivo, de la verificación de integridad o de distinguir rutas relativas y absolutas.</li>
+<li>🔴 <strong>Rojo:</strong> confundí el <em>home</em> con el espacio institucional o no logré construir <code>~/proyecto/</code>; llevo mis comandos y el error al taller.</li>
+</ul>
+</section>
+<section id="distribución-orientativa-de-las-dos-horas-120-min" class="level2">
+<h2 class="anchored" data-anchor-id="distribución-orientativa-de-las-dos-horas-120-min">Distribución orientativa de las dos horas (120 min)</h2>
+<div class="tabla-agenda">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tiempo</th>
+<th>Actividad</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0–8 min</td>
+<td>Recuperación activa de la lectura y S2–S3: productos disponibles y problema conductor</td>
+</tr>
+<tr class="even">
+<td>8–18 min</td>
+<td>Comparar el primer intento; distinguir con comandos el home y el espacio institucional</td>
+</tr>
+<tr class="odd">
+<td>18–32 min</td>
+<td>Micropráctica 1: contexto y navegación por rutas absolutas y relativas</td>
+</tr>
+<tr class="even">
+<td>32–48 min</td>
+<td>Corregir el intento y construir directamente <code>~/proyecto/</code> paso a paso</td>
+</tr>
+<tr class="odd">
+<td>48–60 min</td>
+<td>Micropráctica 2 en <code>prueba-s4/</code>: copiar, mover y renombrar con seguridad</td>
+</tr>
+<tr class="even">
+<td>60–78 min</td>
+<td>Copiar los archivos de S3 a <code>data/source/</code> y <code>doc/</code>; transferir <code>bitacora-ia.md</code> con <code>scp</code></td>
+</tr>
+<tr class="odd">
+<td>78–90 min</td>
+<td>Verificar el árbol y comparar el checksum de <code>pacientes.md</code> con S3</td>
+</tr>
+<tr class="even">
+<td>90–105 min</td>
+<td>Micropráctica 4: abrir, editar, guardar, salir y comprobar <code>README.md</code> con <code>nano</code></td>
+</tr>
+<tr class="odd">
+<td>105–114 min</td>
+<td>Actualizar <code>doc/protocolo.md</code> con <code>nano</code>; verificar y documentar decisiones y problemas</td>
+</tr>
+<tr class="even">
+<td>114–118 min</td>
+<td>Micropráctica 3: diagnóstico y eliminación segura con <code>rm -i</code>/<code>rmdir</code> solo en <code>prueba-s4/</code></td>
+</tr>
+<tr class="odd">
+<td>118–120 min</td>
+<td>Semáforo de salida y registro de dudas</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Son estimaciones; ajústalas al ritmo del grupo. La <strong>Actividad formativa de IA</strong> y su registro en <code>bitacora-ia.md</code> se realizan <strong>después</strong> de la sesión.</p>
+</div>
+</div>
+</section>
+<section id="preparación-para-la-siguiente-sesión-s5" class="level2">
+<h2 class="anchored" data-anchor-id="preparación-para-la-siguiente-sesión-s5">Preparación para la siguiente sesión (S5)</h2>
+<p>Ya tienes tu proyecto organizado en el servidor. En <strong>S5</strong> trabajarás <strong>dentro</strong> de esos archivos: los identificarás y visualizarás, ampliarás la edición con <code>nano</code>, los comprimirás, y aprenderás a leer y cambiar <strong>permisos</strong> y a controlar <strong>procesos</strong>. Lee el módulo <a href="./u2-s5-archivos-permisos-procesos-v2.html">S5 — Archivos, permisos y procesos</a> e intenta un primer acercamiento a un archivo con <code>file</code> y <code>head</code>.</p>
+</section>
+<section id="anexo-a.-correspondencia-resultadoactividadevidenciacriterio" class="level2">
+<h2 class="anchored" data-anchor-id="anexo-a.-correspondencia-resultadoactividadevidenciacriterio">Anexo A. Correspondencia resultado–actividad–evidencia–criterio</h2>
+<p><strong>Nivel en S4:</strong> <em>comprensión</em> (se entiende), <em>ejecución</em> (se realiza en esta sesión).</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Resultado de aprendizaje</th>
+<th>Actividad</th>
+<th>Evidencia</th>
+<th>Criterio (rúbrica)</th>
+<th>Momento</th>
+<th>Nivel en S4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RA1 Árbol, <code>/</code>, <code>~</code>, actual; home vs.&nbsp;espacio institucional</td>
+<td>§1; Micropráctica 1</td>
+<td>Explicación en <code>protocolo.md</code>; proyecto creado en el home</td>
+<td>Tarea 3 (estructura y espacios)</td>
+<td>Taller</td>
+<td>comprensión/ejecución</td>
+</tr>
+<tr class="even">
+<td>RA2 Rutas absolutas y relativas; <code>.</code>, <code>..</code>, <code>~</code></td>
+<td>§2–§3; Micropráctica 1</td>
+<td>Registro de navegación por ambos tipos de ruta</td>
+<td>Tarea 3 (navegación)</td>
+<td>Taller/entrega</td>
+<td>ejecución</td>
+</tr>
+<tr class="odd">
+<td>RA3 Navegar con <code>pwd</code>/<code>ls</code>/<code>cd</code> tras comprobar contexto</td>
+<td>Micropráctica 1; taller</td>
+<td>Comandos con <code>hostname</code>/<code>whoami</code>/<code>pwd</code></td>
+<td>Participación</td>
+<td>Taller</td>
+<td>ejecución</td>
+</tr>
+<tr class="even">
+<td>RA4 Crear y organizar; eliminar de forma segura</td>
+<td>§4–§6; Microprácticas 2–3</td>
+<td>Operaciones en <code>prueba-s4/</code> documentadas</td>
+<td>Participación (práctica segura)</td>
+<td>Taller</td>
+<td>ejecución</td>
+</tr>
+<tr class="odd">
+<td>RA5 Construir <code>~/proyecto/</code> y colocar los archivos de S3</td>
+<td>Práctica S4 (Tarea 3)</td>
+<td>Estructura directa + archivos en su lugar</td>
+<td>Tarea 3 (estructura y ubicación)</td>
+<td>Entrega</td>
+<td>ejecución</td>
+</tr>
+<tr class="even">
+<td>RA6 Verificar árbol e integridad</td>
+<td>Práctica S4, pasos 9–10</td>
+<td>Salida de <code>tree</code>/<code>ls -R</code> + checksum comparado con S3</td>
+<td>Tarea 3 (verificación)</td>
+<td>Entrega</td>
+<td>ejecución</td>
+</tr>
+<tr class="odd">
+<td>RA7 Transferir con <code>scp</code>; reconocer <code>rsync</code></td>
+<td>§9; Práctica S4</td>
+<td><code>bitacora-ia.md</code> presente en <code>doc/</code></td>
+<td>Tarea 3 (ubicación)</td>
+<td>Taller/entrega</td>
+<td>ejecución/consulta</td>
+</tr>
+<tr class="even">
+<td>RA8 Editar con <code>nano</code></td>
+<td>§10; cierre de la práctica</td>
+<td><code>protocolo.md</code> actualizado</td>
+<td>Tarea 3 (registro y protocolo)</td>
+<td>Taller/después</td>
+<td>ejecución</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="anexo-b.-alineación-transversal" class="level2">
+<h2 class="anchored" data-anchor-id="anexo-b.-alineación-transversal">Anexo B. Alineación transversal</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Resultado de la sesión</th>
+<th>Práctica</th>
+<th>Evidencia</th>
+<th>Reproducibilidad</th>
+<th>Verificación</th>
+<th>Validación</th>
+<th>Robustez</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Construir y organizar la estructura (RA5)</td>
+<td>Práctica S4 (Tarea 3)</td>
+<td><code>~/proyecto/</code> + archivos ubicados</td>
+<td>Los comandos en <code>protocolo.md</code> permiten <strong>recrear</strong> la estructura</td>
+<td>Confirmar el árbol con <code>tree</code>/<code>ls -R</code></td>
+<td>La estructura corresponde al diseño de S2</td>
+<td>Llegar al mismo directorio por ruta absoluta y relativa</td>
+</tr>
+<tr class="even">
+<td>Preservar el dato original (RA6)</td>
+<td>Pasos 7–9</td>
+<td>Checksum de <code>pacientes.md</code></td>
+<td>Original intacto en <code>data/source/</code>, copias aparte</td>
+<td>Comparar checksum antes/después</td>
+<td>El dato conservado sigue siendo el de S3</td>
+<td>Copiar (no mover) hasta verificar</td>
+</tr>
+<tr class="odd">
+<td>Operar con seguridad (RA4, RA7)</td>
+<td>Microprácticas 2–3; §9</td>
+<td>Registro de operaciones seguras</td>
+<td>Registro reproducible de cada operación</td>
+<td>Probar en <code>prueba-s4/</code></td>
+<td>Contrastar sintaxis con <code>man</code></td>
+<td>Comprobar contexto con <code>hostname</code>/<code>whoami</code>/<code>pwd</code></td>
+</tr>
+<tr class="even">
+<td>Usar IA de forma crítica (RA8)</td>
+<td>Actividad formativa de IA</td>
+<td>Entrada en <code>bitacora-ia.md</code></td>
+<td>Prompt y decisión registrados</td>
+<td>Validar con <code>man</code> y prueba controlada</td>
+<td>Confirmar que la propuesta resuelve la tarea</td>
+<td>Comparar la solución manual con la de IA</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Cuando aún no sea posible una comprobación completa de robustez, basta una actividad inicial: llegar a un mismo directorio por dos rutas distintas y comparar <code>pwd</code>, o copiar en lugar de mover para conservar el original mientras verificas.</p>
+</div>
+</div>
+</section>
+<section id="glosario" class="level2">
+<h2 class="anchored" data-anchor-id="glosario">Glosario</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Español</th>
+<th>Inglés</th>
+<th>Definición breve</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Sistema de archivos</td>
+<td>File system</td>
+<td>Organización jerárquica de archivos y directorios.</td>
+</tr>
+<tr class="even">
+<td>Raíz</td>
+<td>Root (<code>/</code>)</td>
+<td>Directorio del que cuelga todo el árbol.</td>
+</tr>
+<tr class="odd">
+<td>Directorio personal</td>
+<td>Home directory (<code>~</code>)</td>
+<td>Carpeta propia del usuario.</td>
+</tr>
+<tr class="even">
+<td>Directorio actual</td>
+<td>Current/working directory</td>
+<td>Lugar donde estás parado (lo da <code>pwd</code>).</td>
+</tr>
+<tr class="odd">
+<td>Ruta absoluta</td>
+<td>Absolute path</td>
+<td>Ruta que parte de <code>/</code>.</td>
+</tr>
+<tr class="even">
+<td>Ruta relativa</td>
+<td>Relative path</td>
+<td>Ruta que parte del directorio actual.</td>
+</tr>
+<tr class="odd">
+<td>Directorio padre</td>
+<td>Parent directory (<code>..</code>)</td>
+<td>El directorio inmediatamente superior.</td>
+</tr>
+<tr class="even">
+<td>Checksum / suma de verificación</td>
+<td>Checksum</td>
+<td>Huella del contenido de un archivo para comprobar integridad.</td>
+</tr>
+<tr class="odd">
+<td>Editor de texto de terminal</td>
+<td>Terminal text editor</td>
+<td>Programa para editar archivos desde la línea de comandos (p.&nbsp;ej. <code>nano</code>, <code>vi</code>).</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="referencias" class="level2">
+<h2 class="anchored" data-anchor-id="referencias">Referencias</h2>
+<ul>
+<li>Buffalo, V. (2015). <em>Bioinformatics Data Skills</em>. O’Reilly Media. — Cap. 3 (navegación y manipulación de archivos y directorios). Lectura <strong>base</strong> de S4. Disponible en <a href="referencias/bioinformatics-data-skills.pdf"><code>bioinformatics-data-skills.pdf</code></a>.</li>
+<li>Shotts, W. E. (2019). <em>The Linux Command Line: A Complete Introduction</em> (2ª ed.). No Starch Press. Caps. 2–4 (moverse por el sistema de archivos; explorar; manipular archivos y directorios). Lectura de <strong>consulta</strong>. Edición libre en línea: <a href="https://linuxcommand.org/tlcl.php" class="uri">https://linuxcommand.org/tlcl.php</a></li>
+<li>Noble, W. S. (2009). A Quick Guide to Organizing Computational Biology Projects. <em>PLoS Computational Biology</em>, 5(7), e1000424. <a href="https://doi.org/10.1371/journal.pcbi.1000424" class="uri">https://doi.org/10.1371/journal.pcbi.1000424</a> — organización de proyectos y conservación de datos originales.</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El plan operativo asigna a S4 la consulta previa “L3-shell, diapositivas 39–60”. Este módulo cubre esos contenidos como lectura previa autocontenida. Las diapositivas y Shotts quedan como consulta; Buffalo Cap. 3 se utiliza como consulta dirigida. La docente puede indicar un fragmento adicional cuando el grupo necesite refuerzo.</p>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/helysalgado\.github\.io\/introbioinfo-unix\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./u2-s3-shell-acceso-remoto.html" class="pagination-link" aria-label="S3 — Conectar">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">S3 — Conectar</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./u2-s5-archivos-permisos-procesos-v2.html" class="pagination-link" aria-label="S5 — Archivos y procesos">
+        <span class="nav-page-text">S5 — Archivos y procesos</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://hits.sh/helysalgado.github.io/introbioinfo-unix/"><img src="https://hits.sh/helysalgado.github.io/introbioinfo-unix/.svg?style=flat-square&amp;label=Visitas&amp;color=4a7c9e" class="img-fluid figure-img"></a></p>
+<figcaption>Visitas</figcaption>
+</figure>
+</div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Helysalgado/introbioinfo-unix/edit/main/u2-s4-sistema-archivos-v3.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/Helysalgado/introbioinfo-unix/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

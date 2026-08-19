@@ -1,0 +1,2734 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>u4-s21-confrontar-fuente-independiente – Introducción a la Bioinformática</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./u4-s22-condicionar-calcular-columnas.html" rel="next">
+<link href="./u4-s20-normalizar-datos-comparables.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fe3756b78d23b7733c53f9ce5acac92a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXNMZZP0K9"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-QXNMZZP0K9', { 'anonymize_ip': true});
+</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Introducción a la Bioinformática</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Inicio</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-programa" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Programa</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-programa">    
+        <li>
+    <a class="dropdown-item" href="./programa.html">
+ <span class="dropdown-text">Ruta de sesiones</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./programa-detallado.html">
+ <span class="dropdown-text">Programa detallado</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-unidades" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Unidades</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-unidades">    
+        <li>
+    <a class="dropdown-item" href="./u1-trabajo-reproducible.html">
+ <span class="dropdown-text">U1 — Trabajo reproducible</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u2-entorno-unix.html">
+ <span class="dropdown-text">U2 — Entorno Unix</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u3-datos-bases-datos.html">
+ <span class="dropdown-text">U3 — Datos y bases</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u4-procesamiento-exploracion.html">
+ <span class="dropdown-text">U4 — Procesamiento genómico</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u5-automatizacion-scripting.html">
+ <span class="dropdown-text">U5 — Automatización</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u6-comparacion-homologia.html">
+ <span class="dropdown-text">U6 — Comparar / hipótesis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./s14-s15-mini-proyecto-investigacion-I.html">
+ <span class="dropdown-text">Transversal S14–S17</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="./recursos.html" aria-current="page"> 
+<span class="menu-text">Recursos</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./acerca.html"> 
+<span class="menu-text">Acerca</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./contribuir.html"> 
+<span class="menu-text">Contribuir</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Alternar modo lector">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./u4-procesamiento-exploracion.html">Unidad 4</a></li><li class="breadcrumb-item"><a href="./u4-s21-confrontar-fuente-independiente.html">S21 — Confrontar</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 1</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-trabajo-reproducible.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-s1-documentar-markdown-fases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S1 — Documentar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-s2-organizar-fair-ia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S2 — Organizar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 2</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-entorno-unix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s3-shell-acceso-remoto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S3 — Conectar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s4-sistema-archivos-v3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S4 — Navegar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s5-archivos-permisos-procesos-v2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S5 — Archivos y procesos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s6-consolidacion-entorno-unix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S6 — Consolidar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 3</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-datos-bases-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s7-secuencias-formatos-genbank.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S7 — Formatos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s8-bases-datos-descarga-integridad.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S8 — Descargar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s9-inspeccion-transferencia-verificable.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S9 — Transferir</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Unidad 4</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-procesamiento-exploracion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s10-anatomia-flujos-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S10 — Anatomía y flujos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s11-estructura-tabular-anotacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S11 — Anotación tabular</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s12-filtrado-conteos-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S12 — Filtrar y contar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s13-inventario-resumen-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S13 — Inventario</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s18-precision-patrones-expresiones-regulares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S18 — Patrones</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s19-extraccion-identificadores-correspondencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S19 — Identificadores</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s20-normalizar-datos-comparables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S20 — Normalizar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s21-confrontar-fuente-independiente.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">S21 — Confrontar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s22-condicionar-calcular-columnas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S22 — Condicionar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s23-protocolo-ejecutable-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S23 — Protocolo ejecutable</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Transversal</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s14-s15-mini-proyecto-investigacion-I.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S14–S15 — Mini-proyecto I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s16-mini-proyecto-revision-pares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S16 — Revisión por pares</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s17-evaluacion-individual-demostrativa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S17 — Evaluación demostrativa</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mini-proyecto-dictamen-cientifico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dictamen científico</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 5</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-automatizacion-scripting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s24-del-protocolo-al-script.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S24 — Del protocolo al script</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s25-separar-procedimiento-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S25 — Separar datos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s26-procesamiento-por-lotes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S26 — Por lotes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s27-herramienta-cientifica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S27 — Herramienta científica</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s28-proyecto-integrador.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S28 — Proyecto integrador</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s29-cluster-hpc-sge.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S29 — Cluster SGE</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 6</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-comparacion-homologia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s30-comparar-alinear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S30 — Comparar / alinear</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s31-buscar-blast.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S31 — Buscar (BLAST)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s32-interpretar-inferir.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S32 — Interpretar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s33-defender-hipotesis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S33 — Inferir</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s34-integrar-hipotesis-casos-ciegos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S34 — Integrar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./programa-detallado.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programa detallado</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./recursos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recursos</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#s21-confrontar-validar-un-resultado-con-una-fuente-independiente" id="toc-s21-confrontar-validar-un-resultado-con-una-fuente-independiente" class="nav-link active" data-scroll-target="#s21-confrontar-validar-un-resultado-con-una-fuente-independiente">S21 — Confrontar: validar un resultado con una fuente independiente</a>
+  <ul class="collapse">
+  <li><a href="#ficha-del-módulo" id="toc-ficha-del-módulo" class="nav-link" data-scroll-target="#ficha-del-módulo">Ficha del módulo</a></li>
+  <li><a href="#relación-con-lo-que-ya-sabes" id="toc-relación-con-lo-que-ya-sabes" class="nav-link" data-scroll-target="#relación-con-lo-que-ya-sabes">Relación con lo que ya sabes</a></li>
+  <li><a href="#tu-lugar-en-el-ciclo-de-la-evidencia" id="toc-tu-lugar-en-el-ciclo-de-la-evidencia" class="nav-link" data-scroll-target="#tu-lugar-en-el-ciclo-de-la-evidencia">Tu lugar en el ciclo de la evidencia</a></li>
+  <li><a href="#dónde-estás-en-la-investigación" id="toc-dónde-estás-en-la-investigación" class="nav-link" data-scroll-target="#dónde-estás-en-la-investigación">Dónde estás en la investigación</a></li>
+  <li><a href="#resultados-de-aprendizaje" id="toc-resultados-de-aprendizaje" class="nav-link" data-scroll-target="#resultados-de-aprendizaje">Resultados de aprendizaje</a></li>
+  <li><a href="#lista-de-verificación-previa" id="toc-lista-de-verificación-previa" class="nav-link" data-scroll-target="#lista-de-verificación-previa">Lista de verificación previa</a></li>
+  <li><a href="#ruta-de-s21" id="toc-ruta-de-s21" class="nav-link" data-scroll-target="#ruta-de-s21">Ruta de S21</a></li>
+  <li><a href="#reproducible-no-es-lo-mismo-que-confiable-indispensable" id="toc-reproducible-no-es-lo-mismo-que-confiable-indispensable" class="nav-link" data-scroll-target="#reproducible-no-es-lo-mismo-que-confiable-indispensable">1. Reproducible no es lo mismo que confiable [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#qué-hace-independiente-a-una-fuente" id="toc-qué-hace-independiente-a-una-fuente" class="nav-link" data-scroll-target="#qué-hace-independiente-a-una-fuente">1.1 Qué hace independiente a una fuente</a></li>
+  <li><a href="#práctica-1-de-dónde-viene-mi-segunda-fuente-antes-de-clase-primer-intento" id="toc-práctica-1-de-dónde-viene-mi-segunda-fuente-antes-de-clase-primer-intento" class="nav-link" data-scroll-target="#práctica-1-de-dónde-viene-mi-segunda-fuente-antes-de-clase-primer-intento">Práctica 1 — ¿De dónde viene mi segunda fuente? <em>(antes de clase, primer intento)</em></a></li>
+  </ul></li>
+  <li><a href="#auditar-una-tabla-que-no-es-tuya-indispensable" id="toc-auditar-una-tabla-que-no-es-tuya-indispensable" class="nav-link" data-scroll-target="#auditar-una-tabla-que-no-es-tuya-indispensable">2. Auditar una tabla que no es tuya [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#práctica-2-la-forma-de-la-tabla-ajena-antes-de-clase" id="toc-práctica-2-la-forma-de-la-tabla-ajena-antes-de-clase" class="nav-link" data-scroll-target="#práctica-2-la-forma-de-la-tabla-ajena-antes-de-clase">Práctica 2 — La forma de la tabla ajena <em>(antes de clase)</em></a></li>
+  </ul></li>
+  <li><a href="#la-misma-evidencia-otro-formato-indispensable" id="toc-la-misma-evidencia-otro-formato-indispensable" class="nav-link" data-scroll-target="#la-misma-evidencia-otro-formato-indispensable">3. La misma evidencia, otro formato [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#práctica-3-construir-dos-universos-comparables-durante-el-taller" id="toc-práctica-3-construir-dos-universos-comparables-durante-el-taller" class="nav-link" data-scroll-target="#práctica-3-construir-dos-universos-comparables-durante-el-taller">Práctica 3 — Construir dos universos comparables <em>(durante el taller)</em></a></li>
+  </ul></li>
+  <li><a href="#la-política-puesta-a-prueba-indispensable" id="toc-la-política-puesta-a-prueba-indispensable" class="nav-link" data-scroll-target="#la-política-puesta-a-prueba-indispensable">4. La política, puesta a prueba [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#práctica-4-sirve-mi-política-aquí-durante-el-taller" id="toc-práctica-4-sirve-mi-política-aquí-durante-el-taller" class="nav-link" data-scroll-target="#práctica-4-sirve-mi-política-aquí-durante-el-taller">Práctica 4 — ¿Sirve mi política aquí? <em>(durante el taller)</em></a></li>
+  </ul></li>
+  <li><a href="#confrontar-las-tres-zonas-como-resultado-biológico-indispensable" id="toc-confrontar-las-tres-zonas-como-resultado-biológico-indispensable" class="nav-link" data-scroll-target="#confrontar-las-tres-zonas-como-resultado-biológico-indispensable">5. Confrontar: las tres zonas como resultado biológico [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#práctica-5-confrontar-los-dos-inventarios-durante-el-taller" id="toc-práctica-5-confrontar-los-dos-inventarios-durante-el-taller" class="nav-link" data-scroll-target="#práctica-5-confrontar-los-dos-inventarios-durante-el-taller">Práctica 5 — Confrontar los dos inventarios <em>(durante el taller)</em></a></li>
+  </ul></li>
+  <li><a href="#interpretar-hipótesis-antes-que-culpables-indispensable" id="toc-interpretar-hipótesis-antes-que-culpables-indispensable" class="nav-link" data-scroll-target="#interpretar-hipótesis-antes-que-culpables-indispensable">6. Interpretar: hipótesis antes que culpables [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#práctica-6-una-hipótesis-por-diferencia-después-del-taller" id="toc-práctica-6-una-hipótesis-por-diferencia-después-del-taller" class="nav-link" data-scroll-target="#práctica-6-una-hipótesis-por-diferencia-después-del-taller">Práctica 6 — Una hipótesis por diferencia <em>(después del taller)</em></a></li>
+  </ul></li>
+  <li><a href="#qué-se-puede-afirmar-después-de-confrontar-consulta" id="toc-qué-se-puede-afirmar-después-de-confrontar-consulta" class="nav-link" data-scroll-target="#qué-se-puede-afirmar-después-de-confrontar-consulta">7. Qué se puede afirmar después de confrontar [Consulta]</a></li>
+  <li><a href="#documentar-la-sección-del-protocolo-indispensable" id="toc-documentar-la-sección-del-protocolo-indispensable" class="nav-link" data-scroll-target="#documentar-la-sección-del-protocolo-indispensable">8. Documentar: la sección del protocolo [Indispensable]</a></li>
+  <li><a href="#evidencia-de-la-sesión" id="toc-evidencia-de-la-sesión" class="nav-link" data-scroll-target="#evidencia-de-la-sesión">Evidencia de la sesión</a></li>
+  <li><a href="#errores-frecuentes-y-estrategias-de-diagnóstico" id="toc-errores-frecuentes-y-estrategias-de-diagnóstico" class="nav-link" data-scroll-target="#errores-frecuentes-y-estrategias-de-diagnóstico">Errores frecuentes y estrategias de diagnóstico</a></li>
+  <li><a href="#rúbricas" id="toc-rúbricas" class="nav-link" data-scroll-target="#rúbricas">Rúbricas</a></li>
+  <li><a href="#autoevaluación" id="toc-autoevaluación" class="nav-link" data-scroll-target="#autoevaluación">Autoevaluación</a>
+  <ul class="collapse">
+  <li><a href="#comprobación-rápida-formativa-al-final-del-taller" id="toc-comprobación-rápida-formativa-al-final-del-taller" class="nav-link" data-scroll-target="#comprobación-rápida-formativa-al-final-del-taller">Comprobación rápida — formativa, al final del taller</a></li>
+  <li><a href="#semáforo" id="toc-semáforo" class="nav-link" data-scroll-target="#semáforo">Semáforo</a></li>
+  </ul></li>
+  <li><a href="#cierre-con-ia-clásico-vs.-asistido" id="toc-cierre-con-ia-clásico-vs.-asistido" class="nav-link" data-scroll-target="#cierre-con-ia-clásico-vs.-asistido">Cierre con IA: clásico vs.&nbsp;asistido</a></li>
+  <li><a href="#lo-que-realmente-aprendiste-hoy" id="toc-lo-que-realmente-aprendiste-hoy" class="nav-link" data-scroll-target="#lo-que-realmente-aprendiste-hoy">Lo que realmente aprendiste hoy</a></li>
+  <li><a href="#cierre-de-s21-y-puente-hacia-s22" id="toc-cierre-de-s21-y-puente-hacia-s22" class="nav-link" data-scroll-target="#cierre-de-s21-y-puente-hacia-s22">Cierre de S21 y puente hacia S22</a></li>
+  <li><a href="#en-una-frase" id="toc-en-una-frase" class="nav-link" data-scroll-target="#en-una-frase">En una frase</a></li>
+  <li><a href="#anexo-a.-correspondencia-resultadoactividadevidenciacriterio" id="toc-anexo-a.-correspondencia-resultadoactividadevidenciacriterio" class="nav-link" data-scroll-target="#anexo-a.-correspondencia-resultadoactividadevidenciacriterio">Anexo A. Correspondencia resultado–actividad–evidencia–criterio</a></li>
+  <li><a href="#anexo-b.-alineación-transversal" id="toc-anexo-b.-alineación-transversal" class="nav-link" data-scroll-target="#anexo-b.-alineación-transversal">Anexo B. Alineación transversal</a></li>
+  <li><a href="#glosario" id="toc-glosario" class="nav-link" data-scroll-target="#glosario">Glosario</a></li>
+  <li><a href="#referencias" id="toc-referencias" class="nav-link" data-scroll-target="#referencias">Referencias</a></li>
+  <li><a href="#distribución-estimada-de-las-dos-horas" id="toc-distribución-estimada-de-las-dos-horas" class="nav-link" data-scroll-target="#distribución-estimada-de-las-dos-horas">Distribución estimada de las dos horas</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/Helysalgado/introbioinfo-unix/edit/main/u4-s21-confrontar-fuente-independiente.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/Helysalgado/introbioinfo-unix/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./u4-procesamiento-exploracion.html">Unidad 4</a></li><li class="breadcrumb-item"><a href="./u4-s21-confrontar-fuente-independiente.html">S21 — Confrontar</a></li></ol></nav></header>
+
+
+
+
+<section id="s21-confrontar-validar-un-resultado-con-una-fuente-independiente" class="level1">
+<h1>S21 — Confrontar: validar un resultado con una fuente independiente</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="Aula invertida">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Aula invertida
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Antes de clase descargarás una tabla de una fuente independiente, registrarás su procedencia y la auditarás, igual que hiciste en la Unidad 3 con tus archivos. Durante el taller recuperarás de esa tabla la misma evidencia biológica que obtuviste del GFF3, pondrás a prueba tu política de normalización sobre datos que no nacieron con ella y confrontarás los dos inventarios. Después integrarás en <code>doc/protocolo.md</code> la sección <strong>Contraste con una fuente independiente</strong>.</p>
+<p>El primer intento es formativo: importa que anticipes <strong>cuántas diferencias esperas y por qué</strong>, no que aciertes el número.</p>
+</div>
+</div>
+<section id="ficha-del-módulo" class="level2">
+<h2 class="anchored" data-anchor-id="ficha-del-módulo">Ficha del módulo</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Elemento</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Sesión</strong></td>
+<td>S21, 2 horas</td>
+</tr>
+<tr class="even">
+<td><strong>Unidad</strong></td>
+<td>U4. Procesamiento y exploración de datos genómicos</td>
+</tr>
+<tr class="odd">
+<td><strong>Competencia principal</strong></td>
+<td>D. Análisis y exploración de datos genómicos</td>
+</tr>
+<tr class="even">
+<td><strong>Competencias integradas</strong></td>
+<td>A. Documentación reproducible; B. Entorno Unix; C. Manejo de datos biológicos</td>
+</tr>
+<tr class="odd">
+<td><strong>Propósito</strong></td>
+<td>Confrontar el inventario propio con el de una fuente independiente, y explicar biológicamente cada discrepancia en lugar de eliminarla</td>
+</tr>
+<tr class="even">
+<td><strong>Consulta previa del Plan</strong></td>
+<td>S21 · Tablas biológicas de otra procedencia; este módulo lo sustituye como lectura autocontenida</td>
+</tr>
+<tr class="odd">
+<td><strong>Continuidad</strong></td>
+<td>S18 seleccionó; S19 identificó; S20 normalizó; S21 pone el resultado a prueba</td>
+</tr>
+<tr class="even">
+<td><strong>Lectura indispensable</strong></td>
+<td>Secciones 1–6 de este módulo (~55 min)</td>
+</tr>
+<tr class="odd">
+<td><strong>Lectura de consulta</strong></td>
+<td>Sección 7; documentación de la fuente elegida; Buffalo (2015), Cap. 7</td>
+</tr>
+<tr class="even">
+<td><strong>Primer intento</strong></td>
+<td>Práctica 1: ficha de procedencia y predicción de la discrepancia, 25 min</td>
+</tr>
+<tr class="odd">
+<td><strong>Fuente canónica</strong></td>
+<td>Tabla TSV de UniProt, con la consulta y las columnas fijadas por el docente; copia de respaldo con checksum en la carpeta del curso</td>
+</tr>
+<tr class="even">
+<td><strong>Evidencia</strong></td>
+<td>Ficha verificable de la segunda fuente, su auditoría, los dos universos comparables normalizados, las tres zonas y una hipótesis por grupo de discrepancias</td>
+</tr>
+<tr class="odd">
+<td><strong>Tarea numerada</strong></td>
+<td>Ninguna nueva. La evidencia se incorpora a <code>doc/protocolo.md</code></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Hoy no hay ninguna herramienta nueva. Todo lo que necesitas ya lo sabes hacer. Lo que cambia es de dónde viene la evidencia, y esa diferencia es más grande que cualquier comando.</p>
+</div>
+</div>
+</section>
+<section id="relación-con-lo-que-ya-sabes" class="level2">
+<h2 class="anchored" data-anchor-id="relación-con-lo-que-ya-sabes">Relación con lo que ya sabes</h2>
+<pre class="text"><code>S20                                      S21
+Hacer comparables dos representaciones →  Poner el resultado a prueba
+"ya puedo comparar sin falsos positivos"  "¿lo confirma alguien que no sea yo?"</code></pre>
+<p>En S20 conseguiste que dos listas fueran comparables y comprobaste que tu FASTA y tu GFF3 se corresponden. Fue una comprobación valiosa, pero tiene un límite que conviene mirar de frente: <strong>ambos archivos venían del mismo sitio</strong>. Los descargaste juntos, del mismo ensamblado, producidos por el mismo procedimiento. Que coincidan demuestra que el paquete es internamente coherente; no demuestra que su contenido sea correcto.</p>
+<p>Si quien anotó ese genoma hubiera usado un criterio discutible, o se hubiera equivocado, <strong>ninguna de tus comprobaciones lo habría detectado</strong>: todas miraban dentro del mismo paquete.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Habilidad que ya tienes</th>
+<th>Dónde la aprendiste</th>
+<th>Qué cambia en S21</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Documentar la procedencia de un archivo</td>
+<td>U3</td>
+<td>Se aplica a una fuente que tú eliges, y su ficha decide qué comparaciones son legítimas</td>
+</tr>
+<tr class="even">
+<td>Auditar un archivo antes de usarlo</td>
+<td>S20</td>
+<td>Se audita una tabla con convenciones ajenas, no las tuyas</td>
+</tr>
+<tr class="odd">
+<td>Recuperar identificadores</td>
+<td>S19</td>
+<td>El formato cambia por completo; la <strong>definición del objeto</strong> no</td>
+</tr>
+<tr class="even">
+<td>Normalizar con una política</td>
+<td>S20</td>
+<td>La política se pone a prueba sobre datos que no la vieron nacer</td>
+</tr>
+<tr class="odd">
+<td>Comparar listas con <code>comm</code></td>
+<td>S19, S20</td>
+<td>Las tres zonas dejan de ser un control técnico y pasan a ser un <strong>resultado biológico</strong></td>
+</tr>
+<tr class="even">
+<td>Declarar límites</td>
+<td>S13–S20</td>
+<td>Aparece un límite nuevo: qué no puede decidirse con la evidencia disponible</td>
+</tr>
+</tbody>
+</table>
+<p>Lo nuevo de hoy no es una operación sobre archivos. Es una operación sobre <strong>tu propia confianza</strong>.</p>
+</section>
+<section id="tu-lugar-en-el-ciclo-de-la-evidencia" class="level2">
+<h2 class="anchored" data-anchor-id="tu-lugar-en-el-ciclo-de-la-evidencia">Tu lugar en el ciclo de la evidencia</h2>
+<p>Las seis sesiones que cierran la unidad no enseñan seis herramientas: enseñan <strong>los seis pasos por los que una observación se convierte en evidencia científica</strong>. Hoy trabajas el cuarto.</p>
+<pre class="text"><code>  S18  SELECCIONAR  la evidencia correcta          ✔ resuelto
+  S19  IDENTIFICAR  el objeto biológico correcto   ✔ resuelto
+  S20  NORMALIZAR   la evidencia para compararla   ✔ resuelto
+▶ S21  CONFRONTAR   con una fuente ajena           ← estás aquí
+  S22  CUANTIFICAR  e interpretar
+  S23  INTEGRAR     el ciclo completo, reproducible</code></pre>
+<p>Los tres primeros pasos construyeron un resultado <strong>reproducible</strong>: cualquiera puede repetirlo y obtener lo mismo. Falta saber si además es <strong>robusto</strong>, y eso no puede responderlo el mismo conjunto de datos que lo produjo.</p>
+</section>
+<section id="dónde-estás-en-la-investigación" class="level2">
+<h2 class="anchored" data-anchor-id="dónde-estás-en-la-investigación">Dónde estás en la investigación</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Pregunta de la investigación</th>
+<th>En S21</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>¿Cuántos genes tiene el genoma?</td>
+<td>✔ Refinado en S18; <strong>hoy se pone a prueba contra otra fuente</strong></td>
+</tr>
+<tr class="even">
+<td>¿Coinciden mis dos archivos entre sí?</td>
+<td>✔ Resuelta en S19–S20 (coherencia interna)</td>
+</tr>
+<tr class="odd">
+<td>¿Una fuente independiente reconoce los mismos genes?</td>
+<td>✔ <strong>Se resuelve hoy</strong></td>
+</tr>
+<tr class="even">
+<td>¿A qué se deben las diferencias que aparezcan?</td>
+<td>✔ <strong>Se interpreta hoy</strong>, con hipótesis explícitas</td>
+</tr>
+<tr class="odd">
+<td>¿Qué diferencias puedo resolver y cuáles no?</td>
+<td>✔ <strong>Se delimita hoy</strong></td>
+</tr>
+<tr class="even">
+<td>¿Cuánto miden los genes que difieren, y en qué proporción?</td>
+<td>☐ S22</td>
+</tr>
+<tr class="odd">
+<td>¿Puede otra persona reproducir toda la investigación?</td>
+<td>☐ S23</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled" title="puede que coincidan mucho">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>puede que coincidan mucho
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si tu organismo está bien estudiado, la mayoría de los identificadores coincidirá. Eso no hace la sesión trivial: <strong>el trabajo está en las diferencias</strong>, y bastan unas pocas para aprender a explicarlas. Una coincidencia total también exige interpretación —qué error no habría detectado esta comprobación—, igual que en S19.</p>
+</div>
+</div>
+</section>
+<section id="resultados-de-aprendizaje" class="level2">
+<h2 class="anchored" data-anchor-id="resultados-de-aprendizaje">Resultados de aprendizaje</h2>
+<p>Al finalizar la sesión podrás:</p>
+<ol type="1">
+<li><strong>Explicar</strong> por qué un resultado reproducible todavía no es una conclusión científica.</li>
+<li><strong>Distinguir</strong> coherencia interna de validación con evidencia independiente.</li>
+<li><strong>Evaluar</strong> si una fuente es realmente independiente de la que ya usas, y en qué lo es.</li>
+<li><strong>Documentar</strong> la procedencia de una fuente externa con el rigor de la Unidad 3.</li>
+<li><strong>Auditar</strong> una tabla con convenciones ajenas antes de extraer nada de ella.</li>
+<li><strong>Recuperar</strong> de un formato nuevo la misma evidencia biológica, conservando la definición del objeto aunque cambien los comandos.</li>
+<li><strong>Poner a prueba</strong> una política de normalización sobre datos que no la vieron nacer, y ampliarla con justificación.</li>
+<li><strong>Construir</strong> dos universos biológicamente equivalentes antes de comparar nada.</li>
+<li><strong>Distinguir</strong> una diferencia de <strong>alcance</strong> —objetos que un recurso no podía contener— de una discrepancia que exige explicación.</li>
+<li><strong>Formular</strong> para cada grupo de discrepancias una hipótesis con su evidencia a favor, sus alternativas abiertas y su grado de confianza.</li>
+<li><strong>Delimitar</strong> qué no puede decidirse con la evidencia disponible y qué observación lo decidiría.</li>
+</ol>
+</section>
+<section id="lista-de-verificación-previa" class="level2">
+<h2 class="anchored" data-anchor-id="lista-de-verificación-previa">Lista de verificación previa</h2>
+<p>Antes del taller comprueba que tienes:</p>
+<ul class="task-list">
+<li><label><input type="checkbox"><code>results/s19/locus-tags.txt</code>, tu lista completa de identificadores de locus del GFF3;</label></li>
+<li><label><input type="checkbox"><code>results/s20/politica-normalizacion.md</code>, con sus reglas y sus justificaciones;</label></li>
+<li><label><input type="checkbox">tu conteo refinado de genes de S18 y el número de CDS;</label></li>
+<li><label><input type="checkbox"><code>data/source/uniprot-proteoma.tsv</code>, la exportación canónica, <strong>sin modificar</strong>, con su checksum registrado;</label></li>
+<li><label><input type="checkbox"><code>doc/s21-primer-intento.md</code> con la Práctica 1 resuelta;</label></li>
+<li><label><input type="checkbox">el directorio <code>results/s21/</code> creado.</label></li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Descarga la tabla con tiempo. Si el recurso no responde o cambia, usa la copia de respaldo del curso y regístralo: lo que no puede pasar es llegar al taller sin la segunda fuente.</p>
+</div>
+</div>
+</section>
+<section id="ruta-de-s21" class="level2">
+<h2 class="anchored" data-anchor-id="ruta-de-s21">Ruta de S21</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 30%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Momento</th>
+<th>Qué hacer</th>
+<th style="text-align: right;">Tiempo estimado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Antes de clase</strong></td>
+<td>Leer las secciones 1–6; resolver las Prácticas 1 y 2 (descarga, ficha y auditoría)</td>
+<td style="text-align: right;">55 + 40 min</td>
+</tr>
+<tr class="even">
+<td><strong>Taller (1.ª hora)</strong></td>
+<td>Recuperar la evidencia de la tabla externa y poner a prueba la política (Prácticas 3 y 4)</td>
+<td style="text-align: right;">60 min</td>
+</tr>
+<tr class="odd">
+<td><strong>Taller (2.ª hora)</strong></td>
+<td>Confrontar los dos inventarios y clasificar las zonas (Práctica 5)</td>
+<td style="text-align: right;">60 min</td>
+</tr>
+<tr class="even">
+<td><strong>Después del taller</strong></td>
+<td>Interpretar cada discrepancia (Práctica 6) y redactar la sección S21</td>
+<td style="text-align: right;">60 min</td>
+</tr>
+</tbody>
+</table>
+<p>Las secciones 1–6 son <strong>indispensables</strong>; la sección 7 es de consulta. La sección 8 guía la documentación posterior.</p>
+<hr>
+</section>
+<section id="reproducible-no-es-lo-mismo-que-confiable-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="reproducible-no-es-lo-mismo-que-confiable-indispensable">1. Reproducible no es lo mismo que confiable [Indispensable]</h2>
+<p>Tu inventario del genoma es reproducible: está documentado, cada número tiene su comando y cualquiera puede regenerarlo. Eso es mucho, y costó ocho sesiones conseguirlo. Pero fíjate en lo que <strong>no</strong> demuestra.</p>
+<p>Reproducible significa <em>“si repites mis pasos, obtienes mi resultado”</em>. No dice nada sobre si el resultado describe bien la realidad. Un análisis impecable sobre una anotación equivocada produce un resultado perfectamente reproducible y perfectamente falso.</p>
+<p>Conviene distinguir cuatro cosas que suelen confundirse, porque cada una responde a una pregunta distinta:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Nivel</th>
+<th>Qué garantiza</th>
+<th>Qué no garantiza</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Reproducibilidad</strong></td>
+<td>Que cualquiera repita tus pasos y obtenga tu resultado</td>
+<td>Que el resultado describa bien el genoma</td>
+</tr>
+<tr class="even">
+<td><strong>Coherencia interna</strong></td>
+<td>Que las partes de un mismo paquete de datos concuerden entre sí</td>
+<td>Que ese paquete sea correcto</td>
+</tr>
+<tr class="odd">
+<td><strong>Concordancia entre fuentes</strong></td>
+<td>Que dos procedencias distintas coincidan en lo evaluado</td>
+<td>Que ambas no compartan el mismo error de origen</td>
+</tr>
+<tr class="even">
+<td><strong>Robustez</strong></td>
+<td>Que el resultado se mantenga al cambiar de datos o de procedimiento</td>
+<td>Que sea verdadero</td>
+</tr>
+</tbody>
+</table>
+<p>Hoy pasas del segundo nivel al tercero. No llegas a la verdad: llegas a una <strong>conclusión provisional mejor sustentada</strong>, que es todo lo que la evidencia permite.</p>
+<p>La pregunta que gobierna toda esta sesión es esta:</p>
+<blockquote class="blockquote">
+<p><strong>¿Mi inventario sigue sosteniéndose cuando lo confronto con una fuente independiente?</strong></p>
+</blockquote>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u4-s21-resultado-vs-conclusion.png" class="img-fluid figure-img"></p>
+<figcaption>A la izquierda, un análisis que parte de una sola procedencia: el FASTA y el GFF3 descargados juntos producen un inventario, y todas las comprobaciones hechas hasta ahora ocurren dentro de ese mismo origen, de modo que solo demuestran coherencia interna. El producto se etiqueta como resultado reproducible, con una pregunta abierta: si el productor de los datos se hubiera equivocado, nada de lo hecho lo detectaría. A la derecha, el mismo inventario se confronta con otro obtenido de una fuente independiente, con su propia curación y su propia versión. De la confrontación salen las coincidencias, las diferencias y una explicación para cada diferencia, y el producto se etiqueta como conclusión en construcción. Una franja inferior precisa que confrontar no corrige el resultado propio ni lo declara equivocado: mide su robustez.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 21.1.</strong> De un resultado a una conclusión. Lo que cambia no es el análisis, sino de cuántas procedencias distintas viene la evidencia que lo sostiene. Elaboración propia.</p>
+<section id="qué-hace-independiente-a-una-fuente" class="level3">
+<h3 class="anchored" data-anchor-id="qué-hace-independiente-a-una-fuente">1.1 Qué hace independiente a una fuente</h3>
+<p>No basta con que sea <em>otro archivo</em>. Dos fuentes son independientes en la medida en que <strong>podrían equivocarse por causas distintas</strong>. Es la misma idea que en S13, cuando descubriste que dos de tus tres caminos para contar replicones compartían origen y por tanto compartían sus errores.</p>
+<p>La independencia no es un sí o un no: se declara <strong>por dimensiones</strong>. Dos archivos pueden ser dependientes en su procedencia y aun así servir como control cruzado en otra cosa.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Segunda fuente</th>
+<th>Independiente respecto de</th>
+<th><strong>No</strong> independiente respecto de</th>
+<th>Qué errores puede detectar</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>El FASTA frente al GFF3 del mismo paquete</td>
+<td>Nada de la anotación</td>
+<td>La procedencia del ensamblado y su versión</td>
+<td>Incoherencias entre secuencia y coordenadas, replicones ausentes: es un control cruzado real, aunque no valide el criterio de anotación</td>
+</tr>
+<tr class="even">
+<td>La anotación GenBank (<code>GCA_…</code>) del mismo ensamblado</td>
+<td>El <strong>procedimiento de anotación</strong></td>
+<td>El DNA ensamblado, que es el mismo</td>
+<td>Diferencias de criterio entre quien depositó el genoma y el proceso automático</td>
+</tr>
+<tr class="odd">
+<td>Un catálogo de proteínas curado aparte</td>
+<td>La <strong>curación, los criterios y el calendario de versiones</strong></td>
+<td>Puede haber partido del mismo genoma</td>
+<td>Genes que otra curación no reconoce, o que reconoce y la tuya no</td>
+</tr>
+</tbody>
+</table>
+<p>Ninguna es independiente en todo, y eso está bien: lo importante es <strong>en qué lo es</strong>, porque eso determina qué errores puede detectar tu comparación y cuáles quedarán invisibles.</p>
+<blockquote class="blockquote">
+<p><strong>IDEA CLAVE.</strong> Una fuente no es independiente por ser distinta, sino por poder fallar por razones distintas —y casi siempre lo es solo <strong>en parte</strong>—. Antes de comparar, escribe en qué lo es y en qué no: esa frase decide qué significa cada diferencia que encuentres y qué errores tu comparación no podría ver.</p>
+</blockquote>
+<hr>
+</section>
+<section id="práctica-1-de-dónde-viene-mi-segunda-fuente-antes-de-clase-primer-intento" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-1-de-dónde-viene-mi-segunda-fuente-antes-de-clase-primer-intento">Práctica 1 — ¿De dónde viene mi segunda fuente? <em>(antes de clase, primer intento)</em></h3>
+<p><strong>Pregunta biológica.</strong> ¿Qué recurso puede darme un inventario de los genes de mi organismo producido con criterios distintos de los de mi GFF3, y cuánto espero que coincidan?</p>
+<p><strong>Objetivo.</strong> Conseguir la segunda fuente y documentarla antes de mirarla, con el rigor de U3.</p>
+<p><strong>Antes de clase (primer intento).</strong> En <code>doc/s21-primer-intento.md</code>:</p>
+<ol type="1">
+<li><p><strong>Descarga la exportación canónica.</strong> El docente fija la consulta, el formato TSV y las columnas —son las mismas para todo el grupo, y de ahí depende que los comandos del taller funcionen—. Guárdala como <code>data/source/uniprot-proteoma.tsv</code> y <strong>no la abras con un editor</strong>.</p></li>
+<li><p><strong>Registra el archivo, no solo la consulta.</strong> Anota nombre exacto, tamaño, número de registros y <strong>checksum</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span>  data/source/uniprot-proteoma.tsv</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sha256sum</span> data/source/uniprot-proteoma.tsv        <span class="co"># o shasum -a 256 en macOS</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p><strong>Completa la ficha de procedencia</strong> con el formato de U3: recurso, URL o identificador de la consulta, filtros aplicados, columnas solicitadas, organismo y cepa, <em>release</em> del recurso, fecha de descarga, formato, número de registros y checksum.</p></li>
+<li><p><strong>Declara la independencia por dimensiones.</strong> Completa: <em>“Es independiente de mi GFF3 respecto de… No lo es respecto de… Por tanto puede detectar… y no podría detectar…”</em>.</p></li>
+<li><p><strong>Anticipa el alcance.</strong> ¿Qué objetos crees que incluye este recurso y cuáles no? Piénsalo antes de contar nada: es la clave de la sesión.</p></li>
+<li><p><strong>Predice.</strong> ¿Cuántos de tus genes esperas que aparezcan también aquí, y en qué dirección esperas la asimetría —más exclusivos en tu anotación o en la ajena—? Justifícalo con el paso 5.</p></li>
+</ol>
+<div class="callout callout-style-default callout-important callout-titled" title="la consulta y el archivo no son lo mismo">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>la consulta y el archivo no son lo mismo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Una URL de consulta permite <strong>repetir la búsqueda</strong>, pero el recurso se actualiza y mañana puede devolver otra tabla. El checksum permite <strong>verificar que se usó exactamente este archivo</strong>. Tu ficha necesita las dos cosas, y son comprobaciones distintas.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="copia de respaldo">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>copia de respaldo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El docente descarga previamente la misma exportación y la deja en la carpeta del curso con su ficha y su checksum. Si el recurso no responde o cambia su interfaz el día del taller, se trabaja con esa copia: es una descarga real y documentada, no un ejemplo inventado. La descarga propia es preferible, pero el taller no puede depender de que el sitio esté disponible.</p>
+</div>
+</div>
+<p><strong>Adaptación docente.</strong> Si un organismo no tiene proteoma de referencia en UniProt, la anotación GenBank (<code>GCA_…</code>) del mismo ensamblado sirve como fuente alternativa. Cambian los comandos de extracción —no el resto de la sesión—, así que el docente debe entregar la ruta equivalente.</p>
+<p><strong>Durante el taller.</strong> Contrastarás cada predicción con la comparación real.</p>
+<p><strong>Después del taller.</strong> La ficha entra completa en el protocolo.</p>
+<p><strong>Criterio de logro:</strong> tu ficha permite a otra persona repetir la consulta <strong>y</strong> comprobar que usó el mismo archivo, y tu declaración de independencia dice en qué lo es, en qué no, y qué errores no podría detectar.</p>
+<hr>
+</section>
+</section>
+<section id="auditar-una-tabla-que-no-es-tuya-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="auditar-una-tabla-que-no-es-tuya-indispensable">2. Auditar una tabla que no es tuya [Indispensable]</h2>
+<p>Antes de extraer nada, la tabla se audita. Es exactamente el procedimiento de S20, aplicado ahora a un archivo cuyas convenciones <strong>no elegiste tú</strong>.</p>
+<p>La exportación canónica trae estas columnas, en este orden:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 30%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Columna</th>
+<th>Campo de UniProt</th>
+<th>Uso en S21</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td><code>Entry</code></td>
+<td>Identificador del registro proteico; no se compara</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td><code>Protein names</code></td>
+<td>Contexto para inspeccionar casos concretos</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td><code>Gene Names (ordered locus)</code></td>
+<td><strong>El identificador comparable</strong>: el equivalente del <code>locus_tag</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td><code>Gene Names (primary)</code></td>
+<td>Nombre del gen, cuando existe</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td><code>Length</code></td>
+<td>Longitud de la proteína; se usará en S22, no hoy</td>
+</tr>
+</tbody>
+</table>
+<p>Todos los comandos de esta sesión usan <code>cut -f3</code> porque <strong>esa consulta fija el campo del locus en la tercera posición</strong>. No es una propiedad de UniProt: es una propiedad de la exportación acordada. Tu primera comprobación es confirmarlo:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-1</span> data/source/uniprot-proteoma.tsv <span class="kw">|</span> <span class="fu">tr</span> <span class="st">'\t'</span> <span class="st">'\n'</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Ese comando convierte la fila de encabezado en una columna, una etiqueta por línea, así que puedes leerlas en orden y comprobar que la tercera es la del locus. Si no coincide, no ajustes el número: <strong>tu descarga no es la canónica</strong> y conviene repetirla, porque el resto del grupo trabajará con la otra. Es <code>tr</code> de S20 haciendo algo nuevo: cambiar un delimitador para <strong>leer mejor</strong>, no para transformar el dato.</p>
+<p>Después, lo de siempre:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-3</span> data/source/uniprot-proteoma.tsv <span class="kw">|</span> <span class="fu">cat</span> <span class="at">-A</span>     <span class="co"># delimitador real y finales de línea</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span>      data/source/uniprot-proteoma.tsv           <span class="co"># líneas totales</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-vc</span> <span class="st">'^Entry'</span> data/source/uniprot-proteoma.tsv    <span class="co"># líneas sin el encabezado</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Los dos últimos números deben diferir <strong>exactamente en uno</strong>. Compruébalo: es lo que demuestra que tu filtro elimina el encabezado y nada más.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="el encabezado no es un dato">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>el encabezado no es un dato
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si lo arrastras, se convertirá en un identificador fantasma que aparecerá como discrepancia. <code>grep -v '^Entry'</code> lo descarta porque <strong>en esta exportación la primera columna se llama así</strong>; no es una estrategia general para cualquier tabla, y por eso se acompaña siempre de la comprobación de arriba. Es el mismo problema que las directivas <code>#</code> del GFF3, con otra cara.</p>
+</div>
+</div>
+<p>Y una pregunta que en tu GFF3 no tenía sentido pero aquí sí: <strong>¿la columna que te interesa contiene un solo valor por fila?</strong> No supongas el separador: averígualo mirando qué caracteres aparecen en ese campo además de letras, dígitos y guion bajo.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-v</span> <span class="st">'^Entry'</span> data/source/uniprot-proteoma.tsv <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f3</span> <span class="dt">\</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-oE</span> <span class="st">'[^A-Za-z0-9_]'</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-u</span> <span class="kw">|</span> <span class="fu">cat</span> <span class="at">-A</span>        <span class="co"># ¿qué separa los valores múltiples?</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-v</span> <span class="st">'^Entry'</span> data/source/uniprot-proteoma.tsv <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f3</span> <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-c</span> <span class="st">'^$'</span>   <span class="co"># filas sin locus</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Anota el separador que encuentres: lo necesitarás en la Sección 3, y si tu exportación usa otro, el comando de allí cambia en un carácter.</p>
+<p>Ambas cifras son hallazgos, no estorbos. Una fila sin identificador de locus es un registro que la fuente no ha ligado al genoma. Una fila con más de uno <strong>requiere consultar la documentación del recurso</strong> antes de interpretarla: puede corresponder a un gen presente en varias copias, a una proteína asociada a más de un locus o a una convención propia de la fuente. Si no puedes determinarlo con el archivo, clasifícalo como <strong>caso pendiente de documentación externa</strong> y sigue adelante: contarlo y declararlo ya es un resultado.</p>
+<blockquote class="blockquote">
+<p><strong>IDEA CLAVE.</strong> Auditar no es desconfiar del recurso: es reconocer que sus convenciones fueron diseñadas para otra cosa. Tu tabla externa no está mal hecha —está hecha para responder preguntas distintas de la tuya—.</p>
+</blockquote>
+<hr>
+<section id="práctica-2-la-forma-de-la-tabla-ajena-antes-de-clase" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-2-la-forma-de-la-tabla-ajena-antes-de-clase">Práctica 2 — La forma de la tabla ajena <em>(antes de clase)</em></h3>
+<p><strong>Pregunta biológica.</strong> ¿Qué contiene exactamente esta tabla, cuántos objetos describe y qué columna identifica a los genes de mi organismo?</p>
+<p><strong>Objetivo.</strong> Caracterizar la tabla antes de extraer nada de ella.</p>
+<p><strong>Pasos.</strong></p>
+<ol type="1">
+<li><strong>Verifica las columnas.</strong> Comprueba que la tercera es la del locus, como fija la exportación canónica. Si no lo es, repite la descarga.</li>
+<li><strong>Comprueba el delimitador y los finales de línea</strong> con <code>cat -A</code>, y que tu filtro del encabezado elimina exactamente una línea.</li>
+<li><strong>Cuenta los registros</strong> sin encabezado y compáralo con tu conteo de CDS de S18 —no con el de genes—. Anota la diferencia: es tu primer dato.</li>
+<li><strong>Delimita el alcance.</strong> Busca en la documentación del recurso qué objetos incluye y cuáles no. Escribe una frase: <em>“esta tabla contiene… y por construcción no contiene…”</em>. Es lo que decidirá, en la Práctica 6, qué diferencias son de alcance y cuáles necesitan una hipótesis.</li>
+<li><strong>Averigua el separador</strong> de los valores múltiples y anótalo.</li>
+<li><strong>Mide los casos difíciles:</strong> filas sin identificador y filas con más de uno.</li>
+<li><strong>Decide qué harás con cada caso</strong> y justifícalo. Las filas sin identificador no pueden compararse: se cuentan y se declaran. Las de identificador múltiple quedan pendientes de la documentación del recurso.</li>
+<li><strong>Guarda la auditoría</strong> en <code>results/s21/auditoria-fuente-externa.md</code>.</li>
+</ol>
+<p><strong>Producto esperado.</strong> Una caracterización de la tabla, la declaración de su alcance y una decisión razonada para cada caso difícil.</p>
+<p><strong>Criterio de logro:</strong> puedes decir qué objetos biológicos <strong>no</strong> puede contener esta tabla, y ningún descarte tuyo se justifica por ser incómodo: todos están contados.</p>
+<hr>
+</section>
+</section>
+<section id="la-misma-evidencia-otro-formato-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="la-misma-evidencia-otro-formato-indispensable">3. La misma evidencia, otro formato [Indispensable]</h2>
+<p>Aquí aparece el problema más importante de la sesión, y no es técnico.</p>
+<p>Tu lista de S19 contiene <strong>todos</strong> los <code>locus_tag</code> de la anotación: genes codificantes, genes de RNA, pseudogenes. La tabla de UniProt contiene loci <strong>asociados a un registro proteico</strong>. Si las comparas tal cual, la mayoría de las diferencias no dirán nada sobre el genoma: dirán que un catálogo de proteínas no contiene RNA, que es su definición, no un hallazgo.</p>
+<p>Comparar exige primero <strong>igualar los universos</strong>:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Universo</th>
+<th>Qué contiene</th>
+<th>De dónde sale</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Propio, comparable</strong></td>
+<td>Loci con un producto proteico anotado</td>
+<td>Los <code>locus_tag</code> de los registros <code>CDS</code> del GFF3</td>
+</tr>
+<tr class="even">
+<td><strong>Externo</strong></td>
+<td>Loci asociados a un registro proteico en el recurso</td>
+<td>La columna del locus de la tabla externa</td>
+</tr>
+<tr class="odd">
+<td><strong>Fuera de alcance</strong></td>
+<td>Genes de RNA, pseudogenes y demás loci sin CDS</td>
+<td>La diferencia entre tu lista de S19 y tu lista comparable</td>
+</tr>
+</tbody>
+</table>
+<p>Los dos primeros se confrontan en la <strong>comparación principal</strong>. El tercero no es una discrepancia: es una <strong>comparación de cobertura</strong>, y se analiza aparte.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Una diferencia por alcance no es un desacuerdo sobre la existencia del gen. Que un catálogo de proteínas no incluya tu tRNA no pone en duda ese tRNA. Confundir las dos cosas es el error más frecuente al contrastar recursos, y produce informes que denuncian discrepancias inexistentes.</p>
+</div>
+</div>
+<p>Con esa distinción hecha, sí puedes recuperar de cada fuente <strong>la misma evidencia biológica</strong>. No repetirás los comandos de S19 —sería imposible, porque esta tabla no tiene columna de tipo ni campo de atributos—. Lo que se repite es la <strong>definición del objeto</strong>: <em>un locus del organismo con producto proteico anotado</em>. Los comandos cambian; la definición, no.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u4-s21-dos-caminos-inventario.png" class="img-fluid figure-img"></p>
+<figcaption>Dos columnas describen dos rutas paralelas que terminan en una lista de identificadores de locus. La izquierda parte del GFF3: se selecciona el tipo de registro, se recupera el atributo locus_tag y se obtiene la lista propia. La derecha parte de la tabla externa: se descarta el encabezado, se recupera la columna que contiene el identificador y se obtiene la lista ajena. Las operaciones son las mismas —seleccionar, identificar, normalizar— pero los comandos concretos cambian porque los formatos son distintos. Las dos listas convergen en una comparación que produce tres zonas: solo en la fuente propia, en ambas y solo en la fuente ajena.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 21.2.</strong> Dos caminos hasta el mismo inventario. Lo que se compara son dos productos elaborados, no dos archivos crudos, y la comparación solo significa algo si la definición del objeto fue la misma en ambos. Elaboración propia.</p>
+<p><strong>El universo propio comparable</strong>, desde el GFF3. Es la operación de S19 con una restricción nueva: partir de los registros <code>CDS</code> en vez de los <code>gene</code>, porque son los que declaran producto proteico.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-Ev</span> <span class="st">'^#'</span> data/source/anotacion.gff3 <span class="dt">\</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f3,9</span> <span class="dt">\</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-E</span> <span class="st">$'^CDS</span><span class="dt">\t</span><span class="st">'</span> <span class="dt">\</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-oE</span> <span class="st">'locus_tag=[^;]+'</span> <span class="dt">\</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-d</span><span class="op">=</span> <span class="at">-f2</span> <span class="dt">\</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-u</span> <span class="op">&gt;</span> results/s21/locus-codificantes-propio-original.txt</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>El universo externo</strong>, desde la tabla descargada:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-v</span> <span class="st">'^Entry'</span> data/source/uniprot-proteoma.tsv <span class="dt">\</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f3</span> <span class="dt">\</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-v</span> <span class="st">'^$'</span> <span class="dt">\</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="fu">tr</span> <span class="st">' '</span> <span class="st">'\n'</span> <span class="dt">\</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-u</span> <span class="op">&gt;</span> results/s21/locus-uniprot-original.txt</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Léelo como una frase: <em>quita el encabezado, quédate con la columna del locus, descarta las filas sin identificador, separa en líneas distintas las que traían varios, y deja una sola aparición de cada uno.</em></p>
+<div class="callout callout-style-default callout-note callout-titled" title="el cuarto eslabón depende de tu auditoría">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>el cuarto eslabón depende de tu auditoría
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>tr ' ' '\n'</code> convierte cada espacio en un salto de línea, de modo que una fila con dos identificadores pasa a ser dos. Usa <strong>el separador que encontraste</strong> en la Práctica 2, paso 5: si era otro carácter, cambia ese eslabón; si tu tabla no tenía filas de identificador múltiple, quítalo y anótalo.</p>
+</div>
+</div>
+<p>Fíjate en los nombres: los dos archivos terminan en <code>-original</code>. Son las listas tal como salen de cada fuente, y <strong>no se comparan todavía</strong> —eso es la Sección 4—. La convención de la sesión es:</p>
+<pre class="text"><code>results/s21/locus-codificantes-propio-original.txt     results/s21/locus-uniprot-original.txt
+results/s21/locus-codificantes-propio-normalizado.txt  results/s21/locus-uniprot-normalizado.txt</code></pre>
+<blockquote class="blockquote">
+<p><strong>IDEA CLAVE.</strong> Que hayas necesitado comandos distintos no debilita la comparación: la refuerza. Si el resultado se sostiene cuando cambia el formato, lo que estabas midiendo era el objeto biológico y no una peculiaridad de tu archivo.</p>
+</blockquote>
+<hr>
+<section id="práctica-3-construir-dos-universos-comparables-durante-el-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-3-construir-dos-universos-comparables-durante-el-taller">Práctica 3 — Construir dos universos comparables <em>(durante el taller)</em></h3>
+<p><strong>Pregunta biológica.</strong> ¿Qué loci de mi genoma tienen producto proteico según mi anotación, y cuáles según una fuente independiente?</p>
+<p><strong>Objetivo.</strong> Producir las dos listas que se van a confrontar, delimitando el mismo universo biológico en ambas.</p>
+<p><strong>Parte A — El universo propio comparable</strong></p>
+<ol type="1">
+<li><p><strong>Escribe la definición.</strong> Una frase: qué cuenta como locus con producto proteico. Es la misma definición para las dos fuentes, aunque la implementación cambie.</p></li>
+<li><p><strong>Construye la lista propia</strong> desde los registros <code>CDS</code> del GFF3, eslabón por eslabón, mirando la salida de cada uno con <code>head</code>. Guárdala como <code>results/s21/locus-codificantes-propio-original.txt</code>.</p></li>
+<li><p><strong>Explica la restricción nueva.</strong> ¿Por qué partir de <code>CDS</code> y no de <code>gene</code>, como en S19? Escríbelo: es la decisión que hace legítima toda la comparación.</p></li>
+<li><p><strong>Mide la cobertura.</strong> Compara esta lista con la de S19 para saber cuántos loci de tu anotación quedan fuera del universo comparable:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">comm</span> <span class="at">-23</span> results/s19/locus-tags.txt <span class="dt">\</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>         results/s21/locus-codificantes-propio-original.txt <span class="dt">\</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>         <span class="op">&gt;</span> results/s21/fuera-de-alcance.txt</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Esos loci <strong>no son discrepancias</strong>: son objetos que la fuente externa no podía contener. Cuéntalos y mira de qué tipo son en tu GFF3.</p></li>
+</ol>
+<p><strong>Parte B — El universo externo</strong></p>
+<ol start="5" type="1">
+<li><strong>Construye la lista externa</strong> con la tubería de la Sección 3, usando el separador que averiguaste. Guárdala como <code>results/s21/locus-uniprot-original.txt</code>.</li>
+<li><strong>Cuadra los números.</strong> ¿Cuántos identificadores distintos obtuviste? La diferencia respecto al total de registros de la tabla debe explicarse por los descartes y las divisiones de la Práctica 2. Compruébalo con números, no de memoria.</li>
+<li><strong>Inspecciona.</strong> Mira las primeras y las últimas líneas de cada lista. ¿Tienen la forma esperada? ¿Alguna trae restos del formato original?</li>
+<li><strong>Declara el límite.</strong> Cada lista contiene lo que <strong>su fuente</strong> reconoce. Ninguna es “la verdad”: son dos descripciones, cada una con su alcance.</li>
+</ol>
+<p><strong>Producto esperado.</strong> Las dos listas originales y el archivo de loci fuera de alcance, con sus conteos explicados.</p>
+<p><strong>Criterio de logro:</strong> puedes justificar cada identificador que se perdió por el camino, y explicar por qué los loci sin CDS quedan fuera de la comparación principal en lugar de contarse como diferencias.</p>
+<hr>
+</section>
+</section>
+<section id="la-política-puesta-a-prueba-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="la-política-puesta-a-prueba-indispensable">4. La política, puesta a prueba [Indispensable]</h2>
+<p>S20 terminó con una advertencia que ahora toca cumplir: <strong>las reglas de normalización no se transfieren a otra fuente sin repetir la auditoría</strong>. Hoy es el día.</p>
+<p>Tu política de S20 es la <strong>hipótesis de partida</strong>, no la respuesta. El procedimiento es el de siempre: auditar la lista nueva, comprobar qué reglas siguen haciendo falta, y añadir las que esta fuente exija, cada una con su justificación.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-Ec</span> <span class="st">'^[a-z]'</span>    results/s21/locus-uniprot-original.txt   <span class="co"># ¿alguno empieza en minúscula?</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-Ec</span> <span class="st">'_'</span>         results/s21/locus-uniprot-original.txt   <span class="co"># ¿un separador que mi GFF3 no usa?</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-Ec</span> <span class="st">'\.[0-9]+$'</span> results/s21/locus-uniprot-original.txt   <span class="co"># ¿traen sufijo de versión?</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Aplica después la política a <strong>las dos listas</strong>, aunque a la tuya no le cambie nada: las dos deben llegar a la comparación en el mismo estado y con el mismo nombre.</p>
+<pre class="text"><code>locus-codificantes-propio-original.txt  →  locus-codificantes-propio-normalizado.txt
+locus-uniprot-original.txt              →  locus-uniprot-normalizado.txt</code></pre>
+<p>Si la política no modifica una de ellas, genera igualmente el archivo normalizado —copiándolo de forma reproducible— y documéntalo. Comparar un archivo <code>-original</code> con uno <code>-normalizado</code> es exactamente el descuido que S20 enseñó a evitar.</p>
+<p>Y las mismas preguntas de S20 sobre los efectos: ¿la transformación conserva el número de identificadores?, ¿genera claves vacías?, ¿fusiona dos objetos en uno?</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="el riesgo es mayor que en S20">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Advertencia</span>el riesgo es mayor que en S20
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Allí normalizabas dos listas del mismo productor y una regla equivocada saltaba a la vista. Aquí las convenciones son ajenas, y una regla demasiado agresiva <strong>fabricaría coincidencias</strong>: cada coincidencia falsa es una diferencia real que dejas de ver. Ante la duda, no normalices y documenta la diferencia como pendiente.</p>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>IDEA CLAVE.</strong> Reutilizar la política sin revisarla sería tan grave como inventar una nueva. Lo que demuestra que tu flujo es general no es que las reglas funcionen sin tocarlas, sino que <strong>el procedimiento</strong> —auditar, justificar, validar— funcione con datos que no lo vieron nacer.</p>
+</blockquote>
+<hr>
+<section id="práctica-4-sirve-mi-política-aquí-durante-el-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-4-sirve-mi-política-aquí-durante-el-taller">Práctica 4 — ¿Sirve mi política aquí? <em>(durante el taller)</em></h3>
+<p><strong>Pregunta biológica.</strong> ¿Están los identificadores de las dos fuentes escritos de forma comparable, o hace falta ampliar la política?</p>
+<p><strong>Objetivo.</strong> Someter la política de S20 a la misma auditoría que la produjo.</p>
+<p><strong>Pasos.</strong></p>
+<ol type="1">
+<li><strong>Recupera tu política</strong> de <code>results/s20/politica-normalizacion.md</code> y anota qué regla resolvía qué problema.</li>
+<li><strong>Audita la lista nueva</strong> con las consultas de arriba y con <code>cat -A</code>.</li>
+<li><strong>Marca cada regla existente</strong> como <em>sigue haciendo falta</em>, <em>no aplica aquí</em> o <em>sería peligrosa sobre esta fuente</em>.</li>
+<li><strong>Añade las reglas nuevas</strong> que esta fuente exija, con su justificación, su riesgo y su control. Si no hace falta ninguna, escríbelo: es un resultado.</li>
+<li><strong>Aplica la política a las dos listas</strong> y genera los dos archivos <code>-normalizado.txt</code>, aunque una de ellas no cambie.</li>
+<li><strong>Valida</strong> con los cuatro controles de S20: cardinalidad, claves vacías, colisiones e idempotencia.</li>
+<li><strong>Actualiza la política</strong> como una versión nueva, sin borrar la de S20. La comparación entre ambas documenta qué tuvo que cambiar al salir de tu propio proyecto.</li>
+</ol>
+<p><strong>Producto esperado.</strong> La política ampliada y los dos archivos <code>-normalizado.txt</code> listos para compararse.</p>
+<p><strong>Criterio de logro:</strong> cada regla nueva nace de un rasgo observado en esta fuente, y ninguna se justifica por haber aumentado las coincidencias.</p>
+<hr>
+</section>
+</section>
+<section id="confrontar-las-tres-zonas-como-resultado-biológico-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="confrontar-las-tres-zonas-como-resultado-biológico-indispensable">5. Confrontar: las tres zonas como resultado biológico [Indispensable]</h2>
+<p>Ahora sí, la comparación. El comando es el que ya conoces:</p>
+<p>Se comparan <strong>las dos listas normalizadas</strong>, nunca una original contra una normalizada, y cada zona se guarda en su propio archivo:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> <span class="at">-c</span> results/s21/locus-codificantes-propio-normalizado.txt    <span class="co"># falla si no está ordenada</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> <span class="at">-c</span> results/s21/locus-uniprot-normalizado.txt</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">comm</span> <span class="at">-23</span> results/s21/locus-codificantes-propio-normalizado.txt <span class="dt">\</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>         results/s21/locus-uniprot-normalizado.txt <span class="op">&gt;</span> results/s21/solo-propio.txt</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="fu">comm</span> <span class="at">-13</span> results/s21/locus-codificantes-propio-normalizado.txt <span class="dt">\</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>         results/s21/locus-uniprot-normalizado.txt <span class="op">&gt;</span> results/s21/solo-uniprot.txt</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="fu">comm</span> <span class="at">-12</span> results/s21/locus-codificantes-propio-normalizado.txt <span class="dt">\</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>         results/s21/locus-uniprot-normalizado.txt <span class="op">&gt;</span> results/s21/en-ambas.txt</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> results/s21/solo-propio.txt results/s21/en-ambas.txt results/s21/solo-uniprot.txt</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-note callout-titled" title="hoy solo cuentas">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>hoy solo cuentas
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Tres números, sin porcentajes. Calcular qué proporción representa cada zona, cuánto miden esos genes o cómo se reparten por replicón exige operar sobre varias columnas y hacer aritmética, y ninguna herramienta que tienes sabe hacerlo. Es el motor de S22.</p>
+</div>
+</div>
+<p>Hasta S20, esas tres zonas eran un <strong>control técnico</strong>: te decían si tus archivos se correspondían. Hoy son otra cosa. Cada zona es un <strong>resultado biológico</strong> que hay que interpretar:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Zona</th>
+<th>Qué contiene</th>
+<th>Primera lectura</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Solo en mi anotación</strong></td>
+<td>Loci con CDS que la fuente ajena no recoge</td>
+<td>Recuerda que los RNA y pseudogenes ya quedaron fuera del universo: aquí la diferencia sí pide explicación</td>
+</tr>
+<tr class="even">
+<td><strong>En ambas</strong></td>
+<td>Loci reconocidos por las dos procedencias</td>
+<td>La parte de tu inventario que sale reforzada hoy</td>
+</tr>
+<tr class="odd">
+<td><strong>Solo en la fuente ajena</strong></td>
+<td>Loci que la otra fuente recoge y mi anotación no</td>
+<td>¿Versión distinta? ¿Otro criterio? ¿Un filtro mío que los dejó fuera?</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La zona central no es “lo aburrido”. Es lo único de tu inventario que hoy queda respaldado por evidencia que no controlas tú, y por tanto lo que puedes afirmar con más fuerza. Pero dilo con precisión: no “N genes están confirmados”, sino <strong>“N loci fueron reportados por dos fuentes de procedencia distinta, concordantes en los aspectos evaluados y con su independencia parcial documentada”</strong>. La concordancia refuerza; no demuestra existencia.</p>
+</div>
+</div>
+<hr>
+<section id="práctica-5-confrontar-los-dos-inventarios-durante-el-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-5-confrontar-los-dos-inventarios-durante-el-taller">Práctica 5 — Confrontar los dos inventarios <em>(durante el taller)</em></h3>
+<p><strong>Pregunta biológica.</strong> ¿Qué parte de mi inventario reconoce también una fuente independiente, y qué parte no?</p>
+<p><strong>Objetivo.</strong> Producir la comparación y clasificarla, sin interpretarla todavía.</p>
+<p><strong>Parte A — Comparar</strong></p>
+<ol type="1">
+<li><strong>Comprueba que ambas listas normalizadas estén ordenadas</strong> con <code>sort -c</code> antes de nada.</li>
+<li><strong>Ejecuta las tres comparaciones</strong> y guarda cada zona en <code>solo-propio.txt</code>, <code>en-ambas.txt</code> y <code>solo-uniprot.txt</code>.</li>
+<li><strong>Cuenta las tres zonas.</strong> Solo los tres números: los porcentajes y las magnitudes son de S22.</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled" title="no hay tres números correctos">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>no hay tres números correctos
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El tamaño de cada zona depende de tu organismo, de la versión del ensamblado y de qué recorta la fuente independiente, así que no compares tus cifras con las de otro equipo ni esperes que la intersección sea casi total.</p>
+<p>Lo que sí puedes anticipar es la <strong>dirección</strong> de la asimetría, y conviene que la razones antes de mirar: una fuente que solo cataloga proteínas revisadas casi siempre reconocerá <strong>menos</strong> entradas que tu anotación completa, porque tu GFF3 incluye categorías que aquella no contempla. Si te sale al revés —muchas entradas que solo existen en la fuente ajena—, no es un error: es una pista de que las dos listas no describen el mismo universo, y eso es exactamente lo que la Práctica 6 te pide explicar.</p>
+</div>
+</div>
+<p><strong>Parte B — Caracterizar</strong></p>
+<ol start="4" type="1">
+<li><strong>Contrasta con tu predicción</strong> de la Práctica 1, paso 6. ¿Acertaste la magnitud? ¿Y la dirección de la asimetría?</li>
+<li><strong>Mira los casos, no solo los números.</strong> Toma <strong>tres</strong> identificadores de cada zona no vacía y búscalos en tu GFF3 con <code>grep</code>. ¿Qué tipo de registro son? ¿De qué fuente de anotación? ¿Comparten algo?</li>
+<li><strong>Anota lo que observes</strong>, sin explicarlo todavía: la interpretación es la Práctica 6.</li>
+</ol>
+<p><strong>Producto esperado.</strong> Las tres zonas guardadas y contadas, con tres casos concretos examinados de cada zona no vacía.</p>
+<p><strong>Criterio de logro:</strong> distingues la magnitud de cada zona de su significado, y no has descartado ninguna diferencia por parecer pequeña.</p>
+<hr>
+</section>
+</section>
+<section id="interpretar-hipótesis-antes-que-culpables-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="interpretar-hipótesis-antes-que-culpables-indispensable">6. Interpretar: hipótesis antes que culpables [Indispensable]</h2>
+<p>Tienes diferencias. La tentación es llamarlas errores y buscar cuál de las dos fuentes “se equivocó”. A veces sí hay un error —y hay que poder detectarlo—, pero casi nunca es lo primero que conviene suponer.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u4-s21-causas-discrepancia.png" class="img-fluid figure-img"></p>
+<figcaption>Cinco tarjetas presentan causas alternativas de una diferencia entre dos inventarios, cada una con un ejemplo y con la comprobación que permite distinguirla: el alcance del recurso, que puede no incluir genes de RNA ni pseudogenes; la versión congelada de cada fuente; el criterio de anotación, cuando dos procedimientos discrepan de buena fe sobre si una región corta es un gen; los filtros aplicados al descargar, que pueden haber restringido el conjunto sin que se note; y la estrategia de conteo propia, que puede haber contado registros donde debía contar objetos. Una franja inferior indica el orden en que conviene descartarlas y advierte que ninguna es un fallo del programa, que no siempre se puede llegar a una respuesta definitiva, y que lo único inaceptable es dejar una diferencia sin ninguna hipótesis.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 21.3.</strong> Una discrepancia no es un error. Cinco explicaciones posibles, cada una con la comprobación que permite distinguirla de las demás. Elaboración propia.</p>
+<p>Las tres primeras causas —alcance, versión y filtros— dependen del recurso y son las más fáciles de comprobar, así que se revisan primero. La cuarta exige mirar biología. Y la quinta apunta a tu propio análisis, que es incómodo y por eso mismo no puede omitirse.</p>
+<p>Y queda una sexta vía que la figura no dibuja porque no es una explicación sino un fallo: que <strong>algo esté efectivamente mal</strong>. Un archivo equivocado, una consulta mal construida, un error de la propia fuente. Existe, ocurre y hay que poder llegar a ella —pero <strong>se demuestra, no se supone</strong>: se llega después de comprobar las otras cinco, y con evidencia concreta.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="no siempre hay respuesta">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>no siempre hay respuesta
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Para varias discrepancias, la evidencia disponible no alcanza para decidir. Escribirlo —junto con qué observación permitiría distinguir entre las alternativas— es un resultado científico legítimo, y es exactamente lo que has hecho desde S13 con tus apartados de limitaciones.</p>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>IDEA CLAVE.</strong> El objetivo de hoy nunca fue que las dos fuentes coincidieran, ni averiguar cuál tiene razón. Era saber <strong>por qué</strong> difieren, y con qué grado de confianza puedes afirmarlo. Una discrepancia con una hipótesis honesta —aunque quede abierta— enseña más sobre tu genoma que una coincidencia que nadie examinó.</p>
+</blockquote>
+<hr>
+<section id="práctica-6-una-hipótesis-por-diferencia-después-del-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-6-una-hipótesis-por-diferencia-después-del-taller">Práctica 6 — Una hipótesis por diferencia <em>(después del taller)</em></h3>
+<p><strong>Pregunta biológica.</strong> ¿Qué explica cada una de las diferencias entre mi inventario y el de la fuente independiente?</p>
+<p><strong>Objetivo.</strong> Convertir una lista de discrepancias en un conjunto de hipótesis comprobables.</p>
+<p><strong>Pasos.</strong></p>
+<ol type="1">
+<li><strong>Agrupa antes de explicar.</strong> Recorre los casos de la Práctica 5 y reúne los que compartan un rasgo: mismo tipo de registro, mismo replicón, misma fuente de anotación. Explicar un grupo es más fuerte que explicar tres casos sueltos.</li>
+<li><strong>Propón una hipótesis principal</strong> para cada grupo, recorriendo las tarjetas de la Figura 21.3 en su orden.</li>
+<li><strong>Registra la evidencia a favor.</strong> Qué observación concreta de tus archivos la sostiene.</li>
+<li><strong>Registra las alternativas que siguen abiertas</strong> y qué observación permitiría distinguirlas. No hace falta que las descartes: hace falta que sepas cuáles son y cómo se decidirían.</li>
+<li><strong>Asigna un grado de confianza</strong> —alta, media, baja— y justifícalo en media línea.</li>
+<li><strong>Marca lo indecidible.</strong> Para los grupos sin resolver, nombra la evidencia pendiente: otra versión del ensamblado, un tercer recurso, literatura sobre ese locus.</li>
+<li><strong>Reformula tu conclusión.</strong> Escribe la frase final del día con esta forma: <em>“De mis N loci con producto proteico, M fueron reportados también por la fuente externa; K difieren, y su explicación más probable es…”</em>.</li>
+<li><strong>Completa la tabla del protocolo</strong> con una fila por grupo.</li>
+</ol>
+<p><strong>Producto esperado.</strong> Una tabla de discrepancias agrupadas, cada una con su hipótesis, la evidencia que la apoya, las alternativas abiertas y su grado de confianza.</p>
+<p><strong>Criterio de logro:</strong> ninguna fila dice “error” sin evidencia que lo demuestre, y todas declaran qué alternativas siguen abiertas en lugar de aparentar una certeza que no tienes.</p>
+<hr>
+</section>
+</section>
+<section id="qué-se-puede-afirmar-después-de-confrontar-consulta" class="level2">
+<h2 class="anchored" data-anchor-id="qué-se-puede-afirmar-después-de-confrontar-consulta">7. Qué se puede afirmar después de confrontar [Consulta]</h2>
+<p>Conviene ser preciso con lo que esta sesión autoriza a decir, porque es fácil pasarse de largo en las dos direcciones.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Puedes afirmar</th>
+<th>No puedes afirmar</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Que N loci fueron reportados por dos fuentes de procedencia distinta, concordantes en lo evaluado</td>
+<td>Que esos N loci existen: ambas fuentes pueden compartir un error de origen</td>
+</tr>
+<tr class="even">
+<td>Que las diferencias tienen una hipótesis explícita, con su evidencia y sus alternativas abiertas</td>
+<td>Que una de las dos fuentes es la correcta</td>
+</tr>
+<tr class="odd">
+<td>Que tu procedimiento funciona sobre datos que no nacieron con él</td>
+<td>Que funcionaría sobre cualquier formato sin auditarlo</td>
+</tr>
+<tr class="even">
+<td>Que tu resultado superó una prueba externa que antes no había pasado</td>
+<td>Que está validado: una segunda fuente es una prueba, no un certificado</td>
+</tr>
+</tbody>
+</table>
+<p>Fíjate en que aquí conviven dos robusteces distintas y no hay que confundirlas. La de tu <strong>procedimiento</strong>, que se mantuvo al cambiar de formato. Y la de tu <strong>resultado</strong>, que se mantuvo ante una procedencia distinta, independiente solo en los aspectos que declaraste. Hoy pusiste a prueba las dos, pero son afirmaciones separadas.</p>
+<blockquote class="blockquote">
+<p><strong>IDEA CLAVE.</strong> Confrontar aumenta la confianza; no la garantiza. Lo que tienes al terminar es una <strong>conclusión provisional mejor sustentada</strong>: un resultado que ha superado una prueba externa. La ciencia no acumula certezas, acumula resultados que han sobrevivido a intentos serios de contradecirlos —y hoy hiciste el primero con tu propio trabajo—.</p>
+</blockquote>
+<hr>
+</section>
+<section id="documentar-la-sección-del-protocolo-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="documentar-la-sección-del-protocolo-indispensable">8. Documentar: la sección del protocolo [Indispensable]</h2>
+<p>Agrega a <code>doc/protocolo.md</code>, después de la sección de S20.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## S21 — Contraste con una fuente independiente</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Pregunta biológica:** ¿Reconoce una fuente independiente los mismos genes que mi anotación?</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Hipótesis o expectativa previa:** (Práctica 1: coincidencia esperada, dirección de la asimetría</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  y su justificación)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**La segunda fuente — ficha verificable:**</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  | Elemento | Valor |</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  | --- | --- |</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  | Recurso · URL o identificador de la consulta | … |</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  | Consulta, filtros y columnas solicitadas | … |</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  | Organismo y cepa | … |</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  | *Release* del recurso · fecha de descarga | … |</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  | Archivo · tamaño · **checksum** | … |</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>  | N.º de registros (sin encabezado) | … |</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>  | ¿Descarga propia o copia de respaldo del curso? | … |</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Declaración de independencia:**</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>  | Independiente respecto de | No independiente respecto de | Qué errores puede detectar | Qué errores no podría detectar |</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>  | --- | --- | --- | --- |</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>  | … | … | … | … |</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Universo comparable:**</span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>  | Conjunto | Definición | Objetos excluidos y por qué |</span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>  | --- | --- | --- |</span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>  | Propio | Loci con registro <span class="in">`CDS`</span> en mi anotación | … |</span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>  | Externo | Loci asociados a un registro proteico en el recurso | … |</span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>  | Fuera de alcance | Loci sin CDS: RNA, pseudogenes… | No son discrepancias: el recurso no podía contenerlos |</span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Auditoría de la tabla externa:**</span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>  | Rasgo | Valor | Decisión |</span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>  | --- | --- | --- |</span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>  | Delimitador · encabezado (elimina exactamente 1 línea) | … | … |</span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>  | Columna del locus verificada en la posición esperada | … | … |</span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>  | Separador de valores múltiples | … | … |</span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>  | Filas sin identificador de locus | … | … |</span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>  | Filas con más de un identificador | … | Pendiente de documentación del recurso |</span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Listas utilizadas:**</span>
+<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a>  | Lista | Archivo original | Archivo normalizado | Universo biológico |</span>
+<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a>  | --- | --- | --- | --- |</span>
+<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a>  | Propia | <span class="in">`results/s21/locus-codificantes-propio-original.txt`</span> | <span class="in">`…-normalizado.txt`</span> | Loci con CDS |</span>
+<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a>  | Externa | <span class="in">`results/s21/locus-uniprot-original.txt`</span> | <span class="in">`…-normalizado.txt`</span> | Loci con producto proteico |</span>
+<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Estrategia de recuperación:** definición del objeto biológico —la misma para ambas fuentes— y</span>
+<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a>  comandos ejecutados sobre cada formato.</span>
+<span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Política de normalización:** reglas de S20 conservadas, descartadas y añadidas, con su</span>
+<span id="cb14-52"><a href="#cb14-52" aria-hidden="true" tabindex="-1"></a>  justificación; resultado de los cuatro controles sobre las dos listas.</span>
+<span id="cb14-53"><a href="#cb14-53" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Resultado de la confrontación** *(conteos; las proporciones y magnitudes se calculan en S22)*:</span>
+<span id="cb14-54"><a href="#cb14-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-55"><a href="#cb14-55" aria-hidden="true" tabindex="-1"></a>  | Zona | Archivo | N.º | Casos examinados |</span>
+<span id="cb14-56"><a href="#cb14-56" aria-hidden="true" tabindex="-1"></a>  | --- | --- | ---: | --- |</span>
+<span id="cb14-57"><a href="#cb14-57" aria-hidden="true" tabindex="-1"></a>  | Solo en mi anotación | <span class="in">`results/s21/solo-propio.txt`</span> | … | … |</span>
+<span id="cb14-58"><a href="#cb14-58" aria-hidden="true" tabindex="-1"></a>  | En ambas fuentes | <span class="in">`results/s21/en-ambas.txt`</span> | … | … |</span>
+<span id="cb14-59"><a href="#cb14-59" aria-hidden="true" tabindex="-1"></a>  | Solo en la fuente externa | <span class="in">`results/s21/solo-uniprot.txt`</span> | … | … |</span>
+<span id="cb14-60"><a href="#cb14-60" aria-hidden="true" tabindex="-1"></a>  | Fuera de alcance (no comparado) | <span class="in">`results/s21/fuera-de-alcance.txt`</span> | … | … |</span>
+<span id="cb14-61"><a href="#cb14-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-62"><a href="#cb14-62" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Discrepancias agrupadas e hipótesis:**</span>
+<span id="cb14-63"><a href="#cb14-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-64"><a href="#cb14-64" aria-hidden="true" tabindex="-1"></a>  | Grupo | Rasgo común | Hipótesis principal | Evidencia a favor | Alternativas abiertas | Confianza | Evidencia pendiente |</span>
+<span id="cb14-65"><a href="#cb14-65" aria-hidden="true" tabindex="-1"></a>  | --- | --- | --- | --- | --- | --- | --- |</span>
+<span id="cb14-66"><a href="#cb14-66" aria-hidden="true" tabindex="-1"></a>  | … | … | … | … | … | alta/media/baja | … |</span>
+<span id="cb14-67"><a href="#cb14-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-68"><a href="#cb14-68" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Interpretación biológica:** qué parte del inventario sale reforzada, qué revela cada grupo sobre</span>
+<span id="cb14-69"><a href="#cb14-69" aria-hidden="true" tabindex="-1"></a>  el genoma o sobre los criterios de anotación de cada recurso.</span>
+<span id="cb14-70"><a href="#cb14-70" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Conclusión provisional:** qué concuerda, qué difiere, qué diferencias se explican por alcance,</span>
+<span id="cb14-71"><a href="#cb14-71" aria-hidden="true" tabindex="-1"></a>  qué permanece indecidible y qué se medirá en S22.</span>
+<span id="cb14-72"><a href="#cb14-72" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Limitaciones de esta estrategia:**</span>
+<span id="cb14-73"><a href="#cb14-73" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Ambas fuentes pueden compartir un error de origen: la concordancia no demuestra existencia.</span>
+<span id="cb14-74"><a href="#cb14-74" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>La comparación es de **identificadores**, no de coordenadas ni de secuencias.</span>
+<span id="cb14-75"><a href="#cb14-75" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>La independencia es **parcial** y quedó declarada por dimensiones.</span>
+<span id="cb14-76"><a href="#cb14-76" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>El alcance del recurso condiciona qué diferencias podían aparecer.</span>
+<span id="cb14-77"><a href="#cb14-77" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Varias discrepancias quedan abiertas con la evidencia disponible.</span>
+<span id="cb14-78"><a href="#cb14-78" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Nuevas preguntas que abre:** ¿qué proporción representa cada zona?, ¿cuánto miden esos loci?,</span>
+<span id="cb14-79"><a href="#cb14-79" aria-hidden="true" tabindex="-1"></a>  ¿cómo se reparten por replicón? (S22)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La tabla de hipótesis es el corazón de esta sección. Un protocolo que solo registre cuántos identificadores coincidieron habrá documentado la operación y perdido el resultado.</p>
+</div>
+</div>
+</section>
+<section id="evidencia-de-la-sesión" class="level2">
+<h2 class="anchored" data-anchor-id="evidencia-de-la-sesión">Evidencia de la sesión</h2>
+<p>Entrega o conserva, según indique el docente:</p>
+<ol type="1">
+<li><code>doc/s21-primer-intento.md</code> con la ficha de procedencia, la declaración de independencia y las predicciones;</li>
+<li><code>results/s21/auditoria-fuente-externa.md</code>;</li>
+<li>las dos listas originales, <code>locus-codificantes-propio-original.txt</code> y <code>locus-uniprot-original.txt</code>, con sus comandos exactos, y <code>fuera-de-alcance.txt</code>;</li>
+<li>la política actualizada y las dos listas <code>-normalizado.txt</code>;</li>
+<li>las tres zonas —<code>solo-propio.txt</code>, <code>en-ambas.txt</code>, <code>solo-uniprot.txt</code>— contadas, con tres casos examinados por zona no vacía;</li>
+<li>la tabla de discrepancias agrupadas con una hipótesis por grupo;</li>
+<li>las declaraciones <em>«puedo afirmar / todavía no puedo afirmar»</em>;</li>
+<li>sección S21 de <code>doc/protocolo.md</code>, con las anteriores intactas.</li>
+</ol>
+</section>
+<section id="errores-frecuentes-y-estrategias-de-diagnóstico" class="level2">
+<h2 class="anchored" data-anchor-id="errores-frecuentes-y-estrategias-de-diagnóstico">Errores frecuentes y estrategias de diagnóstico</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Error</th>
+<th>Por qué ocurre</th>
+<th>Estrategia de diagnóstico</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Llamar “error” a toda discrepancia</td>
+<td>Se supone que una de las fuentes debe estar equivocada</td>
+<td>Recorrer las cinco causas de la Figura 21.3 antes de concluir</td>
+</tr>
+<tr class="even">
+<td>Arrastrar la línea de encabezado</td>
+<td>Parece un registro más</td>
+<td>Si aparece un identificador con nombre de columna, falta el <code>grep -v</code></td>
+</tr>
+<tr class="odd">
+<td>Suponer que la columna del locus tiene un solo valor</td>
+<td>En el GFF3 lo tenía</td>
+<td>Contar las filas con espacios antes de extraer</td>
+</tr>
+<tr class="even">
+<td>Descartar las filas sin identificador sin contarlas</td>
+<td>Estorban en la comparación</td>
+<td>Contarlas primero: son un dato sobre el alcance de la fuente</td>
+</tr>
+<tr class="odd">
+<td>Reutilizar la política de S20 sin auditar</td>
+<td>“Ya estaba validada”</td>
+<td>Auditar la lista nueva: la validación era para otra fuente</td>
+</tr>
+<tr class="even">
+<td>Normalizar hasta que las listas coincidan</td>
+<td>Se toma la coincidencia como objetivo</td>
+<td>Cada coincidencia fabricada oculta una diferencia real; revisar colisiones</td>
+</tr>
+<tr class="odd">
+<td>Comparar listas sin ordenar</td>
+<td><code>comm</code> no avisa</td>
+<td><code>sort -c</code> sobre ambas antes de comparar</td>
+</tr>
+<tr class="even">
+<td>Interpretar solo la zona de las diferencias</td>
+<td>Parece la única interesante</td>
+<td>La zona común es lo que hoy queda confirmado: se reporta explícitamente</td>
+</tr>
+<tr class="odd">
+<td>Concluir que la fuente ajena “tiene razón”</td>
+<td>Se le supone autoridad</td>
+<td>Preguntar en qué es independiente y cuál es su alcance declarado</td>
+</tr>
+<tr class="even">
+<td>Concluir que los genes comunes existen con certeza</td>
+<td>Se confunde acuerdo con verdad</td>
+<td>Dos fuentes pueden compartir el mismo origen del error</td>
+</tr>
+<tr class="odd">
+<td>Dejar una diferencia sin hipótesis</td>
+<td>Cuesta trabajo y no da un número</td>
+<td>Toda fila de la tabla lleva causa propuesta o evidencia pendiente declarada</td>
+</tr>
+<tr class="even">
+<td>Comparar conteos globales en lugar de identificadores</td>
+<td>Es más rápido</td>
+<td>Dos totales iguales pueden corresponder a conjuntos distintos: comparar las listas</td>
+</tr>
+<tr class="odd">
+<td>Comparar todos los <code>locus_tag</code> contra un catálogo de proteínas</td>
+<td>Ambas listas “son de genes”</td>
+<td>Si los RNA aparecen como discrepancia, los universos no eran equivalentes: partir de <code>CDS</code></td>
+</tr>
+<tr class="even">
+<td>Comparar una lista <code>-original</code> con una <code>-normalizado</code></td>
+<td>Los nombres se parecen</td>
+<td>Comprobar la terminación de los dos archivos que recibe <code>comm</code></td>
+</tr>
+<tr class="odd">
+<td>Suponer el separador de los valores múltiples</td>
+<td>Se copia el comando de otro compañero</td>
+<td>Derivarlo de la auditoría con <code>grep -oE '[^A-Za-z0-9_]'</code></td>
+</tr>
+<tr class="even">
+<td>Ajustar el número de columna hasta que salga algo</td>
+<td>La descarga no era la canónica</td>
+<td>Repetir la exportación con las columnas acordadas</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="rúbricas" class="level2">
+<h2 class="anchored" data-anchor-id="rúbricas">Rúbricas</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterio</th>
+<th>Logrado</th>
+<th>Parcialmente logrado</th>
+<th>Aún no logrado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Procedencia</td>
+<td>Ficha completa que permite repetir la descarga exacta</td>
+<td>Registra el recurso pero no la consulta ni la versión</td>
+<td>No documenta de dónde salió la tabla</td>
+</tr>
+<tr class="even">
+<td>Independencia</td>
+<td>Declara en qué es independiente la fuente y en qué no</td>
+<td>Afirma que es independiente sin matizar</td>
+<td>No se plantea la pregunta</td>
+</tr>
+<tr class="odd">
+<td>Auditoría</td>
+<td>Caracteriza delimitador, encabezado, faltantes y valores múltiples, y decide sobre cada caso</td>
+<td>Audita parcialmente o decide sin justificar</td>
+<td>Extrae sin auditar</td>
+</tr>
+<tr class="even">
+<td>Recuperación</td>
+<td>Conserva la definición del objeto aunque cambien los comandos, y explica cada descarte</td>
+<td>Obtiene la lista sin poder justificar las pérdidas</td>
+<td>Adapta la definición al formato disponible</td>
+</tr>
+<tr class="odd">
+<td>Política</td>
+<td>Audita la política de S20 sobre la nueva fuente y justifica cada cambio</td>
+<td>La reutiliza sin revisarla, o inventa reglas nuevas sin auditar</td>
+<td>Normaliza hasta forzar coincidencias</td>
+</tr>
+<tr class="even">
+<td>Confrontación</td>
+<td>Cuantifica las tres zonas, examina casos concretos y contrasta con su predicción</td>
+<td>Cuantifica sin examinar casos</td>
+<td>Solo reporta si coincidieron o no</td>
+</tr>
+<tr class="odd">
+<td>Interpretación</td>
+<td>Agrupa las discrepancias y asigna una causa con su descarte</td>
+<td>Propone causas sin descartar alternativas</td>
+<td>Califica las diferencias como errores</td>
+</tr>
+<tr class="even">
+<td>Honestidad epistemológica</td>
+<td>Declara qué no puede decidirse y qué evidencia haría falta</td>
+<td>Menciona límites genéricos</td>
+<td>Presenta la comparación como validación definitiva</td>
+</tr>
+<tr class="odd">
+<td>Reproducibilidad</td>
+<td>Cada lista y cada zona quedan en <code>results/s21/</code> con su comando</td>
+<td>Documenta comandos sin los archivos</td>
+<td>No permite reconstruir el contraste</td>
+</tr>
+</tbody>
+</table>
+<p>La rúbrica es formativa: la evidencia se integra al protocolo, que se evalúa de forma acumulativa.</p>
+</section>
+<section id="autoevaluación" class="level2">
+<h2 class="anchored" data-anchor-id="autoevaluación">Autoevaluación</h2>
+<section id="comprobación-rápida-formativa-al-final-del-taller" class="level3">
+<h3 class="anchored" data-anchor-id="comprobación-rápida-formativa-al-final-del-taller">Comprobación rápida — formativa, al final del taller</h3>
+<ol type="1">
+<li>¿Por qué un resultado reproducible todavía no es una conclusión?</li>
+<li>¿Qué hace independiente a una fuente? Da un ejemplo de dos fuentes que <strong>no</strong> lo sean.</li>
+<li>¿Por qué no puedes reutilizar los comandos de S19 sobre la tabla externa? ¿Qué sí reutilizas?</li>
+<li>¿Por qué la política de S20 tiene que auditarse otra vez?</li>
+<li>Una regla nueva hace coincidir muchos más identificadores. ¿Es buena señal?</li>
+<li>¿Qué puedes afirmar exactamente sobre los loci de la zona común, y qué no?</li>
+<li>Un identificador aparece solo en la fuente ajena. Nombra tres causas posibles.</li>
+<li>¿Por qué los RNA y los pseudogenes <strong>no</strong> aparecen en la comparación principal? ¿Dónde quedan?</li>
+<li>Tus dos fuentes coinciden por completo. ¿Qué error no habría detectado esta comprobación?</li>
+<li>¿Qué diferencia de hoy no puedes resolver comparando listas?</li>
+</ol>
+</section>
+<section id="semáforo" class="level3">
+<h3 class="anchored" data-anchor-id="semáforo">Semáforo</h3>
+<ul>
+<li>🟢 <strong>Verde:</strong> documento la procedencia de una fuente ajena, declaro en qué es independiente, recupero de ella la misma evidencia, confronto los dos inventarios y explico cada grupo de discrepancias con una causa y su descarte.</li>
+<li>🟡 <strong>Amarillo:</strong> consigo la comparación, pero interpreto las diferencias en general o reutilizo la política de S20 sin auditarla.</li>
+<li>🔴 <strong>Rojo:</strong> llamo error a toda discrepancia, normalizo hasta que las listas coincidan, o concluyo que la fuente externa tiene razón porque es más conocida.</li>
+</ul>
+<p>Si estás en amarillo o rojo, vuelve a las Prácticas 4 y 6: la habilidad central de hoy no es ejecutar <code>comm</code>, es <strong>explicar por qué dos descripciones del mismo genoma no dicen exactamente lo mismo</strong>.</p>
+</section>
+</section>
+<section id="cierre-con-ia-clásico-vs.-asistido" class="level2">
+<h2 class="anchored" data-anchor-id="cierre-con-ia-clásico-vs.-asistido">Cierre con IA: clásico vs.&nbsp;asistido</h2>
+<p>Trabaja <strong>primero a mano</strong>. La IA no puede consultar tus archivos ni conoce el alcance real de tu fuente: úsala para poner a prueba tus hipótesis, no para generarlas.</p>
+<ol type="1">
+<li><strong>Formula tú</strong> la hipótesis de cada grupo de discrepancias, con su descarte.</li>
+<li><strong>Pide</strong> al asistente explicaciones alternativas que no hayas considerado, describiendo el patrón observado —no pegando tus conclusiones—.</li>
+<li><strong>Exige</strong> que separe las explicaciones comprobables con tus datos de las que necesitarían evidencia externa.</li>
+<li><strong>Comprueba tú</strong> cada explicación nueva sobre tus archivos.</li>
+<li><strong>Registra en <code>bitacora-ia.md</code></strong> qué hipótesis añadiste, cuál descartaste y con qué evidencia.</li>
+</ol>
+<p>🤖 <strong>Prompt para <a href="https://chatgpt.com/g/g-6893cf2451d88191b11cd0c87de045ab-profeunix-bioinfo">ProfeUnix Bioinfo</a>:</strong> &gt; Comparé los identificadores de locus de la anotación RefSeq de un genoma bacteriano con los de un &gt; catálogo de proteínas curado aparte. Encontré este patrón: [describir la zona y el rasgo común de &gt; los casos]. Enumera las explicaciones biológicas o de procedencia que podrían producirlo, indica &gt; para cada una qué comprobación la confirmaría o descartaría con <code>grep</code>, <code>cut</code>, <code>sort</code>, <code>uniq</code> y &gt; <code>comm</code>, y señala cuáles no podrían decidirse sin evidencia externa. No supongas que una de las dos &gt; fuentes está equivocada.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Advertencia
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Ante una discrepancia, un asistente tiende a proponer la explicación más común en la literatura general, que puede no aplicar a tu organismo ni a tu recurso. Trata sus respuestas como hipótesis a comprobar, nunca como diagnóstico.</p>
+</div>
+</div>
+</section>
+<section id="lo-que-realmente-aprendiste-hoy" class="level2">
+<h2 class="anchored" data-anchor-id="lo-que-realmente-aprendiste-hoy">Lo que realmente aprendiste hoy</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Antes</th>
+<th>Ahora</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Tenía un resultado reproducible</td>
+<td>Sé qué parte de ese resultado resiste una prueba externa</td>
+</tr>
+<tr class="even">
+<td>Comprobaba mis archivos entre sí</td>
+<td>Contrasto mi trabajo con evidencia que no controlo</td>
+</tr>
+<tr class="odd">
+<td>Una diferencia era un problema a eliminar</td>
+<td>Una diferencia es un hallazgo que hay que explicar</td>
+</tr>
+<tr class="even">
+<td>Confiaba en mi anotación</td>
+<td>Sé en qué confío, por qué, y qué sigue sin estar comprobado</td>
+</tr>
+</tbody>
+</table>
+<p>La última fila es la que importa. Hoy no obtuviste más certeza: obtuviste <strong>certeza mejor delimitada</strong>, que es lo que distingue una afirmación científica de una opinión informada.</p>
+</section>
+<section id="cierre-de-s21-y-puente-hacia-s22" class="level2">
+<h2 class="anchored" data-anchor-id="cierre-de-s21-y-puente-hacia-s22">Cierre de S21 y puente hacia S22</h2>
+<p>Cuatro pasos del ciclo están completos:</p>
+<pre class="text"><code>S18  Seleccionar  →  qué evidencia cuenta
+S19  Identificar  →  de qué objeto habla
+S20  Normalizar   →  bajo qué representación se compara
+S21  Confrontar   →  qué queda en pie ante una fuente ajena</code></pre>
+<p>Y hoy pasó algo que no había pasado en toda la unidad: <strong>tu resultado dejó de depender solo de ti</strong>. Hasta ayer, todas tus comprobaciones eran internas —caminos distintos dentro del mismo paquete de datos—. Hoy sometiste tu inventario a una descripción que no controlas, hecha con criterios que no elegiste, y una parte salió reforzada. No es una certeza: es una <strong>conclusión provisional mejor sustentada</strong>, y es la que podrías defender ante alguien que dudara de ti.</p>
+<p>Si tuvieras que resumir la sesión en una frase, no sería “comparé dos listas”. Sería <em>“aprendí a distinguir lo que puedo afirmar de lo que solo había comprobado conmigo mismo”</em>.</p>
+<p>Y sin embargo, mira las discrepancias que quedaron sin resolver. Tienen todas la misma forma:</p>
+<pre class="text"><code>«¿Ese locus que solo aparece en una fuente es grande o es un fragmento de 60 pares de bases?»
+«¿Qué proporción de mi inventario representa cada zona?»
+«¿Cómo se reparten las discrepancias entre los replicones?»</code></pre>
+<p>Hoy solo pudiste <strong>contar</strong> las tres zonas. Ninguna de esas preguntas se responde comparando listas: todas piden <strong>medir</strong> —longitudes, sumas, promedios, proporciones, condiciones sobre varias columnas a la vez— y ninguna de tus herramientas sabe calcular.</p>
+<p>La pregunta con la que se abre <strong>S22</strong> es exactamente esa:</p>
+<blockquote class="blockquote">
+<p><strong>Ya sé qué difiere entre las dos fuentes. ¿Cómo mido cuánto importa esa diferencia?</strong></p>
+</blockquote>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Conserva <code>results/s21/</code> completo, sobre todo los archivos de cada zona. En S22 volverás sobre esos mismos identificadores para medirlos, y la tabla derivada de S20 será el punto de partida.</p>
+</div>
+</div>
+</section>
+<section id="en-una-frase" class="level2">
+<h2 class="anchored" data-anchor-id="en-una-frase">En una frase</h2>
+<ul>
+<li>Un resultado <strong>reproducible</strong> todavía no es una conclusión <strong>robusta</strong>.</li>
+<li>Solo se comparan <strong>universos equivalentes</strong>: lo que un recurso no podía contener no es una discrepancia.</li>
+<li>Una hipótesis honesta —con su evidencia y sus alternativas abiertas— vale más que una certeza aparente.</li>
+</ul>
+</section>
+<section id="anexo-a.-correspondencia-resultadoactividadevidenciacriterio" class="level2">
+<h2 class="anchored" data-anchor-id="anexo-a.-correspondencia-resultadoactividadevidenciacriterio">Anexo A. Correspondencia resultado–actividad–evidencia–criterio</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Resultado</th>
+<th>Actividad</th>
+<th>Evidencia</th>
+<th>Criterio</th>
+<th>Momento</th>
+<th>Nivel en U4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RA1 Distinguir reproducible de confiable</td>
+<td>Sección 1</td>
+<td>Respuesta razonada</td>
+<td>Explica qué no demuestra la reproducibilidad</td>
+<td>Antes</td>
+<td>Comprensión</td>
+</tr>
+<tr class="even">
+<td>RA2 Distinguir coherencia interna de validación</td>
+<td>Sección 1, Práctica 1</td>
+<td>Declaración de independencia</td>
+<td>Identifica el límite de las comprobaciones de S19–S20</td>
+<td>Antes</td>
+<td>Comprensión demostrada</td>
+</tr>
+<tr class="odd">
+<td>RA3 Evaluar la independencia de una fuente</td>
+<td>Sección 1.1, Práctica 1</td>
+<td>Frase «es independiente en… y no en…»</td>
+<td>Distingue los dos casos con argumento</td>
+<td>Antes</td>
+<td>Aplicación autónoma</td>
+</tr>
+<tr class="even">
+<td>RA4 Documentar procedencia</td>
+<td>Práctica 1</td>
+<td>Ficha de la segunda fuente</td>
+<td>Permite repetir la descarga exacta</td>
+<td>Antes</td>
+<td>Aplicación guiada</td>
+</tr>
+<tr class="odd">
+<td>RA5 Auditar una tabla ajena</td>
+<td>Sección 2, Práctica 2</td>
+<td><code>auditoria-fuente-externa.md</code></td>
+<td>Cada caso difícil está contado y decidido</td>
+<td>Antes</td>
+<td>Aplicación guiada</td>
+</tr>
+<tr class="even">
+<td>RA6 Recuperar la misma evidencia en otro formato</td>
+<td>Sección 3, Práctica 3</td>
+<td>Las dos listas <code>-original.txt</code> y <code>fuera-de-alcance.txt</code></td>
+<td>La definición del objeto se conserva; los descartes se justifican</td>
+<td>Taller</td>
+<td>Aplicación autónoma</td>
+</tr>
+<tr class="odd">
+<td>RA7 Poner a prueba la política</td>
+<td>Sección 4, Práctica 4</td>
+<td>Política actualizada</td>
+<td>Cada regla nueva nace de un rasgo observado</td>
+<td>Taller</td>
+<td>Aplicación autónoma</td>
+</tr>
+<tr class="even">
+<td>RA8 Clasificar las tres zonas</td>
+<td>Sección 5, Práctica 5</td>
+<td>Zonas cuantificadas con casos</td>
+<td>Distingue magnitud de significado</td>
+<td>Taller</td>
+<td>Aplicación autónoma</td>
+</tr>
+<tr class="odd">
+<td>RA9 Formular hipótesis explicativas</td>
+<td>Sección 6, Práctica 6</td>
+<td>Tabla de discrepancias agrupadas</td>
+<td>Cada hipótesis incluye el descarte de las alternativas</td>
+<td>Después</td>
+<td>Aplicación autónoma</td>
+</tr>
+<tr class="even">
+<td>RA10 Delimitar lo indecidible</td>
+<td>Sección 7, Práctica 6</td>
+<td>Filas «evidencia pendiente»</td>
+<td>Nombra la evidencia que haría falta</td>
+<td>Después</td>
+<td>Aplicación autónoma</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="anexo-b.-alineación-transversal" class="level2">
+<h2 class="anchored" data-anchor-id="anexo-b.-alineación-transversal">Anexo B. Alineación transversal</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Actividad</th>
+<th>Reproducibilidad</th>
+<th>Verificación</th>
+<th>Validación</th>
+<th>Robustez</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Ficha de la segunda fuente</td>
+<td>URL, consulta, versión y fecha registradas</td>
+<td>Otra persona repite la descarga</td>
+<td>Se declara en qué es independiente</td>
+<td>Se anticipa el alcance antes de contar</td>
+</tr>
+<tr class="even">
+<td>Auditoría de la tabla externa</td>
+<td>Consultas documentadas</td>
+<td><code>cat -A</code> y conteos</td>
+<td>Registros contrastados con el inventario propio</td>
+<td>Se miden faltantes y valores múltiples</td>
+</tr>
+<tr class="odd">
+<td>Recuperación en otro formato</td>
+<td>Tubería completa en el protocolo</td>
+<td>Construcción eslabón por eslabón</td>
+<td>La definición del objeto se mantiene entre formatos</td>
+<td>Cada descarte se cuantifica y explica</td>
+</tr>
+<tr class="even">
+<td>Política puesta a prueba</td>
+<td>Versión nueva junto a la de S20</td>
+<td>Los cuatro controles de S20</td>
+<td>Las reglas se justifican por rasgos de la fuente nueva</td>
+<td>No se normaliza para forzar coincidencias</td>
+</tr>
+<tr class="odd">
+<td>Confrontación</td>
+<td>Cada zona en <code>results/s21/</code></td>
+<td><code>sort -c</code> antes de <code>comm</code></td>
+<td><strong>Fuente de procedencia distinta</strong>: la validación más independiente del curso</td>
+<td>Se examinan casos, no solo totales</td>
+</tr>
+<tr class="even">
+<td>Interpretación</td>
+<td>Hipótesis y descartes en el protocolo</td>
+<td>Comprobación de cada causa sobre los archivos</td>
+<td>Se distingue lo decidible de lo indecidible</td>
+<td>Se incluye la estrategia propia entre las causas posibles</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="glosario" class="level2">
+<h2 class="anchored" data-anchor-id="glosario">Glosario</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Español</th>
+<th>Inglés</th>
+<th>Definición breve</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Confrontar</td>
+<td>Cross-check, confront</td>
+<td>Contrastar un resultado con evidencia de otra procedencia</td>
+</tr>
+<tr class="even">
+<td>Fuente independiente</td>
+<td>Independent source</td>
+<td>Aquella que podría equivocarse por causas distintas de la primera</td>
+</tr>
+<tr class="odd">
+<td>Coherencia interna</td>
+<td>Internal consistency</td>
+<td>Acuerdo entre partes del mismo conjunto de datos; no equivale a validación</td>
+</tr>
+<tr class="even">
+<td>Robustez</td>
+<td>Robustness</td>
+<td>Grado en que un resultado se mantiene al cambiar los datos o el procedimiento</td>
+</tr>
+<tr class="odd">
+<td>Discrepancia</td>
+<td>Discrepancy</td>
+<td>Diferencia entre dos descripciones del mismo objeto</td>
+</tr>
+<tr class="even">
+<td>Alcance del recurso</td>
+<td>Scope, coverage</td>
+<td>Conjunto de objetos que un recurso decide incluir</td>
+</tr>
+<tr class="odd">
+<td>Curación</td>
+<td>Curation</td>
+<td>Revisión experta que decide qué entra en un recurso y con qué anotación</td>
+</tr>
+<tr class="even">
+<td>Proteoma</td>
+<td>Proteome</td>
+<td>Conjunto de proteínas codificadas por un genoma</td>
+</tr>
+<tr class="odd">
+<td><em>Ordered locus name</em></td>
+<td>Ordered locus name</td>
+<td>Identificador sistemático del locus, equivalente al <code>locus_tag</code> del GFF3</td>
+</tr>
+<tr class="even">
+<td>Hipótesis explicativa</td>
+<td>Explanatory hypothesis</td>
+<td>Causa propuesta para una observación, con una comprobación asociada</td>
+</tr>
+<tr class="odd">
+<td>Evidencia pendiente</td>
+<td>Pending evidence</td>
+<td>La que haría falta para decidir entre dos explicaciones</td>
+</tr>
+<tr class="even">
+<td>Conclusión provisional</td>
+<td>Provisional conclusion</td>
+<td>Afirmación sostenida por la evidencia disponible y abierta a revisión</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="referencias" class="level2">
+<h2 class="anchored" data-anchor-id="referencias">Referencias</h2>
+<ul>
+<li>Buffalo, V. (2015). <em>Bioinformatics Data Skills</em>. O’Reilly Media. — Cap. 7 (comparación de conjuntos y contraste entre fuentes tabulares).</li>
+<li>The UniProt Consortium. (2025). UniProt: the Universal Protein Knowledgebase. <em>Nucleic Acids Research</em>. <a href="https://doi.org/10.1093/nar/gkae1010" class="uri">https://doi.org/10.1093/nar/gkae1010</a> — criterios de curación y alcance del recurso.</li>
+<li>UniProt. <em>Gene names</em> (definición de <em>ordered locus name</em>). <a href="https://www.uniprot.org/help/gene_name" class="uri">https://www.uniprot.org/help/gene_name</a></li>
+<li>Sequence Ontology. (2020). <em>Generic Feature Format Version 3 (GFF3) specification</em>. <a href="https://github.com/The-Sequence-Ontology/Specifications/blob/master/gff3.md" class="uri">https://github.com/The-Sequence-Ontology/Specifications/blob/master/gff3.md</a></li>
+<li>National Center for Biotechnology Information (NCBI). (2024). <em>Prokaryotic Genome Annotation Pipeline (PGAP)</em> — criterios de anotación de la fuente propia. <a href="https://www.ncbi.nlm.nih.gov/genome/annotation_prok/" class="uri">https://www.ncbi.nlm.nih.gov/genome/annotation_prok/</a></li>
+<li>Free Software Foundation. (2024). <em>GNU Coreutils Manual</em> — <code>comm</code>, <code>cut</code>, <code>sort</code>, <code>tr</code>, <code>wc</code>. <a href="https://www.gnu.org/software/coreutils/manual/coreutils.html" class="uri">https://www.gnu.org/software/coreutils/manual/coreutils.html</a></li>
+<li>Wilkinson, M. D., Dumontier, M., Aalbersberg, I. J., et al.&nbsp;(2016). The FAIR Guiding Principles for scientific data management and stewardship. <em>Scientific Data</em>, 3, 160018. <a href="https://doi.org/10.1038/sdata.2016.18" class="uri">https://doi.org/10.1038/sdata.2016.18</a></li>
+<li>Wilson, G., Bryan, J., Cranston, K., Kitzes, J., Nederbragt, L., &amp; Teal, T. K. (2017). Good enough practices in scientific computing. <em>PLoS Computational Biology</em>, 13(6), e1005510. <a href="https://doi.org/10.1371/journal.pcbi.1005510" class="uri">https://doi.org/10.1371/journal.pcbi.1005510</a></li>
+</ul>
+</section>
+<section id="distribución-estimada-de-las-dos-horas" class="level2">
+<h2 class="anchored" data-anchor-id="distribución-estimada-de-las-dos-horas">Distribución estimada de las dos horas</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 40%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Bloque</th>
+<th style="text-align: right;">Tiempo</th>
+<th>Contenido</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Puesta en común de las fichas y las predicciones</td>
+<td style="text-align: right;">15 min</td>
+<td>Prácticas 1 y 2, resueltas antes de clase</td>
+</tr>
+<tr class="even">
+<td>Recuperar la evidencia de la tabla externa</td>
+<td style="text-align: right;">25 min</td>
+<td>Práctica 3</td>
+</tr>
+<tr class="odd">
+<td>Poner a prueba la política</td>
+<td style="text-align: right;">25 min</td>
+<td>Práctica 4</td>
+</tr>
+<tr class="even">
+<td>Confrontar y cuantificar las tres zonas</td>
+<td style="text-align: right;">25 min</td>
+<td>Práctica 5, parte A</td>
+</tr>
+<tr class="odd">
+<td>Examinar casos concretos</td>
+<td style="text-align: right;">20 min</td>
+<td>Práctica 5, parte B</td>
+</tr>
+<tr class="even">
+<td>Cierre y puente a S22</td>
+<td style="text-align: right;">10 min</td>
+<td>Semáforo y primeras hipótesis en voz alta</td>
+</tr>
+</tbody>
+</table>
+<p>Los tiempos son estimaciones. Las Prácticas 1 y 2 se realizan <strong>antes</strong> del taller —la descarga depende de un recurso externo y no puede improvisarse— y la Práctica 6 después. El núcleo que no debe recortarse es:</p>
+<pre class="text"><code>recuperar la evidencia ajena → auditar la política → confrontar → examinar casos</code></pre>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/helysalgado\.github\.io\/introbioinfo-unix\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./u4-s20-normalizar-datos-comparables.html" class="pagination-link" aria-label="S20 — Normalizar">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">S20 — Normalizar</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./u4-s22-condicionar-calcular-columnas.html" class="pagination-link" aria-label="S22 — Condicionar">
+        <span class="nav-page-text">S22 — Condicionar</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://hits.sh/helysalgado.github.io/introbioinfo-unix/"><img src="https://hits.sh/helysalgado.github.io/introbioinfo-unix/.svg?style=flat-square&amp;label=Visitas&amp;color=4a7c9e" class="img-fluid figure-img"></a></p>
+<figcaption>Visitas</figcaption>
+</figure>
+</div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Helysalgado/introbioinfo-unix/edit/main/u4-s21-confrontar-fuente-independiente.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/Helysalgado/introbioinfo-unix/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

@@ -1,0 +1,1781 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>u6-comparacion-homologia – Introducción a la Bioinformática</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./u6-s30-comparar-alinear.html" rel="next">
+<link href="./u5-s29-cluster-hpc-sge.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fe3756b78d23b7733c53f9ce5acac92a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXNMZZP0K9"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-QXNMZZP0K9', { 'anonymize_ip': true});
+</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Introducción a la Bioinformática</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Inicio</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-programa" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Programa</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-programa">    
+        <li>
+    <a class="dropdown-item" href="./programa.html">
+ <span class="dropdown-text">Ruta de sesiones</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./programa-detallado.html">
+ <span class="dropdown-text">Programa detallado</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-unidades" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Unidades</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-unidades">    
+        <li>
+    <a class="dropdown-item" href="./u1-trabajo-reproducible.html">
+ <span class="dropdown-text">U1 — Trabajo reproducible</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u2-entorno-unix.html">
+ <span class="dropdown-text">U2 — Entorno Unix</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u3-datos-bases-datos.html">
+ <span class="dropdown-text">U3 — Datos y bases</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u4-procesamiento-exploracion.html">
+ <span class="dropdown-text">U4 — Procesamiento genómico</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u5-automatizacion-scripting.html">
+ <span class="dropdown-text">U5 — Automatización</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u6-comparacion-homologia.html">
+ <span class="dropdown-text">U6 — Comparar / hipótesis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./s14-s15-mini-proyecto-investigacion-I.html">
+ <span class="dropdown-text">Transversal S14–S17</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="./recursos.html" aria-current="page"> 
+<span class="menu-text">Recursos</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./acerca.html"> 
+<span class="menu-text">Acerca</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./contribuir.html"> 
+<span class="menu-text">Contribuir</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Alternar modo lector">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./u6-comparacion-homologia.html">Unidad 6</a></li><li class="breadcrumb-item"><a href="./u6-comparacion-homologia.html">Portada</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 1</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-trabajo-reproducible.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-s1-documentar-markdown-fases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S1 — Documentar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-s2-organizar-fair-ia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S2 — Organizar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 2</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-entorno-unix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s3-shell-acceso-remoto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S3 — Conectar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s4-sistema-archivos-v3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S4 — Navegar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s5-archivos-permisos-procesos-v2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S5 — Archivos y procesos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s6-consolidacion-entorno-unix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S6 — Consolidar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 3</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-datos-bases-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s7-secuencias-formatos-genbank.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S7 — Formatos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s8-bases-datos-descarga-integridad.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S8 — Descargar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s9-inspeccion-transferencia-verificable.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S9 — Transferir</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 4</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-procesamiento-exploracion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s10-anatomia-flujos-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S10 — Anatomía y flujos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s11-estructura-tabular-anotacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S11 — Anotación tabular</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s12-filtrado-conteos-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S12 — Filtrar y contar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s13-inventario-resumen-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S13 — Inventario</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s18-precision-patrones-expresiones-regulares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S18 — Patrones</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s19-extraccion-identificadores-correspondencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S19 — Identificadores</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s20-normalizar-datos-comparables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S20 — Normalizar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s21-confrontar-fuente-independiente.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S21 — Confrontar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s22-condicionar-calcular-columnas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S22 — Condicionar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s23-protocolo-ejecutable-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S23 — Protocolo ejecutable</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Transversal</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s14-s15-mini-proyecto-investigacion-I.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S14–S15 — Mini-proyecto I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s16-mini-proyecto-revision-pares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S16 — Revisión por pares</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s17-evaluacion-individual-demostrativa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S17 — Evaluación demostrativa</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mini-proyecto-dictamen-cientifico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dictamen científico</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 5</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-automatizacion-scripting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s24-del-protocolo-al-script.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S24 — Del protocolo al script</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s25-separar-procedimiento-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S25 — Separar datos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s26-procesamiento-por-lotes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S26 — Por lotes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s27-herramienta-cientifica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S27 — Herramienta científica</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s28-proyecto-integrador.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S28 — Proyecto integrador</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s29-cluster-hpc-sge.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S29 — Cluster SGE</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Unidad 6</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-comparacion-homologia.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s30-comparar-alinear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S30 — Comparar / alinear</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s31-buscar-blast.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S31 — Buscar (BLAST)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s32-interpretar-inferir.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S32 — Interpretar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s33-defender-hipotesis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S33 — Inferir</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s34-integrar-hipotesis-casos-ciegos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S34 — Integrar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./programa-detallado.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programa detallado</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./recursos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recursos</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#unidad-6-comparar-secuencias-para-construir-hipótesis-biológicas" id="toc-unidad-6-comparar-secuencias-para-construir-hipótesis-biológicas" class="nav-link active" data-scroll-target="#unidad-6-comparar-secuencias-para-construir-hipótesis-biológicas">Unidad 6 — Comparar secuencias para construir hipótesis biológicas</a>
+  <ul class="collapse">
+  <li><a href="#de-qué-trata-esta-unidad" id="toc-de-qué-trata-esta-unidad" class="nav-link" data-scroll-target="#de-qué-trata-esta-unidad">De qué trata esta unidad</a>
+  <ul class="collapse">
+  <li><a href="#la-gran-pregunta-de-la-unidad" id="toc-la-gran-pregunta-de-la-unidad" class="nav-link" data-scroll-target="#la-gran-pregunta-de-la-unidad">La gran pregunta de la unidad</a></li>
+  <li><a href="#el-cambio-conceptual" id="toc-el-cambio-conceptual" class="nav-link" data-scroll-target="#el-cambio-conceptual">El cambio conceptual</a></li>
+  <li><a href="#por-qué-esto-importa-ahora-más-que-nunca" id="toc-por-qué-esto-importa-ahora-más-que-nunca" class="nav-link" data-scroll-target="#por-qué-esto-importa-ahora-más-que-nunca">Por qué esto importa ahora más que nunca</a></li>
+  </ul></li>
+  <li><a href="#ficha-de-la-unidad" id="toc-ficha-de-la-unidad" class="nav-link" data-scroll-target="#ficha-de-la-unidad">Ficha de la unidad</a></li>
+  <li><a href="#resultados-de-aprendizaje-de-la-unidad" id="toc-resultados-de-aprendizaje-de-la-unidad" class="nav-link" data-scroll-target="#resultados-de-aprendizaje-de-la-unidad">Resultados de aprendizaje de la unidad</a></li>
+  <li><a href="#ruta-de-la-unidad" id="toc-ruta-de-la-unidad" class="nav-link" data-scroll-target="#ruta-de-la-unidad">Ruta de la unidad</a>
+  <ul class="collapse">
+  <li><a href="#qué-se-hace-en-cada-momento" id="toc-qué-se-hace-en-cada-momento" class="nav-link" data-scroll-target="#qué-se-hace-en-cada-momento">Qué se hace en cada momento</a></li>
+  </ul></li>
+  <li><a href="#los-datos-tres-conjuntos-tres-funciones" id="toc-los-datos-tres-conjuntos-tres-funciones" class="nav-link" data-scroll-target="#los-datos-tres-conjuntos-tres-funciones">Los datos: tres conjuntos, tres funciones</a></li>
+  <li><a href="#los-seis-principios-de-la-unidad" id="toc-los-seis-principios-de-la-unidad" class="nav-link" data-scroll-target="#los-seis-principios-de-la-unidad">Los seis principios de la unidad</a>
+  <ul class="collapse">
+  <li><a href="#la-homología-no-es-un-porcentaje" id="toc-la-homología-no-es-un-porcentaje" class="nav-link" data-scroll-target="#la-homología-no-es-un-porcentaje">1. La homología no es un porcentaje</a></li>
+  <li><a href="#la-similitud-no-demuestra-la-misma-función" id="toc-la-similitud-no-demuestra-la-misma-función" class="nav-link" data-scroll-target="#la-similitud-no-demuestra-la-misma-función">2. La similitud no demuestra la misma función</a></li>
+  <li><a href="#el-mejor-hit-no-es-automáticamente-la-mejor-explicación" id="toc-el-mejor-hit-no-es-automáticamente-la-mejor-explicación" class="nav-link" data-scroll-target="#el-mejor-hit-no-es-automáticamente-la-mejor-explicación">3. El mejor hit no es automáticamente la mejor explicación</a></li>
+  <li><a href="#una-métrica-aislada-no-basta" id="toc-una-métrica-aislada-no-basta" class="nav-link" data-scroll-target="#una-métrica-aislada-no-basta">4. Una métrica aislada no basta</a></li>
+  <li><a href="#la-ausencia-de-evidencia-no-es-evidencia-de-ausencia" id="toc-la-ausencia-de-evidencia-no-es-evidencia-de-ausencia" class="nav-link" data-scroll-target="#la-ausencia-de-evidencia-no-es-evidencia-de-ausencia">5. La ausencia de evidencia no es evidencia de ausencia</a></li>
+  <li><a href="#una-hipótesis-declara-sus-límites" id="toc-una-hipótesis-declara-sus-límites" class="nav-link" data-scroll-target="#una-hipótesis-declara-sus-límites">6. Una hipótesis declara sus límites</a></li>
+  </ul></li>
+  <li><a href="#el-papel-de-la-ia-en-esta-unidad" id="toc-el-papel-de-la-ia-en-esta-unidad" class="nav-link" data-scroll-target="#el-papel-de-la-ia-en-esta-unidad">El papel de la IA en esta unidad</a></li>
+  <li><a href="#el-protocolo-en-esta-unidad" id="toc-el-protocolo-en-esta-unidad" class="nav-link" data-scroll-target="#el-protocolo-en-esta-unidad">El protocolo en esta unidad</a></li>
+  <li><a href="#evidencia-integradora" id="toc-evidencia-integradora" class="nav-link" data-scroll-target="#evidencia-integradora">Evidencia integradora</a></li>
+  <li><a href="#evaluación" id="toc-evaluación" class="nav-link" data-scroll-target="#evaluación">Evaluación</a></li>
+  <li><a href="#lo-que-esta-unidad-no-cubre" id="toc-lo-que-esta-unidad-no-cubre" class="nav-link" data-scroll-target="#lo-que-esta-unidad-no-cubre">Lo que esta unidad NO cubre</a></li>
+  <li><a href="#qué-llevas-acumulado-al-terminar" id="toc-qué-llevas-acumulado-al-terminar" class="nav-link" data-scroll-target="#qué-llevas-acumulado-al-terminar">Qué llevas acumulado al terminar</a></li>
+  <li><a href="#referencias" id="toc-referencias" class="nav-link" data-scroll-target="#referencias">Referencias</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/Helysalgado/introbioinfo-unix/edit/main/u6-comparacion-homologia.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/Helysalgado/introbioinfo-unix/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./u6-comparacion-homologia.html">Unidad 6</a></li><li class="breadcrumb-item"><a href="./u6-comparacion-homologia.html">Portada</a></li></ol></nav></header>
+
+
+
+
+<section id="unidad-6-comparar-secuencias-para-construir-hipótesis-biológicas" class="level1">
+<h1>Unidad 6 — Comparar secuencias para construir hipótesis biológicas</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="Cómo se estudia esta unidad">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Cómo se estudia esta unidad
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La Unidad 6 es esta portada más <strong>cinco módulos</strong> de dos horas, <strong>S30 a S34</strong>. Cada uno se lee <strong>antes</strong> de su sesión, trae su primer intento, su taller y su entrega posterior. Esta portada te da la visión de conjunto: qué pregunta persigue la unidad, con qué datos, y qué se espera que sepas defender al terminar. Es también <strong>el cierre del curso</strong>.</p>
+</div>
+</div>
+<section id="de-qué-trata-esta-unidad" class="level2">
+<h2 class="anchored" data-anchor-id="de-qué-trata-esta-unidad">De qué trata esta unidad</h2>
+<p>Durante cinco unidades has aprendido a obtener datos, verificarlos, interrogarlos, automatizar el análisis y ejecutarlo donde haga falta. Al cerrar la Unidad 5 tienes una herramienta que responde, sobre cualquier colección de genomas, preguntas del tipo <em>cuántos genes hay</em> y <em>cómo se distribuyen</em>.</p>
+<p>Y todas esas preguntas tienen algo en común: <strong>se responden mirando tus propios archivos</strong>.</p>
+<p>Ahora aparece una que no:</p>
+<blockquote class="blockquote">
+<p><strong>Este gen, ¿existe en otros organismos? ¿Qué hace? ¿De dónde viene?</strong></p>
+</blockquote>
+<p>No hay forma de responderla contando registros en tu GFF3. Hay que <strong>salir de tus archivos y comparar con el resto de la vida</strong> — y esa comparación no devuelve una respuesta, devuelve <strong>evidencia que hay que interpretar</strong>.</p>
+<section id="la-gran-pregunta-de-la-unidad" class="level3">
+<h3 class="anchored" data-anchor-id="la-gran-pregunta-de-la-unidad">La gran pregunta de la unidad</h3>
+<blockquote class="blockquote">
+<p><strong>Tengo una secuencia cuya función o relación evolutiva quiero investigar. ¿Qué puedo inferir a partir de su comparación con otras secuencias, y qué evidencia necesito para sostener esa inferencia?</strong></p>
+</blockquote>
+<p>De ella salen todos los conceptos de la unidad —alineamiento, identidad, similitud, cobertura, gaps, BLAST, <em>E-value</em>, homología, ortología, paralogía— y ninguno aparece antes de que la pregunta lo haga necesario.</p>
+</section>
+<section id="el-cambio-conceptual" class="level3">
+<h3 class="anchored" data-anchor-id="el-cambio-conceptual">El cambio conceptual</h3>
+<p>En las unidades anteriores la pregunta era <em>¿cómo obtengo y proceso la evidencia?</em>. Aquí es otra:</p>
+<pre class="text"><code>¿QUÉ SIGNIFICA la evidencia?</code></pre>
+<p>Y de ahí sale la distinción que gobierna la unidad entera:</p>
+<pre class="text"><code>RESULTADO DE UNA HERRAMIENTA        ≠        CONCLUSIÓN BIOLÓGICA</code></pre>
+<p>Entre las dos hay un proceso de razonamiento: comprobar la calidad del dato, leer el alineamiento, integrar varias métricas, considerar explicaciones alternativas, reconocer la incertidumbre y declarar el alcance de lo que se afirma. <strong>Ese proceso es el contenido de la unidad.</strong></p>
+</section>
+<section id="por-qué-esto-importa-ahora-más-que-nunca" class="level3">
+<h3 class="anchored" data-anchor-id="por-qué-esto-importa-ahora-más-que-nunca">Por qué esto importa ahora más que nunca</h3>
+<p>Conviene decirlo sin rodeos. Hoy una inteligencia artificial puede proponerte un comando de BLAST, explicarte los campos de la salida, señalarte cuál parece el mejor resultado y redactarte una interpretación que suena impecable.</p>
+<p>Lo que <strong>no</strong> puede hacer es decidir si esa interpretación está sustentada por <strong>tus</strong> datos. Eso exige mirar la evidencia concreta que tienes delante, y es exactamente lo que esta unidad entrena.</p>
+<blockquote class="blockquote">
+<p><strong>La regla de la unidad.</strong> <strong>La IA puede proponer. Los datos deben demostrar. Tú debes argumentar.</strong></p>
+</blockquote>
+</section>
+</section>
+<section id="ficha-de-la-unidad" class="level2">
+<h2 class="anchored" data-anchor-id="ficha-de-la-unidad">Ficha de la unidad</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Elemento</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Sesiones</strong></td>
+<td>S30 a S34 · 2 h cada una · <strong>cierre del curso</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Competencia principal</strong></td>
+<td>F. Comparación de secuencias y homología</td>
+</tr>
+<tr class="odd">
+<td><strong>Competencias integradas</strong></td>
+<td>C. Manejo de datos biológicos; D. Análisis; A. Trabajo reproducible; B. Entorno Unix y cómputo; G. Uso responsable de la IA</td>
+</tr>
+<tr class="even">
+<td><strong>Propósito</strong></td>
+<td>Interpretar críticamente comparaciones de secuencias y resultados de BLAST para formular hipótesis biológicas fundamentadas, distinguiendo similitud observada, homología, transferencia de función, incertidumbre y límites de la evidencia</td>
+</tr>
+<tr class="odd">
+<td><strong>Contribución al objetivo del curso</strong></td>
+<td>Cierra el arco: de <em>obtener y procesar datos</em> a <em>interpretar evidencia y sostener una conclusión</em></td>
+</tr>
+<tr class="even">
+<td><strong>Datos de trabajo</strong></td>
+<td>La familia <code>ubiE</code> en Rickettsiales, dos familias más (<code>era</code>, <code>hemE</code>) en los mismos 19 organismos, y las globinas α/β/ζ de nueve vertebrados. Ver §«Los datos»</td>
+</tr>
+<tr class="odd">
+<td><strong>Herramientas</strong></td>
+<td><strong>Clustal Omega</strong> y <strong>BLAST+</strong> (<code>makeblastdb</code>, <code>blastn</code>, <code>blastp</code>) en el clúster <code>chaac</code>; Unix (U4) para procesar salidas; SGE (S29) para lanzar las búsquedas</td>
+</tr>
+<tr class="even">
+<td><strong>Lectura obligatoria (con evidencia)</strong></td>
+<td>Pearson (2013), <em>An Introduction to Sequence Similarity («Homology») Searching</em> (~60 min, evidencia en S32)</td>
+</tr>
+<tr class="odd">
+<td><strong>Lectura de consulta</strong></td>
+<td>Fitch (1970) sobre homología; Koonin (2005) sobre ortólogos y parálogos</td>
+</tr>
+<tr class="even">
+<td><strong>Evidencia integradora</strong></td>
+<td><strong>Informe de investigación de una secuencia desconocida</strong> (S34)</td>
+</tr>
+<tr class="odd">
+<td><strong>Producto acumulativo</strong></td>
+<td><code>doc/protocolo.md</code>, que <strong>no se reinicia</strong>: añade su última sección</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-important callout-titled" title="lo que esta unidad NO es">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>lo que esta unidad NO es
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No es un curso de BLAST. Al terminar no habrás memorizado opciones de línea de comandos ni umbrales mágicos de <em>E-value</em>. Habrás aprendido a mirar un conjunto de resultados y decir, con argumentos, <strong>cuál es la mejor explicación de lo que se observa y qué haría falta para confirmarla</strong>. Eso último no caduca; las opciones de un programa, sí.</p>
+</div>
+</div>
+</section>
+<section id="resultados-de-aprendizaje-de-la-unidad" class="level2">
+<h2 class="anchored" data-anchor-id="resultados-de-aprendizaje-de-la-unidad">Resultados de aprendizaje de la unidad</h2>
+<p>Al finalizar la Unidad 6 podrás:</p>
+<ol type="1">
+<li><strong>Explicar</strong> por qué una secuencia aislada aporta poca información biológica y qué se gana al compararla.</li>
+<li><strong>Interpretar</strong> un alineamiento como una <strong>hipótesis de correspondencia</strong> entre posiciones, y explicar por qué aparecen los gaps.</li>
+<li><strong>Distinguir</strong> identidad, similitud y cobertura, y explicar por qué ninguna basta por separado.</li>
+<li><strong>Justificar</strong> cuándo conviene un alineamiento global y cuándo uno local.</li>
+<li><strong>Diseñar y ejecutar</strong> una búsqueda BLAST reproducible, justificando programa, base de datos y parámetros.</li>
+<li><strong>Explicar</strong> por qué BLAST es heurístico y qué se sacrifica a cambio de la velocidad.</li>
+<li><strong>Integrar</strong> varias métricas y el contexto de la búsqueda para <strong>jerarquizar</strong> los resultados con argumentos, en vez de tomar el primero.</li>
+<li><strong>Distinguir</strong> similitud observada de <strong>homología inferida</strong>, y ortología de paralogía.</li>
+<li><strong>Reconocer</strong> los límites de la transferencia de función y formular explicaciones alternativas.</li>
+<li><strong>Evaluar críticamente</strong> una interpretación propuesta por una IA, señalando qué afirmaciones están sustentadas por los datos y cuáles no.</li>
+<li><strong>Construir y defender</strong> una hipótesis biológica declarando su evidencia, su incertidumbre y la evidencia adicional que haría falta.</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled" title="nivel real">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>nivel real
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><em>Explicar</em>, <em>ejecutar</em> y <em>distinguir</em> se alcanzan plenamente. <em>Construir una hipótesis defendible</em> se alcanza en su versión inicial: con un caso, con datos acotados y con acompañamiento. Nadie termina primer semestre siendo capaz de resolver un caso abierto de anotación funcional — y decirlo forma parte de la honestidad que la unidad enseña.</p>
+</div>
+</div>
+</section>
+<section id="ruta-de-la-unidad" class="level2">
+<h2 class="anchored" data-anchor-id="ruta-de-la-unidad">Ruta de la unidad</h2>
+<p>Cinco movimientos. Cada uno resuelve la limitación que dejó abierta el anterior.</p>
+<pre class="text"><code>    una herramienta reproducible (U5)
+            ↓
+S30  COMPARAR y ALINEAR   ¿qué posiciones puedo comparar, y qué veo al hacerlo?
+            ↓
+S31  BUSCAR               ¿y si quiero compararla contra millones de secuencias?
+            ↓
+S32  INTERPRETAR          una lista de hits no es una conclusión
+            ↓
+S33  INFERIR              cuando la similitud no basta
+            ↓
+S34  INTEGRAR             de la evidencia a la hipótesis biológica
+            ↓
+    una hipótesis biológica argumentada</code></pre>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Sesión</th>
+<th>Módulo</th>
+<th>Qué resuelve</th>
+<th>Con qué limitación cierra</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>S30</strong></td>
+<td><code>u6-s30-comparar-alinear.md</code> — <em>Comparar: una secuencia adquiere significado en contexto</em></td>
+<td>La comparación posicional explícita: qué se conserva, qué cambia y por qué hacen falta los gaps</td>
+<td>Funciona con dos o veinte secuencias; no con millones</td>
+</tr>
+<tr class="even">
+<td><strong>S31</strong></td>
+<td><code>u6-s31-buscar-blast.md</code> — <em>Buscar: comparar contra una colección</em></td>
+<td>Una búsqueda reproducible en una base de datos, con su justificación</td>
+<td>Devuelve muchos resultados; tenerlos no es saber cuáles importan</td>
+</tr>
+<tr class="odd">
+<td><strong>S32</strong></td>
+<td><code>u6-s32-interpretar-inferir.md</code> — <em>Interpretar: una lista de hits no es una conclusión</em></td>
+<td>Integrar métricas y jerarquizar candidatos con argumentos</td>
+<td>La evidencia ya está rankeada; falta decidir qué significa evolutivamente</td>
+</tr>
+<tr class="even">
+<td><strong>S33</strong></td>
+<td><code>u6-s33-defender-hipotesis.md</code> — <em>Inferir: cuando la similitud no basta</em></td>
+<td>Distinguir similitud de homología; ortología/paralogía; límites de la transferencia de función</td>
+<td>Sabes inferir con límites; falta integrar todo en un caso completo</td>
+</tr>
+<tr class="odd">
+<td><strong>S34</strong></td>
+<td><code>u6-s34-integrar-hipotesis.md</code> — <em>Integrar: de la evidencia a la hipótesis biológica</em></td>
+<td>Evidencia integradora: informe de una secuencia desconocida</td>
+<td>— cierre del curso</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled" title="sobre el número de sesiones">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>sobre el número de sesiones
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La arquitectura pedagógica propuso seis etapas y el Plan ajustado tiene tres. Aquí se adoptan <strong>cinco</strong> (S30–S34): S30 fusiona <em>comparar</em>+<em>alinear</em>; S32– S34 separan <em>interpretar</em>, <em>inferir</em> e <em>integrar</em>. El cierre <strong>no</strong> introduce conceptos nuevos: demuestra que el estudiante puede integrar el arco. Queda registrado en la nota docente.</p>
+</div>
+</div>
+<section id="qué-se-hace-en-cada-momento" class="level3">
+<h3 class="anchored" data-anchor-id="qué-se-hace-en-cada-momento">Qué se hace en cada momento</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Momento</th>
+<th>Qué leer</th>
+<th>Qué intentar</th>
+<th>Qué llevar / entregar</th>
+<th style="text-align: right;">Tiempo estimado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Antes de S30</strong></td>
+<td>Portada + módulo S30</td>
+<td>Comparar dos secuencias a ojo y describir lo que ves</td>
+<td>Descripción razonada, sin afirmar homología</td>
+<td style="text-align: right;">45 + 40 min</td>
+</tr>
+<tr class="even">
+<td><strong>S30</strong></td>
+<td>—</td>
+<td>Alinear los tres pares y el grupo de 19</td>
+<td>Alineamientos interpretados</td>
+<td style="text-align: right;">2 h</td>
+</tr>
+<tr class="odd">
+<td><strong>Entre S30 y S31</strong></td>
+<td>Pearson (2013), primera mitad</td>
+<td>Formular la pregunta de búsqueda</td>
+<td>Pregunta y estrategia escritas</td>
+<td style="text-align: right;">60 min</td>
+</tr>
+<tr class="even">
+<td><strong>S31</strong></td>
+<td>Módulo S31</td>
+<td>Construir la base local y buscar</td>
+<td>Búsqueda reproducible documentada</td>
+<td style="text-align: right;">2 h</td>
+</tr>
+<tr class="odd">
+<td><strong>Entre S31 y S32</strong></td>
+<td>Pearson (2013), segunda mitad</td>
+<td>Procesar la salida tabular con Unix</td>
+<td>Reporte de lectura (evidencia)</td>
+<td style="text-align: right;">90 min</td>
+</tr>
+<tr class="even">
+<td><strong>S32</strong></td>
+<td>Módulo S32</td>
+<td>Jerarquizar hits; construir evidencia sin concluir de más</td>
+<td>Tabla interpretada de candidatos</td>
+<td style="text-align: right;">2 h</td>
+</tr>
+<tr class="odd">
+<td><strong>Entre S32 y S33</strong></td>
+<td>Fitch (1970) o Koonin (2005)</td>
+<td>Separar observación de inferencia</td>
+<td>Tabla observación/inferencia</td>
+<td style="text-align: right;">90 min</td>
+</tr>
+<tr class="even">
+<td><strong>S33</strong></td>
+<td>Módulo S33</td>
+<td>Inferir con límites (globinas; transferencia de función)</td>
+<td>Sección de inferencia del protocolo</td>
+<td style="text-align: right;">2 h</td>
+</tr>
+<tr class="odd">
+<td><strong>Entre S33 y S34</strong></td>
+<td>Repaso del protocolo S30–S33</td>
+<td>Recibir la secuencia desconocida; formular la pregunta</td>
+<td>Pregunta + inventario de evidencia</td>
+<td style="text-align: right;">60 min</td>
+</tr>
+<tr class="even">
+<td><strong>S34</strong></td>
+<td>Módulo S34</td>
+<td>Integrar y defender el informe</td>
+<td><strong>Evidencia integradora</strong></td>
+<td style="text-align: right;">2 h</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="los-datos-tres-conjuntos-tres-funciones" class="level2">
+<h2 class="anchored" data-anchor-id="los-datos-tres-conjuntos-tres-funciones">Los datos: tres conjuntos, tres funciones</h2>
+<p>Los archivos están en <a href="ejemplos/datos-alineamientos/"><code>ejemplos/datos-alineamientos/</code></a> La auditoría docente del conjunto (qué contiene cada archivo y para qué sirve) no se publica en este sitio.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Conjunto</th>
+<th>Qué es</th>
+<th>Qué permite descubrir</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong><code>ubiE</code> en Rickettsiales</strong></td>
+<td>Un gen en tres pares de distancia creciente, más grupos de 4 y de 19 organismos</td>
+<td>Que la comparación posicional se rompe cuando las secuencias no miden lo mismo, y que una familia tiene posiciones que se conservan en todos sus miembros</td>
+</tr>
+<tr class="even">
+<td><strong>Tres familias × 19 organismos</strong></td>
+<td><code>ubiE</code>, <code>era</code> y <code>hemE</code> en los <strong>mismos</strong> 19 organismos</td>
+<td>Una base de datos donde <strong>la respuesta correcta se conoce</strong>: se puede comprobar si las métricas separan lo que deben separar</td>
+</tr>
+<tr class="odd">
+<td><strong>Globinas α/β/ζ</strong></td>
+<td>15 proteínas de 9 vertebrados</td>
+<td>Que la similitud sigue la historia del gen y no la frontera de la especie: α humana se parece más a α de ratón que a β humana</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-tip callout-titled" title="¿Sabías que?">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>¿Sabías que?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Dos de esos archivos —<code>NP_000508</code> y <code>NP_000549</code>— contienen <strong>exactamente la misma secuencia</strong>. Son HBA1 y HBA2: dos genes humanos distintos, nacidos de una duplicación reciente, que producen la misma proteína. Es el contraejemplo perfecto de una idea muy extendida y muy falsa: <strong>100 % de identidad no significa «el mismo gen»</strong>.</p>
+</div>
+</div>
+</section>
+<section id="los-seis-principios-de-la-unidad" class="level2">
+<h2 class="anchored" data-anchor-id="los-seis-principios-de-la-unidad">Los seis principios de la unidad</h2>
+<p>No son advertencias sueltas: son las seis formas en que una interpretación de secuencias se equivoca. Aparecen a lo largo de las cinco sesiones y se evalúan en el informe final.</p>
+<section id="la-homología-no-es-un-porcentaje" class="level3">
+<h3 class="anchored" data-anchor-id="la-homología-no-es-un-porcentaje">1. La homología no es un porcentaje</h3>
+<p>Dos secuencias <strong>son o no son</strong> homólogas: comparten un ancestro común o no lo comparten. La identidad y la similitud se miden en porcentaje; la homología es <strong>una hipótesis sobre el pasado</strong>.</p>
+<blockquote class="blockquote">
+<p>«Un 80 % de homología» no significa nada. Existe un 80 % de identidad, que es otra cosa.</p>
+</blockquote>
+</section>
+<section id="la-similitud-no-demuestra-la-misma-función" class="level3">
+<h3 class="anchored" data-anchor-id="la-similitud-no-demuestra-la-misma-función">2. La similitud no demuestra la misma función</h3>
+<p>Dos proteínas pueden compartir regiones muy conservadas y hacer cosas distintas. Las globinas α y ζ de esta unidad son el ejemplo: muy similares, funciones que no coinciden.</p>
+</section>
+<section id="el-mejor-hit-no-es-automáticamente-la-mejor-explicación" class="level3">
+<h3 class="anchored" data-anchor-id="el-mejor-hit-no-es-automáticamente-la-mejor-explicación">3. El mejor hit no es automáticamente la mejor explicación</h3>
+<p>El primer resultado puede estar condicionado por la composición de la base de datos, por secuencias redundantes, por anotaciones incompletas, por una cobertura parcial o por un dominio compartido entre proteínas por lo demás distintas.</p>
+</section>
+<section id="una-métrica-aislada-no-basta" class="level3">
+<h3 class="anchored" data-anchor-id="una-métrica-aislada-no-basta">4. Una métrica aislada no basta</h3>
+<p>Una interpretación honesta integra:</p>
+<pre class="text"><code>identidad + cobertura + E-value + score + región alineada
+          + anotación + procedencia + contexto biológico</code></pre>
+</section>
+<section id="la-ausencia-de-evidencia-no-es-evidencia-de-ausencia" class="level3">
+<h3 class="anchored" data-anchor-id="la-ausencia-de-evidencia-no-es-evidencia-de-ausencia">5. La ausencia de evidencia no es evidencia de ausencia</h3>
+<p>No encontrar un resultado puede deberse a distancia evolutiva, a una base de datos inadecuada, a una secuencia demasiado corta, a parámetros poco sensibles… o a que la función sea realmente novedosa. <strong>Son explicaciones distintas y no se distinguen sin más evidencia.</strong></p>
+</section>
+<section id="una-hipótesis-declara-sus-límites" class="level3">
+<h3 class="anchored" data-anchor-id="una-hipótesis-declara-sus-límites">6. Una hipótesis declara sus límites</h3>
+<p>Toda interpretación separa cuatro cosas: qué se <strong>observó</strong>, qué se <strong>infirió</strong>, qué <strong>todavía no puede decidirse</strong> y qué <strong>evidencia adicional</strong> haría falta.</p>
+<blockquote class="blockquote">
+<p><strong>IDEA CLAVE.</strong> Estos seis principios son, además, la lista de los errores que una IA comete con más frecuencia al interpretar una búsqueda de secuencias. No es casualidad: son los errores que se cometen cuando se razona sobre la forma del resultado en vez de sobre la evidencia.</p>
+</blockquote>
+</section>
+</section>
+<section id="el-papel-de-la-ia-en-esta-unidad" class="level2">
+<h2 class="anchored" data-anchor-id="el-papel-de-la-ia-en-esta-unidad">El papel de la IA en esta unidad</h2>
+<p>La IA no aparece aquí como una herramienta de apoyo: aparece como <strong>objeto de evaluación crítica</strong>. Cada sesión incluye una actividad breve titulada <em>¿Qué respondería la IA y cómo lo verificarías?</em>, con un caso real de esta unidad.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>La IA sirve como</th>
+<th>Y hay que tratarla como</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Generadora de hipótesis</strong> — propone funciones o relaciones posibles</td>
+<td>Una propuesta que hay que verificar con los datos</td>
+</tr>
+<tr class="even">
+<td><strong>Revisora crítica</strong> — formula preguntas, señala supuestos, ofrece alternativas</td>
+<td>Un interlocutor útil, no un árbitro</td>
+</tr>
+<tr class="odd">
+<td><strong>Fuente de error</strong> — confunde identidad con similitud, afirma homología por un porcentaje, ignora la cobertura, inventa umbrales, mezcla ortólogos y parálogos</td>
+<td>Un texto que suena convincente <strong>y puede estar mal</strong></td>
+</tr>
+</tbody>
+</table>
+<p>En <code>doc/bitacora-ia.md</code> se registra, en cada uso: la pregunta, la respuesta, qué afirmaciones son verificables, con qué evidencia se comprobaron, qué errores aparecieron y cuál fue tu conclusión.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="el riesgo específico de esta unidad">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Advertencia</span>el riesgo específico de esta unidad
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>En U5 el peligro era aceptar código que no entendías; se notaba al ejecutarlo. Aquí el peligro es aceptar <strong>una interpretación bien redactada</strong>, y eso no se nota nunca — porque una conclusión falsa y una verdadera se leen exactamente igual. La única defensa es pedir la evidencia y comprobarla.</p>
+</div>
+</div>
+</section>
+<section id="el-protocolo-en-esta-unidad" class="level2">
+<h2 class="anchored" data-anchor-id="el-protocolo-en-esta-unidad">El protocolo en esta unidad</h2>
+<p><code>doc/protocolo.md</code> sigue siendo el mismo documento desde U1 y <strong>no se reinicia</strong>. En U6 añade una sección dedicada a la comparación de secuencias que registra:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Bloque</th>
+<th>Qué contiene</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>La pregunta</strong></td>
+<td>Qué se quiere averiguar sobre la secuencia</td>
+</tr>
+<tr class="even">
+<td><strong>La consulta</strong></td>
+<td>Secuencia, tipo de molécula, identificador, versión, fuente y fecha</td>
+</tr>
+<tr class="odd">
+<td><strong>La estrategia</strong></td>
+<td>Qué comparación, contra qué, y por qué esa y no otra</td>
+</tr>
+<tr class="even">
+<td><strong>La ejecución</strong></td>
+<td>Programa, versión, base de datos, parámetros, formato de salida</td>
+</tr>
+<tr class="odd">
+<td><strong>Los resultados</strong></td>
+<td>Los seleccionados, con su criterio de selección</td>
+</tr>
+<tr class="even">
+<td><strong>La interpretación</strong></td>
+<td>Identidad, cobertura y <em>E-value</em> leídos juntos</td>
+</tr>
+<tr class="odd">
+<td><strong>La hipótesis</strong></td>
+<td>De homología o de función, con su alcance</td>
+</tr>
+<tr class="even">
+<td><strong>Las alternativas</strong></td>
+<td>Otras explicaciones consideradas, y por qué se descartaron</td>
+</tr>
+<tr class="odd">
+<td><strong>Los límites</strong></td>
+<td>Qué no puede afirmarse con esta evidencia</td>
+</tr>
+<tr class="even">
+<td><strong>Lo que falta</strong></td>
+<td>Qué evidencia adicional resolvería la duda</td>
+</tr>
+<tr class="odd">
+<td><strong>El uso de IA</strong></td>
+<td>Qué se consultó, qué se validó y cómo</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-important callout-titled" title="nunca solo comandos ni capturas de pantalla">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>nunca solo comandos ni capturas de pantalla
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Una captura de la salida de BLAST no es un registro científico: no dice qué se preguntaba, ni por qué se eligió esa base, ni qué se concluyó. El protocolo registra <strong>el razonamiento</strong>; los comandos son su parte más fácil.</p>
+</div>
+</div>
+</section>
+<section id="evidencia-integradora" class="level2">
+<h2 class="anchored" data-anchor-id="evidencia-integradora">Evidencia integradora</h2>
+<p><strong>Un informe de investigación de una secuencia desconocida.</strong> Cada equipo recibe una secuencia sin identificar y debe averiguar qué es, con la evidencia que pueda construir.</p>
+<p>El informe tiene doce apartados:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Apartado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>La pregunta biológica</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Procedencia de la secuencia</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Estrategia de comparación, justificada</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Parámetros y base de datos</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Resultados seleccionados</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>Interpretación de identidad, cobertura y <em>E-value</em></td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>Hipótesis de homología o de función</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>Alternativas consideradas</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>Limitaciones</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>Evidencia adicional necesaria</td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td>Declaración de uso de IA</td>
+</tr>
+<tr class="even">
+<td>12</td>
+<td>Protocolo reproducible</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-important callout-titled" title="cómo se califica">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>cómo se califica
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La calidad del informe depende de <strong>la argumentación, no del acierto</strong>. Un informe que llega a una conclusión prudente y bien sostenida vale más que uno que «adivina» la respuesta esperada sin poder defenderla. Y una hipótesis honesta que declara no poder decidir entre dos explicaciones puede ser un excelente informe.</p>
+</div>
+</div>
+</section>
+<section id="evaluación" class="level2">
+<h2 class="anchored" data-anchor-id="evaluación">Evaluación</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Se evalúa</th>
+<th>No se evalúa</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Cómo se formula la pregunta</td>
+<td>Memorizar opciones de BLAST</td>
+</tr>
+<tr class="even">
+<td>La estrategia elegida y su justificación</td>
+<td>Reproducir definiciones sin aplicarlas</td>
+</tr>
+<tr class="odd">
+<td>La trazabilidad del análisis</td>
+<td>Entregar capturas de pantalla</td>
+</tr>
+<tr class="even">
+<td>La lectura del alineamiento</td>
+<td>Elegir el primer hit</td>
+</tr>
+<tr class="odd">
+<td>La integración de identidad y cobertura</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>La lectura crítica del <em>E-value</em></td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td>La precisión conceptual sobre homología</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>Las alternativas consideradas</td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td>La declaración de incertidumbre</td>
+<td>Conclusiones categóricas sin evidencia</td>
+</tr>
+<tr class="even">
+<td>La validación de lo que propone una IA</td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td>La reproducibilidad</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="lo-que-esta-unidad-no-cubre" class="level2">
+<h2 class="anchored" data-anchor-id="lo-que-esta-unidad-no-cubre">Lo que esta unidad NO cubre</h2>
+<p>Importa decirlo, porque son cosas que la comparación de secuencias sugiere y no resuelve:</p>
+<ul>
+<li><strong>Filogenia.</strong> Construir árboles, modelos evolutivos y soporte estadístico de ramas. Aquí se formulan hipótesis sobre relaciones, no se reconstruyen historias.</li>
+<li><strong>Alineamiento de genomas completos</strong> y detección de reordenamientos.</li>
+<li><strong>Predicción estructural</strong> y sus implicaciones funcionales.</li>
+<li><strong>Anotación automática de genomas</strong> a escala.</li>
+<li><strong>Perfiles y HMM</strong> (PSI-BLAST, HMMER), que detectan homología más remota.</li>
+</ul>
+<p>Todo eso pertenece a cursos posteriores. Lo que sí se lleva de aquí es el criterio para usarlos sin creerles ciegamente.</p>
+</section>
+<section id="qué-llevas-acumulado-al-terminar" class="level2">
+<h2 class="anchored" data-anchor-id="qué-llevas-acumulado-al-terminar">Qué llevas acumulado al terminar</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Unidad</th>
+<th>Qué sabías hacer al cerrarla</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>U1</td>
+<td>Documentar un análisis y organizar un proyecto de forma reproducible</td>
+</tr>
+<tr class="even">
+<td>U2</td>
+<td>Moverte en un entorno Unix remoto y operar archivos, permisos y procesos</td>
+</tr>
+<tr class="odd">
+<td>U3</td>
+<td>Obtener datos biológicos y demostrar que son los que dices tener</td>
+</tr>
+<tr class="even">
+<td>U4</td>
+<td>Interrogar un genoma y construir evidencia</td>
+</tr>
+<tr class="odd">
+<td>U5</td>
+<td>Convertir ese razonamiento en una herramienta reproducible y defendible</td>
+</tr>
+<tr class="even">
+<td><strong>U6</strong></td>
+<td><strong>Comparar con el resto de la vida e interpretar la evidencia para sostener una hipótesis</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote class="blockquote">
+<p><strong>El mensaje final del curso.</strong> La bioinformática no consiste en ejecutar herramientas para obtener respuestas. Consiste en <strong>evaluar críticamente la evidencia que esas herramientas producen</strong> para construir hipótesis biológicas defendibles.</p>
+<pre class="text"><code>la IA propone
+      ↓
+los datos sostienen o contradicen
+      ↓
+tú analizas
+      ↓
+la evidencia delimita
+      ↓
+la conclusión se defiende</code></pre>
+</blockquote>
+</section>
+<section id="referencias" class="level2">
+<h2 class="anchored" data-anchor-id="referencias">Referencias</h2>
+<ul>
+<li>Altschul, S. F., Gish, W., Miller, W., Myers, E. W., &amp; Lipman, D. J. (1990). Basic local alignment search tool. <em>Journal of Molecular Biology</em>, 215(3), 403–410. <a href="https://doi.org/10.1016/S0022-2836(05)80360-2" class="uri">https://doi.org/10.1016/S0022-2836(05)80360-2</a></li>
+<li>Altschul, S. F., Madden, T. L., Schäffer, A. A., et al.&nbsp;(1997). Gapped BLAST and PSI-BLAST: a new generation of protein database search programs. <em>Nucleic Acids Research</em>, 25(17), 3389–3402. <a href="https://doi.org/10.1093/nar/25.17.3389" class="uri">https://doi.org/10.1093/nar/25.17.3389</a></li>
+<li>Fitch, W. M. (1970). Distinguishing homologous from analogous proteins. <em>Systematic Zoology</em>, 19(2), 99–113. <a href="https://doi.org/10.2307/2412448" class="uri">https://doi.org/10.2307/2412448</a></li>
+<li>Henikoff, S., &amp; Henikoff, J. G. (1992). Amino acid substitution matrices from protein blocks. <em>PNAS</em>, 89(22), 10915–10919. <a href="https://doi.org/10.1073/pnas.89.22.10915" class="uri">https://doi.org/10.1073/pnas.89.22.10915</a></li>
+<li>Koonin, E. V. (2005). Orthologs, paralogs, and evolutionary genomics. <em>Annual Review of Genetics</em>, 39, 309–338. <a href="https://doi.org/10.1146/annurev.genet.39.073003.114725" class="uri">https://doi.org/10.1146/annurev.genet.39.073003.114725</a></li>
+<li>Needleman, S. B., &amp; Wunsch, C. D. (1970). A general method applicable to the search for similarities in the amino acid sequence of two proteins. <em>Journal of Molecular Biology</em>, 48(3), 443–453. <a href="https://doi.org/10.1016/0022-2836(70)90057-4" class="uri">https://doi.org/10.1016/0022-2836(70)90057-4</a></li>
+<li>Pearson, W. R. (2013). An introduction to sequence similarity («homology») searching. <em>Current Protocols in Bioinformatics</em>, 42, 3.1.1–3.1.8. <a href="https://doi.org/10.1002/0471250953.bi0301s42" class="uri">https://doi.org/10.1002/0471250953.bi0301s42</a> — <strong>lectura obligatoria de la unidad</strong></li>
+<li>Sievers, F., Wilm, A., Dineen, D., et al.&nbsp;(2011). Fast, scalable generation of high-quality protein multiple sequence alignments using Clustal Omega. <em>Molecular Systems Biology</em>, 7, 539. <a href="https://doi.org/10.1038/msb.2011.75" class="uri">https://doi.org/10.1038/msb.2011.75</a></li>
+<li>Smith, T. F., &amp; Waterman, M. S. (1981). Identification of common molecular subsequences. <em>Journal of Molecular Biology</em>, 147(1), 195–197. <a href="https://doi.org/10.1016/0022-2836(81)90087-5" class="uri">https://doi.org/10.1016/0022-2836(81)90087-5</a></li>
+</ul>
+<hr>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/helysalgado\.github\.io\/introbioinfo-unix\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./u5-s29-cluster-hpc-sge.html" class="pagination-link" aria-label="S29 — Cluster SGE">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">S29 — Cluster SGE</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./u6-s30-comparar-alinear.html" class="pagination-link" aria-label="S30 — Comparar / alinear">
+        <span class="nav-page-text">S30 — Comparar / alinear</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://hits.sh/helysalgado.github.io/introbioinfo-unix/"><img src="https://hits.sh/helysalgado.github.io/introbioinfo-unix/.svg?style=flat-square&amp;label=Visitas&amp;color=4a7c9e" class="img-fluid figure-img"></a></p>
+<figcaption>Visitas</figcaption>
+</figure>
+</div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Helysalgado/introbioinfo-unix/edit/main/u6-comparacion-homologia.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/Helysalgado/introbioinfo-unix/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

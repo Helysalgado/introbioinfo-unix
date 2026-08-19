@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <!-- Chosen Palette: Navy & Amber Detective (Background: #f8fafc, Primary: #0f172a, Accent Sky: #0284c7, Warning/Amber: #d97706, Emerald: #16a34a, Card: #ffffff) -->
+  <!-- Application Structure Plan: Designed as a 3-part interactive diagnostic portal for FASTA sequence inspection and troubleshooting. 1) FASTA Live Inspector & Diagnostic Sandbox: Allows students to test presets or paste real/corrupted FASTA files to inspect syntax, IUPAC validity, GC content, sequence type, and header structure in real-time. 2) Detective Forensic Cases: 4 progressive interactive challenges where students identify syntax errors, non-IUPAC characters, multiline FASTA traps, and format mix-ups with dynamic hints and scoring. 3) Synthesis, Composition Visualizations & Downloadable Report Generator: Provides a Chart.js composition diagnostic and exports a downloadable text report for instructor assessment. Why: Hands-on debugging and inspection of FASTA files builds deep practical intuition about sequence data formats before running command-line scripts. -->
+  <!-- Visualization & Content Choices:
+  1. Live FASTA Inspector: Client-side JS parser with regular expressions to evaluate header start, pipe-delimited metadata, character alphabet purity (DNA vs RNA vs Protein), and GC%.
+  2. Forensic Case Engine: State-driven interactive quiz with single-choice and interactive validation tools, step-by-step hints, attempt tracking, and explanations.
+  3. Alphabet Composition Chart: Chart.js dynamic bar chart displaying nucleotide/amino acid frequency distribution in responsive container (maintainAspectRatio: false).
+  4. Downloadable Exercise Report: Blob-based text file generator creating a detailed summary with student name, timestamp, and case results.
+  Confirming: NO SVG graphics used. NO Mermaid JS used. -->
+  <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Práctica 3: FASTA Detective — Bioinformática LCG UNAM</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    .chart-container {
+      position: relative;
+      width: 100%;
+      max-width: 650px;
+      margin-left: auto;
+      margin-right: auto;
+      height: 280px;
+      max-height: 350px;
+    }
+    @media (min-width: 768px) {
+      .chart-container {
+        height: 320px;
+      }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased min-h-screen flex flex-col">
+
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-5xl mx-auto px-4 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="inline-block bg-amber-100 text-amber-900 text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full">
+            LCG UNAM 2026 — Práctica 3
+          </span>
+          <span class="text-slate-400 text-xs">Sesión S7</span>
+        </div>
+        <h1 class="text-xl md:text-2xl font-bold text-slate-900 mt-1">🕵️‍♂️ FASTA Detective: Control de Calidad de Secuencias</h1>
+        <p class="text-xs md:text-sm text-slate-600">Inspección, diagnóstico de errores y validación de archivos FASTA</p>
+      </div>
+
+      <nav aria-label="Navegación principal" class="flex items-center bg-slate-100 p-1 rounded-xl">
+        <button id="nav-tab-sandbox" onclick="switchMainTab('sandbox')" class="px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors bg-white text-slate-900 shadow-sm">
+          🔍 Inspector Live
+        </button>
+        <button id="nav-tab-cases" onclick="switchMainTab('cases')" class="px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors text-slate-600 hover:text-slate-900">
+          🧪 Casos Detectivescos
+        </button>
+        <button id="nav-tab-summary" onclick="switchMainTab('summary')" class="px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors text-slate-600 hover:text-slate-900">
+          📊 Diagnóstico & Reporte
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-4 py-6 flex-grow w-full">
+
+    <!-- TAB 1: FASTA Inspector & Sandbox -->
+    <section id="section-sandbox" class="space-y-6">
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+          <div>
+            <span class="inline-block bg-sky-100 text-sky-800 text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full mb-1">
+              Herramienta de Diagnóstico
+            </span>
+            <h2 class="text-lg font-bold text-slate-900">Inspector y Validador FASTA en Tiempo Real</h2>
+            <p class="text-xs text-slate-600">Prueba secuencias de ejemplo o pega tu propio texto FASTA para detectar anomalías de encabezado y calidad de alfabeto.</p>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <button onclick="loadPreset('validDNA')" class="px-2.5 py-1 text-xs font-semibold rounded bg-slate-100 hover:bg-slate-200 text-slate-700">
+              Ej. ADN Válido
+            </button>
+            <button onclick="loadPreset('corruptHeader')" class="px-2.5 py-1 text-xs font-semibold rounded bg-amber-100 hover:bg-amber-200 text-amber-900">
+              Ej. Error Encabezado
+            </button>
+            <button onclick="loadPreset('invalidChar')" class="px-2.5 py-1 text-xs font-semibold rounded bg-rose-100 hover:bg-rose-200 text-rose-900">
+              Ej. Caracteres Raros
+            </button>
+            <button onclick="loadPreset('proteinFASTA')" class="px-2.5 py-1 text-xs font-semibold rounded bg-purple-100 hover:bg-purple-200 text-purple-900">
+              Ej. Proteína UniProt
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="space-y-3">
+            <label for="fasta-input" class="block text-xs font-bold text-slate-700 uppercase tracking-wide">
+              Entrada FASTA (Texto plano):
+            </label>
+            <textarea id="fasta-input" rows="10" oninput="analyzeFASTA()" placeholder="Pega aquí tu secuencia en formato FASTA..." class="w-full font-mono text-xs p-3 border border-slate-300 rounded-xl bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all"></textarea>
+            <div class="flex justify-between items-center text-xs text-slate-500">
+              <span id="input-char-count">0 caracteres</span>
+              <button onclick="document.getElementById('fasta-input').value=''; analyzeFASTA();" class="text-rose-600 hover:underline">
+                Limpiar área
+              </button>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wide">
+              Reporte del Diagnóstico Detective:
+            </h3>
+
+            <div id="inspector-status" class="p-3 rounded-xl border border-slate-200 bg-slate-50 text-xs">
+              <span class="text-slate-500">Ingresa una secuencia para inspeccionar...</span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div class="bg-slate-50 border border-slate-200 p-3 rounded-xl">
+                <span class="text-xs text-slate-500 block">Tipo Detectado</span>
+                <span id="stat-type" class="text-sm font-bold text-slate-800">--</span>
+              </div>
+              <div class="bg-slate-50 border border-slate-200 p-3 rounded-xl">
+                <span class="text-xs text-slate-500 block">Registros (>)</span>
+                <span id="stat-records" class="text-sm font-bold text-slate-800">0</span>
+              </div>
+              <div class="bg-slate-50 border border-slate-200 p-3 rounded-xl">
+                <span class="text-xs text-slate-500 block">Longitud Secuencia</span>
+                <span id="stat-length" class="text-sm font-bold text-slate-800">0 pb / aa</span>
+              </div>
+              <div class="bg-slate-50 border border-slate-200 p-3 rounded-xl">
+                <span class="text-xs text-slate-500 block">Contenido GC (%)</span>
+                <span id="stat-gc" class="text-sm font-bold text-slate-800">--</span>
+              </div>
+            </div>
+
+            <div id="warnings-box" class="hidden p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-900 space-y-1">
+              <div class="font-bold flex items-center gap-1">
+                <span>⚠️</span> Advertencias de Sintaxis o Alfabeto:
+              </div>
+              <ul id="warnings-list" class="list-disc list-inside space-y-0.5"></ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 p-4 bg-sky-50 border border-sky-200 rounded-xl flex items-center justify-between">
+          <p class="text-xs text-sky-900 font-medium">
+            ¿Dominas las reglas de validación? Pon a prueba tus dotes detectivescas resolviendo los casos de práctica.
+          </p>
+          <button onclick="switchMainTab('cases')" class="px-4 py-2 text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 rounded-lg shadow-sm">
+            Ir a Casos Detectivescos →
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: Detective Forensic Cases -->
+    <section id="section-cases" class="hidden space-y-6">
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
+          <div>
+            <span id="case-progress-text" class="text-xs font-bold text-amber-700 uppercase tracking-wide">Caso 1 de 4</span>
+            <h2 id="case-tag" class="text-base font-bold text-slate-900">Caso 1 — Anomalía en el Encabezado</h2>
+          </div>
+          <span id="attempts-badge" class="text-xs font-medium bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full">
+            Intentos en este caso: 0
+          </span>
+        </div>
+
+        <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden mb-6">
+          <div id="case-progress-bar" class="bg-amber-600 h-full w-1/4 transition-all duration-300"></div>
+        </div>
+
+        <div id="case-container">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: Summary & Download Report -->
+    <section id="section-summary" class="hidden space-y-6">
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <div class="max-w-3xl">
+          <span class="inline-block bg-amber-100 text-amber-900 text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full mb-2">
+            Resumen & Evaluación Formativa
+          </span>
+          <h2 class="text-xl font-bold text-slate-900 mb-2">Puntos Clave del Control de Calidad FASTA</h2>
+          <p class="text-sm text-slate-600 mb-6">
+            Los programas bioinformáticos fallan silenciosamente cuando reciben archivos FASTA con errores invisibles (espacios antes del `>`, caracteres no IUPAC, saltos de línea inesperados o encabezados duplicados).
+          </p>
+        </div>
+
+        <!-- Download & Performance Card -->
+        <div class="mb-8 p-5 bg-slate-900 text-white rounded-2xl shadow-md border border-slate-800">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4 pb-4 border-b border-slate-800">
+            <div>
+              <span class="text-xs text-amber-400 font-mono font-semibold uppercase tracking-wider">Reporte Práctica 3 — FASTA Detective</span>
+              <h3 class="text-lg font-bold text-white mt-0.5">Descargar Resultados del Laboratorio</h3>
+              <p class="text-xs text-slate-300">Genera la constancia oficial de diagnóstico FASTA para tu entrega en LCG.</p>
+            </div>
+            <div id="case-score-pill" class="self-start md:self-auto bg-slate-800 border border-slate-700 px-3 py-1.5 rounded-xl text-center">
+              <span class="text-xs text-slate-400 block">Casos Resueltos</span>
+              <span id="score-text" class="text-base font-extrabold text-amber-400">0 / 4</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 items-end">
+            <div class="md:col-span-2 space-y-1.5">
+              <label for="student-name" class="block text-xs font-semibold text-slate-300">
+                Nombre del estudiante (para el informe):
+              </label>
+              <input type="text" id="student-name" placeholder="Ej. Carlos Mendoza — LCG 2026" class="w-full text-xs px-3 py-2 bg-slate-800 border border-slate-700 text-white rounded-lg focus:outline-none focus:border-amber-500 placeholder-slate-500">
+            </div>
+            <div>
+              <button onclick="downloadReport()" class="w-full px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded-lg shadow-sm transition-all flex items-center justify-center gap-2">
+                <span>📥</span> Descargar Reporte (.txt)
+              </button>
+            </div>
+          </div>
+
+          <div id="results-preview-list" class="mt-4 pt-3 border-t border-slate-800/80 text-xs space-y-1 text-slate-300">
+            <!-- Dynamic case summary badges populated by JS -->
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-4">
+            <h3 class="text-sm font-bold text-slate-800 mb-2 flex items-center gap-2">
+              <span>📊</span> Perfil Frecuencial del Alfabeto (IUPAC)
+            </h3>
+            <p class="text-xs text-slate-500 mb-3">
+              Proporción típica de residuos esperados según la naturaleza biológica de la secuencia.
+            </p>
+            <div class="chart-container">
+              <canvas id="chart-alphabet-composition"></canvas>
+            </div>
+          </div>
+
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col justify-between">
+            <div>
+              <h3 class="text-sm font-bold text-slate-800 mb-3 flex items-center gap-2">
+                <span>📋</span> Checklist del Detective FASTA
+              </h3>
+              <div class="space-y-2 text-xs font-mono text-slate-700 bg-white p-3 rounded-lg border border-slate-200">
+                <div class="p-2 bg-emerald-50 rounded border-l-4 border-emerald-600">
+                  <strong>1. Carácter inicial:</strong> La primera línea DEBE iniciar con <code>&gt;</code> sin espacios previos.
+                </div>
+                <div class="p-2 bg-sky-50 rounded border-l-4 border-sky-600">
+                  <strong>2. Identificador único:</strong> La primera palabra tras <code>&gt;</code> es el ID. Debe ser único en el archivo.
+                </div>
+                <div class="p-2 bg-purple-50 rounded border-l-4 border-purple-600">
+                  <strong>3. Pureza del alfabeto:</strong> ADN (A,C,G,T,N), ARN (A,C,G,U,N), Proteína (20 aminoácidos estándar).
+                </div>
+                <div class="p-2 bg-amber-50 rounded border-l-4 border-amber-600">
+                  <strong>4. Saltos de línea:</strong> Evitar líneas vacías dentro del bloque de secuencia.
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4 p-3 bg-slate-900 text-white rounded-lg">
+              <p class="text-xs text-amber-300 font-semibold">
+                Regla de Oro FASTA: «Un archivo mal formateado en la entrada destruye los análisis bioinformáticos en la salida.»
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-t border-slate-200 pt-6 flex justify-between items-center">
+          <p class="text-xs text-slate-500">
+            Práctica 3 completada. Continúa con la inspección de archivos reales en la terminal.
+          </p>
+          <button onclick="switchMainTab('cases'); restartCases();" class="px-4 py-2 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg">
+            ↺ Reiniciar casos de práctica
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="bg-white border-t border-slate-200 py-4 mt-auto">
+    <div class="max-w-5xl mx-auto px-4 text-center text-xs text-slate-500">
+      Licenciatura en Ciencias Genómicas (LCG) UNAM — Sesión S7: Práctica 3 (FASTA Detective)
+    </div>
+  </footer>
+
+  <script>
+    const presets = {
+      validDNA: `>hg38_dna_chr17:7673700-7673800 TP53_exonic_region
+ATGGAGGAGCCGCAGTCAGATCCTAGCGTCGAGCCCCCTCTGAGTCAGGAAACATTTTCA
+GACCTATGGAAACTACTTCCTGAAAACAACGTTCTGTCCCCG`,
+      corruptedHeader: ` hg38_dna_chr17:7673700-7673800 TP53 sequence without start symbol
+ATGGAGGAGCCGCAGTCAGATCCTAGCGTCGAGCCCCCTCTGAGTCAGGAAACATTTTCA
+GACCTATGGAAACTACTTCCTGAAAACAACGTTCTGTCCCCG`,
+      invalidChar: `>seq_contaminated_sample_01
+ATGGAGGAGCCGCAGTCAGATCCTAGCGTCGAGCCCCCTCTGAGTCAGGAAACATTTTCA
+GACCTATGGAAACTACTTCCTGAAAACAACGGZ12$$%?#X&TGTCCCCG`,
+      proteinFASTA: `>sp|P04637|P53_HUMAN Cellular tumor antigen p53 OS=Homo sapiens OX=9606 GN=TP53 PE=1 SV=4
+MEEPQSDPSVEPPLSQETFSDLWKLLPENNVLSPLPSQAMDDLMLSPDDIEQWFTEDPGP
+DEAPRMPEAAPPVAPAPAAPTPAAPAPAPSWPLSSSVPSQKTYQGSYGFRLGFLHSGTAK
+SVTCTYSPALNKMFCQLAKTCPVQLWVDSTPPPGTRVRAMAIYKQSQHMTEVVRRCPHHE`
+    };
+
+    const detectiveCases = [
+      {
+        id: 1,
+        tag: "Caso 1 — El símbolo perdido",
+        title: "Un colega intentó correr un BLAST local pero el programa arrojó el error <code>Fatal: No FASTA sequences found</code>. Inspecciona la siguiente entrada:",
+        codeSnippet: "  tp53_human_exon1 Homo sapiens tumor protein p53\nATGGAGGAGCCGCAGTCAGATCCTAGCGTCGAGCCCCCTCTG",
+        type: "single-choice",
+        options: [
+          { id: "A", label: "Falta el símbolo '>' al inicio del encabezado y hay espacios iniciales." },
+          { id: "B", label: "La secuencia contiene nucleótidos en minúsculas no permitidos." },
+          { id: "C", label: "Falta la línea de coordenadas de 9 columnas de GFF3." },
+          { id: "D", label: "El archivo contiene ARN en lugar de ADN." }
+        ],
+        correct: "A",
+        hints: {
+          B: "FASTA acepta tanto mayúsculas como minúsculas. Mira bien el comienzo de la primera línea.",
+          C: "Los archivos FASTA no usan el formato de 9 columnas de GFF3. El error de BLAST es sobre cómo empieza el registro.",
+          D: "La secuencia contiene la base 'T' (Timina), correspondiente a ADN. El problema está en la sintaxis del encabezado."
+        },
+        explanation: "¡Correcto, detective! Todo registro FASTA válido DEBE comenzar obligatoriamente con el carácter <code>&gt;</code> en la primera columna de la línea. Los espacios previos desconfiguran el analizador de BLAST."
+      },
+      {
+        id: 2,
+        tag: "Caso 2 — Caracteres contaminantes",
+        title: "Inspeccionas el resultado de una secuenciación y encuentras este archivo preparado para traducción a proteína:",
+        codeSnippet: ">seq_384_mutant_strain\nATGCGTACGTAGCTAGZ9#X11TGACGTACGTACGT",
+        type: "single-choice",
+        options: [
+          { id: "opt1", label: "Tiene formato GenBank incompatible." },
+          { id: "opt2", label: "Contiene caracteres no IUPAC (números, '#', 'Z', '$') que corrompen la secuencia de nucleótidos." },
+          { id: "opt3", label: "El nombre 'seq_384' es demasiado corto para ser un ID válido." },
+          { id: "opt4", label: "Le faltan las comas de separación entre nucleótidos." }
+        ],
+        correct: "opt2",
+        hints: {
+          opt1: "El archivo intenta ser un FASTA, no GenBank. El fallo está en los caracteres del cuerpo de la secuencia.",
+          opt3: "Los identificadores en FASTA pueden ser de cualquier longitud. Revisa el contenido de la cadena.",
+          opt4: "FASTA nunca usa comas entre nucleótidos; las cadenas son continuas."
+        },
+        explanation: "¡Excelente diagnóstico! Los símbolos como <code>#</code>, números y letras fuera del código IUPAC (A,C,G,T,U,N...) provocan fallos o lecturas erróneas en traductores automáticos."
+      },
+      {
+        id: 3,
+        tag: "Caso 3 — La trampa multilínea y conteo",
+        title: "¿Cuántos registros de secuencia independientes existen realmente en este fragmento de archivo FASTA?",
+        codeSnippet: ">gene_A transcript_1\nATGCGTACGTAGCTAG\nATGCGTACGT\n>gene_B transcript_2\nMEEPQSDPSVEPPLSQ\nETFSDLWKLLPENNVL\n>gene_C transcript_3\nAUGCCGAUGCUA",
+        type: "single-choice",
+        options: [
+          { id: "c1", label: "6 registros (cada línea cuenta como un registro)" },
+          { id: "c2", label: "3 registros (identificados por los 3 encabezados con '>')" },
+          { id: "c3", label: "1 solo registro porque combina ADN, Proteína y ARN" },
+          { id: "c4", label: "2 registros porque el tercero es ARN" }
+        ],
+        correct: "c2",
+        hints: {
+          c1: "Recuerda que en FASTA las secuencias pueden dividirse en múltiples líneas. Lo que define el inicio de un registro es el símbolo '>'.",
+          c3: "Aunque mezclar tipos de secuencias en un solo archivo no es buena práctica, la estructura física contiene 3 encabezados independientes.",
+          c4: "Un registro FASTA es definido por su encabezado '>', independientemente del biopolímero que contenga."
+        },
+        explanation: "¡Exacto! El número de registros FASTA equivale exactamente al número de líneas que inician con <code>&gt;</code>. La secuencia asociada a cada encabezado puede abarcar una o múltiples líneas."
+      },
+      {
+        id: 4,
+        tag: "Caso 4 — Confusión de Extensión y Formato",
+        title: "Un investigador guardó el siguiente contenido con el nombre <code>mule_genome_annotation.fasta</code>. ¿Cuál es la falla principal?",
+        codeSnippet: "chr1  Ensemble  gene  10000 15000 . + . ID=gene01;Name=TP53\nchr1  Ensemble  CDS   10000 11200 . + 0 Parent=gene01",
+        type: "single-choice",
+        options: [
+          { id: "f1", label: "Es un archivo de coordenadas GFF3 guardado erróneamente con extensión .fasta." },
+          { id: "f2", label: "Le faltan los encabezados de formato GenBank." },
+          { id: "f3", label: "Está bien formulado, solo requiere agregar '>' al inicio de cada fila." },
+          { id: "f4", label: "Es una secuencia FASTA en formato binario." }
+        ],
+        correct: "f1",
+        hints: {
+          f2: "Mira la estructura: 9 columnas separadas por tabuladores (chr1, Ensemble, gene, inicio, fin...). ¿A qué formato pertenece?",
+          f3: "Agregar '>' no lo convertirá en FASTA porque el contenido son coordenadas de características genómicas, no cadenas de residuos.",
+          f4: "Es texto plano en columnas, no un formato binario como BAM."
+        },
+        explanation: "¡Brillante resolución! Este contenido es un archivo tabular <strong>GFF3</strong> de 9 columnas. Renombrar la extensión a <code>.fasta</code> no cambia su contenido y confundirá a cualquier pipeline bioinformático."
+      }
+    ];
+
+    let currentCaseIndex = 0;
+    let attempts = 0;
+    let caseStats = {};
+    let chartInstance = null;
+
+    function switchMainTab(tabName) {
+      const secSandbox = document.getElementById("section-sandbox");
+      const secCases = document.getElementById("section-cases");
+      const secSummary = document.getElementById("section-summary");
+
+      const navSandbox = document.getElementById("nav-tab-sandbox");
+      const navCases = document.getElementById("nav-tab-cases");
+      const navSummary = document.getElementById("nav-tab-summary");
+
+      [secSandbox, secCases, secSummary].forEach(s => s.classList.add("hidden"));
+      [navSandbox, navCases, navSummary].forEach(n => {
+        n.className = "px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors text-slate-600 hover:text-slate-900";
+      });
+
+      if (tabName === "sandbox") {
+        secSandbox.classList.remove("hidden");
+        navSandbox.className = "px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors bg-white text-slate-900 shadow-sm";
+      } else if (tabName === "cases") {
+        secCases.classList.remove("hidden");
+        navCases.className = "px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors bg-white text-slate-900 shadow-sm";
+        renderCase();
+      } else if (tabName === "summary") {
+        secSummary.classList.remove("hidden");
+        navSummary.className = "px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors bg-white text-slate-900 shadow-sm";
+        updateSummaryUI();
+        initChart();
+      }
+    }
+
+    function loadPreset(key) {
+      if (presets[key]) {
+        document.getElementById("fasta-input").value = presets[key];
+        analyzeFASTA();
+      }
+    }
+
+    function analyzeFASTA() {
+      const input = document.getElementById("fasta-input").value;
+      const charCountSpan = document.getElementById("input-char-count");
+      charCountSpan.textContent = `${input.length} caracteres`;
+
+      const statusBox = document.getElementById("inspector-status");
+      const warningsBox = document.getElementById("warnings-box");
+      const warningsList = document.getElementById("warnings-list");
+
+      const statType = document.getElementById("stat-type");
+      const statRecords = document.getElementById("stat-records");
+      const statLength = document.getElementById("stat-length");
+      const statGc = document.getElementById("stat-gc");
+
+      warningsList.innerHTML = "";
+      warningsBox.classList.add("hidden");
+
+      if (!input.trim()) {
+        statusBox.className = "p-3 rounded-xl border border-slate-200 bg-slate-50 text-xs text-slate-500";
+        statusBox.innerHTML = "Ingresa una secuencia para inspeccionar...";
+        statType.textContent = "--";
+        statRecords.textContent = "0";
+        statLength.textContent = "0 pb / aa";
+        statGc.textContent = "--";
+        return;
+      }
+
+      const lines = input.split("\n");
+      let recordCount = 0;
+      let rawSequence = "";
+      let warnings = [];
+
+      lines.forEach((line, idx) => {
+        const trimmed = line.trim();
+        if (trimmed.startsWith(">")) {
+          recordCount++;
+        } else if (trimmed.length > 0) {
+          rawSequence += trimmed.toUpperCase();
+        }
+
+        if (idx === 0 && !trimmed.startsWith(">")) {
+          if (trimmed.includes(">")) {
+            warnings.push("El símbolo '>' está presente pero tiene espacios o texto antes en la primera línea.");
+          } else {
+            warnings.push("La primera línea no inicia con el símbolo '>' habitual de encabezado FASTA.");
+          }
+        }
+      });
+
+      statRecords.textContent = recordCount.toString();
+      statLength.textContent = `${rawSequence.length} caracteres`;
+
+      // Determine sequence type & invalid chars
+      const dnaChars = (rawSequence.match(/[ACGTN]/g) || []).length;
+      const rnaChars = (rawSequence.match(/[ACGUN]/g) || []).length;
+      const totalLen = rawSequence.length;
+
+      let detectedType = "Desconocido / Contaminado";
+      let gcPercent = "--";
+
+      if (totalLen > 0) {
+        if (dnaChars === totalLen && !rawSequence.includes("U")) {
+          detectedType = "ADN (Nucleótidos)";
+          const gcCount = (rawSequence.match(/[GC]/g) || []).length;
+          gcPercent = ((gcCount / totalLen) * 100).toFixed(1) + "%";
+        } else if (rnaChars === totalLen && rawSequence.includes("U")) {
+          detectedType = "ARN (Nucleótidos)";
+          const gcCount = (rawSequence.match(/[GC]/g) || []).length;
+          gcPercent = ((gcCount / totalLen) * 100).toFixed(1) + "%";
+        } else {
+          // Check if valid protein amino acids
+          const protChars = (rawSequence.match(/[ACDEFGHIKLMNPQRSTVWY]/g) || []).length;
+          if (protChars === totalLen) {
+            detectedType = "Proteína (Aminoácidos)";
+            gcPercent = "N/A (Proteína)";
+          } else {
+            detectedType = "Contaminado / Caracteres inválidos";
+            const invalidMatch = rawSequence.replace(/[ACDEFGHIKLMNPQRSTVWY]/g, "");
+            const uniqueInvalid = [...new Set(invalidMatch)].join(", ");
+            warnings.push(`Contiene caracteres no pertenecientes al alfabeto IUPAC estándar: [ ${uniqueInvalid} ]`);
+          }
+        }
+      }
+
+      statType.textContent = detectedType;
+      statGc.textContent = gcPercent;
+
+      if (warnings.length === 0) {
+        statusBox.className = "p-3 rounded-xl border border-emerald-200 bg-emerald-50 text-xs text-emerald-900";
+        statusBox.innerHTML = `<strong>✅ Sintaxis Válida:</strong> Formato estructurado correctamente con ${recordCount} registro(s).`;
+      } else {
+        statusBox.className = "p-3 rounded-xl border border-amber-200 bg-amber-50 text-xs text-amber-900";
+        statusBox.innerHTML = `<strong>⚠️ Se detectaron ${warnings.length} observación(es) en el archivo:</strong>`;
+        warningsBox.classList.remove("hidden");
+        warnings.forEach(w => {
+          const li = document.createElement("li");
+          li.textContent = w;
+          warningsList.appendChild(li);
+        });
+      }
+    }
+
+    function renderCase() {
+      const cData = detectiveCases[currentCaseIndex];
+      attempts = caseStats[cData.id] ? caseStats[cData.id].attempts : 0;
+
+      document.getElementById("case-progress-text").textContent = `Caso ${currentCaseIndex + 1} de ${detectiveCases.length}`;
+      document.getElementById("case-tag").textContent = cData.tag;
+      document.getElementById("attempts-badge").textContent = `Intentos en este caso: ${attempts}`;
+      document.getElementById("case-progress-bar").style.width = `${((currentCaseIndex + 1) / detectiveCases.length) * 100}%`;
+
+      const container = document.getElementById("case-container");
+
+      container.innerHTML = `
+        <div class="space-y-4">
+          <h3 class="text-sm md:text-base text-slate-800 font-medium">${cData.title}</h3>
+          
+          <div class="bg-slate-900 text-amber-300 font-mono text-xs p-3.5 rounded-xl border border-slate-800 overflow-x-auto whitespace-pre">
+            ${cData.codeSnippet}
+          </div>
+
+          <div class="grid grid-cols-1 gap-2.5 my-4">
+            ${cData.options.map(opt => `
+              <button onclick="handleCaseOption('${opt.id}')" id="btn-case-opt-${opt.id}" class="option-btn text-left border-2 border-slate-200 hover:border-amber-500 hover:bg-amber-50/50 rounded-xl p-3.5 text-xs font-semibold text-slate-700 transition-all flex items-start gap-2">
+                <span class="font-mono text-amber-700 font-bold bg-amber-100 px-2 py-0.5 rounded">${opt.id}</span>
+                <span>${opt.label}</span>
+              </button>
+            `).join('')}
+          </div>
+
+          <div id="case-feedback" class="hidden p-4 rounded-xl text-sm" aria-live="polite"></div>
+
+          <div id="case-actions" class="hidden justify-end mt-4">
+            <button onclick="nextCase()" class="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-xl shadow-sm transition-all flex items-center gap-1">
+              ${currentCaseIndex === detectiveCases.length - 1 ? 'Ver Evaluación y Diagnóstico →' : 'Siguiente caso →'}
+            </button>
+          </div>
+        </div>
+      `;
+
+      if (caseStats[cData.id] && caseStats[cData.id].completed) {
+        const feedback = document.getElementById("case-feedback");
+        const actions = document.getElementById("case-actions");
+        feedback.className = "p-4 rounded-xl text-sm bg-emerald-50 border border-emerald-200 text-emerald-900";
+        feedback.innerHTML = `<div class="font-bold mb-1">¡Caso ya superado!</div><p>${cData.explanation}</p>`;
+        feedback.classList.remove("hidden");
+        actions.classList.remove("hidden");
+        actions.classList.add("flex");
+      }
+    }
+
+    function handleCaseOption(selectedId) {
+      const cData = detectiveCases[currentCaseIndex];
+      const feedback = document.getElementById("case-feedback");
+      const actions = document.getElementById("case-actions");
+
+      attempts++;
+      document.getElementById("attempts-badge").textContent = `Intentos en este caso: ${attempts}`;
+
+      if (selectedId === cData.correct) {
+        document.querySelectorAll(".option-btn").forEach(btn => {
+          btn.disabled = true;
+          btn.classList.add("opacity-50");
+        });
+
+        const selectedBtn = document.getElementById(`btn-case-opt-${selectedId}`);
+        selectedBtn.classList.remove("opacity-50", "border-slate-200");
+        selectedBtn.classList.add("border-emerald-600", "bg-emerald-50", "text-emerald-900");
+
+        feedback.className = "p-4 rounded-xl text-sm bg-emerald-50 border border-emerald-200 text-emerald-900";
+        feedback.innerHTML = `<div class="font-bold mb-1">¡Diagnóstico Correcto!</div><p>${cData.explanation}</p>`;
+        feedback.classList.remove("hidden");
+        actions.classList.remove("hidden");
+        actions.classList.add("flex");
+
+        caseStats[cData.id] = {
+          completed: true,
+          attempts: attempts,
+          answer: selectedId
+        };
+      } else {
+        caseStats[cData.id] = {
+          completed: false,
+          attempts: attempts,
+          answer: selectedId
+        };
+
+        const hint = cData.hints[selectedId] || "Revisa la regla sintáctica de FASTA relacionada con esta línea.";
+        feedback.className = "p-4 rounded-xl text-sm bg-amber-50 border border-amber-200 text-amber-900";
+        feedback.innerHTML = `<div class="font-bold mb-1">Pista Detective (Intento ${attempts}):</div><p>${hint}</p>`;
+        feedback.classList.remove("hidden");
+      }
+    }
+
+    function nextCase() {
+      currentCaseIndex++;
+      if (currentCaseIndex < detectiveCases.length) {
+        renderCase();
+      } else {
+        switchMainTab("summary");
+      }
+    }
+
+    function restartCases() {
+      currentCaseIndex = 0;
+      caseStats = {};
+      renderCase();
+    }
+
+    function updateSummaryUI() {
+      let completedCount = 0;
+      detectiveCases.forEach(c => {
+        if (caseStats[c.id] && caseStats[c.id].completed) {
+          completedCount++;
+        }
+      });
+
+      document.getElementById("score-text").textContent = `${completedCount} / ${detectiveCases.length}`;
+
+      const previewList = document.getElementById("results-preview-list");
+      previewList.innerHTML = detectiveCases.map((c, idx) => {
+        const stat = caseStats[c.id];
+        const isDone = stat && stat.completed;
+        const att = stat ? stat.attempts : 0;
+        return `
+          <div class="flex items-center justify-between py-1 border-b border-slate-800/50">
+            <span><strong>Caso ${idx + 1}:</strong> ${c.tag.split("—")[1] || c.tag}</span>
+            <span class="${isDone ? 'text-amber-400 font-semibold' : 'text-slate-500'}">
+              ${isDone ? `✓ Superado (${att} ${att === 1 ? 'intento' : 'intentos'})` : '○ Pendiente'}
+            </span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function downloadReport() {
+      const studentNameInput = document.getElementById("student-name").value.trim();
+      const studentName = studentNameInput || "Estudiante Anonimo";
+      const now = new Date();
+      const dateStr = now.toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+      let completedCount = 0;
+      let totalAttempts = 0;
+
+      let caseDetailsText = "";
+      detectiveCases.forEach((c, idx) => {
+        const stat = caseStats[c.id];
+        const isDone = stat && stat.completed;
+        const att = stat ? stat.attempts : 0;
+        const ans = stat && stat.answer ? stat.answer : "Sin responder";
+
+        if (isDone) completedCount++;
+        totalAttempts += att;
+
+        caseDetailsText += `
+Caso ${idx + 1}: ${c.tag}
+  - Estado: ${isDone ? 'SUPERADO ✓' : 'NO COMPLETADO ✗'}
+  - Intentos realizados: ${att}
+  - Opción seleccionada: ${ans}
+`;
+      });
+
+      const reportContent = `===============================================================
+LCG UNAM 2026 — UNIDAD 3 (SESIÓN S7)
+REPORTE DE PRÁCTICA 3: FASTA DETECTIVE (CONTROL DE CALIDAD)
+===============================================================
+
+FECHA DE GENERACIÓN : ${dateStr}
+ESTUDIANTE          : ${studentName}
+CASOS RESUELTOS     : ${completedCount} / ${detectiveCases.length}
+TOTAL DE INTENTOS   : ${totalAttempts}
+
+---------------------------------------------------------------
+DESGLOSE DE DIAGNÓSTICOS DETECTIVESCOS:
+---------------------------------------------------------------
+${caseDetailsText}
+---------------------------------------------------------------
+CHECKLIST DE VALIDACIÓN FASTA REPASADA:
+1. Símbolo inicial '>' obligatorio en la columna 1.
+2. Identificador único sin espacios inmediatamente después del '>'.
+3. Separación estricta entre encabezado y secuencia de biopolímero.
+4. Caracteres restringidos al alfabeto IUPAC (ADN, ARN o Proteína).
+===============================================================
+Reporte generado dinámicamente desde el portal interactivo LCG UNAM.
+`;
+
+      const blob = new Blob([reportContent], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      const safeFileName = studentName.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+      link.href = url;
+      link.download = `Reporte_Practica3_FASTA_Detective_${safeFileName}.txt`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+
+    function initChart() {
+      if (chartInstance) {
+        chartInstance.destroy();
+      }
+
+      const ctx = document.getElementById("chart-alphabet-composition").getContext("2d");
+      chartInstance = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: ["A", "C", "G", "T / U", "N / Ambiguo", "Aminoácidos"],
+          datasets: [
+            {
+              label: "ADN Genómico Válido (%)",
+              data: [30, 20, 20, 30, 0, 0],
+              backgroundColor: "#0284c7"
+            },
+            {
+              label: "Muestra Contaminada (%)",
+              data: [20, 15, 15, 20, 15, 15],
+              backgroundColor: "#d97706"
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 40,
+              ticks: {
+                callback: function(value) {
+                  return value + "%";
+                }
+              }
+            }
+          },
+          plugins: {
+            legend: {
+              position: "bottom",
+              labels: {
+                boxWidth: 12,
+                font: {
+                  size: 11
+                }
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return context.dataset.label + ": " + context.raw + "% de composición";
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // Auto-load valid DNA preset on initial start
+    window.addEventListener("DOMContentLoaded", () => {
+      loadPreset('validDNA');
+    });
+  </script>
+</body>
+</html>

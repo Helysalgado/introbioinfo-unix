@@ -1,0 +1,2618 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>u4-s22-condicionar-calcular-columnas – Introducción a la Bioinformática</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./u4-s23-protocolo-ejecutable-genoma.html" rel="next">
+<link href="./u4-s21-confrontar-fuente-independiente.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fe3756b78d23b7733c53f9ce5acac92a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXNMZZP0K9"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-QXNMZZP0K9', { 'anonymize_ip': true});
+</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Introducción a la Bioinformática</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Inicio</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-programa" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Programa</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-programa">    
+        <li>
+    <a class="dropdown-item" href="./programa.html">
+ <span class="dropdown-text">Ruta de sesiones</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./programa-detallado.html">
+ <span class="dropdown-text">Programa detallado</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-unidades" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Unidades</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-unidades">    
+        <li>
+    <a class="dropdown-item" href="./u1-trabajo-reproducible.html">
+ <span class="dropdown-text">U1 — Trabajo reproducible</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u2-entorno-unix.html">
+ <span class="dropdown-text">U2 — Entorno Unix</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u3-datos-bases-datos.html">
+ <span class="dropdown-text">U3 — Datos y bases</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u4-procesamiento-exploracion.html">
+ <span class="dropdown-text">U4 — Procesamiento genómico</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u5-automatizacion-scripting.html">
+ <span class="dropdown-text">U5 — Automatización</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u6-comparacion-homologia.html">
+ <span class="dropdown-text">U6 — Comparar / hipótesis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./s14-s15-mini-proyecto-investigacion-I.html">
+ <span class="dropdown-text">Transversal S14–S17</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="./recursos.html" aria-current="page"> 
+<span class="menu-text">Recursos</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./acerca.html"> 
+<span class="menu-text">Acerca</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./contribuir.html"> 
+<span class="menu-text">Contribuir</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Alternar modo lector">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./u4-procesamiento-exploracion.html">Unidad 4</a></li><li class="breadcrumb-item"><a href="./u4-s22-condicionar-calcular-columnas.html">S22 — Condicionar</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 1</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-trabajo-reproducible.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-s1-documentar-markdown-fases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S1 — Documentar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-s2-organizar-fair-ia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S2 — Organizar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 2</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-entorno-unix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s3-shell-acceso-remoto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S3 — Conectar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s4-sistema-archivos-v3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S4 — Navegar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s5-archivos-permisos-procesos-v2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S5 — Archivos y procesos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s6-consolidacion-entorno-unix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S6 — Consolidar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 3</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-datos-bases-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s7-secuencias-formatos-genbank.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S7 — Formatos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s8-bases-datos-descarga-integridad.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S8 — Descargar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s9-inspeccion-transferencia-verificable.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S9 — Transferir</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Unidad 4</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-procesamiento-exploracion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s10-anatomia-flujos-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S10 — Anatomía y flujos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s11-estructura-tabular-anotacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S11 — Anotación tabular</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s12-filtrado-conteos-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S12 — Filtrar y contar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s13-inventario-resumen-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S13 — Inventario</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s18-precision-patrones-expresiones-regulares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S18 — Patrones</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s19-extraccion-identificadores-correspondencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S19 — Identificadores</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s20-normalizar-datos-comparables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S20 — Normalizar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s21-confrontar-fuente-independiente.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S21 — Confrontar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s22-condicionar-calcular-columnas.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">S22 — Condicionar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s23-protocolo-ejecutable-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S23 — Protocolo ejecutable</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Transversal</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s14-s15-mini-proyecto-investigacion-I.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S14–S15 — Mini-proyecto I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s16-mini-proyecto-revision-pares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S16 — Revisión por pares</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s17-evaluacion-individual-demostrativa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S17 — Evaluación demostrativa</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mini-proyecto-dictamen-cientifico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dictamen científico</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 5</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-automatizacion-scripting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s24-del-protocolo-al-script.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S24 — Del protocolo al script</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s25-separar-procedimiento-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S25 — Separar datos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s26-procesamiento-por-lotes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S26 — Por lotes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s27-herramienta-cientifica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S27 — Herramienta científica</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s28-proyecto-integrador.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S28 — Proyecto integrador</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s29-cluster-hpc-sge.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S29 — Cluster SGE</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 6</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-comparacion-homologia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s30-comparar-alinear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S30 — Comparar / alinear</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s31-buscar-blast.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S31 — Buscar (BLAST)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s32-interpretar-inferir.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S32 — Interpretar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s33-defender-hipotesis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S33 — Inferir</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s34-integrar-hipotesis-casos-ciegos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S34 — Integrar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./programa-detallado.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programa detallado</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./recursos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recursos</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#s22-condicionar-y-calcular-preguntas-complejas-sobre-columnas" id="toc-s22-condicionar-y-calcular-preguntas-complejas-sobre-columnas" class="nav-link active" data-scroll-target="#s22-condicionar-y-calcular-preguntas-complejas-sobre-columnas">S22 — Condicionar y calcular: preguntas complejas sobre columnas</a>
+  <ul class="collapse">
+  <li><a href="#ficha-del-módulo" id="toc-ficha-del-módulo" class="nav-link" data-scroll-target="#ficha-del-módulo">Ficha del módulo</a></li>
+  <li><a href="#relación-con-lo-que-ya-sabes" id="toc-relación-con-lo-que-ya-sabes" class="nav-link" data-scroll-target="#relación-con-lo-que-ya-sabes">Relación con lo que ya sabes</a></li>
+  <li><a href="#tu-lugar-en-el-ciclo-de-la-evidencia" id="toc-tu-lugar-en-el-ciclo-de-la-evidencia" class="nav-link" data-scroll-target="#tu-lugar-en-el-ciclo-de-la-evidencia">Tu lugar en el ciclo de la evidencia</a></li>
+  <li><a href="#dónde-estás-en-la-investigación" id="toc-dónde-estás-en-la-investigación" class="nav-link" data-scroll-target="#dónde-estás-en-la-investigación">Dónde estás en la investigación</a></li>
+  <li><a href="#resultados-de-aprendizaje" id="toc-resultados-de-aprendizaje" class="nav-link" data-scroll-target="#resultados-de-aprendizaje">Resultados de aprendizaje</a></li>
+  <li><a href="#lista-de-verificación-previa" id="toc-lista-de-verificación-previa" class="nav-link" data-scroll-target="#lista-de-verificación-previa">Lista de verificación previa</a></li>
+  <li><a href="#ruta-de-s22" id="toc-ruta-de-s22" class="nav-link" data-scroll-target="#ruta-de-s22">Ruta de S22</a></li>
+  <li><a href="#la-pregunta-que-ya-no-cabe-en-una-tubería-indispensable" id="toc-la-pregunta-que-ya-no-cabe-en-una-tubería-indispensable" class="nav-link" data-scroll-target="#la-pregunta-que-ya-no-cabe-en-una-tubería-indispensable">1. La pregunta que ya no cabe en una tubería [Indispensable]</a></li>
+  <li><a href="#las-cuatro-partes-de-una-pregunta-compleja-indispensable" id="toc-las-cuatro-partes-de-una-pregunta-compleja-indispensable" class="nav-link" data-scroll-target="#las-cuatro-partes-de-una-pregunta-compleja-indispensable">2. Las cuatro partes de una pregunta compleja [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#práctica-1-traducir-preguntas-sin-ejecutar-nada-antes-de-clase-primer-intento" id="toc-práctica-1-traducir-preguntas-sin-ejecutar-nada-antes-de-clase-primer-intento" class="nav-link" data-scroll-target="#práctica-1-traducir-preguntas-sin-ejecutar-nada-antes-de-clase-primer-intento">Práctica 1 — Traducir preguntas, sin ejecutar nada <em>(antes de clase, primer intento)</em></a></li>
+  </ul></li>
+  <li><a href="#condicionar-sobre-varias-columnas-indispensable" id="toc-condicionar-sobre-varias-columnas-indispensable" class="nav-link" data-scroll-target="#condicionar-sobre-varias-columnas-indispensable">3. Condicionar sobre varias columnas [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#práctica-2-la-misma-pregunta-dos-estrategias-durante-el-taller" id="toc-práctica-2-la-misma-pregunta-dos-estrategias-durante-el-taller" class="nav-link" data-scroll-target="#práctica-2-la-misma-pregunta-dos-estrategias-durante-el-taller">Práctica 2 — La misma pregunta, dos estrategias <em>(durante el taller)</em></a></li>
+  </ul></li>
+  <li><a href="#calcular-por-registro-la-longitud-indispensable" id="toc-calcular-por-registro-la-longitud-indispensable" class="nav-link" data-scroll-target="#calcular-por-registro-la-longitud-indispensable">4. Calcular por registro: la longitud [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#práctica-3-cuánto-mide-cada-gen-durante-el-taller" id="toc-práctica-3-cuánto-mide-cada-gen-durante-el-taller" class="nav-link" data-scroll-target="#práctica-3-cuánto-mide-cada-gen-durante-el-taller">Práctica 3 — ¿Cuánto mide cada gen? <em>(durante el taller)</em></a></li>
+  </ul></li>
+  <li><a href="#resumir-el-conjunto-acumular-y-cerrar-indispensable" id="toc-resumir-el-conjunto-acumular-y-cerrar-indispensable" class="nav-link" data-scroll-target="#resumir-el-conjunto-acumular-y-cerrar-indispensable">5. Resumir el conjunto: acumular y cerrar [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#práctica-4-el-perfil-de-longitudes-de-mi-genoma-durante-el-taller" id="toc-práctica-4-el-perfil-de-longitudes-de-mi-genoma-durante-el-taller" class="nav-link" data-scroll-target="#práctica-4-el-perfil-de-longitudes-de-mi-genoma-durante-el-taller">Práctica 4 — El perfil de longitudes de mi genoma <em>(durante el taller)</em></a></li>
+  </ul></li>
+  <li><a href="#por-replicón-contar-no-es-medir-densidad-indispensable" id="toc-por-replicón-contar-no-es-medir-densidad-indispensable" class="nav-link" data-scroll-target="#por-replicón-contar-no-es-medir-densidad-indispensable">6. Por replicón: contar no es medir densidad [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#práctica-5-qué-replicón-está-más-compacto-durante-el-taller" id="toc-práctica-5-qué-replicón-está-más-compacto-durante-el-taller" class="nav-link" data-scroll-target="#práctica-5-qué-replicón-está-más-compacto-durante-el-taller">Práctica 5 — ¿Qué replicón está más compacto? <em>(durante el taller)</em></a></li>
+  </ul></li>
+  <li><a href="#cerrar-la-pregunta-del-tamaño-del-genoma-indispensable" id="toc-cerrar-la-pregunta-del-tamaño-del-genoma-indispensable" class="nav-link" data-scroll-target="#cerrar-la-pregunta-del-tamaño-del-genoma-indispensable">7. Cerrar la pregunta del tamaño del genoma [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#práctica-6-la-respuesta-final-al-tamaño-del-genoma-después-del-taller" id="toc-práctica-6-la-respuesta-final-al-tamaño-del-genoma-después-del-taller" class="nav-link" data-scroll-target="#práctica-6-la-respuesta-final-al-tamaño-del-genoma-después-del-taller">Práctica 6 — La respuesta final al tamaño del genoma <em>(después del taller)</em></a></li>
+  </ul></li>
+  <li><a href="#la-magnitud-de-una-discrepancia-indispensable" id="toc-la-magnitud-de-una-discrepancia-indispensable" class="nav-link" data-scroll-target="#la-magnitud-de-una-discrepancia-indispensable">8. La magnitud de una discrepancia [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#práctica-7-importan-las-diferencias-de-s21-después-del-taller" id="toc-práctica-7-importan-las-diferencias-de-s21-después-del-taller" class="nav-link" data-scroll-target="#práctica-7-importan-las-diferencias-de-s21-después-del-taller">Práctica 7 — ¿Importan las diferencias de S21? <em>(después del taller)</em></a></li>
+  </ul></li>
+  <li><a href="#dos-soluciones-correctas-consulta" id="toc-dos-soluciones-correctas-consulta" class="nav-link" data-scroll-target="#dos-soluciones-correctas-consulta">9. Dos soluciones correctas [Consulta]</a>
+  <ul class="collapse">
+  <li><a href="#tarea-7-reformatear-y-condicionar-la-anotación-para-responder-una-pregunta-biológica" id="toc-tarea-7-reformatear-y-condicionar-la-anotación-para-responder-una-pregunta-biológica" class="nav-link" data-scroll-target="#tarea-7-reformatear-y-condicionar-la-anotación-para-responder-una-pregunta-biológica">Tarea 7 — Reformatear y condicionar la anotación para responder una pregunta biológica</a></li>
+  </ul></li>
+  <li><a href="#documentar-la-sección-del-protocolo-indispensable" id="toc-documentar-la-sección-del-protocolo-indispensable" class="nav-link" data-scroll-target="#documentar-la-sección-del-protocolo-indispensable">10. Documentar: la sección del protocolo [Indispensable]</a></li>
+  <li><a href="#evidencia-de-la-sesión" id="toc-evidencia-de-la-sesión" class="nav-link" data-scroll-target="#evidencia-de-la-sesión">Evidencia de la sesión</a></li>
+  <li><a href="#errores-frecuentes-y-estrategias-de-diagnóstico" id="toc-errores-frecuentes-y-estrategias-de-diagnóstico" class="nav-link" data-scroll-target="#errores-frecuentes-y-estrategias-de-diagnóstico">Errores frecuentes y estrategias de diagnóstico</a></li>
+  <li><a href="#rúbricas" id="toc-rúbricas" class="nav-link" data-scroll-target="#rúbricas">Rúbricas</a></li>
+  <li><a href="#autoevaluación" id="toc-autoevaluación" class="nav-link" data-scroll-target="#autoevaluación">Autoevaluación</a>
+  <ul class="collapse">
+  <li><a href="#comprobación-rápida-formativa-al-final-del-taller" id="toc-comprobación-rápida-formativa-al-final-del-taller" class="nav-link" data-scroll-target="#comprobación-rápida-formativa-al-final-del-taller">Comprobación rápida — formativa, al final del taller</a></li>
+  <li><a href="#semáforo" id="toc-semáforo" class="nav-link" data-scroll-target="#semáforo">Semáforo</a></li>
+  </ul></li>
+  <li><a href="#cierre-con-ia-clásico-vs.-asistido" id="toc-cierre-con-ia-clásico-vs.-asistido" class="nav-link" data-scroll-target="#cierre-con-ia-clásico-vs.-asistido">Cierre con IA: clásico vs.&nbsp;asistido</a></li>
+  <li><a href="#lo-que-realmente-aprendiste-hoy" id="toc-lo-que-realmente-aprendiste-hoy" class="nav-link" data-scroll-target="#lo-que-realmente-aprendiste-hoy">Lo que realmente aprendiste hoy</a></li>
+  <li><a href="#cierre-de-s22-y-puente-hacia-s23" id="toc-cierre-de-s22-y-puente-hacia-s23" class="nav-link" data-scroll-target="#cierre-de-s22-y-puente-hacia-s23">Cierre de S22 y puente hacia S23</a></li>
+  <li><a href="#en-una-frase" id="toc-en-una-frase" class="nav-link" data-scroll-target="#en-una-frase">En una frase</a></li>
+  <li><a href="#anexo-a.-correspondencia-resultadoactividadevidenciacriterio" id="toc-anexo-a.-correspondencia-resultadoactividadevidenciacriterio" class="nav-link" data-scroll-target="#anexo-a.-correspondencia-resultadoactividadevidenciacriterio">Anexo A. Correspondencia resultado–actividad–evidencia–criterio</a></li>
+  <li><a href="#anexo-b.-alineación-transversal" id="toc-anexo-b.-alineación-transversal" class="nav-link" data-scroll-target="#anexo-b.-alineación-transversal">Anexo B. Alineación transversal</a></li>
+  <li><a href="#glosario" id="toc-glosario" class="nav-link" data-scroll-target="#glosario">Glosario</a></li>
+  <li><a href="#referencias" id="toc-referencias" class="nav-link" data-scroll-target="#referencias">Referencias</a></li>
+  <li><a href="#distribución-estimada-de-las-dos-horas" id="toc-distribución-estimada-de-las-dos-horas" class="nav-link" data-scroll-target="#distribución-estimada-de-las-dos-horas">Distribución estimada de las dos horas</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/Helysalgado/introbioinfo-unix/edit/main/u4-s22-condicionar-calcular-columnas.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/Helysalgado/introbioinfo-unix/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./u4-procesamiento-exploracion.html">Unidad 4</a></li><li class="breadcrumb-item"><a href="./u4-s22-condicionar-calcular-columnas.html">S22 — Condicionar</a></li></ol></nav></header>
+
+
+
+
+<section id="s22-condicionar-y-calcular-preguntas-complejas-sobre-columnas" class="level1">
+<h1>S22 — Condicionar y calcular: preguntas complejas sobre columnas</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="Aula invertida">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Aula invertida
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Antes de clase leerás las secciones marcadas como <strong>indispensables</strong> y harás un primer intento: descomponer tres preguntas biológicas en registros, columnas, condición y cálculo, <strong>sin escribir un solo comando</strong>. Durante el taller aprenderás a expresar esas condiciones y a calcular medidas derivadas de las coordenadas. Después cerrarás la pregunta del tamaño del genoma, medirás la magnitud de las discrepancias que dejó S21 e integrarás en <code>doc/protocolo.md</code> la sección <strong>Análisis condicionado y medidas derivadas</strong>.</p>
+<p>El primer intento es formativo: importa que separes la pregunta biológica de su implementación, no que adivines la sintaxis.</p>
+</div>
+</div>
+<section id="ficha-del-módulo" class="level2">
+<h2 class="anchored" data-anchor-id="ficha-del-módulo">Ficha del módulo</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Elemento</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Sesión</strong></td>
+<td>S22, 2 horas</td>
+</tr>
+<tr class="even">
+<td><strong>Unidad</strong></td>
+<td>U4. Procesamiento y exploración de datos genómicos</td>
+</tr>
+<tr class="odd">
+<td><strong>Competencia principal</strong></td>
+<td>D. Análisis y exploración de datos genómicos</td>
+</tr>
+<tr class="even">
+<td><strong>Competencias integradas</strong></td>
+<td>A. Documentación reproducible; B. Entorno Unix; C. Manejo de datos biológicos</td>
+</tr>
+<tr class="odd">
+<td><strong>Propósito</strong></td>
+<td>Expresar preguntas que combinan condiciones sobre varias columnas y calcular medidas derivadas de las coordenadas, verificando cada resultado</td>
+</tr>
+<tr class="even">
+<td><strong>Consulta previa del Plan</strong></td>
+<td>S22 · Formateo de datos con <code>awk</code> · <strong>Tarea 7</strong>; este módulo lo sustituye como lectura autocontenida</td>
+</tr>
+<tr class="odd">
+<td><strong>Continuidad</strong></td>
+<td>S21 contó las diferencias; S22 las <strong>mide</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Lectura indispensable</strong></td>
+<td>Secciones 1–8 de este módulo (~55 min)</td>
+</tr>
+<tr class="odd">
+<td><strong>Lectura de consulta</strong></td>
+<td>Sección 9; Buffalo (2015), Cap. 7; <code>man awk</code></td>
+</tr>
+<tr class="even">
+<td><strong>Primer intento</strong></td>
+<td>Práctica 1: descomponer tres preguntas en cuatro partes, 25 min, sin comandos</td>
+</tr>
+<tr class="odd">
+<td><strong>Evidencia</strong></td>
+<td>Genes por cadena, longitudes resumidas, densidad por replicón, tamaño final del genoma y magnitud de las discrepancias de S21, cada uno con su verificación</td>
+</tr>
+<tr class="even">
+<td><strong>Tarea numerada</strong></td>
+<td><strong>Tarea 7</strong> — reformatear y condicionar la anotación para responder una pregunta biológica</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Hoy aparece <code>awk</code>, y conviene decir desde el principio qué <strong>no</strong> es esta sesión: no es un curso de <code>awk</code>. Vas a usar una parte pequeña de esa herramienta, la que hace falta para preguntar por varias columnas a la vez y hacer aritmética. Lo demás no se toca.</p>
+</div>
+</div>
+</section>
+<section id="relación-con-lo-que-ya-sabes" class="level2">
+<h2 class="anchored" data-anchor-id="relación-con-lo-que-ya-sabes">Relación con lo que ya sabes</h2>
+<pre class="text"><code>S21                                     S22
+Contar cuántos difieren           →     Medir cuánto importa esa diferencia
+"hay K discrepancias"                   "esas K miden en total X pares de bases"</code></pre>
+<p>S21 terminó con tres listas y tres números. Y con una frustración concreta: sabías <strong>qué</strong> loci difieren, pero no si eran genes completos o fragmentos de sesenta bases; si se concentraban en un replicón o estaban repartidos; si representaban una porción apreciable del genoma o eran irrelevantes.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Habilidad que ya tienes</th>
+<th>Dónde la aprendiste</th>
+<th>Qué cambia en S22</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Filtrar líneas por su contenido</td>
+<td>S12, S18</td>
+<td>Ahora la condición combina <strong>varias columnas a la vez</strong></td>
+</tr>
+<tr class="even">
+<td>Recortar columnas con <code>cut</code></td>
+<td>S11</td>
+<td>Deja de bastar: <code>cut</code> selecciona, pero no compara ni calcula</td>
+</tr>
+<tr class="odd">
+<td>Contar con <code>wc -l</code> y <code>uniq -c</code></td>
+<td>S10, S13</td>
+<td>Siguen siendo la forma más clara de agrupar; hoy se combinan con el cálculo</td>
+</tr>
+<tr class="even">
+<td>Distinguir registro de objeto biológico</td>
+<td>S13, S19</td>
+<td>Vuelve, y ahora con consecuencias numéricas: sumar longitudes de registros duplicados infla el total</td>
+</tr>
+<tr class="odd">
+<td>Verificar un resultado por otro camino</td>
+<td>Toda la unidad</td>
+<td>Cada medida nueva se contrasta con una anterior</td>
+</tr>
+</tbody>
+</table>
+<p>Lo nuevo de hoy no es una herramienta: es que tus preguntas dejaron de ser <strong>de presencia</strong> y pasaron a ser <strong>de magnitud</strong>.</p>
+</section>
+<section id="tu-lugar-en-el-ciclo-de-la-evidencia" class="level2">
+<h2 class="anchored" data-anchor-id="tu-lugar-en-el-ciclo-de-la-evidencia">Tu lugar en el ciclo de la evidencia</h2>
+<p>Las seis sesiones que cierran la unidad no enseñan seis herramientas: enseñan <strong>los seis pasos por los que una observación se convierte en evidencia científica</strong>. Hoy trabajas el quinto.</p>
+<pre class="text"><code>  S18  SELECCIONAR  la evidencia correcta          ✔ resuelto
+  S19  IDENTIFICAR  el objeto biológico correcto   ✔ resuelto
+  S20  NORMALIZAR   la evidencia para compararla   ✔ resuelto
+  S21  CONFRONTAR   con una fuente ajena           ✔ resuelto
+▶ S22  CUANTIFICAR  e interpretar                  ← estás aquí
+  S23  INTEGRAR     el ciclo completo, reproducible</code></pre>
+<p>Una diferencia puede ser real y a la vez irrelevante. Distinguir esas dos cosas exige medir, y medir es lo único del ciclo que todavía no sabes hacer.</p>
+</section>
+<section id="dónde-estás-en-la-investigación" class="level2">
+<h2 class="anchored" data-anchor-id="dónde-estás-en-la-investigación">Dónde estás en la investigación</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Pregunta de la investigación</th>
+<th>En S22</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>¿De qué tamaño es el genoma?</td>
+<td>✔ <strong>Se cierra hoy</strong>: quinta y última respuesta, contrastada con S10, S12 y S13</td>
+</tr>
+<tr class="even">
+<td>¿Cuántos genes hay por cadena?</td>
+<td>✔ <strong>Se refina hoy</strong>: primera respuesta en S18, ahora por replicón</td>
+</tr>
+<tr class="odd">
+<td>¿Cuánto mide cada gen?</td>
+<td>✔ <strong>Se resuelve hoy</strong></td>
+</tr>
+<tr class="even">
+<td>¿Qué densidad génica tiene cada replicón?</td>
+<td>✔ <strong>Se resuelve hoy</strong></td>
+</tr>
+<tr class="odd">
+<td>¿Qué magnitud tienen las discrepancias de S21?</td>
+<td>✔ <strong>Se resuelve hoy</strong></td>
+</tr>
+<tr class="even">
+<td>¿Puede otra persona ejecutar toda la investigación de principio a fin?</td>
+<td>☐ S23</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="resultados-de-aprendizaje" class="level2">
+<h2 class="anchored" data-anchor-id="resultados-de-aprendizaje">Resultados de aprendizaje</h2>
+<p>Al finalizar la sesión podrás:</p>
+<ol type="1">
+<li><strong>Descomponer</strong> una pregunta biológica en cuatro partes: qué registros, qué columnas, qué condición y qué cálculo.</li>
+<li><strong>Explicar</strong> por qué una tubería de <code>grep</code> y <code>cut</code> deja de servir cuando la condición combina varias columnas.</li>
+<li><strong>Expresar</strong> una condición sobre varios campos y comprobar que selecciona lo que pretendes.</li>
+<li><strong>Calcular</strong> la longitud de un registro a partir de sus coordenadas, y justificar el <code>+1</code>.</li>
+<li><strong>Acumular</strong> medidas a lo largo de un archivo y <strong>resumirlas</strong> al terminarlo.</li>
+<li><strong>Distinguir</strong> número de objetos de densidad, y calcular esta última con sus unidades explícitas.</li>
+<li><strong>Cerrar</strong> la pregunta del tamaño del genoma contrastando las cinco respuestas de la unidad.</li>
+<li><strong>Medir</strong> la magnitud de una discrepancia y reinterpretar el resultado de S21 a la luz de esa medida.</li>
+<li><strong>Verificar</strong> cada cálculo con un control independiente antes de aceptarlo.</li>
+<li><strong>Comparar</strong> dos soluciones correctas y argumentar cuál comunica mejor la pregunta.</li>
+</ol>
+</section>
+<section id="lista-de-verificación-previa" class="level2">
+<h2 class="anchored" data-anchor-id="lista-de-verificación-previa">Lista de verificación previa</h2>
+<p>Antes del taller comprueba que tienes:</p>
+<ul class="task-list">
+<li><label><input type="checkbox"><code>data/source/anotacion.gff3</code>, intacto;</label></li>
+<li><label><input type="checkbox"><code>data/processed/anotacion-tabla.tsv</code> de S20, con su diccionario;</label></li>
+<li><label><input type="checkbox">tus conteos de genes y CDS de S18, y el inventario de S13;</label></li>
+<li><label><input type="checkbox">las tres zonas de S21: <code>solo-propio.txt</code>, <code>en-ambas.txt</code> y <code>solo-uniprot.txt</code>;</label></li>
+<li><label><input type="checkbox">las respuestas al tamaño del genoma de S10, S12 y S13, tal como quedaron en el protocolo;</label></li>
+<li><label><input type="checkbox"><code>doc/s22-primer-intento.md</code> con la Práctica 1 resuelta;</label></li>
+<li><label><input type="checkbox">el directorio <code>results/s22/</code> creado.</label></li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Ten a mano el protocolo abierto. Hoy vas a contrastar casi todos los números con alguno anterior, y buscarlos uno a uno mientras trabajas rompe el ritmo del taller.</p>
+</div>
+</div>
+</section>
+<section id="ruta-de-s22" class="level2">
+<h2 class="anchored" data-anchor-id="ruta-de-s22">Ruta de S22</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 30%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Momento</th>
+<th>Qué hacer</th>
+<th style="text-align: right;">Tiempo estimado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Antes de clase</strong></td>
+<td>Leer las secciones 1–8; resolver la Práctica 1</td>
+<td style="text-align: right;">55 + 25 min</td>
+</tr>
+<tr class="even">
+<td><strong>Taller (1.ª hora)</strong></td>
+<td>Condicionar sobre varias columnas y calcular longitudes (Prácticas 2 y 3)</td>
+<td style="text-align: right;">60 min</td>
+</tr>
+<tr class="odd">
+<td><strong>Taller (2.ª hora)</strong></td>
+<td>Resumir el conjunto y calcular densidades (Prácticas 4 y 5)</td>
+<td style="text-align: right;">60 min</td>
+</tr>
+<tr class="even">
+<td><strong>Después del taller</strong></td>
+<td>Cerrar el tamaño del genoma (Práctica 6), medir las discrepancias (Práctica 7) y redactar la sección S22</td>
+<td style="text-align: right;">90 min</td>
+</tr>
+</tbody>
+</table>
+<p>Las secciones 1–8 son <strong>indispensables</strong>; la sección 9 es de consulta y sostiene la Tarea 7.</p>
+<hr>
+</section>
+<section id="la-pregunta-que-ya-no-cabe-en-una-tubería-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="la-pregunta-que-ya-no-cabe-en-una-tubería-indispensable">1. La pregunta que ya no cabe en una tubería [Indispensable]</h2>
+<p>Intenta responder esta pregunta con lo que sabes:</p>
+<blockquote class="blockquote">
+<p><strong>¿Cuántos genes hay en la cadena negativa del cromosoma?</strong></p>
+</blockquote>
+<p>Se puede. Recortas las tres columnas que necesitas, filtras y cuentas:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-Ev</span> <span class="st">'^#'</span> data/source/anotacion.gff3 <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f1,3,7</span> <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-E</span> <span class="st">$'^NC_000913.3</span><span class="dt">\t</span><span class="st">gene</span><span class="dt">\t</span><span class="st">-$'</span> <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Funciona, pero mira lo que hiciste: recortaste tres columnas y luego escribiste un patrón que reconstruye la línea entera con sus tabuladores, en el orden exacto en que <code>cut</code> las dejó. Si mañana necesitas otra columna, cambia el patrón completo. Si el replicón tiene un punto —y lo tiene— el patrón puede coincidir de más. La estrategia funciona por la forma concreta de tu archivo, no porque hayas dicho lo que querías decir. Es la misma sensación que tuviste al final de S13.</p>
+<p>Y ahora prueba con esta otra:</p>
+<blockquote class="blockquote">
+<p><strong>¿Cuánto mide cada gen?</strong></p>
+</blockquote>
+<p>Aquí ya no hay tubería que valga. <code>cut</code> te da la columna del inicio y la del final, pero <strong>no puede restarlas</strong>. <code>grep</code> compara texto, no números. <code>sort -n</code> ordena, pero no calcula. Ninguna de tus herramientas sabe hacer aritmética con dos columnas de la misma línea.</p>
+<p>Esa es la limitación que abre la sesión, y no es de comodidad: es de <strong>capacidad</strong>.</p>
+<blockquote class="blockquote">
+<p><strong>IDEA CLAVE.</strong> Tus preguntas cambiaron de naturaleza. Hasta S21 preguntabas <em>qué hay</em> y <em>cuántos hay</em>; ahora preguntas <em>cuánto miden</em>, <em>en qué proporción</em> y <em>dónde se concentran</em>. Las respuestas de presencia se obtienen filtrando; las de magnitud, calculando.</p>
+</blockquote>
+</section>
+<section id="las-cuatro-partes-de-una-pregunta-compleja-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="las-cuatro-partes-de-una-pregunta-compleja-indispensable">2. Las cuatro partes de una pregunta compleja [Indispensable]</h2>
+<p>Antes de ninguna herramienta, la disciplina. Una pregunta como <em>“¿cuántos genes hay en la cadena negativa del cromosoma?”</em> contiene cuatro decisiones que conviene tomar por separado, y <strong>tres de ellas son biológicas</strong>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u4-s22-anatomia-pregunta.png" class="img-fluid figure-img"></p>
+<figcaption>Una pregunta biológica —cuántos genes hay en la cadena negativa de un replicón concreto— se descompone en cuatro partes antes de escribir ningún comando: qué registros, es decir los de tipo gene; qué columnas, la del replicón, la del tipo y la de la cadena; qué condición, que el tipo sea gene y además la cadena negativa y además el replicón el elegido; y qué cálculo, contar. Debajo, esas cuatro partes se traducen a una expresión ejecutable en la que cada componente ocupa un lugar visible y coloreado. Una franja final indica que las tres primeras partes se piensan en español, que la sintaxis aparece solo al final, y que una pregunta que no se puede descomponer así todavía no está lista para convertirse en un comando.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 22.1.</strong> Anatomía de una pregunta compleja. Las tres primeras decisiones son biológicas; solo la cuarta y la sintaxis son técnicas. Elaboración propia.</p>
+<p>Cuando una consulta sale mal, casi nunca es por la sintaxis: es porque alguna de las tres primeras decisiones estaba sin tomar. Por eso la primera práctica de hoy no tiene comandos.</p>
+<blockquote class="blockquote">
+<p><strong>IDEA CLAVE.</strong> Si no puedes escribir la condición en español, no la vas a poder escribir en ningún lenguaje. La sintaxis se consulta; la precisión sobre lo que preguntas, no.</p>
+</blockquote>
+<hr>
+<section id="práctica-1-traducir-preguntas-sin-ejecutar-nada-antes-de-clase-primer-intento" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-1-traducir-preguntas-sin-ejecutar-nada-antes-de-clase-primer-intento">Práctica 1 — Traducir preguntas, sin ejecutar nada <em>(antes de clase, primer intento)</em></h3>
+<p><strong>Pregunta biológica.</strong> ¿Qué necesito decidir, antes de tocar el teclado, para responder una pregunta que combina varias características de un registro?</p>
+<p><strong>Objetivo.</strong> Separar la pregunta biológica de su implementación.</p>
+<p><strong>Antes de clase (primer intento).</strong> En <code>doc/s22-primer-intento.md</code>, y <strong>sin ejecutar ningún comando</strong>:</p>
+<ol type="1">
+<li><p><strong>Rellena la tabla</strong> para estas tres preguntas, mirando el diccionario de tu tabla derivada de S20 para saber qué columna es cada cosa:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Pregunta biológica</th>
+<th>Qué registros</th>
+<th>Qué columnas</th>
+<th>Qué condición</th>
+<th>Qué cálculo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>¿Cuántos genes hay en la cadena negativa?</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>¿Cuánto mide cada gen?</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>¿Cuántos genes por kilobase tiene cada replicón?</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></li>
+<li><p><strong>Marca lo que te falta.</strong> ¿Alguna de las tres necesita un dato que tu tabla derivada <strong>no</strong> contiene? Dilo: es información sobre tus datos, no un fallo tuyo.</p></li>
+<li><p><strong>Predice.</strong> Para la primera pregunta, ¿esperas un reparto cercano al 50/50 entre las dos cadenas? Justifícalo con lo que viste en S18.</p></li>
+<li><p><strong>Anticipa el orden de magnitud.</strong> ¿Cuánto crees que mide un gen bacteriano típico? Da un número en pares de bases; lo contrastarás en el taller.</p></li>
+<li><p><strong>Escribe la pregunta que no sabes descomponer.</strong> Si alguna de las tres se te resiste, di exactamente en qué parte te atascaste.</p></li>
+</ol>
+<p><strong>Durante el taller.</strong> Convertirás cada fila de tu tabla en una expresión ejecutable, y comprobarás si lo que te faltaba era sintaxis o precisión.</p>
+<p><strong>Después del taller.</strong> La tabla completa entra en el protocolo como el puente entre la pregunta y el comando.</p>
+<p><strong>Criterio de logro:</strong> tus condiciones están escritas en español y son comprobables —alguien podría decidir, leyendo una línea del archivo, si la cumple o no—.</p>
+<hr>
+</section>
+</section>
+<section id="condicionar-sobre-varias-columnas-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="condicionar-sobre-varias-columnas-indispensable">3. Condicionar sobre varias columnas [Indispensable]</h2>
+<p>Necesitas una herramienta que vea la línea <strong>como campos numerados</strong> y pueda compararlos entre sí.</p>
+<section id="sintaxis-mínima-awk" class="level4">
+<h4 class="anchored" data-anchor-id="sintaxis-mínima-awk">Sintaxis mínima — <code>awk</code></h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="st">'condición { acción }'</span> archivo</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>¿Qué hace?</strong> Recorre el archivo línea por línea. Para cada línea, si la <strong>condición</strong> se cumple, ejecuta la <strong>acción</strong>. Los campos se nombran <code>$1</code>, <code>$2</code>, … según el orden en que aparecen, y <code>-F'\t'</code> declara que el separador es el tabulador.</p>
+<p><strong>¿Por qué aparece en esta sesión?</strong> Porque es la primera herramienta del curso que puede <strong>comparar dos campos de la misma línea y hacer aritmética con ellos</strong>. Lo demás que sabe hacer no se usa hoy.</p>
+<p>Si omites la acción, imprime las líneas que cumplen la condición —igual que <code>grep</code>, pero preguntando por campos en lugar de por texto—:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="st">'$3=="gene" &amp;&amp; $7=="-"'</span> data/source/anotacion.gff3 <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Léelo como una frase: <em>para cada línea, si el campo 3 es exactamente <code>gene</code> <strong>y</strong> el campo 7 es exactamente <code>-</code>, imprímela.</em> Compáralo con la tubería de la Sección 1: la condición ya no reconstruye la línea, <strong>nombra cada campo por separado</strong>, y añadir una tercera condición es escribir <code>&amp;&amp; $1=="…"</code> en vez de rehacer el patrón.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="`-F'\t'` no es opcional">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Advertencia</span><code>-F'\t'</code> no es opcional
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sin él, <code>awk</code> separa los campos por <strong>espacios</strong>, y en un GFF3 de RefSeq hay fuentes de anotación con espacio en el nombre, como <code>Protein Homology</code>. En esas líneas, <code>$3</code> deja de ser el tipo y pasa a ser la segunda mitad del nombre de la fuente: <code>awk '$3=="CDS"' anotacion.gff3</code> devuelve <strong>cero resultados</strong> en un archivo que tiene miles de CDS, sin dar ningún error. Compruébalo tú mismo en la Práctica 2: es el fallo silencioso más caro de esta sesión.</p>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>IDEA CLAVE.</strong> <code>grep</code> pregunta <em>“¿aparece este texto?”</em>; <code>awk</code> pregunta <em>“¿el campo número tres es igual a esto?”</em>. Es la diferencia entre buscar en la línea y consultar la tabla que la línea representa.</p>
+</blockquote>
+<hr>
+</section>
+<section id="práctica-2-la-misma-pregunta-dos-estrategias-durante-el-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-2-la-misma-pregunta-dos-estrategias-durante-el-taller">Práctica 2 — La misma pregunta, dos estrategias <em>(durante el taller)</em></h3>
+<p><strong>Pregunta biológica.</strong> ¿Cómo se reparten los genes entre las dos cadenas, y cambia ese reparto entre replicones?</p>
+<p><strong>Objetivo.</strong> Expresar una condición sobre varias columnas y comprobar que da el mismo resultado que la estrategia anterior.</p>
+<p><strong>Parte A — Reproducir lo conocido</strong></p>
+<ol type="1">
+<li><strong>Recupera</strong> de tu protocolo el reparto por cadena que obtuviste en S18 con <code>cut</code> y <code>sort | uniq -c</code>.</li>
+<li><strong>Escribe la condición en <code>awk</code></strong> para los genes de la cadena negativa y cuéntalos.</li>
+<li><strong>Compara los dos números.</strong> Deben coincidir. Si no coinciden, uno de los dos está mal y hay que averiguar cuál antes de seguir: el que sabes justificar gana.</li>
+</ol>
+<p><strong>Parte B — La trampa del separador</strong></p>
+<ol start="4" type="1">
+<li><p><strong>Ejecuta a propósito la versión sin <code>-F'\t'</code></strong> sobre los registros <code>CDS</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'$3=="CDS"'</span> data/source/anotacion.gff3 <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="st">'$3=="CDS"'</span> data/source/anotacion.gff3 <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Explica la diferencia mirando una línea <code>CDS</code> completa. ¿Qué contiene realmente <code>$3</code> cuando no declaras el separador?</p></li>
+</ol>
+<p><strong>Parte C — Añadir una condición</strong></p>
+<ol start="5" type="1">
+<li><strong>Restringe a un replicón</strong> añadiendo <code>&amp;&amp; $1=="…"</code> y repite el conteo para las dos cadenas.</li>
+<li><strong>Verifica.</strong> Genes en <code>+</code> más genes en <code>−</code> debe dar el total de genes de ese replicón. Si sobra alguno, busca los registros cuya cadena no sea ni <code>+</code> ni <code>−</code> y anótalos: el GFF3 admite un punto para cadena no determinada.</li>
+<li><strong>Interpreta.</strong> ¿El reparto es parecido en los dos casos? En bacterias suele observarse un sesgo relacionado con el sentido de la replicación. Describe la diferencia y su tamaño; <strong>no afirmes que es significativa</strong>: eso exigiría una prueba estadística que no tienes.</li>
+</ol>
+<p><strong>Producto esperado.</strong> El reparto por cadena y por replicón, coincidente con S18 y verificado por suma.</p>
+<p><strong>Criterio de logro:</strong> obtienes el mismo número por dos estrategias distintas y puedes explicar qué hace exactamente cada campo de tu condición.</p>
+<hr>
+</section>
+</section>
+<section id="calcular-por-registro-la-longitud-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="calcular-por-registro-la-longitud-indispensable">4. Calcular por registro: la longitud [Indispensable]</h2>
+<p>Ahora la pregunta que ninguna tubería podía responder. En el GFF3, las columnas 4 y 5 son el inicio y el final de cada registro, y la longitud sale de restarlas… con un cuidado.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u4-s22-coordenadas-longitud.png" class="img-fluid figure-img"></p>
+<figcaption>Un segmento de DNA se representa como una fila de bases numeradas de la posición 100 a la 109. Un gen ocupa desde la 100 hasta la 109, ambas incluidas. Restar el final menos el inicio da nueve, pero las bases dibujadas son diez: la resta cuenta los huecos entre posiciones, no las posiciones mismas. Por eso la longitud es el final menos el inicio más uno. Un ejemplo mínimo lo confirma: un gen que empieza y termina en la posición 100 ocupa una sola base, y la resta sin el más uno daría cero, que es imposible. Una franja final advierte que el error falla por una sola base en cada gen, de modo que ningún gen parece mal, pero al sumar miles el error total es enorme.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 22.2.</strong> De coordenadas a longitud. El GFF3 usa coordenadas <strong>inclusivas</strong>: la primera y la última base cuentan, y de ahí sale el «más uno». Elaboración propia.</p>
+<pre class="text"><code>longitud = fin − inicio + 1</code></pre>
+<p>En <code>awk</code>, esa fórmula se escribe casi igual:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="st">'$3=="gene" { print $5-$4+1 }'</span> data/source/anotacion.gff3 <span class="kw">|</span> <span class="fu">head</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>¿Qué hace la acción entre llaves?</strong> Se ejecuta solo cuando la condición se cumple, y aquí calcula e imprime un número por cada gen. Es la primera vez en el curso que produces un dato <strong>que no estaba en el archivo</strong>.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="no sumes longitudes de `gene` y de `CDS` a la vez">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Advertencia</span>no sumes longitudes de <code>gene</code> y de <code>CDS</code> a la vez
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Un mismo locus genera ambos registros, con coordenadas casi idénticas. Sumarlos cuenta ese DNA dos veces. Es la advertencia de S13 —registro no es objeto— con consecuencias aritméticas: aquí no infla un conteo, infla un total en pares de bases.</p>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>IDEA CLAVE.</strong> El <code>+1</code> no es un detalle de programación: es la diferencia entre contar bases y contar los huecos que hay entre ellas. Y falla en silencio, porque un gen de 999 en vez de 1000 no le parece raro a nadie.</p>
+</blockquote>
+<hr>
+<section id="práctica-3-cuánto-mide-cada-gen-durante-el-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-3-cuánto-mide-cada-gen-durante-el-taller">Práctica 3 — ¿Cuánto mide cada gen? <em>(durante el taller)</em></h3>
+<p><strong>Pregunta biológica.</strong> ¿Cuál es la longitud de los genes de mi genoma, y hay alguno de tamaño sospechoso?</p>
+<p><strong>Objetivo.</strong> Producir una medida por registro y comprobarla a mano.</p>
+<p><strong>Pasos.</strong></p>
+<ol type="1">
+<li><p><strong>Calcula las longitudes</strong> de los genes y guárdalas:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="st">'$3=="gene" { print $5-$4+1 }'</span> data/source/anotacion.gff3 <span class="dt">\</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-n</span> <span class="op">&gt;</span> results/s22/longitudes-genes.txt</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p><strong>Verifica a mano tres casos.</strong> Toma tres genes del archivo, apunta su inicio y su final, calcula la resta con lápiz y compárala con la salida. Es la comprobación más aburrida de la unidad y la que más errores atrapa.</p></li>
+<li><p><strong>Comprueba lo imposible.</strong> Ninguna longitud puede ser cero ni negativa:</p></li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled" title="qué debe cumplirse siempre, sea cual sea tu genoma">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>qué debe cumplirse siempre, sea cual sea tu genoma
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Tus tres comprobaciones a mano tienen que dar exactamente lo mismo que <code>awk</code>; si una falla, el error casi siempre es haber olvidado el <code>+1</code> de las coordenadas inclusivas. Y sobre el conjunto: ninguna longitud puede ser <strong>cero ni negativa</strong>, y la longitud mínima no puede superar a la media, ni la media a la máxima. Esas tres desigualdades no dependen del organismo. Lo que sí depende —cuánto miden tus genes, si hay alguno sospechosamente largo— no tiene respuesta única: se interpreta contra la biología del organismo, no contra una tabla.</p>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="st">'$3=="gene" &amp;&amp; $5-$4+1 &lt;= 0'</span> data/source/anotacion.gff3 <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Debe dar cero. Si no, esos registros tienen las coordenadas invertidas o algo peor, y hay que mirarlos uno a uno. 4. <strong>Cuadra el número de líneas</strong> de tu archivo de longitudes con tu conteo de genes de S18. 5. <strong>Mira los extremos.</strong> Con la lista ya ordenada, <code>head -3</code> y <code>tail -3</code> te dan los tres genes más cortos y los tres más largos. ¿El más corto es plausible como gen? ¿Y el más largo? 6. <strong>Contrasta con tu predicción</strong> de la Práctica 1, paso 4.</p>
+<p><strong>Producto esperado.</strong> <code>results/s22/longitudes-genes.txt</code>, verificado a mano y por cardinalidad.</p>
+<p><strong>Criterio de logro:</strong> ninguna longitud es cero o negativa, el número de longitudes coincide con tu conteo de genes, y puedes decir si los valores extremos son biológicamente razonables.</p>
+<hr>
+</section>
+</section>
+<section id="resumir-el-conjunto-acumular-y-cerrar-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="resumir-el-conjunto-acumular-y-cerrar-indispensable">5. Resumir el conjunto: acumular y cerrar [Indispensable]</h2>
+<p>Tienes una longitud por gen. La pregunta biológica, sin embargo, era sobre <strong>el conjunto</strong>: cuántos, cuánto en total, cuál es el más corto, el más largo, el promedio.</p>
+<p>Para eso hace falta que <code>awk</code> <strong>recuerde</strong> lo que lleva visto mientras recorre el archivo, y que emita el resumen cuando ya no queden líneas.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u4-s22-registro-a-resumen.png" class="img-fluid figure-img"></p>
+<figcaption>A la izquierda, el archivo se recorre línea por línea: de cada gen que cumple la condición se calcula su longitud y se actualizan cuatro acumuladores con significado biológico: cuántos genes van, cuánta longitud acumulada, cuál es la mínima vista y cuál la máxima. A la derecha, cuando el archivo se termina, esos acumuladores se convierten en el resumen del conjunto: número, total, mínima, máxima y media, que es la longitud acumulada dividida entre el número de genes. En el centro se destaca que el cambio no es de sintaxis sino de escala. Una franja inferior enumera tres comprobaciones: que la mínima sea menor o igual que la media y esta que la máxima, que el número coincida con el conteo obtenido por otro camino, y que ninguna longitud sea cero o negativa.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 22.3.</strong> De un registro a un conjunto. Los acumuladores no son variables de programación: son la memoria de lo que llevas visto. Elaboración propia.</p>
+<section id="sintaxis-mínima-acumuladores-y-end" class="level4">
+<h4 class="anchored" data-anchor-id="sintaxis-mínima-acumuladores-y-end">Sintaxis mínima — acumuladores y <code>END</code></h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="st">'$3=="gene" {</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="st">      n++</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="st">      L = $5 - $4 + 1</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="st">      suma += L</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="st">      if (min == "" || L &lt; min) min = L</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="st">      if (L &gt; max) max = L</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="st">    }</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="st">    END { print n, suma, min, max, suma/n }'</span> data/source/anotacion.gff3</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>¿Qué hace?</strong> Los nombres <code>n</code>, <code>suma</code>, <code>min</code> y <code>max</code> guardan valores de una línea a la siguiente. El bloque <code>END</code> se ejecuta <strong>una sola vez</strong>, cuando el archivo se ha terminado, y es el único sitio donde tiene sentido calcular la media: antes no conoces todavía ni el total ni el número de genes.</p>
+<p><strong>¿Por qué aparece en esta sesión?</strong> Porque una pregunta sobre un conjunto no puede responderse mirando una línea. Sin memoria no hay resumen.</p>
+<p>Fíjate en <code>min == ""</code>. La primera vez no hay ningún mínimo previo con el que comparar, así que sin esa condición el mínimo se queda vacío para siempre. Es el error clásico y da una salida que parece normal salvo por un hueco.</p>
+<p>Para una salida legible, <code>printf</code> controla el formato y los decimales:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">END</span> { printf <span class="st">"genes=%d  total=%d bp  min=%d  max=%d  media=%.1f bp\n"</span>, n, suma, min, max, suma/n }</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote class="blockquote">
+<p><strong>IDEA CLAVE.</strong> Contar, sumar, quedarse con el mínimo y con el máximo son cuatro formas de la misma operación: <strong>acumular</strong>. Y el resumen no se emite mientras se recorre el archivo, sino cuando ya no queda nada que ver.</p>
+</blockquote>
+<hr>
+</section>
+<section id="práctica-4-el-perfil-de-longitudes-de-mi-genoma-durante-el-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-4-el-perfil-de-longitudes-de-mi-genoma-durante-el-taller">Práctica 4 — El perfil de longitudes de mi genoma <em>(durante el taller)</em></h3>
+<p><strong>Pregunta biológica.</strong> ¿Qué tamaño tienen los genes de mi organismo, y qué me dice ese perfil sobre su genoma?</p>
+<p><strong>Objetivo.</strong> Producir un resumen del conjunto y validarlo antes de interpretarlo.</p>
+<p><strong>Parte A — Construir el resumen</strong></p>
+<ol type="1">
+<li><strong>Empieza por dos acumuladores</strong>, <code>n</code> y <code>suma</code>, e imprime solo esos dos en <code>END</code>. Comprueba que la <code>n</code> coincide con tu conteo de genes.</li>
+<li><strong>Añade el mínimo y el máximo</strong>, con la comparación <code>min == ""</code> incluida.</li>
+<li><strong>Añade la media</strong> en el bloque <code>END</code>, y solo después dale formato con <code>printf</code>.</li>
+</ol>
+<p><strong>Parte B — Validar</strong></p>
+<ol start="4" type="1">
+<li><strong>Comprueba el orden:</strong> <code>mínimo ≤ media ≤ máximo</code>. Si falla, hay un acumulador mal inicializado.</li>
+<li><strong>Contrasta con la Práctica 3:</strong> el mínimo y el máximo deben ser los mismos que viste con <code>head</code> y <code>tail</code> sobre la lista ordenada.</li>
+<li><strong>Comprueba el total:</strong> la suma de longitudes de genes tiene que ser <strong>menor</strong> que el tamaño del genoma. Si no lo es, estás contando dos veces —probablemente sumando <code>gene</code> y <code>CDS</code>—.</li>
+</ol>
+<p><strong>Parte C — Interpretar</strong></p>
+<ol start="7" type="1">
+<li><strong>Lee el perfil.</strong> ¿La media se parece al gen bacteriano típico que predijiste? ¿El máximo es varias veces la media? Un perfil con una media moderada y un máximo muy grande indica una distribución asimétrica: muchos genes medianos y unos pocos muy largos.</li>
+<li><strong>Declara el límite.</strong> La media resume, pero esconde la forma de la distribución. Con media, mínimo y máximo <strong>no puedes</strong> afirmar cómo se reparten los valores intermedios.</li>
+</ol>
+<p><strong>Producto esperado.</strong> El resumen <code>n</code>, total, mínimo, máximo y media, con sus unidades y sus tres verificaciones.</p>
+<p><strong>Criterio de logro:</strong> cada número del resumen está contrastado con un resultado anterior, y tu interpretación distingue lo que la media dice de lo que oculta.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="la mediana, si te interesa">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>la mediana, si te interesa
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La mediana es el valor central: resiste mejor los genes extremadamente largos que la media. Calcularla dentro de <code>awk</code> exigiría guardar todos los valores y ordenarlos, que es más maquinaria de la que hoy conviene. Pero tu lista de la Práctica 3 <strong>ya está ordenada</strong>, así que sale con lo que sabes desde S10 y S13:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="va">n</span><span class="op">=</span><span class="va">$(</span><span class="fu">wc</span> <span class="at">-l</span> <span class="op">&lt;</span> results/s22/longitudes-genes.txt<span class="va">)</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> <span class="va">$((</span> (<span class="va">n</span> <span class="op">+</span> <span class="dv">1</span>) <span class="op">/</span> <span class="dv">2</span> <span class="va">))</span> results/s22/longitudes-genes.txt <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-1</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Compárala con la media: si la mediana es bastante menor, tienes la confirmación de esa cola de genes largos. Es material de ampliación, no de examen.</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="por-replicón-contar-no-es-medir-densidad-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="por-replicón-contar-no-es-medir-densidad-indispensable">6. Por replicón: contar no es medir densidad [Indispensable]</h2>
+<p>Tus replicones tienen tamaños muy distintos. Decir que el cromosoma tiene muchos más genes que el plásmido es cierto y no informa de nada: es más grande. La pregunta biológica interesante es si están <strong>igual de compactos</strong>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u4-s22-conteo-vs-densidad.png" class="img-fluid figure-img"></p>
+<figcaption>Dos comparaciones muestran que contar genes y medir densidad responden preguntas distintas. En la primera, un cromosoma grande con muchos genes y un plásmido pequeño con muy pocos tienen densidades parecidas, cercanas a un gen por kilobase: los conteos son muy distintos pero los dos replicones están igual de compactos. En la segunda, dos replicones con el mismo número de genes tienen densidades muy distintas porque uno es cuatro veces más largo. Una franja final da la fórmula, recuerda que la longitud es la que declara el archivo y no la que ocupan los genes, y advierte que un número sin sus unidades no se puede comparar con nada.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 22.4.</strong> Contar no es medir densidad. El número de genes depende del tamaño del replicón; la densidad, no, y por eso permite comparar. Elaboración propia.</p>
+<pre class="text"><code>densidad = número de genes ÷ (longitud del replicón en pb ÷ 1000)</code></pre>
+<p>Necesitas dos ingredientes, y los dos los sabes obtener desde S13:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># genes por replicón — la distribución de frecuencias de S13, ahora sobre una condición</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="st">'$3=="gene" { print $1 }'</span> data/source/anotacion.gff3 <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># longitud de cada replicón — declarada en las directivas del encabezado</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">'^##sequence-region'</span> data/source/anotacion.gff3 <span class="kw">|</span> <span class="fu">tr</span> <span class="at">-s</span> <span class="st">' '</span> <span class="st">'\t'</span> <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f2,4</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Fíjate en que <strong>no hace falta que <code>awk</code> agrupe</strong>: agrupar ya sabes hacerlo con <code>sort | uniq -c</code> desde S13, y así se lee mejor. <code>awk</code> se reserva para lo que solo él puede hacer, que es la división final sobre la tabla pequeña que acabas de construir:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="st">'{ printf "%s\t%d pb\t%d genes\t%.2f genes/kb\n", $1, $2, $3, $3/($2/1000) }'</span> <span class="dt">\</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  results/s22/replicones-genes-longitud.tsv</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-important callout-titled" title="la longitud del denominador">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>la longitud del denominador
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Es la <strong>longitud del replicón</strong>, no la suma de las longitudes de sus genes. Son dos cantidades distintas y confundirlas da una densidad que puede superar 1 gen/kb sin que eso signifique nada.</p>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>IDEA CLAVE.</strong> Un conteo solo se puede comparar consigo mismo. Para comparar dos replicones —o dos organismos— hay que dividir entre algo que los ponga en la misma escala, y decir en qué unidades quedó el resultado.</p>
+</blockquote>
+<hr>
+<section id="práctica-5-qué-replicón-está-más-compacto-durante-el-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-5-qué-replicón-está-más-compacto-durante-el-taller">Práctica 5 — ¿Qué replicón está más compacto? <em>(durante el taller)</em></h3>
+<p><strong>Pregunta biológica.</strong> ¿Tienen mis replicones densidades génicas parecidas, y qué significaría que no las tuvieran?</p>
+<p><strong>Objetivo.</strong> Construir una medida relativa y distinguirla del conteo.</p>
+<p><strong>Pasos.</strong></p>
+<ol type="1">
+<li><strong>Cuenta los genes de cada replicón</strong> y anótalos.</li>
+<li><strong>Recupera la longitud declarada</strong> de cada replicón desde las directivas <code>##sequence-region</code>, como en S13.</li>
+<li><strong>Construye la tabla</strong> <code>replicón · longitud · genes</code> en <code>results/s22/replicones-genes-longitud.tsv</code>.</li>
+<li><strong>Verifica la tabla antes de dividir:</strong> la suma de la columna de genes debe ser tu total de genes, y los identificadores de replicón deben ser exactamente los de S19. Si aparece uno de más, algo se coló.</li>
+<li><strong>Calcula la densidad</strong> con la división de arriba y <strong>escribe las unidades</strong> en la salida.</li>
+<li><strong>Comprueba el caso límite.</strong> Si algún replicón no tuviera longitud declarada, la división daría un resultado absurdo o un error: localízalo antes y decide qué hacer.</li>
+<li><strong>Interpreta.</strong> ¿Las densidades se parecen? En bacterias suelen rondar 1 gen/kb. Una densidad mucho menor en un replicón pequeño puede indicar regiones no codificantes, elementos móviles o simplemente una anotación menos completa de ese replicón.</li>
+<li><strong>Declara el límite.</strong> Una densidad global no dice <strong>dónde</strong> están los huecos dentro del replicón.</li>
+</ol>
+<p><strong>Producto esperado.</strong> La tabla de densidades con sus unidades, verificada y con una interpretación por replicón.</p>
+<p><strong>Criterio de logro:</strong> distingues explícitamente número de genes, longitud del replicón y densidad, y tu interpretación no confunde una densidad baja con un error de anotación sin más evidencia.</p>
+<hr>
+</section>
+</section>
+<section id="cerrar-la-pregunta-del-tamaño-del-genoma-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="cerrar-la-pregunta-del-tamaño-del-genoma-indispensable">7. Cerrar la pregunta del tamaño del genoma [Indispensable]</h2>
+<p>Esta pregunta te acompaña desde la primera sesión de la unidad, y cada vez la respondiste mejor:</p>
+<pre class="text"><code>S10   wc -c del archivo                     →  bytes, no bases: incluía encabezados y saltos de línea
+S11   diagnóstico estructural               →  supiste POR QUÉ estaba mal, sin poder corregirlo
+S12   grep -v "&gt;" | tr -d "\n" | wc -c      →  bases reales del FASTA
+S13   suma manual de ##sequence-region      →  lo que declara el productor de los datos
+S22   suma calculada por replicón           →  la respuesta final, y la comparación entre todas</code></pre>
+<p>Hoy la cierras sumando las longitudes declaradas, ya sin sumar a mano:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">'^##sequence-region'</span> data/source/anotacion.gff3 <span class="dt">\</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="fu">tr</span> <span class="at">-s</span> <span class="st">' '</span> <span class="st">'\t'</span> <span class="dt">\</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="st">'{ total += $4 } END { print total }'</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Y el resultado <strong>no es un número aislado</strong>: es el último de una serie, y lo interesante es la comparación. Si tu medida del FASTA en S12 coincide con la suma de las directivas, tienes dos evidencias independientes del mismo valor. Si no coinciden, la diferencia tiene explicación y hay que darla: bases ambiguas, un replicón presente en un archivo y no en el otro, o una versión distinta.</p>
+<blockquote class="blockquote">
+<p><strong>IDEA CLAVE.</strong> Una pregunta bien planteada se responde muchas veces, cada vez mejor, y el valor no está en la última respuesta sino en poder explicar <strong>por qué las anteriores diferían</strong>. Esa serie de cinco respuestas es, probablemente, la mejor evidencia de aprendizaje de toda la unidad.</p>
+</blockquote>
+<hr>
+<section id="práctica-6-la-respuesta-final-al-tamaño-del-genoma-después-del-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-6-la-respuesta-final-al-tamaño-del-genoma-después-del-taller">Práctica 6 — La respuesta final al tamaño del genoma <em>(después del taller)</em></h3>
+<p><strong>Pregunta biológica.</strong> ¿De qué tamaño es este genoma, y por qué mis cinco respuestas no coincidieron?</p>
+<p><strong>Objetivo.</strong> Cerrar la pregunta más antigua de la unidad y explicar su historia.</p>
+<p><strong>Pasos.</strong></p>
+<ol type="1">
+<li><strong>Calcula el total</strong> sumando las longitudes declaradas por replicón.</li>
+<li><strong>Recupera del protocolo</strong> las respuestas de S10, S12 y S13.</li>
+<li><strong>Construye la tabla</strong> de las cinco respuestas con su diferencia respecto a la de hoy.</li>
+<li><strong>Explica cada diferencia.</strong> La de S10 es enorme y su causa la conoces desde S11. Las de S12, S13 y S22 deberían ser pequeñas o nulas: si no lo son, la causa es real y hay que nombrarla.</li>
+<li><strong>Declara cuál adoptas</strong> como respuesta final y por qué. No tiene que ser la de hoy: tiene que ser la que puedas justificar.</li>
+<li><strong>Escribe qué mide cada una.</strong> La de S12 mide bases presentes en tu FASTA; la de S13 y S22 miden lo que el productor declara. Son cosas distintas y pueden diferir legítimamente.</li>
+</ol>
+<p><strong>Producto esperado.</strong> La tabla de las cinco respuestas, con la explicación de cada diferencia y la elección justificada.</p>
+<p><strong>Criterio de logro:</strong> ninguna diferencia queda sin explicar, y distingues «medí» de «me lo declararon».</p>
+<hr>
+</section>
+</section>
+<section id="la-magnitud-de-una-discrepancia-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="la-magnitud-de-una-discrepancia-indispensable">8. La magnitud de una discrepancia [Indispensable]</h2>
+<p>S21 te dejó tres listas y una pregunta abierta: <strong>¿importan esas diferencias?</strong> Un mismo número de discrepancias puede significar cosas opuestas:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Escenario</th>
+<th>Qué encuentras</th>
+<th>Interpretación probable</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Muchas y cortas</strong></td>
+<td>40 loci discrepantes, media de 80 pb, total 3 200 pb</td>
+<td>Fragmentos en el límite de lo que cada criterio considera un gen. La discrepancia es sobre el <strong>umbral</strong>, no sobre el genoma</td>
+</tr>
+<tr class="even">
+<td><strong>Pocas y largas</strong></td>
+<td>3 loci discrepantes, media de 2 400 pb, total 7 200 pb</td>
+<td>Genes completos que una fuente reconoce y otra no. Eso sí es un desacuerdo de fondo</td>
+</tr>
+<tr class="odd">
+<td><strong>Pocas y cortas</strong></td>
+<td>2 loci, 120 pb en total</td>
+<td>Ruido: se documenta y se sigue adelante</td>
+</tr>
+</tbody>
+</table>
+<p>Para decidir en cuál estás, hay que medir los loci de cada zona. Y para eso necesitas cruzar dos cosas: la lista de identificadores de S21 y las coordenadas del GFF3.</p>
+<section id="sintaxis-mínima-grep--f--f" class="level4">
+<h4 class="anchored" data-anchor-id="sintaxis-mínima-grep--f--f">Sintaxis mínima — <code>grep -F -f</code></h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-F</span> <span class="at">-f</span> lista.txt archivo</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>¿Qué hace?</strong> Busca en el archivo <strong>todas</strong> las cadenas que hay en <code>lista.txt</code>, una por línea, tratándolas como texto literal (<code>-F</code>) y no como patrones.</p>
+<p><strong>¿Por qué aparece en esta sesión?</strong> Porque tus zonas de S21 tienen decenas de identificadores y escribirlos a mano en un patrón sería inviable y frágil. Es una opción de <code>grep</code>, que ya conoces desde S12; no una herramienta nueva.</p>
+<p>Primero construyes una tabla de dos columnas, longitud e identificador:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="st">'$3=="gene" { print $5-$4+1 "\t" $9 }'</span> data/source/anotacion.gff3 <span class="dt">\</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="fu">sed</span> <span class="at">-E</span> <span class="st">'s/\t.*locus_tag=/\t/; s/;.*$//'</span> <span class="dt">\</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">&gt;</span> results/s22/longitud-por-locus.tsv</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>El <code>sed</code> recorta el campo de atributos y deja solo el <code>locus_tag</code>, anclando la sustitución en el tabulador que separa la longitud —es la regla acotada de S20—. Después seleccionas los de una zona y los resumes:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-F</span> <span class="at">-f</span> results/s21/solo-propio.txt results/s22/longitud-por-locus.tsv <span class="dt">\</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f1</span> <span class="dt">\</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="fu">awk</span> <span class="st">'{ n++; s+=$1; if(min==""||$1&lt;min) min=$1; if($1&gt;max) max=$1 }</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="st">         END { printf "n=%d min=%d max=%d media=%.1f total=%d pb\n", n, min, max, s/n, s }'</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-important callout-titled" title="comprueba que mediste lo que querías">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>comprueba que mediste lo que querías
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El número de loci que devuelve <code>grep -F -f</code> debe coincidir con las líneas de la lista de esa zona. Si es menor, algún identificador no está en tu GFF3 —lo cual es en sí un hallazgo—; si es mayor, un identificador corto está coincidiendo dentro de otro más largo, y hay que acotarlo.</p>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>IDEA CLAVE.</strong> Contar discrepancias mide el desacuerdo <strong>en número de objetos</strong>; medirlas lo mide <strong>en cantidad de genoma</strong>. Las dos cifras responden preguntas distintas y una discrepancia puede ser grande en una y despreciable en la otra.</p>
+</blockquote>
+<hr>
+</section>
+<section id="práctica-7-importan-las-diferencias-de-s21-después-del-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-7-importan-las-diferencias-de-s21-después-del-taller">Práctica 7 — ¿Importan las diferencias de S21? <em>(después del taller)</em></h3>
+<p><strong>Pregunta biológica.</strong> Las discrepancias entre mi anotación y la fuente externa, ¿afectan a genes completos o a fragmentos marginales?</p>
+<p><strong>Objetivo.</strong> Reinterpretar el resultado de S21 a la luz de una medida.</p>
+<p><strong>Pasos.</strong></p>
+<ol type="1">
+<li><strong>Construye la tabla</strong> longitud ↔︎ <code>locus_tag</code> y comprueba que su número de líneas coincide con tu conteo de genes.</li>
+<li><strong>Mide cada zona no vacía</strong> de S21 y anota <code>n</code>, mínimo, máximo, media y total.</li>
+<li><strong>Comprueba la correspondencia:</strong> los loci medidos de cada zona deben ser tantos como los de la lista original.</li>
+<li><strong>Compara con el perfil general</strong> de la Práctica 4. ¿La media de las discrepancias se parece a la media de todos tus genes, o es mucho menor?</li>
+<li><strong>Sitúate en la tabla de escenarios</strong> de esta sección y justifica cuál es tu caso.</li>
+<li><strong>Vuelve a tu hipótesis de S21.</strong> ¿La medida la refuerza, la debilita o la deja igual? Escríbelo: es la primera vez en el curso que una medida nueva te obliga a revisar una interpretación anterior.</li>
+<li><strong>Si una zona está vacía</strong>, dilo y no fabriques casos: una zona vacía significa que en ese sentido las fuentes concuerdan por completo, y es un resultado que también se interpreta.</li>
+</ol>
+<p><strong>Producto esperado.</strong> El resumen de longitudes por zona y la revisión de tu hipótesis de S21.</p>
+<p><strong>Criterio de logro:</strong> tu conclusión sobre la importancia de las discrepancias se apoya en la medida, no en el número de casos, y declaras qué habría hecho falta para decidir si aún queda duda.</p>
+<hr>
+</section>
+</section>
+<section id="dos-soluciones-correctas-consulta" class="level2">
+<h2 class="anchored" data-anchor-id="dos-soluciones-correctas-consulta">9. Dos soluciones correctas [Consulta]</h2>
+<p>Casi todas las preguntas de hoy admiten más de una solución válida, y la más corta no es automáticamente la mejor. Compara estas dos formas de contar los genes de la cadena negativa:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A · con las herramientas de S11–S13</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-Ev</span> <span class="st">'^#'</span> data/source/anotacion.gff3 <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f3,7</span> <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-E</span> <span class="st">$'^gene</span><span class="dt">\t</span><span class="st">-$'</span> <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># B · con una condición sobre campos</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="st">'$3=="gene" &amp;&amp; $7=="-"'</span> data/source/anotacion.gff3 <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterio</th>
+<th>A · tubería</th>
+<th>B · condición</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Legibilidad</td>
+<td>Hay que reconstruir mentalmente qué quedó en cada columna tras el <code>cut</code></td>
+<td>La condición nombra los campos: se lee casi como la pregunta</td>
+</tr>
+<tr class="even">
+<td>Número de pasos</td>
+<td>Cuatro eslabones</td>
+<td>Dos</td>
+</tr>
+<tr class="odd">
+<td>Supuestos</td>
+<td>Que <code>cut</code> dejó las columnas en ese orden y que el patrón las reconstruye bien</td>
+<td>Que el separador es el tabulador</td>
+</tr>
+<tr class="even">
+<td>Facilidad de verificar</td>
+<td>Cada eslabón se puede inspeccionar con <code>head</code></td>
+<td>La condición se comprueba entera o no se comprueba</td>
+</tr>
+<tr class="odd">
+<td>Capacidad de calcular</td>
+<td>Ninguna</td>
+<td>Aritmética entre campos</td>
+</tr>
+<tr class="even">
+<td>Robustez ante un cambio</td>
+<td>Añadir una columna obliga a rehacer el patrón</td>
+<td>Añadir una condición es escribir <code>&amp;&amp; …</code></td>
+</tr>
+</tbody>
+</table>
+<p>La tubería tiene una virtud real que conviene no perder: <strong>se depura eslabón por eslabón</strong>, y eso la hace más didáctica cuando algo falla. La condición gana en legibilidad y es la única capaz de calcular. Ninguna es mejor siempre.</p>
+<blockquote class="blockquote">
+<p><strong>IDEA CLAVE.</strong> Que existan dos soluciones correctas no es una anécdota: es la señal de que ya sabes lo suficiente para <strong>elegir</strong>. Y el criterio de elección no es la brevedad, sino cuál comunica mejor la pregunta a quien lea tu protocolo dentro de seis meses —que probablemente serás tú—.</p>
+</blockquote>
+<hr>
+<section id="tarea-7-reformatear-y-condicionar-la-anotación-para-responder-una-pregunta-biológica" class="level3">
+<h3 class="anchored" data-anchor-id="tarea-7-reformatear-y-condicionar-la-anotación-para-responder-una-pregunta-biológica">Tarea 7 — Reformatear y condicionar la anotación para responder una pregunta biológica</h3>
+<p><strong>Qué se entrega.</strong> Una pregunta biológica propia sobre tu genoma, respondida con una condición sobre varias columnas y una medida derivada, documentada de principio a fin.</p>
+<p><strong>Debe incluir:</strong></p>
+<ol type="1">
+<li>la <strong>pregunta biológica</strong>, formulada por ti y distinta de las trabajadas en el taller;</li>
+<li>su <strong>descomposición</strong> en las cuatro partes de la Figura 22.1;</li>
+<li>la <strong>expresión</strong> que la responde y el resultado obtenido;</li>
+<li>una <strong>verificación independiente</strong> del resultado;</li>
+<li>la <strong>comparación</strong> con una estrategia alternativa, usando la tabla de criterios de esta sección;</li>
+<li>la <strong>interpretación biológica</strong>, con lo que puedes y no puedes afirmar;</li>
+<li>la sección correspondiente en <code>doc/protocolo.md</code>.</li>
+</ol>
+<p><strong>Criterio de logro:</strong> la pregunta es respondible con los datos que tienes, la verificación es independiente del cálculo que valida, y la comparación de estrategias argumenta con criterios, no con preferencias.</p>
+<hr>
+</section>
+</section>
+<section id="documentar-la-sección-del-protocolo-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="documentar-la-sección-del-protocolo-indispensable">10. Documentar: la sección del protocolo [Indispensable]</h2>
+<p>Agrega a <code>doc/protocolo.md</code>, después de la sección de S21.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## S22 — Análisis condicionado y medidas derivadas</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Pregunta biológica:** ¿Qué magnitud tienen los objetos y las diferencias que hasta ahora solo</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  había contado?</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Expectativa previa:** (Práctica 1: predicción del reparto por cadena y del tamaño típico de un gen)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Archivos y columnas utilizados:** …</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Definición de cada objeto medido:** qué cuenta como gen, por qué no se suman <span class="in">`gene`</span> y <span class="in">`CDS`</span>, y</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  qué coordenadas se usan.</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Traducción de preguntas a condiciones:**</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>  | Pregunta | Registros | Columnas | Condición (en español) | Cálculo | Comando |</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>  | --- | --- | --- | --- | --- | --- |</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>  | … | … | … | … | … | … |</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Genes por cadena:**</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>  | Replicón | Genes <span class="in">`+`</span> | Genes <span class="in">`−`</span> | Sin cadena definida | Total | Interpretación |</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>  | --- | ---: | ---: | ---: | ---: | --- |</span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>  | … | … | … | … | … | … |</span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>  Verificación: <span class="in">`+`</span> más <span class="in">`−`</span> más indefinidos = total de genes del replicón.</span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Longitudes de los genes:**</span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a>  | Conjunto | N | Mínimo | Máximo | Media | Unidad | Interpretación |</span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a>  | --- | ---: | ---: | ---: | ---: | --- | --- |</span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a>  | Todos los genes | … | … | … | … | pb | … |</span>
+<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a>  Verificación: mínimo ≤ media ≤ máximo; N coincide con el conteo de genes de S18; ninguna longitud</span>
+<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a>  ≤ 0. *(Mediana, si se calculó como ampliación: …)*</span>
+<span id="cb23-32"><a href="#cb23-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-33"><a href="#cb23-33" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Densidad por replicón:**</span>
+<span id="cb23-34"><a href="#cb23-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-35"><a href="#cb23-35" aria-hidden="true" tabindex="-1"></a>  | Replicón | Longitud (pb) | Longitud (kb) | Genes | Genes/kb | Interpretación |</span>
+<span id="cb23-36"><a href="#cb23-36" aria-hidden="true" tabindex="-1"></a>  | --- | ---: | ---: | ---: | ---: | --- |</span>
+<span id="cb23-37"><a href="#cb23-37" aria-hidden="true" tabindex="-1"></a>  | … | … | … | … | … | … |</span>
+<span id="cb23-38"><a href="#cb23-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-39"><a href="#cb23-39" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Tamaño del genoma — las cinco respuestas:**</span>
+<span id="cb23-40"><a href="#cb23-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-41"><a href="#cb23-41" aria-hidden="true" tabindex="-1"></a>  | Sesión | Estrategia | Resultado | Diferencia con S22 | Qué mide realmente | Explicación |</span>
+<span id="cb23-42"><a href="#cb23-42" aria-hidden="true" tabindex="-1"></a>  | --- | --- | ---: | ---: | --- | --- |</span>
+<span id="cb23-43"><a href="#cb23-43" aria-hidden="true" tabindex="-1"></a>  | S10 | <span class="in">`wc -c`</span> del archivo | … | … | Bytes del archivo | … |</span>
+<span id="cb23-44"><a href="#cb23-44" aria-hidden="true" tabindex="-1"></a>  | S12 | Bases del FASTA | … | … | Bases presentes | … |</span>
+<span id="cb23-45"><a href="#cb23-45" aria-hidden="true" tabindex="-1"></a>  | S13 | Suma manual de directivas | … | … | Longitud declarada | … |</span>
+<span id="cb23-46"><a href="#cb23-46" aria-hidden="true" tabindex="-1"></a>  | S22 | Suma calculada por replicón | … | 0 | Longitud declarada | Referencia final |</span>
+<span id="cb23-47"><a href="#cb23-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-48"><a href="#cb23-48" aria-hidden="true" tabindex="-1"></a>  Respuesta adoptada y por qué: …</span>
+<span id="cb23-49"><a href="#cb23-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-50"><a href="#cb23-50" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Magnitud de las discrepancias de S21:**</span>
+<span id="cb23-51"><a href="#cb23-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-52"><a href="#cb23-52" aria-hidden="true" tabindex="-1"></a>  | Zona | N.º medidos | Mínimo | Máximo | Media | Total (pb) | Escenario | Efecto sobre la hipótesis de S21 |</span>
+<span id="cb23-53"><a href="#cb23-53" aria-hidden="true" tabindex="-1"></a>  | --- | ---: | ---: | ---: | ---: | ---: | --- | --- |</span>
+<span id="cb23-54"><a href="#cb23-54" aria-hidden="true" tabindex="-1"></a>  | Solo en mi anotación | … | … | … | … | … | … | … |</span>
+<span id="cb23-55"><a href="#cb23-55" aria-hidden="true" tabindex="-1"></a>  | Solo en la fuente externa | … | … | … | … | … | … | … |</span>
+<span id="cb23-56"><a href="#cb23-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-57"><a href="#cb23-57" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Comparación de estrategias:** (tabla de criterios de la Sección 9, para al menos una pregunta)</span>
+<span id="cb23-58"><a href="#cb23-58" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Interpretación biológica:** qué dice el perfil de longitudes y la densidad sobre este genoma, y</span>
+<span id="cb23-59"><a href="#cb23-59" aria-hidden="true" tabindex="-1"></a>  cómo cambia la lectura de S21 al medir.</span>
+<span id="cb23-60"><a href="#cb23-60" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Limitaciones de esta estrategia:**</span>
+<span id="cb23-61"><a href="#cb23-61" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>La media y los extremos no describen la forma de la distribución.</span>
+<span id="cb23-62"><a href="#cb23-62" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>La densidad usa la longitud **declarada** del replicón, no la medida.</span>
+<span id="cb23-63"><a href="#cb23-63" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Las longitudes son de registros de la anotación, no de secuencias verificadas.</span>
+<span id="cb23-64"><a href="#cb23-64" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Las medidas dependen de la definición de gen adoptada desde S18.</span>
+<span id="cb23-65"><a href="#cb23-65" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Preguntas pendientes:** …</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="evidencia-de-la-sesión" class="level2">
+<h2 class="anchored" data-anchor-id="evidencia-de-la-sesión">Evidencia de la sesión</h2>
+<p>Entrega o conserva, según indique el docente:</p>
+<ol type="1">
+<li><code>doc/s22-primer-intento.md</code> con las tres preguntas descompuestas;</li>
+<li>el reparto por cadena y por replicón, coincidente con S18 y verificado por suma;</li>
+<li><code>results/s22/longitudes-genes.txt</code>, con la verificación manual de tres casos;</li>
+<li>el resumen N, total, mínimo, máximo y media, con sus tres controles;</li>
+<li><code>results/s22/replicones-genes-longitud.tsv</code> y la tabla de densidades con unidades;</li>
+<li>la tabla de las cinco respuestas al tamaño del genoma, con sus diferencias explicadas;</li>
+<li><code>results/s22/longitud-por-locus.tsv</code> y el resumen de longitudes por zona de S21;</li>
+<li>las declaraciones <em>«puedo afirmar / todavía no puedo afirmar»</em>;</li>
+<li>la <strong>Tarea 7</strong> completa;</li>
+<li>sección S22 de <code>doc/protocolo.md</code>, con las anteriores intactas.</li>
+</ol>
+</section>
+<section id="errores-frecuentes-y-estrategias-de-diagnóstico" class="level2">
+<h2 class="anchored" data-anchor-id="errores-frecuentes-y-estrategias-de-diagnóstico">Errores frecuentes y estrategias de diagnóstico</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Error</th>
+<th>Por qué ocurre</th>
+<th>Estrategia de diagnóstico</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Omitir <code>-F'\t'</code></td>
+<td>Parece un detalle</td>
+<td>Contar los <code>CDS</code> con y sin él: sin el separador da cero, porque <code>Protein Homology</code> desplaza los campos</td>
+</tr>
+<tr class="even">
+<td>Olvidar el <code>+1</code> en la longitud</td>
+<td>La resta parece natural</td>
+<td>Comprobar un registro de una sola base: sin el <code>+1</code> da cero, que es imposible</td>
+</tr>
+<tr class="odd">
+<td>Sumar longitudes de <code>gene</code> y <code>CDS</code></td>
+<td>Ambos «son el gen»</td>
+<td>El total supera el tamaño del genoma: señal de que se contó dos veces</td>
+</tr>
+<tr class="even">
+<td>No inicializar el mínimo</td>
+<td>Se supone que empieza en cero</td>
+<td>El mínimo sale vacío o cero; usar <code>min == "" \|\| L &lt; min</code></td>
+</tr>
+<tr class="odd">
+<td>Calcular la media fuera de <code>END</code></td>
+<td>Se pone dentro del bloque principal</td>
+<td>Da un valor por línea en vez de uno solo: la media necesita el archivo terminado</td>
+</tr>
+<tr class="even">
+<td>Confundir número de genes con densidad</td>
+<td>Ambos «miden cuántos genes hay»</td>
+<td>Si el número más grande corresponde siempre al replicón más grande, se está comparando tamaño, no compacidad</td>
+</tr>
+<tr class="odd">
+<td>Usar como denominador la suma de longitudes de genes</td>
+<td>Parece la longitud «útil»</td>
+<td>La densidad se dispara por encima de 1 gen/kb sin razón biológica</td>
+</tr>
+<tr class="even">
+<td>Dividir sin comprobar el denominador</td>
+<td>Se asume que toda longitud existe</td>
+<td>Comprobar que ningún replicón tiene longitud cero o ausente antes de dividir</td>
+</tr>
+<tr class="odd">
+<td>Reportar un número sin unidades</td>
+<td>Se da por obvio</td>
+<td>Un número sin «pb» o «genes/kb» no se puede comparar ni contigo mismo dentro de un mes</td>
+</tr>
+<tr class="even">
+<td>Medir una zona de S21 sin comprobar la correspondencia</td>
+<td>Se confía en <code>grep -F -f</code></td>
+<td>Contar los loci medidos y compararlos con las líneas de la lista original</td>
+</tr>
+<tr class="odd">
+<td>Afirmar que un reparto por cadena es «significativo»</td>
+<td>El lenguaje cotidiano lo permite</td>
+<td>Describir la diferencia y su tamaño; la significancia exige una prueba que no se ha visto</td>
+</tr>
+<tr class="even">
+<td>Interpretar la media como si describiera la distribución</td>
+<td>Es el resumen más familiar</td>
+<td>Contrastar media y mediana: si difieren mucho, la distribución es asimétrica</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="rúbricas" class="level2">
+<h2 class="anchored" data-anchor-id="rúbricas">Rúbricas</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterio</th>
+<th>Logrado</th>
+<th>Parcialmente logrado</th>
+<th>Aún no logrado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Primer intento</td>
+<td>Descompone las tres preguntas en las cuatro partes y detecta qué dato le falta</td>
+<td>Descompone algunas o mezcla condición con cálculo</td>
+<td>Empieza por la sintaxis</td>
+</tr>
+<tr class="even">
+<td>Condición sobre campos</td>
+<td>Escribe condiciones con varias columnas y explica qué hace cada campo</td>
+<td>Obtiene el resultado sin poder explicar la condición</td>
+<td>No consigue restringir por más de una columna</td>
+</tr>
+<tr class="odd">
+<td>Separador</td>
+<td>Detecta y explica el efecto de omitir <code>-F'\t'</code></td>
+<td>Lo usa sin saber por qué</td>
+<td>Trabaja sin separador y no detecta el cero</td>
+</tr>
+<tr class="even">
+<td>Longitud</td>
+<td>Calcula con el <code>+1</code> y lo justifica; verifica casos a mano</td>
+<td>Calcula correctamente sin verificar</td>
+<td>Omite el <code>+1</code> o suma <code>gene</code> y <code>CDS</code></td>
+</tr>
+<tr class="odd">
+<td>Resumen</td>
+<td>Construye los acumuladores por partes, valida el orden mín ≤ media ≤ máx y cuadra la N</td>
+<td>Obtiene el resumen sin validarlo</td>
+<td>El mínimo sale vacío o la media se calcula por línea</td>
+</tr>
+<tr class="even">
+<td>Densidad</td>
+<td>Distingue conteo, longitud y densidad; reporta unidades e interpreta</td>
+<td>Calcula la densidad sin interpretarla</td>
+<td>Compara conteos entre replicones como si fueran comparables</td>
+</tr>
+<tr class="odd">
+<td>Tamaño del genoma</td>
+<td>Explica las diferencias entre las cinco respuestas y justifica cuál adopta</td>
+<td>Presenta la tabla sin explicar las diferencias</td>
+<td>Da un número final sin contrastar</td>
+</tr>
+<tr class="even">
+<td>Magnitud de las discrepancias</td>
+<td>Mide las zonas, se sitúa en un escenario y revisa su hipótesis de S21</td>
+<td>Mide sin reinterpretar</td>
+<td>Mantiene la conclusión de S21 sin usar la medida</td>
+</tr>
+<tr class="odd">
+<td>Verificación</td>
+<td>Cada cálculo tiene un control independiente</td>
+<td>Verifica algunos</td>
+<td>Acepta los resultados porque el comando terminó</td>
+</tr>
+<tr class="even">
+<td>Comparación de estrategias</td>
+<td>Argumenta con criterios y reconoce las virtudes de la tubería</td>
+<td>Prefiere una sin justificar</td>
+<td>Concluye que lo más corto es lo mejor</td>
+</tr>
+</tbody>
+</table>
+<p>La rúbrica es formativa salvo en lo que corresponde a la <strong>Tarea 7</strong>, que sí se califica.</p>
+</section>
+<section id="autoevaluación" class="level2">
+<h2 class="anchored" data-anchor-id="autoevaluación">Autoevaluación</h2>
+<section id="comprobación-rápida-formativa-al-final-del-taller" class="level3">
+<h3 class="anchored" data-anchor-id="comprobación-rápida-formativa-al-final-del-taller">Comprobación rápida — formativa, al final del taller</h3>
+<ol type="1">
+<li>¿Por qué una tubería de <code>grep</code> y <code>cut</code> no puede calcular la longitud de un gen?</li>
+<li>¿Qué contiene <code>$3</code> en una línea <code>CDS</code> si olvidas <code>-F'\t'</code>? ¿Y cuántos resultados obtienes?</li>
+<li>¿Por qué la longitud es <code>fin − inicio + 1</code> y no <code>fin − inicio</code>?</li>
+<li>¿Por qué no debes sumar las longitudes de <code>gene</code> y de <code>CDS</code>?</li>
+<li>¿Qué hace el bloque <code>END</code> y por qué la media va ahí?</li>
+<li>¿Qué pasa si no inicializas el mínimo?</li>
+<li>¿Qué diferencia hay entre «este replicón tiene más genes» y «este replicón es más denso»?</li>
+<li>¿Qué longitud usa el denominador de la densidad: la del replicón o la de sus genes?</li>
+<li>Tus cinco respuestas al tamaño del genoma no coinciden. ¿Cuál adoptas y con qué argumento?</li>
+<li>Cuarenta discrepancias de 80 pb frente a tres de 2 400 pb: ¿cuál preocupa más y por qué?</li>
+</ol>
+</section>
+<section id="semáforo" class="level3">
+<h3 class="anchored" data-anchor-id="semáforo">Semáforo</h3>
+<ul>
+<li>🟢 <strong>Verde:</strong> descompongo una pregunta en registros, columnas, condición y cálculo; expreso la condición sobre varios campos; calculo y resumo medidas; verifico cada una con un control independiente; y distingo conteo de densidad y número de magnitud.</li>
+<li>🟡 <strong>Amarillo:</strong> obtengo los números pero no los verifico, o interpreto la media como si describiera toda la distribución.</li>
+<li>🔴 <strong>Rojo:</strong> omito <code>-F'\t'</code> sin detectarlo, olvido el <code>+1</code>, o comparo conteos entre replicones de tamaños distintos como si fueran comparables.</li>
+</ul>
+<p>Si estás en amarillo o rojo, repite las Prácticas 3 y 4: la habilidad central de hoy no es escribir la expresión, es <strong>demostrar que el número que produjo es correcto</strong>.</p>
+</section>
+</section>
+<section id="cierre-con-ia-clásico-vs.-asistido" class="level2">
+<h2 class="anchored" data-anchor-id="cierre-con-ia-clásico-vs.-asistido">Cierre con IA: clásico vs.&nbsp;asistido</h2>
+<p>Trabaja <strong>primero a mano</strong>. Con <code>awk</code>, la IA acierta la sintaxis con facilidad y falla justo donde importa: en la definición del objeto y en las unidades.</p>
+<ol type="1">
+<li><strong>Escribe tú</strong> la condición en español y la expresión que la implementa.</li>
+<li><strong>Pide</strong> al asistente una versión alternativa de la misma consulta.</li>
+<li><strong>Compara los resultados numéricos</strong>, no los comandos. Si difieren, uno de los dos define el objeto de otra manera: averigua cuál.</li>
+<li><strong>Valida de forma independiente</strong> con un conteo anterior de tu protocolo.</li>
+<li><strong>Registra en <code>bitacora-ia.md</code></strong> qué versión adoptaste y por qué.</li>
+</ol>
+<p>🤖 <strong>Prompt para <a href="https://chatgpt.com/g/g-6893cf2451d88191b11cd0c87de045ab-profeunix-bioinfo">ProfeUnix Bioinfo</a>:</strong> &gt; Tengo un archivo GFF3 con la anotación de un genoma bacteriano. Quiero calcular la longitud media de &gt; los genes usando <code>awk</code>, sabiendo que las coordenadas son inclusivas y que un mismo locus aparece &gt; como registro <code>gene</code> y como registro <code>CDS</code>. Propón una expresión, explica qué define exactamente &gt; como «un gen» y qué comprobaciones harías para asegurarte de que no estás contando el mismo DNA dos &gt; veces. No uses arreglos ni funciones.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Advertencia
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Un asistente suele proponer expresiones de <code>awk</code> más avanzadas de lo necesario —arreglos, funciones, varios bloques— que funcionan pero que no podrás explicar ni depurar. Si no puedes justificar cada parte de un comando, no puede entrar en tu protocolo.</p>
+</div>
+</div>
+</section>
+<section id="lo-que-realmente-aprendiste-hoy" class="level2">
+<h2 class="anchored" data-anchor-id="lo-que-realmente-aprendiste-hoy">Lo que realmente aprendiste hoy</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Antes</th>
+<th>Ahora</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Preguntaba qué hay y cuántos hay</td>
+<td>Pregunto cuánto miden y en qué proporción</td>
+</tr>
+<tr class="even">
+<td>Filtraba por una característica</td>
+<td>Combino varias condiciones sobre la misma línea</td>
+</tr>
+<tr class="odd">
+<td>Leía datos del archivo</td>
+<td>Produzco medidas que el archivo no contenía</td>
+</tr>
+<tr class="even">
+<td>Una diferencia era un caso</td>
+<td>Una diferencia tiene magnitud, y esa magnitud cambia su importancia</td>
+</tr>
+<tr class="odd">
+<td>Un número era un resultado</td>
+<td>Un número sin unidades ni verificación no es un resultado</td>
+</tr>
+</tbody>
+</table>
+<p>La cuarta fila es la que reordena la sesión anterior: hoy volviste sobre una conclusión de S21 y la revisaste con una medida. Eso no es un ejercicio nuevo, es cómo avanza una investigación.</p>
+</section>
+<section id="cierre-de-s22-y-puente-hacia-s23" class="level2">
+<h2 class="anchored" data-anchor-id="cierre-de-s22-y-puente-hacia-s23">Cierre de S22 y puente hacia S23</h2>
+<p>Cinco pasos del ciclo están completos:</p>
+<pre class="text"><code>S18  Seleccionar  →  qué evidencia cuenta
+S19  Identificar  →  de qué objeto habla
+S20  Normalizar   →  bajo qué representación se compara
+S21  Confrontar   →  qué queda en pie ante una fuente ajena
+S22  Cuantificar  →  cuánto importa lo que encontré</code></pre>
+<p>Tienes comandos correctos, resultados verificados, tablas e interpretaciones. La investigación está completa en contenido. Y sin embargo, mira lo que tendrías que hacer para repetirla entera sobre otro genoma —o sobre el mismo, dentro de seis meses—:</p>
+<pre class="text"><code>buscar cada comando en el protocolo, disperso entre diez secciones
+copiarlos uno a uno
+ejecutarlos en el orden correcto, que no está escrito en ninguna parte
+recordar qué archivo produce cada uno y cuál necesita el siguiente
+evitar sobrescribir un resultado con otro</code></pre>
+<p>Ninguno de esos pasos es un problema técnico. Todos son el mismo problema: <strong>tu análisis es reproducible en contenido, pero todavía no es un instrumento</strong>. Existe como una colección de piezas correctas, no como algo que se pueda ejecutar.</p>
+<p>La pregunta con la que se abre <strong>S23</strong> es exactamente esa:</p>
+<blockquote class="blockquote">
+<p><strong>¿Cómo convierto todos estos pasos validados en un flujo único, ordenado, verificable y ejecutable de principio a fin?</strong></p>
+</blockquote>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Conserva <code>results/s22/</code> completo y revisa que cada sección de tu protocolo tenga el comando exacto con el que se produjo. En S23 no vas a escribir análisis nuevos: vas a <strong>ordenar</strong> los que ya tienes, y la calidad de ese trabajo dependerá por completo de lo bien que estén documentados hoy.</p>
+</div>
+</div>
+</section>
+<section id="en-una-frase" class="level2">
+<h2 class="anchored" data-anchor-id="en-una-frase">En una frase</h2>
+<ul>
+<li>Las preguntas de <strong>presencia</strong> se responden filtrando; las de <strong>magnitud</strong>, calculando.</li>
+<li>Una condición sobre campos se escribe <strong>primero en español</strong>: la sintaxis es lo último.</li>
+<li>Un número sin <strong>unidades</strong> y sin <strong>verificación</strong> no es todavía un resultado.</li>
+</ul>
+</section>
+<section id="anexo-a.-correspondencia-resultadoactividadevidenciacriterio" class="level2">
+<h2 class="anchored" data-anchor-id="anexo-a.-correspondencia-resultadoactividadevidenciacriterio">Anexo A. Correspondencia resultado–actividad–evidencia–criterio</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Resultado</th>
+<th>Actividad</th>
+<th>Evidencia</th>
+<th>Criterio</th>
+<th>Momento</th>
+<th>Nivel en U4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RA1 Descomponer una pregunta</td>
+<td>Sección 2, Práctica 1</td>
+<td>Tabla de las tres preguntas</td>
+<td>Las condiciones son comprobables sobre una línea</td>
+<td>Antes</td>
+<td>Comprensión demostrada</td>
+</tr>
+<tr class="even">
+<td>RA2 Explicar el límite de la tubería</td>
+<td>Sección 1</td>
+<td>Respuesta razonada</td>
+<td>Distingue límite de comodidad de límite de capacidad</td>
+<td>Antes</td>
+<td>Comprensión</td>
+</tr>
+<tr class="odd">
+<td>RA3 Condicionar sobre varios campos</td>
+<td>Sección 3, Práctica 2</td>
+<td>Conteos por cadena y replicón</td>
+<td>Coinciden con S18 y se verifican por suma</td>
+<td>Taller</td>
+<td>Aplicación guiada</td>
+</tr>
+<tr class="even">
+<td>RA4 Calcular la longitud</td>
+<td>Sección 4, Práctica 3</td>
+<td><code>longitudes-genes.txt</code></td>
+<td>Justifica el <code>+1</code> y verifica tres casos a mano</td>
+<td>Taller</td>
+<td>Aplicación guiada</td>
+</tr>
+<tr class="odd">
+<td>RA5 Acumular y resumir</td>
+<td>Sección 5, Práctica 4</td>
+<td>Resumen N, total, mín, máx, media</td>
+<td>Cumple mín ≤ media ≤ máx y cuadra la N</td>
+<td>Taller</td>
+<td>Aplicación autónoma</td>
+</tr>
+<tr class="even">
+<td>RA6 Distinguir conteo de densidad</td>
+<td>Sección 6, Práctica 5</td>
+<td>Tabla de densidades con unidades</td>
+<td>El denominador es la longitud del replicón</td>
+<td>Taller</td>
+<td>Aplicación autónoma</td>
+</tr>
+<tr class="odd">
+<td>RA7 Cerrar el tamaño del genoma</td>
+<td>Sección 7, Práctica 6</td>
+<td>Tabla de las cinco respuestas</td>
+<td>Cada diferencia tiene explicación</td>
+<td>Después</td>
+<td>Aplicación autónoma</td>
+</tr>
+<tr class="even">
+<td>RA8 Medir una discrepancia</td>
+<td>Sección 8, Práctica 7</td>
+<td>Resumen por zona de S21</td>
+<td>Se sitúa en un escenario y revisa la hipótesis previa</td>
+<td>Después</td>
+<td>Aplicación autónoma</td>
+</tr>
+<tr class="odd">
+<td>RA9 Verificar cada cálculo</td>
+<td>Todas las prácticas</td>
+<td>Controles documentados</td>
+<td>El control es independiente del cálculo que valida</td>
+<td>Taller/después</td>
+<td>Aplicación autónoma</td>
+</tr>
+<tr class="even">
+<td>RA10 Comparar estrategias</td>
+<td>Sección 9, Tarea 7</td>
+<td>Tabla de criterios</td>
+<td>Argumenta con criterios, no con brevedad</td>
+<td>Después</td>
+<td>Aplicación autónoma</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="anexo-b.-alineación-transversal" class="level2">
+<h2 class="anchored" data-anchor-id="anexo-b.-alineación-transversal">Anexo B. Alineación transversal</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Actividad</th>
+<th>Reproducibilidad</th>
+<th>Verificación</th>
+<th>Validación</th>
+<th>Robustez</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Conteo por cadena</td>
+<td>Expresión completa en el protocolo</td>
+<td>Suma de cadenas igual al total</td>
+<td>Coincide con el resultado de S18 por otra estrategia</td>
+<td>Se localizan los registros sin cadena definida</td>
+</tr>
+<tr class="even">
+<td>Longitud por gen</td>
+<td>Comando y archivo en <code>results/s22/</code></td>
+<td>Tres casos comprobados a mano</td>
+<td>Cardinalidad frente al conteo de genes</td>
+<td>Se comprueba que ninguna longitud sea ≤ 0</td>
+</tr>
+<tr class="odd">
+<td>Resumen del conjunto</td>
+<td>Acumuladores documentados</td>
+<td>mín ≤ media ≤ máx</td>
+<td>Extremos coincidentes con <code>head</code> y <code>tail</code></td>
+<td>Mínimo inicializado explícitamente</td>
+</tr>
+<tr class="even">
+<td>Densidad</td>
+<td>Tabla intermedia conservada</td>
+<td>Suma de genes por replicón igual al total</td>
+<td>Identificadores contrastados con S19</td>
+<td>Denominador comprobado antes de dividir</td>
+</tr>
+<tr class="odd">
+<td>Tamaño del genoma</td>
+<td>Las cinco respuestas conservadas</td>
+<td>Diferencias calculadas</td>
+<td>Contraste entre medición (S12) y declaración (S13, S22)</td>
+<td>Se declara qué mide cada estrategia</td>
+</tr>
+<tr class="even">
+<td>Magnitud de discrepancias</td>
+<td>Tabla longitud ↔︎ locus en <code>results/s22/</code></td>
+<td>Loci medidos frente a loci de la lista</td>
+<td>Se contrasta con el perfil general de longitudes</td>
+<td>Se detecta la coincidencia parcial de identificadores</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="glosario" class="level2">
+<h2 class="anchored" data-anchor-id="glosario">Glosario</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Español</th>
+<th>Inglés</th>
+<th>Definición breve</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Campo</td>
+<td>Field</td>
+<td>Cada una de las partes en que un separador divide una línea</td>
+</tr>
+<tr class="even">
+<td>Separador de campos</td>
+<td>Field separator</td>
+<td>Carácter que delimita los campos; en un GFF3, el tabulador</td>
+</tr>
+<tr class="odd">
+<td>Condición</td>
+<td>Condition</td>
+<td>Expresión que una línea cumple o no cumple</td>
+</tr>
+<tr class="even">
+<td>Acción</td>
+<td>Action</td>
+<td>Lo que se ejecuta sobre las líneas que cumplen la condición</td>
+</tr>
+<tr class="odd">
+<td>Acumulador</td>
+<td>Accumulator</td>
+<td>Valor que conserva información de una línea a la siguiente</td>
+</tr>
+<tr class="even">
+<td>Bloque final</td>
+<td>END block</td>
+<td>Se ejecuta una sola vez, cuando el archivo ha terminado</td>
+</tr>
+<tr class="odd">
+<td>Coordenadas inclusivas</td>
+<td>Inclusive coordinates</td>
+<td>Convención en la que la primera y la última posición forman parte del intervalo</td>
+</tr>
+<tr class="even">
+<td>Longitud</td>
+<td>Length</td>
+<td>Número de bases de un intervalo: fin − inicio + 1</td>
+</tr>
+<tr class="odd">
+<td>Medida derivada</td>
+<td>Derived measure</td>
+<td>Valor calculado que no estaba en el archivo</td>
+</tr>
+<tr class="even">
+<td>Densidad génica</td>
+<td>Gene density</td>
+<td>Número de genes por unidad de longitud, normalmente por kilobase</td>
+</tr>
+<tr class="odd">
+<td>Kilobase (kb)</td>
+<td>Kilobase</td>
+<td>Mil pares de bases</td>
+</tr>
+<tr class="even">
+<td>Par de bases (pb)</td>
+<td>Base pair (bp)</td>
+<td>Unidad de longitud de una secuencia de DNA</td>
+</tr>
+<tr class="odd">
+<td>Distribución asimétrica</td>
+<td>Skewed distribution</td>
+<td>Aquella en la que la media y la mediana difieren apreciablemente</td>
+</tr>
+<tr class="even">
+<td>Mediana</td>
+<td>Median</td>
+<td>Valor central de un conjunto ordenado</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="referencias" class="level2">
+<h2 class="anchored" data-anchor-id="referencias">Referencias</h2>
+<ul>
+<li>Buffalo, V. (2015). <em>Bioinformatics Data Skills</em>. O’Reilly Media. — Cap. 7 (<code>awk</code> para datos tabulares y cálculo sobre columnas).</li>
+<li>Sequence Ontology. (2020). <em>Generic Feature Format Version 3 (GFF3) specification</em> — columnas de inicio y fin, <strong>coordenadas inclusivas con base 1</strong>, y valor <code>.</code> para cadena no determinada. <a href="https://github.com/The-Sequence-Ontology/Specifications/blob/master/gff3.md" class="uri">https://github.com/The-Sequence-Ontology/Specifications/blob/master/gff3.md</a></li>
+<li>Free Software Foundation. (2024). <em>The GNU Awk User’s Guide</em> — campos, condiciones, <code>BEGIN</code>/<code>END</code> y <code>printf</code>. <a href="https://www.gnu.org/software/gawk/manual/gawk.html" class="uri">https://www.gnu.org/software/gawk/manual/gawk.html</a></li>
+<li>Free Software Foundation. (2024). <em>GNU Grep Manual</em> — opciones <code>-F</code> y <code>-f</code>. <a href="https://www.gnu.org/software/grep/manual/grep.html" class="uri">https://www.gnu.org/software/grep/manual/grep.html</a></li>
+<li>National Center for Biotechnology Information (NCBI). (2024). <em>Prokaryotic Genome Annotation Pipeline (PGAP)</em> — fuentes de anotación y tipos de registro. <a href="https://www.ncbi.nlm.nih.gov/genome/annotation_prok/" class="uri">https://www.ncbi.nlm.nih.gov/genome/annotation_prok/</a></li>
+<li>Wilson, G., Bryan, J., Cranston, K., Kitzes, J., Nederbragt, L., &amp; Teal, T. K. (2017). Good enough practices in scientific computing. <em>PLoS Computational Biology</em>, 13(6), e1005510. <a href="https://doi.org/10.1371/journal.pcbi.1005510" class="uri">https://doi.org/10.1371/journal.pcbi.1005510</a></li>
+</ul>
+</section>
+<section id="distribución-estimada-de-las-dos-horas" class="level2">
+<h2 class="anchored" data-anchor-id="distribución-estimada-de-las-dos-horas">Distribución estimada de las dos horas</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 40%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Bloque</th>
+<th style="text-align: right;">Tiempo</th>
+<th>Contenido</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Puesta en común de la descomposición de preguntas</td>
+<td style="text-align: right;">10 min</td>
+<td>Práctica 1, resuelta antes de clase</td>
+</tr>
+<tr class="even">
+<td>Condicionar sobre varias columnas</td>
+<td style="text-align: right;">25 min</td>
+<td>Práctica 2, incluida la trampa del separador</td>
+</tr>
+<tr class="odd">
+<td>Longitud por gen y verificación manual</td>
+<td style="text-align: right;">25 min</td>
+<td>Práctica 3</td>
+</tr>
+<tr class="even">
+<td>Acumuladores y resumen del conjunto</td>
+<td style="text-align: right;">30 min</td>
+<td>Práctica 4</td>
+</tr>
+<tr class="odd">
+<td>Densidad por replicón</td>
+<td style="text-align: right;">20 min</td>
+<td>Práctica 5</td>
+</tr>
+<tr class="even">
+<td>Cierre y puente a S23</td>
+<td style="text-align: right;">10 min</td>
+<td>Semáforo y planteamiento de la Tarea 7</td>
+</tr>
+</tbody>
+</table>
+<p>Los tiempos son estimaciones. Las Prácticas 6 y 7 se realizan después del taller, porque consolidan preguntas ya abiertas en sesiones anteriores. El núcleo que no debe recortarse es:</p>
+<pre class="text"><code>condicionar → calcular por registro → acumular → resumir → verificar</code></pre>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/helysalgado\.github\.io\/introbioinfo-unix\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./u4-s21-confrontar-fuente-independiente.html" class="pagination-link" aria-label="S21 — Confrontar">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">S21 — Confrontar</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./u4-s23-protocolo-ejecutable-genoma.html" class="pagination-link" aria-label="S23 — Protocolo ejecutable">
+        <span class="nav-page-text">S23 — Protocolo ejecutable</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://hits.sh/helysalgado.github.io/introbioinfo-unix/"><img src="https://hits.sh/helysalgado.github.io/introbioinfo-unix/.svg?style=flat-square&amp;label=Visitas&amp;color=4a7c9e" class="img-fluid figure-img"></a></p>
+<figcaption>Visitas</figcaption>
+</figure>
+</div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Helysalgado/introbioinfo-unix/edit/main/u4-s22-condicionar-calcular-columnas.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/Helysalgado/introbioinfo-unix/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

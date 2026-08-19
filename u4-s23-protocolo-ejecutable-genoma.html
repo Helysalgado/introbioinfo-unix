@@ -1,0 +1,3171 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>u4-s23-protocolo-ejecutable-genoma – Introducción a la Bioinformática</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./s14-s15-mini-proyecto-investigacion-I.html" rel="next">
+<link href="./u4-s22-condicionar-calcular-columnas.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fe3756b78d23b7733c53f9ce5acac92a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXNMZZP0K9"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-QXNMZZP0K9', { 'anonymize_ip': true});
+</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Introducción a la Bioinformática</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Inicio</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-programa" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Programa</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-programa">    
+        <li>
+    <a class="dropdown-item" href="./programa.html">
+ <span class="dropdown-text">Ruta de sesiones</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./programa-detallado.html">
+ <span class="dropdown-text">Programa detallado</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-unidades" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Unidades</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-unidades">    
+        <li>
+    <a class="dropdown-item" href="./u1-trabajo-reproducible.html">
+ <span class="dropdown-text">U1 — Trabajo reproducible</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u2-entorno-unix.html">
+ <span class="dropdown-text">U2 — Entorno Unix</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u3-datos-bases-datos.html">
+ <span class="dropdown-text">U3 — Datos y bases</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u4-procesamiento-exploracion.html">
+ <span class="dropdown-text">U4 — Procesamiento genómico</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u5-automatizacion-scripting.html">
+ <span class="dropdown-text">U5 — Automatización</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u6-comparacion-homologia.html">
+ <span class="dropdown-text">U6 — Comparar / hipótesis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./s14-s15-mini-proyecto-investigacion-I.html">
+ <span class="dropdown-text">Transversal S14–S17</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="./recursos.html" aria-current="page"> 
+<span class="menu-text">Recursos</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./acerca.html"> 
+<span class="menu-text">Acerca</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./contribuir.html"> 
+<span class="menu-text">Contribuir</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Alternar modo lector">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./u4-procesamiento-exploracion.html">Unidad 4</a></li><li class="breadcrumb-item"><a href="./u4-s23-protocolo-ejecutable-genoma.html">S23 — Protocolo ejecutable</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 1</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-trabajo-reproducible.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-s1-documentar-markdown-fases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S1 — Documentar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-s2-organizar-fair-ia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S2 — Organizar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 2</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-entorno-unix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s3-shell-acceso-remoto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S3 — Conectar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s4-sistema-archivos-v3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S4 — Navegar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s5-archivos-permisos-procesos-v2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S5 — Archivos y procesos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s6-consolidacion-entorno-unix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S6 — Consolidar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 3</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-datos-bases-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s7-secuencias-formatos-genbank.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S7 — Formatos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s8-bases-datos-descarga-integridad.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S8 — Descargar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s9-inspeccion-transferencia-verificable.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S9 — Transferir</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Unidad 4</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-procesamiento-exploracion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s10-anatomia-flujos-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S10 — Anatomía y flujos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s11-estructura-tabular-anotacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S11 — Anotación tabular</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s12-filtrado-conteos-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S12 — Filtrar y contar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s13-inventario-resumen-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S13 — Inventario</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s18-precision-patrones-expresiones-regulares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S18 — Patrones</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s19-extraccion-identificadores-correspondencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S19 — Identificadores</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s20-normalizar-datos-comparables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S20 — Normalizar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s21-confrontar-fuente-independiente.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S21 — Confrontar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s22-condicionar-calcular-columnas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S22 — Condicionar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s23-protocolo-ejecutable-genoma.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">S23 — Protocolo ejecutable</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Transversal</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s14-s15-mini-proyecto-investigacion-I.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S14–S15 — Mini-proyecto I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s16-mini-proyecto-revision-pares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S16 — Revisión por pares</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s17-evaluacion-individual-demostrativa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S17 — Evaluación demostrativa</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mini-proyecto-dictamen-cientifico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dictamen científico</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 5</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-automatizacion-scripting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s24-del-protocolo-al-script.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S24 — Del protocolo al script</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s25-separar-procedimiento-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S25 — Separar datos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s26-procesamiento-por-lotes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S26 — Por lotes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s27-herramienta-cientifica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S27 — Herramienta científica</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s28-proyecto-integrador.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S28 — Proyecto integrador</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s29-cluster-hpc-sge.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S29 — Cluster SGE</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 6</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-comparacion-homologia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s30-comparar-alinear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S30 — Comparar / alinear</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s31-buscar-blast.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S31 — Buscar (BLAST)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s32-interpretar-inferir.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S32 — Interpretar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s33-defender-hipotesis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S33 — Inferir</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s34-integrar-hipotesis-casos-ciegos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S34 — Integrar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./programa-detallado.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programa detallado</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./recursos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recursos</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#s23-integrar-el-protocolo-como-cuaderno-de-laboratorio-ejecutable" id="toc-s23-integrar-el-protocolo-como-cuaderno-de-laboratorio-ejecutable" class="nav-link active" data-scroll-target="#s23-integrar-el-protocolo-como-cuaderno-de-laboratorio-ejecutable">S23 — Integrar: el protocolo como cuaderno de laboratorio ejecutable</a>
+  <ul class="collapse">
+  <li><a href="#ficha-del-módulo" id="toc-ficha-del-módulo" class="nav-link" data-scroll-target="#ficha-del-módulo">Ficha del módulo</a></li>
+  <li><a href="#relación-con-lo-que-ya-sabes" id="toc-relación-con-lo-que-ya-sabes" class="nav-link" data-scroll-target="#relación-con-lo-que-ya-sabes">Relación con lo que ya sabes</a></li>
+  <li><a href="#tu-lugar-en-el-ciclo-de-la-evidencia" id="toc-tu-lugar-en-el-ciclo-de-la-evidencia" class="nav-link" data-scroll-target="#tu-lugar-en-el-ciclo-de-la-evidencia">Tu lugar en el ciclo de la evidencia</a></li>
+  <li><a href="#dónde-estás-en-la-investigación" id="toc-dónde-estás-en-la-investigación" class="nav-link" data-scroll-target="#dónde-estás-en-la-investigación">Dónde estás en la investigación</a></li>
+  <li><a href="#resultados-de-aprendizaje" id="toc-resultados-de-aprendizaje" class="nav-link" data-scroll-target="#resultados-de-aprendizaje">Resultados de aprendizaje</a></li>
+  <li><a href="#lista-de-verificación-previa" id="toc-lista-de-verificación-previa" class="nav-link" data-scroll-target="#lista-de-verificación-previa">Lista de verificación previa</a></li>
+  <li><a href="#ruta-de-s23" id="toc-ruta-de-s23" class="nav-link" data-scroll-target="#ruta-de-s23">Ruta de S23</a></li>
+  <li><a href="#correcto-no-es-lo-mismo-que-ejecutable-indispensable" id="toc-correcto-no-es-lo-mismo-que-ejecutable-indispensable" class="nav-link" data-scroll-target="#correcto-no-es-lo-mismo-que-ejecutable-indispensable">1. Correcto no es lo mismo que ejecutable [Indispensable]</a></li>
+  <li><a href="#qué-convierte-un-comando-en-un-paso-indispensable" id="toc-qué-convierte-un-comando-en-un-paso-indispensable" class="nav-link" data-scroll-target="#qué-convierte-un-comando-en-un-paso-indispensable">2. Qué convierte un comando en un paso [Indispensable]</a></li>
+  <li><a href="#el-mapa-de-dependencias-indispensable" id="toc-el-mapa-de-dependencias-indispensable" class="nav-link" data-scroll-target="#el-mapa-de-dependencias-indispensable">3. El mapa de dependencias [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#dos-clases-de-entrada" id="toc-dos-clases-de-entrada" class="nav-link" data-scroll-target="#dos-clases-de-entrada">3.1 Dos clases de entrada</a></li>
+  <li><a href="#lo-que-impone-el-mapa" id="toc-lo-que-impone-el-mapa" class="nav-link" data-scroll-target="#lo-que-impone-el-mapa">3.2 Lo que impone el mapa</a></li>
+  <li><a href="#práctica-1-inventariar-lo-que-ya-existe-antes-de-clase-primer-intento" id="toc-práctica-1-inventariar-lo-que-ya-existe-antes-de-clase-primer-intento" class="nav-link" data-scroll-target="#práctica-1-inventariar-lo-que-ya-existe-antes-de-clase-primer-intento">Práctica 1 — Inventariar lo que ya existe <em>(antes de clase, primer intento)</em></a></li>
+  <li><a href="#práctica-2-el-orden-que-impone-la-dependencia-antes-de-clase-primer-intento" id="toc-práctica-2-el-orden-que-impone-la-dependencia-antes-de-clase-primer-intento" class="nav-link" data-scroll-target="#práctica-2-el-orden-que-impone-la-dependencia-antes-de-clase-primer-intento">Práctica 2 — El orden que impone la dependencia <em>(antes de clase, primer intento)</em></a></li>
+  </ul></li>
+  <li><a href="#los-puntos-de-control-indispensable" id="toc-los-puntos-de-control-indispensable" class="nav-link" data-scroll-target="#los-puntos-de-control-indispensable">4. Los puntos de control [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#práctica-3-construir-el-protocolo-ejecutable-mínimo-durante-el-taller" id="toc-práctica-3-construir-el-protocolo-ejecutable-mínimo-durante-el-taller" class="nav-link" data-scroll-target="#práctica-3-construir-el-protocolo-ejecutable-mínimo-durante-el-taller">Práctica 3 — Construir el protocolo ejecutable mínimo <em>(durante el taller)</em></a></li>
+  <li><a href="#práctica-4-poner-los-controles-donde-importan-durante-el-taller" id="toc-práctica-4-poner-los-controles-donde-importan-durante-el-taller" class="nav-link" data-scroll-target="#práctica-4-poner-los-controles-donde-importan-durante-el-taller">Práctica 4 — Poner los controles donde importan <em>(durante el taller)</em></a></li>
+  </ul></li>
+  <li><a href="#el-producto-integrador-los-genes-en-su-lugar-indispensable" id="toc-el-producto-integrador-los-genes-en-su-lugar-indispensable" class="nav-link" data-scroll-target="#el-producto-integrador-los-genes-en-su-lugar-indispensable">5. El producto integrador: los genes en su lugar [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#antes-de-ordenar-auditar-la-columna-de-la-cadena" id="toc-antes-de-ordenar-auditar-la-columna-de-la-cadena" class="nav-link" data-scroll-target="#antes-de-ordenar-auditar-la-columna-de-la-cadena">5.1 Antes de ordenar: auditar la columna de la cadena</a></li>
+  <li><a href="#construir-la-tabla" id="toc-construir-la-tabla" class="nav-link" data-scroll-target="#construir-la-tabla">5.2 Construir la tabla</a></li>
+  <li><a href="#los-controles-de-este-paso" id="toc-los-controles-de-este-paso" class="nav-link" data-scroll-target="#los-controles-de-este-paso">5.3 Los controles de este paso</a></li>
+  <li><a href="#práctica-5-construir-y-verificar-el-producto-integrador-durante-el-taller" id="toc-práctica-5-construir-y-verificar-el-producto-integrador-durante-el-taller" class="nav-link" data-scroll-target="#práctica-5-construir-y-verificar-el-producto-integrador-durante-el-taller">Práctica 5 — Construir y verificar el producto integrador <em>(durante el taller)</em></a></li>
+  </ul></li>
+  <li><a href="#ejecutar-desde-el-principio-indispensable" id="toc-ejecutar-desde-el-principio-indispensable" class="nav-link" data-scroll-target="#ejecutar-desde-el-principio-indispensable">6. Ejecutar desde el principio [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#qué-se-conserva-y-qué-se-aparta" id="toc-qué-se-conserva-y-qué-se-aparta" class="nav-link" data-scroll-target="#qué-se-conserva-y-qué-se-aparta">6.1 Qué se conserva y qué se aparta</a></li>
+  <li><a href="#qué-significa-coincide-en-cada-caso" id="toc-qué-significa-coincide-en-cada-caso" class="nav-link" data-scroll-target="#qué-significa-coincide-en-cada-caso">6.2 Qué significa «coincide» en cada caso</a></li>
+  <li><a href="#práctica-6-probar-la-regeneración-durante-el-taller" id="toc-práctica-6-probar-la-regeneración-durante-el-taller" class="nav-link" data-scroll-target="#práctica-6-probar-la-regeneración-durante-el-taller">Práctica 6 — Probar la regeneración <em>(durante el taller)</em></a></li>
+  </ul></li>
+  <li><a href="#ejecutable-todavía-no-es-automático-consulta" id="toc-ejecutable-todavía-no-es-automático-consulta" class="nav-link" data-scroll-target="#ejecutable-todavía-no-es-automático-consulta">7. Ejecutable todavía no es automático [Consulta]</a>
+  <ul class="collapse">
+  <li><a href="#práctica-7-la-síntesis-del-genoma-después-del-taller" id="toc-práctica-7-la-síntesis-del-genoma-después-del-taller" class="nav-link" data-scroll-target="#práctica-7-la-síntesis-del-genoma-después-del-taller">Práctica 7 — La síntesis del genoma <em>(después del taller)</em></a></li>
+  </ul></li>
+  <li><a href="#documentar-la-sección-del-protocolo-indispensable" id="toc-documentar-la-sección-del-protocolo-indispensable" class="nav-link" data-scroll-target="#documentar-la-sección-del-protocolo-indispensable">8. Documentar: la sección del protocolo [Indispensable]</a></li>
+  <li><a href="#evidencia-de-la-sesión" id="toc-evidencia-de-la-sesión" class="nav-link" data-scroll-target="#evidencia-de-la-sesión">Evidencia de la sesión</a></li>
+  <li><a href="#errores-frecuentes-y-estrategias-de-diagnóstico" id="toc-errores-frecuentes-y-estrategias-de-diagnóstico" class="nav-link" data-scroll-target="#errores-frecuentes-y-estrategias-de-diagnóstico">Errores frecuentes y estrategias de diagnóstico</a></li>
+  <li><a href="#rúbricas" id="toc-rúbricas" class="nav-link" data-scroll-target="#rúbricas">Rúbricas</a></li>
+  <li><a href="#autoevaluación" id="toc-autoevaluación" class="nav-link" data-scroll-target="#autoevaluación">Autoevaluación</a>
+  <ul class="collapse">
+  <li><a href="#comprobación-rápida-formativa-al-final-del-taller" id="toc-comprobación-rápida-formativa-al-final-del-taller" class="nav-link" data-scroll-target="#comprobación-rápida-formativa-al-final-del-taller">Comprobación rápida — formativa, al final del taller</a></li>
+  <li><a href="#semáforo" id="toc-semáforo" class="nav-link" data-scroll-target="#semáforo">Semáforo</a></li>
+  </ul></li>
+  <li><a href="#cierre-con-ia-clásico-vs.-asistido" id="toc-cierre-con-ia-clásico-vs.-asistido" class="nav-link" data-scroll-target="#cierre-con-ia-clásico-vs.-asistido">Cierre con IA: clásico vs.&nbsp;asistido</a></li>
+  <li><a href="#lo-que-realmente-aprendiste-hoy" id="toc-lo-que-realmente-aprendiste-hoy" class="nav-link" data-scroll-target="#lo-que-realmente-aprendiste-hoy">Lo que realmente aprendiste hoy</a></li>
+  <li><a href="#cierre-de-la-unidad-4-y-puente-hacia-la-siguiente" id="toc-cierre-de-la-unidad-4-y-puente-hacia-la-siguiente" class="nav-link" data-scroll-target="#cierre-de-la-unidad-4-y-puente-hacia-la-siguiente">Cierre de la Unidad 4 y puente hacia la siguiente</a></li>
+  <li><a href="#en-una-frase" id="toc-en-una-frase" class="nav-link" data-scroll-target="#en-una-frase">En una frase</a></li>
+  <li><a href="#anexo-a.-correspondencia-resultadoactividadevidenciacriterio" id="toc-anexo-a.-correspondencia-resultadoactividadevidenciacriterio" class="nav-link" data-scroll-target="#anexo-a.-correspondencia-resultadoactividadevidenciacriterio">Anexo A. Correspondencia resultado–actividad–evidencia–criterio</a></li>
+  <li><a href="#anexo-b.-alineación-transversal" id="toc-anexo-b.-alineación-transversal" class="nav-link" data-scroll-target="#anexo-b.-alineación-transversal">Anexo B. Alineación transversal</a></li>
+  <li><a href="#glosario" id="toc-glosario" class="nav-link" data-scroll-target="#glosario">Glosario</a></li>
+  <li><a href="#referencias" id="toc-referencias" class="nav-link" data-scroll-target="#referencias">Referencias</a></li>
+  <li><a href="#distribución-estimada-de-las-dos-horas" id="toc-distribución-estimada-de-las-dos-horas" class="nav-link" data-scroll-target="#distribución-estimada-de-las-dos-horas">Distribución estimada de las dos horas</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/Helysalgado/introbioinfo-unix/edit/main/u4-s23-protocolo-ejecutable-genoma.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/Helysalgado/introbioinfo-unix/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./u4-procesamiento-exploracion.html">Unidad 4</a></li><li class="breadcrumb-item"><a href="./u4-s23-protocolo-ejecutable-genoma.html">S23 — Protocolo ejecutable</a></li></ol></nav></header>
+
+
+
+
+<section id="s23-integrar-el-protocolo-como-cuaderno-de-laboratorio-ejecutable" class="level1">
+<h1>S23 — Integrar: el protocolo como cuaderno de laboratorio ejecutable</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="Aula invertida">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Aula invertida
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Antes de clase harás un primer intento sin ejecutar nada: dibujar el orden en que reconstruirías toda tu investigación partiendo solo de <code>data/source/</code>, y auditar qué piezas tienes realmente. Durante el taller ordenarás el flujo, integrarás los comandos ya validados y les añadirás sus puntos de control. Después ejecutarás el protocolo completo desde las fuentes y escribirás la síntesis final del genoma en <code>doc/protocolo.md</code>.</p>
+<p>El primer intento es formativo: importa que descubras qué dependencias tenías solo en la cabeza.</p>
+</div>
+</div>
+<section id="ficha-del-módulo" class="level2">
+<h2 class="anchored" data-anchor-id="ficha-del-módulo">Ficha del módulo</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Elemento</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Sesión</strong></td>
+<td>S23, 2 horas</td>
+</tr>
+<tr class="even">
+<td><strong>Unidad</strong></td>
+<td>U4. Procesamiento y exploración de datos genómicos — <strong>sesión de cierre</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>Competencia principal</strong></td>
+<td>D. Análisis y exploración de datos genómicos</td>
+</tr>
+<tr class="even">
+<td><strong>Competencias integradas</strong></td>
+<td>A. Documentación reproducible; B. Entorno Unix; C. Manejo de datos biológicos</td>
+</tr>
+<tr class="odd">
+<td><strong>Propósito</strong></td>
+<td>Convertir una investigación dispersa en un procedimiento ordenado, verificable y ejecutable de principio a fin, y sintetizar sus hallazgos</td>
+</tr>
+<tr class="even">
+<td><strong>Consulta previa del Plan</strong></td>
+<td>S23 · <code>awk</code> (refuerzo) e integración; este módulo lo sustituye como lectura autocontenida</td>
+</tr>
+<tr class="odd">
+<td><strong>Continuidad</strong></td>
+<td>S18–S22 respondieron preguntas; S23 las ordena en un solo procedimiento</td>
+</tr>
+<tr class="even">
+<td><strong>Lectura indispensable</strong></td>
+<td>Secciones 1–6 de este módulo (~45 min)</td>
+</tr>
+<tr class="odd">
+<td><strong>Lectura de consulta</strong></td>
+<td>Sección 7; los apartados S18–S22 de tu propio protocolo</td>
+</tr>
+<tr class="even">
+<td><strong>Primer intento</strong></td>
+<td>Prácticas 1 y 2: auditoría del análisis acumulado y orden de ejecución, 40 min, sin comandos</td>
+</tr>
+<tr class="odd">
+<td><strong>Evidencia</strong></td>
+<td><strong>Protocolo ejecutable de la Unidad 4</strong>, la tabla de genes ordenada y la síntesis final del genoma</td>
+</tr>
+<tr class="even">
+<td><strong>Tarea numerada</strong></td>
+<td>Ninguna nueva. La evidencia integradora cierra la unidad</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-important callout-titled" title="qué significa «ejecutable»">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>qué significa «ejecutable»
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Un <strong>protocolo ejecutable</strong> es un procedimiento que otra persona puede ejecutar <strong>manualmente, paso a paso</strong>, leyendo cada resultado y decidiendo entre etapas si conviene continuar. No es todavía un <em>script</em>, ni un archivo que se lance de una vez, ni un flujo que se detenga solo: eso llega en la Unidad 5. Aquí no hay herramientas nuevas ni métodos de análisis nuevos —todos los comandos los escribiste tú—; lo que se añade es lo que estaba entre ellos y no en el documento: el orden, las dependencias y los controles. Y un <strong>producto final integrador</strong>, la tabla de genes en su posición, que reúne en una sola representación lo que ya habías seleccionado, identificado y medido.</p>
+</div>
+</div>
+</section>
+<section id="relación-con-lo-que-ya-sabes" class="level2">
+<h2 class="anchored" data-anchor-id="relación-con-lo-que-ya-sabes">Relación con lo que ya sabes</h2>
+<pre class="text"><code>S22                                     S23
+Medir cuánto importa lo que encontré →  Poder rehacerlo todo, en orden y sin ayuda
+"tengo la respuesta y su comando"       "otra persona parte de los originales y llega a mis conclusiones"</code></pre>
+<p>Tu investigación está completa en contenido. Cada pregunta tiene su respuesta, su comando y su verificación. Y sin embargo, si alguien te pidiera hoy rehacerla entera sobre otro genoma, tendrías que ir sección por sección del protocolo reconstruyendo de memoria en qué orden va cada cosa.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Habilidad que ya tienes</th>
+<th>Dónde la aprendiste</th>
+<th>Qué cambia en S23</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Documentar un comando con su resultado</td>
+<td>Toda la unidad</td>
+<td>Ahora cada comando declara además <strong>de qué depende</strong> y <strong>cómo se comprueba</strong></td>
+</tr>
+<tr class="even">
+<td>Verificar un resultado</td>
+<td>S13–S22</td>
+<td>Las verificaciones dejan de ser un acto final y pasan a ser <strong>puntos de control del flujo</strong></td>
+</tr>
+<tr class="odd">
+<td>Distinguir <code>data/source/</code>, <code>data/processed/</code> y <code>results/</code></td>
+<td>S20</td>
+<td>La distinción decide qué se regenera y qué no</td>
+</tr>
+<tr class="even">
+<td>Ordenar con <code>sort -k</code></td>
+<td>S13</td>
+<td>Vuelve para ordenar por posición genómica, con su trampa numérica</td>
+</tr>
+<tr class="odd">
+<td>Conservar lo anterior sin borrarlo</td>
+<td>S18</td>
+<td>El protocolo sigue siendo acumulativo: la sección de hoy <strong>no sustituye</strong> a ninguna</td>
+</tr>
+</tbody>
+</table>
+<p>Lo nuevo de hoy no es una operación: es que tu análisis deja de ser un conjunto de resultados correctos y pasa a ser <strong>un procedimiento</strong>.</p>
+</section>
+<section id="tu-lugar-en-el-ciclo-de-la-evidencia" class="level2">
+<h2 class="anchored" data-anchor-id="tu-lugar-en-el-ciclo-de-la-evidencia">Tu lugar en el ciclo de la evidencia</h2>
+<p>Las seis sesiones que cierran la unidad no enseñan seis herramientas: enseñan <strong>los seis pasos por los que una observación se convierte en evidencia científica</strong>. Hoy cierras el ciclo entero.</p>
+<pre class="text"><code>  S18  SELECCIONAR  la evidencia correcta          ✔ resuelto
+  S19  IDENTIFICAR  el objeto biológico correcto   ✔ resuelto
+  S20  NORMALIZAR   la evidencia para compararla   ✔ resuelto
+  S21  CONFRONTAR   con una fuente ajena           ✔ resuelto
+  S22  CUANTIFICAR  e interpretar                  ✔ resuelto
+▶ S23  INTEGRAR     el ciclo completo, reproducible ← estás aquí</code></pre>
+<p><strong>Integrar</strong> es la sexta operación del ciclo, y es una operación intelectual como las demás: exige reconocer dependencias, decidir un orden y saber dónde comprobar. Lo que S23 <strong>no</strong> añade es un método nuevo de analizar el genoma: conecta y recorre de forma integrada las cinco operaciones anteriores, sobre los archivos originales.</p>
+</section>
+<section id="dónde-estás-en-la-investigación" class="level2">
+<h2 class="anchored" data-anchor-id="dónde-estás-en-la-investigación">Dónde estás en la investigación</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Pregunta de la investigación</th>
+<th>En S23</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>¿Cuántos replicones tiene el genoma?</td>
+<td>✔ Se <strong>regenera</strong> hoy desde las fuentes</td>
+</tr>
+<tr class="even">
+<td>¿De qué tamaño es?</td>
+<td>✔ Cerrada en S22; hoy se reproduce y se sintetiza</td>
+</tr>
+<tr class="odd">
+<td>¿Qué contiene la anotación y en qué proporciones?</td>
+<td>✔ Se regenera</td>
+</tr>
+<tr class="even">
+<td>¿Cuántos genes y CDS hay?</td>
+<td>✔ Se regenera</td>
+</tr>
+<tr class="odd">
+<td>¿Cómo se distribuyen por cadena y qué longitud tienen?</td>
+<td>✔ Se regenera</td>
+</tr>
+<tr class="even">
+<td>¿Qué parte concordó con una fuente externa y con qué magnitud difiere?</td>
+<td>✔ Se regenera</td>
+</tr>
+<tr class="odd">
+<td>¿Cómo se distribuyen espacialmente los genes en cada replicón?</td>
+<td>✔ <strong>Se resuelve hoy</strong>: el único producto nuevo</td>
+</tr>
+<tr class="even">
+<td>¿Puede otra persona ejecutar toda la investigación?</td>
+<td>✔ <strong>Se resuelve hoy</strong></td>
+</tr>
+<tr class="odd">
+<td>¿Qué decisiones, además de los archivos, hacen falta para rehacerla?</td>
+<td>✔ <strong>Se explicita hoy</strong></td>
+</tr>
+<tr class="even">
+<td>¿Puedo aplicar este análisis a otro genoma sin editarlo entero?</td>
+<td>☐ Unidad 5</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="resultados-de-aprendizaje" class="level2">
+<h2 class="anchored" data-anchor-id="resultados-de-aprendizaje">Resultados de aprendizaje</h2>
+<p>Al finalizar la sesión podrás:</p>
+<ol type="1">
+<li><strong>Identificar</strong> las dependencias entre las etapas de tu análisis.</li>
+<li><strong>Ordenar</strong> las operaciones de modo que cada entrada exista cuando se necesita.</li>
+<li><strong>Distinguir</strong> entradas, derivados y resultados, y decidir cuáles se regeneran.</li>
+<li><strong>Integrar</strong> comandos ya validados en un protocolo ejecutable, sin reescribirlos de memoria.</li>
+<li><strong>Incorporar</strong> un punto de control después de cada paso crítico.</li>
+<li><strong>Construir</strong> una tabla de genes ordenada por replicón, cadena y posición, con orden numérico correcto.</li>
+<li><strong>Regenerar</strong> los resultados principales de la unidad partiendo solo de <code>data/source/</code>.</li>
+<li><strong>Sintetizar</strong> los hallazgos del genoma con sus evidencias y sus limitaciones.</li>
+<li><strong>Evaluar</strong> una propuesta de IA sobre el flujo mediante una prueba controlada.</li>
+<li><strong>Explicar</strong> por qué un protocolo ejecutable todavía no es una herramienta automatizada.</li>
+</ol>
+</section>
+<section id="lista-de-verificación-previa" class="level2">
+<h2 class="anchored" data-anchor-id="lista-de-verificación-previa">Lista de verificación previa</h2>
+<p>Antes del taller comprueba que tienes:</p>
+<ul class="task-list">
+<li><label><input type="checkbox"><code>doc/protocolo.md</code> con las secciones de S10 a S22, <strong>completas y sin borrar</strong>: ahí viven tus decisiones metodológicas, que son tan imprescindibles como los archivos;</label></li>
+<li><label><input type="checkbox">los archivos originales en <code>data/source/</code>, verificados;</label></li>
+<li><label><input type="checkbox">los directorios <code>results/s12/</code> a <code>results/s22/</code> con lo que aún conserves;</label></li>
+<li><label><input type="checkbox"><code>data/processed/anotacion-tabla.tsv</code> y su diccionario;</label></li>
+<li><label><input type="checkbox"><code>doc/s23-primer-intento.md</code> con las Prácticas 1 y 2 resueltas;</label></li>
+<li><label><input type="checkbox">el directorio <code>results/s23/</code> creado.</label></li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si has perdido algún archivo intermedio, <strong>no lo repongas todavía</strong>. Descubrir qué falta y comprobar que se puede regenerar es justamente el ejercicio de hoy. Lo único que no puede faltar es <code>data/source/</code>.</p>
+</div>
+</div>
+</section>
+<section id="ruta-de-s23" class="level2">
+<h2 class="anchored" data-anchor-id="ruta-de-s23">Ruta de S23</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 30%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Momento</th>
+<th>Qué hacer</th>
+<th style="text-align: right;">Tiempo estimado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Antes de clase</strong></td>
+<td>Leer las secciones 1–6. Auditar los productos canónicos y las decisiones, fijar los nombres y dibujar el mapa preliminar de dependencias (Prácticas 1 y 2)</td>
+<td style="text-align: right;">45 + 40 min</td>
+</tr>
+<tr class="even">
+<td><strong>Taller (1.ª hora)</strong></td>
+<td>Integrar <strong>la ruta crítica</strong> del flujo y colocarle sus controles (Prácticas 3 y 4)</td>
+<td style="text-align: right;">60 min</td>
+</tr>
+<tr class="odd">
+<td><strong>Taller (2.ª hora)</strong></td>
+<td>Construir y verificar el producto espacial, y ejecutar los bloques esenciales (Prácticas 5 y 6)</td>
+<td style="text-align: right;">60 min</td>
+</tr>
+<tr class="even">
+<td><strong>Después del taller</strong></td>
+<td>Ejecución completa, comparación con el respaldo, síntesis y cierre del protocolo (Práctica 7)</td>
+<td style="text-align: right;">120 min</td>
+</tr>
+</tbody>
+</table>
+<p>Las secciones 1–6 son <strong>indispensables</strong>; la sección 7 es de consulta y sostiene el puente a la Unidad 5.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="qué cabe realmente en dos horas">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>qué cabe realmente en dos horas
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>En el taller se integra la <strong>ruta crítica</strong> —la secuencia mínima que va de las fuentes a los resultados principales— y se ejecutan los bloques esenciales. La integración exhaustiva, la depuración, la comparación de todos los productos y la redacción final se terminan después. El núcleo que no debe recortarse es:</p>
+<pre class="text"><code>dependencias → orden → controles → regeneración → síntesis</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="correcto-no-es-lo-mismo-que-ejecutable-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="correcto-no-es-lo-mismo-que-ejecutable-indispensable">1. Correcto no es lo mismo que ejecutable [Indispensable]</h2>
+<p>Abre tu protocolo y mira lo que tienes: decenas de comandos correctos, cada uno con su resultado y su verificación. Es un trabajo sólido. Ahora hazte una pregunta incómoda:</p>
+<blockquote class="blockquote">
+<p><strong>Si mañana te pidieran rehacer toda la investigación desde cero, ¿podrías?</strong></p>
+</blockquote>
+<p>Podrías, pero solo tú, y despacio. Tendrías que recordar en qué orden va cada cosa, qué archivo necesita cada comando, cuál produce la entrada del siguiente y cuáles ya no se pueden regenerar. Nada de eso está escrito en ningún sitio: está en tu memoria.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u4-s23-disperso-a-flujo.png" class="img-fluid figure-img"></p>
+<figcaption>A la izquierda, el estado en que queda la investigación al terminar la sesión anterior: comandos correctos repartidos entre secciones distintas del protocolo, resultados en carpetas separadas, flechas rotas entre ellos, y tres cosas que solo existen en la memoria de quien hizo el análisis: el orden de ejecución, qué archivo necesita cada paso y cuáles ya no se pueden regenerar. A la derecha, el mismo material convertido en un procedimiento: entradas declaradas, una secuencia ordenada de bloques con sus verificaciones intercaladas, salidas con nombre y una síntesis final. Una franja inferior precisa que ningún comando cambió: lo que se añadió fue el orden, las dependencias y los puntos de control.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 23.1.</strong> Correcto no es lo mismo que ejecutable. Lo que falta no está en ningún comando: está entre ellos. Elaboración propia.</p>
+<blockquote class="blockquote">
+<p><strong>IDEA CLAVE.</strong> Documentar una operación no equivale a integrar un análisis. Un protocolo que registra qué hiciste es un buen cuaderno; uno que además permite <strong>rehacerlo</strong> es un instrumento. La diferencia entre los dos es el orden, las dependencias y los controles.</p>
+</blockquote>
+</section>
+<section id="qué-convierte-un-comando-en-un-paso-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="qué-convierte-un-comando-en-un-paso-indispensable">2. Qué convierte un comando en un paso [Indispensable]</h2>
+<p>Un comando responde <em>qué se ejecutó</em>. Un paso del protocolo responde además <em>sobre qué</em>, <em>después de qué</em>, <em>con qué resultado</em>, <em>cómo se comprueba</em> y <em>qué permite afirmar</em>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u4-s23-paso-reproducible.png" class="img-fluid figure-img"></p>
+<figcaption>A la izquierda, un comando aislado: una línea de terminal sin contexto, que funciona pero no dice sobre qué archivo se ejecuta, qué tenía que existir antes ni si el número obtenido era el esperado. A la derecha, ese mismo comando convertido en un paso del protocolo con siete elementos declarados: la pregunta que responde, la entrada que necesita, el paso del que depende, la operación en español, el comando exacto, la salida con su nombre de archivo, la verificación con lo que significaría un fallo, y la interpretación. Una franja inferior señala que la casilla que más se olvida es la verificación, y que es la única que decide si se puede continuar.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 23.2.</strong> Un comando no es un paso. La casilla que más se olvida es la verificación, y es la única que decide si conviene seguir adelante. Elaboración propia.</p>
+<p>Cada paso de tu protocolo ejecutable llevará estas siete casillas:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Casilla</th>
+<th>Qué contiene</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Pregunta</strong></td>
+<td>Qué se quiere responder, en una frase</td>
+</tr>
+<tr class="even">
+<td><strong>Entrada</strong></td>
+<td>El archivo o resultado previo que necesita</td>
+</tr>
+<tr class="odd">
+<td><strong>Depende de</strong></td>
+<td>Qué paso anterior tuvo que completarse</td>
+</tr>
+<tr class="even">
+<td><strong>Operación</strong></td>
+<td>Qué transformación o cálculo se hace, en español</td>
+</tr>
+<tr class="odd">
+<td><strong>Comando</strong></td>
+<td>La instrucción exacta, ejecutable tal cual</td>
+</tr>
+<tr class="even">
+<td><strong>Salida</strong></td>
+<td>El archivo que produce, con su nombre</td>
+</tr>
+<tr class="odd">
+<td><strong>Verificación</strong></td>
+<td>Cómo se comprueba, y qué significaría que fallara</td>
+</tr>
+<tr class="even">
+<td><strong>Interpretación</strong></td>
+<td>Qué permite afirmar el resultado</td>
+</tr>
+</tbody>
+</table>
+<blockquote class="blockquote">
+<p><strong>IDEA CLAVE.</strong> El comando ocupa <strong>una</strong> de las casillas. Las otras siete son las que permiten que otra persona lo ejecute sin preguntarte nada y sepa si salió bien.</p>
+</blockquote>
+</section>
+<section id="el-mapa-de-dependencias-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="el-mapa-de-dependencias-indispensable">3. El mapa de dependencias [Indispensable]</h2>
+<p>El orden de un protocolo no es cronológico —no es el orden en que aprendiste las cosas—, sino el que imponen las <strong>dependencias entre archivos</strong>: cada paso necesita que sus entradas existan.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u4-s23-mapa-dependencias.png" class="img-fluid figure-img"></p>
+<figcaption>Un mapa muestra qué produce cada sesión y qué necesita de las anteriores. De los archivos originales sale el cuerpo del GFF3 sin directivas, producido en S12, que es el cuello de botella del flujo: de él dependen el inventario de S13, los conteos refinados de S18 y las listas de identificadores de S19. De S19 salen las listas de replicones y de locus, que S20 normaliza y con las que produce además una tabla derivada. S21 toma la lista propia y una tabla externa descargada, que es una entrada y no se regenera, y produce las tres zonas de la confrontación. S22 toma esas zonas y el archivo original para calcular longitudes y densidades. S23 no produce análisis nuevos: los ordena y añade una tabla ordenada por posición y una síntesis. Una franja inferior distingue tres tipos de producto: entradas que nunca se modifican, derivados reutilizables y resultados que responden una pregunta concreta.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 23.3.</strong> Qué necesita cada paso antes de empezar. El cuello de botella es el cuerpo del GFF3 sin directivas: sin él no arranca casi nada. Elaboración propia.</p>
+<section id="dos-clases-de-entrada" class="level3">
+<h3 class="anchored" data-anchor-id="dos-clases-de-entrada">3.1 Dos clases de entrada</h3>
+<p>Antes de leer el mapa conviene una precisión que suele pasarse por alto: <strong><code>data/source/</code> no basta para rehacer la investigación</strong>. Con los archivos originales y nada más, nadie podría reconstruir tus resultados, porque los comandos no se deducen de los datos.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Entradas de datos</th>
+<th>Entradas metodológicas</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>El FASTA y el GFF3, con su versión y su checksum</td>
+<td>La definición de gen adoptada en S18</td>
+</tr>
+<tr class="even">
+<td>La tabla externa de S21, con su ficha</td>
+<td>El criterio sobre pseudogenes</td>
+</tr>
+<tr class="odd">
+<td>—</td>
+<td>La política de normalización de S20, ampliada en S21</td>
+</tr>
+<tr class="even">
+<td>—</td>
+<td>El universo comparable definido en S21</td>
+</tr>
+<tr class="odd">
+<td>—</td>
+<td>Las fórmulas y unidades de S22</td>
+</tr>
+<tr class="even">
+<td>—</td>
+<td>El tratamiento de los valores faltantes</td>
+</tr>
+<tr class="odd">
+<td>—</td>
+<td>La convención de nombres y el orden del flujo</td>
+</tr>
+</tbody>
+</table>
+<p>Las primeras viven en <code>data/source/</code>; las segundas viven en <code>doc/protocolo.md</code>. La ejecución limpia parte de las dos:</p>
+<pre class="text"><code>datos fuente  +  decisiones metodológicas documentadas</code></pre>
+<p>Por eso el protocolo no puede ser solo una lista de comandos: cada paso declara también <strong>qué decisión previa lo sostiene</strong>.</p>
+</section>
+<section id="lo-que-impone-el-mapa" class="level3">
+<h3 class="anchored" data-anchor-id="lo-que-impone-el-mapa">3.2 Lo que impone el mapa</h3>
+<p>De ese mapa salen dos consecuencias que gobiernan todo el protocolo.</p>
+<p><strong>No puedes empezar por donde quieras.</strong> La confrontación de S21 necesita listas normalizadas, que necesitan listas extraídas, que necesitan el cuerpo del GFF3 sin directivas. Si intentas ejecutar el <code>comm</code> de S21 sobre un proyecto recién clonado, falla —y falla mal: <code>comm</code> sobre archivos inexistentes no siempre avisa de forma clara—.</p>
+<p><strong>Y ese cuerpo del GFF3 no es un resultado: es un derivado.</strong> Alimenta a S13, S18 y S19, así que por la convención de S20 le corresponde vivir en <code>data/processed/</code>, no en <code>results/</code>. En el protocolo ejecutable se adopta su <strong>ruta canónica</strong> y se registra la histórica:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Ruta canónica en el protocolo</th>
+<th>Ruta histórica</th>
+<th>Tipo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>data/processed/anotaciones-sin-directivas.gff3</code></td>
+<td><code>results/s12/anotaciones-sin-directivas.gff</code></td>
+<td>Derivado reutilizable</td>
+</tr>
+</tbody>
+</table>
+<p>Se produce igual que siempre —el comando de S12 no cambia—, solo cambia dónde se escribe.</p>
+<p><strong>Hay una entrada que no se regenera.</strong> La tabla externa de S21 se descargó de un recurso que actualiza sus versiones. No es un derivado: es una <strong>entrada</strong>, como el FASTA y el GFF3, y en el protocolo se declara con su ficha y su checksum, no con un comando que la produzca.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="inconsistencias que hay que resolver, no esconder">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>inconsistencias que hay que resolver, no esconder
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Al auditar tu propio protocolo vas a encontrar que el mismo archivo tiene nombres distintos según la sesión: el material de S10–S13 usa los nombres con que RefSeq entrega los archivos (<code>genome.fna</code>, <code>genomic.gff</code>) y el de S18–S22 usa nombres propios (<code>genoma.fna</code>, <code>anotacion.gff3</code>). Adopta <strong>una</strong> convención para el protocolo ejecutable y <strong>publica la tabla de equivalencias</strong>: reescribir en silencio las secciones antiguas destruiría la historia del razonamiento, que es lo más valioso que tienes.</p>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>IDEA CLAVE.</strong> Las dependencias no se inventan: se leen. Cada comando declara sus entradas en las rutas que menciona, y ordenarlas es un trabajo de lectura, no de memoria.</p>
+</blockquote>
+<hr>
+</section>
+<section id="práctica-1-inventariar-lo-que-ya-existe-antes-de-clase-primer-intento" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-1-inventariar-lo-que-ya-existe-antes-de-clase-primer-intento">Práctica 1 — Inventariar lo que ya existe <em>(antes de clase, primer intento)</em></h3>
+<p><strong>Pregunta metodológica.</strong> ¿Qué piezas de mi investigación existen realmente, y cuáles no forman todavía un flujo?</p>
+<p><strong>Objetivo.</strong> Auditar el material acumulado antes de intentar ordenarlo.</p>
+<p><strong>Antes de clase.</strong> En <code>doc/s23-primer-intento.md</code>, <strong>sin ejecutar comandos</strong>:</p>
+<div class="callout callout-style-default callout-note callout-titled" title="qué inventariar y qué no">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>qué inventariar y qué no
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No transcribas el historial de la terminal. Solo entra en el mapa lo que <strong>alimenta el flujo</strong>: entradas originales, derivados reutilizables, productos que otro paso necesita, resultados finales, controles bloqueantes y decisiones manuales. Quedan fuera las inspecciones temporales, los comandos exploratorios, los archivos que descartaste y las pruebas que no alimentan nada. El objetivo es un mapa, no un diario.</p>
+</div>
+</div>
+<ol type="1">
+<li><p><strong>Inventaría los productos canónicos</strong>, uno por fila:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Producto</th>
+<th>Tipo</th>
+<th>Sesión</th>
+<th>Entrada que necesita</th>
+<th>¿Existe aún?</th>
+<th>¿Se regenera?</th>
+<th>¿Qué paso lo usa después?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>…</td>
+<td>entrada / derivado / resultado</td>
+<td>…</td>
+<td>…</td>
+<td>sí/no</td>
+<td>sí/no</td>
+<td>…</td>
+</tr>
+</tbody>
+</table></li>
+<li><p><strong>Inventaría las decisiones metodológicas</strong> —definición de gen, criterio sobre pseudogenes, política de normalización, universo comparable, fórmulas y unidades, tratamiento de faltantes— y anota en qué sesión quedó fijada cada una.</p></li>
+<li><p><strong>Marca las inconsistencias</strong>: rutas que ya no existen, dos nombres para el mismo producto, comandos que solo imprimieron en pantalla sin guardar nada, verificaciones que hiciste pero no registraste, decisiones tomadas sin dejar rastro.</p></li>
+<li><p><strong>Señala lo irreproducible.</strong> ¿Algún resultado dependió de algo manual —una descarga, una inspección visual, una decisión no escrita—? Esos pasos no desaparecen: se declaran.</p></li>
+<li><p><strong>Decide los nombres canónicos</strong> y escribe la tabla de equivalencias con los históricos.</p></li>
+</ol>
+<p><strong>Criterio de logro:</strong> tu mapa distingue los tres tipos de producto y las decisiones metodológicas, e incluye al menos una inconsistencia real —todas las investigaciones las tienen— resuelta sin borrar historia.</p>
+<hr>
+</section>
+<section id="práctica-2-el-orden-que-impone-la-dependencia-antes-de-clase-primer-intento" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-2-el-orden-que-impone-la-dependencia-antes-de-clase-primer-intento">Práctica 2 — El orden que impone la dependencia <em>(antes de clase, primer intento)</em></h3>
+<p><strong>Pregunta metodológica.</strong> ¿En qué secuencia deben ejecutarse las operaciones para que cada entrada exista cuando se la necesita?</p>
+<p><strong>Objetivo.</strong> Construir el esqueleto del protocolo antes de escribir ninguna línea.</p>
+<p><strong>Antes de clase.</strong> En el mismo documento:</p>
+<ol type="1">
+<li><strong>Escribe cada operación en una tarjeta</strong> —papel o una lista, da igual—: verificar las fuentes, preparar el cuerpo del GFF3, seleccionar los registros, extraer los identificadores, normalizar, construir universos comparables, confrontar, calcular longitudes, calcular densidades, ordenar por posición, sintetizar.</li>
+<li><strong>Ordénalas</strong> de modo que ninguna necesite algo que aún no existe.</li>
+<li><strong>Justifica tres dependencias</strong> concretas: para cada una, di qué pasaría si invirtieras el orden.</li>
+<li><strong>Agrupa en cinco bloques</strong> y ponles nombre. Si tu agrupación se parece al ciclo de la evidencia, no es casualidad.</li>
+<li><strong>Marca lo que no sabes.</strong> Señala los pasos de cuya posición no estés seguro: son los que más vas a aprender en el taller.</li>
+</ol>
+<p><strong>Criterio de logro:</strong> tu orden no tiene ningún paso cuya entrada se produzca después, y puedes explicar por qué el análisis no puede empezar por la confrontación.</p>
+<hr>
+</section>
+</section>
+<section id="los-puntos-de-control-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="los-puntos-de-control-indispensable">4. Los puntos de control [Indispensable]</h2>
+<p>Un flujo no es correcto por haber llegado al final. Puede terminar sin errores y haber producido basura: una lista vacía, un archivo sin ordenar, un conteo que incluye el encabezado.</p>
+<p>Por eso cada bloque termina con un control. No hay que inventarlos: <strong>ya los tienes todos</strong>, repartidos por las sesiones anteriores. Lo único que hace S23 es colocarlos dentro del flujo, decir <strong>qué resultado exacto se espera</strong> y qué debe hacer la persona si no se cumple.</p>
+<p>Los controles son de dos clases:</p>
+<ul>
+<li><strong>Informativo:</strong> conviene anotarlo, pero su resultado no invalida lo que viene.</li>
+<li><strong>Bloqueante manual:</strong> si no se cumple, <strong>la persona no debe continuar</strong> hasta corregirlo, porque todo lo posterior heredaría el error.</li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Paso</th>
+<th>Salida esperada</th>
+<th>Control con su expectativa exacta</th>
+<th>Tipo</th>
+<th>Qué hacer si falla</th>
+<th>De dónde viene</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Cuerpo del GFF3 sin directivas</td>
+<td>Líneas que empiezan por <code>#</code>: <strong>cero</strong></td>
+<td>Bloqueante</td>
+<td>Revisar el filtro o la entrada; no continuar</td>
+<td>S12</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Lista de identificadores</td>
+<td>Sin encabezado; líneas vacías: <strong>cero</strong>; identificadores extraídos = genes − genes sin <code>locus_tag</code></td>
+<td>Bloqueante</td>
+<td>Revisar la extracción; no continuar</td>
+<td>S19</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Lista normalizada</td>
+<td>Misma cardinalidad que la original, <strong>o</strong> diferencia explicada por colisiones documentadas</td>
+<td>Bloqueante</td>
+<td>Revisar la política; no continuar</td>
+<td>S20</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Zonas de la confrontación</td>
+<td><code>sort -c</code> no falla en <strong>ninguna</strong> de las dos listas</td>
+<td>Bloqueante</td>
+<td>Ordenar antes de comparar</td>
+<td>S20, S21</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Longitudes</td>
+<td>Longitudes ≤ 0: <strong>cero</strong>; N = conteo de genes de S18</td>
+<td>Bloqueante</td>
+<td>Revisar coordenadas y el <code>+1</code></td>
+<td>S22</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>Resumen por replicón</td>
+<td>Suma de genes por replicón = total de genes</td>
+<td>Informativo</td>
+<td>Anotar la diferencia e investigarla</td>
+<td>S22</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>Tabla ordenada</td>
+<td>Casos con posición decreciente dentro de un grupo: <strong>cero</strong></td>
+<td>Bloqueante</td>
+<td>Reordenar con clave numérica</td>
+<td>S13, S23</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-important callout-titled" title="el control lo evalúa una persona">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>el control lo evalúa una persona
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Aquí nada se detiene solo. El protocolo <strong>declara</strong> cuándo hay que detenerse y qué corregir antes de seguir; quien lee el resultado y toma la decisión eres tú. Que la detención sea automática es justamente lo que falta, y es una de las razones de la Unidad 5.</p>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>IDEA CLAVE.</strong> La diferencia entre un flujo y una secuencia de comandos es que el flujo <strong>declara dónde hay que pararse y qué se espera exactamente en cada punto</strong>. Un control que dice «más o menos el número de genes» no sirve: no permite decidir.</p>
+</blockquote>
+<hr>
+<section id="práctica-3-construir-el-protocolo-ejecutable-mínimo-durante-el-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-3-construir-el-protocolo-ejecutable-mínimo-durante-el-taller">Práctica 3 — Construir el protocolo ejecutable mínimo <em>(durante el taller)</em></h3>
+<p><strong>Pregunta metodológica.</strong> ¿Cuál es la secuencia mínima que reproduce las principales respuestas sobre mi genoma?</p>
+<p><strong>Objetivo.</strong> Integrar los comandos validados en un orden con dependencias explícitas.</p>
+<p><strong>Parte A — Recuperar, no reescribir</strong></p>
+<ol type="1">
+<li><strong>Copia cada comando desde su sección del protocolo.</strong> No los escribas de memoria: los de memoria son los que traen errores. Si un comando no está registrado con exactitud, esa es una inconsistencia de la Práctica 1 y hay que resolverla ahora.</li>
+<li><strong>Aplica los nombres canónicos</strong> que decidiste, y añade la tabla de equivalencias al principio de la sección.</li>
+</ol>
+<p><strong>Parte B — Ordenar en bloques</strong></p>
+<ol start="3" type="1">
+<li><strong>Agrupa en los cinco bloques</strong>: preparar la evidencia · identificar los objetos · confrontar · medir · sintetizar.</li>
+<li><strong>Escribe la cabecera de cada paso</strong> con sus casillas: pregunta, entrada, depende de, operación, comando, salida.</li>
+<li><strong>Comprueba la cadena de entradas.</strong> Recorre el protocolo de arriba abajo y marca, para cada entrada, en qué paso anterior se produjo. Si alguna no aparece antes, el orden está mal —o es una entrada de <code>data/source/</code>, y hay que declararla como tal—.</li>
+</ol>
+<p><strong>Producto esperado.</strong> El esqueleto del protocolo ejecutable con sus cinco bloques y sus pasos encadenados.</p>
+<p><strong>Criterio de logro:</strong> ninguna entrada aparece antes de haberse producido, y las entradas que no se producen están declaradas como originales.</p>
+<hr>
+</section>
+<section id="práctica-4-poner-los-controles-donde-importan-durante-el-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-4-poner-los-controles-donde-importan-durante-el-taller">Práctica 4 — Poner los controles donde importan <em>(durante el taller)</em></h3>
+<p><strong>Pregunta metodológica.</strong> ¿Cómo sé que cada etapa terminó bien antes de continuar?</p>
+<p><strong>Objetivo.</strong> Convertir tus verificaciones sueltas en puntos de control del flujo.</p>
+<p><strong>Pasos.</strong></p>
+<ol type="1">
+<li><strong>Recupera las verificaciones</strong> que ya hiciste en S18–S22 y colócalas al final del paso que comprueban.</li>
+<li><strong>Completa las dos casillas que faltan</strong> en cada una: qué resultado se espera y <strong>qué significaría una falla</strong>.</li>
+<li><strong>Decide cuáles detienen la ejecución.</strong> No todos: un control que solo informa se anota; uno que invalida lo que viene, detiene. Marca los segundos.</li>
+<li><strong>Busca los pasos sin control.</strong> Si algún paso no tiene ninguno, o bien es trivial —dilo— o bien te falta una verificación que nunca hiciste.</li>
+<li><strong>Añade el control más olvidado de todos:</strong> comprobar que el archivo de entrada existe y no está vacío antes de usarlo.</li>
+</ol>
+<p><strong>Producto esperado.</strong> La tabla de puntos de control del protocolo, con su significado en caso de falla.</p>
+<p><strong>Criterio de logro:</strong> cada bloque termina con al menos un control, y los que invalidan el resto del flujo están marcados como bloqueantes.</p>
+<hr>
+</section>
+</section>
+<section id="el-producto-integrador-los-genes-en-su-lugar-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="el-producto-integrador-los-genes-en-su-lugar-indispensable">5. El producto integrador: los genes en su lugar [Indispensable]</h2>
+<p>Hasta ahora has contado, medido y comparado genes, pero siempre como un conjunto sin geografía. Queda una pregunta que tienes todos los datos para responder y que nunca has planteado:</p>
+<blockquote class="blockquote">
+<p><strong>¿Cómo se distribuyen espacialmente los genes de cada replicón y de cada cadena?</strong></p>
+</blockquote>
+<p>La tabla que la responde no introduce ningún método ni herramienta nueva: reúne en <strong>una sola representación</strong> lo que ya seleccionaste (S18), identificaste (S19) y mediste (S22), colocándolo en su posición. Por eso es el producto <strong>integrador</strong> de la sesión —y no su eje: el eje sigue siendo convertir la investigación en un procedimiento ejecutable—.</p>
+<section id="antes-de-ordenar-auditar-la-columna-de-la-cadena" class="level3">
+<h3 class="anchored" data-anchor-id="antes-de-ordenar-auditar-la-columna-de-la-cadena">5.1 Antes de ordenar: auditar la columna de la cadena</h3>
+<p>No supongas que la columna 7 solo contiene <code>+</code> y <code>−</code>. El formato GFF3 admite también <code>.</code> cuando la cadena no aplica y <code>?</code> cuando es desconocida, y tu archivo puede traer otros valores. Averígualo con la distribución de frecuencias de S13:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-Ev</span> <span class="st">'^#'</span> data/processed/anotaciones-sin-directivas.gff3 <span class="dt">\</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="st">'$3=="gene" { print $7 }'</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Cada valor que aparezca se documenta y se conserva. <strong>No se eliminan los valores desconocidos</strong>: un gen cuya cadena no está determinada sigue siendo un gen, y hacerlo desaparecer de la tabla sería falsear el inventario.</p>
+</section>
+<section id="construir-la-tabla" class="level3">
+<h3 class="anchored" data-anchor-id="construir-la-tabla">5.2 Construir la tabla</h3>
+<p>Se parte del <strong>derivado canónico</strong>, no del GFF3 original: así el paso reutiliza el trabajo del bloque anterior y el mapa de dependencias queda reforzado. La extracción del identificador es la estrategia validada en S19 —patrón acotado con <code>[^;]+</code>—, y <code>sort</code> ordena por tres claves.</p>
+<p>Primero, los dos conteos que sostienen el control de este paso:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-Ev</span> <span class="st">'^#'</span> data/processed/anotaciones-sin-directivas.gff3 <span class="dt">\</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="st">'$3=="gene"'</span> <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span>                                   <span class="co"># genes seleccionados</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-Ev</span> <span class="st">'^#'</span> data/processed/anotaciones-sin-directivas.gff3 <span class="dt">\</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="st">'$3=="gene" { print $9 }'</span> <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-vc</span> <span class="st">'locus_tag='</span>      <span class="co"># genes SIN locus_tag</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Los genes sin <code>locus_tag</code> no se descartan en silencio: se cuentan y se declaran como faltantes documentados, igual que en S19.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">'replicon\tcadena\tinicio\tfin\tlongitud\tlocus_tag\n'</span> <span class="op">&gt;</span> results/s23/genes-ordenados.tsv</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-Ev</span> <span class="st">'^#'</span> data/processed/anotaciones-sin-directivas.gff3 <span class="dt">\</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="st">'$3=="gene" &amp;&amp; $9 ~ /locus_tag=/ {</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="st">        print $1 "\t" $7 "\t" $4 "\t" $5 "\t" $5-$4+1 "\t" $9 }'</span> <span class="dt">\</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="fu">sed</span> <span class="at">-E</span> <span class="st">'s/\t[^\t]*locus_tag=([^;]+).*$/\t\1/'</span> <span class="dt">\</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-k1,1</span> <span class="at">-k2,2</span> <span class="at">-k3,3n</span> <span class="dt">\</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="op">&gt;&gt;</span> results/s23/genes-ordenados.tsv</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>El <code>sed</code> de la penúltima línea sustituye todo lo que va desde el tabulador hasta el final por el tabulador y <strong>solo el valor</strong> del <code>locus_tag</code>, acotado con <code>[^;]+</code>. Sin ese acotamiento se colaría el resto de la columna de atributos y la tabla tendría más de seis columnas.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Clave</th>
+<th>Qué ordena</th>
+<th>Tipo</th>
+<th>Por qué</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>-k1,1</code></td>
+<td>Replicón</td>
+<td>Texto</td>
+<td>Agrupa cada molécula de DNA</td>
+</tr>
+<tr class="even">
+<td><code>-k2,2</code></td>
+<td>Cadena</td>
+<td>Texto</td>
+<td>Agrupa las líneas de un mismo valor de cadena dentro del replicón</td>
+</tr>
+<tr class="odd">
+<td><code>-k3,3n</code></td>
+<td>Posición inicial</td>
+<td><strong>Numérico</strong></td>
+<td>Sin la <code>n</code>, el orden sería alfabético</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled" title="qué garantiza `-k2,2` y qué no">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>qué garantiza <code>-k2,2</code> y qué no
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Agrupa las líneas que comparten valor de cadena, pero el orden entre los grupos depende de cómo tu entorno compare esos caracteres: no des por hecho que <code>+</code> saldrá siempre antes que <code>−</code>. Lo que sí está garantizado, y es lo que importa, es la jerarquía <strong>replicón → cadena → posición creciente</strong>. Imponer un orden concreto a las cadenas exigiría una clave auxiliar que no hace falta aquí.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="el orden lexicográfico de los números">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Advertencia</span>el orden lexicográfico de los números
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sin <code>n</code>, <code>sort</code> compara las posiciones como texto y coloca <code>1000</code> <strong>antes</strong> que <code>190</code>, igual que “casa” va antes que “perro”. Es exactamente la trampa de S13 con <code>sort -nr</code>, ahora sobre coordenadas: el archivo parece ordenado y no lo está.</p>
+</div>
+</div>
+</section>
+<section id="los-controles-de-este-paso" class="level3">
+<h3 class="anchored" data-anchor-id="los-controles-de-este-paso">5.3 Los controles de este paso</h3>
+<p>El primero es de cardinalidad, y sus cantidades tienen que cuadrar exactamente:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 40%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Cantidad</th>
+<th style="text-align: right;">Valor</th>
+<th>Relación esperada</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Genes seleccionados</td>
+<td style="text-align: right;">…</td>
+<td>Línea base; coincide con el conteo de S18</td>
+</tr>
+<tr class="even">
+<td>Genes sin <code>locus_tag</code></td>
+<td style="text-align: right;">…</td>
+<td>Se conservan como faltantes documentados</td>
+</tr>
+<tr class="odd">
+<td>Filas con identificador</td>
+<td style="text-align: right;">…</td>
+<td><strong>genes seleccionados − genes sin <code>locus_tag</code></strong></td>
+</tr>
+<tr class="even">
+<td>Identificadores únicos</td>
+<td style="text-align: right;">…</td>
+<td>Filas − duplicados, y cada duplicado explicado</td>
+</tr>
+</tbody>
+</table>
+<p>Si hay identificadores repetidos, se cuentan y se explican aparte: un mismo <code>locus_tag</code> en dos registros <code>gene</code> distintos es un hallazgo sobre la anotación, no un estorbo.</p>
+<p>El segundo comprueba que dentro de cada grupo las posiciones nunca retroceden:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-v</span> <span class="st">'^replicon'</span> results/s23/genes-ordenados.tsv <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f1,2,3</span> <span class="dt">\</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="st">'{ if ($1==r &amp;&amp; $2==c &amp;&amp; $3 &lt; p) mal++; r=$1; c=$2; p=$3 }</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="st">                END { print (mal+0 == 0 ? "orden correcto" : "FALLA en " mal " casos") }'</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Y el tercero, que cada fila tenga exactamente seis columnas:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="st">'NF != 6'</span> results/s23/genes-ordenados.tsv <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span>    <span class="co"># debe ser 0</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote class="blockquote">
+<p><strong>IDEA CLAVE.</strong> Ordenar por posición no es un ejercicio de <code>sort</code>: es devolverle al genoma su <strong>geografía</strong>. Hasta hoy tus genes eran una lista; a partir de esta tabla son objetos situados en un replicón, con vecinos y con contexto —y con ella podrás formular preguntas que hasta ahora ni siquiera podías plantear—.</p>
+</blockquote>
+<hr>
+</section>
+<section id="práctica-5-construir-y-verificar-el-producto-integrador-durante-el-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-5-construir-y-verificar-el-producto-integrador-durante-el-taller">Práctica 5 — Construir y verificar el producto integrador <em>(durante el taller)</em></h3>
+<p><strong>Pregunta biológica.</strong> ¿Cómo se reparten los genes a lo largo de cada replicón y de cada cadena?</p>
+<p><strong>Objetivo.</strong> Reunir en una sola tabla lo seleccionado, identificado y medido, y comprobar que el orden es realmente el que crees.</p>
+<p><strong>Parte A — Auditar antes de construir</strong></p>
+<ol type="1">
+<li><strong>Cuenta los valores de la columna de cadena</strong> y anótalos todos, incluidos <code>.</code>, <code>?</code> o cualquier otro que aparezca.</li>
+<li><strong>Documenta qué significa cada uno</strong> según la especificación GFF3, y decide si lo conservas. Los valores desconocidos <strong>se conservan</strong>: un gen con cadena no determinada sigue siendo un gen.</li>
+<li><strong>Cuenta los genes sin <code>locus_tag</code>.</strong> Quedarán fuera de la tabla, así que hay que declararlos.</li>
+</ol>
+<p><strong>Parte B — Construir</strong></p>
+<ol start="4" type="1">
+<li><strong>Genera la tabla</strong> desde el derivado canónico, con encabezado y seis columnas.</li>
+<li><strong>Cuadra la cardinalidad</strong> con la tabla de relaciones de la Sección 5.3: filas con identificador = genes seleccionados − genes sin <code>locus_tag</code>.</li>
+<li><strong>Ejecuta a propósito la versión sin <code>n</code></strong> en la tercera clave y localiza el punto exacto donde el orden se rompe.</li>
+</ol>
+<p><strong>Parte C — Verificar y leer</strong></p>
+<ol start="7" type="1">
+<li><strong>Aplica los tres controles:</strong> posiciones no decrecientes, seis columnas por fila y cardinalidad.</li>
+<li><strong>Contrasta con el archivo original:</strong> toma tres genes de la tabla y comprueba sus coordenadas en el GFF3.</li>
+<li><strong>Observa dónde aparecen</strong> los genes con cadena <code>.</code> o <code>?</code>, si los hay.</li>
+<li><strong>Mira las sucesiones.</strong> ¿Hay tramos largos de genes consecutivos en la misma cadena? Anótalos como <strong>observación</strong>, no como hallazgo: una sucesión así puede sugerir una organización local que merecería investigarse, y nada más.</li>
+</ol>
+<p><strong>Producto esperado.</strong> <code>results/s23/genes-ordenados.tsv</code> verificada, con la auditoría de cadenas y dos o tres observaciones formuladas como preguntas.</p>
+<p><strong>Criterio de logro:</strong> los tres controles pasan, ningún valor de cadena desapareció sin declararse, y tus observaciones espaciales están escritas como preguntas abiertas.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="qué permite y qué no permite esta tabla">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>qué permite y qué no permite esta tabla
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Permite inspeccionar la organización de los genes, revisar vecinos, observar sucesiones en la misma cadena y formular preguntas sobre el contexto de un gen. <strong>No permite</strong> demostrar operones, cotranscripción, islas genómicas ni unidades transcripcionales, ni afirmar que existen regiones sin anotación: eso último exigiría calcular las distancias entre genes consecutivos, que no has hecho. Para sostener cualquiera de esas afirmaciones harían falta evidencias adicionales —distancias intergénicas, promotores, terminadores, datos transcriptómicos, conservación entre especies o anotación funcional— que quedan fuera de esta unidad.</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="ejecutar-desde-el-principio-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="ejecutar-desde-el-principio-indispensable">6. Ejecutar desde el principio [Indispensable]</h2>
+<p>Un protocolo solo está probado cuando alguien lo ejecuta <strong>sin usar nada que no esté declarado</strong>. Y la única forma de comprobarlo es apartar los archivos que se supone que se regeneran.</p>
+<section id="qué-se-conserva-y-qué-se-aparta" class="level3">
+<h3 class="anchored" data-anchor-id="qué-se-conserva-y-qué-se-aparta">6.1 Qué se conserva y qué se aparta</h3>
+<p>Antes de mover nada, hay que decidir —y escribir— el papel de cada archivo. Se conservan las dos clases de entrada; se apartan los derivados y los resultados.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 26%">
+<col style="width: 26%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Archivo</th>
+<th>Tipo</th>
+<th style="text-align: center;">¿Se conserva?</th>
+<th style="text-align: center;">¿Se regenera?</th>
+<th>Motivo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>FASTA</td>
+<td>Entrada de datos</td>
+<td style="text-align: center;">Sí</td>
+<td style="text-align: center;">No</td>
+<td>Archivo original</td>
+</tr>
+<tr class="even">
+<td>GFF3</td>
+<td>Entrada de datos</td>
+<td style="text-align: center;">Sí</td>
+<td style="text-align: center;">No</td>
+<td>Archivo original</td>
+</tr>
+<tr class="odd">
+<td>Tabla externa de S21</td>
+<td>Entrada de datos</td>
+<td style="text-align: center;">Sí</td>
+<td style="text-align: center;">No</td>
+<td>Descarga documentada con checksum</td>
+</tr>
+<tr class="even">
+<td><code>doc/protocolo.md</code></td>
+<td>Entrada metodológica</td>
+<td style="text-align: center;">Sí</td>
+<td style="text-align: center;">No</td>
+<td>Contiene las decisiones sin las cuales nada se reconstruye</td>
+</tr>
+<tr class="odd">
+<td>Cuerpo del GFF3 sin directivas</td>
+<td>Derivado</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Sí</td>
+<td>Se produce desde el GFF3</td>
+</tr>
+<tr class="even">
+<td>Tabla procesada de S20</td>
+<td>Derivado</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Sí</td>
+<td>Se produce desde las fuentes</td>
+</tr>
+<tr class="odd">
+<td>Listas originales y normalizadas</td>
+<td>Derivado</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Sí</td>
+<td>Se regeneran</td>
+</tr>
+<tr class="even">
+<td>Zonas de S21</td>
+<td>Resultado</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Sí</td>
+<td>Se recalculan</td>
+</tr>
+<tr class="odd">
+<td>Medidas de S22</td>
+<td>Resultado</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Sí</td>
+<td>Se recalculan</td>
+</tr>
+</tbody>
+</table>
+<p>Y una regla absoluta:</p>
+<pre class="text"><code>data/source/  NUNCA se toca, se mueve ni se modifica.</code></pre>
+<p>El procedimiento es: respaldar, apartar lo regenerable —<strong>tanto <code>data/processed/</code> como <code>results/</code></strong>—, ejecutar el protocolo bloque a bloque desde las entradas, y comparar lo nuevo con lo viejo.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> respaldo-antes-de-s23</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-r</span> data/processed results/s19 results/s20 results/s21 results/s22 respaldo-antes-de-s23/</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Advertencia
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Copia primero, aparta después y <strong>no borres nada</strong>. Si apartas <code>data/processed/</code> sin haber declarado que el cuerpo del GFF3 vive ahí, el flujo fallará en el primer paso —y ese fallo es exactamente lo que la prueba busca provocar—.</p>
+</div>
+</div>
+</section>
+<section id="qué-significa-coincide-en-cada-caso" class="level3">
+<h3 class="anchored" data-anchor-id="qué-significa-coincide-en-cada-caso">6.2 Qué significa «coincide» en cada caso</h3>
+<p>Al comparar lo regenerado con el respaldo, no todo se compara igual. <code>comm</code> no es una herramienta universal: solo sirve para conjuntos ordenados.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tipo de producto</th>
+<th>Qué debe coincidir</th>
+<th>Estrategia</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Lista ordenada de identificadores</td>
+<td>El mismo <strong>conjunto</strong></td>
+<td><code>comm -3</code>, que debe salir vacío</td>
+</tr>
+<tr class="even">
+<td>Archivo determinista (tabla, derivado)</td>
+<td>El <strong>contenido exacto</strong>, byte a byte</td>
+<td>Checksum de ambos, como en U3</td>
+</tr>
+<tr class="odd">
+<td>Conteo</td>
+<td>El <strong>mismo valor</strong></td>
+<td>Comparación numérica directa</td>
+</tr>
+<tr class="even">
+<td>Tabla con orden definido</td>
+<td>Mismas filas <strong>y</strong> mismo orden</td>
+<td>Checksum; si difiere, comparar <code>wc -l</code> y las primeras filas</td>
+</tr>
+<tr class="odd">
+<td>Resumen estadístico</td>
+<td>N, mínimo, máximo, media y suma</td>
+<td>Los controles de S22</td>
+</tr>
+</tbody>
+</table>
+<p>Conviene distinguir cinco cosas que suelen confundirse: igualdad <strong>byte a byte</strong>, igualdad de <strong>conjuntos</strong> —mismos elementos, quizá en otro orden—, igualdad de <strong>cardinalidad</strong> —mismo número—, igualdad de <strong>resultados resumidos</strong> y <strong>mismo orden</strong>. Para cada producto de tu protocolo hay que declarar cuál de las cinco se espera: no todas las diferencias significan lo mismo.</p>
+<blockquote class="blockquote">
+<p><strong>IDEA CLAVE.</strong> Un análisis no está probado porque funcionó cuando lo hiciste: está probado cuando vuelve a funcionar <strong>partiendo solo de lo que declaraste como entrada</strong> —datos y decisiones—. Casi siempre, la primera ejecución limpia revela una dependencia que nadie había escrito.</p>
+</blockquote>
+<hr>
+</section>
+<section id="práctica-6-probar-la-regeneración-durante-el-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-6-probar-la-regeneración-durante-el-taller">Práctica 6 — Probar la regeneración <em>(durante el taller)</em></h3>
+<p><strong>Pregunta metodológica.</strong> ¿Puede mi protocolo reconstruir los resultados partiendo solo de los datos y las decisiones que declaré?</p>
+<p><strong>Objetivo.</strong> Probar el flujo desde las entradas y decidir qué equivalencia se espera de cada producto.</p>
+<p><strong>Parte A — Preparar la prueba</strong></p>
+<ol type="1">
+<li><strong>Completa la tabla</strong> de qué se conserva y qué se aparta, con el motivo de cada fila.</li>
+<li><strong>Declara la equivalencia esperada</strong> de cada producto según la tabla de la Sección 6.2.</li>
+<li><strong>Respalda</strong> copiando —nunca moviendo el original— y después aparta los derivados y resultados. Conserva <code>data/source/</code> y <code>doc/</code>.</li>
+</ol>
+<p><strong>Parte B — Ejecutar</strong></p>
+<ol start="4" type="1">
+<li><strong>Ejecuta el bloque A</strong> y evalúa sus controles antes de seguir. Si un control bloqueante no se cumple, <strong>detente</strong>: has encontrado una dependencia no declarada, que es el hallazgo más valioso de la práctica.</li>
+<li><strong>Continúa bloque a bloque</strong>, decidiendo en cada frontera si conviene avanzar.</li>
+</ol>
+<p><strong>Parte C — Comparar</strong></p>
+<ol start="6" type="1">
+<li><p><strong>Compara con el respaldo</strong> usando la estrategia que declaraste para cada producto, y registra el resultado:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Producto</th>
+<th>Equivalencia esperada</th>
+<th>Estrategia aplicada</th>
+<th>Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>…</td>
+<td>conjunto / byte a byte / conteo / orden</td>
+<td><code>comm</code> / checksum / numérica</td>
+<td>coincide / difiere</td>
+</tr>
+</tbody>
+</table></li>
+<li><p><strong>Explica cada diferencia.</strong> La causa suele ser una de tres: el comando registrado no era el que ejecutaste, faltaba un paso intermedio, o había una decisión manual sin documentar. Las tres son hallazgos y las tres se corrigen en el protocolo.</p></li>
+</ol>
+<p><strong>Producto esperado.</strong> El registro de regeneración con su tabla de equivalencias y las diferencias explicadas.</p>
+<p><strong>Criterio de logro:</strong> cada producto se compara con la estrategia adecuada a su tipo, y toda diferencia tiene una causa identificada y corregida en el protocolo.</p>
+<hr>
+</section>
+</section>
+<section id="ejecutable-todavía-no-es-automático-consulta" class="level2">
+<h2 class="anchored" data-anchor-id="ejecutable-todavía-no-es-automático-consulta">7. Ejecutable todavía no es automático [Consulta]</h2>
+<p>Al terminar tendrás un protocolo que otra persona puede seguir. Conviene ser preciso sobre qué es y qué no es:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Protocolo ejecutable <em>(lo de hoy)</em></th>
+<th>Herramienta automatizada <em>(Unidad 5)</em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Comandos en orden, que <strong>una persona</strong> copia y ejecuta uno a uno</td>
+<td>Se ejecuta como una unidad, de una vez</td>
+</tr>
+<tr class="even">
+<td>Rutas escritas explícitamente en cada comando</td>
+<td>Las rutas se declaran una sola vez</td>
+</tr>
+<tr class="odd">
+<td>El protocolo <strong>declara</strong> dónde detenerse; la persona lee el control y decide</td>
+<td>La detención ante un fallo está programada</td>
+</tr>
+<tr class="even">
+<td>Aplicarlo a otro genoma exige editar todos los comandos</td>
+<td>Se le indican los datos y se reutiliza</td>
+</tr>
+<tr class="odd">
+<td>Se lee como un documento científico, con explicaciones</td>
+<td>Se lee como un programa</td>
+</tr>
+</tbody>
+</table>
+<p>Las dos cosas son valiosas y una no sustituye a la otra. Un protocolo legible es lo que se publica junto a un artículo; una herramienta automatizada es lo que se usa a diario. Y el orden importa: <strong>automatizar un flujo que no entiendes produce errores más rápido</strong>.</p>
+<blockquote class="blockquote">
+<p><strong>IDEA CLAVE.</strong> Hoy tu análisis está integrado conceptualmente, pero su ejecución —y cada decisión de continuar o detenerse— sigue dependiendo de una persona: tú. Esa es la limitación con la que se cierra la Unidad 4, y no es un defecto del trabajo: es el punto exacto donde tiene sentido dar el siguiente paso.</p>
+</blockquote>
+<hr>
+<section id="práctica-7-la-síntesis-del-genoma-después-del-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-7-la-síntesis-del-genoma-después-del-taller">Práctica 7 — La síntesis del genoma <em>(después del taller)</em></h3>
+<p><strong>Pregunta biológica.</strong> Después de seleccionar, identificar, normalizar, confrontar y medir, ¿qué puedo afirmar sobre este genoma?</p>
+<p><strong>Objetivo.</strong> Cerrar la investigación con una síntesis trazable.</p>
+<p><strong>Pasos.</strong></p>
+<ol type="1">
+<li><p><strong>Construye la tabla de hallazgos</strong>, una fila por pregunta central de la unidad. Las tres columnas de comprobación <strong>no son intercambiables</strong>:</p>
+<ul>
+<li><strong>Verificación técnica:</strong> demuestra que el cálculo se hizo bien.</li>
+<li><strong>Contraste interno:</strong> otra estrategia sobre la <strong>misma</strong> procedencia.</li>
+<li><strong>Evidencia externa:</strong> proviene de otra fuente o criterio, parcialmente independiente.</li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Hallazgo</th>
+<th>Resultado</th>
+<th>Verificación técnica</th>
+<th>Contraste interno</th>
+<th>Evidencia externa</th>
+<th>Limitación</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Replicones</td>
+<td>…</td>
+<td>Identificadores sin duplicados</td>
+<td>FASTA ↔︎ GFF3 ↔︎ directivas (S19)</td>
+<td>—</td>
+<td>Misma procedencia</td>
+</tr>
+<tr class="even">
+<td>Tamaño del genoma</td>
+<td>…</td>
+<td>Suma verificada (S22)</td>
+<td>Medición (S12) frente a declaración (S13)</td>
+<td>—</td>
+<td>Solo una versión del ensamblado</td>
+</tr>
+<tr class="odd">
+<td>Tipos de registro</td>
+<td>…</td>
+<td>Frecuencias suman el total (S13)</td>
+<td>Refinado con patrones anclados (S18)</td>
+<td>—</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>Genes y CDS</td>
+<td>…</td>
+<td>Conteo por dos estrategias (S22)</td>
+<td>…</td>
+<td>Fuente externa (S21)</td>
+<td>Independencia parcial</td>
+</tr>
+<tr class="odd">
+<td>Distribución por cadena</td>
+<td>…</td>
+<td><code>+</code> más <code>−</code> más indefinidos = total</td>
+<td>S18 frente a S22</td>
+<td>—</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>Longitudes</td>
+<td>…</td>
+<td>Mín ≤ media ≤ máx; N = genes</td>
+<td>…</td>
+<td>—</td>
+<td>La media oculta la distribución</td>
+</tr>
+<tr class="odd">
+<td>Densidad por replicón</td>
+<td>…</td>
+<td>Unidades y denominador comprobados</td>
+<td>…</td>
+<td>—</td>
+<td>Usa la longitud declarada</td>
+</tr>
+<tr class="even">
+<td>Concordancia con fuente externa</td>
+<td>…</td>
+<td>Listas ordenadas y normalizadas</td>
+<td>…</td>
+<td><strong>Sí</strong> (S21)</td>
+<td>Independencia parcial declarada</td>
+</tr>
+<tr class="odd">
+<td>Discrepancias</td>
+<td>…</td>
+<td>Loci medidos = loci de la lista</td>
+<td>…</td>
+<td><strong>Sí</strong> (S21, medidas en S22)</td>
+<td>Varias siguen abiertas</td>
+</tr>
+</tbody>
+</table></li>
+<li><p><strong>Marca lo confirmado por más de una estrategia interna.</strong> Es lo que puedes defender con solidez.</p></li>
+<li><p><strong>Marca lo que recibió evidencia externa.</strong> Es distinto de lo anterior y más fuerte: <strong>no presentes una concordancia interna como si fuera validación externa</strong>.</p></li>
+<li><p><strong>Escribe la síntesis en prosa</strong>, no en tabla: tres o cuatro párrafos que respondan qué sabemos de este genoma, con qué grado de confianza y qué sigue abierto.</p></li>
+<li><p><strong>Declara las limitaciones globales</strong>, no las de cada paso: qué tipo de preguntas <strong>no</strong> puede responder este análisis con estos datos.</p></li>
+<li><p><strong>Escribe las preguntas abiertas</strong> que la Unidad 4 deja planteadas y no puede resolver.</p></li>
+</ol>
+<p><strong>Producto esperado.</strong> <code>doc/protocolo.md</code> con la síntesis final, y la tabla de hallazgos completa.</p>
+<p><strong>Criterio de logro:</strong> cada afirmación de la síntesis puede rastrearse hasta un paso del protocolo, y la conclusión se presenta como <strong>provisional y trazable</strong>, no como definitiva.</p>
+<hr>
+</section>
+</section>
+<section id="documentar-la-sección-del-protocolo-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="documentar-la-sección-del-protocolo-indispensable">8. Documentar: la sección del protocolo [Indispensable]</h2>
+<p>Agrega a <code>doc/protocolo.md</code>, después de la sección de S22. <strong>No sustituye a ninguna de las anteriores</strong>: el protocolo sigue siendo acumulativo, y la historia del razonamiento —incluidas las respuestas provisionales que luego corregiste— es parte de la evidencia.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## S23 — Protocolo ejecutable de la Unidad 4</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">### 1. Alcance</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>Qué preguntas responde este protocolo y cuáles quedan fuera.</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2. Entradas de datos</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Archivo <span class="pp">|</span> Procedencia <span class="pp">|</span> Versión <span class="pp">|</span> Checksum <span class="pp">|</span> ¿Se regenera? <span class="pp">|</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">|</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`data/source/genoma.fna`</span> <span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span> No <span class="pp">|</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`data/source/anotacion.gff3`</span> <span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span> No <span class="pp">|</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`data/source/uniprot-proteoma.tsv`</span> <span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span> No — descarga documentada (S21) <span class="pp">|</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="fu">### 3. Entradas metodológicas</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Decisión <span class="pp">|</span> Definida en <span class="pp">|</span> Propósito <span class="pp">|</span> Estado <span class="pp">|</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">|</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Definición de gen <span class="pp">|</span> S18 <span class="pp">|</span> Qué registros cuentan como gen <span class="pp">|</span> validada <span class="pp">|</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Criterio sobre pseudogenes <span class="pp">|</span> S18 <span class="pp">|</span> Qué queda dentro y fuera del conteo <span class="pp">|</span> validada <span class="pp">|</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Política de normalización <span class="pp">|</span> S20, ampliada en S21 <span class="pp">|</span> Qué diferencias de forma se eliminan <span class="pp">|</span> validada <span class="pp">|</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Universo comparable <span class="pp">|</span> S21 <span class="pp">|</span> Qué conjuntos pueden confrontarse <span class="pp">|</span> documentado <span class="pp">|</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Fórmulas y unidades <span class="pp">|</span> S22 <span class="pp">|</span> Longitud, densidad y sus unidades <span class="pp">|</span> verificadas <span class="pp">|</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Tratamiento de valores faltantes <span class="pp">|</span> S20, S23 <span class="pp">|</span> Qué se conserva y cómo se declara <span class="pp">|</span> documentado <span class="pp">|</span></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Convención de nombres y orden del flujo <span class="pp">|</span> S23 <span class="pp">|</span> Rutas canónicas y dependencias <span class="pp">|</span> fijada <span class="pp">|</span></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a><span class="fu">### 4. Archivos canónicos y equivalencias</span></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Archivo canónico <span class="pp">|</span> Tipo <span class="pp">|</span> Deriva de <span class="pp">|</span> Alimenta <span class="pp">|</span> Ruta histórica <span class="pp">|</span></span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">|</span></span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`data/processed/anotaciones-sin-directivas.gff3`</span> <span class="pp">|</span> Derivado <span class="pp">|</span> <span class="in">`data/source/anotacion.gff3`</span> <span class="pp">|</span> S13, S18, S19, S23 <span class="pp">|</span> <span class="in">`results/s12/anotaciones-sin-directivas.gff`</span> <span class="pp">|</span></span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`data/source/anotacion.gff3`</span> <span class="pp">|</span> Entrada <span class="pp">|</span> — <span class="pp">|</span> Todo el flujo <span class="pp">|</span> <span class="in">`genomic.gff`</span> en S10–S13 <span class="pp">|</span></span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`data/source/genoma.fna`</span> <span class="pp">|</span> Entrada <span class="pp">|</span> — <span class="pp">|</span> S12, S19 <span class="pp">|</span> <span class="in">`genome.fna`</span> en S10–S13 <span class="pp">|</span></span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span></span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a><span class="fu">### 5. Estructura esperada del proyecto</span></span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a><span class="in">`data/source/`</span> · <span class="in">`data/processed/`</span> · <span class="in">`results/sNN/`</span> · <span class="in">`doc/`</span> — con el papel de cada una.</span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a><span class="fu">### 6. Dependencias entre pasos</span></span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Producto <span class="pp">|</span> Producido en <span class="pp">|</span> Depende de <span class="pp">|</span> Uso posterior <span class="pp">|</span> ¿Regenerable? <span class="pp">|</span></span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">|</span></span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span></span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a><span class="fu">### 7. Secuencia manual ejecutable</span></span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a>**Bloque A — Preparar la evidencia**</span>
+<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Casilla <span class="pp">|</span> Contenido <span class="pp">|</span></span>
+<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">|</span></span>
+<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Pregunta <span class="pp">|</span> … <span class="pp">|</span></span>
+<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Entrada de datos <span class="pp">|</span> … <span class="pp">|</span></span>
+<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Entrada metodológica <span class="pp">|</span> … <span class="pp">|</span></span>
+<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Depende de <span class="pp">|</span> … <span class="pp">|</span></span>
+<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Operación <span class="pp">|</span> … <span class="pp">|</span></span>
+<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Comando <span class="pp">|</span> … <span class="pp">|</span></span>
+<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Salida <span class="pp">|</span> … <span class="pp">|</span></span>
+<span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Verificación <span class="pp">|</span> Expectativa exacta: … <span class="pp">|</span></span>
+<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Tipo de control <span class="pp">|</span> informativo / bloqueante manual <span class="pp">|</span></span>
+<span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Decisión si falla <span class="pp">|</span> … (qué corregir antes de continuar) <span class="pp">|</span></span>
+<span id="cb12-60"><a href="#cb12-60" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Interpretación <span class="pp">|</span> … <span class="pp">|</span></span>
+<span id="cb12-61"><a href="#cb12-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-62"><a href="#cb12-62" aria-hidden="true" tabindex="-1"></a>*(un bloque de estos por paso; bloques B a E igual)*</span>
+<span id="cb12-63"><a href="#cb12-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-64"><a href="#cb12-64" aria-hidden="true" tabindex="-1"></a><span class="fu">### 8. Puntos de control</span></span>
+<span id="cb12-65"><a href="#cb12-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-66"><a href="#cb12-66" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Paso <span class="pp">|</span> Salida esperada <span class="pp">|</span> Control y expectativa exacta <span class="pp">|</span> Tipo <span class="pp">|</span> Qué hacer si falla <span class="pp">|</span></span>
+<span id="cb12-67"><a href="#cb12-67" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">|</span></span>
+<span id="cb12-68"><a href="#cb12-68" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span> informativo / bloqueante <span class="pp">|</span> … <span class="pp">|</span></span>
+<span id="cb12-69"><a href="#cb12-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-70"><a href="#cb12-70" aria-hidden="true" tabindex="-1"></a><span class="fu">### 9. Archivos generados</span></span>
+<span id="cb12-71"><a href="#cb12-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-72"><a href="#cb12-72" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Archivo <span class="pp">|</span> Qué contiene <span class="pp">|</span> Paso que lo produce <span class="pp">|</span></span>
+<span id="cb12-73"><a href="#cb12-73" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">|</span></span>
+<span id="cb12-74"><a href="#cb12-74" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span></span>
+<span id="cb12-75"><a href="#cb12-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-76"><a href="#cb12-76" aria-hidden="true" tabindex="-1"></a><span class="fu">### 10. Registro de regeneración</span></span>
+<span id="cb12-77"><a href="#cb12-77" aria-hidden="true" tabindex="-1"></a>Fecha, qué se apartó, qué bloques se ejecutaron y con qué resultado:</span>
+<span id="cb12-78"><a href="#cb12-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-79"><a href="#cb12-79" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Producto <span class="pp">|</span> Equivalencia esperada <span class="pp">|</span> Estrategia aplicada <span class="pp">|</span> Resultado <span class="pp">|</span></span>
+<span id="cb12-80"><a href="#cb12-80" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">|</span></span>
+<span id="cb12-81"><a href="#cb12-81" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> … <span class="pp">|</span> conjunto / byte a byte / conteo / orden <span class="pp">|</span> <span class="in">`comm`</span> / checksum / numérica <span class="pp">|</span> coincide / difiere y por qué <span class="pp">|</span></span>
+<span id="cb12-82"><a href="#cb12-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-83"><a href="#cb12-83" aria-hidden="true" tabindex="-1"></a><span class="fu">### 11. Síntesis final del genoma</span></span>
+<span id="cb12-84"><a href="#cb12-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-85"><a href="#cb12-85" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Hallazgo <span class="pp">|</span> Resultado <span class="pp">|</span> Verificación técnica <span class="pp">|</span> Contraste interno <span class="pp">|</span> Evidencia externa <span class="pp">|</span> Limitación <span class="pp">|</span></span>
+<span id="cb12-86"><a href="#cb12-86" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">|</span></span>
+<span id="cb12-87"><a href="#cb12-87" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span></span>
+<span id="cb12-88"><a href="#cb12-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-89"><a href="#cb12-89" aria-hidden="true" tabindex="-1"></a>Y tres o cuatro párrafos en prosa: qué sabemos, con qué confianza, qué se confirmó por más de una</span>
+<span id="cb12-90"><a href="#cb12-90" aria-hidden="true" tabindex="-1"></a>estrategia interna y qué recibió evidencia externa —que no es lo mismo—.</span>
+<span id="cb12-91"><a href="#cb12-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-92"><a href="#cb12-92" aria-hidden="true" tabindex="-1"></a><span class="fu">### 12. Limitaciones globales</span></span>
+<span id="cb12-93"><a href="#cb12-93" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>El análisis describe **la anotación** del genoma, no el genoma comprobado experimentalmente.</span>
+<span id="cb12-94"><a href="#cb12-94" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>La concordancia con una fuente externa es parcial y quedó declarada por dimensiones (S21).</span>
+<span id="cb12-95"><a href="#cb12-95" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Las medidas dependen de la definición de gen adoptada desde S18.</span>
+<span id="cb12-96"><a href="#cb12-96" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Todo el análisis parte de una única versión del ensamblado.</span>
+<span id="cb12-97"><a href="#cb12-97" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>La ejecución sigue dependiendo de una persona que lea los controles y decida.</span>
+<span id="cb12-98"><a href="#cb12-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-99"><a href="#cb12-99" aria-hidden="true" tabindex="-1"></a><span class="fu">### 13. Preguntas abiertas</span></span>
+<span id="cb12-100"><a href="#cb12-100" aria-hidden="true" tabindex="-1"></a>Las que la Unidad 4 deja planteadas y no puede resolver con estos datos y estas herramientas.</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La sección 3 —la tabla de equivalencias— parece burocracia y es lo contrario: reconocer que un archivo cambió de nombre a mitad de la investigación <strong>sin borrar las secciones antiguas</strong> es lo que permite que alguien lea tu protocolo completo y lo entienda. Reescribir la historia sería más limpio y menos honesto.</p>
+</div>
+</div>
+</section>
+<section id="evidencia-de-la-sesión" class="level2">
+<h2 class="anchored" data-anchor-id="evidencia-de-la-sesión">Evidencia de la sesión</h2>
+<p>Entrega o conserva, según indique el docente:</p>
+<ol type="1">
+<li><code>doc/s23-primer-intento.md</code> con el inventario de piezas y el orden propuesto (Prácticas 1 y 2);</li>
+<li>la tabla de inconsistencias detectadas y la convención de nombres adoptada;</li>
+<li>el protocolo ejecutable con sus cinco bloques y sus pasos completos;</li>
+<li>la tabla de puntos de control, con los bloqueantes marcados;</li>
+<li><code>results/s23/genes-ordenados.tsv</code> con su verificación de orden;</li>
+<li>el registro de la ejecución limpia y sus diferencias explicadas;</li>
+<li>la tabla de hallazgos y la síntesis interpretativa;</li>
+<li><code>doc/bitacora-ia.md</code> actualizada;</li>
+<li>sección S23 de <code>doc/protocolo.md</code>, con <strong>todas</strong> las anteriores intactas.</li>
+</ol>
+</section>
+<section id="errores-frecuentes-y-estrategias-de-diagnóstico" class="level2">
+<h2 class="anchored" data-anchor-id="errores-frecuentes-y-estrategias-de-diagnóstico">Errores frecuentes y estrategias de diagnóstico</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Error</th>
+<th>Por qué ocurre</th>
+<th>Estrategia de diagnóstico</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Reescribir los comandos de memoria</td>
+<td>Parece más rápido que buscarlos</td>
+<td>Comparar el resultado con el registrado en su sesión: si difiere, el de memoria estaba mal</td>
+</tr>
+<tr class="even">
+<td>Ordenar el protocolo cronológicamente</td>
+<td>Es el orden en que se aprendió</td>
+<td>Recorrer las entradas: si alguna se produce después de usarse, el orden es el equivocado</td>
+</tr>
+<tr class="odd">
+<td>Empezar el flujo por la confrontación</td>
+<td>Es la parte más interesante</td>
+<td>Necesita listas normalizadas, que necesitan listas extraídas, que necesitan el cuerpo del GFF3</td>
+</tr>
+<tr class="even">
+<td>Tratar la tabla externa como un derivado</td>
+<td>Está en <code>data/source/</code> como los demás</td>
+<td>No hay comando que la produzca: es una descarga documentada, con checksum</td>
+</tr>
+<tr class="odd">
+<td>Reescribir las secciones antiguas al unificar nombres</td>
+<td>Queda más limpio</td>
+<td>Se pierde la historia del razonamiento; usar una tabla de equivalencias</td>
+</tr>
+<tr class="even">
+<td>Colocar todas las verificaciones al final</td>
+<td>Se agrupan por comodidad</td>
+<td>Un control al final no puede detener nada: va junto al paso que comprueba</td>
+</tr>
+<tr class="odd">
+<td>Ordenar coordenadas sin <code>n</code></td>
+<td><code>sort -k3,3</code> parece suficiente</td>
+<td><code>1000</code> aparece antes que <code>190</code>; aplicar el control de posiciones no decrecientes</td>
+</tr>
+<tr class="even">
+<td>Borrar resultados para probar la regeneración</td>
+<td>Se confunde apartar con eliminar</td>
+<td>Copiar primero, mover después, y nunca tocar <code>data/source/</code></td>
+</tr>
+<tr class="odd">
+<td>Dar por probado el flujo porque terminó</td>
+<td>Terminar y funcionar no son lo mismo</td>
+<td>Comparar lo regenerado con el respaldo, archivo por archivo</td>
+</tr>
+<tr class="even">
+<td>Presentar la síntesis como definitiva</td>
+<td>Es la última sesión de la unidad</td>
+<td>Toda afirmación lleva su evidencia y su limitación: la conclusión es provisional</td>
+</tr>
+<tr class="odd">
+<td>Confundir <code>data/processed/</code> con <code>results/</code></td>
+<td>Ambos son «cosas que produje»</td>
+<td>Un derivado alimenta otro análisis; un resultado responde una pregunta y ahí termina</td>
+</tr>
+<tr class="even">
+<td>Automatizar sobre la marcha</td>
+<td>Se ve la repetición y se quiere resolver ya</td>
+<td>Automatizar un flujo que aún no se ha probado a mano multiplica los errores</td>
+</tr>
+<tr class="odd">
+<td>Creer que basta con <code>data/source/</code> para regenerar</td>
+<td>Los datos parecen suficientes</td>
+<td>Sin la definición de gen ni la política de normalización, los comandos no se deducen: las decisiones también son entradas</td>
+</tr>
+<tr class="even">
+<td>Usar <code>comm</code> para comparar cualquier producto</td>
+<td>Es la herramienta de comparación conocida</td>
+<td><code>comm</code> compara conjuntos ordenados; una tabla con orden definido se compara por checksum</td>
+</tr>
+<tr class="odd">
+<td>Descartar los genes sin <code>locus_tag</code> sin contarlos</td>
+<td>Estorban en la tabla</td>
+<td>Se cuentan y se declaran: la relación es genes − faltantes = filas con identificador</td>
+</tr>
+<tr class="even">
+<td>Eliminar los valores de cadena distintos de <code>+</code> y <code>−</code></td>
+<td>Parecen errores del archivo</td>
+<td><code>.</code> y <code>?</code> están en la especificación: se documentan y se conservan</td>
+</tr>
+<tr class="odd">
+<td>Afirmar que hay regiones sin anotación</td>
+<td>Se ven huecos en la tabla ordenada</td>
+<td>Habría que calcular las distancias entre genes consecutivos, que no se hizo</td>
+</tr>
+<tr class="even">
+<td>Deducir operones de una sucesión de genes</td>
+<td>El patrón es sugerente</td>
+<td>Una sucesión sugiere organización local; demostrarla exige promotores, terminadores o datos de transcripción</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="rúbricas" class="level2">
+<h2 class="anchored" data-anchor-id="rúbricas">Rúbricas</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterio</th>
+<th>Logrado</th>
+<th>Parcialmente logrado</th>
+<th>Aún no logrado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Inventario y dependencias</td>
+<td>Mapea entradas, salidas y dependencias, y detecta inconsistencias reales</td>
+<td>Lista los comandos sin sus dependencias</td>
+<td>No audita lo acumulado</td>
+</tr>
+<tr class="even">
+<td>Orden de ejecución</td>
+<td>Ninguna entrada aparece antes de producirse; justifica las dependencias</td>
+<td>El orden funciona pero no lo explica</td>
+<td>Ordena cronológicamente</td>
+</tr>
+<tr class="odd">
+<td>Consistencia de rutas</td>
+<td>Adopta nombres canónicos y publica la tabla de equivalencias</td>
+<td>Unifica nombres sin documentar el cambio</td>
+<td>Mezcla nombres o reescribe las secciones antiguas</td>
+</tr>
+<tr class="even">
+<td>Separación de carpetas</td>
+<td>Distingue entradas, derivados y resultados, y dice cuáles se regeneran</td>
+<td>Usa las carpetas sin justificar la distinción</td>
+<td>Trata todo como resultados</td>
+</tr>
+<tr class="odd">
+<td>Protocolo ejecutable</td>
+<td>Cada paso tiene sus ocho casillas y se puede seguir sin preguntar nada</td>
+<td>Tiene comandos ordenados pero sin verificación ni dependencias</td>
+<td>Es un bloque continuo de comandos</td>
+</tr>
+<tr class="even">
+<td>Puntos de control</td>
+<td>Cada bloque tiene control, con su significado en caso de falla y los bloqueantes marcados</td>
+<td>Hay controles, sin decir qué significaría fallar</td>
+<td>Los controles están al final o no están</td>
+</tr>
+<tr class="odd">
+<td>Tabla ordenada</td>
+<td>Orden correcto por tres claves, verificado, con lectura biológica</td>
+<td>Ordena bien sin verificar ni interpretar</td>
+<td>Orden lexicográfico no detectado</td>
+</tr>
+<tr class="even">
+<td>Regeneración</td>
+<td>Ejecuta desde las fuentes y explica cada diferencia</td>
+<td>Ejecuta parcialmente</td>
+<td>No prueba la regeneración</td>
+</tr>
+<tr class="odd">
+<td>Síntesis</td>
+<td>Cada afirmación es trazable, con evidencia y limitación; conclusión provisional</td>
+<td>Resume resultados sin trazarlos</td>
+<td>Presenta números sin síntesis</td>
+</tr>
+<tr class="even">
+<td>Uso crítico de IA</td>
+<td>Detecta al menos un error concreto en una propuesta y lo documenta</td>
+<td>Compara sin probar</td>
+<td>Acepta la propuesta sin verificar</td>
+</tr>
+</tbody>
+</table>
+<p>La rúbrica es formativa; la evidencia integradora de la unidad es el protocolo ejecutable completo.</p>
+</section>
+<section id="autoevaluación" class="level2">
+<h2 class="anchored" data-anchor-id="autoevaluación">Autoevaluación</h2>
+<section id="comprobación-rápida-formativa-al-final-del-taller" class="level3">
+<h3 class="anchored" data-anchor-id="comprobación-rápida-formativa-al-final-del-taller">Comprobación rápida — formativa, al final del taller</h3>
+<ol type="1">
+<li>¿Cuál es la diferencia entre un comando documentado y un paso reproducible?</li>
+<li>¿Qué información necesita una etapa <strong>antes</strong> de poder ejecutarse?</li>
+<li>¿Por qué no puedo empezar el flujo por la confrontación de S21?</li>
+<li>¿Qué distingue <code>data/processed/</code> de <code>results/</code>? ¿Y de <code>data/source/</code>?</li>
+<li>¿Qué control te impediría continuar con una lista vacía, y quién toma esa decisión?</li>
+<li>¿Por qué el orden numérico importa al ordenar coordenadas?</li>
+<li>¿Qué archivos de tu proyecto pueden regenerarse y cuáles no? ¿Y qué entradas <strong>no</strong> son archivos?</li>
+<li>¿Por qué la tabla externa de S21 no se regenera?</li>
+<li>¿Qué parte de tu protocolo sigue dependiendo de que una persona lo ejecute?</li>
+<li>¿Qué haría falta para aplicar todo este análisis a otro genoma?</li>
+</ol>
+</section>
+<section id="semáforo" class="level3">
+<h3 class="anchored" data-anchor-id="semáforo">Semáforo</h3>
+<ul>
+<li>🟢 <strong>Verde:</strong> ordeno las operaciones según sus dependencias, integro los comandos validados con sus controles, regenero los resultados desde las fuentes y sintetizo los hallazgos con sus evidencias y límites.</li>
+<li>🟡 <strong>Amarillo:</strong> tengo el flujo ordenado pero sin controles, o no he probado la regeneración.</li>
+<li>🔴 <strong>Rojo:</strong> reescribo comandos de memoria, ordeno cronológicamente, o presento la síntesis sin poder rastrear cada afirmación.</li>
+</ul>
+<p>Si estás en amarillo o rojo, vuelve a las Prácticas 2 y 4: lo central de hoy no es tener los comandos, es <strong>saber en qué orden van y cómo comprobar cada uno</strong>.</p>
+</section>
+</section>
+<section id="cierre-con-ia-clásico-vs.-asistido" class="level2">
+<h2 class="anchored" data-anchor-id="cierre-con-ia-clásico-vs.-asistido">Cierre con IA: clásico vs.&nbsp;asistido</h2>
+<p>Trabaja <strong>primero a mano</strong>. Hoy la IA no construye nada: revisa lo que tú construiste.</p>
+<ol type="1">
+<li><p><strong>Entrégale tu orden de ejecución</strong> —solo la lista de pasos, sin los comandos— y pídele que señale dependencias que puedas haber omitido.</p></li>
+<li><p><strong>Pídele controles adicionales</strong> para dos pasos concretos, y evalúa si son comprobables con las herramientas del curso.</p></li>
+<li><p><strong>Reproduce con IA una pregunta ya resuelta</strong> —el conteo de genes por cadena, o la longitud media— y compárala con tu solución:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Aspecto</th>
+<th>Mi solución</th>
+<th>Propuesta de IA</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Pregunta que responde</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>Entrada que usa</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>Supuestos</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>Resultado</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>Verificación</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>Errores detectados</td>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table></li>
+<li><p><strong>Búscale los fallos típicos</strong>: opciones que no existen, sintaxis de <code>grep</code> mezclada con la de <code>awk</code>, coordenadas sin el <code>+1</code>, orden lexicográfico de números, conteo de líneas <code>##</code>, encabezados incluidos en los cálculos, rutas inventadas, columnas equivocadas, o comandos que escribirían en <code>data/source/</code>.</p></li>
+<li><p><strong>Registra en <code>doc/bitacora-ia.md</code></strong>: objetivo, herramienta, prompt, respuesta resumida, error o supuesto detectado, prueba controlada y decisión final.</p></li>
+</ol>
+<p>🤖 <strong>Prompt para <a href="https://chatgpt.com/g/g-6893cf2451d88191b11cd0c87de045ab-profeunix-bioinfo">ProfeUnix Bioinfo</a>:</strong> &gt; Tengo un análisis de un genoma bacteriano organizado en estos pasos: [pegar la lista de pasos, sin &gt; comandos]. Revisa el orden y dime si alguna etapa necesita un archivo que todavía no se ha &gt; producido. Propón además un control de verificación para cada uno de los tres primeros pasos, usando &gt; solo <code>grep</code>, <code>cut</code>, <code>sort</code>, <code>uniq</code>, <code>comm</code>, <code>wc</code> y <code>awk</code>. No escribas el flujo completo ni uses &gt; variables de shell.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Advertencia
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Un asistente tiende a proponer directamente un script con variables y bucles, que es la solución de la unidad siguiente y no la de hoy. Si no puedes explicar cada línea de lo que te devuelve, no entra en tu protocolo.</p>
+</div>
+</div>
+</section>
+<section id="lo-que-realmente-aprendiste-hoy" class="level2">
+<h2 class="anchored" data-anchor-id="lo-que-realmente-aprendiste-hoy">Lo que realmente aprendiste hoy</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Antes</th>
+<th>Ahora</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Resolvía una pregunta y conservaba su comando</td>
+<td>Puedo reconstruir toda la investigación en un orden verificable</td>
+</tr>
+<tr class="even">
+<td>Mis verificaciones cerraban un análisis</td>
+<td>Mis verificaciones deciden si el flujo continúa</td>
+</tr>
+<tr class="odd">
+<td>Sabía qué archivos tenía</td>
+<td>Sé cuáles son entradas, cuáles derivados y cuáles se regeneran</td>
+</tr>
+<tr class="even">
+<td>Mi protocolo registraba lo que hice</td>
+<td>Mi protocolo permite que otra persona lo rehaga</td>
+</tr>
+<tr class="odd">
+<td>Tenía una investigación documentada por partes</td>
+<td>Tengo una investigación <strong>integrada, regenerable y verificable</strong></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="cierre-de-la-unidad-4-y-puente-hacia-la-siguiente" class="level2">
+<h2 class="anchored" data-anchor-id="cierre-de-la-unidad-4-y-puente-hacia-la-siguiente">Cierre de la Unidad 4 y puente hacia la siguiente</h2>
+<p>El ciclo está completo:</p>
+<pre class="text"><code>S18  Seleccionar  →  qué evidencia cuenta
+S19  Identificar  →  de qué objeto habla
+S20  Normalizar   →  bajo qué representación se compara
+S21  Confrontar   →  qué queda en pie ante una fuente ajena
+S22  Cuantificar  →  cuánto importa lo que encontré
+S23  Integrar     →  puede rehacerse entero, y lo he demostrado</code></pre>
+<p>Vale la pena mirar hacia atrás desde aquí. Empezaste la unidad con dos archivos verificados y una pregunta ingenua —<em>¿de qué tamaño es este genoma?</em>— que respondiste contando bytes. Terminas con un inventario del genoma sostenido por evidencia de dos procedencias, con sus magnitudes medidas, sus discrepancias explicadas y un procedimiento que cualquiera puede ejecutar. Entre una cosa y otra no hay más herramientas de las que caben en una mano: <code>grep</code>, <code>cut</code>, <code>sort</code>, <code>uniq</code>, <code>tr</code>, <code>sed</code>, <code>comm</code> y un poco de <code>awk</code>. Lo que cambió no fue el arsenal, fue <strong>la manera de preguntar</strong>.</p>
+<p>Y sin embargo, mira lo que acabas de hacer en la Práctica 6. Ejecutaste el protocolo copiando comando por comando, esperando cada salida, comprobando a mano y decidiendo si continuar. Funcionó. Ahora imagina lo mismo para los doce genomas del mini proyecto, o para uno nuevo que llegue el mes que viene:</p>
+<pre class="text"><code>copiar treinta comandos, otra vez
+editar la ruta del genoma en cada uno de ellos
+recordar en qué orden iban
+detenerte a comprobar entre bloques
+y repetirlo entero cada vez que cambie un archivo</code></pre>
+<p>Nada de eso es difícil. Es <strong>tedioso y propenso a error</strong>, que en ciencia es peor que difícil: un error de copiado no avisa. Y sobre todo, cada repetición es una oportunidad nueva de equivocarse en algo que ya habías resuelto bien.</p>
+<blockquote class="blockquote">
+<p><strong>El análisis ya está integrado conceptualmente, pero su ejecución todavía depende de una persona.</strong></p>
+</blockquote>
+<p>Ese es el punto exacto donde termina la Unidad 4 y empieza la siguiente, con preguntas como estas:</p>
+<pre class="text"><code>¿cómo evito escribir la misma ruta veinte veces?
+¿cómo aplico este análisis a otro genoma sin editar todos los comandos?
+¿cómo repito una operación sobre muchos archivos?
+¿cómo hago que el flujo se detenga solo cuando falta algo?
+¿cómo convierto mi protocolo en una herramienta que otros puedan usar?</code></pre>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Guarda tu protocolo ejecutable tal como quedó hoy. En la unidad siguiente será el punto de partida: no vas a escribir un programa desde cero, vas a <strong>convertir en herramienta un procedimiento que ya sabes que funciona</strong>. Y esa es la única forma sensata de automatizar algo.</p>
+</div>
+</div>
+</section>
+<section id="en-una-frase" class="level2">
+<h2 class="anchored" data-anchor-id="en-una-frase">En una frase</h2>
+<ul>
+<li>Documentar una operación <strong>no es</strong> integrar un análisis.</li>
+<li>El orden de un protocolo lo dictan las <strong>dependencias</strong>, no la cronología.</li>
+<li>Un flujo sin puntos de control no sabe <strong>cuándo detenerse</strong>.</li>
+</ul>
+</section>
+<section id="anexo-a.-correspondencia-resultadoactividadevidenciacriterio" class="level2">
+<h2 class="anchored" data-anchor-id="anexo-a.-correspondencia-resultadoactividadevidenciacriterio">Anexo A. Correspondencia resultado–actividad–evidencia–criterio</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Resultado</th>
+<th>Actividad</th>
+<th>Evidencia</th>
+<th>Criterio</th>
+<th>Momento</th>
+<th>Nivel en U4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RA1 Identificar dependencias</td>
+<td>Sección 3, Práctica 1</td>
+<td>Inventario con dependencias</td>
+<td>Detecta al menos una inconsistencia real</td>
+<td>Antes</td>
+<td>Aplicación autónoma</td>
+</tr>
+<tr class="even">
+<td>RA2 Ordenar las operaciones</td>
+<td>Sección 3, Práctica 2</td>
+<td>Secuencia en cinco bloques</td>
+<td>Ninguna entrada precede a su producción</td>
+<td>Antes</td>
+<td>Aplicación autónoma</td>
+</tr>
+<tr class="odd">
+<td>RA3 Distinguir entradas, derivados y resultados</td>
+<td>Sección 3, protocolo</td>
+<td>Tabla de archivos</td>
+<td>Declara qué se regenera y qué no</td>
+<td>Antes/después</td>
+<td>Comprensión demostrada</td>
+</tr>
+<tr class="even">
+<td>RA4 Integrar comandos validados</td>
+<td>Sección 2, Práctica 3</td>
+<td>Protocolo ejecutable</td>
+<td>Los comandos se recuperan, no se reescriben</td>
+<td>Taller</td>
+<td>Aplicación guiada</td>
+</tr>
+<tr class="odd">
+<td>RA5 Incorporar verificaciones</td>
+<td>Sección 4, Práctica 4</td>
+<td>Tabla de puntos de control</td>
+<td>Cada control declara qué significaría fallar</td>
+<td>Taller</td>
+<td>Aplicación autónoma</td>
+</tr>
+<tr class="even">
+<td>RA6 Construir la tabla ordenada</td>
+<td>Sección 5, Práctica 5</td>
+<td><code>genes-ordenados.tsv</code></td>
+<td>Orden numérico verificado</td>
+<td>Taller</td>
+<td>Aplicación guiada</td>
+</tr>
+<tr class="odd">
+<td>RA7 Regenerar desde las fuentes</td>
+<td>Sección 6, Práctica 6</td>
+<td>Registro de la ejecución limpia</td>
+<td>Cada diferencia tiene causa identificada</td>
+<td>Taller</td>
+<td>Aplicación autónoma</td>
+</tr>
+<tr class="even">
+<td>RA8 Sintetizar los hallazgos</td>
+<td>Práctica 7</td>
+<td>Tabla de hallazgos y síntesis</td>
+<td>Cada afirmación es trazable y provisional</td>
+<td>Después</td>
+<td>Aplicación autónoma</td>
+</tr>
+<tr class="odd">
+<td>RA9 Evaluar una propuesta de IA</td>
+<td>Cierre con IA</td>
+<td><code>bitacora-ia.md</code></td>
+<td>Detecta un error concreto mediante prueba</td>
+<td>Después</td>
+<td>Aplicación autónoma</td>
+</tr>
+<tr class="even">
+<td>RA10 Explicar el límite del protocolo</td>
+<td>Sección 7, cierre</td>
+<td>Respuesta razonada</td>
+<td>Distingue ejecutable de automatizado</td>
+<td>Después</td>
+<td>Comprensión demostrada</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="anexo-b.-alineación-transversal" class="level2">
+<h2 class="anchored" data-anchor-id="anexo-b.-alineación-transversal">Anexo B. Alineación transversal</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Actividad</th>
+<th>Reproducibilidad</th>
+<th>Verificación</th>
+<th>Validación</th>
+<th>Robustez</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Inventario de piezas</td>
+<td>Cada producto con su comando de origen</td>
+<td>Se comprueba qué archivos existen</td>
+<td>Se contrasta el protocolo con el proyecto real</td>
+<td>Se declaran los pasos irreproducibles</td>
+</tr>
+<tr class="even">
+<td>Orden por dependencias</td>
+<td>La secuencia queda escrita</td>
+<td>Cada entrada se localiza en un paso previo</td>
+<td>El orden se prueba ejecutándolo</td>
+<td>Se identifica el cuello de botella</td>
+</tr>
+<tr class="odd">
+<td>Puntos de control</td>
+<td>Los controles quedan en el protocolo</td>
+<td>Cada uno declara su resultado esperado</td>
+<td>Provienen de verificaciones ya validadas</td>
+<td>Se marca cuáles detienen la ejecución</td>
+</tr>
+<tr class="even">
+<td>Tabla ordenada</td>
+<td>Comando completo documentado</td>
+<td>Control de posiciones no decrecientes</td>
+<td>Coordenadas contrastadas con el GFF3</td>
+<td>Se demuestra el fallo del orden lexicográfico</td>
+</tr>
+<tr class="odd">
+<td>Ejecución limpia</td>
+<td>Se parte solo de <code>data/source/</code></td>
+<td>Comparación con el respaldo</td>
+<td>Se regeneran los resultados de cinco sesiones</td>
+<td>Revela dependencias no declaradas</td>
+</tr>
+<tr class="even">
+<td>Síntesis final</td>
+<td>Cada afirmación remite a su paso</td>
+<td>Se distingue lo confirmado por dos vías</td>
+<td>Se separa lo validado externamente</td>
+<td>Se declaran las limitaciones globales</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="glosario" class="level2">
+<h2 class="anchored" data-anchor-id="glosario">Glosario</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Español</th>
+<th>Inglés</th>
+<th>Definición breve</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Protocolo ejecutable</td>
+<td>Executable protocol</td>
+<td>Secuencia ordenada y verificada de operaciones que reproduce un análisis completo</td>
+</tr>
+<tr class="even">
+<td>Dependencia</td>
+<td>Dependency</td>
+<td>Relación por la que un paso necesita el producto de otro</td>
+</tr>
+<tr class="odd">
+<td>Punto de control</td>
+<td>Checkpoint</td>
+<td>Comprobación situada al final de un paso, que decide si se continúa</td>
+</tr>
+<tr class="even">
+<td>Control bloqueante</td>
+<td>Blocking check</td>
+<td>Aquel cuya falla invalida todo lo que viene después</td>
+</tr>
+<tr class="odd">
+<td>Entrada</td>
+<td>Input</td>
+<td>Archivo original que no se modifica ni se regenera</td>
+</tr>
+<tr class="even">
+<td>Derivado</td>
+<td>Derived data</td>
+<td>Archivo producido que sirve de entrada a otro análisis</td>
+</tr>
+<tr class="odd">
+<td>Resultado</td>
+<td>Result</td>
+<td>Salida que responde una pregunta y no alimenta a otro paso</td>
+</tr>
+<tr class="even">
+<td>Regenerar</td>
+<td>Regenerate</td>
+<td>Volver a producir un archivo ejecutando su comando desde las entradas</td>
+</tr>
+<tr class="odd">
+<td>Ejecución limpia</td>
+<td>Clean run</td>
+<td>Ejecución que parte solo de lo declarado como entrada</td>
+</tr>
+<tr class="even">
+<td>Trazabilidad</td>
+<td>Traceability</td>
+<td>Poder seguir cada afirmación hasta el paso que la produjo</td>
+</tr>
+<tr class="odd">
+<td>Síntesis interpretativa</td>
+<td>Interpretive synthesis</td>
+<td>Conclusión que integra hallazgos, evidencias y límites</td>
+</tr>
+<tr class="even">
+<td>Automatización</td>
+<td>Automation</td>
+<td>Convertir un procedimiento manual en una herramienta reutilizable</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="referencias" class="level2">
+<h2 class="anchored" data-anchor-id="referencias">Referencias</h2>
+<ul>
+<li>Noble, W. S. (2009). A quick guide to organizing computational biology projects. <em>PLoS Computational Biology</em>, 5(7), e1000424. <a href="https://doi.org/10.1371/journal.pcbi.1000424" class="uri">https://doi.org/10.1371/journal.pcbi.1000424</a></li>
+<li>Sandve, G. K., Nekrutenko, A., Taylor, J., &amp; Hovig, E. (2013). Ten simple rules for reproducible computational research. <em>PLoS Computational Biology</em>, 9(10), e1003285. <a href="https://doi.org/10.1371/journal.pcbi.1003285" class="uri">https://doi.org/10.1371/journal.pcbi.1003285</a></li>
+<li>Wilson, G., Bryan, J., Cranston, K., Kitzes, J., Nederbragt, L., &amp; Teal, T. K. (2017). Good enough practices in scientific computing. <em>PLoS Computational Biology</em>, 13(6), e1005510. <a href="https://doi.org/10.1371/journal.pcbi.1005510" class="uri">https://doi.org/10.1371/journal.pcbi.1005510</a></li>
+<li>Buffalo, V. (2015). <em>Bioinformatics Data Skills</em>. O’Reilly Media. — Cap. 7 y prácticas de organización de proyectos.</li>
+<li>Free Software Foundation. (2024). <em>GNU Coreutils Manual</em> — <code>sort</code> con claves múltiples y orden numérico. <a href="https://www.gnu.org/software/coreutils/manual/coreutils.html" class="uri">https://www.gnu.org/software/coreutils/manual/coreutils.html</a></li>
+<li>Sequence Ontology. (2020). <em>Generic Feature Format Version 3 (GFF3) specification</em>. <a href="https://github.com/The-Sequence-Ontology/Specifications/blob/master/gff3.md" class="uri">https://github.com/The-Sequence-Ontology/Specifications/blob/master/gff3.md</a></li>
+<li>Wilkinson, M. D., Dumontier, M., Aalbersberg, I. J., et al.&nbsp;(2016). The FAIR Guiding Principles for scientific data management and stewardship. <em>Scientific Data</em>, 3, 160018. <a href="https://doi.org/10.1038/sdata.2016.18" class="uri">https://doi.org/10.1038/sdata.2016.18</a></li>
+</ul>
+</section>
+<section id="distribución-estimada-de-las-dos-horas" class="level2">
+<h2 class="anchored" data-anchor-id="distribución-estimada-de-las-dos-horas">Distribución estimada de las dos horas</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 40%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Bloque</th>
+<th style="text-align: right;">Tiempo</th>
+<th>Contenido</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Puesta en común del inventario y del orden</td>
+<td style="text-align: right;">15 min</td>
+<td>Prácticas 1 y 2, resueltas antes de clase</td>
+</tr>
+<tr class="even">
+<td>Integrar los comandos en bloques</td>
+<td style="text-align: right;">25 min</td>
+<td>Práctica 3</td>
+</tr>
+<tr class="odd">
+<td>Colocar los puntos de control</td>
+<td style="text-align: right;">20 min</td>
+<td>Práctica 4</td>
+</tr>
+<tr class="even">
+<td>Construir y verificar la tabla ordenada</td>
+<td style="text-align: right;">25 min</td>
+<td>Práctica 5</td>
+</tr>
+<tr class="odd">
+<td>Ejecución limpia por bloques</td>
+<td style="text-align: right;">25 min</td>
+<td>Práctica 6</td>
+</tr>
+<tr class="even">
+<td>Cierre de la unidad y puente</td>
+<td style="text-align: right;">10 min</td>
+<td>Semáforo y planteamiento de la síntesis</td>
+</tr>
+</tbody>
+</table>
+<p>Los tiempos son estimaciones. La redacción completa del protocolo empieza antes del taller —con las Prácticas 1 y 2— y termina después, con la Práctica 7. No es realista escribir, depurar, ejecutar y documentar todo el flujo en dos horas. El núcleo que no debe recortarse es:</p>
+<pre class="text"><code>ordenar por dependencias → integrar → controlar → ejecutar desde las fuentes</code></pre>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/helysalgado\.github\.io\/introbioinfo-unix\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./u4-s22-condicionar-calcular-columnas.html" class="pagination-link" aria-label="S22 — Condicionar">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">S22 — Condicionar</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./s14-s15-mini-proyecto-investigacion-I.html" class="pagination-link" aria-label="S14–S15 — Mini-proyecto I">
+        <span class="nav-page-text">S14–S15 — Mini-proyecto I</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://hits.sh/helysalgado.github.io/introbioinfo-unix/"><img src="https://hits.sh/helysalgado.github.io/introbioinfo-unix/.svg?style=flat-square&amp;label=Visitas&amp;color=4a7c9e" class="img-fluid figure-img"></a></p>
+<figcaption>Visitas</figcaption>
+</figure>
+</div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Helysalgado/introbioinfo-unix/edit/main/u4-s23-protocolo-ejecutable-genoma.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/Helysalgado/introbioinfo-unix/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

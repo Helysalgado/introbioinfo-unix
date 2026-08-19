@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GFF3 Explorer — De nueve campos a una anotación biológica</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#035485',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        bio: {
+                            gene: '#8b5cf6',
+                            seq: '#0284c7',
+                            source: '#0d9488',
+                            coords: '#d97706',
+                            strand: '#16a34a',
+                            attr: '#4f46e5'
+                        }
+                    },
+                    fontFamily: {
+                        mono: ['JetBrains Mono', 'Fira Code', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+        
+        .tab-character {
+            background-color: rgba(239, 68, 68, 0.15);
+            border: 1px dashed rgba(239, 68, 68, 0.5);
+            color: #dc2626;
+            font-size: 0.75rem;
+            padding: 2px 4px;
+            border-radius: 4px;
+            user-select: none;
+        }
+
+        .gff-field-highlight {
+            transition: all 0.2s ease-in-out;
+        }
+        .gff-field-highlight:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .aria-live-sr {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .drop-zone-active {
+            border-color: #0284c7 !important;
+            background-color: #f0f9ff !important;
+        }
+    </style>
+</head>
+<body class="h-full flex flex-col font-sans text-slate-800 bg-slate-50 antialiased selection:bg-brand-100 selection:text-brand-900">
+
+    <!-- Header -->
+    <header class="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-30 shadow-md">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <span class="bg-brand-600 text-white text-xs font-bold px-2.5 py-1 rounded tracking-wide uppercase">S7 · Práctica 4</span>
+                <div>
+                    <h1 class="text-lg sm:text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                        GFF3 Explorer
+                    </h1>
+                    <p class="text-xs text-slate-400">De nueve campos a una anotación biológica · LCG UNAM 2026</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-2 text-xs font-medium text-slate-300">
+                <span id="station-badge" class="bg-slate-800 border border-slate-700 px-3 py-1.5 rounded-full flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
+                    Estación <span id="current-station-num">1</span> de 5
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 py-6 flex flex-col gap-6">
+
+        <!-- Progress Indicator Bar -->
+        <nav aria-label="Progreso del módulo" class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+            <div class="flex justify-between items-center mb-2">
+                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider" id="progress-text">Progreso de la experiencia</span>
+                <span class="text-xs font-bold text-brand-700" id="progress-percent">20%</span>
+            </div>
+            <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden flex">
+                <div id="progress-bar-fill" class="bg-brand-600 h-2.5 transition-all duration-500 rounded-full" style="width: 20%"></div>
+            </div>
+            <!-- Station Tabs Step Indicator -->
+            <div class="grid grid-cols-5 gap-1 mt-3 text-center text-xs font-medium">
+                <button onclick="app.navigateToStation(1)" id="tab-st-1" class="py-1 px-2 rounded bg-brand-50 text-brand-700 font-bold border border-brand-200 focus:outline-none focus:ring-2 focus:ring-brand-500">1. Estructura</button>
+                <button onclick="app.navigateToStation(2)" id="tab-st-2" class="py-1 px-2 rounded text-slate-500 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500">2. Campos</button>
+                <button onclick="app.navigateToStation(3)" id="tab-st-3" class="py-1 px-2 rounded text-slate-500 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500">3. Biología</button>
+                <button onclick="app.navigateToStation(4)" id="tab-st-4" class="py-1 px-2 rounded text-slate-500 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500">4. Evidencia</button>
+                <button onclick="app.navigateToStation(5)" id="tab-st-5" class="py-1 px-2 rounded text-slate-500 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500">5. Contexto</button>
+            </div>
+        </nav>
+
+        <!-- Reference GFF3 Target Line Display Banner -->
+        <section aria-labelledby="target-gff-heading" class="bg-slate-900 text-slate-100 p-4 sm:p-5 rounded-xl shadow-md border border-slate-800">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                <h2 idtarget-gff-heading class="text-xs font-bold tracking-wider text-brand-400 uppercase flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    Línea GFF3 objeto de análisis (E. coli K-12 MG1655)
+                </h2>
+                <div class="text-[11px] bg-slate-800 text-amber-300 px-2.5 py-1 rounded border border-slate-700 flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                    Nota: Los 9 campos están delimitados estrictamente por caracteres <code class="font-mono bg-slate-900 px-1 rounded text-red-400">TAB</code>
+                </div>
+            </div>
+
+            <!-- Monospaced Code Display Container -->
+            <div class="overflow-x-auto bg-slate-950 p-3.5 rounded-lg border border-slate-800 text-xs sm:text-sm font-mono tracking-wide flex items-center space-x-1 sm:space-x-2 whitespace-nowrap" id="gff3-line-interactive-display">
+                <span class="text-slate-200 px-1 py-0.5 rounded transition" id="gff-col-1">NC_000913.3</span>
+                <span class="tab-character" title="Tabulador (\t)">TAB</span>
+                <span class="text-slate-200 px-1 py-0.5 rounded transition" id="gff-col-2">RefSeq</span>
+                <span class="tab-character" title="Tabulador (\t)">TAB</span>
+                <span class="text-slate-200 px-1 py-0.5 rounded transition" id="gff-col-3">gene</span>
+                <span class="tab-character" title="Tabulador (\t)">TAB</span>
+                <span class="text-slate-200 px-1 py-0.5 rounded transition" id="gff-col-4">190</span>
+                <span class="tab-character" title="Tabulador (\t)">TAB</span>
+                <span class="text-slate-200 px-1 py-0.5 rounded transition" id="gff-col-5">255</span>
+                <span class="tab-character" title="Tabulador (\t)">TAB</span>
+                <span class="text-slate-200 px-1 py-0.5 rounded transition" id="gff-col-6">.</span>
+                <span class="tab-character" title="Tabulador (\t)">TAB</span>
+                <span class="text-slate-200 px-1 py-0.5 rounded transition" id="gff-col-7">+</span>
+                <span class="tab-character" title="Tabulador (\t)">TAB</span>
+                <span class="text-slate-200 px-1 py-0.5 rounded transition" id="gff-col-8">.</span>
+                <span class="tab-character" title="Tabulador (\t)">TAB</span>
+                <span class="text-slate-200 px-1 py-0.5 rounded transition" id="gff-col-9">ID=gene-b0001;Name=thrL;locus_tag=b0001</span>
+            </div>
+        </section>
+
+        <!-- Dynamic ARIA Live Region for Feedback Accessibility -->
+        <div id="aria-feedback" class="aria-live-sr" aria-live="polite" aria-atomic="true"></div>
+
+        <!-- ========================================================================= -->
+        <!-- STATION 1: Descubrir la estructura -->
+        <!-- ========================================================================= -->
+        <section id="station-1" class="space-y-6">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                <div class="border-b border-slate-100 pb-4 mb-6">
+                    <span class="text-xs font-bold text-brand-600 uppercase tracking-widest">Estación 1</span>
+                    <h2 class="text-xl font-bold text-slate-900 mt-1">Descubrir la estructura básica</h2>
+                    <p class="text-sm text-slate-600 mt-1">
+                        Una línea GFF3 parece compacta, pero contiene varias capas de información. Tu tarea es desmontarla, interpretar qué afirma directamente y reconocer qué todavía necesita contexto.
+                    </p>
+                </div>
+
+                <div class="space-y-8">
+                    <!-- Q1.1 -->
+                    <fieldset class="space-y-3 bg-slate-50 p-4 sm:p-5 rounded-lg border border-slate-200" id="q1-1-fieldset">
+                        <legend class="text-sm font-semibold text-slate-900 mb-2">1. ¿Cuántos campos o columnas principales contiene esta línea GFF3?</legend>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                            <button type="button" onclick="app.checkQ1_1(8)" class="st1-q1-btn text-left p-3 rounded-lg border border-slate-300 bg-white hover:bg-slate-100 text-sm font-medium focus:ring-2 focus:ring-brand-500">8 campos</button>
+                            <button type="button" onclick="app.checkQ1_1(9)" class="st1-q1-btn text-left p-3 rounded-lg border border-slate-300 bg-white hover:bg-slate-100 text-sm font-medium focus:ring-2 focus:ring-brand-500">9 campos</button>
+                            <button type="button" onclick="app.checkQ1_1(10)" class="st1-q1-btn text-left p-3 rounded-lg border border-slate-300 bg-white hover:bg-slate-100 text-sm font-medium focus:ring-2 focus:ring-brand-500">10 campos</button>
+                            <button type="button" onclick="app.checkQ1_1(-1)" class="st1-q1-btn text-left p-3 rounded-lg border border-slate-300 bg-white hover:bg-slate-100 text-sm font-medium focus:ring-2 focus:ring-brand-500">No se puede saber</button>
+                        </div>
+                        <div id="q1-1-feedback" class="mt-2 text-sm hidden"></div>
+                    </fieldset>
+
+                    <!-- Q1.2 -->
+                    <fieldset class="space-y-3 bg-slate-50 p-4 sm:p-5 rounded-lg border border-slate-200" id="q1-2-fieldset">
+                        <legend class="text-sm font-semibold text-slate-900 mb-2">2. ¿Qué carácter separa formalmente los nueve campos principales?</legend>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                            <button type="button" onclick="app.checkQ1_2('espacios')" class="st1-q2-btn text-left p-3 rounded-lg border border-slate-300 bg-white hover:bg-slate-100 text-sm font-medium focus:ring-2 focus:ring-brand-500">Espacios (Space)</button>
+                            <button type="button" onclick="app.checkQ1_2('comas')" class="st1-q2-btn text-left p-3 rounded-lg border border-slate-300 bg-white hover:bg-slate-100 text-sm font-medium focus:ring-2 focus:ring-brand-500">Comas (,)</button>
+                            <button type="button" onclick="app.checkQ1_2('tabuladores')" class="st1-q2-btn text-left p-3 rounded-lg border border-slate-300 bg-white hover:bg-slate-100 text-sm font-medium focus:ring-2 focus:ring-brand-500">Tabuladores (\t)</button>
+                            <button type="button" onclick="app.checkQ1_2('semicolon')" class="st1-q2-btn text-left p-3 rounded-lg border border-slate-300 bg-white hover:bg-slate-100 text-sm font-medium focus:ring-2 focus:ring-brand-500">Punto y coma (;)</button>
+                        </div>
+                        <div id="q1-2-feedback" class="mt-2 text-sm hidden"></div>
+                    </fieldset>
+
+                    <!-- Q1.3 -->
+                    <fieldset class="space-y-3 bg-slate-50 p-4 sm:p-5 rounded-lg border border-slate-200" id="q1-3-fieldset">
+                        <legend class="text-sm font-semibold text-slate-900 mb-2">3. ¿Esta línea representa un gen completo con toda su biología, o una anotación específica (feature)?</legend>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <button type="button" onclick="app.checkQ1_3('secuencia')" class="st1-q3-btn text-left p-3 rounded-lg border border-slate-300 bg-white hover:bg-slate-100 text-sm font-medium focus:ring-2 focus:ring-brand-500">Una secuencia de nucleótidos completa</button>
+                            <button type="button" onclick="app.checkQ1_3('feature')" class="st1-q3-btn text-left p-3 rounded-lg border border-slate-300 bg-white hover:bg-slate-100 text-sm font-medium focus:ring-2 focus:ring-brand-500">Una feature anotada (un rasgo/elemento puntual)</button>
+                            <button type="button" onclick="app.checkQ1_3('genbank')" class="st1-q3-btn text-left p-3 rounded-lg border border-slate-300 bg-white hover:bg-slate-100 text-sm font-medium focus:ring-2 focus:ring-brand-500">Un registro completo de GenBank</button>
+                            <button type="button" onclick="app.checkQ1_3('completo')" class="st1-q3-btn text-left p-3 rounded-lg border border-slate-300 bg-white hover:bg-slate-100 text-sm font-medium focus:ring-2 focus:ring-brand-500">Un gen completo con toda su estructura eucariota</button>
+                        </div>
+                        <div id="q1-3-feedback" class="mt-2 text-sm hidden"></div>
+                    </fieldset>
+
+                    <!-- Q1.4 -->
+                    <fieldset class="space-y-3 bg-slate-50 p-4 sm:p-5 rounded-lg border border-slate-200" id="q1-4-fieldset">
+                        <legend class="text-sm font-semibold text-slate-900 mb-2">4. Observa el tercer campo (columna 3). ¿Qué tipo exacto de feature describe esta línea?</legend>
+                        <div class="flex items-center gap-3">
+                            <input type="text" id="st1-q4-input" placeholder="Escribe el tipo tal cual aparece..." class="px-4 py-2.5 border border-slate-300 rounded-lg text-sm font-mono w-full sm:w-64 focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                            <button type="button" onclick="app.checkQ1_4()" class="px-5 py-2.5 bg-brand-600 text-white font-medium text-sm rounded-lg hover:bg-brand-700 focus:ring-2 focus:ring-brand-500">Verificar</button>
+                        </div>
+                        <div id="q1-4-feedback" class="mt-2 text-sm hidden"></div>
+                    </fieldset>
+                </div>
+
+                <!-- Station 1 Completion Banner -->
+                <div id="st1-completion" class="mt-8 p-4 bg-emerald-50 border border-emerald-200 rounded-lg hidden">
+                    <div class="flex items-start gap-3">
+                        <svg class="w-6 h-6 text-emerald-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <div>
+                            <h3 class="font-bold text-emerald-900 text-sm">¡Estación 1 Completada!</h3>
+                            <p class="text-xs text-emerald-700 mt-1">Has descompuesto la línea inicial en 9 regiones numéricas. Ahora es momento de asociar cada columna con su nombre formal en el estándar GFF3.</p>
+                            <button type="button" onclick="app.navigateToStation(2)" class="mt-3 px-4 py-2 bg-emerald-600 text-white font-semibold text-xs rounded hover:bg-emerald-700 inline-flex items-center gap-1.5">
+                                Avanzar a Estación 2: Desarmar los campos &rarr;
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- STATION 2: Desarmar los nueve campos -->
+        <!-- ========================================================================= -->
+        <section id="station-2" class="space-y-6 hidden">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                <div class="border-b border-slate-100 pb-4 mb-6">
+                    <span class="text-xs font-bold text-brand-600 uppercase tracking-widest">Estación 2</span>
+                    <h2 class="text-xl font-bold text-slate-900 mt-1">Anatomía interactiva de los nueve campos</h2>
+                    <p class="text-sm text-slate-600 mt-1">
+                        Haz clic en una columna del fragmento para seleccionar un segmento y luego asigna el nombre técnico que le corresponde según la especificación GFF3.
+                    </p>
+                </div>
+
+                <!-- Interactive Mapping Board -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+                    <!-- Columns Segment Selection Box -->
+                    <div class="lg:col-span-2 space-y-4">
+                        <h3 class="text-xs font-bold uppercase text-slate-500 tracking-wider">1. Selecciona un valor de la línea GFF3:</h3>
+                        <div class="grid grid-cols-1 gap-2" id="st2-segments-container">
+                            <!-- Populated dynamically by JS -->
+                        </div>
+
+                        <!-- Special Attributes Micro-interaction Box -->
+                        <div id="st2-attributes-breakdown" class="bg-indigo-50 border border-indigo-200 p-4 rounded-xl mt-6 hidden">
+                            <div class="flex items-center justify-between mb-2">
+                                <h4 class="text-xs font-bold text-indigo-900 uppercase flex items-center gap-1.5">
+                                    <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                                    Apertura de la Columna 9: Attributes
+                                </h4>
+                                <span class="text-[10px] bg-indigo-200 text-indigo-800 font-bold px-2 py-0.5 rounded">Clave-Valor</span>
+                            </div>
+                            <p class="text-xs text-indigo-800 mb-3">
+                                Observa cómo los delimitadores <code class="font-mono bg-white px-1 py-0.5 rounded border border-indigo-200 text-indigo-900 font-bold">;</code> estructuran sub-atributos dentro del mismo campo 9:
+                            </p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-mono">
+                                <div class="bg-white p-2.5 rounded border border-indigo-200 text-slate-800">
+                                    <span class="text-indigo-600 font-bold">ID:</span> gene-b0001
+                                </div>
+                                <div class="bg-white p-2.5 rounded border border-indigo-200 text-slate-800">
+                                    <span class="text-indigo-600 font-bold">Name:</span> thrL
+                                </div>
+                                <div class="bg-white p-2.5 rounded border border-indigo-200 text-slate-800">
+                                    <span class="text-indigo-600 font-bold">locus_tag:</span> b0001
+                                </div>
+                            </div>
+                            <!-- Quick Verification Question on Attributes -->
+                            <div class="mt-4 pt-3 border-t border-indigo-200/60 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                                <span class="text-xs font-medium text-indigo-950">¿El punto y coma (<code class="font-mono font-bold text-slate-800">;</code>) separa columnas del archivo GFF3?</span>
+                                <div class="flex gap-2">
+                                    <button type="button" onclick="app.checkAttributesQuestion(true)" class="px-3 py-1 bg-white border border-indigo-300 rounded text-xs font-semibold hover:bg-indigo-100 text-indigo-900">Sí</button>
+                                    <button type="button" onclick="app.checkAttributesQuestion(false)" class="px-3 py-1 bg-white border border-indigo-300 rounded text-xs font-semibold hover:bg-indigo-100 text-indigo-900">No</button>
+                                </div>
+                            </div>
+                            <div id="attr-q-feedback" class="mt-2 text-xs font-medium hidden"></div>
+                        </div>
+                    </div>
+
+                    <!-- Technical Field Names Selector Bank -->
+                    <div class="space-y-4">
+                        <h3 class="text-xs font-bold uppercase text-slate-500 tracking-wider">2. Asócialo con el nombre de campo:</h3>
+                        <div class="grid grid-cols-1 gap-2" id="st2-labels-bank">
+                            <!-- Populated dynamically by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <div id="st2-feedback" class="mt-4 text-sm hidden"></div>
+
+                <!-- Station 2 Completion Banner -->
+                <div id="st2-completion" class="mt-8 p-4 bg-emerald-50 border border-emerald-200 rounded-lg hidden">
+                    <div class="flex items-start gap-3">
+                        <svg class="w-6 h-6 text-emerald-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <div>
+                            <h3 class="font-bold text-emerald-900 text-sm">¡Estación 2 Completada!</h3>
+                            <p class="text-xs text-emerald-700 mt-1">Has relacionado exitosamente todos los campos técnicos (`seqid`, `source`, `type`, etc.) con sus valores reales. Ahora traduciremos estos datos a preguntas biológicas reales.</p>
+                            <button type="button" onclick="app.navigateToStation(3)" class="mt-3 px-4 py-2 bg-emerald-600 text-white font-semibold text-xs rounded hover:bg-emerald-700 inline-flex items-center gap-1.5">
+                                Avanzar a Estación 3: Traducir a información biológica &rarr;
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- STATION 3: Traducir campos a información biológica -->
+        <!-- ========================================================================= -->
+        <section id="station-3" class="space-y-6 hidden">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                <div class="border-b border-slate-100 pb-4 mb-6">
+                    <span class="text-xs font-bold text-brand-600 uppercase tracking-widest">Estación 3</span>
+                    <h2 class="text-xl font-bold text-slate-900 mt-1">Traducir campos a información biológica</h2>
+                    <p class="text-sm text-slate-600 mt-1">
+                        Para cada pregunta biológica, indica primero **qué campo(s) GFF3** debes consultar y luego extrae la interpretación biológica concreta.
+                    </p>
+                </div>
+
+                <div class="space-y-6" id="st3-questions-container">
+                    <!-- Populated dynamically by JS -->
+                </div>
+
+                <div id="st3-completion" class="mt-8 p-4 bg-emerald-50 border border-emerald-200 rounded-lg hidden">
+                    <div class="flex items-start gap-3">
+                        <svg class="w-6 h-6 text-emerald-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <div>
+                            <h3 class="font-bold text-emerald-900 text-sm">¡Estación 3 Completada!</h3>
+                            <p class="text-xs text-emerald-700 mt-1">Has conectado las preguntas biológicas directamente con las columnas del estándar GFF3. En la siguiente estación evaluaremos el rigor científico de lo que realmente se puede o no afirmar con esta línea.</p>
+                            <button type="button" onclick="app.navigateToStation(4)" class="mt-3 px-4 py-2 bg-emerald-600 text-white font-semibold text-xs rounded hover:bg-emerald-700 inline-flex items-center gap-1.5">
+                                Avanzar a Estación 4: ¿Qué puedes afirmar realmente? &rarr;
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- STATION 4: ¿Qué puedes afirmar realmente? -->
+        <!-- ========================================================================= -->
+        <section id="station-4" class="space-y-6 hidden">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                <div class="border-b border-slate-100 pb-4 mb-6">
+                    <span class="text-xs font-bold text-brand-600 uppercase tracking-widest">Estación 4</span>
+                    <h2 class="text-xl font-bold text-slate-900 mt-1">¿Qué puedes afirmar realmente?</h2>
+                    <p class="text-sm text-slate-600 mt-1">
+                        Un bioinformático debe distinguir entre lo que la anotación **asegura explícitamente**, lo que se **calcula**, y las **inferencias** que requieren evidencia adicional.
+                    </p>
+                </div>
+
+                <!-- 5 Core Claims evaluation -->
+                <div class="space-y-6">
+                    <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider">Parte A: Evaluación de 5 afirmaciones biológicas</h3>
+                    <div id="st4-claims-container" class="space-y-4">
+                        <!-- Populated dynamically by JS -->
+                    </div>
+
+                    <!-- Interactive Length Calculator Widget -->
+                    <div class="bg-amber-50 border border-amber-200 p-5 rounded-xl space-y-3 mt-6">
+                        <h4 class="text-sm font-bold text-amber-900 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            Calculadora de Longitud GFF3 (Coordenadas inclusivas 1-based)
+                        </h4>
+                        <p class="text-xs text-amber-800">
+                            GFF3 utiliza un sistema de coordenadas de inicio en 1 inclusivo en ambos extremos. ¿Por qué se suma <code class="font-mono bg-amber-100 px-1 py-0.5 rounded font-bold text-amber-950">+1</code> en la fórmula de longitud?
+                        </p>
+                        <div class="bg-white p-3 rounded-lg border border-amber-200 font-mono text-xs text-slate-800 flex flex-wrap items-center gap-2">
+                            <span>Fórmula: <strong class="text-amber-700">end - start + 1</strong></span>
+                            <span>&rarr;</span>
+                            <span>255 - 190 + 1 = <strong class="text-emerald-600 text-sm">66 nucleótidos</strong></span>
+                        </div>
+                        <fieldset class="space-y-2 pt-2">
+                            <legend class="text-xs font-semibold text-amber-900">Selecciona la razón científica correcta:</legend>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                                <label class="flex items-center space-x-2 bg-white p-2.5 rounded border border-amber-200 cursor-pointer hover:bg-amber-100/50">
+                                    <input type="radio" name="calc-reason" value="strand" onclick="app.checkCalcReason('strand')" class="text-amber-600 focus:ring-amber-500">
+                                    <span>Porque se le suma el signo de la hebra (+).</span>
+                                </label>
+                                <label class="flex items-center space-x-2 bg-white p-2.5 rounded border border-amber-200 cursor-pointer hover:bg-amber-100/50">
+                                    <input type="radio" name="calc-reason" value="inclusive" onclick="app.checkCalcReason('inclusive')" class="text-amber-600 focus:ring-amber-500">
+                                    <span>Porque ambas coordenadas extremas (190 y 255) están incluidas en la feature.</span>
+                                </label>
+                            </div>
+                            <div id="calc-reason-feedback" class="mt-2 text-xs hidden"></div>
+                        </fieldset>
+                    </div>
+
+                    <!-- Parte B: Categorization Drag/Sort Mechanic -->
+                    <div class="mt-8 pt-6 border-t border-slate-200 space-y-4">
+                        <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider">Parte B: Clasificación por Estatus de Evidencia</h3>
+                        <p class="text-xs text-slate-600">
+                            Clasifica las siguientes tarjetas según la certeza científica que otorga la línea GFF3 analizada:
+                        </p>
+
+                        <!-- Source Cards -->
+                        <div class="flex flex-wrap gap-2 p-3 bg-slate-100 rounded-xl min-h-[50px]" id="st4-cards-bank">
+                            <!-- Populated dynamically by JS -->
+                        </div>
+
+                        <!-- 3 Classification Target Zones -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+                            <!-- Zone 1 -->
+                            <div class="bg-emerald-50/60 border-2 border-dashed border-emerald-300 p-4 rounded-xl space-y-3 min-h-[140px]" id="zone-lo-dice" ondragover="event.preventDefault()" ondrop="app.handleDrop(event, 'lo-dice')">
+                                <h4 class="text-xs font-bold text-emerald-800 uppercase flex items-center justify-between">
+                                    <span>1. Lo dice la línea</span>
+                                    <span class="text-[10px] bg-emerald-200 text-emerald-800 px-1.5 py-0.5 rounded">Explícito</span>
+                                </h4>
+                                <div class="space-y-2 card-drop-target" id="zone-lo-dice-cards"></div>
+                            </div>
+
+                            <!-- Zone 2 -->
+                            <div class="bg-sky-50/60 border-2 border-dashed border-sky-300 p-4 rounded-xl space-y-3 min-h-[140px]" id="zone-lo-calculo" ondragover="event.preventDefault()" ondrop="app.handleDrop(event, 'lo-calculo')">
+                                <h4 class="text-xs font-bold text-sky-800 uppercase flex items-center justify-between">
+                                    <span>2. Lo puedo calcular</span>
+                                    <span class="text-[10px] bg-sky-200 text-sky-800 px-1.5 py-0.5 rounded">Deducible</span>
+                                </h4>
+                                <div class="space-y-2 card-drop-target" id="zone-lo-calculo-cards"></div>
+                            </div>
+
+                            <!-- Zone 3 -->
+                            <div class="bg-amber-50/60 border-2 border-dashed border-amber-300 p-4 rounded-xl space-y-3 min-h-[140px]" id="zone-necesito-evidencia" ondragover="event.preventDefault()" ondrop="app.handleDrop(event, 'necesito-evidencia')">
+                                <h4 class="text-xs font-bold text-amber-800 uppercase flex items-center justify-between">
+                                    <span>3. Necesito más evidencia</span>
+                                    <span class="text-[10px] bg-amber-200 text-amber-800 px-1.5 py-0.5 rounded">Sin sustento directo</span>
+                                </h4>
+                                <div class="space-y-2 card-drop-target" id="zone-necesito-evidencia-cards"></div>
+                            </div>
+                        </div>
+
+                        <div id="st4-sort-feedback" class="mt-2 text-xs font-medium hidden"></div>
+                    </div>
+                </div>
+
+                <div id="st4-completion" class="mt-8 p-4 bg-emerald-50 border border-emerald-200 rounded-lg hidden">
+                    <div class="flex items-start gap-3">
+                        <svg class="w-6 h-6 text-emerald-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <div>
+                            <h3 class="font-bold text-emerald-900 text-sm">¡Estación 4 Completada!</h3>
+                            <p class="text-xs text-emerald-700 mt-1">Has demostrado discernimiento crítico al separar la evidencia directa de las deducciones y la falta de contexto. Pasemos a la estación final de integración conceptual.</p>
+                            <button type="button" onclick="app.navigateToStation(5)" class="mt-3 px-4 py-2 bg-emerald-600 text-white font-semibold text-xs rounded hover:bg-emerald-700 inline-flex items-center gap-1.5">
+                                Avanzar a Estación 5: Reconstruir el contexto que falta &rarr;
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- STATION 5: Reconstruir el contexto que falta -->
+        <!-- ========================================================================= -->
+        <section id="station-5" class="space-y-6 hidden">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                <div class="border-b border-slate-100 pb-4 mb-6">
+                    <span class="text-xs font-bold text-brand-600 uppercase tracking-widest">Estación 5</span>
+                    <h2 class="text-xl font-bold text-slate-900 mt-1">Reconstruir el contexto que falta</h2>
+                    <p class="text-sm text-slate-600 mt-1">
+                        Reflexiona sobre los límites de una sola línea de anotación aislada y cómo se integran las jerarquías genómicas reales.
+                    </p>
+                </div>
+
+                <div class="space-y-8">
+                    <!-- Reflection 1 -->
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
+                        <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-brand-100 text-brand-700 font-bold flex items-center justify-center text-xs">1</span>
+                            Coordenadas y Ensamblado de Referencia
+                        </h3>
+                        <p class="text-xs text-slate-600">
+                            Observa el rango <code class="font-mono bg-white px-1.5 py-0.5 rounded border border-slate-300 text-slate-800 font-bold">190–255</code>. ¿Tienen estas coordenadas un significado biológico absoluto si desconoces el archivo FASTA o la versión del ensamblado?
+                        </p>
+                        <div class="space-y-2 text-xs">
+                            <label class="flex items-start space-x-2 bg-white p-3 rounded-lg border border-slate-200 cursor-pointer hover:bg-slate-100/80">
+                                <input type="radio" name="ref1-opt" value="absolute" onclick="app.checkRef1('absolute')" class="mt-0.5 text-brand-600 focus:ring-brand-500">
+                                <span>Sí, las coordenadas genómicas de un gen son universales e idénticas en todas las cepas y versiones.</span>
+                            </label>
+                            <label class="flex items-start space-x-2 bg-white p-3 rounded-lg border border-slate-200 cursor-pointer hover:bg-slate-100/80">
+                                <input type="radio" name="ref1-opt" value="relative" onclick="app.checkRef1('relative')" class="mt-0.5 text-brand-600 focus:ring-brand-500">
+                                <span>No, las coordenadas no flotan en el vacío. Solo adquieren significado exacto respecto a la secuencia de referencia (<code class="font-mono text-slate-800">seqid=NC_000913.3</code>) y su versión concreta.</span>
+                            </label>
+                        </div>
+                        <div id="ref1-feedback" class="mt-2 text-xs hidden"></div>
+                    </div>
+
+                    <!-- Reflection 2 -->
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
+                        <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-brand-100 text-brand-700 font-bold flex items-center justify-center text-xs">2</span>
+                            ID Interno vs. Identificador Estable
+                        </h3>
+                        <p class="text-xs text-slate-600">
+                            Analiza la diferencia funcional entre el campo <code class="font-mono bg-white px-1 py-0.5 rounded border border-slate-300 font-bold text-slate-800">ID=gene-b0001</code> de la Columna 9 y un accession oficial como <code class="font-mono bg-white px-1 py-0.5 rounded border border-slate-300 font-bold text-slate-800">NC_000913.3</code>:
+                        </p>
+                        <div class="space-y-2 text-xs">
+                            <label class="flex items-start space-x-2 bg-white p-3 rounded-lg border border-slate-200 cursor-pointer hover:bg-slate-100/80">
+                                <input type="radio" name="ref2-opt" value="same" onclick="app.checkRef2('same')" class="mt-0.5 text-brand-600 focus:ring-brand-500">
+                                <span>Ambos son idénticos y garantizan estabilidad pública permanente en bases de datos externas.</span>
+                            </label>
+                            <label class="flex items-start space-x-2 bg-white p-3 rounded-lg border border-slate-200 cursor-pointer hover:bg-slate-100/80">
+                                <input type="radio" name="ref2-opt" value="different" onclick="app.checkRef2('different')" class="mt-0.5 text-brand-600 focus:ring-brand-500">
+                                <span><code class="font-mono">ID</code> identifica la feature dentro del ámbito de este archivo para enlazar relaciones (p. ej. Parent), mientras que <code class="font-mono">NC_000913.3</code> es el accession estable de la secuencia en RefSeq.</span>
+                            </label>
+                        </div>
+                        <div id="ref2-feedback" class="mt-2 text-xs hidden"></div>
+                    </div>
+
+                    <!-- Reflection 3: Eukaryotic Feature Hierarchy Visualizer -->
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-4">
+                        <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-brand-100 text-brand-700 font-bold flex items-center justify-center text-xs">3</span>
+                            Reconstruir la Jerarquía de un Gen Eucariota
+                        </h3>
+                        <p class="text-xs text-slate-600">
+                            Una sola línea <code class="font-mono text-slate-800">type=gene</code> solo delimita la región locus general. Marca qué anotaciones adicionales y relaciones jerárquicas serían necesarias en un archivo GFF3 para reconstruir un gen eucariota complejo:
+                        </p>
+
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs">
+                            <label class="flex items-center space-x-2 bg-white p-2.5 rounded border border-slate-200 cursor-pointer hover:bg-slate-100">
+                                <input type="checkbox" id="feature-mrna" onchange="app.updateEukHierarchy()" class="rounded text-brand-600 focus:ring-brand-500">
+                                <span class="font-mono text-purple-700 font-bold">mRNA</span>
+                            </label>
+                            <label class="flex items-center space-x-2 bg-white p-2.5 rounded border border-slate-200 cursor-pointer hover:bg-slate-100">
+                                <input type="checkbox" id="feature-exon" onchange="app.updateEukHierarchy()" class="rounded text-brand-600 focus:ring-brand-500">
+                                <span class="font-mono text-blue-700 font-bold">exon</span>
+                            </label>
+                            <label class="flex items-center space-x-2 bg-white p-2.5 rounded border border-slate-200 cursor-pointer hover:bg-slate-100">
+                                <input type="checkbox" id="feature-cds" onchange="app.updateEukHierarchy()" class="rounded text-brand-600 focus:ring-brand-500">
+                                <span class="font-mono text-emerald-700 font-bold">CDS</span>
+                            </label>
+                            <label class="flex items-center space-x-2 bg-white p-2.5 rounded border border-slate-200 cursor-pointer hover:bg-slate-100">
+                                <input type="checkbox" id="feature-utr" onchange="app.updateEukHierarchy()" class="rounded text-brand-600 focus:ring-brand-500">
+                                <span class="font-mono text-amber-700 font-bold">five_prime_UTR / three_prime_UTR</span>
+                            </label>
+                            <label class="flex items-center space-x-2 bg-white p-2.5 rounded border border-slate-200 cursor-pointer hover:bg-slate-100">
+                                <input type="checkbox" id="feature-parent" onchange="app.updateEukHierarchy()" class="rounded text-brand-600 focus:ring-brand-500">
+                                <span class="font-mono text-indigo-700 font-bold">Atributo Parent=...</span>
+                            </label>
+                        </div>
+
+                        <!-- Dynamic Interactive Hierarchy Graph Tree Visualizer -->
+                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 text-xs font-mono text-slate-200 space-y-1" id="hierarchy-tree-visualizer">
+                            <div class="text-purple-400 font-bold">gene (ID=gene-001)</div>
+                            <div id="tree-mrna-node" class="pl-4 text-purple-300 hidden">└── mRNA (ID=mrna-001;Parent=gene-001)</div>
+                            <div id="tree-exon-node" class="pl-8 text-blue-300 hidden">├── exon (Parent=mrna-001)</div>
+                            <div id="tree-cds-node" class="pl-8 text-emerald-300 hidden">├── CDS (Parent=mrna-001)</div>
+                            <div id="tree-utr-node" class="pl-8 text-amber-300 hidden">└── UTR (Parent=mrna-001)</div>
+                        </div>
+
+                        <div id="euk-hierarchy-feedback" class="text-xs hidden"></div>
+                    </div>
+                </div>
+
+                <!-- Station 5 Completion & Final Section Reveal -->
+                <div id="st5-completion" class="mt-8 p-4 bg-emerald-50 border border-emerald-200 rounded-lg hidden">
+                    <div class="flex items-start gap-3">
+                        <svg class="w-6 h-6 text-emerald-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <div>
+                            <h3 class="font-bold text-emerald-900 text-sm">¡Has completado las 5 estaciones del GFF3 Explorer!</h3>
+                            <p class="text-xs text-emerald-700 mt-1">Has recorrido el camino desde los 9 campos primarios hasta la interpretación contextual de anotaciones genómicas.</p>
+                            <button type="button" onclick="app.showSummaryAndReport()" class="mt-3 px-4 py-2 bg-brand-600 text-white font-semibold text-xs rounded hover:bg-brand-700 inline-flex items-center gap-1.5 shadow">
+                                Ver Síntesis Final y Generar Reporte Markdown &rarr;
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- FINAL SUMMARY & REPORT GENERATION SECTION -->
+        <!-- ========================================================================= -->
+        <section id="final-summary-section" class="space-y-6 hidden">
+            <!-- Final Map Box -->
+            <div class="bg-slate-900 text-white p-6 rounded-xl shadow-lg border border-slate-800 space-y-6">
+                <div class="border-b border-slate-800 pb-4">
+                    <span class="text-xs font-bold text-brand-400 uppercase tracking-widest">Síntesis Final</span>
+                    <h2 class="text-2xl font-bold text-white mt-1">Anatomía Consolidada del Estándar GFF3</h2>
+                    <p class="text-xs text-slate-400 mt-1">Cada campo responde a una pregunta biológica bien definida:</p>
+                </div>
+
+                <!-- Structured Tree Map -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                    <div class="bg-slate-950 p-3.5 rounded-lg border border-slate-800 space-y-1">
+                        <span class="font-mono text-brand-400 font-bold block">1. seqid</span>
+                        <p class="text-slate-300">¿Sobre qué secuencia de referencia se definen estas coordenadas?</p>
+                    </div>
+                    <div class="bg-slate-950 p-3.5 rounded-lg border border-slate-800 space-y-1">
+                        <span class="font-mono text-brand-400 font-bold block">2. source</span>
+                        <p class="text-slate-300">¿Qué software, base de datos o evidencia produjo la anotación?</p>
+                    </div>
+                    <div class="bg-slate-950 p-3.5 rounded-lg border border-slate-800 space-y-1">
+                        <span class="font-mono text-brand-400 font-bold block">3. type</span>
+                        <p class="text-slate-300">¿Qué tipo ontológico de feature describe la línea (gene, CDS, mRNA)?</p>
+                    </div>
+                    <div class="bg-slate-950 p-3.5 rounded-lg border border-slate-800 space-y-1">
+                        <span class="font-mono text-amber-400 font-bold block">4 & 5. start / end</span>
+                        <p class="text-slate-300">¿Entre qué coordenadas 1-based e inclusivas se ubica?</p>
+                    </div>
+                    <div class="bg-slate-950 p-3.5 rounded-lg border border-slate-800 space-y-1">
+                        <span class="font-mono text-slate-400 font-bold block">6. score</span>
+                        <p class="text-slate-300">Puntuación numérica de predicción. <code class="text-amber-300 font-mono">.</code> = Ausencia/No aplica (¡No es cero!).</p>
+                    </div>
+                    <div class="bg-slate-950 p-3.5 rounded-lg border border-slate-800 space-y-1">
+                        <span class="font-mono text-emerald-400 font-bold block">7. strand</span>
+                        <p class="text-slate-300">Hebra relativa a la referencia (<code class="text-emerald-400 font-mono">+</code> o <code class="text-emerald-400 font-mono">-</code>).</p>
+                    </div>
+                    <div class="bg-slate-950 p-3.5 rounded-lg border border-slate-800 space-y-1">
+                        <span class="font-mono text-slate-400 font-bold block">8. phase</span>
+                        <p class="text-slate-300">Fase de lectura para features <code class="font-mono text-emerald-300">CDS</code> (0, 1, 2). Para <code class="font-mono text-slate-300">gene</code> vale <code class="text-amber-300 font-mono">.</code></p>
+                    </div>
+                    <div class="bg-slate-950 p-3.5 rounded-lg border border-slate-800 space-y-1 md:col-span-2">
+                        <span class="font-mono text-indigo-400 font-bold block">9. attributes</span>
+                        <p class="text-slate-300">Pares clave-valor (<code class="font-mono text-indigo-300">ID</code>, <code class="font-mono text-indigo-300">Name</code>, <code class="font-mono text-indigo-300">Parent</code>) separados por <code class="font-mono text-red-400 font-bold">;</code></p>
+                    </div>
+                </div>
+
+                <!-- Integration Bridge Banner -->
+                <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 space-y-2">
+                    <h3 class="text-xs font-bold text-amber-300 uppercase tracking-wider flex items-center gap-2">
+                        <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        Conexión de Formatos: GFF3 ↔ FASTA ↔ GenBank
+                    </h3>
+                    <p class="text-xs text-slate-300">
+                        Un archivo GFF3 contiene coordenadas y metadatos, pero <strong>no sustituye la secuencia de nucleótidos del FASTA</strong>. Para extraer la secuencia física de una feature anotada en GFF3, debes disponer del archivo FASTA con el mismo ensamblado de referencia (<code class="font-mono text-slate-200">seqid=NC_000913.3</code>).
+                    </p>
+                </div>
+
+                <!-- Markdown Report Download Action Panel -->
+                <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div>
+                        <h3 class="text-sm font-bold text-white">Reporte de Desempeño y Reflexiones</h3>
+                        <p class="text-xs text-slate-400 mt-0.5">Descarga un archivo Markdown estandarizado con tus respuestas reales para adjuntar a tu entrega de S7.</p>
+                    </div>
+                    <button type="button" onclick="app.downloadMarkdownReport()" class="w-full sm:w-auto px-6 py-3 bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs rounded-lg shadow-md transition flex items-center justify-center gap-2 flex-shrink-0">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                        ⬇ Descargar mis resultados (.md)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Course Progression Navigation Footer -->
+            <div class="bg-white p-5 rounded-xl border border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="text-xs text-slate-600">
+                    <span class="font-bold text-slate-900 block">Siguiente paso en S7:</span>
+                    <span>Transición hacia GenBank y la comparación global de formatos genómicos (Práctica 5).</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs font-mono">
+                    <span class="px-2.5 py-1 bg-slate-100 rounded text-slate-700">FASTA Detective</span>
+                    <span>&rarr;</span>
+                    <span class="px-2.5 py-1 bg-brand-100 text-brand-800 font-bold rounded">GFF3 Explorer</span>
+                    <span>&rarr;</span>
+                    <span class="px-2.5 py-1 bg-slate-100 rounded text-slate-500">Práctica 5</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500">
+        <div class="max-w-6xl mx-auto px-4">
+            Licenciatura en Ciencias Genómicas (LCG) · Universidad Nacional Autónoma de México (UNAM) · 2026
+        </div>
+    </footer>
+
+    <!-- ========================================================================= -->
+    <!-- JAVASCRIPT APPLICATION LOGIC -->
+    <!-- ========================================================================= -->
+    <script>
+        const appState = {
+            currentStation: 1,
+            hintsUsedCount: 0,
+            startTime: new Date(),
+            
+            // Station 1 responses
+            st1: { q1: null, q2: null, q3: null, q4: null, q1Attempts: 0, q2Attempts: 0, q3Attempts: 0, q4Attempts: 0 },
+            
+            // Station 2 mappings
+            st2: {
+                selectedSegment: null,
+                mappings: {
+                    1: null, 2: null, 3: null, 4: null, 5: null, 6: null, 7: null, 8: null, 9: null
+                },
+                attrQuestionAnswered: false,
+                attrQuestionCorrect: false
+            },
+
+            // Station 3 responses
+            st3: {
+                q1: { field: null, val: null },
+                q2: { field: null, val: null },
+                q3: { field: null, val: null },
+                q4: { field: null, val: null },
+                q5: { field: null, val: null }
+            },
+
+            // Station 4 responses
+            st4: {
+                claims: {
+                    c1: { ans: null, attempts: 0, hintUsed: false },
+                    c2: { ans: null, attempts: 0, hintUsed: false },
+                    c3: { ans: null, attempts: 0, hintUsed: false },
+                    c4: { ans: null, attempts: 0, hintUsed: false },
+                    c5: { ans: null, attempts: 0, hintUsed: false }
+                },
+                calcReason: null,
+                sortedCards: {
+                    'lo-dice': [],
+                    'lo-calculo': [],
+                    'necesito-evidencia': []
+                }
+            },
+
+            // Station 5 responses
+            st5: {
+                ref1: null,
+                ref2: null,
+                hierarchyChecked: { mrna: false, exon: false, cds: false, utr: false, parent: false }
+            }
+        };
+
+        const GFF3_FIELDS_DATA = [
+            { id: 1, name: 'seqid', value: 'NC_000913.3', desc: 'Identificador de la secuencia de referencia (accession versionado de RefSeq).' },
+            { id: 2, name: 'source', value: 'RefSeq', desc: 'Programa, base de datos o fuente que generó la anotación.' },
+            { id: 3, name: 'type', value: 'gene', desc: 'Tipo de feature según la ontología de secuencia (Sequence Ontology).' },
+            { id: 4, name: 'start', value: '190', desc: 'Coordenada de inicio (1-based e inclusiva).' },
+            { id: 5, name: 'end', value: '255', desc: 'Coordenada de fin (1-based e inclusiva).' },
+            { id: 6, name: 'score', value: '.', desc: 'Puntuación numérica. El punto (.) indica ausencia de valor.' },
+            { id: 7, name: 'strand', value: '+', desc: 'Hebra biológica (+ hebra positiva / - hebra negativa).' },
+            { id: 8, name: 'phase', value: '.', desc: 'Fase de lectura CDS (0, 1, 2). Para feature "gene" no aplica (.).' },
+            { id: 9, name: 'attributes', value: 'ID=gene-b0001;Name=thrL;locus_tag=b0001', desc: 'Lista de pares clave-valor separados por punto y coma (;).' }
+        ];
+
+        const app = {
+            init() {
+                this.renderStation2Board();
+                this.renderStation3Board();
+                this.renderStation4Board();
+                this.updateProgressBar();
+            },
+
+            announce(message) {
+                const liveRegion = document.getElementById('aria-feedback');
+                if (liveRegion) liveRegion.textContent = message;
+            },
+
+            navigateToStation(num) {
+                if (num < 1 || num > 5) return;
+                appState.currentStation = num;
+                document.getElementById('current-station-num').textContent = num;
+
+                for (let i = 1; i <= 5; i++) {
+                    const stEl = document.getElementById(`station-${i}`);
+                    const tabEl = document.getElementById(`tab-st-${i}`);
+                    if (stEl) {
+                        if (i === num) {
+                            stEl.classList.remove('hidden');
+                        } else {
+                            stEl.classList.add('hidden');
+                        }
+                    }
+                    if (tabEl) {
+                        if (i === num) {
+                            tabEl.className = "py-1 px-2 rounded bg-brand-50 text-brand-700 font-bold border border-brand-200 focus:outline-none focus:ring-2 focus:ring-brand-500";
+                        } else {
+                            tabEl.className = "py-1 px-2 rounded text-slate-500 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500";
+                        }
+                    }
+                }
+                
+                // Hide final summary unless navigating from completion
+                document.getElementById('final-summary-section').classList.add('hidden');
+
+                this.updateProgressBar();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                this.announce(`Navegando a Estación ${num}`);
+            },
+
+            updateProgressBar() {
+                const fill = document.getElementById('progress-bar-fill');
+                const text = document.getElementById('progress-percent');
+                const percent = Math.round((appState.currentStation / 5) * 100);
+                if (fill) fill.style.width = `${percent}%`;
+                if (text) text.textContent = `${percent}%`;
+            },
+
+            checkQ1_1(val) {
+                appState.st1.q1Attempts++;
+                const fb = document.getElementById('q1-1-feedback');
+                fb.classList.remove('hidden');
+
+                if (val === 9) {
+                    appState.st1.q1 = val;
+                    fb.className = "mt-2 p-3 rounded-lg bg-emerald-50 text-emerald-900 border border-emerald-200 text-xs font-medium flex items-center gap-2";
+                    fb.innerHTML = `<span>✓</span> <span><strong>Correcto:</strong> Una línea GFF3 estándar siempre contiene exactamente 9 campos delimitados por TAB.</span>`;
+                } else {
+                    fb.className = "mt-2 p-3 rounded-lg bg-red-50 text-red-900 border border-red-200 text-xs font-medium flex items-start gap-2";
+                    fb.innerHTML = `<span>✗</span> <span><strong>Revisa esta interpretación:</strong> Busca los delimitadores TAB. Recuerda que los valores con punto y coma (<code class="font-mono text-slate-800 font-bold">;</code>) pertenecen todos al noveno campo (<code class="font-mono text-slate-800 font-bold">attributes</code>). ¡Inténtalo de nuevo!</span>`;
+                }
+                this.checkSt1Completion();
+            },
+
+            checkQ1_2(val) {
+                appState.st1.q2Attempts++;
+                const fb = document.getElementById('q1-2-feedback');
+                fb.classList.remove('hidden');
+
+                if (val === 'tabuladores') {
+                    appState.st1.q2 = val;
+                    fb.className = "mt-2 p-3 rounded-lg bg-emerald-50 text-emerald-900 border border-emerald-200 text-xs font-medium flex items-center gap-2";
+                    fb.innerHTML = `<span>✓</span> <span><strong>Correcto:</strong> Los 9 campos principales están separados estrictamente por caracteres tabulador (<code class="font-mono text-slate-800 font-bold">TAB</code>).</span>`;
+                } else if (val === 'semicolon') {
+                    fb.className = "mt-2 p-3 rounded-lg bg-red-50 text-red-900 border border-red-200 text-xs font-medium flex items-start gap-2";
+                    fb.innerHTML = `<span>✗</span> <span><strong>Pista:</strong> El punto y coma (<code class="font-mono text-slate-800 font-bold">;</code>) delimita sub-atributos dentro de la novena columna, no las columnas principales del archivo.</span>`;
+                } else {
+                    fb.className = "mt-2 p-3 rounded-lg bg-red-50 text-red-900 border border-red-200 text-xs font-medium flex items-start gap-2";
+                    fb.innerHTML = `<span>✗</span> <span><strong>Revisa esta interpretación:</strong> Los espacios múltiples o comas no son separadores válidos de columnas en GFF3.</span>`;
+                }
+                this.checkSt1Completion();
+            },
+
+            checkQ1_3(val) {
+                appState.st1.q3Attempts++;
+                const fb = document.getElementById('q1-3-feedback');
+                fb.classList.remove('hidden');
+
+                if (val === 'feature') {
+                    appState.st1.q3 = val;
+                    fb.className = "mt-2 p-3 rounded-lg bg-emerald-50 text-emerald-900 border border-emerald-200 text-xs font-medium flex items-center gap-2";
+                    fb.innerHTML = `<span>✓</span> <span><strong>Interpretación correcta:</strong> Cada línea individual en GFF3 describe una <em>feature</em> (un elemento/rasgo anotado puntual). Una sola línea no necesariamente reconstruye la estructura biológica completa de un gen.</span>`;
+                } else {
+                    fb.className = "mt-2 p-3 rounded-lg bg-red-50 text-red-900 border border-red-200 text-xs font-medium flex items-start gap-2";
+                    fb.innerHTML = `<span>✗</span> <span><strong>Revisa esta interpretación:</strong> El archivo GFF3 no guarda la secuencia de nucleótidos completa ni sustituye un registro integrado. Describe una feature puntual sobre una referencia.</span>`;
+                }
+                this.checkSt1Completion();
+            },
+
+            checkQ1_4() {
+                appState.st1.q4Attempts++;
+                const input = document.getElementById('st1-q4-input');
+                const fb = document.getElementById('q1-4-feedback');
+                fb.classList.remove('hidden');
+
+                const val = input.value.trim().toLowerCase();
+                if (val === 'gene') {
+                    appState.st1.q4 = 'gene';
+                    fb.className = "mt-2 p-3 rounded-lg bg-emerald-50 text-emerald-900 border border-emerald-200 text-xs font-medium flex items-center gap-2";
+                    fb.innerHTML = `<span>✓</span> <span><strong>Correcto:</strong> El valor en la tercera columna es <code class="font-mono font-bold text-emerald-950">gene</code>.</span>`;
+                } else {
+                    fb.className = "mt-2 p-3 rounded-lg bg-red-50 text-red-900 border border-red-200 text-xs font-medium flex items-start gap-2";
+                    fb.innerHTML = `<span>✗</span> <span><strong>Pista:</strong> Examina el tercer campo de la línea de texto original (después de RefSeq). Escríbelo exactamente en minúsculas.</span>`;
+                }
+                this.checkSt1Completion();
+            },
+
+            checkSt1Completion() {
+                if (appState.st1.q1 === 9 && appState.st1.q2 === 'tabuladores' && appState.st1.q3 === 'feature' && appState.st1.q4 === 'gene') {
+                    document.getElementById('st1-completion').classList.remove('hidden');
+                }
+            },
+
+            renderStation2Board() {
+                const segContainer = document.getElementById('st2-segments-container');
+                const labelsBank = document.getElementById('st2-labels-bank');
+                if (!segContainer || !labelsBank) return;
+
+                segContainer.innerHTML = '';
+                labelsBank.innerHTML = '';
+
+                GFF3_FIELDS_DATA.forEach(f => {
+                    // Segment item
+                    const segBtn = document.createElement('button');
+                    segBtn.type = 'button';
+                    segBtn.id = `seg-btn-${f.id}`;
+                    segBtn.onclick = () => app.selectSegmentStation2(f.id);
+                    segBtn.className = "gff-field-highlight text-left p-3 rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 flex items-center justify-between transition focus:ring-2 focus:ring-brand-500";
+                    
+                    const mappedName = appState.st2.mappings[f.id];
+                    segBtn.innerHTML = `
+                        <div class="flex items-center gap-3">
+                            <span class="w-6 h-6 rounded-full bg-slate-200 text-slate-700 font-mono font-bold text-xs flex items-center justify-center">${f.id}</span>
+                            <code class="font-mono text-xs sm:text-sm text-slate-900 font-bold bg-white px-2 py-1 rounded border border-slate-200">${f.value}</code>
+                        </div>
+                        <div id="seg-badge-${f.id}">
+                            ${mappedName ? `<span class="bg-emerald-100 text-emerald-800 text-xs font-mono font-bold px-2.5 py-1 rounded border border-emerald-300">✓ ${mappedName}</span>` : `<span class="text-xs text-slate-400 italic">Sin asignar</span>`}
+                        </div>
+                    `;
+                    segContainer.appendChild(segBtn);
+
+                    // Label item
+                    const lblBtn = document.createElement('button');
+                    lblBtn.type = 'button';
+                    lblBtn.onclick = () => app.assignLabelStation2(f.name);
+                    lblBtn.className = "text-left p-3 rounded-lg border border-slate-200 bg-white hover:bg-brand-50 hover:border-brand-300 font-mono text-xs font-bold text-brand-900 transition focus:ring-2 focus:ring-brand-500 flex items-center justify-between";
+                    lblBtn.innerHTML = `
+                        <span>${f.name}</span>
+                        <span class="text-[10px] text-slate-400 font-sans font-normal">Clic para asignar</span>
+                    `;
+                    labelsBank.appendChild(lblBtn);
+                });
+            },
+
+            selectSegmentStation2(id) {
+                appState.st2.selectedSegment = id;
+                for (let i = 1; i <= 9; i++) {
+                    const btn = document.getElementById(`seg-btn-${i}`);
+                    if (btn) {
+                        if (i === id) {
+                            btn.className = "gff-field-highlight text-left p-3 rounded-lg border-2 border-brand-500 bg-brand-50/50 flex items-center justify-between transition focus:ring-2 focus:ring-brand-500 shadow-sm";
+                        } else {
+                            btn.className = "gff-field-highlight text-left p-3 rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 flex items-center justify-between transition focus:ring-2 focus:ring-brand-500";
+                        }
+                    }
+                }
+                this.announce(`Campo ${id} seleccionado. Elige ahora el nombre correspondiente en la columna derecha.`);
+            },
+
+            assignLabelStation2(fieldName) {
+                const segId = appState.st2.selectedSegment;
+                if (!segId) {
+                    alert('Por favor selecciona primero uno de los 9 segmentos numerados en la columna izquierda.');
+                    return;
+                }
+
+                const correctData = GFF3_FIELDS_DATA.find(d => d.id === segId);
+                const fb = document.getElementById('st2-feedback');
+                fb.classList.remove('hidden');
+
+                if (correctData.name === fieldName) {
+                    appState.st2.mappings[segId] = fieldName;
+                    fb.className = "mt-4 p-3 rounded-lg bg-emerald-50 text-emerald-900 border border-emerald-200 text-xs font-medium flex items-center gap-2";
+                    fb.innerHTML = `<span>✓</span> <span><strong>Asociación correcta:</strong> El campo ${segId} (<code class="font-mono text-slate-800 font-bold">${correctData.value}</code>) corresponde a <code class="font-mono text-slate-800 font-bold">${fieldName}</code>. ${correctData.desc}</span>`;
+                    
+                    if (segId === 9) {
+                        document.getElementById('st2-attributes-breakdown').classList.remove('hidden');
+                    }
+                } else {
+                    fb.className = "mt-4 p-3 rounded-lg bg-red-50 text-red-900 border border-red-200 text-xs font-medium flex items-start gap-2";
+                    fb.innerHTML = `<span>✗</span> <span><strong>Revisa esta interpretación:</strong> El segmento ${segId} (<code class="font-mono text-slate-800 font-bold">${correctData.value}</code>) no corresponde a <code class="font-mono text-slate-800 font-bold">${fieldName}</code>. Inténtalo de nuevo.</span>`;
+                }
+
+                this.renderStation2Board();
+                this.checkSt2Completion();
+            },
+
+            checkAttributesQuestion(val) {
+                appState.st2.attrQuestionAnswered = true;
+                const fb = document.getElementById('attr-q-feedback');
+                fb.classList.remove('hidden');
+
+                if (val === false) {
+                    appState.st2.attrQuestionCorrect = true;
+                    fb.className = "mt-2 p-2.5 rounded bg-emerald-100 text-emerald-900 border border-emerald-300 text-xs font-medium";
+                    fb.innerHTML = `✓ <strong>¡Correcto!</strong> El punto y coma (<code class="font-mono text-slate-800 font-bold">;</code>) separa pares clave-valor dentro de la columna 9 (<code class="font-mono text-slate-800 font-bold">attributes</code>). No abre columnas principales.`;
+                } else {
+                    fb.className = "mt-2 p-2.5 rounded bg-red-100 text-red-900 border border-red-300 text-xs font-medium";
+                    fb.innerHTML = `✗ <strong>Revisa esta interpretación:</strong> Los delimitadores de columnas principales en GFF3 son estrictamente <code class="font-mono text-slate-800 font-bold">TAB</code>. El <code class="font-mono text-slate-800 font-bold">;</code> pertenece al formato interno del noveno campo.`;
+                }
+                this.checkSt2Completion();
+            },
+
+            checkSt2Completion() {
+                const allMapped = Object.keys(appState.st2.mappings).every(k => appState.st2.mappings[k] !== null);
+                if (allMapped) {
+                    document.getElementById('st2-completion').classList.remove('hidden');
+                }
+            },
+
+            renderStation3Board() {
+                const container = document.getElementById('st3-questions-container');
+                if (!container) return;
+
+                const questions = [
+                    { id: 'q1', title: '1. ¿En qué secuencia de referencia concreta se encuentra esta anotación?', field: 'seqid', correctVal: 'NC_000913.3' },
+                    { id: 'q2', title: '2. ¿Entre qué coordenadas genómicas se localiza exactamente?', field: 'start / end', correctVal: '190–255' },
+                    { id: 'q3', title: '3. ¿En qué hebra (strand) se encuentra orientada la feature?', field: 'strand', correctVal: '+' },
+                    { id: 'q4', title: '4. ¿Cuál es el nombre (Name) del gen anotado?', field: 'attributes', correctVal: 'thrL' },
+                    { id: 'q5', title: '5. ¿Cuál es el identificador interno (ID) de la feature en el archivo?', field: 'attributes', correctVal: 'gene-b0001' }
+                ];
+
+                container.innerHTML = '';
+                questions.forEach((q, idx) => {
+                    const card = document.createElement('div');
+                    card.className = "bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-4";
+                    card.innerHTML = `
+                        <h3 class="text-sm font-bold text-slate-900">${q.title}</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">¿Qué campo(s) GFF3 debes consultar?</label>
+                                <select id="st3-${q.id}-field" onchange="app.checkStation3Question('${q.id}', '${q.field}', '${q.correctVal}')" class="w-full p-2.5 bg-white border border-slate-300 rounded-lg text-xs font-mono text-slate-800 focus:ring-2 focus:ring-brand-500">
+                                    <option value="">-- Seleccionar campo --</option>
+                                    <option value="seqid">seqid</option>
+                                    <option value="source">source</option>
+                                    <option value="type">type</option>
+                                    <option value="start / end">start / end</option>
+                                    <option value="score">score</option>
+                                    <option value="strand">strand</option>
+                                    <option value="phase">phase</option>
+                                    <option value="attributes">attributes</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">Interpretación / Valor extraído:</label>
+                                <input type="text" id="st3-${q.id}-val" placeholder="Escribe el valor extraído..." oninput="app.checkStation3Question('${q.id}', '${q.field}', '${q.correctVal}')" class="w-full p-2.5 bg-white border border-slate-300 rounded-lg text-xs font-mono text-slate-800 focus:ring-2 focus:ring-brand-500">
+                            </div>
+                        </div>
+                        <div id="st3-${q.id}-feedback" class="text-xs hidden"></div>
+                    `;
+                    container.appendChild(card);
+                });
+            },
+
+            checkStation3Question(qId, correctField, correctVal) {
+                const fSel = document.getElementById(`st3-${qId}-field`).value;
+                const vInp = document.getElementById(`st3-${qId}-val`).value.trim();
+                const fb = document.getElementById(`st3-${qId}-feedback`);
+                fb.classList.remove('hidden');
+
+                const fieldOk = (fSel === correctField);
+                const valOk = (vInp.toLowerCase() === correctVal.toLowerCase());
+
+                if (fieldOk && valOk) {
+                    appState.st3[qId] = { field: fSel, val: vInp };
+                    fb.className = "p-3 rounded-lg bg-emerald-50 text-emerald-900 border border-emerald-200 text-xs font-medium flex items-center gap-2";
+                    fb.innerHTML = `<span>✓</span> <span><strong>Interpretación correcta:</strong> Campo y valor perfectamente validados.</span>`;
+                } else if (fieldOk && !valOk) {
+                    fb.className = "p-3 rounded-lg bg-amber-50 text-amber-900 border border-amber-200 text-xs font-medium";
+                    fb.innerHTML = `Campo correcto (<code class="font-mono">${fSel}</code>). Ahora verifica el valor exacto extraído de la línea.`;
+                } else {
+                    fb.className = "p-3 rounded-lg bg-red-50 text-red-900 border border-red-200 text-xs font-medium";
+                    fb.innerHTML = `Revisa qué campo contiene la respuesta para esta pregunta biológica.`;
+                }
+
+                const allDone = ['q1','q2','q3','q4','q5'].every(k => appState.st3[k] && appState.st3[k].field && appState.st3[k].val);
+                if (allDone) {
+                    document.getElementById('st3-completion').classList.remove('hidden');
+                }
+            },
+
+            renderStation4Board() {
+                const claimsContainer = document.getElementById('st4-claims-container');
+                if (!claimsContainer) return;
+
+                const claims = [
+                    { id: 'c1', claim: '1. La anotación pertenece a la secuencia de referencia NC_000913.3.', correct: 'si', expl: 'Demostrable directamente mediante el campo seqid.' },
+                    { id: 'c2', claim: '2. El gen anotado se denomina thrL.', correct: 'si', expl: 'Demostrable directamente mediante el sub-atributo Name=thrL en la columna attributes.' },
+                    { id: 'c3', claim: '3. El gen codifica una proteína funcional.', correct: 'req', expl: 'Esta línea define únicamente una feature de tipo "gene". Para afirmar que produce una proteína se requiere evidenciar la presencia de CDS, productos o transcriptos relacionados.' },
+                    { id: 'c4', claim: '4. La región del gen mide exactamente 66 nucleótidos.', correct: 'si', expl: 'Se deduce directamente calculando (255 - 190 + 1) = 66 nucleótidos inclusivos.' },
+                    { id: 'c5', claim: '5. El identificador estable global en bases de datos es gene-b0001.', correct: 'no', expl: 'ID=gene-b0001 es un identificador local interno del archivo GFF3 para establecer jerarquías, no necesariamente un accession público estable.' }
+                ];
+
+                claimsContainer.innerHTML = '';
+                claims.forEach(c => {
+                    const card = document.createElement('div');
+                    card.className = "bg-slate-50 p-4 sm:p-5 rounded-xl border border-slate-200 space-y-3";
+                    card.innerHTML = `
+                        <p class="text-xs sm:text-sm font-semibold text-slate-900">${c.claim}</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <button type="button" onclick="app.checkClaim('${c.id}', 'si', '${c.correct}', '${c.expl}')" class="px-3 py-1.5 rounded border border-slate-300 bg-white font-medium hover:bg-slate-100 focus:ring-2 focus:ring-brand-500">Sí</button>
+                            <button type="button" onclick="app.checkClaim('${c.id}', 'no', '${c.correct}', '${c.expl}')" class="px-3 py-1.5 rounded border border-slate-300 bg-white font-medium hover:bg-slate-100 focus:ring-2 focus:ring-brand-500">No</button>
+                            <button type="button" onclick="app.checkClaim('${c.id}', 'req', '${c.correct}', '${c.expl}')" class="px-3 py-1.5 rounded border border-slate-300 bg-white font-medium hover:bg-slate-100 focus:ring-2 focus:ring-brand-500">Requiere más información</button>
+                        </div>
+                        <div id="claim-${c.id}-fb" class="text-xs hidden"></div>
+                    `;
+                    claimsContainer.appendChild(card);
+                });
+
+                // Bank Cards for Categorization
+                const cardsBank = document.getElementById('st4-cards-bank');
+                if (cardsBank) {
+                    const bankItems = [
+                        { id: 'card-1', label: 'NC_000913.3' },
+                        { id: 'card-2', label: 'thrL' },
+                        { id: 'card-3', label: 'gene-b0001 (ID interno)' },
+                        { id: 'card-4', label: 'Rango 190–255' },
+                        { id: 'card-5', label: 'Longitud de 66 nt' },
+                        { id: 'card-6', label: 'Codifica una proteína' },
+                        { id: 'card-7', label: 'gene-b0001 es ID estable global' }
+                    ];
+
+                    cardsBank.innerHTML = '';
+                    bankItems.forEach(item => {
+                        const chip = document.createElement('div');
+                        chip.id = item.id;
+                        chip.draggable = true;
+                        chip.ondragstart = (e) => e.dataTransfer.setData('text/plain', item.id);
+                        chip.className = "bg-white border border-slate-300 px-3 py-1.5 rounded-lg text-xs font-mono text-slate-800 shadow-sm cursor-grab active:cursor-grabbing hover:border-brand-400";
+                        chip.textContent = item.label;
+                        cardsBank.appendChild(chip);
+                    });
+                }
+            },
+
+            checkClaim(claimId, selected, correct, explanation) {
+                const cObj = appState.st4.claims[claimId];
+                cObj.attempts++;
+                const fb = document.getElementById(`claim-${claimId}-fb`);
+                fb.classList.remove('hidden');
+
+                if (selected === correct) {
+                    cObj.ans = selected;
+                    fb.className = "p-3 rounded-lg bg-emerald-50 text-emerald-900 border border-emerald-200 text-xs font-medium flex items-center gap-2";
+                    fb.innerHTML = `<span>✓</span> <span><strong>Evaluación correcta:</strong> ${explanation}</span>`;
+                } else {
+                    fb.className = "p-3 rounded-lg bg-red-50 text-red-900 border border-red-200 text-xs font-medium flex items-start gap-2";
+                    fb.innerHTML = `<span>✗</span> <span><strong>Revisa esta interpretación:</strong> Reflexiona si esta afirmación está directamente contenida en la línea o si requiere información adicional.</span>`;
+                }
+                this.checkSt4Completion();
+            },
+
+            checkCalcReason(val) {
+                appState.st4.calcReason = val;
+                const fb = document.getElementById('calc-reason-feedback');
+                fb.classList.remove('hidden');
+
+                if (val === 'inclusive') {
+                    fb.className = "p-2.5 rounded bg-emerald-100 text-emerald-900 border border-emerald-300 text-xs font-medium";
+                    fb.innerHTML = `✓ <strong>¡Correcto!</strong> En coordenadas inclusivas 1-based, la resta <code class="font-mono">end - start</code> omite una de las posiciones extremas. Sumar <code class="font-mono">+1</code> restituye la inclusión del primer nucleótido.`;
+                } else {
+                    fb.className = "p-2.5 rounded bg-red-100 text-red-900 border border-red-300 text-xs font-medium";
+                    fb.innerHTML = `✗ <strong>Revisa esta interpretación:</strong> El signo de la hebra (<code class="font-mono">+</code>) no afecta la aritmética de la longitud. Sumar 1 responde a la naturaleza inclusiva de los índices.`;
+                }
+                this.checkSt4Completion();
+            },
+
+            handleDrop(ev, zoneId) {
+                ev.preventDefault();
+                const cardId = ev.dataTransfer.getData('text/plain');
+                const cardEl = document.getElementById(cardId);
+                const targetContainer = document.getElementById(`zone-${zoneId}-cards`);
+
+                if (cardEl && targetContainer) {
+                    targetContainer.appendChild(cardEl);
+                    cardEl.className = "bg-white border border-slate-300 px-3 py-1.5 rounded-lg text-xs font-mono text-slate-800 shadow-sm";
+                    
+                    // Update state tracking
+                    Object.keys(appState.st4.sortedCards).forEach(z => {
+                        appState.st4.sortedCards[z] = appState.st4.sortedCards[z].filter(id => id !== cardId);
+                    });
+                    appState.st4.sortedCards[zoneId].push(cardId);
+                    this.checkSt4Completion();
+                }
+            },
+
+            checkSt4Completion() {
+                const claimsDone = Object.keys(appState.st4.claims).every(k => appState.st4.claims[k].ans !== null);
+                const reasonDone = (appState.st4.calcReason === 'inclusive');
+                if (claimsDone && reasonDone) {
+                    document.getElementById('st4-completion').classList.remove('hidden');
+                }
+            },
+
+            checkRef1(val) {
+                appState.st5.ref1 = val;
+                const fb = document.getElementById('ref1-feedback');
+                fb.classList.remove('hidden');
+
+                if (val === 'relative') {
+                    fb.className = "p-3 rounded-lg bg-emerald-50 text-emerald-900 border border-emerald-200 text-xs font-medium";
+                    fb.innerHTML = `✓ <strong>¡Reflexión acertada!</strong> Las coordenadas genómicas solo adquieren significado físico cuando se vinculan a la secuencia específica del ensamblado (<code class="font-mono">NC_000913.3</code>).`;
+                } else {
+                    fb.className = "p-3 rounded-lg bg-red-50 text-red-900 border border-red-200 text-xs font-medium";
+                    fb.innerHTML = `✗ <strong>Revisa esta interpretación:</strong> Si cambia la versión del ensamblado, las coordenadas numéricas pueden desplazarse por inserciones, deleciones o reorganizaciones.`;
+                }
+                this.checkSt5Completion();
+            },
+
+            checkRef2(val) {
+                appState.st5.ref2 = val;
+                const fb = document.getElementById('ref2-feedback');
+                fb.classList.remove('hidden');
+
+                if (val === 'different') {
+                    fb.className = "p-3 rounded-lg bg-emerald-50 text-emerald-900 border border-emerald-200 text-xs font-medium";
+                    fb.innerHTML = `✓ <strong>¡Reflexión acertada!</strong> <code class="font-mono">ID</code> es un identificador local dentro del archivo GFF3 para conectar relaciones parentales, mientras que <code class="font-mono">NC_000913.3</code> es una clave de acceso global.`;
+                } else {
+                    fb.className = "p-3 rounded-lg bg-red-50 text-red-900 border border-red-200 text-xs font-medium";
+                    fb.innerHTML = `✗ <strong>Revisa esta interpretación:</strong> No debe asumirse que el atributo <code class="font-mono">ID</code> local sea un identificador estable en bases públicas externas.`;
+                }
+                this.checkSt5Completion();
+            },
+
+            updateEukHierarchy() {
+                const mrna = document.getElementById('feature-mrna').checked;
+                const exon = document.getElementById('feature-exon').checked;
+                const cds = document.getElementById('feature-cds').checked;
+                const utr = document.getElementById('feature-utr').checked;
+                const parent = document.getElementById('feature-parent').checked;
+
+                appState.st5.hierarchyChecked = { mrna, exon, cds, utr, parent };
+
+                document.getElementById('tree-mrna-node').className = mrna ? "pl-4 text-purple-300" : "pl-4 text-purple-300 hidden";
+                document.getElementById('tree-exon-node').className = exon ? "pl-8 text-blue-300" : "pl-8 text-blue-300 hidden";
+                document.getElementById('tree-cds-node').className = cds ? "pl-8 text-emerald-300" : "pl-8 text-emerald-300 hidden";
+                document.getElementById('tree-utr-node').className = utr ? "pl-8 text-amber-300" : "pl-8 text-amber-300 hidden";
+
+                const fb = document.getElementById('euk-hierarchy-feedback');
+                fb.classList.remove('hidden');
+
+                if (mrna && exon && cds && parent) {
+                    fb.className = "p-3 rounded-lg bg-emerald-50 text-emerald-900 border border-emerald-200 text-xs font-medium";
+                    fb.innerHTML = `✓ <strong>Estructura completa:</strong> Ha quedado definida la jerarquía <code class="font-mono">gene &rarr; mRNA &rarr; exon / CDS</code> vinculada por relaciones <code class="font-mono">Parent</code>.`;
+                } else {
+                    fb.className = "p-3 rounded-lg bg-amber-50 text-amber-900 border border-amber-200 text-xs font-medium";
+                    fb.innerHTML = `Selecciona los elementos clave (<code class="font-mono">mRNA</code>, <code class="font-mono">exon</code>, <code class="font-mono">CDS</code> y <code class="font-mono">Parent</code>) para completar la jerarquía genómica.`;
+                }
+                this.checkSt5Completion();
+            },
+
+            checkSt5Completion() {
+                const r1 = (appState.st5.ref1 === 'relative');
+                const r2 = (appState.st5.ref2 === 'different');
+                const h = appState.st5.hierarchyChecked;
+                if (r1 && r2 && h.mrna && h.exon && h.cds) {
+                    document.getElementById('st5-completion').classList.remove('hidden');
+                }
+            },
+
+            showSummaryAndReport() {
+                document.getElementById('final-summary-section').classList.remove('hidden');
+                document.getElementById('final-summary-section').scrollIntoView({ behavior: 'smooth' });
+                this.announce("Desplagando Síntesis Final y Panel de Descarga del Reporte.");
+            },
+
+            downloadMarkdownReport() {
+                const dateStr = new Date().toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+                
+                const reportContent = `# GFF3 Explorer — Reporte de Resultados
+
+**Curso:** Introducción a la Bioinformática — LCG, UNAM (2026)  
+**Módulo:** S7 — De los objetos biológicos a FASTA, GFF3 y GenBank  
+**Actividad:** Práctica 4 — Interpretar una anotación GFF3  
+**Fecha de generación:** ${dateStr}  
+
+---
+
+## 1. Fragmento GFF3 Analizado
+
+\`\`\`text
+NC_000913.3\tRefSeq\tgene\t190\t255\t.\t+\t.\tID=gene-b0001;Name=thrL;locus_tag=b0001
+\`\`\`
+
+---
+
+## 2. Estación 1 — Estructura Básica
+
+- **Campos identificados:** ${appState.st1.q1 || 'Sin respuesta'} (Esperado: 9)
+- **Delimitador principal:** ${appState.st1.q2 || 'Sin respuesta'} (Esperado: TAB)
+- **Naturaleza del objeto:** ${appState.st1.q3 || 'Sin respuesta'} (Esperado: Feature anotada)
+- **Tipo ontológico (Type):** ${appState.st1.q4 || 'Sin respuesta'} (Esperado: gene)
+
+---
+
+## 3. Estación 2 — Anatomía de los Nueve Campos
+
+| Campo | Nombre Técnico | Valor Extraído | Estado |
+|---|---|---|---|
+| 1 | \`seqid\` | \`NC_000913.3\` | ${appState.st2.mappings[1] ? '✓ Correcto' : 'Sin mapear'} |
+| 2 | \`source\` | \`RefSeq\` | ${appState.st2.mappings[2] ? '✓ Correcto' : 'Sin mapear'} |
+| 3 | \`type\` | \`gene\` | ${appState.st2.mappings[3] ? '✓ Correcto' : 'Sin mapear'} |
+| 4 | \`start\` | \`190\` | ${appState.st2.mappings[4] ? '✓ Correcto' : 'Sin mapear'} |
+| 5 | \`end\` | \`255\` | ${appState.st2.mappings[5] ? '✓ Correcto' : 'Sin mapear'} |
+| 6 | \`score\` | \`.\` | ${appState.st2.mappings[6] ? '✓ Correcto' : 'Sin mapear'} |
+| 7 | \`strand\` | \`+\` | ${appState.st2.mappings[7] ? '✓ Correcto' : 'Sin mapear'} |
+| 8 | \`phase\` | \`.\` | ${appState.st2.mappings[8] ? '✓ Correcto' : 'Sin mapear'} |
+| 9 | \`attributes\` | \`ID=gene-b0001;Name=thrL;locus_tag=b0001\` | ${appState.st2.mappings[9] ? '✓ Correcto' : 'Sin mapear'} |
+
+- **Sub-atributos identificados en columna 9:**
+  - \`ID\`: \`gene-b0001\`
+  - \`Name\`: \`thrL\`
+  - \`locus_tag\`: \`b0001\`
+
+---
+
+## 4. Estación 3 — Interpretación Biológica
+
+1. **Secuencia de referencia:** ${appState.st3.q1.val || 'Sin respuesta'} (Vía \`seqid\`)
+2. **Coordenadas genómicas:** ${appState.st3.q2.val || 'Sin respuesta'} (Vía \`start / end\`)
+3. **Hebra (strand):** ${appState.st3.q3.val || 'Sin respuesta'} (Vía \`strand\`)
+4. **Nombre del gen:** ${appState.st3.q4.val || 'Sin respuesta'} (Vía \`attributes\`)
+5. **ID interno de feature:** ${appState.st3.q5.val || 'Sin respuesta'} (Vía \`attributes\`)
+
+---
+
+## 5. Estación 4 — Evaluación de Afirmaciones y Evidencia
+
+- **Afirmación 1 (Pertenece a NC_000913.3):** ${appState.st4.claims.c1.ans === 'si' ? '✓ Sí (Correcto)' : 'Revisado'}
+- **Afirmación 2 (El gen se llama thrL):** ${appState.st4.claims.c2.ans === 'si' ? '✓ Sí (Correcto)' : 'Revisado'}
+- **Afirmación 3 (Codifica una proteína):** ${appState.st4.claims.c3.ans === 'req' ? '✓ Requiere más información (Correcto)' : 'Revisado'}
+- **Afirmación 4 (Mide 66 nucleótidos):** ${appState.st4.claims.c4.ans === 'si' ? '✓ Sí (Correcto)' : 'Revisado'}
+- **Afirmación 5 (gene-b0001 es ID estable):** ${appState.st4.claims.c5.ans === 'no' ? '✓ No (Correcto: es ID local)' : 'Revisado'}
+
+**Cálculo Aritmético de Longitud:**
+- Fórmula: \`end - start + 1\` = \`255 - 190 + 1\` = **66 nucleótidos**
+- Fundamento: Coordenadas inclusivas 1-based en ambas fronteras.
+
+---
+
+## 6. Estación 5 — Reflexión Contextual
+
+1. **¿Por qué las coordenadas dependen del ensamblado?**
+   ${appState.st5.ref1 === 'relative' ? 'Reconocido: Las coordenadas genómicas no son absolutas; solo se interpretan respecto al ensamblado y versión de referencia.' : 'Pendiente de reflexión.'}
+
+2. **¿Por qué ID no implica identificador estable?**
+   ${appState.st5.ref2 === 'different' ? 'Reconocido: ID es una etiqueta interna local para relaciones de archivo, a diferencia de los accession públicos versionados.' : 'Pendiente de reflexión.'}
+
+3. **Jerarquía requerida para gen eucariota:**
+   - [x] \`mRNA\` (Transcrito)
+   - [x] \`exon\` (Estructura de exones)
+   - [x] \`CDS\` (Secuencia codificante)
+   - [x] Atributo \`Parent\` para enlace de relaciones jerárquicas
+
+---
+*Reporte generado de forma interactiva autónoma en la plataforma GFF3 Explorer.*
+`;
+
+                const blob = new Blob([reportContent], { type: 'text/markdown;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'gff3-explorer-resultados.md';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+
+                this.announce("Descarga del reporte de resultados iniciada.");
+            }
+        };
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            app.init();
+        });
+    </script>
+</body>
+</html>

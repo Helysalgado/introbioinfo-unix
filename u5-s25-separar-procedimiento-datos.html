@@ -1,0 +1,3153 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>u5-s25-separar-procedimiento-datos – Introducción a la Bioinformática</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./u5-s26-procesamiento-por-lotes.html" rel="next">
+<link href="./u5-s24-del-protocolo-al-script.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fe3756b78d23b7733c53f9ce5acac92a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXNMZZP0K9"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-QXNMZZP0K9', { 'anonymize_ip': true});
+</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Introducción a la Bioinformática</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Inicio</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-programa" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Programa</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-programa">    
+        <li>
+    <a class="dropdown-item" href="./programa.html">
+ <span class="dropdown-text">Ruta de sesiones</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./programa-detallado.html">
+ <span class="dropdown-text">Programa detallado</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-unidades" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Unidades</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-unidades">    
+        <li>
+    <a class="dropdown-item" href="./u1-trabajo-reproducible.html">
+ <span class="dropdown-text">U1 — Trabajo reproducible</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u2-entorno-unix.html">
+ <span class="dropdown-text">U2 — Entorno Unix</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u3-datos-bases-datos.html">
+ <span class="dropdown-text">U3 — Datos y bases</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u4-procesamiento-exploracion.html">
+ <span class="dropdown-text">U4 — Procesamiento genómico</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u5-automatizacion-scripting.html">
+ <span class="dropdown-text">U5 — Automatización</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u6-comparacion-homologia.html">
+ <span class="dropdown-text">U6 — Comparar / hipótesis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./s14-s15-mini-proyecto-investigacion-I.html">
+ <span class="dropdown-text">Transversal S14–S17</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="./recursos.html" aria-current="page"> 
+<span class="menu-text">Recursos</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./acerca.html"> 
+<span class="menu-text">Acerca</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./contribuir.html"> 
+<span class="menu-text">Contribuir</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Alternar modo lector">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./u5-automatizacion-scripting.html">Unidad 5</a></li><li class="breadcrumb-item"><a href="./u5-s25-separar-procedimiento-datos.html">S25 — Separar datos</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 1</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-trabajo-reproducible.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-s1-documentar-markdown-fases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S1 — Documentar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-s2-organizar-fair-ia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S2 — Organizar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 2</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-entorno-unix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s3-shell-acceso-remoto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S3 — Conectar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s4-sistema-archivos-v3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S4 — Navegar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s5-archivos-permisos-procesos-v2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S5 — Archivos y procesos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s6-consolidacion-entorno-unix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S6 — Consolidar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 3</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-datos-bases-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s7-secuencias-formatos-genbank.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S7 — Formatos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s8-bases-datos-descarga-integridad.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S8 — Descargar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s9-inspeccion-transferencia-verificable.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S9 — Transferir</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 4</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-procesamiento-exploracion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s10-anatomia-flujos-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S10 — Anatomía y flujos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s11-estructura-tabular-anotacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S11 — Anotación tabular</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s12-filtrado-conteos-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S12 — Filtrar y contar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s13-inventario-resumen-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S13 — Inventario</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s18-precision-patrones-expresiones-regulares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S18 — Patrones</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s19-extraccion-identificadores-correspondencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S19 — Identificadores</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s20-normalizar-datos-comparables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S20 — Normalizar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s21-confrontar-fuente-independiente.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S21 — Confrontar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s22-condicionar-calcular-columnas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S22 — Condicionar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s23-protocolo-ejecutable-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S23 — Protocolo ejecutable</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Transversal</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s14-s15-mini-proyecto-investigacion-I.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S14–S15 — Mini-proyecto I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s16-mini-proyecto-revision-pares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S16 — Revisión por pares</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s17-evaluacion-individual-demostrativa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S17 — Evaluación demostrativa</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mini-proyecto-dictamen-cientifico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dictamen científico</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Unidad 5</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-automatizacion-scripting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s24-del-protocolo-al-script.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S24 — Del protocolo al script</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s25-separar-procedimiento-datos.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">S25 — Separar datos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s26-procesamiento-por-lotes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S26 — Por lotes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s27-herramienta-cientifica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S27 — Herramienta científica</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s28-proyecto-integrador.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S28 — Proyecto integrador</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s29-cluster-hpc-sge.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S29 — Cluster SGE</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 6</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-comparacion-homologia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s30-comparar-alinear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S30 — Comparar / alinear</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s31-buscar-blast.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S31 — Buscar (BLAST)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s32-interpretar-inferir.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S32 — Interpretar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s33-defender-hipotesis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S33 — Inferir</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s34-integrar-hipotesis-casos-ciegos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S34 — Integrar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./programa-detallado.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programa detallado</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./recursos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recursos</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#s25-parametrizar-separar-el-procedimiento-de-sus-datos" id="toc-s25-parametrizar-separar-el-procedimiento-de-sus-datos" class="nav-link active" data-scroll-target="#s25-parametrizar-separar-el-procedimiento-de-sus-datos">S25 — Parametrizar: separar el procedimiento de sus datos</a>
+  <ul class="collapse">
+  <li><a href="#ficha-del-módulo" id="toc-ficha-del-módulo" class="nav-link" data-scroll-target="#ficha-del-módulo">Ficha del módulo</a></li>
+  <li><a href="#relación-con-lo-que-ya-sabes" id="toc-relación-con-lo-que-ya-sabes" class="nav-link" data-scroll-target="#relación-con-lo-que-ya-sabes">Relación con lo que ya sabes</a></li>
+  <li><a href="#dónde-estás-en-la-unidad-5" id="toc-dónde-estás-en-la-unidad-5" class="nav-link" data-scroll-target="#dónde-estás-en-la-unidad-5">Dónde estás en la Unidad 5</a></li>
+  <li><a href="#dónde-estás-en-la-investigación" id="toc-dónde-estás-en-la-investigación" class="nav-link" data-scroll-target="#dónde-estás-en-la-investigación">Dónde estás en la investigación</a></li>
+  <li><a href="#resultados-de-aprendizaje" id="toc-resultados-de-aprendizaje" class="nav-link" data-scroll-target="#resultados-de-aprendizaje">Resultados de aprendizaje</a></li>
+  <li><a href="#lista-de-verificación-previa" id="toc-lista-de-verificación-previa" class="nav-link" data-scroll-target="#lista-de-verificación-previa">Lista de verificación previa</a></li>
+  <li><a href="#ruta-de-s25" id="toc-ruta-de-s25" class="nav-link" data-scroll-target="#ruta-de-s25">Ruta de S25</a></li>
+  <li><a href="#cuenta-las-rutas-el-precio-de-editar-indispensable" id="toc-cuenta-las-rutas-el-precio-de-editar-indispensable" class="nav-link" data-scroll-target="#cuenta-las-rutas-el-precio-de-editar-indispensable">1. Cuenta las rutas: el precio de editar [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#la-pregunta-científica-de-hoy" id="toc-la-pregunta-científica-de-hoy" class="nav-link" data-scroll-target="#la-pregunta-científica-de-hoy">1.1 La pregunta científica de hoy</a></li>
+  </ul></li>
+  <li><a href="#qué-describe-el-análisis-y-qué-describe-el-organismo-indispensable" id="toc-qué-describe-el-análisis-y-qué-describe-el-organismo-indispensable" class="nav-link" data-scroll-target="#qué-describe-el-análisis-y-qué-describe-el-organismo-indispensable">2. Qué describe el análisis y qué describe el organismo [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#las-tres-categorías" id="toc-las-tres-categorías" class="nav-link" data-scroll-target="#las-tres-categorías">2.1 Las tres categorías</a></li>
+  <li><a href="#por-qué-las-dos-limitaciones-de-s24-eran-una-sola" id="toc-por-qué-las-dos-limitaciones-de-s24-eran-una-sola" class="nav-link" data-scroll-target="#por-qué-las-dos-limitaciones-de-s24-eran-una-sola">2.2 Por qué las dos limitaciones de S24 eran una sola</a></li>
+  <li><a href="#práctica-1-auditar-la-frontera-antes-de-clase-primer-intento" id="toc-práctica-1-auditar-la-frontera-antes-de-clase-primer-intento" class="nav-link" data-scroll-target="#práctica-1-auditar-la-frontera-antes-de-clase-primer-intento">Práctica 1 — Auditar la frontera <em>(antes de clase, primer intento)</em></a></li>
+  <li><a href="#práctica-2-diseñar-la-invocación-y-predecir-los-fallos-antes-de-clase-primer-intento" id="toc-práctica-2-diseñar-la-invocación-y-predecir-los-fallos-antes-de-clase-primer-intento" class="nav-link" data-scroll-target="#práctica-2-diseñar-la-invocación-y-predecir-los-fallos-antes-de-clase-primer-intento">Práctica 2 — Diseñar la invocación y predecir los fallos <em>(antes de clase, primer intento)</em></a></li>
+  </ul></li>
+  <li><a href="#dar-nombre-a-lo-que-se-repite-indispensable" id="toc-dar-nombre-a-lo-que-se-repite-indispensable" class="nav-link" data-scroll-target="#dar-nombre-a-lo-que-se-repite-indispensable">3. Dar nombre a lo que se repite [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#las-dos-reglas-que-hay-que-respetar" id="toc-las-dos-reglas-que-hay-que-respetar" class="nav-link" data-scroll-target="#las-dos-reglas-que-hay-que-respetar">3.1 Las dos reglas que hay que respetar</a></li>
+  <li><a href="#un-nombre-que-se-calcula-..." id="toc-un-nombre-que-se-calcula-..." class="nav-link" data-scroll-target="#un-nombre-que-se-calcula-...">3.2 Un nombre que se calcula: <code>$(...)</code></a></li>
+  <li><a href="#lo-que-este-paso-no-resuelve" id="toc-lo-que-este-paso-no-resuelve" class="nav-link" data-scroll-target="#lo-que-este-paso-no-resuelve">3.3 Lo que este paso <strong>no</strong> resuelve</a></li>
+  <li><a href="#práctica-3-dar-nombre-sin-cambiar-el-comportamiento-durante-el-taller" id="toc-práctica-3-dar-nombre-sin-cambiar-el-comportamiento-durante-el-taller" class="nav-link" data-scroll-target="#práctica-3-dar-nombre-sin-cambiar-el-comportamiento-durante-el-taller">Práctica 3 — Dar nombre sin cambiar el comportamiento <em>(durante el taller)</em></a></li>
+  </ul></li>
+  <li><a href="#que-el-dato-entre-desde-fuera-indispensable" id="toc-que-el-dato-entre-desde-fuera-indispensable" class="nav-link" data-scroll-target="#que-el-dato-entre-desde-fuera-indispensable">4. Que el dato entre desde fuera [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#el-bloque-de-uso-deja-de-ser-un-comentario" id="toc-el-bloque-de-uso-deja-de-ser-un-comentario" class="nav-link" data-scroll-target="#el-bloque-de-uso-deja-de-ser-un-comentario">4.1 El bloque de uso deja de ser un comentario</a></li>
+  <li><a href="#el-choque-de-los-dos-1" id="toc-el-choque-de-los-dos-1" class="nav-link" data-scroll-target="#el-choque-de-los-dos-1">4.2 El choque de los dos <code>$1</code></a></li>
+  <li><a href="#una-consecuencia-inmediata-dos-genomas-un-solo-archivo" id="toc-una-consecuencia-inmediata-dos-genomas-un-solo-archivo" class="nav-link" data-scroll-target="#una-consecuencia-inmediata-dos-genomas-un-solo-archivo">4.3 Una consecuencia inmediata: dos genomas, un solo archivo</a></li>
+  <li><a href="#práctica-4-que-el-dato-entre-desde-fuera-durante-el-taller" id="toc-práctica-4-que-el-dato-entre-desde-fuera-durante-el-taller" class="nav-link" data-scroll-target="#práctica-4-que-el-dato-entre-desde-fuera-durante-el-taller">Práctica 4 — Que el dato entre desde fuera <em>(durante el taller)</em></a></li>
+  </ul></li>
+  <li><a href="#un-procedimiento-que-no-supone-indispensable" id="toc-un-procedimiento-que-no-supone-indispensable" class="nav-link" data-scroll-target="#un-procedimiento-que-no-supone-indispensable">5. Un procedimiento que no supone [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#paso-①-comprobar" id="toc-paso-①-comprobar" class="nav-link" data-scroll-target="#paso-①-comprobar">5.1 Paso ① — Comprobar</a></li>
+  <li><a href="#paso-②-comunicar-el-error" id="toc-paso-②-comunicar-el-error" class="nav-link" data-scroll-target="#paso-②-comunicar-el-error">5.2 Paso ② — Comunicar el error</a></li>
+  <li><a href="#paso-③-detener-la-ejecución" id="toc-paso-③-detener-la-ejecución" class="nav-link" data-scroll-target="#paso-③-detener-la-ejecución">5.3 Paso ③ — Detener la ejecución</a></li>
+  <li><a href="#práctica-5-enseñarle-al-script-a-comprobar-durante-el-taller" id="toc-práctica-5-enseñarle-al-script-a-comprobar-durante-el-taller" class="nav-link" data-scroll-target="#práctica-5-enseñarle-al-script-a-comprobar-durante-el-taller">Práctica 5 — Enseñarle al script a comprobar <em>(durante el taller)</em></a></li>
+  </ul></li>
+  <li><a href="#el-mismo-procedimiento-otro-genoma-indispensable" id="toc-el-mismo-procedimiento-otro-genoma-indispensable" class="nav-link" data-scroll-target="#el-mismo-procedimiento-otro-genoma-indispensable">6. El mismo procedimiento, otro genoma [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#qué-mirar-cuando-tengas-los-dos-inventarios" id="toc-qué-mirar-cuando-tengas-los-dos-inventarios" class="nav-link" data-scroll-target="#qué-mirar-cuando-tengas-los-dos-inventarios">6.1 Qué mirar cuando tengas los dos inventarios</a></li>
+  <li><a href="#práctica-6-dos-genomas-un-procedimiento-después-del-taller" id="toc-práctica-6-dos-genomas-un-procedimiento-después-del-taller" class="nav-link" data-scroll-target="#práctica-6-dos-genomas-un-procedimiento-después-del-taller">Práctica 6 — Dos genomas, un procedimiento <em>(después del taller)</em></a></li>
+  </ul></li>
+  <li><a href="#reutilizable-todavía-no-es-masivo-consulta" id="toc-reutilizable-todavía-no-es-masivo-consulta" class="nav-link" data-scroll-target="#reutilizable-todavía-no-es-masivo-consulta">7. Reutilizable todavía no es masivo [Consulta]</a></li>
+  <li><a href="#documentar-la-sección-del-protocolo-indispensable" id="toc-documentar-la-sección-del-protocolo-indispensable" class="nav-link" data-scroll-target="#documentar-la-sección-del-protocolo-indispensable">8. Documentar: la sección del protocolo [Indispensable]</a></li>
+  <li><a href="#evidencia-de-la-sesión" id="toc-evidencia-de-la-sesión" class="nav-link" data-scroll-target="#evidencia-de-la-sesión">Evidencia de la sesión</a></li>
+  <li><a href="#errores-frecuentes-y-estrategias-de-diagnóstico" id="toc-errores-frecuentes-y-estrategias-de-diagnóstico" class="nav-link" data-scroll-target="#errores-frecuentes-y-estrategias-de-diagnóstico">Errores frecuentes y estrategias de diagnóstico</a></li>
+  <li><a href="#rúbricas" id="toc-rúbricas" class="nav-link" data-scroll-target="#rúbricas">Rúbricas</a></li>
+  <li><a href="#autoevaluación" id="toc-autoevaluación" class="nav-link" data-scroll-target="#autoevaluación">Autoevaluación</a>
+  <ul class="collapse">
+  <li><a href="#comprobación-rápida-formativa-al-final-del-taller" id="toc-comprobación-rápida-formativa-al-final-del-taller" class="nav-link" data-scroll-target="#comprobación-rápida-formativa-al-final-del-taller">Comprobación rápida — formativa, al final del taller</a></li>
+  <li><a href="#semáforo" id="toc-semáforo" class="nav-link" data-scroll-target="#semáforo">Semáforo</a></li>
+  </ul></li>
+  <li><a href="#cierre-con-ia-clásico-vs.-asistido" id="toc-cierre-con-ia-clásico-vs.-asistido" class="nav-link" data-scroll-target="#cierre-con-ia-clásico-vs.-asistido">Cierre con IA: clásico vs.&nbsp;asistido</a></li>
+  <li><a href="#lo-que-realmente-aprendiste-hoy" id="toc-lo-que-realmente-aprendiste-hoy" class="nav-link" data-scroll-target="#lo-que-realmente-aprendiste-hoy">Lo que realmente aprendiste hoy</a></li>
+  <li><a href="#lo-que-todavía-falta" id="toc-lo-que-todavía-falta" class="nav-link" data-scroll-target="#lo-que-todavía-falta">Lo que todavía falta</a></li>
+  <li><a href="#puente-hacia-s26" id="toc-puente-hacia-s26" class="nav-link" data-scroll-target="#puente-hacia-s26">Puente hacia S26</a></li>
+  <li><a href="#en-una-frase" id="toc-en-una-frase" class="nav-link" data-scroll-target="#en-una-frase">En una frase</a></li>
+  <li><a href="#anexo-a.-correspondencia-resultadoactividadevidenciacriterio" id="toc-anexo-a.-correspondencia-resultadoactividadevidenciacriterio" class="nav-link" data-scroll-target="#anexo-a.-correspondencia-resultadoactividadevidenciacriterio">Anexo A. Correspondencia resultado–actividad–evidencia–criterio</a></li>
+  <li><a href="#anexo-b.-alineación-transversal" id="toc-anexo-b.-alineación-transversal" class="nav-link" data-scroll-target="#anexo-b.-alineación-transversal">Anexo B. Alineación transversal</a></li>
+  <li><a href="#glosario" id="toc-glosario" class="nav-link" data-scroll-target="#glosario">Glosario</a></li>
+  <li><a href="#referencias" id="toc-referencias" class="nav-link" data-scroll-target="#referencias">Referencias</a></li>
+  <li><a href="#distribución-estimada-de-las-dos-horas" id="toc-distribución-estimada-de-las-dos-horas" class="nav-link" data-scroll-target="#distribución-estimada-de-las-dos-horas">Distribución estimada de las dos horas</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/Helysalgado/introbioinfo-unix/edit/main/u5-s25-separar-procedimiento-datos.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/Helysalgado/introbioinfo-unix/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./u5-automatizacion-scripting.html">Unidad 5</a></li><li class="breadcrumb-item"><a href="./u5-s25-separar-procedimiento-datos.html">S25 — Separar datos</a></li></ol></nav></header>
+
+
+
+
+<section id="s25-parametrizar-separar-el-procedimiento-de-sus-datos" class="level1">
+<h1>S25 — Parametrizar: separar el procedimiento de sus datos</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="Aula invertida">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Aula invertida
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Antes de clase harás un primer intento sin ejecutar nada: auditar tu propio script y decidir, línea por línea, qué describe el análisis y qué describe el organismo. Durante el taller transformarás el script para que los datos entren desde fuera, y le enseñarás a comprobar que existen antes de trabajar. Después lo aplicarás a un genoma que no es el tuyo y compararás los dos resultados.</p>
+<p>El primer intento es formativo: importa que tomes decisiones argumentadas, no que aciertes.</p>
+</div>
+</div>
+<section id="ficha-del-módulo" class="level2">
+<h2 class="anchored" data-anchor-id="ficha-del-módulo">Ficha del módulo</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Elemento</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Sesión</strong></td>
+<td>S25, 2 horas</td>
+</tr>
+<tr class="even">
+<td><strong>Unidad</strong></td>
+<td><a href="./u5-automatizacion-scripting.html">U5. Automatización de análisis bioinformáticos con Shell</a></td>
+</tr>
+<tr class="odd">
+<td><strong>Competencia principal</strong></td>
+<td>E. Automatización y scripting</td>
+</tr>
+<tr class="even">
+<td><strong>Competencias integradas</strong></td>
+<td>A. Documentación reproducible; C. Manejo de datos biológicos; D. Análisis de datos genómicos</td>
+</tr>
+<tr class="odd">
+<td><strong>Propósito</strong></td>
+<td>Trazar la frontera entre lo que permanece —el procedimiento— y lo que cambia —los datos—, y hacer que lo segundo entre desde fuera y se compruebe antes de usarse</td>
+</tr>
+<tr class="even">
+<td><strong>Consulta previa del Plan</strong></td>
+<td>El script de S24 y una lectura breve sobre variables, parámetros y pruebas; este módulo es la lectura autocontenida de la sesión</td>
+</tr>
+<tr class="odd">
+<td><strong>Continuidad</strong></td>
+<td>S24 dejó un script con las rutas escritas dentro, que imprime sus controles pero no impone ninguno; S25 resuelve las dos cosas, porque son la misma</td>
+</tr>
+<tr class="even">
+<td><strong>Lectura indispensable</strong></td>
+<td>Secciones 1–6 de este módulo (~50 min)</td>
+</tr>
+<tr class="odd">
+<td><strong>Lectura base de la unidad</strong></td>
+<td>Buffalo (2015), Cap. 12 — continúa; la evidencia se entrega en S26</td>
+</tr>
+<tr class="even">
+<td><strong>Lectura de consulta</strong></td>
+<td>Sección 7; la sección S24 de tu propio <code>doc/protocolo.md</code></td>
+</tr>
+<tr class="odd">
+<td><strong>Primer intento</strong></td>
+<td>Prácticas 1 y 2: auditoría de la frontera y diseño de la invocación, 40 min, sin ejecutar nada</td>
+</tr>
+<tr class="even">
+<td><strong>Evidencia</strong></td>
+<td>Script parametrizado que valida sus entradas, aplicado a dos genomas distintos, con su comparación</td>
+</tr>
+<tr class="odd">
+<td><strong>Tarea numerada</strong></td>
+<td>Ninguna. La evidencia integradora de la unidad se entrega en S28</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-important callout-titled" title="otra vez, ninguna herramienta de análisis nueva">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>otra vez, ninguna herramienta de análisis nueva
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sigues sin aprender nada nuevo sobre cómo interrogar un genoma: <code>grep</code>, <code>cut</code>, <code>sort</code>, <code>uniq</code> y <code>awk</code> son los de siempre y hacen lo de siempre. Lo que aprendes hoy es a <strong>decidir qué parte de tu procedimiento habla del método y qué parte habla de tus archivos</strong> — y esa es una decisión científica, no una construcción de shell. Las variables son la consecuencia, no el tema.</p>
+</div>
+</div>
+</section>
+<section id="relación-con-lo-que-ya-sabes" class="level2">
+<h2 class="anchored" data-anchor-id="relación-con-lo-que-ya-sabes">Relación con lo que ya sabes</h2>
+<pre class="text"><code>S24                                      S25
+Se ejecuta solo                       →  Sirve para cualquier genoma
+"escribo una orden y funciona"           "escribo una orden, le digo cuál, y funciona"</code></pre>
+<p>Al cerrar S24 hiciste dos cosas que hoy se cobran su recompensa. Contaste cuántas veces aparecía el nombre de tu archivo de anotación dentro del script —ese número es el punto de partida de la sesión— y guardaste la versión de ese día con su fecha. <strong>Hoy no vas a escribir otro script: vas a transformar ese</strong>, y comparar las dos versiones es la mejor prueba de que entendiste qué es parametrizar.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Habilidad que ya tienes</th>
+<th>Dónde la aprendiste</th>
+<th>Qué cambia en S25</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Distinguir entradas de datos y entradas metodológicas</td>
+<td>U4, S23</td>
+<td>Esa distinción deja de vivir en el protocolo y <strong>se escribe en el script</strong></td>
+</tr>
+<tr class="even">
+<td>Comprobar que un archivo existe y no está vacío</td>
+<td>U2, S5; U4, S23</td>
+<td>Ahora lo hace el script, y <strong>decide</strong> si continuar</td>
+</tr>
+<tr class="odd">
+<td>El código de salida y <code>echo $?</code></td>
+<td>S24, Práctica 4</td>
+<td>Deja de ser un diagnóstico y pasa a ser algo que <strong>tú produces</strong></td>
+</tr>
+<tr class="even">
+<td>Los mensajes de avance con <code>echo</code></td>
+<td>S24</td>
+<td>Aparece un segundo canal: el de <strong>error</strong>, que no se confunde con los resultados</td>
+</tr>
+<tr class="odd">
+<td>Que un script puede terminar bien sin haber hecho nada</td>
+<td>S24, §6</td>
+<td>Hoy se resuelve: se comprueba antes de trabajar</td>
+</tr>
+<tr class="even">
+<td>Los campos de <code>awk</code> (<code>$1</code>, <code>$3</code>, <code>$7</code>)</td>
+<td>U4, S22</td>
+<td>Aparece un <code>$1</code> distinto, el del shell, y hay que aprender a no confundirlos</td>
+</tr>
+</tbody>
+</table>
+<p>Lo nuevo de hoy no es una operación sobre datos: es que tu procedimiento deja de hablar de <strong>tus</strong> archivos y empieza a hablar de <strong>un</strong> genoma cualquiera.</p>
+</section>
+<section id="dónde-estás-en-la-unidad-5" class="level2">
+<h2 class="anchored" data-anchor-id="dónde-estás-en-la-unidad-5">Dónde estás en la Unidad 5</h2>
+<pre class="text"><code>  S24  GUARDAR    el procedimiento    ✔ resuelto
+▶ S25  SEPARARLO  de sus datos        ← estás aquí
+  S26  REPETIRLO  sin repetirte
+  S27  ENTREGARLO a otra persona
+  S28  INTEGRARLO todo
+  S29  ESCALARLO  fuera de tu sesión</code></pre>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Pregunta de la unidad</th>
+<th>En S25</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>¿Cómo ejecuto el análisis sin copiar treinta comandos?</td>
+<td>✔ Resuelta en S24</td>
+</tr>
+<tr class="even">
+<td>¿Cómo aplico el mismo análisis a otro genoma sin editar el archivo?</td>
+<td>✔ <strong>Se resuelve hoy</strong></td>
+</tr>
+<tr class="odd">
+<td>¿Cómo detecto que falta una entrada <strong>antes</strong> de empezar?</td>
+<td>✔ <strong>Se resuelve hoy</strong></td>
+</tr>
+<tr class="even">
+<td>¿Cómo consigo que se detenga en vez de producir basura convincente?</td>
+<td>✔ <strong>Se resuelve hoy</strong></td>
+</tr>
+<tr class="odd">
+<td>¿Qué parte de mi análisis depende del organismo y qué parte no?</td>
+<td>✔ <strong>Se resuelve hoy</strong></td>
+</tr>
+<tr class="even">
+<td>¿Cómo lo aplico a cien genomas?</td>
+<td>☐ S26</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="dónde-estás-en-la-investigación" class="level2">
+<h2 class="anchored" data-anchor-id="dónde-estás-en-la-investigación">Dónde estás en la investigación</h2>
+<p>La narrativa del curso no se ha interrumpido. Sigues en el mismo análisis, con las mismas preguntas biológicas, y cada sesión ha añadido un verbo:</p>
+<pre class="text"><code>S18  Seleccionar   →  qué evidencia cuenta
+S19  Identificar   →  de qué objeto habla
+S20  Normalizar    →  bajo qué representación se compara
+S21  Confrontar    →  qué queda en pie ante una fuente ajena
+S22  Cuantificar   →  cuánto importa lo que encontré
+S23  Integrar      →  puede rehacerse entero
+S24  Guardar       →  se rehace solo
+S25  Separar       →  sirve para cualquier genoma       ← hoy</code></pre>
+</section>
+<section id="resultados-de-aprendizaje" class="level2">
+<h2 class="anchored" data-anchor-id="resultados-de-aprendizaje">Resultados de aprendizaje</h2>
+<p>Al finalizar la sesión podrás:</p>
+<ol type="1">
+<li><strong>Distinguir</strong>, en tu propio script, qué describe el análisis y qué describe el organismo, y justificar cada decisión.</li>
+<li><strong>Explicar</strong> por qué un procedimiento científico no debería contener el nombre de un genoma.</li>
+<li><strong>Sustituir</strong> un valor repetido por una variable, y comprobar que el comportamiento no cambió.</li>
+<li><strong>Proteger</strong> las expansiones con comillas dobles, y explicar qué ocurre sin ellas.</li>
+<li><strong>Recibir</strong> datos desde fuera mediante parámetros posicionales, sin editar el archivo.</li>
+<li><strong>Derivar</strong> los nombres de salida del dato recibido, de modo que dos ejecuciones no se pisen.</li>
+<li><strong>Comprobar</strong> las entradas antes de trabajar y <strong>detener</strong> la ejecución con un mensaje útil y un código de salida distinto de cero.</li>
+<li><strong>Distinguir</strong> el canal de salida del canal de error, y explicar por qué no deben mezclarse.</li>
+<li><strong>No confundir</strong> el <code>$1</code> del shell con el <code>$1</code> de <code>awk</code>, y explicar el papel de las comillas.</li>
+<li><strong>Aplicar</strong> el mismo procedimiento a dos genomas distintos e <strong>interpretar biológicamente</strong> las diferencias, distinguiendo las que vienen del organismo de las que vienen de la anotación.</li>
+</ol>
+</section>
+<section id="lista-de-verificación-previa" class="level2">
+<h2 class="anchored" data-anchor-id="lista-de-verificación-previa">Lista de verificación previa</h2>
+<p>Antes del taller comprueba que tienes:</p>
+<ul class="task-list">
+<li><label><input type="checkbox"><code>src/analizar-genoma.sh</code> tal como quedó en S24, <strong>con su fecha</strong>, y una copia de seguridad;</label></li>
+<li><label><input type="checkbox">la sección S24 de <code>doc/protocolo.md</code>, con su tabla de limitaciones;</label></li>
+<li><label><input type="checkbox">los resultados de S24 en <code>results/s24/</code>: son tu línea de comparación de hoy;</label></li>
+<li><label><input type="checkbox">los archivos originales en <code>data/source/</code>, intactos;</label></li>
+<li><label><input type="checkbox"><strong>un segundo genoma</strong>: el FASTA y el GFF3 de otro organismo, descargados y verificados como en U3, con su ficha de procedencia. Si no lo tienes, descárgalo antes del taller —sin él no puedes hacer la Práctica 5—;</label></li>
+<li><label><input type="checkbox"><code>doc/s25-primer-intento.md</code> con las Prácticas 1 y 2 resueltas.</label></li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled" title="qué segundo genoma elegir">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>qué segundo genoma elegir
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sirve cualquier bacteria con FASTA y GFF3 en el mismo recurso del que descargaste el tuyo. Elige uno <strong>suficientemente distinto</strong> —otro género, no otra cepa de la misma especie— para que la comparación de la Práctica 6 tenga algo que interpretar. Documenta su procedencia con la misma ficha de U3: sin ella, el segundo análisis no es evidencia.</p>
+</div>
+</div>
+</section>
+<section id="ruta-de-s25" class="level2">
+<h2 class="anchored" data-anchor-id="ruta-de-s25">Ruta de S25</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 30%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Momento</th>
+<th>Qué hacer</th>
+<th style="text-align: right;">Tiempo estimado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Antes de clase</strong></td>
+<td>Leer las secciones 1–6. Auditar la frontera y diseñar la invocación (Prácticas 1 y 2)</td>
+<td style="text-align: right;">50 + 40 min</td>
+</tr>
+<tr class="even">
+<td><strong>Taller (1.ª hora)</strong></td>
+<td>Dar nombre a lo que se repite y hacer que el dato entre desde fuera (Prácticas 3 y 4)</td>
+<td style="text-align: right;">60 min</td>
+</tr>
+<tr class="odd">
+<td><strong>Taller (2.ª hora)</strong></td>
+<td>Enseñar al script a comprobar, y provocar los fallos (Práctica 5)</td>
+<td style="text-align: right;">60 min</td>
+</tr>
+<tr class="even">
+<td><strong>Después del taller</strong></td>
+<td>Aplicarlo a otro genoma, comparar, interpretar y documentar (Práctica 6)</td>
+<td style="text-align: right;">100 min</td>
+</tr>
+</tbody>
+</table>
+<p>Las secciones 1–6 son <strong>indispensables</strong>; la sección 7 es de consulta y sostiene el puente a S26.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="cómo están marcadas las ideas dentro de cada sección">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>cómo están marcadas las ideas dentro de cada sección
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Igual que en S24: <strong>Concepto esencial</strong> (sin esto no puedes hacer la práctica), <strong>Concepto de apoyo</strong> (te ahorra tiempo, puedes volver después) y <strong>Consulta</strong> (amplía o matiza).</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled" title="qué cabe realmente en dos horas">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>qué cabe realmente en dos horas
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>En el taller se transforma el script y se le añaden las comprobaciones. La ejecución sobre el segundo genoma y su interpretación se terminan después. El núcleo que no debe recortarse es:</p>
+<pre class="text"><code>decidir la frontera → parametrizar → comprobar → contrastar con el resultado de S24</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="cuenta-las-rutas-el-precio-de-editar-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="cuenta-las-rutas-el-precio-de-editar-indispensable">1. Cuenta las rutas: el precio de editar [Indispensable]</h2>
+<p><strong>Concepto esencial</strong></p>
+<p>Al cerrar S24 te pedimos un número: cuántas veces aparece el nombre de tu archivo de anotación dentro del script. Ábrelo y ten ese número delante. Suma también las apariciones del FASTA y del directorio de resultados.</p>
+<p>Ahora imagina el escenario más probable del semestre: llega otro genoma. El del mini proyecto, el que te toque en una evaluación, el que traiga un compañero. Y tienes dos opciones.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Opción 1 — Editar el script</th>
+<th>Opción 2 — Cambiar solo los datos</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Abres el archivo</td>
+<td>No lo abres</td>
+</tr>
+<tr class="even">
+<td>Buscas todas las apariciones de cada ruta</td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td>Las cambias una por una</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>Esperas no haberte dejado ninguna</td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td>Guardas una copia distinta por genoma</td>
+<td>El archivo sigue siendo <strong>uno</strong></td>
+</tr>
+<tr class="even">
+<td>Ahora tienes dos procedimientos que mantener</td>
+<td>Sigues teniendo un procedimiento</td>
+</tr>
+<tr class="odd">
+<td>Si mejoras uno, el otro se queda atrás</td>
+<td>La mejora vale para todos</td>
+</tr>
+</tbody>
+</table>
+<p>La opción 1 tiene un problema que va más allá de la comodidad, y conviene decirlo con claridad:</p>
+<blockquote class="blockquote">
+<p><strong>Dos copias del mismo análisis dejan de ser el mismo análisis en cuanto tocas una.</strong></p>
+</blockquote>
+<p>A partir de ese momento no puedes afirmar que los dos genomas se analizaron igual — y esa afirmación es justo lo que hace comparables dos resultados. Sustituir el copiado por la edición no es automatizar: es cambiar de sitio el mismo riesgo.</p>
+<section id="la-pregunta-científica-de-hoy" class="level3">
+<h3 class="anchored" data-anchor-id="la-pregunta-científica-de-hoy">1.1 La pregunta científica de hoy</h3>
+<p>Otra vez no es una pregunta sobre el genoma. Es una pregunta sobre el método, y de las importantes:</p>
+<blockquote class="blockquote">
+<p><strong>¿Por qué un procedimiento científico contiene el nombre de un archivo concreto?</strong></p>
+</blockquote>
+<p>Piénsalo desde la sección de <em>Métodos</em> de un artículo. Ahí escribes <em>«se contaron los registros de tipo <code>gene</code> excluyendo pseudogenes»</em>, no <em>«se abrió el archivo <code>GCF_000005845.2_ASM584v2_genomic.gff</code> de la carpeta Descargas»</em>. El método describe <strong>qué se hace</strong>; los datos concretos van en otro apartado, precisamente porque son intercambiables.</p>
+<p>Tu script, tal como está hoy, mezcla las dos cosas. Hoy las separas.</p>
+</section>
+</section>
+<section id="qué-describe-el-análisis-y-qué-describe-el-organismo-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="qué-describe-el-análisis-y-qué-describe-el-organismo-indispensable">2. Qué describe el análisis y qué describe el organismo [Indispensable]</h2>
+<p><strong>Concepto esencial</strong></p>
+<p>Esta es la sección central de la sesión y no contiene ni una línea de código.</p>
+<p>Abre tu script y recorre cada línea con <strong>una sola pregunta</strong>:</p>
+<blockquote class="blockquote">
+<p><strong>¿Esto cambiaría si analizara otro organismo?</strong></p>
+</blockquote>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u5-s25-frontera-procedimiento-datos.png" class="img-fluid figure-img"></p>
+<figcaption>Un mismo script se divide en dos zonas separadas por una pregunta: ¿esto cambiaría si analizara otro organismo? A la izquierda, lo que sí cambia y por tanto debe entrar desde fuera: el archivo FASTA y el archivo GFF3, que llegan como argumentos al invocar el script. A la derecha, lo que no cambia y por tanto permanece dentro, dividido en dos bloques: el método, con las decisiones tomadas en la Unidad 4 —qué registros cuentan como gen, que las directivas del GFF3 no son anotaciones, el orden de los pasos y las fórmulas de longitud—, y la convención del proyecto, con las carpetas de derivados y resultados. Una franja inferior advierte que la frontera no la marca la sintaxis del lenguaje, sino una decisión científica: distinguir lo que describe el análisis de lo que describe el organismo.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 25.1.</strong> La frontera entre el procedimiento y sus datos. Es la misma distinción que hiciste en S23 entre entradas de datos y entradas metodológicas, ahora escrita de forma que el sistema la respete. Elaboración propia.</p>
+<section id="las-tres-categorías" class="level3">
+<h3 class="anchored" data-anchor-id="las-tres-categorías">2.1 Las tres categorías</h3>
+<p>Aplicar la pregunta produce tres montones, no dos. La confusión más común de la sesión es no ver el tercero.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Categoría</th>
+<th>Ejemplos en tu script</th>
+<th>¿Dónde va?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Los datos</strong></td>
+<td><code>data/source/genoma.fna</code>, <code>data/source/anotacion.gff3</code></td>
+<td><strong>Fuera</strong>: entran al invocarlo</td>
+</tr>
+<tr class="even">
+<td><strong>El método</strong></td>
+<td>que las directivas <code>##</code> no son registros (S12); que un gen es <code>$3=="gene"</code> y no <code>pseudogene</code> (S18); el orden de los pasos y sus controles (S23); la fórmula <code>fin − inicio + 1</code> (S22)</td>
+<td><strong>Dentro</strong>: es lo que el script <em>es</em></td>
+</tr>
+<tr class="odd">
+<td><strong>La convención del proyecto</strong></td>
+<td><code>data/processed/</code> para derivados, <code>results/</code> para resultados, el nombre de las salidas</td>
+<td><strong>Dentro</strong>, pero <strong>derivado</strong> del dato que llegue</td>
+</tr>
+</tbody>
+</table>
+<p>Fíjate en el segundo montón, porque es el que da sentido a todo:</p>
+<blockquote class="blockquote">
+<p><strong>Las decisiones metodológicas de la Unidad 4 no son parámetros. Son el procedimiento.</strong></p>
+</blockquote>
+<p>Si convirtieras en parámetro la definición de gen, no tendrías una herramienta más flexible: tendrías una herramienta que <strong>no sabe qué cuenta</strong>, y cada ejecución respondería a una pregunta distinta. Un procedimiento que se puede configurar para dar cualquier resultado no es un procedimiento.</p>
+<blockquote class="blockquote">
+<p><strong>IDEA CLAVE.</strong> Parametrizar no es «sacar fuera todo lo que se pueda». Es sacar fuera <strong>exactamente los datos</strong>, y dejar dentro el método. Un parámetro de más convierte tu herramienta en un formulario vacío; un parámetro de menos te obliga a editar el archivo.</p>
+</blockquote>
+</section>
+<section id="por-qué-las-dos-limitaciones-de-s24-eran-una-sola" class="level3">
+<h3 class="anchored" data-anchor-id="por-qué-las-dos-limitaciones-de-s24-eran-una-sola">2.2 Por qué las dos limitaciones de S24 eran una sola</h3>
+<p><strong>Concepto de apoyo</strong></p>
+<p>S24 cerró con dos problemas que parecían independientes: las rutas escritas dentro, y unos controles que se imprimían pero no detenían nada. Hoy se resuelven juntos, y no por casualidad.</p>
+<p>Mientras las rutas estaban dentro, el script <strong>podía suponer</strong> que sus entradas existían: las habías escrito tú, mirándolas. En cuanto el dato entra desde fuera, esa suposición se cae:</p>
+<pre class="text"><code>el dato entra desde fuera
+        ↓
+el script ya no sabe qué le van a dar
+        ↓
+tiene que preguntarlo</code></pre>
+<p>Por eso parametrizar y validar se aprenden en la misma sesión. <strong>No son dos temas: son las dos caras de abrir el procedimiento al mundo.</strong></p>
+</section>
+<section id="práctica-1-auditar-la-frontera-antes-de-clase-primer-intento" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-1-auditar-la-frontera-antes-de-clase-primer-intento">Práctica 1 — Auditar la frontera <em>(antes de clase, primer intento)</em></h3>
+<p><strong>Pregunta metodológica.</strong> En mi propio script, ¿qué describe el análisis y qué describe mi genoma?</p>
+<p><strong>Objetivo.</strong> Decidir la frontera antes de escribir una sola línea de código.</p>
+<p><strong>Antes de clase.</strong> En <code>doc/s25-primer-intento.md</code>, <strong>sin ejecutar ni modificar nada</strong>:</p>
+<ol type="1">
+<li><p><strong>Recupera el número</strong> que anotaste al cerrar S24: cuántas veces aparecía dentro del script el nombre de tu archivo de anotación. Cuenta ahora también el FASTA y el directorio de resultados.</p></li>
+<li><p><strong>Clasifica cada valor literal</strong> que aparezca en el script, aplicando la pregunta de la Sección 2:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Valor literal</th>
+<th>Línea(s)</th>
+<th>¿Cambiaría con otro organismo?</th>
+<th>Categoría</th>
+<th>¿Entra desde fuera?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>data/source/anotacion.gff3</code></td>
+<td>…</td>
+<td>sí</td>
+<td>dato</td>
+<td>sí, <code>$2</code></td>
+</tr>
+<tr class="even">
+<td><code>$3=="gene"</code></td>
+<td>…</td>
+<td>no</td>
+<td>método</td>
+<td>no</td>
+</tr>
+<tr class="odd">
+<td><code>results/s24/</code></td>
+<td>…</td>
+<td>no, pero el nombre sí</td>
+<td>convención</td>
+<td>derivado</td>
+</tr>
+</tbody>
+</table></li>
+<li><p><strong>Justifica los casos dudosos.</strong> Habrá al menos uno. Escribe por qué lo pusiste donde lo pusiste.</p></li>
+<li><p><strong>Responde por escrito:</strong> ¿por qué la definición de gen <strong>no</strong> debería ser un parámetro? Si no estás de acuerdo, argumenta lo contrario: es una discusión legítima y se abordará en el taller.</p></li>
+<li><p><strong>Cuenta los parámetros</strong> que va a tener tu script. Si te salen más de tres, revisa: probablemente estés sacando fuera algo que es método.</p></li>
+<li><p><strong>Escribe la línea de uso</strong> actualizada, con los argumentos en el orden que decidas.</p></li>
+</ol>
+<p><strong>Producto esperado.</strong> La tabla de clasificación completa, con los casos dudosos justificados y la línea de uso propuesta.</p>
+<p><strong>Criterio de logro:</strong> cada valor está clasificado en una de las tres categorías, y puedes defender por qué el método se queda dentro.</p>
+<hr>
+</section>
+<section id="práctica-2-diseñar-la-invocación-y-predecir-los-fallos-antes-de-clase-primer-intento" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-2-diseñar-la-invocación-y-predecir-los-fallos-antes-de-clase-primer-intento">Práctica 2 — Diseñar la invocación y predecir los fallos <em>(antes de clase, primer intento)</em></h3>
+<p><strong>Pregunta metodológica.</strong> ¿Qué debería ocurrir cuando a mi herramienta le dan algo que no espera?</p>
+<p><strong>Objetivo.</strong> Decidir el comportamiento <strong>antes</strong> de programarlo, que es el orden correcto.</p>
+<p><strong>Antes de clase.</strong> En el mismo documento, y sin probar nada:</p>
+<ol type="1">
+<li><p><strong>Escribe la invocación completa</strong> para tu genoma y para el segundo, con rutas reales.</p></li>
+<li><p><strong>Predice</strong> qué haría tu script de S24 —el de ayer, sin parámetros ni comprobaciones— en cada uno de estos casos, y qué querrías que hiciera la versión de hoy:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Situación</th>
+<th>Qué haría el de S24</th>
+<th>Qué debería hacer el de hoy</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>No se le da ningún argumento</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Se le da un solo archivo</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>El FASTA no existe</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>El GFF3 existe pero está vacío</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Se le dan los dos archivos <strong>en orden invertido</strong></td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>La ruta contiene un espacio</td>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table></li>
+<li><p><strong>Marca cuál de los seis es el más peligroso</strong> y explica por qué. Pista: no es el que da un error más feo.</p></li>
+<li><p><strong>Redacta los mensajes de error</strong> que te gustaría leer en los casos 1 a 4. Un mensaje útil dice <strong>qué falta</strong>, <strong>cuál era el valor recibido</strong> y <strong>cómo se invoca</strong> el script.</p></li>
+<li><p><strong>Responde:</strong> el caso 5 —orden invertido— ¿puede detectarse comprobando que los archivos existen? Si no, ¿qué haría falta?</p></li>
+</ol>
+<details>
+<summary>
+Ver retroalimentación
+</summary>
+<p><strong>Ábrelo después de haber llenado la tabla.</strong> Las seis situaciones dependen del comportamiento del shell, no de tu genoma: la columna «qué haría el de S24» es la misma para todo el mundo.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Qué hace el script de S24 (sin parámetros ni comprobaciones)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Ignora que no le diste nada y trabaja sobre las rutas escritas dentro. <strong>Parece funcionar.</strong></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Igual: el argumento sobra y se descarta sin aviso</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Los comandos fallan uno a uno, pero el script continúa y termina con código 0</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>No falla nada: procesa un archivo vacío y produce resultados vacíos o con ceros</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td><strong>Se ejecuta entero y produce resultados plausibles pero equivocados</strong></td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>La ruta se parte en dos argumentos; se procesa un archivo que no existe</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Cuál es el más peligroso (paso 3).</strong> El <strong>5</strong>, el del orden invertido. Los otros o bien avisan, o bien producen algo visiblemente vacío. El 5 produce números completos, con el formato correcto, que puedes copiar al protocolo sin sospechar nada. La pista del enunciado apuntaba justo ahí: no es el que da el error más feo, es el que <strong>no da error</strong>.</p>
+<p>Los casos 1 y 2 comparten una propiedad incómoda: un script con rutas escritas dentro <strong>no puede distinguir</strong> entre «me llamaron bien» y «me llamaron mal», porque nunca mira lo que le pasaron.</p>
+<p><strong>Paso 5 — el orden invertido no se detecta comprobando existencia.</strong> Ambos archivos existen; la comprobación pasa. Detectarlo exige mirar <strong>el contenido</strong>, no el nombre: que el FASTA empiece por <code>&gt;</code>, que el GFF3 tenga nueve columnas separadas por tabuladores o su cabecera <code>##gff-version</code>. Comprobar que un archivo existe es comprobar lo más barato, no lo que importa. Esa distinción es lo que trabajas en la Práctica 5.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Comprobar la extensión del nombre (<code>.fna</code>, <code>.gff</code>) es mejor que nada, pero sigue siendo una comprobación sobre la etiqueta, no sobre el dato. Un archivo mal nombrado la burla.</p>
+</div>
+</div>
+</details>
+<p><strong>Producto esperado.</strong> La tabla de seis predicciones y los mensajes de error redactados.</p>
+<p><strong>Criterio de logro:</strong> las seis predicciones están escritas antes del taller y los mensajes que propones incluyen el valor recibido, no solo el aviso.</p>
+<hr>
+</section>
+</section>
+<section id="dar-nombre-a-lo-que-se-repite-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="dar-nombre-a-lo-que-se-repite-indispensable">3. Dar nombre a lo que se repite [Indispensable]</h2>
+<p><strong>Concepto esencial</strong></p>
+<p>Antes de que el dato entre desde fuera, hay un paso intermedio que resuelve la mitad del problema y no cambia nada del comportamiento: <strong>decir una sola vez qué archivo se usa, y referirse a él por su nombre</strong> el resto del script.</p>
+<p><strong>Sintaxis mínima</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="va">GFF</span><span class="op">=</span><span class="st">"data/source/anotacion.gff3"</span>     <span class="co"># asignación: sin espacios alrededor del =</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-Ev</span> <span class="st">'^#'</span> <span class="st">"</span><span class="va">$GFF</span><span class="st">"</span> <span class="op">&gt;</span> <span class="st">"</span><span class="va">$DERIVADO</span><span class="st">"</span>   <span class="co"># expansión: el $ recupera el valor</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>¿Qué hace?</strong> Guarda un valor bajo un nombre y lo recupera donde haga falta.</p>
+<p><strong>¿Por qué aparece en esta sesión?</strong> Porque la ruta aparecía repetida por todo el script, y cada repetición era un sitio más donde equivocarse al cambiarla.</p>
+<section id="las-dos-reglas-que-hay-que-respetar" class="level3">
+<h3 class="anchored" data-anchor-id="las-dos-reglas-que-hay-que-respetar">3.1 Las dos reglas que hay que respetar</h3>
+<p><strong>Concepto esencial</strong></p>
+<p><strong>Regla 1 — Al asignar, no hay espacios alrededor del <code>=</code>.</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="va">GFF</span><span class="op">=</span><span class="st">"anotacion.gff3"</span>     <span class="co"># ✓ correcto</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">GFF</span> = <span class="st">"anotacion.gff3"</span>   <span class="co"># ✗ bash: GFF: command not found</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>El shell lee la línea con espacios como <em>«ejecuta el programa <code>GFF</code> con los argumentos <code>=</code> y <code>anotacion.gff3</code>»</em>. El mensaje de error, que parece incomprensible, resulta lógico en cuanto sabes esto.</p>
+<p><strong>Regla 2 — Al expandir, siempre entre comillas dobles.</strong></p>
+<p>Esta parece una manía y no lo es. Compruébalo con la ruta real de la carpeta del curso, que contiene un espacio:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="va">D</span><span class="op">=</span><span class="st">"/Users/tu-usuario/Mi unidad/proyecto"</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="va">$D</span>      <span class="co"># ✗ ls: cannot access '/Users/tu-usuario/Mi': No such file or directory</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>           <span class="co">#   ls: cannot access 'unidad/proyecto': No such file or directory</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="st">"</span><span class="va">$D</span><span class="st">"</span>    <span class="co"># ✓ funciona</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Sin comillas, el shell parte el valor por los espacios y lo entrega como <strong>dos argumentos</strong>. Con comillas, lo entrega como uno solo. Como en bioinformática los nombres de archivo vienen de descargas, de otras personas y de sistemas distintos, tarde o temprano llega uno con un espacio, un paréntesis o un acento.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Advertencia
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Este error es especialmente peligroso porque <strong>es intermitente</strong>. Tu script funciona durante semanas y un día falla, con un genoma cuyo nombre trae un espacio. Y a veces no falla: hace algo distinto en silencio. La regla práctica no admite excepciones en este curso: <strong>toda expansión va entre comillas dobles</strong>.</p>
+</div>
+</div>
+</section>
+<section id="un-nombre-que-se-calcula-..." class="level3">
+<h3 class="anchored" data-anchor-id="un-nombre-que-se-calcula-...">3.2 Un nombre que se calcula: <code>$(...)</code></h3>
+<p><strong>Concepto esencial</strong></p>
+<p>También puedes guardar en una variable <strong>el resultado de un comando</strong>:</p>
+<p><strong>Sintaxis mínima</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="va">NOMBRE</span><span class="op">=</span><span class="st">"</span><span class="va">$(</span><span class="fu">basename</span> <span class="st">"</span><span class="va">$FASTA</span><span class="st">"</span> .fna<span class="va">)</span><span class="st">"</span>    <span class="co"># de "data/source/ecoli.fna" → "ecoli"</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>¿Qué hace?</strong> Ejecuta lo que hay dentro de <code>$(...)</code> y guarda su salida.</p>
+<p><strong>¿Por qué aparece en esta sesión?</strong> Porque el nombre del genoma no puede escribirse a mano —si llegara desde fuera, no lo sabrías al escribir el script—: hay que <strong>derivarlo del dato que llegue</strong>. Sin esto, la sección 4.3 no tiene solución.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>basename</code> recorta la ruta y, si le das una extensión, también la quita. Pruébalo suelto en la terminal antes de meterlo en el script: <code>basename data/source/ecoli.fna .fna</code>.</p>
+</div>
+</div>
+</section>
+<section id="lo-que-este-paso-no-resuelve" class="level3">
+<h3 class="anchored" data-anchor-id="lo-que-este-paso-no-resuelve">3.3 Lo que este paso <strong>no</strong> resuelve</h3>
+<p><strong>Concepto de apoyo</strong></p>
+<p>Con variables, tu script tiene ahora las rutas en un solo sitio, arriba. Es una mejora real: cambiar de genoma pasó de tocar quince líneas a tocar dos.</p>
+<p>Pero <strong>sigues teniendo que abrir el archivo y editarlo</strong>. Y sigues necesitando una copia por genoma si quieres conservar los dos. La opción 1 de la sección 1 sigue siendo la única disponible: solo se volvió más barata.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u5-s25-ruta-variable-parametro.png" class="img-fluid figure-img"></p>
+<figcaption>Tres etapas de un mismo script. En la primera, la ruta del archivo está escrita dentro y repetida en muchas líneas: para cambiar de genoma hay que abrir el archivo y corregir todas las apariciones, y hace falta una copia del script por cada genoma. En la segunda, la ruta se declara una sola vez en una variable al principio y el resto del script la usa por su nombre: cambiar de genoma exige editar una sola línea, pero sigue habiendo que abrir el archivo y sigue haciendo falta una copia por genoma. En la tercera, el dato lo aporta quien invoca el script y llega como argumento, que se recoge en una variable: el archivo no se abre nunca y hay un único script para todos los genomas. Una franja inferior resume que la variable agrupa el cambio mientras que el parámetro lo saca del archivo.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 25.2.</strong> De la ruta escrita al parámetro. La pregunta que separa las tres etapas es siempre la misma: ¿quién decide qué datos se analizan? Elaboración propia.</p>
+<p>Fíjate en la fila «¿quién decide el dato?». En las dos primeras etapas la respuesta es <strong>quien edita el archivo</strong>; solo en la tercera pasa a ser <strong>quien lo invoca</strong>. Ese traspaso —del que edita al que usa— es el concepto nuevo más importante de la sesión, y todo lo demás es su consecuencia.</p>
+<blockquote class="blockquote">
+<p><strong>IDEA CLAVE.</strong> Una variable <strong>agrupa</strong> el cambio; un parámetro lo <strong>saca fuera del archivo</strong>. La variable es el paso intermedio necesario —y también la trampa donde mucha gente se detiene creyendo que ya parametrizó—.</p>
+</blockquote>
+</section>
+<section id="práctica-3-dar-nombre-sin-cambiar-el-comportamiento-durante-el-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-3-dar-nombre-sin-cambiar-el-comportamiento-durante-el-taller">Práctica 3 — Dar nombre sin cambiar el comportamiento <em>(durante el taller)</em></h3>
+<p><strong>Pregunta metodológica.</strong> ¿Puedo reorganizar mi script y demostrar que sigue haciendo exactamente lo mismo?</p>
+<p><strong>Objetivo.</strong> Introducir variables y comprobar que el resultado es <strong>idéntico</strong> al de S24.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Trabaja sobre una copia con nombre nuevo y conserva intacta la de S24: <code>cp src/analizar-genoma.sh src/analizar-genoma-s24.sh</code>. Las dos versiones se comparan al final.</p>
+</div>
+</div>
+<p><strong>Parte A — Sustituir</strong></p>
+<ol type="1">
+<li><p><strong>Declara las variables</strong> al principio del script, después del encabezado, con los mismos valores que estaban escritos dentro:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="va">FASTA</span><span class="op">=</span><span class="st">"data/source/genoma.fna"</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="va">GFF</span><span class="op">=</span><span class="st">"data/source/anotacion.gff3"</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="va">SALIDA</span><span class="op">=</span><span class="st">"results/s25"</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p><strong>Sustituye cada aparición</strong> por su expansión, <strong>entre comillas dobles</strong>. Ve una por una y ve tachándolas de la lista de la Práctica 1.</p></li>
+<li><p><strong>Comprueba que no queda ninguna:</strong> busca en el archivo el nombre del genoma. Si aparece fuera de la línea de asignación y del encabezado, se te escapó una.</p></li>
+</ol>
+<p><strong>Parte B — Demostrar que nada cambió</strong></p>
+<ol start="4" type="1">
+<li><p><strong>Ejecuta el script</strong> y compara sus salidas con las de S24 usando la estrategia adecuada a cada tipo de producto, como en S23: <strong>checksum</strong> para los archivos deterministas, conteo para los números.</p></li>
+<li><p><strong>Registra el resultado:</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Producto</th>
+<th>Equivalencia esperada</th>
+<th>Estrategia</th>
+<th>Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>inventario-features.tsv</code></td>
+<td>byte a byte</td>
+<td>checksum</td>
+<td>coincide / difiere</td>
+</tr>
+</tbody>
+</table></li>
+<li><p><strong>Si algo difiere, encuéntralo antes de seguir.</strong> La causa casi siempre es una expansión sin comillas o una ruta que no sustituiste.</p></li>
+</ol>
+<p><strong>Parte C — Provocar los dos errores clásicos</strong></p>
+<ol start="7" type="1">
+<li><strong>Escribe a propósito</strong> <code>GFF = "data/source/anotacion.gff3"</code>, con espacios. Ejecuta, anota el mensaje y explica en una línea por qué el shell dice lo que dice.</li>
+<li><strong>Quita las comillas</strong> de una expansión y ejecuta el script desde una ruta que contenga un espacio. Anota qué pasa. Si tu ruta no tiene espacios, créate un directorio de prueba que sí los tenga.</li>
+</ol>
+<p><strong>Producto esperado.</strong> El script con variables, la tabla de equivalencia frente a S24 y los dos errores provocados con su mensaje.</p>
+<p><strong>Criterio de logro:</strong> la salida es <strong>idéntica</strong> a la de S24 —eso es lo que se evalúa— y sabes explicar los dos mensajes de error.</p>
+<hr>
+</section>
+</section>
+<section id="que-el-dato-entre-desde-fuera-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="que-el-dato-entre-desde-fuera-indispensable">4. Que el dato entre desde fuera [Indispensable]</h2>
+<p><strong>Concepto esencial</strong></p>
+<p>Aquí está el cambio de la sesión. En vez de escribir el valor dentro del archivo, el script lo <strong>recibe</strong> en el momento de invocarlo.</p>
+<p><strong>Sintaxis mínima</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./src/analizar-genoma.sh</span> data/source/ecoli.fna data/source/anotacion.gff3</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="va">FASTA</span><span class="op">=</span><span class="st">"</span><span class="va">$1</span><span class="st">"</span>      <span class="co"># lo primero que se escribió después del nombre del script</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="va">GFF</span><span class="op">=</span><span class="st">"</span><span class="va">$2</span><span class="st">"</span>        <span class="co"># lo segundo</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                <span class="co"># $# guarda cuántos argumentos llegaron</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>¿Qué hace?</strong> El shell entrega al script lo que escribiste después de su nombre, numerado por posición.</p>
+<p><strong>¿Por qué aparece en esta sesión?</strong> Porque es la única forma de que el procedimiento deje de mencionar tus archivos sin dejar de saber sobre cuáles trabajar.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u5-s25-anatomia-llamada.png" class="img-fluid figure-img"></p>
+<figcaption>La línea escrita en la terminal se descompone en tres partes: el nombre del script, que el script conoce como cero, y dos argumentos, el genoma y la anotación, que el script recibe como uno y dos; además dispone del número total de argumentos que llegaron. Debajo se muestra cómo esas piezas se recogen dentro del script en variables con nombre propio, y cómo a partir de ellas se deriva el nombre de la carpeta de resultados, de modo que cada genoma escriba en su propio sitio. A la derecha, la misma orden con otro genoma produce otra carpeta sin haber modificado ni una línea del archivo. Una franja inferior recuerda que la posición es la que da significado al argumento, y que por eso el bloque de uso es obligatorio.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 25.3.</strong> Anatomía de una llamada. Lo que da significado a un argumento es su posición, no su nombre: por eso el bloque de uso no es cortesía. Elaboración propia.</p>
+<section id="el-bloque-de-uso-deja-de-ser-un-comentario" class="level3">
+<h3 class="anchored" data-anchor-id="el-bloque-de-uso-deja-de-ser-un-comentario">4.1 El bloque de uso deja de ser un comentario</h3>
+<p><strong>Concepto esencial</strong></p>
+<p>En S24, la línea de <strong>uso</strong> del encabezado era información para quien leyera el archivo. Hoy se convierte en algo más serio, por un motivo concreto: <strong>el script no sabe qué es <code>$1</code></strong>. No sabe que es un FASTA. Sabe que fue lo primero que escribiste.</p>
+<p>Si inviertes el orden —primero el GFF3, después el FASTA— el script se ejecutará igual, sin protestar, y producirá números que parecen resultados. Es exactamente el fallo silencioso de S24, ahora por otra vía.</p>
+<p>Por eso el uso se escribe <strong>dos veces</strong>: en el encabezado, para quien lee, y en un mensaje que el script imprime cuando lo invocan mal:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="st">"</span><span class="va">$#</span><span class="st">"</span> <span class="ot">-ne</span> 2 <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"ERROR: se esperan 2 argumentos y llegaron </span><span class="va">$#</span><span class="st">."</span> <span class="op">&gt;&amp;</span><span class="dv">2</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Uso: </span><span class="va">$0</span><span class="st"> &lt;genoma.fna&gt; &lt;anotacion.gff3&gt;"</span> <span class="op">&gt;&amp;</span><span class="dv">2</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">exit</span> 1</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>$0</code> es el nombre con el que se invocó el script, así que el mensaje siempre dice la verdad aunque alguien renombre el archivo.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="tu script acaba de adquirir una forma oficial de usarse">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>tu script acaba de adquirir una forma oficial de usarse
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Desde hoy no basta con que el archivo funcione: existe <strong>una manera correcta de llamarlo</strong> —cuántos argumentos, en qué orden, de qué tipo— y cualquier otra forma debería fallar de manera clara. Esa «forma oficial» es lo que quien recibe tu herramienta necesita conocer, y lo único que necesita conocer: no tiene por qué leer el interior. Por eso el bloque de uso es la parte más pública de tu script, y por eso se escribe con cuidado. En S27 volveremos sobre ello, cuando la herramienta pase a manos de otra persona.</p>
+</div>
+</div>
+</section>
+<section id="el-choque-de-los-dos-1" class="level3">
+<h3 class="anchored" data-anchor-id="el-choque-de-los-dos-1">4.2 El choque de los dos <code>$1</code></h3>
+<p><strong>Concepto esencial</strong></p>
+<p>Aquí hay una confusión que vas a tener sí o sí, porque acabas de aprender <code>awk</code> en S22:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><code>$1</code> en <code>awk</code></th>
+<th><code>$1</code> en el shell</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Significa</td>
+<td>el primer <strong>campo</strong> de la línea</td>
+<td>el primer <strong>argumento</strong> del script</td>
+</tr>
+<tr class="even">
+<td>Lo interpreta</td>
+<td><code>awk</code></td>
+<td>bash, <strong>antes</strong> de llamar a <code>awk</code></td>
+</tr>
+<tr class="odd">
+<td>Se protege con</td>
+<td><strong>comillas simples</strong> <code>'...'</code></td>
+<td>comillas dobles <code>"..."</code></td>
+</tr>
+</tbody>
+</table>
+<p>La regla práctica es simple y hay que aplicarla siempre:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✓ correcto: comillas SIMPLES → awk recibe su propio $3</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="st">'$3=="gene"'</span> <span class="st">"</span><span class="va">$GFF</span><span class="st">"</span> <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ✗ incorrecto: comillas DOBLES → bash sustituye $3 (que está vacío) antes</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="st">"</span><span class="va">$3</span><span class="st">==</span><span class="dt">\"</span><span class="st">gene</span><span class="dt">\"</span><span class="st">"</span> <span class="st">"</span><span class="va">$GFF</span><span class="st">"</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>El segundo caso no produce un resultado raro: produce esto, que es una suerte, porque se ve.</p>
+<pre class="text"><code>awk: cmd. line:1: =="gene"
+awk: cmd. line:1: ^ syntax error</code></pre>
+<blockquote class="blockquote">
+<p><strong>IDEA CLAVE.</strong> Comillas <strong>simples</strong> para el programa de <code>awk</code>; comillas <strong>dobles</strong> para las rutas del shell. Dentro de una misma línea conviven las dos, y cada una protege de algo distinto.</p>
+</blockquote>
+</section>
+<section id="una-consecuencia-inmediata-dos-genomas-un-solo-archivo" class="level3">
+<h3 class="anchored" data-anchor-id="una-consecuencia-inmediata-dos-genomas-un-solo-archivo">4.3 Una consecuencia inmediata: dos genomas, un solo archivo</h3>
+<p><strong>Concepto esencial</strong></p>
+<p>En cuanto ejecutes el script por segunda vez con otro genoma, descubrirás un problema que no existía cuando las rutas estaban dentro:</p>
+<pre class="text"><code>./analizar-genoma.sh ecoli.fna    ecoli.gff3     → results/s25/inventario-features.tsv
+./analizar-genoma.sh salmonella.fna salmonella.gff3 → results/s25/inventario-features.tsv
+                                                        ↑
+                                          el segundo borró al primero</code></pre>
+<p>No hay error, no hay aviso. El archivo del primer genoma simplemente ya no existe. La solución usa lo de la sección 3.2: <strong>derivar el nombre de la salida del dato que llegó</strong>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="va">NOMBRE</span><span class="op">=</span><span class="st">"</span><span class="va">$(</span><span class="fu">basename</span> <span class="st">"</span><span class="va">$FASTA</span><span class="st">"</span> .fna<span class="va">)</span><span class="st">"</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="va">SALIDA</span><span class="op">=</span><span class="st">"results/s25/</span><span class="va">$NOMBRE</span><span class="st">"</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> <span class="st">"</span><span class="va">$SALIDA</span><span class="st">"</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Ahora cada ejecución escribe en su propio sitio, y el nombre de la carpeta dice de quién es el resultado.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="por qué esto importa más de lo que parece">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>por qué esto importa más de lo que parece
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No es orden por orden. Un resultado sin identificar es un resultado que no puedes citar: dentro de un mes no sabrás de qué genoma era ese inventario. Que la salida herede el nombre de su entrada es <strong>trazabilidad</strong>, la misma que persigues desde U3.</p>
+</div>
+</div>
+</section>
+<section id="práctica-4-que-el-dato-entre-desde-fuera-durante-el-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-4-que-el-dato-entre-desde-fuera-durante-el-taller">Práctica 4 — Que el dato entre desde fuera <em>(durante el taller)</em></h3>
+<p><strong>Pregunta biológica de fondo.</strong> ¿Qué contiene la anotación de <strong>este</strong> genoma? — la misma de S13, respondida hoy sin que el procedimiento sepa de cuál se trata.</p>
+<p><strong>Objetivo.</strong> Convertir las variables en parámetros y ejecutar el mismo archivo sobre dos genomas.</p>
+<p><strong>Parte A — Parametrizar</strong></p>
+<ol type="1">
+<li><p><strong>Sustituye los valores</strong> de las tres variables por los argumentos:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="va">FASTA</span><span class="op">=</span><span class="st">"</span><span class="va">$1</span><span class="st">"</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="va">GFF</span><span class="op">=</span><span class="st">"</span><span class="va">$2</span><span class="st">"</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p><strong>Deriva el nombre de la salida</strong> del dato recibido, con <code>basename</code>, y crea el directorio con <code>mkdir -p</code>. Sin esto, el segundo genoma borrará los resultados del primero.</p></li>
+<li><p><strong>Actualiza el encabezado</strong>: la línea de uso ya no es <code>./src/analizar-genoma.sh</code>, y las entradas ya no son rutas fijas sino <strong>argumentos esperados</strong>. Descríbelos.</p></li>
+</ol>
+<p><strong>Parte B — Ejecutar</strong></p>
+<ol start="4" type="1">
+<li><strong>Ejecuta con tu genoma</strong> y comprueba que el resultado sigue coincidiendo con el de la Práctica 3.</li>
+<li><strong>Ejecuta con el segundo genoma</strong> y comprueba que aparecieron dos carpetas de resultados, cada una con su nombre.</li>
+<li><strong>Invierte el orden de los argumentos</strong> a propósito y observa qué ocurre. Responde: ¿protestó el script? ¿Produjo archivos? ¿Se distinguen de los buenos mirando solo el resultado?</li>
+</ol>
+<p><strong>Parte C — El choque de los <code>$1</code></strong></p>
+<ol start="7" type="1">
+<li><strong>Localiza en tu script una línea de <code>awk</code></strong> que use campos y comprueba con qué comillas está escrita.</li>
+<li><strong>Cámbiala a comillas dobles</strong> a propósito, ejecuta y anota el mensaje. Vuelve a dejarla como estaba y explica en dos líneas por qué las comillas simples son obligatorias ahí.</li>
+</ol>
+<p><strong>Producto esperado.</strong> El script parametrizado, dos carpetas de resultados y las respuestas del paso 6 y del paso 8.</p>
+<p><strong>Criterio de logro:</strong> el mismo archivo, sin editarlo, produce resultados identificables para dos genomas distintos; y sabes por qué el paso 6 es peligroso.</p>
+<hr>
+</section>
+</section>
+<section id="un-procedimiento-que-no-supone-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="un-procedimiento-que-no-supone-indispensable">5. Un procedimiento que no supone [Indispensable]</h2>
+<p>Ya tienes un script que recibe datos. Y con ello acabas de perder la única garantía que tenías: que sus entradas existan.</p>
+<p>Esta sección introduce varias piezas pequeñas seguidas. Para no perderte, ten presente que <strong>todas sirven a tres pasos, y solo tres</strong>, en este orden:</p>
+<pre class="text"><code>   ①  COMPROBAR            ②  COMUNICAR EL ERROR         ③  DETENER LA EJECUCIÓN
+   ¿es utilizable lo         decirlo por el canal           no seguir, y avisar
+   que me dieron?           que corresponde                a quien te ejecutó
+
+   §5.1                     §5.2                           §5.3
+   if · -f · -s · -z        &gt;&amp;2                            exit 1  →  $?</code></pre>
+<p>Si al leer una pieza no sabes para qué es, vuelve a este mapa: cada una cae en una de las tres casillas. Y las tres juntas responden una sola pregunta —<em>¿qué hace mi herramienta cuando algo falta?</em>—, que es la pregunta con la que se juzga un script.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u5-s25-confiar-vs-comprobar.png" class="img-fluid figure-img"></p>
+<figcaption>Se comparan dos scripts a los que se les pasa un archivo que no existe. El primero confía: ejecuta el primer comando, que protesta con un aviso que queda enterrado, crea igualmente el archivo de salida vacío, sigue con los pasos siguientes, imprime que terminó y devuelve código cero, de modo que quien lo ejecuta cree que el análisis se hizo. El segundo comprueba antes de trabajar: detecta que el archivo no existe, escribe un mensaje de error por el canal de error indicando qué falta y cómo se invoca el script, se detiene sin haber creado ningún archivo y devuelve un código distinto de cero. Una franja inferior resume que la diferencia no es de estilo sino de honestidad: un resultado ausente es preferible a un resultado falso.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 25.4.</strong> Dos caminos ante una entrada que falta. Un resultado ausente se nota y se corrige; un resultado falso se publica. Elaboración propia.</p>
+<section id="paso-①-comprobar" class="level3">
+<h3 class="anchored" data-anchor-id="paso-①-comprobar">5.1 Paso ① — Comprobar</h3>
+<p><strong>Concepto esencial</strong></p>
+<p><strong>Sintaxis mínima</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">!</span> <span class="ot">-f</span> <span class="st">"</span><span class="va">$FASTA</span><span class="st">"</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"ERROR: no encuentro el FASTA: </span><span class="va">$FASTA</span><span class="st">"</span> <span class="op">&gt;&amp;</span><span class="dv">2</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">exit</span> 1</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>¿Qué hace?</strong> Comprueba una condición y, si no se cumple, avisa y termina.</p>
+<p><strong>¿Por qué aparece en esta sesión?</strong> Porque desde hoy el script no elige sus entradas: se las dan. Y lo que le den puede no existir, estar vacío o ser otra cosa.</p>
+<p>Las comprobaciones que necesitas hoy son cuatro, y ninguna más:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Comprobación</th>
+<th>Qué pregunta</th>
+<th>Cuándo se usa</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>[ "$#" -ne 2 ]</code></td>
+<td>¿Llegaron los dos argumentos?</td>
+<td>Lo primero de todo</td>
+</tr>
+<tr class="even">
+<td><code>[ ! -f "$ARCHIVO" ]</code></td>
+<td>¿Existe y es un archivo normal?</td>
+<td>Para el FASTA</td>
+</tr>
+<tr class="odd">
+<td><code>[ ! -s "$ARCHIVO" ]</code></td>
+<td>¿Existe <strong>y además</strong> tiene contenido?</td>
+<td>Para el GFF3 y para los derivados</td>
+</tr>
+<tr class="even">
+<td><code>[ -z "$VALOR" ]</code></td>
+<td>¿El valor está vacío?</td>
+<td>Para un argumento que llegó en blanco</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled" title="`-f` y `-s` no son lo mismo, y la diferencia te va a salvar">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span><code>-f</code> y <code>-s</code> no son lo mismo, y la diferencia te va a salvar
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>-f</code> solo dice que el archivo existe. <code>-s</code> dice que existe <strong>y no está vacío</strong>. Recuerda el fallo de S24: un comando que falla deja creado un archivo de cero bytes, que para <code>-f</code> es perfectamente válido. Para las entradas y para los derivados críticos, usa <code>-s</code>.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="los espacios de los corchetes no son decorativos">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>los espacios de los corchetes no son decorativos
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>[</code> es un comando, así que necesita espacios a los lados: <code>[ -f "$F" ]</code>, nunca <code>[-f "$F"]</code>. Si te da <code>command not found: [-f</code>, es esto.</p>
+</div>
+</div>
+</section>
+<section id="paso-②-comunicar-el-error" class="level3">
+<h3 class="anchored" data-anchor-id="paso-②-comunicar-el-error">5.2 Paso ② — Comunicar el error</h3>
+<p><strong>Concepto esencial</strong></p>
+<p>Ya sabes detectar que algo falta. Ahora hay que <strong>decirlo por el canal correcto</strong>, y eso no es un detalle de estilo.</p>
+<p>En U4 aprendiste que un comando tiene una salida estándar y una salida de error, y que se redirigen por separado. Hoy eso deja de ser teoría:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"[1/2] Preparando el cuerpo del GFF3..."</span>          <span class="co"># salida normal</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"ERROR: no encuentro el FASTA: </span><span class="va">$FASTA</span><span class="st">"</span> <span class="op">&gt;&amp;</span><span class="dv">2</span>        <span class="co"># canal de error</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>¿Por qué separarlos?</strong> Porque quien use tu herramienta va a querer capturar los resultados sin que se le mezclen los avisos, y ver los avisos aunque haya redirigido los resultados:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./src/analizar-genoma.sh</span> ecoli.fna anotacion.gff3 <span class="op">&gt;</span> bitacora.txt</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Con <code>&gt;&amp;2</code>, los errores siguen apareciendo en pantalla aunque todo lo demás se haya ido al archivo. Sin <code>&gt;&amp;2</code>, el error queda enterrado en el archivo y nadie lo ve — que es exactamente cómo se pierde un aviso importante.</p>
+</section>
+<section id="paso-③-detener-la-ejecución" class="level3">
+<h3 class="anchored" data-anchor-id="paso-③-detener-la-ejecución">5.3 Paso ③ — Detener la ejecución</h3>
+<p><strong>Concepto esencial</strong></p>
+<p>Comprobar y avisar no bastan: si el script continúa, todo lo que venga después heredará el problema. Detenerse tiene dos partes —dejar de ejecutar, con <code>exit</code>, y <strong>decir que algo salió mal</strong>, con el número que ese <code>exit</code> devuelve—.</p>
+<p>En S24 comprobaste que un script que había fallado devolvía <code>0</code>, «todo bien», y aprendiste a mirarlo con <code>echo $?</code>. Hoy pasas al otro lado: <strong>eres tú quien produce ese número</strong>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Valor</th>
+<th>Significa</th>
+<th>Cuándo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>0</code></td>
+<td>Terminó bien</td>
+<td>Es lo que devuelve si llega al final sin <code>exit</code></td>
+</tr>
+<tr class="even">
+<td><code>1</code> (o cualquier distinto de 0)</td>
+<td>Algo salió mal</td>
+<td>Lo declaras tú con <code>exit 1</code></td>
+</tr>
+</tbody>
+</table>
+<p>Parece un detalle burocrático y no lo es: en S26 vas a ejecutar este script muchas veces seguidas, y ese número será la única forma de saber <strong>cuáles de esas ejecuciones funcionaron</strong> sin leer cientos de líneas de salida.</p>
+<blockquote class="blockquote">
+<p><strong>IDEA CLAVE.</strong> Detenerse a tiempo no es un lujo del software profesional: es honestidad científica. Un resultado ausente se nota y se corrige; un resultado falso se interpreta, se discute y a veces se publica. Comprobar las entradas cuesta cuatro líneas.</p>
+</blockquote>
+</section>
+<section id="práctica-5-enseñarle-al-script-a-comprobar-durante-el-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-5-enseñarle-al-script-a-comprobar-durante-el-taller">Práctica 5 — Enseñarle al script a comprobar <em>(durante el taller)</em></h3>
+<p><strong>Pregunta metodológica.</strong> ¿Cómo consigo que se detenga en vez de producir basura convincente?</p>
+<p><strong>Objetivo.</strong> Añadir las comprobaciones mínimas y verificar que hacen lo que dicen.</p>
+<p><strong>Parte A — Comprobar</strong></p>
+<ol type="1">
+<li><strong>Añade la comprobación del número de argumentos</strong>, lo primero de todo, con su mensaje de uso a <code>&gt;&amp;2</code> y su <code>exit 1</code>.</li>
+<li><strong>Añade la comprobación de cada entrada</strong>: <code>-f</code> para el FASTA, <code>-s</code> para el GFF3. Usa los mensajes que redactaste en la Práctica 2, incluyendo <strong>el valor recibido</strong>.</li>
+<li><strong>Añade una comprobación de salida</strong>: después de generar el derivado, comprueba con <code>-s</code> que no quedó vacío. Es el control bloqueante número 1 de tu tabla de S23, ahora impuesto por el script.</li>
+</ol>
+<p><strong>Parte B — Probar que las comprobaciones funcionan</strong></p>
+<ol start="4" type="1">
+<li><p><strong>Recorre los seis casos</strong> de la Práctica 2 y ejecútalos de verdad. Para cada uno anota: el mensaje, si se creó algún archivo y el código de salida (<code>echo $?</code> inmediatamente después).</p>
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Situación</th>
+<th>Mensaje obtenido</th>
+<th>¿Creó archivos?</th>
+<th><code>$?</code></th>
+<th>¿Coincide con mi predicción?</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table></li>
+<li><p><strong>Compara con la versión de S24.</strong> Ejecuta el script viejo con un archivo inexistente y el nuevo con el mismo. Describe la diferencia en una frase.</p></li>
+<li><p><strong>Comprueba la separación de canales:</strong> ejecuta con una entrada mala redirigiendo la salida normal a un archivo (<code>&gt; /tmp/prueba.txt</code>). ¿Viste el error en pantalla? ¿Qué quedó en el archivo?</p></li>
+</ol>
+<details>
+<summary>
+Ver retroalimentación
+</summary>
+<p><strong>Ábrelo después de haber recorrido los seis casos.</strong> El comportamiento de las comprobaciones no depende de tu genoma.</p>
+<p><strong><code>-f</code> y <code>-s</code> no comprueban lo mismo, y la diferencia es el caso 4.</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Prueba</th>
+<th>Es cierta cuando…</th>
+<th>Deja pasar</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>-f archivo</code></td>
+<td>existe y es un archivo regular</td>
+<td>un archivo <strong>vacío</strong></td>
+</tr>
+<tr class="even">
+<td><code>-s archivo</code></td>
+<td>existe <strong>y tiene tamaño mayor que cero</strong></td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>Por eso el GFF3 se comprueba con <code>-s</code>: un GFF3 de cero bytes existe, supera <code>-f</code> y produce silenciosamente un inventario vacío. Es el caso 4 de tu tabla, y es el que <code>-f</code> no atrapa.</p>
+<p><strong>Códigos de salida esperados.</strong> Con las comprobaciones puestas, los casos 1 a 4 terminan con <code>$?</code> igual a <strong>1</strong> —el error que tú decidiste— y <strong>sin crear ningún archivo</strong>, porque el script se detiene antes de la primera redirección. Si alguno te devuelve 0, la comprobación está después de donde debería.</p>
+<p><strong>Lo que sigue sin quedar resuelto.</strong> Repasa tu tabla: de los seis casos, las comprobaciones de existencia arreglan cuatro. Quedan dos.</p>
+<ul>
+<li><strong>Caso 5, orden invertido.</strong> Los dos archivos existen y ninguno está vacío: todas las comprobaciones pasan y el script produce resultados equivocados. Solo se detecta mirando el contenido, como anticipaste en la Práctica 2.</li>
+<li><strong>Caso 6, ruta con espacio.</strong> No lo arregla ninguna comprobación: lo arregla <strong>entrecomillar las variables</strong>. Si no lo hiciste, la ruta se parte en dos argumentos antes de que el script pueda examinarla, y el mensaje de error nombrará solo el primer trozo.</li>
+</ul>
+<p>Que dos de seis sigan abiertos no es un fallo de la práctica: es el resultado. Comprobar que un archivo existe es la comprobación más barata, no la que importa.</p>
+</details>
+<p><strong>Parte C — El caso que no se puede comprobar</strong></p>
+<ol start="7" type="1">
+<li><strong>Vuelve al caso 5</strong> —los argumentos invertidos—. Las comprobaciones que añadiste no lo detectan: los dos archivos existen. Escribe qué se te ocurre para reducir ese riesgo con lo que sabes hoy. Discútelo en clase: no hay una respuesta única, y reconocer un riesgo que no puedes eliminar del todo también es un resultado.</li>
+</ol>
+<p><strong>Producto esperado.</strong> El script con sus comprobaciones, la tabla de los seis casos ejecutados y la respuesta al paso 7.</p>
+<p><strong>Criterio de logro:</strong> ninguna entrada inválida produce archivos, todos los mensajes de error salen por <code>&gt;&amp;2</code> y el código de salida distingue el éxito del fallo.</p>
+<hr>
+</section>
+</section>
+<section id="el-mismo-procedimiento-otro-genoma-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="el-mismo-procedimiento-otro-genoma-indispensable">6. El mismo procedimiento, otro genoma [Indispensable]</h2>
+<p><strong>Concepto esencial</strong></p>
+<p>Todo lo anterior tiene un propósito que no es informático. Ahora puedes hacer algo que ayer no podías:</p>
+<blockquote class="blockquote">
+<p><strong>Aplicar exactamente el mismo análisis, sin una sola diferencia, a dos organismos distintos.</strong></p>
+</blockquote>
+<p>Esa es la condición para comparar. La pregunta científica permanece igual —<em>¿qué contiene esta anotación?</em>—; lo único que cambia son los datos sobre los que se formula. Si hubieras editado el script entre un genoma y otro, cualquier diferencia en los resultados tendría dos explicaciones posibles —la biología o tu edición— y no podrías distinguirlas. Con un instrumento único, esa ambigüedad desaparece:</p>
+<pre class="text"><code>mismo instrumento + datos distintos  →  las diferencias son de los datos</code></pre>
+<p>Es la lógica de cualquier experimento comparativo: si quieres atribuir una diferencia a las muestras, todo lo demás tiene que haber sido igual. Aquí «todo lo demás» es tu script.</p>
+<section id="qué-mirar-cuando-tengas-los-dos-inventarios" class="level3">
+<h3 class="anchored" data-anchor-id="qué-mirar-cuando-tengas-los-dos-inventarios">6.1 Qué mirar cuando tengas los dos inventarios</h3>
+<p><strong>Concepto de apoyo</strong></p>
+<p>La Práctica 6 te pedirá interpretar, y conviene saber de antemano que <strong>no toda diferencia es biológica</strong>. Al comparar dos inventarios aparecerán tres clases de diferencia y hay que separarlas:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Lo que observas</th>
+<th>Posible causa biológica</th>
+<th>Posible causa técnica</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Un genoma tiene más genes</td>
+<td>Genoma mayor, más capacidad codificante</td>
+<td>Distinta versión o criterio de anotación</td>
+</tr>
+<tr class="even">
+<td>Aparecen tipos de <em>feature</em> que el otro no tiene</td>
+<td>El organismo tiene esos elementos</td>
+<td>La anotación los reporta con otro vocabulario</td>
+</tr>
+<tr class="odd">
+<td>Distinta proporción CDS/gen</td>
+<td>Más genes no codificantes de proteína</td>
+<td>Pseudogenes tratados de otro modo</td>
+</tr>
+<tr class="even">
+<td>Distinto número de replicones</td>
+<td>Plásmidos presentes o ausentes</td>
+<td>El ensamblado incluye o no los plásmidos</td>
+</tr>
+</tbody>
+</table>
+<p>Es el mismo razonamiento de S21, cuando confrontaste tu inventario con una fuente externa: <strong>antes de atribuir una diferencia a la biología, hay que descartar que venga del procedimiento de anotación</strong>. La honestidad aquí consiste en declarar cuándo no puedes distinguirlo con los datos que tienes.</p>
+<blockquote class="blockquote">
+<p><strong>IDEA CLAVE.</strong> Parametrizar un script no es un logro técnico: es lo que <strong>hace comparables</strong> dos análisis. Y comparar es, desde S21, la operación que convierte un resultado en una conclusión.</p>
+</blockquote>
+</section>
+<section id="práctica-6-dos-genomas-un-procedimiento-después-del-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-6-dos-genomas-un-procedimiento-después-del-taller">Práctica 6 — Dos genomas, un procedimiento <em>(después del taller)</em></h3>
+<p><strong>Pregunta biológica.</strong> ¿En qué se parecen y en qué se diferencian la anotación de mi genoma y la de otro organismo, y qué parte de esa diferencia es biológica?</p>
+<p><strong>Objetivo.</strong> Usar la herramienta para lo que se construyó: comparar, e interpretar con honestidad.</p>
+<p><strong>Parte A — Ejecutar</strong></p>
+<ol type="1">
+<li><strong>Comprueba la procedencia</strong> del segundo genoma: ficha de U3 completa, con versión y checksum. Sin ella, el resultado no es evidencia.</li>
+<li><strong>Ejecuta la herramienta</strong> sobre los dos genomas, sin tocar el archivo entre una ejecución y otra. Anota la orden exacta y la fecha de cada una.</li>
+<li><strong>Deja constancia de que la estrategia metodológica fue idéntica.</strong> Es la afirmación que sostiene toda la comparación: comprueba, por ejemplo con un checksum del propio script, que el archivo es el mismo en las dos ejecuciones.</li>
+</ol>
+<p><strong>Parte B — Comparar</strong></p>
+<ol start="4" type="1">
+<li><strong>Construye una tabla comparativa</strong> con lo que produce tu herramienta: número de replicones, tipos de <em>feature</em> y sus frecuencias, número de genes y de CDS, proporción CDS/gen.</li>
+<li><strong>Clasifica cada diferencia</strong> con la tabla de la Sección 6.1: ¿biológica, técnica, o no distinguible con estos datos?</li>
+<li><strong>Localiza al menos un caso ambiguo</strong> y explica qué evidencia adicional haría falta para resolverlo. Que exista un caso así no es un fallo de tu trabajo: es cómo son los datos.</li>
+</ol>
+<p><strong>Parte C — Interpretar y documentar</strong></p>
+<ol start="7" type="1">
+<li><strong>Escribe la interpretación</strong> en dos o tres párrafos: qué puedes afirmar sobre los dos organismos, con qué confianza y qué queda abierto. Ni una afirmación sin su evidencia.</li>
+<li><strong>Actualiza <code>doc/protocolo.md</code></strong> con la sección de S25 (plantilla en la Sección 8).</li>
+<li><strong>Declara las limitaciones</strong> de la herramienta tal como está: sigue procesando un genoma por invocación, sigue sin resumir el conjunto, y sigue confiando en que quien la invoque ponga los argumentos en el orden correcto.</li>
+</ol>
+<p><strong>Producto esperado.</strong> La tabla comparativa, la interpretación escrita y la sección S25 del protocolo.</p>
+<p><strong>Criterio de logro:</strong> las diferencias están clasificadas por su causa probable, hay al menos un caso declarado como no distinguible, y queda demostrado que <strong>la comparación solo es válida porque los dos genomas se analizaron con el mismo instrumento</strong>.</p>
+<hr>
+</section>
+</section>
+<section id="reutilizable-todavía-no-es-masivo-consulta" class="level2">
+<h2 class="anchored" data-anchor-id="reutilizable-todavía-no-es-masivo-consulta">7. Reutilizable todavía no es masivo [Consulta]</h2>
+<p>Al terminar tendrás una herramienta que sirve para cualquier genoma. Compruébalo tú mismo: ejecútala para el tuyo, después para el segundo, y después para un tercero.</p>
+<p>Y ahí vas a notar lo siguiente:</p>
+<pre class="text"><code>./analizar-genoma.sh g1.fna g1.gff3
+./analizar-genoma.sh g2.fna g2.gff3
+./analizar-genoma.sh g3.fna g3.gff3
+...</code></pre>
+<p>Funciona. Pero para doce genomas son doce órdenes escritas a mano, y para cien, cien. Y hay algo peor que el tedio: si una de esas ejecuciones falla, lo sabrás solo si estabas mirando.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Herramienta parametrizada <em>(hoy)</em></th>
+<th>Procesamiento por lotes <em>(S26)</em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Una invocación por genoma</td>
+<td>Una invocación para el conjunto</td>
+</tr>
+<tr class="even">
+<td>Tú decides el orden y llevas la cuenta</td>
+<td>El recorrido está escrito</td>
+</tr>
+<tr class="odd">
+<td>Un resultado por ejecución, suelto</td>
+<td>Los resultados organizados y <strong>resumidos</strong></td>
+</tr>
+<tr class="even">
+<td>Puedes responder sobre <strong>un</strong> genoma</td>
+<td>Puedes responder sobre <strong>el conjunto</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Esa última fila es la importante, y no es una cuestión de comodidad: hay preguntas que <strong>ningún análisis individual contiene</strong>. Cuántos genes tiene tu genoma lo sabes hoy. Cómo se distribuye el número de genes en doce genomas, cuál es atípico y por qué, no lo sabe ninguna de las doce ejecuciones por separado.</p>
+<blockquote class="blockquote">
+<p><strong>IDEA CLAVE.</strong> Hoy tu procedimiento dejó de depender de un genoma concreto. Sigue dependiendo de que alguien lo invoque una vez por cada genoma — y con ello, de que esa persona no se canse, no se salte ninguno y no deje de mirar.</p>
+</blockquote>
+<hr>
+</section>
+<section id="documentar-la-sección-del-protocolo-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="documentar-la-sección-del-protocolo-indispensable">8. Documentar: la sección del protocolo [Indispensable]</h2>
+<p>Agrega a <code>doc/protocolo.md</code>, después de la sección de S24. <strong>No sustituye a ninguna anterior.</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## S25 — Separación entre procedimiento y datos</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">### 1. Propósito</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>Qué problema resuelve la parametrización en este análisis y qué permite hacer que antes no se podía.</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2. La frontera adoptada</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Elemento <span class="pp">|</span> Categoría <span class="pp">|</span> ¿Entra desde fuera? <span class="pp">|</span> Justificación <span class="pp">|</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">|</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Archivo FASTA <span class="pp">|</span> dato <span class="pp">|</span> sí, <span class="in">`$1`</span> <span class="pp">|</span> Describe el organismo, no el análisis <span class="pp">|</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Archivo GFF3 <span class="pp">|</span> dato <span class="pp">|</span> sí, <span class="in">`$2`</span> <span class="pp">|</span> … <span class="pp">|</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Definición de gen (S18) <span class="pp">|</span> método <span class="pp">|</span> no <span class="pp">|</span> Cambiarla cambiaría la pregunta, no el objeto <span class="pp">|</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Convención de directorios (U1) <span class="pp">|</span> convención <span class="pp">|</span> derivada <span class="pp">|</span> … <span class="pp">|</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a><span class="fu">### 3. Entradas esperadas y parámetros</span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Parámetro <span class="pp">|</span> Qué recibe <span class="pp">|</span> Formato esperado <span class="pp">|</span> Obligatorio <span class="pp">|</span></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">|</span></span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`$1`</span> <span class="pp">|</span> Genoma <span class="pp">|</span> FASTA (<span class="in">`.fna`</span>) <span class="pp">|</span> sí <span class="pp">|</span></span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`$2`</span> <span class="pp">|</span> Anotación <span class="pp">|</span> GFF3 <span class="pp">|</span> sí <span class="pp">|</span></span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>Invocación: <span class="in">`./src/analizar-genoma.sh &lt;genoma.fna&gt; &lt;anotacion.gff3&gt;`</span></span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a><span class="fu">### 4. Validaciones y mensajes</span></span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Qué se comprueba <span class="pp">|</span> Con qué <span class="pp">|</span> Mensaje <span class="pp">|</span> ¿Detiene? <span class="pp">|</span> Código de salida <span class="pp">|</span></span>
+<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">|</span></span>
+<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Número de argumentos <span class="pp">|</span> <span class="in">`$#`</span> <span class="pp">|</span> … <span class="pp">|</span> sí <span class="pp">|</span> 1 <span class="pp">|</span></span>
+<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> El FASTA existe <span class="pp">|</span> <span class="in">`-f`</span> <span class="pp">|</span> … <span class="pp">|</span> sí <span class="pp">|</span> 1 <span class="pp">|</span></span>
+<span id="cb25-30"><a href="#cb25-30" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> El GFF3 existe y no está vacío <span class="pp">|</span> <span class="in">`-s`</span> <span class="pp">|</span> … <span class="pp">|</span> sí <span class="pp">|</span> 1 <span class="pp">|</span></span>
+<span id="cb25-31"><a href="#cb25-31" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> El derivado no quedó vacío <span class="pp">|</span> <span class="in">`-s`</span> <span class="pp">|</span> … <span class="pp">|</span> sí <span class="pp">|</span> 1 <span class="pp">|</span></span>
+<span id="cb25-32"><a href="#cb25-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-33"><a href="#cb25-33" aria-hidden="true" tabindex="-1"></a><span class="fu">### 5. Pruebas realizadas</span></span>
+<span id="cb25-34"><a href="#cb25-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-35"><a href="#cb25-35" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Caso probado <span class="pp">|</span> Resultado esperado <span class="pp">|</span> Resultado obtenido <span class="pp">|</span> ¿Creó archivos? <span class="pp">|</span> <span class="in">`$?`</span> <span class="pp">|</span></span>
+<span id="cb25-36"><a href="#cb25-36" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">|</span></span>
+<span id="cb25-37"><a href="#cb25-37" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span></span>
+<span id="cb25-38"><a href="#cb25-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-39"><a href="#cb25-39" aria-hidden="true" tabindex="-1"></a>Incluye el contraste con la versión de S24: mismo genoma, misma salida (checksum).</span>
+<span id="cb25-40"><a href="#cb25-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-41"><a href="#cb25-41" aria-hidden="true" tabindex="-1"></a><span class="fu">### 6. Resultados sobre dos genomas</span></span>
+<span id="cb25-42"><a href="#cb25-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-43"><a href="#cb25-43" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Medida <span class="pp">|</span> Genoma 1 <span class="pp">|</span> Genoma 2 <span class="pp">|</span> Diferencia <span class="pp">|</span> Causa probable <span class="pp">|</span></span>
+<span id="cb25-44"><a href="#cb25-44" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">|</span></span>
+<span id="cb25-45"><a href="#cb25-45" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Replicones <span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span> biológica / técnica / no distinguible <span class="pp">|</span></span>
+<span id="cb25-46"><a href="#cb25-46" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Genes <span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span></span>
+<span id="cb25-47"><a href="#cb25-47" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> CDS <span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span></span>
+<span id="cb25-48"><a href="#cb25-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-49"><a href="#cb25-49" aria-hidden="true" tabindex="-1"></a><span class="fu">### 7. Interpretación biológica</span></span>
+<span id="cb25-50"><a href="#cb25-50" aria-hidden="true" tabindex="-1"></a>Qué se puede afirmar sobre los dos organismos, con qué confianza, y qué diferencias no pueden</span>
+<span id="cb25-51"><a href="#cb25-51" aria-hidden="true" tabindex="-1"></a>atribuirse a la biología con estos datos.</span>
+<span id="cb25-52"><a href="#cb25-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-53"><a href="#cb25-53" aria-hidden="true" tabindex="-1"></a><span class="fu">### 8. Limitaciones actuales</span></span>
+<span id="cb25-54"><a href="#cb25-54" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Procesa un genoma por invocación.</span>
+<span id="cb25-55"><a href="#cb25-55" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>No detecta que los argumentos lleguen en orden invertido.</span>
+<span id="cb25-56"><a href="#cb25-56" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>No resume el conjunto: cada ejecución responde solo por su genoma.</span>
+<span id="cb25-57"><a href="#cb25-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-58"><a href="#cb25-58" aria-hidden="true" tabindex="-1"></a><span class="fu">### 9. Nuevas preguntas que abre</span></span>
+<span id="cb25-59"><a href="#cb25-59" aria-hidden="true" tabindex="-1"></a>Las que esta sesión deja planteadas y no puede resolver.</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-important callout-titled" title="el apartado 5 es el que convierte esto en trabajo científico">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>el apartado 5 es el que convierte esto en trabajo científico
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Un script cuyas pruebas están registradas es un instrumento; uno que «funcionó cuando lo probé» es una anécdota. Y el contraste con la versión de S24 —mismo genoma, misma salida— es la prueba de que la transformación de hoy no alteró el análisis.</p>
+</div>
+</div>
+</section>
+<section id="evidencia-de-la-sesión" class="level2">
+<h2 class="anchored" data-anchor-id="evidencia-de-la-sesión">Evidencia de la sesión</h2>
+<p>Entrega o conserva, según indique el docente:</p>
+<ol type="1">
+<li><code>doc/s25-primer-intento.md</code> con la tabla de la frontera y las seis predicciones (Prácticas 1 y 2);</li>
+<li><code>src/analizar-genoma.sh</code> parametrizado, con su encabezado actualizado y sus comprobaciones;</li>
+<li>la tabla de equivalencia frente a S24 (mismo genoma, misma salida);</li>
+<li>la tabla de los seis casos ejecutados, con mensaje, archivos creados y código de salida;</li>
+<li>las dos carpetas de resultados, una por genoma;</li>
+<li>la tabla comparativa de los dos genomas y su interpretación;</li>
+<li>la ficha de procedencia del segundo genoma;</li>
+<li><code>doc/bitacora-ia.md</code> actualizada;</li>
+<li>la sección S25 de <code>doc/protocolo.md</code>, con <strong>todas</strong> las anteriores intactas.</li>
+</ol>
+</section>
+<section id="errores-frecuentes-y-estrategias-de-diagnóstico" class="level2">
+<h2 class="anchored" data-anchor-id="errores-frecuentes-y-estrategias-de-diagnóstico">Errores frecuentes y estrategias de diagnóstico</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Error</th>
+<th>Por qué ocurre</th>
+<th>Estrategia de diagnóstico</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>bash: GFF: command not found</code></td>
+<td>Espacios alrededor del <code>=</code> al asignar</td>
+<td>Quitarlos: <code>GFF="valor"</code></td>
+</tr>
+<tr class="even">
+<td>La ruta se parte en dos</td>
+<td>Expansión sin comillas y valor con espacios</td>
+<td>Poner comillas dobles en <strong>toda</strong> expansión</td>
+</tr>
+<tr class="odd">
+<td><code>awk: syntax error</code> tras parametrizar</td>
+<td>Se cambiaron las comillas simples de <code>awk</code> por dobles y el shell sustituyó <code>$3</code></td>
+<td>Comillas simples para el programa de <code>awk</code></td>
+</tr>
+<tr class="even">
+<td>El segundo genoma borró los resultados del primero</td>
+<td>El nombre de salida no se deriva del dato</td>
+<td><code>basename</code> + <code>mkdir -p "$SALIDA"</code></td>
+</tr>
+<tr class="odd">
+<td>El script no protesta con los argumentos invertidos</td>
+<td>Los dos archivos existen; la posición no se puede verificar</td>
+<td>Bloque de uso visible; nombres de salida que delaten el error</td>
+</tr>
+<tr class="even">
+<td>«Se ejecutó pero no hizo nada»</td>
+<td>Se comprobó con <code>-f</code> un archivo que existe pero está vacío</td>
+<td>Usar <code>-s</code> para entradas y derivados</td>
+</tr>
+<tr class="odd">
+<td><code>command not found: [-f</code></td>
+<td>Faltan los espacios dentro de los corchetes</td>
+<td><code>[ -f "$F" ]</code>, <code>[</code> es un comando</td>
+</tr>
+<tr class="even">
+<td>El error no aparece al redirigir la salida</td>
+<td>El mensaje se escribió sin <code>&gt;&amp;2</code></td>
+<td>Todo mensaje de error va al canal de error</td>
+</tr>
+<tr class="odd">
+<td>El script sigue después de avisar</td>
+<td>Falta el <code>exit 1</code> dentro del <code>if</code></td>
+<td>Avisar sin detenerse no protege de nada</td>
+</tr>
+<tr class="even">
+<td>Se parametriza la definición de gen</td>
+<td>«Así es más flexible»</td>
+<td>Un procedimiento configurable para dar cualquier resultado no es un procedimiento</td>
+</tr>
+<tr class="odd">
+<td>Se parametriza todo lo que se puede</td>
+<td>Se confunde parametrizar con generalizar</td>
+<td>Aplicar la pregunta: ¿cambiaría con otro organismo?</td>
+</tr>
+<tr class="even">
+<td>Se edita el script entre los dos genomas</td>
+<td>Un ajuste «pequeño» sobre la marcha</td>
+<td>Entonces los resultados dejan de ser comparables; volver a ejecutar los dos</td>
+</tr>
+<tr class="odd">
+<td>Se atribuye toda diferencia a la biología</td>
+<td>Es la explicación más interesante</td>
+<td>Descartar antes la versión y el criterio de anotación (S21)</td>
+</tr>
+<tr class="even">
+<td>Se pierde la versión de S24</td>
+<td>Se editó encima</td>
+<td>Conservarla: es la única prueba de que la transformación no alteró el análisis</td>
+</tr>
+<tr class="odd">
+<td>Se dan por buenos los resultados sin comparar</td>
+<td>El script terminó sin error</td>
+<td>Terminar y funcionar no son lo mismo (S24, §6)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="rúbricas" class="level2">
+<h2 class="anchored" data-anchor-id="rúbricas">Rúbricas</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterio</th>
+<th>Logrado</th>
+<th>Parcialmente logrado</th>
+<th>Aún no logrado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>La frontera</td>
+<td>Clasifica cada valor en dato, método o convención y justifica los dudosos</td>
+<td>Separa datos de método sin argumentar</td>
+<td>Parametriza por criterio de comodidad</td>
+</tr>
+<tr class="even">
+<td>Variables y comillas</td>
+<td>Toda expansión protegida; explica los dos errores clásicos</td>
+<td>Usa variables, con comillas irregulares</td>
+<td>Repite las rutas o rompe el script al sustituir</td>
+</tr>
+<tr class="odd">
+<td>Equivalencia con S24</td>
+<td>Demuestra con checksum que la salida no cambió</td>
+<td>Compara a ojo</td>
+<td>No comprueba</td>
+</tr>
+<tr class="even">
+<td>Parametrización</td>
+<td>El archivo no contiene ninguna ruta de datos; se ejecuta sobre dos genomas sin editarlo</td>
+<td>Recibe argumentos pero conserva rutas fijas</td>
+<td>Sigue habiendo una copia por genoma</td>
+</tr>
+<tr class="odd">
+<td>Nombres de salida</td>
+<td>Derivados del dato; dos ejecuciones no se pisan</td>
+<td>Derivados a mano en cada ejecución</td>
+<td>El segundo genoma sobrescribe al primero</td>
+</tr>
+<tr class="even">
+<td>Validación</td>
+<td>Comprueba argumentos y entradas, avisa por <code>&gt;&amp;2</code> y termina con código distinto de 0</td>
+<td>Comprueba pero no detiene, o avisa por la salida normal</td>
+<td>El script confía en lo que le den</td>
+</tr>
+<tr class="odd">
+<td>Mensajes de error</td>
+<td>Dicen qué falta, qué se recibió y cómo se invoca</td>
+<td>Avisan sin decir el valor recibido</td>
+<td>Genéricos o inexistentes</td>
+</tr>
+<tr class="even">
+<td>Los dos <code>$1</code></td>
+<td>Explica el papel de cada tipo de comillas y lo demuestra</td>
+<td>Lo evita sin explicarlo</td>
+<td>Confunde los campos de <code>awk</code> con los argumentos</td>
+</tr>
+<tr class="odd">
+<td>Interpretación biológica</td>
+<td>Clasifica las diferencias por causa y declara las no distinguibles</td>
+<td>Describe las diferencias sin atribuirlas</td>
+<td>Presenta números sin interpretar</td>
+</tr>
+<tr class="even">
+<td>Uso crítico de IA</td>
+<td>Detecta al menos una construcción fuera de alcance o un riesgo real, y lo demuestra probando</td>
+<td>Compara sin probar</td>
+<td>Acepta el código propuesto</td>
+</tr>
+</tbody>
+</table>
+<p>La rúbrica es formativa. La evidencia integradora de la unidad se cierra en S28.</p>
+</section>
+<section id="autoevaluación" class="level2">
+<h2 class="anchored" data-anchor-id="autoevaluación">Autoevaluación</h2>
+<section id="comprobación-rápida-formativa-al-final-del-taller" class="level3">
+<h3 class="anchored" data-anchor-id="comprobación-rápida-formativa-al-final-del-taller">Comprobación rápida — formativa, al final del taller</h3>
+<ol type="1">
+<li>¿Qué pregunta decide si algo debe entrar desde fuera o quedarse dentro?</li>
+<li>¿Por qué la definición de gen <strong>no</strong> es un parámetro?</li>
+<li>¿Qué diferencia hay entre una variable y un parámetro?</li>
+<li>¿Qué pasa si escribes <code>GFF = "archivo.gff3"</code>, con espacios?</li>
+<li>¿Por qué toda expansión va entre comillas dobles?</li>
+<li>¿Por qué el programa de <code>awk</code> va entre comillas simples?</li>
+<li>¿Qué diferencia hay entre <code>-f</code> y <code>-s</code>, y cuándo importa?</li>
+<li>¿Por qué los mensajes de error van a <code>&gt;&amp;2</code> y no a la salida normal?</li>
+<li>¿Qué le dice <code>exit 1</code> a quien ejecutó tu script? ¿Y a quién le servirá eso en S26?</li>
+<li>Si el mismo script da resultados distintos para dos genomas, ¿qué explicaciones posibles hay, y cuál queda descartada por haber usado un solo archivo?</li>
+</ol>
+</section>
+<section id="semáforo" class="level3">
+<h3 class="anchored" data-anchor-id="semáforo">Semáforo</h3>
+<ul>
+<li>🟢 <strong>Verde:</strong> decido la frontera y la justifico, mi script recibe sus datos desde fuera, comprueba lo que le dan, se detiene con un mensaje útil, y he comparado dos genomas atribuyendo cada diferencia a una causa.</li>
+<li>🟡 <strong>Amarillo:</strong> el script recibe parámetros, pero no comprueba nada, o no he demostrado que su salida coincide con la de S24.</li>
+<li>🔴 <strong>Rojo:</strong> sigo editando el archivo para cambiar de genoma, o parametricé decisiones metodológicas.</li>
+</ul>
+<p>Si estás en amarillo o rojo, vuelve a las Prácticas 1 y 3: lo central de hoy no es la sintaxis de las variables, es <strong>saber qué debe salir fuera y demostrar que el análisis no cambió</strong>.</p>
+</section>
+</section>
+<section id="cierre-con-ia-clásico-vs.-asistido" class="level2">
+<h2 class="anchored" data-anchor-id="cierre-con-ia-clásico-vs.-asistido">Cierre con IA: clásico vs.&nbsp;asistido</h2>
+<p>Trabaja <strong>primero a mano</strong>. Hoy la comparación es especialmente instructiva, porque parametrizar es justo lo que un asistente hace de forma mecánica —y la parte difícil de esta sesión no es mecánica—.</p>
+<ol type="1">
+<li><p><strong>Entrégale tu script de S24</strong> —el de las rutas dentro— y pídele que lo parametrice. Después compara con el tuyo:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Aspecto</th>
+<th>Mi solución</th>
+<th>Propuesta de IA</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Qué sacó fuera</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>¿Sacó fuera alguna decisión metodológica?</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>¿Protegió las expansiones con comillas?</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>¿Deriva los nombres de salida?</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>Qué valida, y qué no</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>Construcciones fuera del alcance del curso</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>¿Puedo explicar cada línea?</td>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table></li>
+<li><p><strong>Busca el error conceptual, no el de sintaxis.</strong> La pregunta clave es la segunda fila: ¿convirtió en parámetro algo que era método —el tipo de <em>feature</em>, un umbral, un criterio—? Es lo más probable, porque un asistente no sabe qué decisiones tomaste en S18 ni por qué.</p></li>
+<li><p><strong>Prueba su validación de verdad.</strong> Pásale a su versión un archivo vacío y otro inexistente. Comprueba si se detiene, qué mensaje da y con qué código termina. Contrasta lo que hace con lo que dijo que haría.</p></li>
+<li><p><strong>Revisa las rutas una por una.</strong> Que ninguna escriba en <code>data/source/</code>. Un asistente no sabe cuáles de tus archivos son originales.</p></li>
+<li><p><strong>Pregúntale por qué.</strong> Pídele que justifique <strong>una</strong> de sus decisiones de parametrización. Si la justificación es «así es más flexible», tienes el argumento de la Sección 2.1 para responderle.</p></li>
+<li><p><strong>Registra en <code>doc/bitacora-ia.md</code></strong>: objetivo, herramienta, prompt, respuesta resumida, error conceptual o construcción fuera de alcance detectada, prueba controlada y decisión final.</p></li>
+</ol>
+<p>🤖 <strong>Prompt para <a href="https://chatgpt.com/g/g-6893cf2451d88191b11cd0c87de045ab-profeunix-bioinfo">ProfeUnix Bioinfo</a>:</strong> &gt; Soy estudiante de primer semestre. Este es mi script, que analiza un genoma con rutas escritas &gt; dentro: [pegar el script]. Quiero que reciba el FASTA y el GFF3 como argumentos y que compruebe que &gt; existen antes de trabajar. Usa <strong>solo</strong> variables, <code>$1</code>, <code>$2</code>, <code>$#</code>, <code>if</code>, <code>exit</code> y <code>echo</code>. <strong>No &gt; uses</strong> funciones, <code>while</code>, <code>case</code>, <code>getopts</code>, <code>set -e</code> ni <code>[[ ]]</code>. Después dime, para cada valor que &gt; hayas sacado fuera, por qué crees que es un dato y no una decisión de método.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Advertencia
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El riesgo de hoy no es que te dé código malo: es que te dé código <strong>bueno de más</strong>. Un script con validación exhaustiva, opciones con nombre y control de errores sofisticado puede funcionar perfectamente y dejarte con un archivo que no puedes explicar ni corregir. En S28 tendrás que sustentar tu herramienta ante otras personas. Si no puedes explicar una línea, no entra en tu <code>src/</code>.</p>
+</div>
+</div>
+</section>
+<section id="lo-que-realmente-aprendiste-hoy" class="level2">
+<h2 class="anchored" data-anchor-id="lo-que-realmente-aprendiste-hoy">Lo que realmente aprendiste hoy</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Antes</th>
+<th>Ahora</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mi script servía para mi genoma</td>
+<td>Mi script sirve para cualquier genoma</td>
+</tr>
+<tr class="even">
+<td>Cambiar de datos significaba editar el procedimiento</td>
+<td>Cambiar de datos significa escribir otra orden</td>
+</tr>
+<tr class="odd">
+<td>Tenía una copia por cada caso</td>
+<td>Tengo <strong>un</strong> procedimiento, y por eso puedo mejorarlo una sola vez</td>
+</tr>
+<tr class="even">
+<td>El script confiaba en que todo estuviera en su sitio</td>
+<td>El script comprueba y se detiene si algo falta</td>
+</tr>
+<tr class="odd">
+<td>Un error terminaba con código 0</td>
+<td>Yo decido qué código devuelve, y eso servirá en S26</td>
+</tr>
+<tr class="even">
+<td>Comparar dos genomas era comparar dos trabajos</td>
+<td>Comparar dos genomas es comparar dos datos: el método fue idéntico</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="lo-que-todavía-falta" class="level2">
+<h2 class="anchored" data-anchor-id="lo-que-todavía-falta">Lo que todavía falta</h2>
+<p>Hoy tu procedimiento dejó de hablar de tus archivos. Puedes aplicarlo a cualquier genoma sin abrirlo, y se detiene si le dan algo que no espera.</p>
+<p>Y sin embargo, sigue procesando <strong>un genoma cada vez</strong>.</p>
+<blockquote class="blockquote">
+<p>Si mañana tuvieras doce genomas —los del mini proyecto— o cien:</p>
+<p>¿escribirías cien órdenes a mano?</p>
+<p>¿cómo sabrías cuáles fallaron, si no estuviste mirando?</p>
+<p>¿y dónde quedarían las cien carpetas de resultados?</p>
+<p>Y sobre todo: ¿cómo respondes una pregunta sobre <strong>el conjunto</strong>, si cada ejecución solo sabe de su genoma?</p>
+</blockquote>
+<p>Esa última es la importante, y es la pregunta central de S26. Porque hay preguntas biológicas —cómo se distribuye el número de genes entre organismos emparentados, cuál se sale de la norma, si el tamaño del genoma predice algo— que <strong>no están dentro de ningún análisis individual</strong>. Solo aparecen cuando existe el conjunto.</p>
+</section>
+<section id="puente-hacia-s26" class="level2">
+<h2 class="anchored" data-anchor-id="puente-hacia-s26">Puente hacia S26</h2>
+<p>Escribe la orden que usarías para tus dos genomas. Ahora imagina escribirla doce veces, cambiando solo el nombre, sin equivocarte en ninguna. Después imagina cien.</p>
+<pre class="text"><code>un genoma      →  una orden
+doce genomas   →  doce órdenes escritas a mano
+cien genomas   →  no es un problema de paciencia: es un problema de método</code></pre>
+<p>Lo que falta es lo mismo que faltaba al final de S24, un nivel más arriba: <strong>el recorrido está en tu cabeza, no en el archivo</strong>. La sesión siguiente lo escribe.</p>
+<p>Y fíjate en dónde quedó el obstáculo, porque ha cambiado de sitio: <strong>el problema ya no es el procedimiento</strong>. El procedimiento está resuelto —sirve para cualquier genoma, comprueba lo que le dan y se detiene si algo falta—. El cuello de botella ahora eres <strong>tú</strong>: sigues teniendo que escribir la misma orden una y otra vez, acordarte de todos los casos y estar delante para ver cuáles fallaron. La sesión siguiente elimina exactamente esa repetición.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Guarda tu herramienta tal como quedó hoy. En S26 no la vas a modificar apenas: la vas a <strong>llamar</strong> desde otro script. Que hoy valide sus entradas y devuelva un código de salida honesto es justo lo que permitirá, la sesión que viene, saber cuáles de cien ejecuciones salieron bien.</p>
+</div>
+</div>
+</section>
+<section id="en-una-frase" class="level2">
+<h2 class="anchored" data-anchor-id="en-una-frase">En una frase</h2>
+<ul>
+<li>Separar el procedimiento de sus datos es una <strong>decisión científica</strong>, no una construcción de shell.</li>
+<li>Las decisiones metodológicas de la Unidad 4 <strong>no son parámetros</strong>: son el procedimiento.</li>
+<li>Un script que recibe datos de fuera <strong>ya no puede suponer</strong> que existen: tiene que preguntarlo.</li>
+</ul>
+</section>
+<section id="anexo-a.-correspondencia-resultadoactividadevidenciacriterio" class="level2">
+<h2 class="anchored" data-anchor-id="anexo-a.-correspondencia-resultadoactividadevidenciacriterio">Anexo A. Correspondencia resultado–actividad–evidencia–criterio</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Resultado</th>
+<th>Actividad</th>
+<th>Evidencia</th>
+<th>Criterio</th>
+<th>Momento</th>
+<th>Nivel en U5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RA1 Distinguir análisis y organismo</td>
+<td>Sección 2, Práctica 1</td>
+<td>Tabla de la frontera</td>
+<td>Clasifica en tres categorías y justifica los dudosos</td>
+<td>Antes</td>
+<td>Aplicación autónoma</td>
+</tr>
+<tr class="even">
+<td>RA2 Explicar por qué el método no lleva nombres de archivo</td>
+<td>Sección 1.1, Práctica 1</td>
+<td>Respuesta argumentada</td>
+<td>Sostiene el argumento con la sección de Métodos</td>
+<td>Antes</td>
+<td>Comprensión demostrada</td>
+</tr>
+<tr class="odd">
+<td>RA3 Sustituir por variables sin cambiar el comportamiento</td>
+<td>Sección 3, Práctica 3</td>
+<td>Tabla de equivalencia con S24</td>
+<td>La salida coincide byte a byte</td>
+<td>Taller</td>
+<td>Aplicación guiada</td>
+</tr>
+<tr class="even">
+<td>RA4 Proteger las expansiones</td>
+<td>Sección 3.1, Práctica 3</td>
+<td>Los dos errores provocados</td>
+<td>Explica ambos mensajes</td>
+<td>Taller</td>
+<td>Aplicación autónoma</td>
+</tr>
+<tr class="odd">
+<td>RA5 Recibir datos desde fuera</td>
+<td>Sección 4, Práctica 4</td>
+<td>Script parametrizado</td>
+<td>No contiene ninguna ruta de datos</td>
+<td>Taller</td>
+<td>Aplicación autónoma</td>
+</tr>
+<tr class="even">
+<td>RA6 Derivar los nombres de salida</td>
+<td>Sección 4.3, Práctica 4</td>
+<td>Dos carpetas de resultados</td>
+<td>Dos ejecuciones no se pisan</td>
+<td>Taller</td>
+<td>Aplicación guiada</td>
+</tr>
+<tr class="odd">
+<td>RA7 Comprobar y detener</td>
+<td>Sección 5, Práctica 5</td>
+<td>Tabla de los seis casos</td>
+<td>Ninguna entrada inválida produce archivos</td>
+<td>Taller</td>
+<td>Aplicación autónoma</td>
+</tr>
+<tr class="even">
+<td>RA8 Distinguir los dos canales</td>
+<td>Sección 5.2, Práctica 5 (paso 6)</td>
+<td>Prueba con redirección</td>
+<td>El error se ve aunque la salida se redirija</td>
+<td>Taller</td>
+<td>Comprensión demostrada</td>
+</tr>
+<tr class="odd">
+<td>RA9 No confundir los dos <code>$1</code></td>
+<td>Sección 4.2, Práctica 4 (parte C)</td>
+<td>Error provocado y explicación</td>
+<td>Justifica el papel de cada tipo de comillas</td>
+<td>Taller</td>
+<td>Comprensión demostrada</td>
+</tr>
+<tr class="even">
+<td>RA10 Aplicar a dos genomas e interpretar</td>
+<td>Sección 6, Práctica 6</td>
+<td>Tabla comparativa e interpretación</td>
+<td>Clasifica las diferencias por causa probable</td>
+<td>Después</td>
+<td>Aplicación autónoma</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="anexo-b.-alineación-transversal" class="level2">
+<h2 class="anchored" data-anchor-id="anexo-b.-alineación-transversal">Anexo B. Alineación transversal</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Actividad</th>
+<th>Reproducibilidad</th>
+<th>Verificación</th>
+<th>Validación</th>
+<th>Robustez</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Decidir la frontera</td>
+<td>La decisión queda escrita en el protocolo</td>
+<td>Se revisa valor por valor</td>
+<td>Se contrasta con las entradas metodológicas de S23</td>
+<td>Se identifica qué pasaría al parametrizar de más</td>
+</tr>
+<tr class="even">
+<td>Introducir variables</td>
+<td>El valor se declara una sola vez</td>
+<td>Checksum frente a la salida de S24</td>
+<td>El trabajo de S24 es la línea base</td>
+<td>Se prueban rutas con espacios</td>
+</tr>
+<tr class="odd">
+<td>Parametrizar</td>
+<td>La invocación queda documentada</td>
+<td>Se ejecuta sobre dos genomas</td>
+<td>Los resultados se comparan con los de S24</td>
+<td>Se prueba el orden invertido de argumentos</td>
+</tr>
+<tr class="even">
+<td>Derivar nombres de salida</td>
+<td>Cada resultado dice de qué genoma es</td>
+<td>Se comprueba que no se sobrescriben</td>
+<td>Se rastrea cada salida hasta su entrada</td>
+<td>Se prueba con nombres de archivo distintos</td>
+</tr>
+<tr class="odd">
+<td>Validar entradas</td>
+<td>Las comprobaciones quedan en el script</td>
+<td>Cada caso se ejecuta y se registra</td>
+<td>Se contrasta lo esperado con lo obtenido</td>
+<td>Se prueban archivo ausente, vacío y argumento faltante</td>
+</tr>
+<tr class="even">
+<td>Comparar dos genomas</td>
+<td>El script no cambió entre ejecuciones</td>
+<td>Checksum del propio script</td>
+<td>Diferencias contrastadas con la fuente de anotación</td>
+<td>Se declaran las diferencias no distinguibles</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="glosario" class="level2">
+<h2 class="anchored" data-anchor-id="glosario">Glosario</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Español</th>
+<th>Inglés</th>
+<th>Definición breve</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Variable</td>
+<td>Variable</td>
+<td>Nombre que guarda un valor para reutilizarlo</td>
+</tr>
+<tr class="even">
+<td>Asignación</td>
+<td>Assignment</td>
+<td>Dar un valor a una variable; sin espacios alrededor del <code>=</code></td>
+</tr>
+<tr class="odd">
+<td>Expansión</td>
+<td>Expansion</td>
+<td>Sustitución de <code>$nombre</code> por su valor</td>
+</tr>
+<tr class="even">
+<td>Entrecomillado</td>
+<td>Quoting</td>
+<td>Proteger un valor para que no se parta ni se interprete</td>
+</tr>
+<tr class="odd">
+<td>Parámetro posicional</td>
+<td>Positional parameter</td>
+<td>Argumento identificado por su posición: <code>$1</code>, <code>$2</code></td>
+</tr>
+<tr class="even">
+<td>Argumento</td>
+<td>Argument</td>
+<td>Valor que se entrega al invocar el script</td>
+</tr>
+<tr class="odd">
+<td>Sustitución de comandos</td>
+<td>Command substitution</td>
+<td><code>$(...)</code>: usar la salida de un comando como valor</td>
+</tr>
+<tr class="even">
+<td>Condición</td>
+<td>Conditional</td>
+<td><code>if</code> que decide si se ejecuta un bloque</td>
+</tr>
+<tr class="odd">
+<td>Validación de entradas</td>
+<td>Input validation</td>
+<td>Comprobar que lo recibido es utilizable antes de trabajar</td>
+</tr>
+<tr class="even">
+<td>Canal de error</td>
+<td>Standard error</td>
+<td>Salida separada para avisos y errores; se dirige con <code>&gt;&amp;2</code></td>
+</tr>
+<tr class="odd">
+<td>Código de salida</td>
+<td>Exit status</td>
+<td>Número que un programa devuelve al terminar; <code>0</code> es éxito</td>
+</tr>
+<tr class="even">
+<td>Nombre derivado</td>
+<td>Derived name</td>
+<td>Nombre de salida construido a partir del dato de entrada</td>
+</tr>
+<tr class="odd">
+<td>Herramienta reutilizable</td>
+<td>Reusable tool</td>
+<td>Procedimiento que analiza distintos datos sin ser modificado</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="referencias" class="level2">
+<h2 class="anchored" data-anchor-id="referencias">Referencias</h2>
+<ul>
+<li>Barker, M., Chue Hong, N. P., Katz, D. S., Lamprecht, A.-L., Martinez-Ortiz, C., Psomopoulos, F., et al.&nbsp;(2022). Introducing the FAIR Principles for research software. <em>Scientific Data</em>, 9, 622. <a href="https://doi.org/10.1038/s41597-022-01710-x" class="uri">https://doi.org/10.1038/s41597-022-01710-x</a></li>
+<li>Buffalo, V. (2015). <em>Bioinformatics Data Skills</em>. O’Reilly Media. — Cap. 12, <em>Bioinformatics Shell Scripting, Writing Pipelines, and Parallelizing Tasks</em>.</li>
+<li>Free Software Foundation. (2024). <em>GNU Bash Reference Manual</em> — parámetros posicionales, entrecomillado y expansiones. <a href="https://www.gnu.org/software/bash/manual/bash.html" class="uri">https://www.gnu.org/software/bash/manual/bash.html</a></li>
+<li>Noble, W. S. (2009). A quick guide to organizing computational biology projects. <em>PLoS Computational Biology</em>, 5(7), e1000424. <a href="https://doi.org/10.1371/journal.pcbi.1000424" class="uri">https://doi.org/10.1371/journal.pcbi.1000424</a></li>
+<li>Sandve, G. K., Nekrutenko, A., Taylor, J., &amp; Hovig, E. (2013). Ten simple rules for reproducible computational research. <em>PLoS Computational Biology</em>, 9(10), e1003285. <a href="https://doi.org/10.1371/journal.pcbi.1003285" class="uri">https://doi.org/10.1371/journal.pcbi.1003285</a></li>
+<li>Sequence Ontology. (2020). <em>Generic Feature Format Version 3 (GFF3) specification</em>. <a href="https://github.com/The-Sequence-Ontology/Specifications/blob/master/gff3.md" class="uri">https://github.com/The-Sequence-Ontology/Specifications/blob/master/gff3.md</a></li>
+<li>Taschuk, M., &amp; Wilson, G. (2017). Ten simple rules for making research software more robust. <em>PLoS Computational Biology</em>, 13(4), e1005412. <a href="https://doi.org/10.1371/journal.pcbi.1005412" class="uri">https://doi.org/10.1371/journal.pcbi.1005412</a></li>
+<li>Wilson, G., Bryan, J., Cranston, K., Kitzes, J., Nederbragt, L., &amp; Teal, T. K. (2017). Good enough practices in scientific computing. <em>PLoS Computational Biology</em>, 13(6), e1005510. <a href="https://doi.org/10.1371/journal.pcbi.1005510" class="uri">https://doi.org/10.1371/journal.pcbi.1005510</a></li>
+</ul>
+</section>
+<section id="distribución-estimada-de-las-dos-horas" class="level2">
+<h2 class="anchored" data-anchor-id="distribución-estimada-de-las-dos-horas">Distribución estimada de las dos horas</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 40%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Bloque</th>
+<th style="text-align: right;">Tiempo</th>
+<th>Contenido</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Puesta en común de la frontera</td>
+<td style="text-align: right;">15 min</td>
+<td>Práctica 1: dónde cae cada valor y por qué</td>
+</tr>
+<tr class="even">
+<td>Variables y la prueba de equivalencia</td>
+<td style="text-align: right;">25 min</td>
+<td>Práctica 3, partes A y B</td>
+</tr>
+<tr class="odd">
+<td>Los dos errores clásicos, provocados</td>
+<td style="text-align: right;">15 min</td>
+<td>Práctica 3, parte C</td>
+</tr>
+<tr class="even">
+<td>Parametrizar y ejecutar sobre dos genomas</td>
+<td style="text-align: right;">25 min</td>
+<td>Práctica 4, partes A y B</td>
+</tr>
+<tr class="odd">
+<td>El choque de los dos <code>$1</code></td>
+<td style="text-align: right;">10 min</td>
+<td>Práctica 4, parte C</td>
+</tr>
+<tr class="even">
+<td>Comprobaciones y los seis casos</td>
+<td style="text-align: right;">25 min</td>
+<td>Práctica 5</td>
+</tr>
+<tr class="odd">
+<td>Cierre: el caso que no se puede comprobar y puente</td>
+<td style="text-align: right;">5 min</td>
+<td>Semáforo y planteamiento de S26</td>
+</tr>
+</tbody>
+</table>
+<p>Los tiempos son estimaciones. La ejecución sobre el segundo genoma con su interpretación biológica se termina después del taller, con la Práctica 6. El núcleo que no debe recortarse es:</p>
+<pre class="text"><code>decidir la frontera → parametrizar → comprobar → contrastar con el resultado de S24</code></pre>
+<hr>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/helysalgado\.github\.io\/introbioinfo-unix\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./u5-s24-del-protocolo-al-script.html" class="pagination-link" aria-label="S24 — Del protocolo al script">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">S24 — Del protocolo al script</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./u5-s26-procesamiento-por-lotes.html" class="pagination-link" aria-label="S26 — Por lotes">
+        <span class="nav-page-text">S26 — Por lotes</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://hits.sh/helysalgado.github.io/introbioinfo-unix/"><img src="https://hits.sh/helysalgado.github.io/introbioinfo-unix/.svg?style=flat-square&amp;label=Visitas&amp;color=4a7c9e" class="img-fluid figure-img"></a></p>
+<figcaption>Visitas</figcaption>
+</figure>
+</div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Helysalgado/introbioinfo-unix/edit/main/u5-s25-separar-procedimiento-datos.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/Helysalgado/introbioinfo-unix/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

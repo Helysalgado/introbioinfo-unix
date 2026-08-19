@@ -1,0 +1,1612 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>s17-evaluacion-individual-demostrativa – Introducción a la Bioinformática</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./mini-proyecto-dictamen-cientifico.html" rel="next">
+<link href="./s16-mini-proyecto-revision-pares.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fe3756b78d23b7733c53f9ce5acac92a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXNMZZP0K9"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-QXNMZZP0K9', { 'anonymize_ip': true});
+</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Introducción a la Bioinformática</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Inicio</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-programa" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Programa</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-programa">    
+        <li>
+    <a class="dropdown-item" href="./programa.html">
+ <span class="dropdown-text">Ruta de sesiones</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./programa-detallado.html">
+ <span class="dropdown-text">Programa detallado</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-unidades" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Unidades</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-unidades">    
+        <li>
+    <a class="dropdown-item" href="./u1-trabajo-reproducible.html">
+ <span class="dropdown-text">U1 — Trabajo reproducible</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u2-entorno-unix.html">
+ <span class="dropdown-text">U2 — Entorno Unix</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u3-datos-bases-datos.html">
+ <span class="dropdown-text">U3 — Datos y bases</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u4-procesamiento-exploracion.html">
+ <span class="dropdown-text">U4 — Procesamiento genómico</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u5-automatizacion-scripting.html">
+ <span class="dropdown-text">U5 — Automatización</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u6-comparacion-homologia.html">
+ <span class="dropdown-text">U6 — Comparar / hipótesis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./s14-s15-mini-proyecto-investigacion-I.html">
+ <span class="dropdown-text">Transversal S14–S17</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="./recursos.html" aria-current="page"> 
+<span class="menu-text">Recursos</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./acerca.html"> 
+<span class="menu-text">Acerca</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./contribuir.html"> 
+<span class="menu-text">Contribuir</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Alternar modo lector">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./s14-s15-mini-proyecto-investigacion-I.html">Transversal</a></li><li class="breadcrumb-item"><a href="./s17-evaluacion-individual-demostrativa.html">S17 — Evaluación demostrativa</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 1</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-trabajo-reproducible.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-s1-documentar-markdown-fases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S1 — Documentar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-s2-organizar-fair-ia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S2 — Organizar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 2</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-entorno-unix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s3-shell-acceso-remoto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S3 — Conectar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s4-sistema-archivos-v3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S4 — Navegar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s5-archivos-permisos-procesos-v2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S5 — Archivos y procesos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s6-consolidacion-entorno-unix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S6 — Consolidar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 3</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-datos-bases-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s7-secuencias-formatos-genbank.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S7 — Formatos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s8-bases-datos-descarga-integridad.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S8 — Descargar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s9-inspeccion-transferencia-verificable.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S9 — Transferir</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 4</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-procesamiento-exploracion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s10-anatomia-flujos-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S10 — Anatomía y flujos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s11-estructura-tabular-anotacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S11 — Anotación tabular</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s12-filtrado-conteos-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S12 — Filtrar y contar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s13-inventario-resumen-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S13 — Inventario</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s18-precision-patrones-expresiones-regulares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S18 — Patrones</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s19-extraccion-identificadores-correspondencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S19 — Identificadores</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s20-normalizar-datos-comparables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S20 — Normalizar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s21-confrontar-fuente-independiente.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S21 — Confrontar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s22-condicionar-calcular-columnas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S22 — Condicionar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s23-protocolo-ejecutable-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S23 — Protocolo ejecutable</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Transversal</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s14-s15-mini-proyecto-investigacion-I.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S14–S15 — Mini-proyecto I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s16-mini-proyecto-revision-pares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S16 — Revisión por pares</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s17-evaluacion-individual-demostrativa.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">S17 — Evaluación demostrativa</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mini-proyecto-dictamen-cientifico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dictamen científico</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 5</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-automatizacion-scripting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s24-del-protocolo-al-script.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S24 — Del protocolo al script</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s25-separar-procedimiento-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S25 — Separar datos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s26-procesamiento-por-lotes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S26 — Por lotes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s27-herramienta-cientifica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S27 — Herramienta científica</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s28-proyecto-integrador.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S28 — Proyecto integrador</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s29-cluster-hpc-sge.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S29 — Cluster SGE</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 6</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-comparacion-homologia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s30-comparar-alinear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S30 — Comparar / alinear</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s31-buscar-blast.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S31 — Buscar (BLAST)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s32-interpretar-inferir.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S32 — Interpretar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s33-defender-hipotesis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S33 — Inferir</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s34-integrar-hipotesis-casos-ciegos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S34 — Integrar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./programa-detallado.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programa detallado</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./recursos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recursos</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#s17-demostrar-evaluación-individual-con-datos-nuevos" id="toc-s17-demostrar-evaluación-individual-con-datos-nuevos" class="nav-link active" data-scroll-target="#s17-demostrar-evaluación-individual-con-datos-nuevos">S17 — Demostrar: evaluación individual con datos nuevos</a>
+  <ul class="collapse">
+  <li><a href="#ficha-de-la-evaluación" id="toc-ficha-de-la-evaluación" class="nav-link" data-scroll-target="#ficha-de-la-evaluación">Ficha de la evaluación</a></li>
+  <li><a href="#principio-de-la-evaluación" id="toc-principio-de-la-evaluación" class="nav-link" data-scroll-target="#principio-de-la-evaluación">Principio de la evaluación</a></li>
+  <li><a href="#rotación-de-genomas" id="toc-rotación-de-genomas" class="nav-link" data-scroll-target="#rotación-de-genomas">Rotación de genomas</a></li>
+  <li><a href="#desarrollo-de-la-sesión" id="toc-desarrollo-de-la-sesión" class="nav-link" data-scroll-target="#desarrollo-de-la-sesión">Desarrollo de la sesión</a>
+  <ul class="collapse">
+  <li><a href="#bloque-1-recuperación-y-verificación" id="toc-bloque-1-recuperación-y-verificación" class="nav-link" data-scroll-target="#bloque-1-recuperación-y-verificación">Bloque 1 — Recuperación y verificación</a></li>
+  <li><a href="#bloque-2-reconocimiento-del-archivo" id="toc-bloque-2-reconocimiento-del-archivo" class="nav-link" data-scroll-target="#bloque-2-reconocimiento-del-archivo">Bloque 2 — Reconocimiento del archivo</a></li>
+  <li><a href="#bloque-3-preguntas-de-análisis" id="toc-bloque-3-preguntas-de-análisis" class="nav-link" data-scroll-target="#bloque-3-preguntas-de-análisis">Bloque 3 — Preguntas de análisis</a></li>
+  <li><a href="#bloque-4-interpretación-y-límites" id="toc-bloque-4-interpretación-y-límites" class="nav-link" data-scroll-target="#bloque-4-interpretación-y-límites">Bloque 4 — Interpretación y límites</a></li>
+  </ul></li>
+  <li><a href="#formato-de-evidencia" id="toc-formato-de-evidencia" class="nav-link" data-scroll-target="#formato-de-evidencia">Formato de evidencia</a></li>
+  <li><a href="#variantes-por-integrante" id="toc-variantes-por-integrante" class="nav-link" data-scroll-target="#variantes-por-integrante">Variantes por integrante</a></li>
+  <li><a href="#criterios-de-evaluación" id="toc-criterios-de-evaluación" class="nav-link" data-scroll-target="#criterios-de-evaluación">Criterios de evaluación</a></li>
+  <li><a href="#rúbricas" id="toc-rúbricas" class="nav-link" data-scroll-target="#rúbricas">Rúbricas</a></li>
+  <li><a href="#ponderación-del-bloque" id="toc-ponderación-del-bloque" class="nav-link" data-scroll-target="#ponderación-del-bloque">Ponderación del bloque</a></li>
+  <li><a href="#entregable" id="toc-entregable" class="nav-link" data-scroll-target="#entregable">Entregable</a></li>
+  <li><a href="#errores-frecuentes-en-esta-evaluación" id="toc-errores-frecuentes-en-esta-evaluación" class="nav-link" data-scroll-target="#errores-frecuentes-en-esta-evaluación">Errores frecuentes en esta evaluación</a></li>
+  <li><a href="#después-de-s17" id="toc-después-de-s17" class="nav-link" data-scroll-target="#después-de-s17">Después de S17</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/Helysalgado/introbioinfo-unix/edit/main/s17-evaluacion-individual-demostrativa.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/Helysalgado/introbioinfo-unix/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./s14-s15-mini-proyecto-investigacion-I.html">Transversal</a></li><li class="breadcrumb-item"><a href="./s17-evaluacion-individual-demostrativa.html">S17 — Evaluación demostrativa</a></li></ol></nav></header>
+
+
+
+
+<section id="s17-demostrar-evaluación-individual-con-datos-nuevos" class="level1">
+<h1>S17 — Demostrar: evaluación individual con datos nuevos</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="Qué se evalúa aquí">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Qué se evalúa aquí
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Esta sesión no comprueba si recuerdas comandos: comprueba si puedes <strong>llegar solo, con datos que nunca has ejecutado, hasta donde tu equipo llegó acompañado</strong>. Se califica el camino y su evidencia, no el número final. Una respuesta correcta sin la evidencia que la sostiene vale menos que una respuesta equivocada acompañada de la verificación que detecta el error.</p>
+</div>
+</div>
+<section id="ficha-de-la-evaluación" class="level2">
+<h2 class="anchored" data-anchor-id="ficha-de-la-evaluación">Ficha de la evaluación</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Elemento</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Sesión</strong></td>
+<td>S16, 2 horas, presencial</td>
+</tr>
+<tr class="even">
+<td><strong>Modalidad</strong></td>
+<td><strong>Individual</strong>. Sin equipo, sin consulta entre compañeros</td>
+</tr>
+<tr class="odd">
+<td><strong>Insumo</strong></td>
+<td>Un <em>Assembly Accession</em> <strong>rotado</strong>: el genoma que tu equipo revisó en S15, no el que analizó</td>
+</tr>
+<tr class="even">
+<td><strong>Alcance</strong></td>
+<td>Unidad 3 (recuperación, integridad, procedencia) y U4 Bloque A (S10–S13)</td>
+</tr>
+<tr class="odd">
+<td><strong>Punto de partida</strong></td>
+<td>Solo el identificador. <strong>La recuperación y verificación de los archivos forma parte de lo evaluado</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Entregable</strong></td>
+<td><code>doc/examen-practico-1.md</code>, entregado al final de la sesión</td>
+</tr>
+<tr class="odd">
+<td><strong>Peso</strong></td>
+<td>Ver <a href="#ponderación-del-bloque">Ponderación del bloque</a></td>
+</tr>
+<tr class="even">
+<td><strong>Material permitido</strong></td>
+<td>Protocolo propio, apuntes, manuales (<code>man</code>, <code>--help</code>), material del curso</td>
+</tr>
+<tr class="odd">
+<td><strong>Material no permitido</strong></td>
+<td>Compañeros, asistentes de IA, protocolos ajenos distintos del que revisaste</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="principio-de-la-evaluación" class="level2">
+<h2 class="anchored" data-anchor-id="principio-de-la-evaluación">Principio de la evaluación</h2>
+<p>Durante S14–S15 trabajaste en equipo sobre un genoma. Ese trabajo construyó el andamio; esta sesión mide <strong>quién puede caminar sin él</strong>.</p>
+<p>Por eso el examen se apoya en dos decisiones de diseño:</p>
+<ol type="1">
+<li><strong>Rotación de genoma.</strong> No trabajas sobre tu ensamblado, sino sobre el que <strong>revisaste</strong> en S15. Ya conoces su protocolo —leerlo con atención te da ventaja real, y esa es justamente la intención— pero <strong>nunca ejecutaste un solo comando sobre esos archivos</strong>.</li>
+<li><strong>Preguntas que exigen ejecutar.</strong> Ninguna pregunta se responde copiando del protocolo que revisaste. Todas requieren producir evidencia nueva sobre los archivos que acabas de recuperar.</li>
+</ol>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La revisión por pares de S15 deja de ser un trámite. El equipo que leyó con cuidado el protocolo ajeno llega a S16 sabiendo qué organismo le espera, qué replicones tiene y dónde estaban las zonas difíciles. El que lo revisó por encima, no.</p>
+</div>
+</div>
+</section>
+<section id="rotación-de-genomas" class="level2">
+<h2 class="anchored" data-anchor-id="rotación-de-genomas">Rotación de genomas</h2>
+<p>La revisión de S15 sigue un <strong>ciclo cerrado</strong>: el equipo <em>n</em> revisa al equipo <em>n+1</em>, y el equipo 12 revisa al equipo 1. Así cada protocolo se revisa exactamente una vez y ningún equipo revisa a quien lo revisó a él.</p>
+<p>El genoma de examen de cada estudiante es, por tanto, el del equipo que revisó su equipo:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Tu equipo</th>
+<th style="text-align: right;">Revisó en S15 al equipo</th>
+<th>Tu genoma en S16</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td><code>GCF_000009045.1</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td><code>GCF_000006945.2</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">4</td>
+<td><code>GCF_000195955.2</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">5</td>
+<td><code>GCF_000016285.1</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">6</td>
+<td><code>GCF_000006965.1</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">7</td>
+<td><code>GCF_000008525.1</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">8</td>
+<td><code>GCF_000006765.1</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">9</td>
+<td><code>GCF_000027325.1</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">10</td>
+<td><code>GCF_000009605.1</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">11</td>
+<td><code>GCF_000010065.1</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">12</td>
+<td><code>GCF_000012825.1</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">1</td>
+<td><code>GCF_000091005.1</code></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Los integrantes de un mismo equipo comparten genoma, pero <strong>no comparten preguntas</strong>: cada uno recibe una variante distinta (A, B o C) del cuestionario. Ver <a href="#variantes-por-integrante">Variantes por integrante</a>.</p>
+</div>
+</div>
+</section>
+<section id="desarrollo-de-la-sesión" class="level2">
+<h2 class="anchored" data-anchor-id="desarrollo-de-la-sesión">Desarrollo de la sesión</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 40%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Bloque</th>
+<th style="text-align: right;">Tiempo</th>
+<th>Qué haces</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1. Recuperación y verificación</strong></td>
+<td style="text-align: right;">25 min</td>
+<td>Localizar el ensamblado, descargar FASTA y GFF3, verificar integridad y documentar procedencia</td>
+</tr>
+<tr class="even">
+<td><strong>2. Reconocimiento del archivo</strong></td>
+<td style="text-align: right;">15 min</td>
+<td>Describir la organización de los archivos recuperados antes de analizarlos</td>
+</tr>
+<tr class="odd">
+<td><strong>3. Preguntas de análisis</strong></td>
+<td style="text-align: right;">45 min</td>
+<td>Responder las tres preguntas de tu variante, cada una con su evidencia</td>
+</tr>
+<tr class="even">
+<td><strong>4. Interpretación y límites</strong></td>
+<td style="text-align: right;">20 min</td>
+<td>Explicar qué significan tus resultados y qué <strong>no</strong> autorizan a afirmar</td>
+</tr>
+<tr class="odd">
+<td><strong>5. Cierre y entrega</strong></td>
+<td style="text-align: right;">15 min</td>
+<td>Revisar el documento, comprobar que cada afirmación tiene su comando y su salida, entregar</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El bloque 5 no es relleno. Un documento entregado sin revisar suele perder más puntos por afirmaciones sin evidencia que por errores de análisis.</p>
+</div>
+</div>
+<section id="bloque-1-recuperación-y-verificación" class="level3">
+<h3 class="anchored" data-anchor-id="bloque-1-recuperación-y-verificación">Bloque 1 — Recuperación y verificación</h3>
+<p>Partes únicamente del identificador. Debes:</p>
+<ul>
+<li>localizar el ensamblado en NCBI y confirmar que es el correcto;</li>
+<li>identificar organismo, cepa, versión del ensamblado y fuente de la anotación;</li>
+<li>descargar el FASTA genómico y el GFF3;</li>
+<li>verificar la integridad de los archivos por el procedimiento de la Unidad 3;</li>
+<li>organizar los archivos en la estructura de proyecto del curso.</li>
+</ul>
+<div class="callout callout-style-default callout-warning callout-titled" title="dependencia de red">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Advertencia</span>dependencia de red
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si la descarga falla por causas ajenas a ti, avisa de inmediato. Existe una copia de respaldo de los archivos; usarla <strong>no penaliza</strong>, pero debes documentar en tu entregable que la usaste y por qué. Lo que sí se penaliza es no dejar constancia.</p>
+</div>
+</div>
+</section>
+<section id="bloque-2-reconocimiento-del-archivo" class="level3">
+<h3 class="anchored" data-anchor-id="bloque-2-reconocimiento-del-archivo">Bloque 2 — Reconocimiento del archivo</h3>
+<p>Antes de contar nada, demuestra que sabes <strong>qué tienes delante</strong>: cuántas secuencias hay en el FASTA, cómo están construidos sus encabezados, dónde termina la cabecera del GFF3 y empiezan los datos, qué delimitador usa y cómo representa los valores faltantes.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Todo conteo hecho sin haber separado antes las líneas de comentario del GFF3 es un conteo sospechoso. Este bloque existe para evitar ese error, no para rellenar tiempo.</p>
+</div>
+</div>
+</section>
+<section id="bloque-3-preguntas-de-análisis" class="level3">
+<h3 class="anchored" data-anchor-id="bloque-3-preguntas-de-análisis">Bloque 3 — Preguntas de análisis</h3>
+<p>Tres preguntas, correspondientes a tu variante. Cada respuesta debe entregarse en el formato de evidencia descrito más abajo.</p>
+</section>
+<section id="bloque-4-interpretación-y-límites" class="level3">
+<h3 class="anchored" data-anchor-id="bloque-4-interpretación-y-límites">Bloque 4 — Interpretación y límites</h3>
+<p>Dos cosas, ambas obligatorias:</p>
+<ul>
+<li><strong>Qué significan tus resultados.</strong> Una lectura biológica breve: qué categoría domina, qué llama la atención, cómo se compara con el genoma que analizaste en el mini proyecto.</li>
+<li><strong>Qué no puedes afirmar.</strong> Al menos dos límites concretos de tu propio análisis, con la razón técnica que los produce (por ejemplo: una coincidencia literal que puede incluir casos que no quieres, o un conteo de registros que no equivale a un conteo de objetos biológicos).</li>
+</ul>
+</section>
+</section>
+<section id="formato-de-evidencia" class="level2">
+<h2 class="anchored" data-anchor-id="formato-de-evidencia">Formato de evidencia</h2>
+<p>Cada respuesta se entrega con <strong>tres elementos</strong>. Una respuesta a la que le falte alguno se considera incompleta, aunque el número sea correcto:</p>
+<pre class="text"><code>Pregunta: ...
+
+1. Comando ejecutado
+   $ ...
+
+2. Salida obtenida
+   ...
+
+3. Qué autoriza a afirmar esta salida
+   ... (y qué no autoriza a afirmar)</code></pre>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El tercer elemento es el que distingue esta evaluación de un examen de comandos. Ahí es donde se ve si entiendes lo que acabas de ejecutar.</p>
+</div>
+</div>
+</section>
+<section id="variantes-por-integrante" class="level2">
+<h2 class="anchored" data-anchor-id="variantes-por-integrante">Variantes por integrante</h2>
+<p>Los integrantes de un mismo equipo reciben variantes distintas (A, B, C) construidas a partir de las mismas plantillas, instanciadas con parámetros diferentes. Todas exigen el mismo nivel de habilidad y las mismas herramientas.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Plantilla</th>
+<th>Forma de la pregunta</th>
+<th>Se parametriza con</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>P1. Dimensión</strong></td>
+<td>¿Cuál es la longitud del replicón <em>X</em> y qué proporción representa del total?</td>
+<td>Replicón</td>
+</tr>
+<tr class="even">
+<td><strong>P2. Inventario restringido</strong></td>
+<td>¿Cuántos registros de tipo <em>T</em> existen, y cómo se distribuyen entre los replicones?</td>
+<td>Tipo de <em>feature</em></td>
+</tr>
+<tr class="odd">
+<td><strong>P3. Distribución</strong></td>
+<td>¿Cuáles son las <em>k</em> categorías más frecuentes de la anotación y qué proporción acumulan?</td>
+<td>Valor de <em>k</em></td>
+</tr>
+<tr class="even">
+<td><strong>P4. Procedencia</strong></td>
+<td>¿Qué fuentes de anotación aparecen y qué proporción aporta la fuente <em>F</em>?</td>
+<td>Fuente</td>
+</tr>
+<tr class="odd">
+<td><strong>P5. Contraste</strong></td>
+<td>El protocolo que revisaste afirma <em>A</em>. Comprueba esa afirmación con tu propia evidencia y decide si la sostienes, la corriges o la matizas</td>
+<td>Afirmación tomada del protocolo revisado</td>
+</tr>
+</tbody>
+</table>
+<p>Cada variante combina <strong>una pregunta de estructura</strong> (P1 o P2), <strong>una de distribución</strong> (P3 o P4) y <strong>siempre P5</strong>.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="por qué P5 está en todas las variantes">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>por qué P5 está en todas las variantes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Es la pregunta que cierra el círculo: obliga a contrastar una afirmación ajena con evidencia propia. Corregir con fundamento un resultado del protocolo revisado, o sostenerlo con evidencia independiente, es la demostración más completa de que el bloque quedó aprendido. Coincidir con el protocolo revisado <strong>no</strong> es automáticamente correcto: lo que se califica es tu evidencia.</p>
+</div>
+</div>
+</section>
+<section id="criterios-de-evaluación" class="level2">
+<h2 class="anchored" data-anchor-id="criterios-de-evaluación">Criterios de evaluación</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 42%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Aspecto</th>
+<th style="text-align: right;">Peso</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Recuperación correcta del ensamblado y documentación de procedencia</td>
+<td style="text-align: right;">15 %</td>
+</tr>
+<tr class="even">
+<td>Verificación de integridad</td>
+<td style="text-align: right;">10 %</td>
+</tr>
+<tr class="odd">
+<td>Reconocimiento de la estructura de los archivos</td>
+<td style="text-align: right;">10 %</td>
+</tr>
+<tr class="even">
+<td>Preguntas de análisis: corrección del procedimiento</td>
+<td style="text-align: right;">25 %</td>
+</tr>
+<tr class="odd">
+<td>Preguntas de análisis: evidencia completa (comando, salida, alcance)</td>
+<td style="text-align: right;">20 %</td>
+</tr>
+<tr class="even">
+<td>Interpretación biológica de los resultados</td>
+<td style="text-align: right;">10 %</td>
+</tr>
+<tr class="odd">
+<td>Declaración honesta de límites</td>
+<td style="text-align: right;">10 %</td>
+</tr>
+<tr class="even">
+<td><strong>Total</strong></td>
+<td style="text-align: right;"><strong>100 %</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Fíjate en la suma: la <strong>evidencia y los límites</strong> pesan 30 %, más que la corrección del procedimiento. No es un descuido — es lo que esta evaluación quiere medir.</p>
+</div>
+</div>
+</section>
+<section id="rúbricas" class="level2">
+<h2 class="anchored" data-anchor-id="rúbricas">Rúbricas</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterio</th>
+<th>Logrado</th>
+<th>Parcialmente logrado</th>
+<th>Aún no logrado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Recuperación y procedencia</strong></td>
+<td>Recupera los archivos oficiales y documenta accesión, versión, fecha y fuente de anotación</td>
+<td>Recupera los archivos pero la documentación de procedencia es incompleta</td>
+<td>No recupera los archivos correctos o no documenta de dónde provienen</td>
+</tr>
+<tr class="even">
+<td><strong>Integridad</strong></td>
+<td>Verifica la integridad y explica qué demuestra esa verificación</td>
+<td>Ejecuta la verificación sin explicar qué garantiza</td>
+<td>No verifica, o afirma integridad sin evidencia</td>
+</tr>
+<tr class="odd">
+<td><strong>Estructura de los archivos</strong></td>
+<td>Distingue cabecera de datos, describe delimitadores y valores faltantes antes de contar</td>
+<td>Describe la estructura de forma parcial; algún conteo queda afectado</td>
+<td>Cuenta sin haber reconocido la estructura; los conteos incluyen comentarios</td>
+</tr>
+<tr class="even">
+<td><strong>Procedimiento de análisis</strong></td>
+<td>Las tuberías son correctas, verificables y adecuadas a la pregunta</td>
+<td>El resultado es correcto pero el procedimiento es frágil o innecesariamente complejo</td>
+<td>El procedimiento no responde a la pregunta formulada</td>
+</tr>
+<tr class="odd">
+<td><strong>Evidencia</strong></td>
+<td>Cada afirmación trae comando, salida y alcance</td>
+<td>Falta sistemáticamente uno de los tres elementos</td>
+<td>Se presentan números sin la evidencia que los produce</td>
+</tr>
+<tr class="even">
+<td><strong>Interpretación</strong></td>
+<td>Lee los resultados en clave biológica y los compara con lo conocido</td>
+<td>Describe los números sin interpretarlos</td>
+<td>No hay interpretación, solo salidas de terminal</td>
+</tr>
+<tr class="odd">
+<td><strong>Límites</strong></td>
+<td>Identifica límites concretos y explica su causa técnica</td>
+<td>Menciona límites genéricos, sin causa</td>
+<td>Presenta todos los resultados como definitivos</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ponderación-del-bloque" class="level2">
+<h2 class="anchored" data-anchor-id="ponderación-del-bloque">Ponderación del bloque</h2>
+<p>El mini proyecto y esta evaluación <strong>califican ambos</strong>, con funciones distintas:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 23%">
+<col style="width: 30%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Componente</th>
+<th>Modalidad</th>
+<th style="text-align: right;">Peso del bloque</th>
+<th>Qué mide</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mini Proyecto de Investigación I (S14–S15) + revisión por pares (S16)</td>
+<td>Equipo</td>
+<td style="text-align: right;">40 %</td>
+<td>Capacidad de construir una investigación completa y documentada, y de mejorarla mediante revisión por pares</td>
+</tr>
+<tr class="even">
+<td>Evaluación individual demostrativa (S17)</td>
+<td>Individual</td>
+<td style="text-align: right;">60 %</td>
+<td>Dominio autónomo del flujo completo sobre datos no trabajados previamente</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-warning callout-titled" title="coherencia documental">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Advertencia</span>coherencia documental
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Esta ponderación debe reflejarse también en <code>mini-proyecto-investigacion-I.md</code> (cuya rúbrica interna suma 100 % <strong>del componente en equipo</strong>, no del bloque) y en <code>u4-procesamiento-exploracion.md</code>, donde S14–S15 aparece hoy declarado como actividad formativa. Ajustar antes de publicar.</p>
+</div>
+</div>
+</section>
+<section id="entregable" class="level2">
+<h2 class="anchored" data-anchor-id="entregable">Entregable</h2>
+<p>Un único archivo, entregado al final de la sesión:</p>
+<pre class="text"><code>doc/examen-practico-1.md</code></pre>
+<p>Debe contener, en este orden:</p>
+<ol type="1">
+<li>identificación del ensamblado recibido y evidencia de procedencia;</li>
+<li>verificación de integridad;</li>
+<li>descripción de la estructura de los archivos;</li>
+<li>las tres preguntas de tu variante, cada una en el formato de evidencia;</li>
+<li>interpretación biológica;</li>
+<li>límites del análisis;</li>
+<li>incidencias, si las hubo (uso de la copia de respaldo, comandos que fallaron y cómo lo resolviste).</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Documentar un intento fallido y cómo lo corregiste <strong>suma</strong>. Es exactamente lo que hace un investigador en su cuaderno de laboratorio, y es lo que el curso ha pedido desde la Unidad 1.</p>
+</div>
+</div>
+</section>
+<section id="errores-frecuentes-en-esta-evaluación" class="level2">
+<h2 class="anchored" data-anchor-id="errores-frecuentes-en-esta-evaluación">Errores frecuentes en esta evaluación</h2>
+<ul>
+<li><strong>Copiar la estructura del protocolo revisado.</strong> El organismo es el mismo, pero los números deben salir de tus propios comandos. Un resultado idéntico sin evidencia propia no se acredita.</li>
+<li><strong>Contar sobre el archivo completo.</strong> El GFF3 empieza con líneas de comentario; incluirlas infla cualquier conteo.</li>
+<li><strong>Confundir registros con objetos biológicos.</strong> Un gen puede generar varios registros. El número que obtienes es de registros mientras no demuestres lo contrario.</li>
+<li><strong>Coincidencias literales demasiado amplias.</strong> Buscar un texto sin restringirlo al campo correcto arrastra coincidencias que aparecen en los atributos.</li>
+<li><strong>Entregar números sin alcance.</strong> Es el error que más puntos cuesta, y el más fácil de evitar.</li>
+</ul>
+</section>
+<section id="después-de-s17" class="level2">
+<h2 class="anchored" data-anchor-id="después-de-s17">Después de S17</h2>
+<p>La sesión de retorno no se dedica a publicar respuestas correctas, sino a <strong>analizar los caminos</strong>: por qué distintas tuberías válidas llegan al mismo resultado, cuáles son más robustas y qué error conceptual produjo cada fallo frecuente. Conserva tu entregable: será el material de trabajo.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/helysalgado\.github\.io\/introbioinfo-unix\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./s16-mini-proyecto-revision-pares.html" class="pagination-link" aria-label="S16 — Revisión por pares">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">S16 — Revisión por pares</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./mini-proyecto-dictamen-cientifico.html" class="pagination-link" aria-label="Dictamen científico">
+        <span class="nav-page-text">Dictamen científico</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://hits.sh/helysalgado.github.io/introbioinfo-unix/"><img src="https://hits.sh/helysalgado.github.io/introbioinfo-unix/.svg?style=flat-square&amp;label=Visitas&amp;color=4a7c9e" class="img-fluid figure-img"></a></p>
+<figcaption>Visitas</figcaption>
+</figure>
+</div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Helysalgado/introbioinfo-unix/edit/main/s17-evaluacion-individual-demostrativa.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/Helysalgado/introbioinfo-unix/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

@@ -1,0 +1,2970 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>u3-s7-secuencias-formatos-genbank – Introducción a la Bioinformática</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./u3-s8-bases-datos-descarga-integridad.html" rel="next">
+<link href="./u3-datos-bases-datos.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fe3756b78d23b7733c53f9ce5acac92a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXNMZZP0K9"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-QXNMZZP0K9', { 'anonymize_ip': true});
+</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Introducción a la Bioinformática</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Inicio</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-programa" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Programa</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-programa">    
+        <li>
+    <a class="dropdown-item" href="./programa.html">
+ <span class="dropdown-text">Ruta de sesiones</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./programa-detallado.html">
+ <span class="dropdown-text">Programa detallado</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-unidades" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Unidades</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-unidades">    
+        <li>
+    <a class="dropdown-item" href="./u1-trabajo-reproducible.html">
+ <span class="dropdown-text">U1 — Trabajo reproducible</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u2-entorno-unix.html">
+ <span class="dropdown-text">U2 — Entorno Unix</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u3-datos-bases-datos.html">
+ <span class="dropdown-text">U3 — Datos y bases</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u4-procesamiento-exploracion.html">
+ <span class="dropdown-text">U4 — Procesamiento genómico</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u5-automatizacion-scripting.html">
+ <span class="dropdown-text">U5 — Automatización</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u6-comparacion-homologia.html">
+ <span class="dropdown-text">U6 — Comparar / hipótesis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./s14-s15-mini-proyecto-investigacion-I.html">
+ <span class="dropdown-text">Transversal S14–S17</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="./recursos.html" aria-current="page"> 
+<span class="menu-text">Recursos</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./acerca.html"> 
+<span class="menu-text">Acerca</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./contribuir.html"> 
+<span class="menu-text">Contribuir</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Alternar modo lector">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./u3-datos-bases-datos.html">Unidad 3</a></li><li class="breadcrumb-item"><a href="./u3-s7-secuencias-formatos-genbank.html">S7 — Formatos</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 1</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-trabajo-reproducible.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-s1-documentar-markdown-fases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S1 — Documentar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-s2-organizar-fair-ia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S2 — Organizar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 2</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-entorno-unix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s3-shell-acceso-remoto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S3 — Conectar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s4-sistema-archivos-v3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S4 — Navegar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s5-archivos-permisos-procesos-v2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S5 — Archivos y procesos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s6-consolidacion-entorno-unix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S6 — Consolidar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Unidad 3</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-datos-bases-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s7-secuencias-formatos-genbank.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">S7 — Formatos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s8-bases-datos-descarga-integridad.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S8 — Descargar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s9-inspeccion-transferencia-verificable.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S9 — Transferir</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 4</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-procesamiento-exploracion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s10-anatomia-flujos-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S10 — Anatomía y flujos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s11-estructura-tabular-anotacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S11 — Anotación tabular</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s12-filtrado-conteos-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S12 — Filtrar y contar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s13-inventario-resumen-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S13 — Inventario</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s18-precision-patrones-expresiones-regulares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S18 — Patrones</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s19-extraccion-identificadores-correspondencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S19 — Identificadores</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s20-normalizar-datos-comparables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S20 — Normalizar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s21-confrontar-fuente-independiente.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S21 — Confrontar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s22-condicionar-calcular-columnas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S22 — Condicionar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s23-protocolo-ejecutable-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S23 — Protocolo ejecutable</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Transversal</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s14-s15-mini-proyecto-investigacion-I.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S14–S15 — Mini-proyecto I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s16-mini-proyecto-revision-pares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S16 — Revisión por pares</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s17-evaluacion-individual-demostrativa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S17 — Evaluación demostrativa</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mini-proyecto-dictamen-cientifico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dictamen científico</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 5</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-automatizacion-scripting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s24-del-protocolo-al-script.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S24 — Del protocolo al script</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s25-separar-procedimiento-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S25 — Separar datos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s26-procesamiento-por-lotes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S26 — Por lotes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s27-herramienta-cientifica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S27 — Herramienta científica</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s28-proyecto-integrador.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S28 — Proyecto integrador</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s29-cluster-hpc-sge.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S29 — Cluster SGE</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 6</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-comparacion-homologia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s30-comparar-alinear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S30 — Comparar / alinear</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s31-buscar-blast.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S31 — Buscar (BLAST)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s32-interpretar-inferir.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S32 — Interpretar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s33-defender-hipotesis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S33 — Inferir</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s34-integrar-hipotesis-casos-ciegos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S34 — Integrar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./programa-detallado.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programa detallado</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./recursos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recursos</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#s7-representar-de-los-objetos-biológicos-a-fasta-gff3-y-genbank" id="toc-s7-representar-de-los-objetos-biológicos-a-fasta-gff3-y-genbank" class="nav-link active" data-scroll-target="#s7-representar-de-los-objetos-biológicos-a-fasta-gff3-y-genbank">S7 — Representar: de los objetos biológicos a FASTA, GFF3 y GenBank</a>
+  <ul class="collapse">
+  <li><a href="#ficha-del-módulo" id="toc-ficha-del-módulo" class="nav-link" data-scroll-target="#ficha-del-módulo">Ficha del módulo</a></li>
+  <li><a href="#relación-con-lo-que-ya-sabes" id="toc-relación-con-lo-que-ya-sabes" class="nav-link" data-scroll-target="#relación-con-lo-que-ya-sabes">Relación con lo que ya sabes</a></li>
+  <li><a href="#resultados-de-aprendizaje" id="toc-resultados-de-aprendizaje" class="nav-link" data-scroll-target="#resultados-de-aprendizaje">Resultados de aprendizaje</a></li>
+  <li><a href="#preparación-previa-o-preflight" id="toc-preparación-previa-o-preflight" class="nav-link" data-scroll-target="#preparación-previa-o-preflight">Preparación previa o <em>preflight</em></a></li>
+  <li><a href="#ruta-de-s7" id="toc-ruta-de-s7" class="nav-link" data-scroll-target="#ruta-de-s7">Ruta de S7</a></li>
+  <li><a href="#un-objeto-biológico-no-es-lo-mismo-que-un-archivo-indispensable" id="toc-un-objeto-biológico-no-es-lo-mismo-que-un-archivo-indispensable" class="nav-link" data-scroll-target="#un-objeto-biológico-no-es-lo-mismo-que-un-archivo-indispensable">1. Un objeto biológico no es lo mismo que un archivo [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#un-ser-vivo-sus-células-y-su-genoma" id="toc-un-ser-vivo-sus-células-y-su-genoma" class="nav-link" data-scroll-target="#un-ser-vivo-sus-células-y-su-genoma">1.1 Un ser vivo, sus células y su genoma</a></li>
+  <li><a href="#adn-la-molécula-que-almacena-y-copia-la-información" id="toc-adn-la-molécula-que-almacena-y-copia-la-información" class="nav-link" data-scroll-target="#adn-la-molécula-que-almacena-y-copia-la-información">1.2 ADN: la molécula que almacena y copia la información</a></li>
+  <li><a href="#el-gen-la-unidad-de-información-dentro-del-genoma" id="toc-el-gen-la-unidad-de-información-dentro-del-genoma" class="nav-link" data-scroll-target="#el-gen-la-unidad-de-información-dentro-del-genoma">1.3 El gen: la unidad de información dentro del genoma</a></li>
+  <li><a href="#arn-el-primer-producto-de-la-expresión-génica" id="toc-arn-el-primer-producto-de-la-expresión-génica" class="nav-link" data-scroll-target="#arn-el-primer-producto-de-la-expresión-génica">1.4 ARN: el primer producto de la expresión génica</a></li>
+  <li><a href="#proteína-el-producto-de-la-traducción" id="toc-proteína-el-producto-de-la-traducción" class="nav-link" data-scroll-target="#proteína-el-producto-de-la-traducción">1.5 Proteína: el producto de la traducción</a></li>
+  <li><a href="#el-dogma-central-el-mapa-completo-del-flujo-de-información" id="toc-el-dogma-central-el-mapa-completo-del-flujo-de-información" class="nav-link" data-scroll-target="#el-dogma-central-el-mapa-completo-del-flujo-de-información">1.6 El dogma central: el mapa completo del flujo de información</a></li>
+  <li><a href="#la-estructura-de-un-gen-organización-eucariota-y-procariota" id="toc-la-estructura-de-un-gen-organización-eucariota-y-procariota" class="nav-link" data-scroll-target="#la-estructura-de-un-gen-organización-eucariota-y-procariota">1.7 La estructura de un gen: organización eucariota y procariota</a></li>
+  <li><a href="#el-tamaño-del-genoma-no-equivale-al-número-de-genes" id="toc-el-tamaño-del-genoma-no-equivale-al-número-de-genes" class="nav-link" data-scroll-target="#el-tamaño-del-genoma-no-equivale-al-número-de-genes">1.8 El tamaño del genoma no equivale al número de genes</a></li>
+  <li><a href="#alfabetos-biológicos-y-símbolos-especiales" id="toc-alfabetos-biológicos-y-símbolos-especiales" class="nav-link" data-scroll-target="#alfabetos-biológicos-y-símbolos-especiales">1.9 Alfabetos biológicos y símbolos especiales</a></li>
+  <li><a href="#práctica-1-test-de-repaso-procesos-elementos-y-alfabetos" id="toc-práctica-1-test-de-repaso-procesos-elementos-y-alfabetos" class="nav-link" data-scroll-target="#práctica-1-test-de-repaso-procesos-elementos-y-alfabetos">Práctica 1 — Test de repaso: procesos, elementos y alfabetos</a></li>
+  <li><a href="#de-la-biología-a-la-representación-computacional" id="toc-de-la-biología-a-la-representación-computacional" class="nav-link" data-scroll-target="#de-la-biología-a-la-representación-computacional">1.10 De la biología a la representación computacional</a></li>
+  <li><a href="#micropráctica-1-secuencia-o-anotación" id="toc-micropráctica-1-secuencia-o-anotación" class="nav-link" data-scroll-target="#micropráctica-1-secuencia-o-anotación">Micropráctica 1 — ¿Secuencia o anotación?</a></li>
+  </ul></li>
+  <li><a href="#pregunta-evidencia-y-datos-indispensable" id="toc-pregunta-evidencia-y-datos-indispensable" class="nav-link" data-scroll-target="#pregunta-evidencia-y-datos-indispensable">2. Pregunta, evidencia y datos [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#práctica-2-primer-intento-matriz-objetoevidenciaformato" id="toc-práctica-2-primer-intento-matriz-objetoevidenciaformato" class="nav-link" data-scroll-target="#práctica-2-primer-intento-matriz-objetoevidenciaformato">Práctica 2 — Primer intento: matriz objeto–evidencia–formato</a></li>
+  </ul></li>
+  <li><a href="#registro-campo-identificador-accession-y-versión-indispensable" id="toc-registro-campo-identificador-accession-y-versión-indispensable" class="nav-link" data-scroll-target="#registro-campo-identificador-accession-y-versión-indispensable">3. Registro, campo, identificador, accession y versión [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#micropráctica-2-qué-identifica-cada-cadena" id="toc-micropráctica-2-qué-identifica-cada-cadena" class="nav-link" data-scroll-target="#micropráctica-2-qué-identifica-cada-cadena">Micropráctica 2 — ¿Qué identifica cada cadena?</a></li>
+  </ul></li>
+  <li><a href="#fasta-una-representación-sencilla-de-secuencias-indispensable" id="toc-fasta-una-representación-sencilla-de-secuencias-indispensable" class="nav-link" data-scroll-target="#fasta-una-representación-sencilla-de-secuencias-indispensable">4. FASTA: una representación sencilla de secuencias [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#anatomía-mínima" id="toc-anatomía-mínima" class="nav-link" data-scroll-target="#anatomía-mínima">Anatomía mínima</a></li>
+  <li><a href="#qué-permite-y-qué-no-permite-fasta" id="toc-qué-permite-y-qué-no-permite-fasta" class="nav-link" data-scroll-target="#qué-permite-y-qué-no-permite-fasta">Qué permite y qué no permite FASTA</a></li>
+  <li><a href="#práctica-3-interpretar-la-estructura-de-un-archivo-fasta" id="toc-práctica-3-interpretar-la-estructura-de-un-archivo-fasta" class="nav-link" data-scroll-target="#práctica-3-interpretar-la-estructura-de-un-archivo-fasta">Práctica 3 — Interpretar la estructura de un archivo FASTA</a></li>
+  </ul></li>
+  <li><a href="#gff3-anotaciones-relacionadas-con-una-secuencia-indispensable" id="toc-gff3-anotaciones-relacionadas-con-una-secuencia-indispensable" class="nav-link" data-scroll-target="#gff3-anotaciones-relacionadas-con-una-secuencia-indispensable">5. GFF3: anotaciones relacionadas con una secuencia [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#las-nueve-columnas" id="toc-las-nueve-columnas" class="nav-link" data-scroll-target="#las-nueve-columnas">Las nueve columnas</a></li>
+  <li><a href="#qué-aporta-gff3" id="toc-qué-aporta-gff3" class="nav-link" data-scroll-target="#qué-aporta-gff3">Qué aporta GFF3</a></li>
+  <li><a href="#práctica-4-interpretar-una-anotación-gff3" id="toc-práctica-4-interpretar-una-anotación-gff3" class="nav-link" data-scroll-target="#práctica-4-interpretar-una-anotación-gff3">Práctica 4 — Interpretar una anotación GFF3</a></li>
+  </ul></li>
+  <li><a href="#genbank-un-registro-estructurado-que-integra-contexto-indispensable" id="toc-genbank-un-registro-estructurado-que-integra-contexto-indispensable" class="nav-link" data-scroll-target="#genbank-un-registro-estructurado-que-integra-contexto-indispensable">6. GenBank: un registro estructurado que integra contexto [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#fasta-gff3-y-genbank-no-compiten-por-el-mismo-propósito" id="toc-fasta-gff3-y-genbank-no-compiten-por-el-mismo-propósito" class="nav-link" data-scroll-target="#fasta-gff3-y-genbank-no-compiten-por-el-mismo-propósito">FASTA, GFF3 y GenBank no compiten por el mismo propósito</a></li>
+  <li><a href="#práctica-5-es-suficiente-la-información-para-reproducir-un-análisis" id="toc-práctica-5-es-suficiente-la-información-para-reproducir-un-análisis" class="nav-link" data-scroll-target="#práctica-5-es-suficiente-la-información-para-reproducir-un-análisis">Práctica 5 — ¿Es suficiente la información para reproducir un análisis?</a></li>
+  </ul></li>
+  <li><a href="#consulta-códigos-de-secuencia-y-casos-que-requieren-cautela" id="toc-consulta-códigos-de-secuencia-y-casos-que-requieren-cautela" class="nav-link" data-scroll-target="#consulta-códigos-de-secuencia-y-casos-que-requieren-cautela">7. Consulta: códigos de secuencia y casos que requieren cautela</a></li>
+  <li><a href="#evidencia-de-la-sesión" id="toc-evidencia-de-la-sesión" class="nav-link" data-scroll-target="#evidencia-de-la-sesión">Evidencia de la sesión</a></li>
+  <li><a href="#errores-frecuentes-y-estrategias-de-diagnóstico" id="toc-errores-frecuentes-y-estrategias-de-diagnóstico" class="nav-link" data-scroll-target="#errores-frecuentes-y-estrategias-de-diagnóstico">Errores frecuentes y estrategias de diagnóstico</a></li>
+  <li><a href="#rúbricas" id="toc-rúbricas" class="nav-link" data-scroll-target="#rúbricas">Rúbricas</a></li>
+  <li><a href="#autoevaluación" id="toc-autoevaluación" class="nav-link" data-scroll-target="#autoevaluación">Autoevaluación</a>
+  <ul class="collapse">
+  <li><a href="#comprobación-rápida-formativa-al-final-del-taller" id="toc-comprobación-rápida-formativa-al-final-del-taller" class="nav-link" data-scroll-target="#comprobación-rápida-formativa-al-final-del-taller">Comprobación rápida — formativa, al final del taller</a></li>
+  <li><a href="#semáforo" id="toc-semáforo" class="nav-link" data-scroll-target="#semáforo">Semáforo</a></li>
+  </ul></li>
+  <li><a href="#cierre-de-s7-y-puente-hacia-s8" id="toc-cierre-de-s7-y-puente-hacia-s8" class="nav-link" data-scroll-target="#cierre-de-s7-y-puente-hacia-s8">Cierre de S7 y puente hacia S8</a></li>
+  <li><a href="#distribución-orientativa-de-los-120-minutos" id="toc-distribución-orientativa-de-los-120-minutos" class="nav-link" data-scroll-target="#distribución-orientativa-de-los-120-minutos">Distribución orientativa de los 120 minutos</a></li>
+  <li><a href="#anexo-a.-correspondencia-resultadoactividadevidenciacriterio" id="toc-anexo-a.-correspondencia-resultadoactividadevidenciacriterio" class="nav-link" data-scroll-target="#anexo-a.-correspondencia-resultadoactividadevidenciacriterio">Anexo A. Correspondencia resultado–actividad–evidencia–criterio</a></li>
+  <li><a href="#anexo-b.-alineación-transversal" id="toc-anexo-b.-alineación-transversal" class="nav-link" data-scroll-target="#anexo-b.-alineación-transversal">Anexo B. Alineación transversal</a></li>
+  <li><a href="#glosario" id="toc-glosario" class="nav-link" data-scroll-target="#glosario">Glosario</a></li>
+  <li><a href="#referencias" id="toc-referencias" class="nav-link" data-scroll-target="#referencias">Referencias</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/Helysalgado/introbioinfo-unix/edit/main/u3-s7-secuencias-formatos-genbank.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/Helysalgado/introbioinfo-unix/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./u3-datos-bases-datos.html">Unidad 3</a></li><li class="breadcrumb-item"><a href="./u3-s7-secuencias-formatos-genbank.html">S7 — Formatos</a></li></ol></nav></header>
+
+
+
+
+<section id="s7-representar-de-los-objetos-biológicos-a-fasta-gff3-y-genbank" class="level1">
+<h1>S7 — Representar: de los objetos biológicos a FASTA, GFF3 y GenBank</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="Aula invertida">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Aula invertida
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Antes de clase lee las secciones marcadas como <strong>indispensables</strong> y realiza el primer intento sin IA. Lleva tu matriz objeto–evidencia–formato y las dudas que no pudiste resolver. Durante el taller trabajarás con fragmentos y registros reales, compararás tu razonamiento y corregirás la matriz. Después integrarás la selección provisional de datos en <code>doc/protocolo.md</code>. El primer intento es formativo: importa que muestre tu razonamiento inicial, aunque contenga errores corregibles.</p>
+</div>
+</div>
+<section id="ficha-del-módulo" class="level2">
+<h2 class="anchored" data-anchor-id="ficha-del-módulo">Ficha del módulo</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Elemento</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Sesión</strong></td>
+<td>S7, 2 horas</td>
+</tr>
+<tr class="even">
+<td><strong>Unidad</strong></td>
+<td>U3. Datos y bases de datos biológicas</td>
+</tr>
+<tr class="odd">
+<td><strong>Competencia principal</strong></td>
+<td>C. Manejo de datos y bases de datos biológicas</td>
+</tr>
+<tr class="even">
+<td><strong>Competencias integradas</strong></td>
+<td>A. Documentación reproducible; G. uso responsable de IA en el cierre posterior</td>
+</tr>
+<tr class="odd">
+<td><strong>Propósito</strong></td>
+<td>Comprender la base biológica que relaciona genomas, genes, transcritos y proteínas; distinguir estos objetos de sus representaciones computacionales e interpretar FASTA, GFF3 y GenBank</td>
+</tr>
+<tr class="even">
+<td><strong>Consulta previa del Plan</strong></td>
+<td>Material clásico L4, diapositivas 1–31; este módulo lo sustituye como lectura autocontenida</td>
+</tr>
+<tr class="odd">
+<td><strong>Lectura indispensable</strong></td>
+<td>Secciones 1–6 y Práctica 1 de este módulo, 75–90 min</td>
+</tr>
+<tr class="even">
+<td><strong>Lectura de consulta</strong></td>
+<td>Sección 7 y documentación oficial enlazada, 15–20 min</td>
+</tr>
+<tr class="odd">
+<td><strong>Primer intento</strong></td>
+<td>Test de repaso (procesos, elementos, alfabetos) + matriz objeto–pregunta–evidencia–formato, 35–45 min</td>
+</tr>
+<tr class="even">
+<td><strong>Evidencia</strong></td>
+<td>Matriz corregida y selección provisional de un conjunto de datos</td>
+</tr>
+<tr class="odd">
+<td><strong>Tarea numerada</strong></td>
+<td>Ninguna; el Plan inicia la Tarea 4 en S8</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="relación-con-lo-que-ya-sabes" class="level2">
+<h2 class="anchored" data-anchor-id="relación-con-lo-que-ya-sabes">Relación con lo que ya sabes</h2>
+<p>En U1 partiste de una pregunta y aprendiste que los datos necesitan procedencia, metadatos y una ubicación estable. En U2 construiste <code>data/source/</code>, aprendiste a reconocer archivos, conservar originales y comprobar integridad. En esta sesión darás el siguiente paso: decidir <strong>qué datos</strong> necesitas antes de decidir cómo descargarlos o qué comando utilizar.</p>
+<p>El orden de razonamiento será siempre:</p>
+<pre class="text"><code>pregunta → evidencia → datos → operación → herramienta</code></pre>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Advertencia
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Empezar con “¿qué comando uso?” puede producir una respuesta técnicamente válida para el archivo equivocado. Primero determina qué representa el dato y si aporta la evidencia que necesita tu pregunta.</p>
+</div>
+</div>
+</section>
+<section id="resultados-de-aprendizaje" class="level2">
+<h2 class="anchored" data-anchor-id="resultados-de-aprendizaje">Resultados de aprendizaje</h2>
+<p>Al finalizar la sesión podrás:</p>
+<ol type="1">
+<li><strong>Explicar y distinguir</strong> genoma, ADN, gen, transcrito, ARN, proteína, secuencia y anotación.</li>
+<li><strong>Diferenciar</strong> objeto biológico, registro de base de datos y archivo descargable.</li>
+<li><strong>Explicar</strong> la función de un identificador, un <em>accession</em> y una versión.</li>
+<li><strong>Interpretar</strong> los componentes esenciales de FASTA, GFF3 y GenBank.</li>
+<li><strong>Seleccionar</strong> el formato apropiado para una evidencia concreta y justificar sus limitaciones.</li>
+<li><strong>Registrar</strong> una selección provisional de datos sin inventar metadatos ausentes.</li>
+</ol>
+</section>
+<section id="preparación-previa-o-preflight" class="level2">
+<h2 class="anchored" data-anchor-id="preparación-previa-o-preflight">Preparación previa o <em>preflight</em></h2>
+<p>Antes de comenzar confirma:</p>
+<ul class="task-list">
+<li><label><input type="checkbox">Puedes abrir archivos de texto plano en tu computadora o en el servidor.</label></li>
+<li><label><input type="checkbox">Tienes a la vista tu pregunta y subpreguntas de <code>doc/protocolo.md</code>.</label></li>
+<li><label><input type="checkbox">Conservas la estructura <code>data/source/</code>, <code>data/processed/</code>, <code>src/</code>, <code>results/</code>, <code>doc/</code>.</label></li>
+<li><label><input type="checkbox">Puedes distinguir el contenido de un archivo de su nombre o extensión.</label></li>
+<li><label><input type="checkbox">No pegarás credenciales, rutas institucionales privadas ni datos sensibles en una IA.</label></li>
+</ul>
+<p>No necesitas descargar un genoma antes del taller. En esta sesión primero aprenderás a interpretar los registros y formatos; la descarga verificable se realizará en S8.</p>
+</section>
+<section id="ruta-de-s7" class="level2">
+<h2 class="anchored" data-anchor-id="ruta-de-s7">Ruta de S7</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 23%">
+<col style="width: 23%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Momento</th>
+<th>Actividad</th>
+<th>Producto</th>
+<th style="text-align: right;">Tiempo estimado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Antes de clase</td>
+<td>Leer secciones 1–7</td>
+<td>Notas y dudas</td>
+<td style="text-align: right;">75–90 min</td>
+</tr>
+<tr class="even">
+<td>Antes de clase</td>
+<td>Práctica 1 y matriz inicial</td>
+<td>Test de repaso + matriz</td>
+<td style="text-align: right;">35–45 min</td>
+</tr>
+<tr class="odd">
+<td>Taller</td>
+<td>Recuperación y comparación del primer intento</td>
+<td>Matriz corregida</td>
+<td style="text-align: right;">15 min</td>
+</tr>
+<tr class="even">
+<td>Taller</td>
+<td>Prácticas 2–5 con fragmentos y registro</td>
+<td>Evidencias anotadas</td>
+<td style="text-align: right;">85 min</td>
+</tr>
+<tr class="odd">
+<td>Taller</td>
+<td>Selección provisional y semáforo</td>
+<td>Acuerdo de datos</td>
+<td style="text-align: right;">20 min</td>
+</tr>
+<tr class="even">
+<td>Después</td>
+<td>Actualizar <code>doc/protocolo.md</code></td>
+<td>Registro reproducible</td>
+<td style="text-align: right;">20–30 min</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="un-objeto-biológico-no-es-lo-mismo-que-un-archivo-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="un-objeto-biológico-no-es-lo-mismo-que-un-archivo-indispensable">1. Un objeto biológico no es lo mismo que un archivo [Indispensable]</h2>
+<p>Antes de hablar de archivos conviene recorrer, con calma, de dónde viene la información que esos archivos representan. El recorrido de esta sección sigue un solo hilo: de un <strong>ser vivo</strong> a sus <strong>células</strong>, de la célula a su <strong>genoma</strong>, del genoma a un <strong>gen</strong>, del gen a un <strong>ARN</strong> (transcripción) y del ARN a una <strong>proteína</strong> (traducción). El <strong>dogma central</strong> resume ese hilo en un mapa; después profundizamos en la estructura interna de un gen y cerramos con el tamaño de los genomas y los alfabetos que usaremos para escribir todo esto como texto.</p>
+<section id="un-ser-vivo-sus-células-y-su-genoma" class="level3">
+<h3 class="anchored" data-anchor-id="un-ser-vivo-sus-células-y-su-genoma">1.1 Un ser vivo, sus células y su genoma</h3>
+<p>Todo ser vivo —una bacteria, una levadura, una planta, un ser humano— está formado por una o más células. La <strong>célula</strong> es la unidad estructural y funcional básica de los organismos: contiene la maquinaria necesaria para mantenerse, obtener energía, responder a su entorno y reproducirse. En una célula eucariota, buena parte del material genético se localiza dentro de un núcleo delimitado por membrana; en una célula procariota (bacterias y arqueas) no hay núcleo y el material genético ocupa una región del citoplasma llamada nucleoide. Los virus no son células —dependen de una célula huésped para replicarse—, pero también tienen material genético que exige las mismas preguntas: ¿qué molécula es?, ¿de qué organismo o entidad proviene?, ¿qué versión se consultó?</p>
+<p>El conjunto de material genético de una célula, un organismo, un organelo o un virus es su <strong>genoma</strong>. En los organismos celulares, el genoma está compuesto principalmente por ADN. Algunos virus poseen genomas de ARN; por eso siempre debemos consultar qué molécula y qué entidad biológica describe un registro.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u3-s07-ser-vivo.png" class="img-fluid figure-img"></p>
+<figcaption>Seis niveles encadenados que van del organismo al producto funcional: el ser vivo, formado por una o más células; la célula, procariota con el ADN en el nucleoide o eucariota con núcleo; el genoma, que es todo el material genético e incluye genes codificantes, genes de ARN funcional, regiones reguladoras, secuencias repetidas, regiones intergénicas y elementos aún desconocidos, repartido en cromosomas, plásmidos u organelos; el gen, con promotor, región reguladora, región codificante y terminador; el ARN producido por transcripción; y la proteína producida por traducción. Dos recuadros laterales fijan la idea que importa para el curso: un objeto biológico no es un archivo —el genoma existe en la naturaleza, el archivo es una representación digital—, y para identificar correctamente un genoma hacen falta seis datos: organismo, cepa, tipo de molécula, ensamblado, base de datos y versión.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 1.</strong> Jerarquía de la información biológica, desde el organismo hasta la expresión génica. El material genético se organiza de manera jerárquica: los seres vivos están formados por células, las células contienen un genoma, el genoma está compuesto por genes y estos se expresan mediante la transcripción a ARN y la traducción a proteínas. El genoma comprende todo el material genético del organismo, incluyendo regiones codificantes y no codificantes, y puede estar distribuido en cromosomas, plásmidos u organelos genéticos.</p>
+<p>Un genoma puede incluir:</p>
+<ul>
+<li>genes que producen proteínas;</li>
+<li>genes que producen ARN funcional;</li>
+<li>regiones reguladoras;</li>
+<li>secuencias repetidas;</li>
+<li>regiones intergénicas;</li>
+<li>otros elementos cuya función puede ser conocida, provisional o todavía desconocida.</li>
+</ul>
+<p>El ADN genómico puede organizarse en uno o más <strong>cromosomas</strong>. Además, pueden existir moléculas genéticas adicionales, como plásmidos en bacterias o genomas de organelos —mitocondrias y cloroplastos— en organismos eucariotas.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>“El genoma” no identifica por sí solo un archivo reproducible. Debes precisar organismo, cepa o individuo, tipo de molécula, ensamblado, colección y versión.</p>
+</div>
+</div>
+<p>Un <strong>ensamblado genómico</strong> es una representación computacional reconstruida a partir de datos de secuenciación. No es la molécula física completa: es un modelo compuesto por secuencias llamadas contigs, scaffolds o cromosomas, según su nivel de organización.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u3-s07-archivos-digitales.png" class="img-fluid figure-img"></p>
+<figcaption>Cómo el genoma biológico se convierte en archivos digitales, en cuatro pasos: el genoma existe como moléculas de ADN en la célula, con cromosoma y plásmido; la secuenciación fragmenta y lee millones de trozos; el ensamblado los reconstruye computacionalmente, y una nota advierte que el ensamblado es una representación del genoma, no la molécula física; y de él se generan archivos estandarizados —FASTA para secuencias de nucleótidos, GenBank para secuencias con anotaciones y metadatos, GFF para anotaciones de genes y otras características— que son lo que usan las herramientas de visualización, comparación, anotación, filogenia y estadística. Un recuadro subraya que el ADN no se analiza directamente en la computadora, y otro que decir «el genoma» no identifica un archivo reproducible: hacen falta organismo, cepa, tipo de molécula, ensamblado, colección y versión.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 2.</strong> Del genoma biológico a los archivos utilizados en bioinformática. El ADN de un organismo se secuencia y se reconstruye mediante un ensamblado genómico. A partir de esta representación computacional se generan archivos estandarizados, como FASTA, GenBank y GFF, que sirven de entrada para las herramientas de análisis bioinformático.</p>
+</section>
+<section id="adn-la-molécula-que-almacena-y-copia-la-información" class="level3">
+<h3 class="anchored" data-anchor-id="adn-la-molécula-que-almacena-y-copia-la-información">1.2 ADN: la molécula que almacena y copia la información</h3>
+<p>En la mayoría de los seres vivos, el genoma que acabas de conocer está hecho de <strong>ácido desoxirribonucleico (ADN)</strong>: un polímero formado por nucleótidos. Cada nucleótido contiene un grupo fosfato, el azúcar desoxirribosa y una base nitrogenada. Las cuatro bases que utilizaremos inicialmente son:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Símbolo</th>
+<th>Base</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>A</code></td>
+<td>adenina</td>
+</tr>
+<tr class="even">
+<td><code>C</code></td>
+<td>citosina</td>
+</tr>
+<tr class="odd">
+<td><code>G</code></td>
+<td>guanina</td>
+</tr>
+<tr class="even">
+<td><code>T</code></td>
+<td>timina</td>
+</tr>
+</tbody>
+</table>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u3-s07-dna.png" class="img-fluid figure-img"></p>
+<figcaption>El ADN como molécula que almacena y copia la información, en cinco bloques: el nucleótido y sus tres componentes (fosfato, desoxirribosa y base nitrogenada), del que solo varía la base; las cuatro bases A, C, G y T con un color asignado que se conserva en toda la figura; la doble hélice formada por dos cadenas antiparalelas unidas por apareamiento complementario, donde A siempre se aparea con T y C con G; la representación lineal, que explica por qué una estructura tridimensional y bicatenaria se escribe en el archivo como una sola cadena de caracteres en dirección 5’ a 3’, sin anotar la complementaria; y la replicación, en cuatro pasos, que produce dos moléculas idénticas cada una con una hebra original y una nueva.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 3.</strong> Estructura y representación del ADN. El ADN está formado por nucleótidos, cada uno compuesto por un grupo fosfato, una desoxirribosa y una base nitrogenada (A, C, G o T). Dos cadenas antiparalelas se unen mediante el apareamiento complementario de bases (A–T y C–G), formando la doble hélice. En bioinformática, esta estructura se representa habitualmente como una única secuencia de nucleótidos escrita en dirección 5′→3′. Durante la replicación, cada cadena sirve como molde para sintetizar una nueva cadena complementaria.</p>
+<p>En una molécula de ADN de doble cadena, las cadenas son antiparalelas y las bases se aparean de manera complementaria: A con T y C con G. Dado que una cadena determina la complementaria, una secuencia computacional suele escribirse como <strong>una sola cadena en dirección 5′ → 3′</strong>. Esta convención convierte una estructura tridimensional y bicatenaria en una cadena lineal de caracteres.</p>
+<pre class="text"><code>Molécula representada conceptualmente: doble cadena de ADN
+Representación habitual en texto: 5′-ATGGCTCTGTGG-3′
+Cadena complementaria:             3′-TACCGAGACACC-5′</code></pre>
+<p>La <strong>replicación</strong> produce nuevas moléculas de ADN a partir de ADN. La doble hélice se abre y cada cadena sirve de molde para sintetizar una cadena complementaria. La ADN polimerasa participa en la síntesis. Este proceso permite copiar la información genética antes de la división celular.</p>
+</section>
+<section id="el-gen-la-unidad-de-información-dentro-del-genoma" class="level3">
+<h3 class="anchored" data-anchor-id="el-gen-la-unidad-de-información-dentro-del-genoma">1.3 El gen: la unidad de información dentro del genoma</h3>
+<p>Dentro del genoma, no toda la secuencia cumple el mismo papel. Un <strong>gen</strong> es una región de material genético que contribuye a producir un producto funcional: un ARN o una proteína. Esta definición es más amplia que “una secuencia que codifica una proteína”: incluye genes de ARNr, ARNt y otros ARN funcionales.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u3-s07-gene.png" class="img-fluid figure-img"></p>
+<figcaption>El gen como región funcional del genoma, no como molécula independiente: un cromosoma se amplía hasta mostrar un tramo de ADN delimitado por un inicio y un fin, con sus regiones reguladoras, promotor, región transcrita, terminador y regiones no codificantes. Una tabla lista los atributos por los que se describe un gen en un archivo —molécula, inicio y fin en pares de bases, longitud, hebra, orientación, símbolo, identificador, tipo y producto—, y un esquema muestra que la hebra positiva se lee de izquierda a derecha y la negativa al revés, aunque ambas se transcriban de 5’ a 3’. Un tercer bloque distingue lo que un gen puede producir: copia durante la replicación, transcripción a ARN ribosómico, de transferencia, regulador o mensajero, y traducción a proteína solo en el caso del mensajero. Una advertencia recuerda que un gen se identifica siempre por sus coordenadas dentro del ensamblado.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 4.</strong> El gen como unidad funcional y entidad anotada del genoma. Un gen es una región específica del ADN definida por su posición dentro de un cromosoma o molécula genómica. Además de su secuencia, un gen se caracteriza por atributos como sus coordenadas de inicio y fin, la hebra (strand), la orientación de la transcripción y su identificador. Durante la expresión génica, un gen puede transcribirse para producir diferentes tipos de ARN; cuando el transcrito corresponde a un ARN mensajero (ARNm), este puede traducirse para sintetizar una proteína. Estos atributos constituyen la base de las anotaciones genómicas empleadas en formatos como GFF, GTF y GenBank.</p>
+<p>Cada gen puede copiarse, como parte de la replicación de todo el genoma, y también puede <strong>expresarse</strong>: usarse como molde para producir un ARN y, en muchos casos, una proteína. Las dos secciones siguientes recorren esos productos —ARN y proteína— y el proceso que los conecta con el gen. Más adelante (sección 1.7) volverás sobre el gen para ver cómo se organiza internamente en eucariotas y procariotas.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>un gen es una <strong>región</strong> del genoma, no una molécula aparte. No existe “el gen” como una entidad independiente del ADN o del cromosoma que lo contiene.</p>
+</div>
+</div>
+</section>
+<section id="arn-el-primer-producto-de-la-expresión-génica" class="level3">
+<h3 class="anchored" data-anchor-id="arn-el-primer-producto-de-la-expresión-génica">1.4 ARN: el primer producto de la expresión génica</h3>
+<p>El <strong>ácido ribonucleico (ARN)</strong> también es un polímero de nucleótidos, pero contiene ribosa y suele usar uracilo (<code>U</code>) en lugar de timina (<code>T</code>). Muchas moléculas de ARN son monocatenarias, aunque pueden plegarse y formar regiones de doble cadena.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tipo de ARN</th>
+<th>Función introductoria</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ARN mensajero (ARNm)</td>
+<td>Lleva una secuencia que puede servir como molde para sintetizar una proteína</td>
+</tr>
+<tr class="even">
+<td>ARN ribosómico (ARNr)</td>
+<td>Forma parte estructural y catalítica del ribosoma</td>
+</tr>
+<tr class="odd">
+<td>ARN de transferencia (ARNt)</td>
+<td>Relaciona codones del ARNm con aminoácidos durante la traducción</td>
+</tr>
+<tr class="even">
+<td>ARN regulador</td>
+<td>Participa en la regulación de genes y otros procesos celulares</td>
+</tr>
+</tbody>
+</table>
+<p>Un ARN se produce mediante la <strong>transcripción</strong>: una ARN polimerasa utiliza como molde la cadena de ADN de un gen para sintetizar una cadena de ARN complementaria. El resultado es un <strong>transcrito</strong>. No todo transcrito es un ARNm y no todo transcrito será traducido. En eucariotas, un transcrito primario puede procesarse antes de convertirse en ARN maduro; en un ARNm pueden añadirse una caperuza 5′ y una cola poli-A, y pueden eliminarse intrones mediante <em>splicing</em>.</p>
+</section>
+<section id="proteína-el-producto-de-la-traducción" class="level3">
+<h3 class="anchored" data-anchor-id="proteína-el-producto-de-la-traducción">1.5 Proteína: el producto de la traducción</h3>
+<p>Una <strong>proteína</strong> es una molécula formada por una o más cadenas de aminoácidos. Su secuencia primaria se representa con un alfabeto de una letra. Por ejemplo:</p>
+<pre class="text"><code>MALWMRLLPLL</code></pre>
+<p>Cuando el transcrito es un ARNm, puede <strong>traducirse</strong>: el ribosoma lo lee en grupos de tres nucleótidos llamados <strong>codones</strong> y, con ayuda de los ARNt, construye una cadena de aminoácidos. El <strong>código genético</strong> establece la correspondencia entre codones y aminoácidos; un codón de inicio marca dónde comienza la traducción y un codón de terminación, dónde acaba.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u3-s07-productos.png" class="img-fluid figure-img"></p>
+<figcaption>Los dos productos de la expresión génica, en paralelo. A la izquierda el ARN: su nucleótido usa ribosa y uracilo en lugar de timina, suele ser monocatenario aunque puede plegarse, y se presenta en cuatro tipos con función distinta —mensajero, ribosómico, de transferencia y regulador—, con el procesamiento eucariota que añade caperuza, elimina intrones y agrega cola poli-A. Una nota advierte que no todo transcrito es ARN mensajero ni será traducido. A la derecha la proteína: una cadena de aminoácidos que se escribe con un alfabeto de una sola letra, los cuatro pasos de la traducción en el ribosoma, la tabla del código genético con su carácter degenerado y no ambiguo, y las funciones que puede desempeñar. Un pie resume que la información fluye de ADN a ARN y de ARN a proteína.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 5.</strong> Expresión génica: del gen al ARN y a la proteína. Un gen puede transcribirse para producir diferentes tipos de ARN, cada uno con funciones específicas. Cuando el transcrito corresponde a un ARN mensajero (ARNm), este puede traducirse en una proteína mediante la acción del ribosoma y el código genético. La figura resume los principales tipos de ARN, el procesamiento del ARNm en eucariotas y la relación entre las secuencias de ADN, ARN y proteínas, las tres representaciones moleculares fundamentales utilizadas en bioinformática.</p>
+<p>Las proteínas pueden participar en catálisis, transporte, estructura, señalización, movimiento y regulación. La secuencia de aminoácidos condiciona el plegamiento, pero un archivo de secuencia no describe por sí solo toda la estructura tridimensional, modificaciones químicas, interacciones o funciones de la proteína.</p>
+</section>
+<section id="el-dogma-central-el-mapa-completo-del-flujo-de-información" class="level3">
+<h3 class="anchored" data-anchor-id="el-dogma-central-el-mapa-completo-del-flujo-de-información">1.6 El dogma central: el mapa completo del flujo de información</h3>
+<p>Ya recorriste, por separado, la replicación (ADN → ADN), la transcripción (ADN → ARN) y la traducción (ARN → proteína). El <strong>dogma central de la biología molecular</strong> reúne los dos últimos procesos en un solo mapa del flujo de información entre macromoléculas:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u3-s07-dogma-central.png" class="img-fluid figure-img"></p>
+<figcaption>El dogma central como flujo de información en tres cajas: el ADN almacena la información genética, la transcripción produce ARN que la transporta, y la traducción produce la proteína, que es el producto funcional. Debajo, dos precisiones que suelen confundirse: la replicación de ADN a ADN conserva y copia la información pero no forma parte de la cadena de expresión génica, y existen flujos adicionales reales —transcripción inversa de ARN a ADN— que no son la vía principal. Un recuadro final advierte que el dogma no implica que todos los genes produzcan proteínas ni que toda la información siga una sola ruta.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 6.</strong> El dogma central de la biología molecular. El flujo principal de la información genética ocurre desde el ADN hacia el ARN mediante la transcripción y del ARN hacia la proteína mediante la traducción. La replicación (ADN → ADN) conserva la información genética, pero no forma parte de la expresión génica. Existen rutas adicionales, como la retrotranscripción (ARN → ADN), que no modifican el principio fundamental del dogma central.</p>
+<p>La replicación <code>ADN → ADN</code> conserva y copia información genética, pero no es un paso adicional de esta cadena. Es un proceso relacionado que debe distinguirse de la <strong>expresión génica</strong>, formada aquí por transcripción y, para genes codificantes, traducción (Cooper, 2000, cap. 3).</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="¿Sabías que?">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>¿Sabías que?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Existen flujos adicionales, como ARN → ADN mediante transcriptasa reversa. El dogma central no significa que toda información pase siempre por una sola ruta ni que todos los genes produzcan proteínas. Su idea central es distinguir la transferencia de información entre secuencias de ácidos nucleicos y proteínas.</p>
+</div>
+</div>
+</section>
+<section id="la-estructura-de-un-gen-organización-eucariota-y-procariota" class="level3">
+<h3 class="anchored" data-anchor-id="la-estructura-de-un-gen-organización-eucariota-y-procariota">1.7 La estructura de un gen: organización eucariota y procariota</h3>
+<p>En 1.3 definiste un gen como una región del genoma que puede expresarse. Ahora que ya conoces la transcripción y la traducción, puedes ver con más detalle cómo se organiza esa región:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Elemento</th>
+<th>Función introductoria</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Región reguladora</td>
+<td>Influye en cuándo, dónde o cuánto se expresa un gen</td>
+</tr>
+<tr class="even">
+<td>Promotor</td>
+<td>Región donde se organiza el inicio de la transcripción</td>
+</tr>
+<tr class="odd">
+<td>Sitio de inicio de transcripción (TSS)</td>
+<td>Primera posición transcrita</td>
+</tr>
+<tr class="even">
+<td>Región 5′ no traducida (5′ UTR)</td>
+<td>Parte del transcrito anterior a la región codificante</td>
+</tr>
+<tr class="odd">
+<td>Región codificante (CDS)</td>
+<td>Parte traducida en una secuencia de aminoácidos</td>
+</tr>
+<tr class="even">
+<td>Codón de inicio y de terminación</td>
+<td>Delimitan la traducción dentro de la CDS</td>
+</tr>
+<tr class="odd">
+<td>Región 3′ no traducida (3′ UTR)</td>
+<td>Parte del transcrito posterior a la CDS</td>
+</tr>
+<tr class="even">
+<td>Terminación de transcripción</td>
+<td>Proceso o señal asociado con el final de la transcripción</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Los límites de un gen, un transcrito y una CDS no son necesariamente iguales. Un archivo de anotación debe distinguir los tipos de feature y sus relaciones.</p>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u3-s07-estructura-gene.png" class="img-fluid figure-img"></p>
+<figcaption>Estructura general de un operón procariota con regiones reguladoras, varias regiones codificantes, un ARN mensajero y productos proteicos.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 7.</strong> Estructura general de un gen y su anotación (elemento gráfico pendiente de confirmar contra la fuente original; verificar si representa organización eucariota, procariota, o ambas antes de publicar).</p>
+<section id="organización-eucariota" class="level4">
+<h4 class="anchored" data-anchor-id="organización-eucariota">Organización eucariota</h4>
+<p>En un gen eucariota codificante, la región transcrita puede contener <strong>exones</strong> e <strong>intrones</strong>. El transcrito primario o pre-ARNm contiene ambos; durante el <em>splicing</em>, los intrones se eliminan y los exones se unen. Las UTR forman parte del ARN maduro, pero no de la secuencia traducida. Promotores, enhancers y otros elementos reguladores influyen en la expresión (Shafee y Lowe, 2017).</p>
+<p>El <strong>splicing alternativo</strong> permite que diferentes combinaciones de exones produzcan distintos transcritos a partir de una región génica. Por ello, la relación gen → transcrito → proteína no siempre es uno a uno.</p>
+</section>
+<section id="organización-procariota" class="level4">
+<h4 class="anchored" data-anchor-id="organización-procariota">Organización procariota</h4>
+<p>En procariotas, una región codificante suele relacionarse con un promotor, un TSS, regiones no traducidas y señales de terminación. Muchos genes se organizan en <strong>operones</strong>: varias regiones codificantes son transcritas juntas en un ARN policistrónico y después pueden producir proteínas distintas. No todos los genes procariotas pertenecen a operones.</p>
+</section>
+</section>
+<section id="el-tamaño-del-genoma-no-equivale-al-número-de-genes" class="level3">
+<h3 class="anchored" data-anchor-id="el-tamaño-del-genoma-no-equivale-al-número-de-genes">1.8 El tamaño del genoma no equivale al número de genes</h3>
+<p>Los genomas varían enormemente en tamaño y organización. Esta variación no forma una escala simple de “complejidad”. Por ejemplo:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 40%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Organismo</th>
+<th style="text-align: right;">Tamaño aproximado</th>
+<th>Observación útil</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><em>Escherichia coli</em> K-12 MG1655</td>
+<td style="text-align: right;">4.64 Mb</td>
+<td>Un cromosoma circular de referencia; más de cuatro mil genes anotados, según la versión</td>
+</tr>
+<tr class="even">
+<td>Humano</td>
+<td style="text-align: right;">3 Gb por juego haploide</td>
+<td>23 cromosomas y alrededor de 20,000 genes; gran proporción no codificante</td>
+</tr>
+<tr class="odd">
+<td>Ajolote mexicano</td>
+<td style="text-align: right;">32 Gb</td>
+<td>Cerca de diez veces el tamaño humano, en gran parte por expansión de regiones repetidas e intrones</td>
+</tr>
+</tbody>
+</table>
+<p>Fuentes: registro <a href="https://www.ncbi.nlm.nih.gov/nuccore/NC_000913.3">NC_000913.3</a>, NHGRI (2020) y Nowoshilow et al.&nbsp;(2018).</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>“Número de genes”, “número de transcritos” y “número de proteínas” dependen de la definición, la versión de anotación y el tipo de conteo. Por eso no deben copiarse como propiedades eternas de una especie: se registra siempre la fuente y la versión.</p>
+</div>
+</div>
+</section>
+<section id="alfabetos-biológicos-y-símbolos-especiales" class="level3">
+<h3 class="anchored" data-anchor-id="alfabetos-biológicos-y-símbolos-especiales">1.9 Alfabetos biológicos y símbolos especiales</h3>
+<p>Al convertir moléculas en texto usamos alfabetos convencionales:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tipo</th>
+<th>Símbolos básicos</th>
+<th>Símbolos que debes reconocer</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ADN</td>
+<td><code>A</code>, <code>C</code>, <code>G</code>, <code>T</code></td>
+<td><code>N</code>: nucleótido no determinado; otros códigos IUPAC representan ambigüedad</td>
+</tr>
+<tr class="even">
+<td>ARN</td>
+<td><code>A</code>, <code>C</code>, <code>G</code>, <code>U</code></td>
+<td><code>N</code>: nucleótido no determinado</td>
+</tr>
+<tr class="odd">
+<td>Proteína</td>
+<td>Código de una letra para aminoácidos</td>
+<td><code>X</code>: aminoácido no determinado; <code>*</code>: señal de terminación en algunas representaciones</td>
+</tr>
+</tbody>
+</table>
+<p>El guion <code>-</code> suele representar una <strong>brecha</strong> en un alineamiento, no un nucleótido o aminoácido. No debe añadirse a una secuencia sin alineamiento para “rellenar” una región desconocida. Más adelante estudiarás los alineamientos y el significado de las brechas.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Advertencia
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Una letra ambigua es información, no suciedad. Eliminar <code>N</code> o <code>X</code> cambia el dato y puede alterar posiciones, longitudes e interpretaciones. El original permanece en <code>data/source/</code>.</p>
+</div>
+</div>
+</section>
+<section id="práctica-1-test-de-repaso-procesos-elementos-y-alfabetos" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-1-test-de-repaso-procesos-elementos-y-alfabetos">Práctica 1 — Test de repaso: procesos, elementos y alfabetos</h3>
+<p>Esta práctica se realiza en el laboratorio interactivo <strong>Bio Detective</strong>: procesos del dogma central, elementos de un gen y alfabetos de secuencia. Responde sin IA y sin volver a mirar las secciones anteriores mientras contestas. Es un test formativo: importa tu razonamiento, no un puntaje perfecto.</p>
+<p><a href="html/u3-s7-p1-bio_detective.html">Bio Detective (HTML)</a></p>
+<iframe src="html/u3-s7-p1-bio_detective.html" title="Práctica 1 — Bio Detective: procesos, elementos y alfabetos" style="width:100%;min-height:860px;border:1px solid #d7cdc7;border-radius:12px;background:#fff;" loading="lazy">
+</iframe>
+<p><strong>Criterio de logro:</strong> distingue correctamente los procesos que conectan ADN, ARN y proteína; relaciona cada elemento genético con su función; clasifica los fragmentos inequívocos y reconoce, sin inventar certeza, los casos ambiguos.</p>
+</section>
+<section id="de-la-biología-a-la-representación-computacional" class="level3">
+<h3 class="anchored" data-anchor-id="de-la-biología-a-la-representación-computacional">1.10 De la biología a la representación computacional</h3>
+<p>Una pregunta biológica se refiere a entidades o procesos del mundo: un organismo, un gen, un transcrito, una proteína o una región reguladora. La computadora no manipula directamente esas entidades; manipula <strong>representaciones</strong> construidas a partir de observaciones, ensamblajes, predicciones y anotaciones.</p>
+<p>Todavía no conoces la sintaxis completa de FASTA, GFF3 o GenBank —eso llega en las secciones 4 a 6—, pero conviene anticipar, aunque sea de forma general, cómo se ve cada objeto biológico convertido en texto.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Concepto</th>
+<th>Qué representa</th>
+<th>Ejemplo de evidencia computacional</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Organismo</td>
+<td>Ser vivo o sistema biológico</td>
+<td>Nombre científico, identificador taxonómico, muestra</td>
+</tr>
+<tr class="even">
+<td>Genoma</td>
+<td>Material genético de un organismo o muestra</td>
+<td>Ensamblado con secuencias y versión</td>
+</tr>
+<tr class="odd">
+<td>Gen</td>
+<td>Unidad anotada asociada con un producto o función</td>
+<td>Feature con coordenadas y atributos</td>
+</tr>
+<tr class="even">
+<td>Transcrito</td>
+<td>Molécula de ARN producida por transcripción</td>
+<td>Secuencia de ARN y relación con un gen</td>
+</tr>
+<tr class="odd">
+<td>Proteína</td>
+<td>Cadena de aminoácidos o producto funcional</td>
+<td>Secuencia proteica y anotación</td>
+</tr>
+<tr class="even">
+<td>Anotación</td>
+<td>Afirmación sobre ubicación, estructura o función</td>
+<td>Feature en GFF3 o tabla <code>FEATURES</code> de GenBank</td>
+</tr>
+</tbody>
+</table>
+<p>Una <strong>secuencia</strong> es un orden de símbolos que representa nucleótidos o aminoácidos. Una <strong>anotación</strong> agrega afirmaciones sobre esa secuencia: dónde se encuentra un gen, en qué cadena, qué producto se propone o qué evidencia respalda la afirmación.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u3-s07-objetos-biologicos-texto.png" class="img-fluid figure-img"></p>
+<figcaption>Cuatro objetos biológicos en fila —ADN, gen, transcrito y proteína— y, debajo de cada uno, una flecha que apunta al archivo de texto que lo representa. La doble hélice completa se convierte en secuencia; el gen aparece como un tramo delimitado por coordenadas de inicio y fin (1000 y 2500) dentro de esa hélice; el transcrito es una cadena sencilla con uracilo; y la proteína, una cadena de aminoácidos plegada. La idea es que cada nivel biológico distinto se representa en un archivo distinto, y que lo que se manipula en bioinformática son esos archivos, no los objetos.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 8.</strong> De los objetos biológicos a sus representaciones digitales. El ADN puede representarse como una secuencia; un gen, como una región anotada mediante coordenadas; un transcrito, como una secuencia de nucleótidos; y una proteína, como una secuencia de aminoácidos. Elaboración propia.</p>
+<p>La figura separa dos niveles:</p>
+<ul>
+<li><strong>nivel biológico:</strong> moléculas, regiones y productos que estudiamos;</li>
+<li><strong>nivel computacional:</strong> caracteres y campos almacenados en archivos de texto.</li>
+</ul>
+<p>La computadora no “ve” una doble hélice ni una proteína plegada. Procesa símbolos, líneas, campos y relaciones. El significado biológico aparece cuando conocemos el formato, el registro de origen y los metadatos.</p>
+<section id="ejemplo-integrado-del-objeto-biológico-al-texto" class="level4">
+<h4 class="anchored" data-anchor-id="ejemplo-integrado-del-objeto-biológico-al-texto">Ejemplo integrado: del objeto biológico al texto</h4>
+<p>Los siguientes fragmentos son <strong>ejemplos didácticos mínimos</strong>, no registros reales. Comparten una misma secuencia ficticia y simplificada, formada únicamente por una región codificante, para mostrar qué información se conserva al representar cada objeto como texto.</p>
+<section id="adn-una-secuencia-de-nucleótidos" class="level5">
+<h5 class="anchored" data-anchor-id="adn-una-secuencia-de-nucleótidos">ADN: una secuencia de nucleótidos</h5>
+<pre class="text"><code>&gt;secuencia_genomica_ejemplo
+ATGGCTCTGTGGATGCGTCTGCTGCCGCTGCTGTAA</code></pre>
+<p>El alfabeto <code>A</code>, <code>C</code>, <code>G</code> y <code>T</code> representa nucleótidos de ADN. El archivo conserva el orden de la secuencia, pero no señala por sí solo dónde comienza o termina un gen.</p>
+</section>
+<section id="gen-una-región-anotada-sobre-el-adn" class="level5">
+<h5 class="anchored" data-anchor-id="gen-una-región-anotada-sobre-el-adn">Gen: una región anotada sobre el ADN</h5>
+<p>El siguiente fragmento anticipa la sintaxis de GFF3, que estudiarás formalmente en la sección 5. Por ahora fíjate solo en la idea general, no en cada símbolo:</p>
+<pre class="text"><code>##gff-version 3
+chr_demo    curso   gene    101 136 .   +   .   ID=gene1;Name=gen_ejemplo</code></pre>
+<p>Aquí el gen no se representa copiando nuevamente toda la molécula. Se describe como una anotación —lo que estos formatos llaman un <em>feature</em>— de tipo <code>gene</code>, localizada entre las coordenadas 101 y 136 de <code>chr_demo</code>, en la cadena <code>+</code>, con atributos como su identificador y nombre. Esas coordenadas solo tienen sentido respecto de la secuencia y versión correctas.</p>
+</section>
+<section id="transcrito-una-secuencia-de-arn" class="level5">
+<h5 class="anchored" data-anchor-id="transcrito-una-secuencia-de-arn">Transcrito: una secuencia de ARN</h5>
+<pre class="text"><code>&gt;transcrito1 gen_ejemplo ARN
+AUGGCUCUGUGGAUGCGUCUGCUGCCGCUGCUGUAA</code></pre>
+<p>En este ejemplo didáctico se usa <code>U</code> para hacer visible que se trata de ARN. Algunos repositorios y flujos de análisis exportan secuencias de transcritos como ADN complementario y usan <code>T</code>; por eso el alfabeto no basta para determinar la procedencia ni el tipo exacto de molécula.</p>
+</section>
+<section id="proteína-una-secuencia-de-aminoácidos" class="level5">
+<h5 class="anchored" data-anchor-id="proteína-una-secuencia-de-aminoácidos">Proteína: una secuencia de aminoácidos</h5>
+<pre class="text"><code>&gt;proteina1 producto_gen_ejemplo
+MALWMRLLPLL</code></pre>
+<p>Cada letra representa un aminoácido mediante el código de una letra. La secuencia lineal no muestra por sí sola el plegamiento tridimensional, la función, las modificaciones posteriores a la traducción ni la evidencia que respalda una anotación funcional.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El esquema es una ruta introductoria, no una equivalencia uno a uno. Un gen puede producir varios transcritos; no todos los genes codifican proteínas; los transcritos pueden procesarse; y la región completa de un gen no se traduce necesariamente. Para obtener una proteína se traduce la región codificante del transcrito con el código genético apropiado.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Una anotación no es la molécula y tampoco es necesariamente una observación directa. Puede integrar evidencia experimental, inferencias computacionales y decisiones de una versión concreta del proceso de anotación.</p>
+</div>
+</div>
+<p>El flujo ADN–ARN–proteína funciona aquí como mapa conceptual, no como una lista exhaustiva de excepciones biológicas. Para esta unidad interesa que distingas qué tipo de objeto describe cada registro o archivo y qué representación computacional conserva la evidencia necesaria.</p>
+<p>Con esta vista previa ya puedes avanzar. La sección 2 usa estas ideas para descomponer una pregunta biológica en evidencia y datos, sin ejecutar todavía ningún comando ni exigir que domines la sintaxis completa de un formato. Las secciones 3 a 6 retoman, una por una y con su sintaxis completa, los identificadores y versiones (3), FASTA (4), GFF3 (5) y GenBank (6).</p>
+</section>
+</section>
+</section>
+<section id="micropráctica-1-secuencia-o-anotación" class="level3">
+<h3 class="anchored" data-anchor-id="micropráctica-1-secuencia-o-anotación">Micropráctica 1 — ¿Secuencia o anotación?</h3>
+<p>Clasifica cada necesidad antes de mirar formatos:</p>
+<ol type="1">
+<li>Conocer el orden de nucleótidos de un cromosoma.</li>
+<li>Localizar el inicio y fin de los genes anotados.</li>
+<li>Consultar en un solo registro la secuencia, su fuente y sus features.</li>
+<li>Comparar la secuencia de una proteína con otra.</li>
+</ol>
+<p>Para cada caso escribe “secuencia”, “anotación” o “ambas” y justifica en una oración.</p>
+<details>
+<summary>
+Ver retroalimentación
+</summary>
+<ol type="1">
+<li>Secuencia genómica.</li>
+<li>Anotación relacionada con una secuencia de referencia.</li>
+<li>Ambas, integradas en un registro estructurado.</li>
+<li>Secuencias proteicas; la interpretación posterior puede necesitar anotaciones adicionales.</li>
+</ol>
+</details>
+</section>
+</section>
+<section id="pregunta-evidencia-y-datos-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="pregunta-evidencia-y-datos-indispensable">2. Pregunta, evidencia y datos [Indispensable]</h2>
+<p>Considera la pregunta: <strong>¿cuántos genes están anotados en un ensamblado de referencia de una bacteria?</strong></p>
+<p>Antes de elegir una herramienta, descompón el razonamiento:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Paso</th>
+<th>Decisión provisional</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Pregunta</td>
+<td>¿Cuántos genes están anotados?</td>
+</tr>
+<tr class="even">
+<td>Evidencia</td>
+<td>Anotaciones que declaren explícitamente cada gen, no solo la secuencia del genoma</td>
+</tr>
+<tr class="odd">
+<td>Datos</td>
+<td>Anotación correspondiente a un ensamblado y versión determinados</td>
+</tr>
+<tr class="even">
+<td>Operación</td>
+<td>Localizar esas anotaciones marcadas como genes y contarlas</td>
+</tr>
+<tr class="odd">
+<td>Herramienta</td>
+<td>Se decidirá en U4 después de estudiar filtros y conteos</td>
+</tr>
+<tr class="even">
+<td>Verificación</td>
+<td>Comparar con el resumen del mismo ensamblado y revisar qué definición usa</td>
+</tr>
+<tr class="odd">
+<td>Limitación</td>
+<td>“Genes anotados” depende de la versión y del criterio de anotación</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Estas anotaciones son lo que en 1.10 adelantamos como un <em>feature</em>. Su sintaxis formal —columnas, tipos y atributos— corresponde a GFF3 y la estudiarás en la sección 5. Aquí interesa solo distinguir que la evidencia no es la secuencia del genoma, sino una afirmación explícita sobre dónde están los genes.</p>
+</div>
+</div>
+<p>En S7 llegaremos hasta la selección y comprensión de los datos. No necesitas ejecutar todavía el conteo: filtros, tuberías y conteos sistemáticos corresponden a U4.</p>
+<section id="práctica-2-primer-intento-matriz-objetoevidenciaformato" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-2-primer-intento-matriz-objetoevidenciaformato">Práctica 2 — Primer intento: matriz objeto–evidencia–formato</h3>
+<section id="antes-de-clase-primer-intento-individual" class="level4">
+<h4 class="anchored" data-anchor-id="antes-de-clase-primer-intento-individual">Antes de clase — primer intento individual</h4>
+<ol type="1">
+<li>Elige una subpregunta de tu proyecto o una de estas opciones:
+<ul>
+<li>¿cuál es la secuencia completa del genoma seleccionado?;</li>
+<li>¿qué genes están anotados y dónde se localizan?;</li>
+<li>¿cuál es la secuencia de una proteína concreta?;</li>
+<li>¿qué publicación respalda un registro?</li>
+</ul></li>
+<li>Completa sin IA:</li>
+</ol>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Pregunta</th>
+<th>Evidencia necesaria</th>
+<th>Objeto biológico</th>
+<th>Datos esperados</th>
+<th>Formato provisional</th>
+<th>Qué falta confirmar</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ol start="3" type="1">
+<li>Escribe una duda auténtica. No consultes una solución antes del taller.</li>
+</ol>
+</section>
+<section id="durante-el-taller-comparación-y-corrección" class="level4">
+<h4 class="anchored" data-anchor-id="durante-el-taller-comparación-y-corrección">Durante el taller — comparación y corrección</h4>
+<ol type="1">
+<li>Intercambia la matriz con otra persona.</li>
+<li>Subraya cualquier salto directo de pregunta a herramienta.</li>
+<li>Revisa si la evidencia realmente permitiría responder la pregunta.</li>
+<li>Corrige el formato provisional después de estudiar las secciones siguientes.</li>
+<li>Conserva el primer intento: la corrección debe quedar visible.</li>
+</ol>
+</section>
+<section id="después-del-taller-integración" class="level4">
+<h4 class="anchored" data-anchor-id="después-del-taller-integración">Después del taller — integración</h4>
+<ol type="1">
+<li>Incorpora la matriz corregida a <code>doc/protocolo.md</code>.</li>
+<li>Añade una limitación y un dato todavía pendiente de confirmar.</li>
+<li>No descargues un archivo distinto solo porque parezca más fácil de procesar.</li>
+</ol>
+<p><strong>Criterio de logro:</strong> la cadena pregunta → evidencia → datos es coherente y el formato elegido se justifica por lo que contiene, no por su extensión o por un comando conocido.</p>
+</section>
+</section>
+</section>
+<section id="registro-campo-identificador-accession-y-versión-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="registro-campo-identificador-accession-y-versión-indispensable">3. Registro, campo, identificador, accession y versión [Indispensable]</h2>
+<p>Una <strong>base de datos</strong> es una colección organizada de datos y relaciones que permite almacenar, consultar y actualizar información. Un <strong>registro</strong> reúne campos que describen una entidad concreta, por ejemplo una secuencia o un ensamblado.</p>
+<p>Un <strong>identificador</strong> permite distinguir una entidad dentro de un sistema. Un <strong><em>accession</em></strong> es un identificador estable asignado por un repositorio a un registro. Una <strong>versión</strong> permite distinguir cambios del contenido asociado con ese <em>accession</em>.</p>
+<p>Ejemplos:</p>
+<ul>
+<li><code>NC_000913.3</code>: registro de secuencia; <code>.3</code> es parte de la versión.</li>
+<li><code>GCF_000005845.2</code>: ensamblado RefSeq; <code>.2</code> identifica su versión.</li>
+<li><code>GCA_...</code>: ensamblado enviado a GenBank.</li>
+<li><code>GCF_...</code>: ensamblado de la colección RefSeq.</li>
+</ul>
+<p>NCBI actualiza el número de versión de un ensamblado cuando cambian sus secuencias subyacentes. Las versiones de un ensamblado GenBank y su ensamblado RefSeq emparejado pueden ser diferentes porque se actualizan por separado (NCBI, 2026).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u3-s07-db-registro.png" class="img-fluid figure-img"></p>
+<figcaption>Los cinco conceptos que hay que distinguir para citar un dato de forma reproducible, encadenados: base de datos, registro con sus campos, identificador (concepto general), accession (identificador estable asignado por el repositorio) y versión (que cambia cuando cambia el contenido). Un registro de ejemplo muestra sus campos: accession con versión NC_000913.3, descripción, organismo, tipo de molécula, longitud y fecha. Una tabla explica los prefijos NC_, GCF_ y GCA_. Un panel advierte que registrar sin la versión no identifica la entidad: NC_000913 es incompleto, NC_000913.3 es reproducible. Otro muestra un mismo accession con tres versiones sucesivas en 2021, 2023 y 2025, con contenido distinto. Un tercero avisa de que un nombre de gen como araC sirve para buscar pero no sustituye a un identificador versionado, porque el mismo nombre aparece en distintos organismos y bases.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 9.</strong> Organización e identificación de registros en bases de datos biológicas. Las bases de datos organizan la información en registros compuestos por múltiples campos que describen entidades biológicas, como secuencias, genes o ensamblados. Un identificador permite distinguir una entidad dentro de un sistema; un accession es un identificador estable asignado por el repositorio y el número de versión indica el estado específico del contenido asociado con ese accession. Dado que las versiones cambian cuando el registro se actualiza, la reproducibilidad de un análisis depende de conservar el identificador completo, incluyendo su versión.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Registrar <code>NC_000913</code> sin <code>.3</code>, o <code>GCF_000005845</code> sin <code>.2</code>, no identifica de manera completa la versión utilizada. Para reproducibilidad conserva el identificador tal como aparece en la fuente.</p>
+</div>
+</div>
+<p>Un nombre de gen, como <code>araC</code>, es útil para buscar e interpretar, pero no sustituye automáticamente un identificador versionado. Un mismo nombre puede aparecer en diferentes organismos, ensamblados o bases.</p>
+<section id="micropráctica-2-qué-identifica-cada-cadena" class="level3">
+<h3 class="anchored" data-anchor-id="micropráctica-2-qué-identifica-cada-cadena">Micropráctica 2 — ¿Qué identifica cada cadena?</h3>
+<p>Para cada elemento escribe “secuencia”, “ensamblado”, “nombre biológico” o “no se puede determinar sin contexto”:</p>
+<pre class="text"><code>NC_000913.3
+GCF_000005845.2
+araC
+gene-araC</code></pre>
+<p>Después indica cuál conservarías en una ficha de procedencia y por qué. Puede ser necesario guardar más de uno, pero con su función claramente etiquetada.</p>
+</section>
+</section>
+<section id="fasta-una-representación-sencilla-de-secuencias-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="fasta-una-representación-sencilla-de-secuencias-indispensable">4. FASTA: una representación sencilla de secuencias [Indispensable]</h2>
+<p>FASTA es un formato de texto para representar una o más secuencias. Cada entrada comienza con una línea de definición cuyo primer carácter es <code>&gt;</code>, seguida por un identificador y, con frecuencia, una descripción. Las líneas posteriores contienen la secuencia hasta encontrar otra línea que comience con <code>&gt;</code> o hasta terminar el archivo.</p>
+<pre class="text"><code>&gt;NC_000913.3 Escherichia coli K-12 MG1655, complete genome
+AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAG</code></pre>
+<p>NCBI recomienda usar símbolos IUPAC y líneas de secuencia no mayores de 80 caracteres para archivos de envío. Sin embargo, al analizar un archivo descargado debes interpretar la convención concreta de la fuente y no asumir que toda descripción libre es un metadato estructurado (NCBI, 2025).</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Puedes ver el registro completo del que proviene este fragmento: la vista FASTA de <a href="https://www.ncbi.nlm.nih.gov/nuccore/NC_000913.3?report=fasta">NC_000913.3 en NCBI Nucleotide</a>. Más adelante, en la sección 6, verás el mismo registro en formato GenBank.</p>
+</div>
+</div>
+<section id="anatomía-mínima" class="level3">
+<h3 class="anchored" data-anchor-id="anatomía-mínima">Anatomía mínima</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Elemento</th>
+<th>Función</th>
+<th>Precaución</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>&gt;</code></td>
+<td>Marca el inicio de una entrada</td>
+<td>Debe ser el primer carácter de la línea</td>
+</tr>
+<tr class="even">
+<td>Identificador</td>
+<td>Distingue la entrada</td>
+<td>Su sintaxis y estabilidad dependen de la fuente</td>
+</tr>
+<tr class="odd">
+<td>Descripción</td>
+<td>Aporta contexto legible</td>
+<td>No siempre sigue una estructura uniforme</td>
+</tr>
+<tr class="even">
+<td>Secuencia</td>
+<td>Nucleótidos o aminoácidos</td>
+<td>Debe interpretarse con el alfabeto correspondiente</td>
+</tr>
+</tbody>
+</table>
+<p>Un archivo puede contener una sola entrada o muchas. Por eso “un archivo FASTA” no equivale necesariamente a “una secuencia”. Tampoco indica por sí solo si contiene ADN, ARN o proteína: debes revisar el registro, el nombre del producto y los símbolos presentes.</p>
+</section>
+<section id="qué-permite-y-qué-no-permite-fasta" class="level3">
+<h3 class="anchored" data-anchor-id="qué-permite-y-qué-no-permite-fasta">Qué permite y qué no permite FASTA</h3>
+<p>FASTA permite:</p>
+<ul>
+<li><strong>intercambiar</strong> secuencias con una estructura sencilla;</li>
+<li>conservar un identificador y una descripción por entrada;</li>
+<li>representar conjuntos de secuencias en un mismo archivo.</li>
+</ul>
+<p>FASTA, por sí solo, no representa de manera normalizada:</p>
+<ul>
+<li>las coordenadas y jerarquías completas de genes, transcritos y exones;</li>
+<li>la procedencia completa, licencia o historia de versiones;</li>
+<li>la evidencia detrás de cada anotación;</li>
+<li>relaciones complejas entre features.</li>
+</ul>
+</section>
+<section id="práctica-3-interpretar-la-estructura-de-un-archivo-fasta" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-3-interpretar-la-estructura-de-un-archivo-fasta">Práctica 3 — Interpretar la estructura de un archivo FASTA</h3>
+<section id="objetivo" class="level4">
+<h4 class="anchored" data-anchor-id="objetivo">Objetivo</h4>
+<p>Aprender a identificar la estructura de un archivo FASTA, distinguir entre identificadores y descripciones, e interpretar correctamente la información que puede obtenerse del archivo sin consultar la base de datos.</p>
+<p>Esta práctica se realiza en el laboratorio interactivo <strong>FASTA Detective</strong>, que recorre la misma secuencia conceptual de las cinco actividades originales: observar el archivo → interpretar el encabezado → separar identificador y descripción → distinguir evidencia directa de información externa → conectar accession, versión y reproducibilidad.</p>
+<p><a href="html/u3-s7-p3-fasta_detective.html">FASTA Detective (HTML)</a></p>
+<iframe src="html/u3-s7-p3-fasta_detective.html" title="Práctica 3 — FASTA Detective: interpretar la estructura de un archivo FASTA" style="width:100%;min-height:860px;border:1px solid #d7cdc7;border-radius:12px;background:#fff;" loading="lazy">
+</iframe>
+</section>
+<section id="criterio-de-logro" class="level4">
+<h4 class="anchored" data-anchor-id="criterio-de-logro">Criterio de logro</h4>
+<p>Al finalizar esta práctica serás capaz de:</p>
+<ul>
+<li>Identificar múltiples registros en un archivo FASTA.</li>
+<li>Diferenciar encabezado y secuencia.</li>
+<li>Reconocer la diferencia entre <strong>accession</strong>, <strong>versión</strong> y <strong>descripción</strong>.</li>
+<li>Distinguir qué información proviene del archivo y cuál requiere consultar el registro original.</li>
+<li>Comprender la importancia de utilizar identificadores versionados para garantizar la reproducibilidad.</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="gff3-anotaciones-relacionadas-con-una-secuencia-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="gff3-anotaciones-relacionadas-con-una-secuencia-indispensable">5. GFF3: anotaciones relacionadas con una secuencia [Indispensable]</h2>
+<p>GFF3 (<em>Generic Feature Format version 3</em>) es un formato de texto tabular para representar features localizados sobre una secuencia. Las líneas de features contienen nueve columnas separadas por tabuladores. El archivo puede incluir directivas que comienzan con <code>##</code> y comentarios que comienzan con <code>#</code>.</p>
+<pre class="text"><code>##gff-version 3
+NC_000913.3 RefSeq  gene    65855   66550   .   +   .   ID=gene-araC;Name=araC</code></pre>
+<section id="las-nueve-columnas" class="level3">
+<h3 class="anchored" data-anchor-id="las-nueve-columnas">Las nueve columnas</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 23%">
+<col style="width: 23%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">#</th>
+<th>Campo</th>
+<th>Pregunta que ayuda a responder</th>
+<th>Ejemplo (línea anterior)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td><code>seqid</code></td>
+<td>¿Sobre qué secuencia se localiza el feature?</td>
+<td><code>NC_000913.3</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td><code>source</code></td>
+<td>¿Qué fuente o proceso produjo la anotación?</td>
+<td><code>RefSeq</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td><code>type</code></td>
+<td>¿Qué tipo de feature es: <code>gene</code>, <code>CDS</code>, <code>exon</code>, etc.?</td>
+<td><code>gene</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td><code>start</code></td>
+<td>¿En qué coordenada comienza?</td>
+<td><code>65855</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td><code>end</code></td>
+<td>¿En qué coordenada termina?</td>
+<td><code>66550</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td><code>score</code></td>
+<td>¿Existe una puntuación asociada?</td>
+<td><code>.</code> (sin valor)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td><code>strand</code></td>
+<td>¿Está en la cadena <code>+</code>, <code>-</code> u otra condición permitida?</td>
+<td><code>+</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td><code>phase</code></td>
+<td>Para un CDS, ¿cómo continúa el marco de traducción?</td>
+<td><code>.</code> (no aplica; el feature es <code>gene</code>, no <code>CDS</code>)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td><code>attributes</code></td>
+<td>¿Qué identificadores, nombres y relaciones lo describen?</td>
+<td><code>ID=gene-araC;Name=araC</code></td>
+</tr>
+</tbody>
+</table>
+<p>Las coordenadas GFF3 comienzan en 1 y son inclusivas. Un punto <code>.</code> significa que el campo no tiene un valor aplicable o disponible dentro de esa línea; no debe interpretarse como cero.</p>
+<p>En la columna 9, <code>ID</code> identifica un feature dentro del archivo y <code>Parent</code> relaciona un feature hijo con su padre. En archivos de NCBI, los <code>ID</code> generados para features pueden cambiar entre versiones de anotación y no deben tratarse automáticamente como identificadores estables fuera del archivo (NCBI, 2026).</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Advertencia
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La columna 8 se llama <strong>phase</strong>, no “frame” en la especificación GFF3. Su interpretación corresponde a features CDS; no es una columna general para guardar cualquier marco de lectura.</p>
+</div>
+</div>
+</section>
+<section id="qué-aporta-gff3" class="level3">
+<h3 class="anchored" data-anchor-id="qué-aporta-gff3">Qué aporta GFF3</h3>
+<ul>
+<li>coordenadas sobre una secuencia identificada;</li>
+<li>tipo, cadena y fuente de cada feature;</li>
+<li>atributos y relaciones jerárquicas;</li>
+<li>una base para responder preguntas sobre estructura y anotación.</li>
+</ul>
+<p>Un GFF3 no sustituye automáticamente el FASTA del ensamblado. Ambos deben corresponder a la misma secuencia y versión para que las coordenadas tengan sentido.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Puedes consultar la <a href="https://www.ncbi.nlm.nih.gov/datasets/docs/v2/reference-docs/file-formats/annotation-files/about-ncbi-gff3/">documentación oficial del formato GFF3 de NCBI</a> (NCBI, 2026). Desde la página de <a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_000005845.2/">NCBI Datasets para el ensamblado GCF_000005845.2</a> —el mismo ensamblado de <em>E. coli</em> K-12 MG1655 usado en los ejemplos— puedes descargar su archivo GFF3 completo; el mismo procedimiento aplica a cualquier registro RefSeq.</p>
+</div>
+</div>
+</section>
+<section id="práctica-4-interpretar-una-anotación-gff3" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-4-interpretar-una-anotación-gff3">Práctica 4 — Interpretar una anotación GFF3</h3>
+<section id="objetivo-1" class="level4">
+<h4 class="anchored" data-anchor-id="objetivo-1">Objetivo</h4>
+<p>Aprender a interpretar la estructura de una línea GFF3, identificar sus nueve campos y distinguir la información explícita de aquella que requiere consultar otras anotaciones o el registro original.</p>
+<p>Esta práctica se realiza en el laboratorio interactivo <strong>GFF3 Explorer</strong>.</p>
+<p><a href="html/u3-s7-p4-gff3_explorer.html">GFF3 Explorer (HTML)</a></p>
+<iframe src="html/u3-s7-p4-gff3_explorer.html" title="Práctica 4 — GFF3 Explorer: de nueve campos a una anotación biológica" style="width:100%;min-height:860px;border:1px solid #d7cdc7;border-radius:12px;background:#fff;" loading="lazy">
+</iframe>
+</section>
+<section id="criterio-de-logro-1" class="level4">
+<h4 class="anchored" data-anchor-id="criterio-de-logro-1">Criterio de logro</h4>
+<p>Al finalizar esta práctica serás capaz de:</p>
+<ul>
+<li>Interpretar correctamente los nueve campos de una línea GFF3.</li>
+<li>Identificar coordenadas, hebra y atributos principales.</li>
+<li>Distinguir entre el nombre de una feature, un ID interno y un identificador estable.</li>
+<li>Comprender que las coordenadas solo son interpretables respecto a una secuencia y un ensamblado concretos.</li>
+<li>Reconocer que una sola línea GFF3 no describe necesariamente toda la estructura de un gen.</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="genbank-un-registro-estructurado-que-integra-contexto-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="genbank-un-registro-estructurado-que-integra-contexto-indispensable">6. GenBank: un registro estructurado que integra contexto [Indispensable]</h2>
+<p>“GenBank” puede referirse a la base de datos de secuencias del INSDC y también al formato de texto plano usado para mostrar o descargar un registro. En esta sesión usaremos <strong>registro GenBank</strong> para la entidad consultada y <strong>formato GenBank</strong> para su representación textual.</p>
+<p>Un registro típico incluye campos como:</p>
+<pre class="text"><code>LOCUS       NC_000913            4641652 bp    DNA     circular BCT
+DEFINITION  Escherichia coli str. K-12 substr. MG1655, complete genome.
+ACCESSION   NC_000913
+VERSION     NC_000913.3
+SOURCE      Escherichia coli str. K-12 substr. MG1655
+FEATURES             Location/Qualifiers
+     gene            65855..66550
+                     /gene="araC"
+ORIGIN
+        1 agcttttcat tctgactgca ...
+//</code></pre>
+<p>El fragmento es didáctico y está abreviado; no sustituye el registro completo.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Campo</th>
+<th>Función principal</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>LOCUS</code></td>
+<td>Resumen técnico del registro</td>
+</tr>
+<tr class="even">
+<td><code>DEFINITION</code></td>
+<td>Descripción concisa de la secuencia</td>
+</tr>
+<tr class="odd">
+<td><code>ACCESSION</code></td>
+<td>Identificador primario estable del registro</td>
+</tr>
+<tr class="even">
+<td><code>VERSION</code></td>
+<td>Accession más versión de la secuencia actual</td>
+</tr>
+<tr class="odd">
+<td><code>SOURCE</code> / <code>ORGANISM</code></td>
+<td>Fuente biológica y clasificación</td>
+</tr>
+<tr class="even">
+<td><code>REFERENCE</code></td>
+<td>Publicaciones asociadas al registro</td>
+</tr>
+<tr class="odd">
+<td><code>FEATURES</code></td>
+<td>Anotaciones y calificadores sobre intervalos</td>
+</tr>
+<tr class="even">
+<td><code>ORIGIN</code></td>
+<td>Secuencia representada</td>
+</tr>
+<tr class="odd">
+<td><code>//</code></td>
+<td>Fin del registro</td>
+</tr>
+</tbody>
+</table>
+<p>En el formato GenBank, <code>ACCESSION</code> conserva el identificador primario, mientras <code>VERSION</code> combina ese identificador con el número de versión asociado con la secuencia actual (NCBI, 2019).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u3-s07-registro-genbank.png" class="img-fluid figure-img"></p>
+<figcaption>Un registro GenBank real de Saccharomyces cerevisiae con sus campos resaltados: LOCUS con el nombre, la longitud en pares de bases, el tipo de molécula y la fecha; DEFINITION con la descripción biológica; ACCESSION (U49845) recuadrado en rojo frente a VERSION (U49845.1) subrayado, para mostrar que son campos distintos; SOURCE y ORGANISM con la jerarquía taxonómica; las REFERENCE con su enlace a PubMed; y el bloque FEATURES, donde cada anotación —source, mRNA, CDS— lleva sus coordenadas y sus cualificadores, incluidos organism, mol_type, chromosome, product, protein_id y la traducción a aminoácidos.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 10.</strong> Regiones principales de un registro GenBank. Captura anotada del material clásico del curso, basada en el registro <a href="https://www.ncbi.nlm.nih.gov/nuccore/U49845.1">U49845.1 de NCBI</a>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>También puedes ver el registro GenBank completo de <em>E. coli</em> K-12 MG1655, el mismo ensamblado usado en los ejemplos de FASTA y GFF3: <a href="https://www.ncbi.nlm.nih.gov/nuccore/NC_000913.3?report=genbank">NC_000913.3 en NCBI Nucleotide</a>.</p>
+</div>
+</div>
+<section id="fasta-gff3-y-genbank-no-compiten-por-el-mismo-propósito" class="level3">
+<h3 class="anchored" data-anchor-id="fasta-gff3-y-genbank-no-compiten-por-el-mismo-propósito">FASTA, GFF3 y GenBank no compiten por el mismo propósito</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Necesidad</th>
+<th>FASTA</th>
+<th>GFF3</th>
+<th>GenBank</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Secuencia para herramientas</td>
+<td>Muy apropiado</td>
+<td>No es su propósito principal</td>
+<td>La contiene, pero integra más estructura</td>
+</tr>
+<tr class="even">
+<td>Coordenadas y relaciones de features</td>
+<td>Muy limitado</td>
+<td>Muy apropiado</td>
+<td>Representadas en <code>FEATURES</code></td>
+</tr>
+<tr class="odd">
+<td>Registro legible con referencias y fuente</td>
+<td>Limitado</td>
+<td>Parcial</td>
+<td>Muy apropiado</td>
+</tr>
+<tr class="even">
+<td>Procesamiento tabular de anotaciones</td>
+<td>No</td>
+<td>Sí</td>
+<td>Requiere interpretar su estructura</td>
+</tr>
+<tr class="odd">
+<td>Metadatos completos de procedencia</td>
+<td>No por sí solo</td>
+<td>No por sí solo</td>
+<td>Más contexto, pero aún debe registrarse la consulta y descarga</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="práctica-5-es-suficiente-la-información-para-reproducir-un-análisis" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-5-es-suficiente-la-información-para-reproducir-un-análisis">Práctica 5 — ¿Es suficiente la información para reproducir un análisis?</h3>
+<section id="objetivo-2" class="level4">
+<h4 class="anchored" data-anchor-id="objetivo-2">Objetivo</h4>
+<p>Integrar los conceptos estudiados en este capítulo para evaluar si un conjunto de datos genómicos está documentado de manera suficiente para que otra persona pueda reproducir un análisis.</p>
+<p>Esta práctica se realiza en el laboratorio interactivo <strong>Reproducibility Review</strong>.</p>
+<p><a href="html/u3-s7-p5-reproducibility_review.html">Reproducibility Review (HTML)</a></p>
+<iframe src="html/u3-s7-p5-reproducibility_review.html" title="Práctica 5 — Reproducibility Review: ¿es suficiente la información?" style="width:100%;min-height:860px;border:1px solid #d7cdc7;border-radius:12px;background:#fff;" loading="lazy">
+</iframe>
+</section>
+<section id="criterio-de-logro-2" class="level4">
+<h4 class="anchored" data-anchor-id="criterio-de-logro-2">Criterio de logro</h4>
+<p>Al finalizar esta práctica serás capaz de:</p>
+<ul>
+<li>Evaluar si un conjunto de datos está suficientemente documentado para reproducir un análisis.</li>
+<li>Identificar la información indispensable que debe registrarse al trabajar con secuencias biológicas.</li>
+<li>Seleccionar el formato más adecuado según la información que se desea obtener.</li>
+<li>Justificar la importancia del accession, la versión y el ensamblado en un protocolo bioinformático.</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="consulta-códigos-de-secuencia-y-casos-que-requieren-cautela" class="level2">
+<h2 class="anchored" data-anchor-id="consulta-códigos-de-secuencia-y-casos-que-requieren-cautela">7. Consulta: códigos de secuencia y casos que requieren cautela</h2>
+<p>Los alfabetos IUPAC permiten representar bases determinadas y ambiguas. Por ejemplo, <code>N</code> indica una base no determinada entre A, C, G o T. En proteínas, <code>X</code> representa un aminoácido no determinado.</p>
+<p>No memorices todos los símbolos en esta sesión. Aprende a reconocer que:</p>
+<ul>
+<li>los símbolos dependen del tipo de secuencia;</li>
+<li>una letra ambigua no debe reemplazarse arbitrariamente;</li>
+<li><code>-</code> suele representar una brecha en un alineamiento, pero no corresponde a una secuencia sin alinear en las reglas de envío FASTA de NCBI;</li>
+<li>limpiar o transformar símbolos generará datos derivados y no debe hacerse en <code>data/source/</code>.</li>
+</ul>
+</section>
+<section id="evidencia-de-la-sesión" class="level2">
+<h2 class="anchored" data-anchor-id="evidencia-de-la-sesión">Evidencia de la sesión</h2>
+<p>Entrega o conserva, según indique el docente:</p>
+<ol type="1">
+<li>evidencia de Bio Detective (Práctica 1: procesos, elementos y alfabetos);</li>
+<li>matriz inicial y matriz corregida;</li>
+<li>interpretación de un archivo FASTA (Práctica 3);</li>
+<li>interpretación de una anotación GFF3 (Práctica 4);</li>
+<li>evaluación de reproducibilidad y comparación de FASTA, GFF3 y GenBank (Práctica 5);</li>
+<li>selección provisional registrada en <code>doc/protocolo.md</code>.</li>
+</ol>
+<p>No se solicita descargar archivos como evidencia de S7. Esa operación se prepara y verifica en S8.</p>
+</section>
+<section id="errores-frecuentes-y-estrategias-de-diagnóstico" class="level2">
+<h2 class="anchored" data-anchor-id="errores-frecuentes-y-estrategias-de-diagnóstico">Errores frecuentes y estrategias de diagnóstico</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Error</th>
+<th>Por qué ocurre</th>
+<th>Estrategia de diagnóstico</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Presentar un gen como una molécula separada del ADN</td>
+<td>El diagrama se interpreta literalmente</td>
+<td>Ubicar el gen como región de una molécula o ensamblado</td>
+</tr>
+<tr class="even">
+<td>Afirmar que todos los genes producen proteínas</td>
+<td>Se usa una definición demasiado estrecha</td>
+<td>Buscar ejemplos de genes de ARNr, ARNt u otros ARN funcionales</td>
+</tr>
+<tr class="odd">
+<td>Confundir replicación con transcripción</td>
+<td>Ambos procesos usan una cadena molde</td>
+<td>Identificar producto: ADN en replicación, ARN en transcripción</td>
+</tr>
+<tr class="even">
+<td>Tratar gen, transcrito y CDS como el mismo intervalo</td>
+<td>Se omiten UTR, intrones y procesamiento</td>
+<td>Comparar features y relaciones de una anotación eucariota</td>
+</tr>
+<tr class="odd">
+<td>Suponer una relación uno-a-uno gen–proteína</td>
+<td>Se omiten splicing alternativo y operones</td>
+<td>Dibujar explícitamente relaciones uno-a-varios</td>
+</tr>
+<tr class="even">
+<td>Llamar “genoma” a cualquier FASTA</td>
+<td>Se confunde formato con contenido</td>
+<td>Revisar línea de definición, registro y fuente</td>
+</tr>
+<tr class="odd">
+<td>Usar el nombre del gen como identificador único</td>
+<td>El nombre parece familiar</td>
+<td>Buscar organismo, base, accession y versión</td>
+</tr>
+<tr class="even">
+<td>Omitir la versión</td>
+<td>Se copia solo la parte anterior al punto</td>
+<td>Registrar el identificador completo desde <code>VERSION</code></td>
+</tr>
+<tr class="odd">
+<td>Suponer que GFF3 contiene la secuencia</td>
+<td>Se confunde anotación con genoma</td>
+<td>Identificar columnas y buscar el FASTA correspondiente</td>
+</tr>
+<tr class="even">
+<td>Contar todas las líneas de GFF3 como genes</td>
+<td>Se ignoran directivas y tipos de feature</td>
+<td>Posponer el conteo y definir primero qué líneas representan <code>gene</code></td>
+</tr>
+<tr class="odd">
+<td>Interpretar <code>.</code> como cero</td>
+<td>Se fuerza un valor numérico</td>
+<td>Consultar la definición de la columna</td>
+</tr>
+<tr class="even">
+<td>Tratar un <code>ID</code> de columna 9 como estable</td>
+<td>El texto parece un accession</td>
+<td>Revisar documentación de la fuente y otros identificadores</td>
+</tr>
+<tr class="odd">
+<td>Inventar metadatos faltantes</td>
+<td>Se quiere completar la ficha</td>
+<td>Escribir “no documentado” o “pendiente de confirmar”</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="rúbricas" class="level2">
+<h2 class="anchored" data-anchor-id="rúbricas">Rúbricas</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterio</th>
+<th>Logrado</th>
+<th>Parcialmente logrado</th>
+<th>Aún no logrado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Primer intento</td>
+<td>Presenta el test y la matriz completos, con razonamiento propio antes del taller</td>
+<td>Presenta evidencia incompleta pero permite discutir decisiones</td>
+<td>No presenta evidencia previa o fue generada sin razonamiento explicable</td>
+</tr>
+<tr class="even">
+<td>Fundamento biológico</td>
+<td>Distingue genoma, ADN, gen, transcrito, ARN y proteína; relaciona correctamente replicación, transcripción y traducción</td>
+<td>Reconoce los objetos, con una o dos relaciones por corregir</td>
+<td>Confunde moléculas, regiones, productos o procesos fundamentales</td>
+</tr>
+<tr class="odd">
+<td>Pregunta–evidencia–datos</td>
+<td>Los tres elementos son coherentes y distingue lo pendiente</td>
+<td>Hay una relación general, con uno o dos saltos por corregir</td>
+<td>Empieza por herramienta o elige datos que no responden la pregunta</td>
+</tr>
+<tr class="even">
+<td>FASTA</td>
+<td>Distingue encabezado, accession, versión y descripción; identifica qué información requiere consultar el registro original</td>
+<td>Reconoce la estructura, pero atribuye metadatos no confirmados</td>
+<td>Confunde encabezado, secuencia o tipo de contenido</td>
+</tr>
+<tr class="odd">
+<td>GFF3</td>
+<td>Interpreta nueve campos, coordenadas, <code>.</code> y atributos sin inventar</td>
+<td>Interpreta campos centrales con errores menores</td>
+<td>Confunde columnas, separadores o función del formato</td>
+</tr>
+<tr class="even">
+<td>GenBank</td>
+<td>Reconoce sus campos principales y distingue qué aporta frente a FASTA y GFF3</td>
+<td>Reconoce algunos campos, pero confunde accession y versión</td>
+<td>No puede relacionar campos con su función</td>
+</tr>
+<tr class="odd">
+<td>Documentación</td>
+<td>Registra en el protocolo la pregunta, la evidencia, los formatos candidatos y lo pendiente de confirmar</td>
+<td>Registro incompleto o difícil de reproducir</td>
+<td>No documenta o completa datos por inferencia</td>
+</tr>
+</tbody>
+</table>
+<p>La rúbrica es formativa. S7 prepara la Tarea 4, pero no crea una tarea numerada adicional.</p>
+</section>
+<section id="autoevaluación" class="level2">
+<h2 class="anchored" data-anchor-id="autoevaluación">Autoevaluación</h2>
+<section id="comprobación-rápida-formativa-al-final-del-taller" class="level3">
+<h3 class="anchored" data-anchor-id="comprobación-rápida-formativa-al-final-del-taller">Comprobación rápida — formativa, al final del taller</h3>
+<ol type="1">
+<li>¿Qué diferencia existe entre genoma, gen y transcrito?</li>
+<li>¿Qué productos generan replicación, transcripción y traducción?</li>
+<li>¿Por qué un gen, un transcrito y una CDS pueden tener límites diferentes?</li>
+<li>¿Qué formato elegirías para una secuencia destinada a una herramienta y por qué?</li>
+<li>¿Qué formato elegirías para coordenadas de genes y por qué?</li>
+<li>¿Dónde buscarías la versión de una secuencia en un registro GenBank?</li>
+<li>¿Por qué el GFF3 debe corresponder al mismo ensamblado que el FASTA?</li>
+<li>¿Qué escribirías en tu selección provisional si todavía no puedes confirmar un dato?</li>
+</ol>
+</section>
+<section id="semáforo" class="level3">
+<h3 class="anchored" data-anchor-id="semáforo">Semáforo</h3>
+<ul>
+<li>🟢 <strong>Verde:</strong> explico la relación genoma–gen–transcrito–proteína, distingo secuencia, anotación y registro, interpreto los tres formatos y conservo accession y versión.</li>
+<li>🟡 <strong>Amarillo:</strong> reconozco objetos y formatos, pero aún confundo algún proceso, identificador, versión o evidencia.</li>
+<li>🔴 <strong>Rojo:</strong> confundo las entidades biológicas o sigo eligiendo archivos por la extensión o una herramienta conocida sin justificar su relación con la pregunta.</li>
+</ul>
+<p>Si estás en amarillo o rojo, conserva tu evidencia y lleva una pregunta concreta a S8. No descargues un conjunto definitivo hasta confirmar organismo, ensamblado, versión y formatos.</p>
+</section>
+</section>
+<section id="cierre-de-s7-y-puente-hacia-s8" class="level2">
+<h2 class="anchored" data-anchor-id="cierre-de-s7-y-puente-hacia-s8">Cierre de S7 y puente hacia S8</h2>
+<p>Antes de terminar, registra tu selección provisional en <code>doc/protocolo.md</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Selección provisional de datos</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Pregunta:</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Evidencia necesaria:</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Formatos candidatos:</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Qué aporta cada formato:</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Información pendiente de confirmar:</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Esta selección es provisional: identifica qué necesitas y qué formato lo contendría, no todavía el registro exacto. En S8 buscarás el registro, anotarás su accession, versión, licencia y fecha de consulta, y lo descargarás con verificación de integridad.</p>
+</div>
+</div>
+<p>Con el mapa biológico del dogma central, la interpretación de FASTA, GFF3 y GenBank, y esta selección provisional, ya tienes lo necesario para avanzar:</p>
+<p><strong>S8 — Bases de datos, descarga y verificación de integridad.</strong> Compararás recursos de NCBI, recuperarás archivos de un ensamblado seleccionado y documentarás su procedencia e integridad. Esta sesión desarrolla la <strong>Tarea 4</strong>.</p>
+</section>
+<section id="distribución-orientativa-de-los-120-minutos" class="level2">
+<h2 class="anchored" data-anchor-id="distribución-orientativa-de-los-120-minutos">Distribución orientativa de los 120 minutos</h2>
+<div class="tabla-agenda">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tiempo</th>
+<th>Actividad</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0–15 min</td>
+<td>Recuperación activa: genoma, gen, transcrito, proteína y procesos</td>
+</tr>
+<tr class="even">
+<td>15–30 min</td>
+<td>Comparación y corrección del test y la matriz iniciales</td>
+</tr>
+<tr class="odd">
+<td>30–45 min</td>
+<td>Del objeto biológico a secuencia, coordenadas y atributos</td>
+</tr>
+<tr class="even">
+<td>45–62 min</td>
+<td>Práctica 3: anatomía y límites de FASTA</td>
+</tr>
+<tr class="odd">
+<td>62–82 min</td>
+<td>Práctica 4: campos y relaciones GFF3</td>
+</tr>
+<tr class="even">
+<td>82–104 min</td>
+<td>Práctica 5: ¿es suficiente la información para reproducir un análisis?</td>
+</tr>
+<tr class="odd">
+<td>104–115 min</td>
+<td>Selección provisional de datos y pendiente para S8</td>
+</tr>
+<tr class="even">
+<td>115–120 min</td>
+<td>Autoevaluación y semáforo de salida</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="anexo-a.-correspondencia-resultadoactividadevidenciacriterio" class="level2">
+<h2 class="anchored" data-anchor-id="anexo-a.-correspondencia-resultadoactividadevidenciacriterio">Anexo A. Correspondencia resultado–actividad–evidencia–criterio</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Resultado</th>
+<th>Actividad</th>
+<th>Evidencia</th>
+<th>Criterio</th>
+<th>Momento</th>
+<th>Nivel en U3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RA1 Explicar y distinguir objetos</td>
+<td>Sección 1 y Práctica 1</td>
+<td>Test de repaso corregido</td>
+<td>Moléculas, regiones, productos y procesos no se confunden</td>
+<td>Antes/taller</td>
+<td>Comprensión</td>
+</tr>
+<tr class="even">
+<td>RA2 Diferenciar registro y archivo</td>
+<td>Secciones 1–3 y Práctica 2</td>
+<td>Matriz corregida</td>
+<td>Cadena pregunta–evidencia–datos coherente</td>
+<td>Antes/taller</td>
+<td>Comprensión</td>
+</tr>
+<tr class="odd">
+<td>RA3 Interpretar identificadores</td>
+<td>Micropráctica 2</td>
+<td>Accession y versión registrados</td>
+<td>Identificador completo y función correcta</td>
+<td>Taller/después</td>
+<td>Aplicación guiada</td>
+</tr>
+<tr class="even">
+<td>RA4 Interpretar formatos</td>
+<td>Prácticas 3–5</td>
+<td>Fragmentos anotados y evaluación de reproducibilidad</td>
+<td>Estructura y limitaciones correctas</td>
+<td>Taller</td>
+<td>Aplicación guiada</td>
+</tr>
+<tr class="odd">
+<td>RA5 Seleccionar formato</td>
+<td>Práctica 2 corregida</td>
+<td>Matriz final</td>
+<td>Selección justificada por la evidencia</td>
+<td>Taller/después</td>
+<td>Diseño inicial</td>
+</tr>
+<tr class="even">
+<td>RA6 Documentar selección</td>
+<td>Actualización del protocolo</td>
+<td>Sección de datos provisional</td>
+<td>Registro honesto y reproducible</td>
+<td>Después</td>
+<td>Aplicación inicial</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="anexo-b.-alineación-transversal" class="level2">
+<h2 class="anchored" data-anchor-id="anexo-b.-alineación-transversal">Anexo B. Alineación transversal</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Actividad</th>
+<th>Reproducibilidad</th>
+<th>Verificación</th>
+<th>Validación</th>
+<th>Robustez</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Test de repaso</td>
+<td>Define los objetos antes de seleccionar datos</td>
+<td>Contrasta respuestas, justificaciones y flechas del dogma central</td>
+<td>Compara con fuentes de biología molecular</td>
+<td>Incluye fragmentos ambiguos, genes de ARN, splicing y operones como pruebas de límite</td>
+</tr>
+<tr class="even">
+<td>Matriz</td>
+<td>Explicita la cadena de decisiones</td>
+<td>Revisa que el formato contenga la evidencia</td>
+<td>Contrasta con la definición oficial del formato</td>
+<td>Compara más de un formato para la misma pregunta</td>
+</tr>
+<tr class="odd">
+<td>FASTA</td>
+<td>Conserva identificador y contexto</td>
+<td>Distingue encabezado y secuencia</td>
+<td>Consulta el registro de origen</td>
+<td>No infiere tipo o procedencia solo por extensión</td>
+</tr>
+<tr class="even">
+<td>GFF3</td>
+<td>Registra ensamblado y versión</td>
+<td>Revisa nueve columnas y tabuladores</td>
+<td>Contrasta campos con la documentación</td>
+<td>Comprueba correspondencia con el FASTA</td>
+</tr>
+<tr class="odd">
+<td>GenBank</td>
+<td>Conserva accession, versión y fecha</td>
+<td>Reconoce los campos principales del registro</td>
+<td>Contrasta registro, FASTA y GFF3</td>
+<td>Distingue identificadores de secuencia y ensamblado</td>
+</tr>
+<tr class="even">
+<td>Protocolo</td>
+<td>Deja decisiones y pendientes visibles</td>
+<td>Otra persona puede localizar el registro</td>
+<td>No completa información no documentada</td>
+<td>Conserva alternativas y limitaciones</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="glosario" class="level2">
+<h2 class="anchored" data-anchor-id="glosario">Glosario</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Español</th>
+<th>Inglés</th>
+<th>Definición breve</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Genoma</td>
+<td>Genome</td>
+<td>Conjunto de material genético de una entidad biológica</td>
+</tr>
+<tr class="even">
+<td>ADN</td>
+<td>DNA</td>
+<td>Ácido desoxirribonucleico; almacena información mediante una secuencia de nucleótidos</td>
+</tr>
+<tr class="odd">
+<td>ARN</td>
+<td>RNA</td>
+<td>Ácido ribonucleico; puede ser transcrito, intermediario o producto funcional</td>
+</tr>
+<tr class="even">
+<td>Gen</td>
+<td>Gene</td>
+<td>Región genética que contribuye a producir un ARN o una proteína funcional</td>
+</tr>
+<tr class="odd">
+<td>Transcrito</td>
+<td>Transcript</td>
+<td>ARN sintetizado a partir de una plantilla de ADN</td>
+</tr>
+<tr class="even">
+<td>Proteína</td>
+<td>Protein</td>
+<td>Polímero de aminoácidos que puede plegarse y realizar funciones biológicas</td>
+</tr>
+<tr class="odd">
+<td>Replicación</td>
+<td>Replication</td>
+<td>Síntesis de ADN utilizando ADN como molde</td>
+</tr>
+<tr class="even">
+<td>Transcripción</td>
+<td>Transcription</td>
+<td>Síntesis de ARN utilizando ADN como molde</td>
+</tr>
+<tr class="odd">
+<td>Traducción</td>
+<td>Translation</td>
+<td>Síntesis de una cadena de aminoácidos utilizando un ARNm como molde</td>
+</tr>
+<tr class="even">
+<td>Codón</td>
+<td>Codon</td>
+<td>Triplete de nucleótidos del ARNm interpretado durante la traducción</td>
+</tr>
+<tr class="odd">
+<td>Exón</td>
+<td>Exon</td>
+<td>Segmento conservado en el ARN maduro después del splicing</td>
+</tr>
+<tr class="even">
+<td>Intrón</td>
+<td>Intron</td>
+<td>Segmento eliminado del transcrito primario durante el splicing</td>
+</tr>
+<tr class="odd">
+<td>Región codificante</td>
+<td>Coding sequence / CDS</td>
+<td>Parte de un transcrito que se traduce en aminoácidos</td>
+</tr>
+<tr class="even">
+<td>Región no traducida</td>
+<td>Untranslated region / UTR</td>
+<td>Segmento transcrito que no forma parte de la CDS</td>
+</tr>
+<tr class="odd">
+<td>Promotor</td>
+<td>Promoter</td>
+<td>Región asociada con el inicio y regulación de la transcripción</td>
+</tr>
+<tr class="even">
+<td>Operón</td>
+<td>Operon</td>
+<td>Conjunto procariota de genes regulados y transcritos de manera coordinada</td>
+</tr>
+<tr class="odd">
+<td>Anotación</td>
+<td>Annotation</td>
+<td>Afirmación estructurada sobre ubicación, estructura o función asociada con datos biológicos</td>
+</tr>
+<tr class="even">
+<td>Ensamblado</td>
+<td>Assembly</td>
+<td>Conjunto versionado de secuencias que representa un genoma reconstruido</td>
+</tr>
+<tr class="odd">
+<td>Registro</td>
+<td>Record</td>
+<td>Conjunto de campos sobre una entidad dentro de una base de datos</td>
+</tr>
+<tr class="even">
+<td>Campo</td>
+<td>Field</td>
+<td>Componente definido de un registro o formato</td>
+</tr>
+<tr class="odd">
+<td>Identificador</td>
+<td>Identifier</td>
+<td>Cadena utilizada para distinguir una entidad en un sistema</td>
+</tr>
+<tr class="even">
+<td>Número de acceso</td>
+<td>Accession</td>
+<td>Identificador estable asignado por un repositorio a un registro</td>
+</tr>
+<tr class="odd">
+<td>Versión</td>
+<td>Version</td>
+<td>Indicador de una revisión concreta del contenido asociado</td>
+</tr>
+<tr class="even">
+<td>Secuencia</td>
+<td>Sequence</td>
+<td>Orden de símbolos que representa nucleótidos o aminoácidos</td>
+</tr>
+<tr class="odd">
+<td>Feature</td>
+<td>Feature</td>
+<td>Elemento anotado sobre una secuencia, como gen, CDS o exón</td>
+</tr>
+<tr class="even">
+<td>Línea de definición</td>
+<td>Definition line / defline</td>
+<td>Línea de una entrada FASTA que comienza con <code>&gt;</code></td>
+</tr>
+<tr class="odd">
+<td>Identificador de secuencia</td>
+<td>Sequence ID / SeqID</td>
+<td>Identificador de una secuencia dentro de un archivo o sistema</td>
+</tr>
+<tr class="even">
+<td>Coordenada inclusiva</td>
+<td>Inclusive coordinate</td>
+<td>Convención en la que las posiciones inicial y final forman parte del intervalo</td>
+</tr>
+<tr class="odd">
+<td>Cadena</td>
+<td>Strand</td>
+<td>Orientación de un feature respecto de la secuencia de referencia</td>
+</tr>
+<tr class="even">
+<td>Fase</td>
+<td>Phase</td>
+<td>En GFF3, desplazamiento necesario para alcanzar el siguiente codón completo de un CDS</td>
+</tr>
+<tr class="odd">
+<td>Atributo</td>
+<td>Attribute</td>
+<td>Par etiqueta–valor de la columna 9 de GFF3</td>
+</tr>
+<tr class="even">
+<td>Metadatos</td>
+<td>Metadata</td>
+<td>Información necesaria para interpretar, localizar y reutilizar datos</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="referencias" class="level2">
+<h2 class="anchored" data-anchor-id="referencias">Referencias</h2>
+<ul>
+<li>Buffalo, V. (2015). <em>Bioinformatics Data Skills</em>. O’Reilly Media.</li>
+<li>Cooper, G. M. (2000). Expression of genetic information. En <em>The Cell: A Molecular Approach</em>, 2.ª ed., cap. 3. NCBI Bookshelf. <a href="https://www.ncbi.nlm.nih.gov/books/NBK9842/" class="uri">https://www.ncbi.nlm.nih.gov/books/NBK9842/</a></li>
+<li>National Human Genome Research Institute (NHGRI). (2020). <em>Deoxyribonucleic Acid (DNA) Fact Sheet</em>. <a href="https://www.genome.gov/about-genomics/fact-sheets/Deoxyribonucleic-Acid-Fact-Sheet" class="uri">https://www.genome.gov/about-genomics/fact-sheets/Deoxyribonucleic-Acid-Fact-Sheet</a></li>
+<li>Nowoshilow, S., et al.&nbsp;(2018). The axolotl genome and the evolution of key tissue formation regulators. <em>Nature</em>, 554, 50–55. <a href="https://doi.org/10.1038/nature25458" class="uri">https://doi.org/10.1038/nature25458</a></li>
+<li>Shafee, T., &amp; Lowe, R. (2017). Eukaryotic and prokaryotic gene structure. <em>WikiJournal of Medicine</em>, 4(1), 2. <a href="https://doi.org/10.15347/wjm/2017.002" class="uri">https://doi.org/10.15347/wjm/2017.002</a></li>
+<li>National Center for Biotechnology Information (NCBI). (2025). <em>FASTA Format for Nucleotide Sequences</em>. <a href="https://www.ncbi.nlm.nih.gov/genbank/fastaformat/" class="uri">https://www.ncbi.nlm.nih.gov/genbank/fastaformat/</a></li>
+<li>National Center for Biotechnology Information (NCBI). (2026). <em>GFF3 format</em>. NCBI Datasets documentation. <a href="https://www.ncbi.nlm.nih.gov/datasets/docs/v2/reference-docs/file-formats/annotation-files/about-ncbi-gff3/" class="uri">https://www.ncbi.nlm.nih.gov/datasets/docs/v2/reference-docs/file-formats/annotation-files/about-ncbi-gff3/</a></li>
+<li>National Center for Biotechnology Information (NCBI). (2026). <em>Genome assembly versioning and status</em>. <a href="https://www.ncbi.nlm.nih.gov/datasets/docs/v2/policies-annotation/genome-processing/version-status/" class="uri">https://www.ncbi.nlm.nih.gov/datasets/docs/v2/policies-annotation/genome-processing/version-status/</a></li>
+<li>National Center for Biotechnology Information (NCBI). (2019). <em>GenBank release notes: flat-file format—ACCESSION and VERSION</em>. <a href="https://www.ncbi.nlm.nih.gov/genbank/release/230/" class="uri">https://www.ncbi.nlm.nih.gov/genbank/release/230/</a></li>
+<li>Sequence Ontology. (2020). <em>GFF3 specification</em>. <a href="https://github.com/The-Sequence-Ontology/Specifications/blob/master/gff3.md" class="uri">https://github.com/The-Sequence-Ontology/Specifications/blob/master/gff3.md</a></li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/helysalgado\.github\.io\/introbioinfo-unix\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./u3-datos-bases-datos.html" class="pagination-link" aria-label="Portada">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Portada</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./u3-s8-bases-datos-descarga-integridad.html" class="pagination-link" aria-label="S8 — Descargar">
+        <span class="nav-page-text">S8 — Descargar</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://hits.sh/helysalgado.github.io/introbioinfo-unix/"><img src="https://hits.sh/helysalgado.github.io/introbioinfo-unix/.svg?style=flat-square&amp;label=Visitas&amp;color=4a7c9e" class="img-fluid figure-img"></a></p>
+<figcaption>Visitas</figcaption>
+</figure>
+</div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Helysalgado/introbioinfo-unix/edit/main/u3-s7-secuencias-formatos-genbank.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/Helysalgado/introbioinfo-unix/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

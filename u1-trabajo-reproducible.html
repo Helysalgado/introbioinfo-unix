@@ -1,0 +1,2024 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>u1-trabajo-reproducible – Introducción a la Bioinformática</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./u1-s1-documentar-markdown-fases.html" rel="next">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fe3756b78d23b7733c53f9ce5acac92a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXNMZZP0K9"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-QXNMZZP0K9', { 'anonymize_ip': true});
+</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Introducción a la Bioinformática</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Inicio</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-programa" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Programa</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-programa">    
+        <li>
+    <a class="dropdown-item" href="./programa.html">
+ <span class="dropdown-text">Ruta de sesiones</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./programa-detallado.html">
+ <span class="dropdown-text">Programa detallado</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-unidades" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Unidades</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-unidades">    
+        <li>
+    <a class="dropdown-item" href="./u1-trabajo-reproducible.html">
+ <span class="dropdown-text">U1 — Trabajo reproducible</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u2-entorno-unix.html">
+ <span class="dropdown-text">U2 — Entorno Unix</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u3-datos-bases-datos.html">
+ <span class="dropdown-text">U3 — Datos y bases</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u4-procesamiento-exploracion.html">
+ <span class="dropdown-text">U4 — Procesamiento genómico</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u5-automatizacion-scripting.html">
+ <span class="dropdown-text">U5 — Automatización</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u6-comparacion-homologia.html">
+ <span class="dropdown-text">U6 — Comparar / hipótesis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./s14-s15-mini-proyecto-investigacion-I.html">
+ <span class="dropdown-text">Transversal S14–S17</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="./recursos.html" aria-current="page"> 
+<span class="menu-text">Recursos</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./acerca.html"> 
+<span class="menu-text">Acerca</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./contribuir.html"> 
+<span class="menu-text">Contribuir</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Alternar modo lector">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./u1-trabajo-reproducible.html">Unidad 1</a></li><li class="breadcrumb-item"><a href="./u1-trabajo-reproducible.html">Portada</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Unidad 1</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-trabajo-reproducible.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-s1-documentar-markdown-fases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S1 — Documentar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-s2-organizar-fair-ia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S2 — Organizar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 2</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-entorno-unix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s3-shell-acceso-remoto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S3 — Conectar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s4-sistema-archivos-v3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S4 — Navegar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s5-archivos-permisos-procesos-v2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S5 — Archivos y procesos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s6-consolidacion-entorno-unix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S6 — Consolidar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 3</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-datos-bases-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s7-secuencias-formatos-genbank.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S7 — Formatos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s8-bases-datos-descarga-integridad.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S8 — Descargar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s9-inspeccion-transferencia-verificable.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S9 — Transferir</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 4</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-procesamiento-exploracion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s10-anatomia-flujos-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S10 — Anatomía y flujos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s11-estructura-tabular-anotacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S11 — Anotación tabular</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s12-filtrado-conteos-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S12 — Filtrar y contar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s13-inventario-resumen-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S13 — Inventario</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s18-precision-patrones-expresiones-regulares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S18 — Patrones</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s19-extraccion-identificadores-correspondencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S19 — Identificadores</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s20-normalizar-datos-comparables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S20 — Normalizar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s21-confrontar-fuente-independiente.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S21 — Confrontar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s22-condicionar-calcular-columnas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S22 — Condicionar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s23-protocolo-ejecutable-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S23 — Protocolo ejecutable</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Transversal</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s14-s15-mini-proyecto-investigacion-I.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S14–S15 — Mini-proyecto I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s16-mini-proyecto-revision-pares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S16 — Revisión por pares</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s17-evaluacion-individual-demostrativa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S17 — Evaluación demostrativa</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mini-proyecto-dictamen-cientifico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dictamen científico</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 5</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-automatizacion-scripting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s24-del-protocolo-al-script.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S24 — Del protocolo al script</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s25-separar-procedimiento-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S25 — Separar datos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s26-procesamiento-por-lotes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S26 — Por lotes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s27-herramienta-cientifica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S27 — Herramienta científica</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s28-proyecto-integrador.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S28 — Proyecto integrador</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s29-cluster-hpc-sge.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S29 — Cluster SGE</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 6</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-comparacion-homologia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s30-comparar-alinear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S30 — Comparar / alinear</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s31-buscar-blast.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S31 — Buscar (BLAST)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s32-interpretar-inferir.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S32 — Interpretar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s33-defender-hipotesis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S33 — Inferir</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s34-integrar-hipotesis-casos-ciegos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S34 — Integrar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./programa-detallado.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programa detallado</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./recursos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recursos</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#unidad-1-trabajo-reproducible-y-comunicación-técnica" id="toc-unidad-1-trabajo-reproducible-y-comunicación-técnica" class="nav-link active" data-scroll-target="#unidad-1-trabajo-reproducible-y-comunicación-técnica">Unidad 1 — Trabajo reproducible y comunicación técnica</a>
+  <ul class="collapse">
+  <li><a href="#ficha-de-la-unidad" id="toc-ficha-de-la-unidad" class="nav-link" data-scroll-target="#ficha-de-la-unidad">Ficha de la unidad</a>
+  <ul class="collapse">
+  <li><a href="#resultados-de-aprendizaje-demostrables" id="toc-resultados-de-aprendizaje-demostrables" class="nav-link" data-scroll-target="#resultados-de-aprendizaje-demostrables">Resultados de aprendizaje (demostrables)</a></li>
+  </ul></li>
+  <li><a href="#ruta-de-aprendizaje-de-la-unidad" id="toc-ruta-de-aprendizaje-de-la-unidad" class="nav-link" data-scroll-target="#ruta-de-aprendizaje-de-la-unidad">Ruta de aprendizaje de la unidad</a></li>
+  <li><a href="#módulos-de-la-unidad" id="toc-módulos-de-la-unidad" class="nav-link" data-scroll-target="#módulos-de-la-unidad">Módulos de la unidad</a>
+  <ul class="collapse">
+  <li><a href="#s1-documentar-markdown-y-las-fases-del-análisis-de-datos" id="toc-s1-documentar-markdown-y-las-fases-del-análisis-de-datos" class="nav-link" data-scroll-target="#s1-documentar-markdown-y-las-fases-del-análisis-de-datos">S1 — Documentar: Markdown y las fases del análisis de datos</a></li>
+  <li><a href="#s2-organizar-buenas-prácticas-fair-e-introducción-al-prompting-científico" id="toc-s2-organizar-buenas-prácticas-fair-e-introducción-al-prompting-científico" class="nav-link" data-scroll-target="#s2-organizar-buenas-prácticas-fair-e-introducción-al-prompting-científico">S2 — Organizar: buenas prácticas FAIR e introducción al prompting científico</a></li>
+  </ul></li>
+  <li><a href="#cierre-de-la-unidad" id="toc-cierre-de-la-unidad" class="nav-link" data-scroll-target="#cierre-de-la-unidad">Cierre de la unidad</a>
+  <ul class="collapse">
+  <li><a href="#evidencias-de-mis-habilidades" id="toc-evidencias-de-mis-habilidades" class="nav-link" data-scroll-target="#evidencias-de-mis-habilidades">Evidencias de mis habilidades</a></li>
+  <li><a href="#comprueba-tu-comprensión" id="toc-comprueba-tu-comprensión" class="nav-link" data-scroll-target="#comprueba-tu-comprensión">Comprueba tu comprensión</a></li>
+  <li><a href="#reto-final-qué-permiten-concluir-los-datos" id="toc-reto-final-qué-permiten-concluir-los-datos" class="nav-link" data-scroll-target="#reto-final-qué-permiten-concluir-los-datos">Reto final — ¿Qué permiten concluir los datos?</a></li>
+  <li><a href="#resultado-de-la-autoevaluación" id="toc-resultado-de-la-autoevaluación" class="nav-link" data-scroll-target="#resultado-de-la-autoevaluación">Resultado de la autoevaluación</a></li>
+  <li><a href="#semáforo-de-salida" id="toc-semáforo-de-salida" class="nav-link" data-scroll-target="#semáforo-de-salida">Semáforo de salida</a></li>
+  <li><a href="#tareas-a-entregar-después-del-taller" id="toc-tareas-a-entregar-después-del-taller" class="nav-link" data-scroll-target="#tareas-a-entregar-después-del-taller">Tareas a entregar (después del taller)</a></li>
+  <li><a href="#lecturas-consulta-previa-para-la-unidad-2" id="toc-lecturas-consulta-previa-para-la-unidad-2" class="nav-link" data-scroll-target="#lecturas-consulta-previa-para-la-unidad-2">Lecturas / consulta previa para la Unidad 2</a></li>
+  </ul></li>
+  <li><a href="#anexo-a.-correspondencia-resultadoactividadevidenciacriterio" id="toc-anexo-a.-correspondencia-resultadoactividadevidenciacriterio" class="nav-link" data-scroll-target="#anexo-a.-correspondencia-resultadoactividadevidenciacriterio">Anexo A. Correspondencia resultado–actividad–evidencia–criterio</a></li>
+  <li><a href="#anexo-b.-alineación-transversal" id="toc-anexo-b.-alineación-transversal" class="nav-link" data-scroll-target="#anexo-b.-alineación-transversal">Anexo B. Alineación transversal</a></li>
+  <li><a href="#glosario" id="toc-glosario" class="nav-link" data-scroll-target="#glosario">Glosario</a></li>
+  <li><a href="#referencias" id="toc-referencias" class="nav-link" data-scroll-target="#referencias">Referencias</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/Helysalgado/introbioinfo-unix/edit/main/u1-trabajo-reproducible.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/Helysalgado/introbioinfo-unix/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./u1-trabajo-reproducible.html">Unidad 1</a></li><li class="breadcrumb-item"><a href="./u1-trabajo-reproducible.html">Portada</a></li></ol></nav></header>
+
+
+
+
+<section id="unidad-1-trabajo-reproducible-y-comunicación-técnica" class="level1">
+<h1>Unidad 1 — Trabajo reproducible y comunicación técnica</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="Aula invertida">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Aula invertida
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Esta unidad se estudia en dos sesiones. S1 es la primera del curso y se lee <strong>junto con la sesión</strong>; a partir de S2 el orden es el habitual: leer antes, practicar en el taller, corregir después. Los primeros intentos son formativos; las entregas calificadas son las <strong>Tareas 1 y 2</strong>.</p>
+</div>
+</div>
+<p>Antes de tocar un dato biológico, esta unidad establece <strong>qué distingue un análisis del que uno puede fiarse</strong>. Es la única del curso que no usa Unix: se trabaja con Markdown, con datos sintéticos y con el razonamiento que ordenará todo lo demás. Lo que aquí se decide —una pregunta, una estrategia, un protocolo, una estructura de proyecto— es lo que la Unidad 2 llevará al servidor y las unidades siguientes irán refinando.</p>
+<section id="ficha-de-la-unidad" class="level2">
+<h2 class="anchored" data-anchor-id="ficha-de-la-unidad">Ficha de la unidad</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Elemento</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Sesiones</strong></td>
+<td>S1–S2</td>
+</tr>
+<tr class="even">
+<td><strong>Competencias</strong></td>
+<td>A (Trabajo reproducible y comunicación científica) · G (Uso responsable de IA)</td>
+</tr>
+<tr class="odd">
+<td><strong>Propósito</strong></td>
+<td>Establecer desde el arranque una cultura de trabajo reproducible y la capacidad de resolver y comunicar un problema bioinformático de forma documentada, verificable y científicamente válida.</td>
+</tr>
+<tr class="even">
+<td><strong>Contribución al objetivo del curso</strong></td>
+<td>Sienta las bases para <em>resolver problemas bioinformáticos reales mediante un trabajo computacional documentado, reproducible, verificado y suficientemente robusto</em>.</td>
+</tr>
+<tr class="odd">
+<td><strong>Ajustes integrados</strong></td>
+<td>Introducción al prompting científico y uso responsable de IA</td>
+</tr>
+<tr class="even">
+<td><strong>Lecturas</strong></td>
+<td>Buffalo (2015): <strong>Cap. 1 — obligatorio</strong> (genera el reporte de lectura de la Tarea 1; ~45–60 min). <strong>Cap. 2 — consulta dirigida</strong> (organización de proyectos y Markdown; se consulta al hacer las secciones 4–6; ~20–30 min).</td>
+</tr>
+</tbody>
+</table>
+<section id="resultados-de-aprendizaje-demostrables" class="level3">
+<h3 class="anchored" data-anchor-id="resultados-de-aprendizaje-demostrables">Resultados de aprendizaje (demostrables)</h3>
+<p>Al terminar la unidad, el estudiante es capaz de:</p>
+<ol type="1">
+<li><strong>Explicar</strong> la importancia de la reproducibilidad en la investigación.</li>
+<li><strong>Distinguir</strong> reproducibilidad, replicabilidad, verificación, validación y robustez. La replicabilidad se introduce de forma <strong>conceptual</strong>; verificación, validación y robustez se <strong>practican como acciones</strong> al nivel de esta unidad (sobre datos pequeños y de forma anticipada).</li>
+<li><strong>Reconocer</strong> las fases del manejo y análisis de datos.</li>
+<li><strong>Diseñar</strong> una estrategia sistemática para resolver un problema bioinformático sencillo (se <strong>diseña</strong>, todavía <strong>no se ejecuta</strong>).</li>
+<li><strong>Descomponer</strong> una pregunta biológica en subpreguntas abordables.</li>
+<li><strong>Relacionar</strong> cada subpregunta con datos, operaciones, evidencia y un método de validación (validación <strong>diseñada</strong>, no ejecutada).</li>
+<li><strong>Documentar</strong> un protocolo bioinformático en Markdown.</li>
+<li><strong>Organizar</strong> datos, procedimientos, resultados y documentación de forma reproducible.</li>
+<li><strong>Crear</strong> metadatos de datos aplicando los <strong>principios guía FAIR</strong>, e <strong>introducir de forma conceptual</strong> el registro de metadatos de software.</li>
+<li><strong>Utilizar</strong> asistentes de IA de forma crítica, ética y verificable.</li>
+<li><strong>Formular</strong> una <strong>conclusión provisional</strong> que no exceda la evidencia disponible, señalando sus <strong>limitaciones</strong>.</li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="ruta-de-aprendizaje-de-la-unidad" class="level2">
+<h2 class="anchored" data-anchor-id="ruta-de-aprendizaje-de-la-unidad">Ruta de aprendizaje de la unidad</h2>
+<p>La unidad se cursa en <strong>dos sesiones presenciales de 2 horas</strong>, con trabajo autónomo antes, entre y después. La siguiente tabla indica <strong>qué leer, qué intentar, qué llevar y qué entregar</strong> en cada momento. Los tiempos son <strong>estimaciones</strong> y varían según tu experiencia previa.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Momento</th>
+<th>Qué leer</th>
+<th>Qué intentar (a mano)</th>
+<th>Qué llevar / entregar</th>
+<th>Tiempo estimado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Antes de la sesión 1</strong></td>
+<td>Secciones 1–5 (reproducibilidad, fases, resolución de problemas, protocolo y Markdown) + <strong>Cap. 1 de Buffalo</strong></td>
+<td><strong>Práctica 1</strong> (protocolo inicial + reporte de lectura)</td>
+<td>Tu primer intento de la Práctica 1 y tus dudas</td>
+<td>Lectura unidad ~60–75 min · Buffalo Cap. 1 ~45–60 min · Práctica 1 ~30–45 min → <strong>~2–2.5 h</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Sesión 1 (2 h)</strong></td>
+<td>—</td>
+<td>—</td>
+<td>Bienvenida y encuadre · repaso de reproducibilidad y fases · <strong>taller de Markdown</strong> · revisión de pregunta, subpreguntas y estructura del protocolo · retroalimentación de la Práctica 1</td>
+<td>2 h presencial</td>
+</tr>
+<tr class="odd">
+<td><strong>Entre S1 y S2</strong></td>
+<td>Sección 6 (organización del proyecto), el apartado FAIR/metadatos (secciones 2 y 4.2) y sección 7 (IA); consulta el <strong>Cap. 2 de Buffalo</strong></td>
+<td><strong>Prácticas 2 y 3</strong> a mano; después, <strong>Práctica 4</strong> (con IA)</td>
+<td>Tus intentos de las Prácticas 2–4 y tus dudas</td>
+<td>Lectura ~30–45 min · Práctica 2 ~30–45 min · Práctica 3 ~30–45 min · Práctica 4 ~30–45 min → <strong>~2.5–3 h</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Sesión 2 (2 h)</strong></td>
+<td>—</td>
+<td>—</td>
+<td>Taller de FAIR, metadatos y organización · comparación de estrategias · discusión de limitaciones de los datos · comparación trabajo manual vs.&nbsp;IA · validación y corrección argumentada</td>
+<td>2 h presencial</td>
+</tr>
+<tr class="odd">
+<td><strong>Después de la S2</strong></td>
+<td>—</td>
+<td>—</td>
+<td><strong>Entrega</strong> de las Tareas 1 y 2 corregidas · cierre de la <code>bitacora-ia.md</code> · autoevaluación (sección 11)</td>
+<td><strong>~1.5–2 h</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Secciones indispensables (comprender):</strong> 1, 2, 3, 4, <strong>5</strong> y 6, más la 7. La <strong>Tarea 1 exige producir documentos en Markdown</strong>, por eso la sección 5 es indispensable. Solo la subsección <strong>5.3 (Mermaid)</strong> es de ampliación opcional.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Cuatro verbos guían esta ruta. <strong>Comprender</strong> las secciones indispensables; <strong>consultar</strong> lo opcional cuando lo necesites; <strong>intentar</strong> las prácticas aunque no las termines; y <strong>entregar</strong> solo después del taller. Si algo no te sale, anótalo: esa nota vale para el taller.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="módulos-de-la-unidad" class="level2">
+<h2 class="anchored" data-anchor-id="módulos-de-la-unidad">Módulos de la unidad</h2>
+<section id="s1-documentar-markdown-y-las-fases-del-análisis-de-datos" class="level3">
+<h3 class="anchored" data-anchor-id="s1-documentar-markdown-y-las-fases-del-análisis-de-datos"><a href="./u1-s1-documentar-markdown-fases.html">S1 — Documentar: Markdown y las fases del análisis de datos</a></h3>
+<p>Qué es la bioinformática y por qué exige habilidades con datos; los cuatro conceptos que el curso usa con precisión —reproducibilidad, replicabilidad, verificación, validación—; las fases del análisis y las de resolución de un problema; y cómo se pasa de una pregunta biológica a una estrategia escrita. Cierra con Markdown como herramienta de comunicación. Desarrolla la <strong>Tarea 1</strong>.</p>
+</section>
+<section id="s2-organizar-buenas-prácticas-fair-e-introducción-al-prompting-científico" class="level3">
+<h3 class="anchored" data-anchor-id="s2-organizar-buenas-prácticas-fair-e-introducción-al-prompting-científico"><a href="./u1-s2-organizar-fair-ia.html">S2 — Organizar: buenas prácticas FAIR e introducción al prompting científico</a></h3>
+<p>Los principios FAIR y qué acciones concretas contribuyen a cada uno; la ficha de metadatos con su diccionario de variables; la organización reproducible del proyecto; y la cápsula de IA que abre el eje transversal del curso: qué es un modelo de lenguaje, qué son las alucinaciones, cómo se formula un prompt científico y cómo se valida su respuesta. Desarrolla la <strong>Tarea 2</strong>.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="dos cortes deliberados">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>dos cortes deliberados
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Los principios FAIR y la ficha de metadatos podrían leerse junto a las fases del análisis y al protocolo, en S1. Van en S2 porque es donde el plan sitúa su aplicación: FAIR se ve en dos momentos —el estándar junto al manejo de datos, la aplicación junto al protocolo—, y los metadatos son parte de la Tarea 2, no de la 1.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="cierre-de-la-unidad" class="level2">
+<h2 class="anchored" data-anchor-id="cierre-de-la-unidad">Cierre de la unidad</h2>
+<p>Este cierre te permitirá comprobar no solo si reconoces los conceptos, sino si puedes <strong>aplicarlos y mostrar evidencia</strong> de tu trabajo. Realiza primero las actividades sin consultar las respuestas; después abre la retroalimentación y corrige lo necesario.</p>
+<p>Cada actividad tiene un <strong>momento</strong> y un <strong>tipo</strong> para que no se evalúe lo mismo dos veces:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Actividad</th>
+<th>Momento sugerido</th>
+<th>Tipo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>11.2</strong> Comprueba tu comprensión (preguntas 1–5)</td>
+<td><strong>Antes</strong> de la sesión 1 (diagnóstico)</td>
+<td>Formativa</td>
+</tr>
+<tr class="even">
+<td><strong>11.2</strong> Preguntas 6–9</td>
+<td>Cuando avances en la unidad</td>
+<td>Opcional</td>
+</tr>
+<tr class="odd">
+<td><strong>11.3</strong> Reto final (¿qué permiten concluir los datos?)</td>
+<td><strong>Durante/después</strong> de la sesión 2</td>
+<td>Formativa (aplicada)</td>
+</tr>
+<tr class="even">
+<td><strong>11.1</strong> Evidencias de mis habilidades</td>
+<td><strong>Después</strong> de la sesión 2</td>
+<td><strong>Obligatoria</strong> (checklist de cierre)</td>
+</tr>
+<tr class="odd">
+<td><strong>11.5</strong> Semáforo de salida</td>
+<td><strong>Después</strong> de la sesión 2</td>
+<td><strong>Obligatoria</strong> (autoevaluación de salida)</td>
+</tr>
+<tr class="even">
+<td><strong>11.4</strong> Resultado de la autoevaluación</td>
+<td>Al terminar 11.2</td>
+<td>Formativa (orientación)</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Lo <strong>obligatorio</strong> del cierre es la sección 11.1 (evidencias) y el semáforo 11.5; lo demás es <strong>formativo u opcional</strong>. La <strong>calificación</strong> proviene de las Tareas 1 y 2 (rúbricas 9.3 y 9.4), no de este cierre.</p>
+</div>
+</div>
+<hr>
+<section id="evidencias-de-mis-habilidades" class="level3">
+<h3 class="anchored" data-anchor-id="evidencias-de-mis-habilidades">Evidencias de mis habilidades</h3>
+<p>Marca una habilidad solamente si puedes señalar una evidencia concreta. En la última columna escribe el nombre del archivo, sección o producto donde puede revisarse.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Habilidad que puedo demostrar</th>
+<th>Evidencia esperada</th>
+<th>Mi evidencia</th>
+<th>Estado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Explico por qué la reproducibilidad es necesaria en la investigación</td>
+<td>Explicación o ejemplo donde un resultado pueda regenerarse</td>
+<td></td>
+<td>☐</td>
+</tr>
+<tr class="even">
+<td>Distingo reproducibilidad, replicabilidad, verificación, validación y robustez</td>
+<td>Clasificación correcta de casos y justificación</td>
+<td></td>
+<td>☐</td>
+</tr>
+<tr class="odd">
+<td>Diferencio el manejo de datos de la resolución de un problema</td>
+<td>Identificación de acciones correspondientes a cada proceso</td>
+<td></td>
+<td>☐</td>
+</tr>
+<tr class="even">
+<td>Parto de una pregunta biológica antes de elegir herramientas</td>
+<td>Pregunta central y subpreguntas en <code>protocolo.md</code></td>
+<td></td>
+<td>☐</td>
+</tr>
+<tr class="odd">
+<td>Relaciono subpreguntas con evidencia, datos, operaciones y validación</td>
+<td>Tabla de estrategia corregida</td>
+<td></td>
+<td>☐</td>
+</tr>
+<tr class="even">
+<td>Documento un protocolo científico en Markdown</td>
+<td><code>protocolo.md</code> organizado y correctamente renderizado</td>
+<td></td>
+<td>☐</td>
+</tr>
+<tr class="odd">
+<td>Organizo un proyecto reproducible</td>
+<td>Árbol con <code>data/source/</code>, <code>data/processed/</code>, <code>src/</code>, <code>results/</code> y <code>doc/</code></td>
+<td></td>
+<td>☐</td>
+</tr>
+<tr class="even">
+<td>Conservo los datos originales intactos</td>
+<td>Archivo original ubicado en <code>data/source/</code> y derivados separados</td>
+<td></td>
+<td>☐</td>
+</tr>
+<tr class="odd">
+<td>Redacto metadatos y un diccionario de variables</td>
+<td><code>pacientes-metadatos.md</code></td>
+<td></td>
+<td>☐</td>
+</tr>
+<tr class="even">
+<td>Aplico los principios FAIR sin confundirlos con “datos abiertos”</td>
+<td>Justificación de qué principios se aplican y cómo</td>
+<td></td>
+<td>☐</td>
+</tr>
+<tr class="odd">
+<td>Utilizo IA de forma crítica, verificable y declarada</td>
+<td>Entrada completa de <code>bitacora-ia.md</code></td>
+<td></td>
+<td>☐</td>
+</tr>
+<tr class="even">
+<td>Formulo conclusiones que no exceden la evidencia</td>
+<td>Conclusión y limitaciones claramente separadas</td>
+<td></td>
+<td>☐</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="comprueba-tu-comprensión" class="level3">
+<h3 class="anchored" data-anchor-id="comprueba-tu-comprensión">Comprueba tu comprensión</h3>
+<section id="pregunta-1-reproducible-no-significa-necesariamente-correcto" class="level4">
+<h4 class="anchored" data-anchor-id="pregunta-1-reproducible-no-significa-necesariamente-correcto">Pregunta 1 — Reproducible no significa necesariamente correcto</h4>
+<p>Un análisis produce exactamente el mismo resultado cada vez que se ejecuta, pero utiliza por error una columna equivocada del archivo.</p>
+<p>¿Cuál afirmación es correcta?</p>
+<ul>
+<li>A. Es válido porque siempre produce el mismo resultado.</li>
+<li>B. Es reproducible, pero no necesariamente válido.</li>
+<li>C. Es replicable porque se ejecutó varias veces.</li>
+<li>D. Es robusto porque el resultado no cambia.</li>
+</ul>
+<details>
+<summary>
+Ver retroalimentación
+</summary>
+<p><strong>Respuesta: B.</strong></p>
+<p>El resultado puede regenerarse con los mismos datos y procedimientos, por lo que el análisis es reproducible. Sin embargo, utilizar una columna equivocada impide que la evidencia responda correctamente la pregunta biológica, por lo que el análisis no está validado.</p>
+</details>
+<hr>
+</section>
+<section id="pregunta-2-replicabilidad" class="level4">
+<h4 class="anchored" data-anchor-id="pregunta-2-replicabilidad">Pregunta 2 — Replicabilidad</h4>
+<p>Otro grupo estudia una población independiente, utiliza nuevos datos y obtiene evidencia compatible con la conclusión del estudio original.</p>
+<p>¿Qué propiedad está evaluando principalmente?</p>
+<ul>
+<li>A. Reproducibilidad.</li>
+<li>B. Replicabilidad.</li>
+<li>C. Verificación.</li>
+<li>D. Documentación.</li>
+</ul>
+<details>
+<summary>
+Ver retroalimentación
+</summary>
+<p><strong>Respuesta: B.</strong></p>
+<p>La replicabilidad utiliza un estudio, población o conjunto de datos independiente. La reproducibilidad, en cambio, busca regenerar resultados usando los mismos datos y procedimientos documentados.</p>
+</details>
+<hr>
+</section>
+<section id="pregunta-3-verificación" class="level4">
+<h4 class="anchored" data-anchor-id="pregunta-3-verificación">Pregunta 3 — Verificación</h4>
+<p>Después de descargar un archivo, comparas su checksum con el valor publicado por el repositorio.</p>
+<p>¿Qué estás haciendo?</p>
+<ul>
+<li>A. Interpretando biológicamente el resultado.</li>
+<li>B. Validando la pregunta biológica.</li>
+<li>C. Verificando la integridad del archivo.</li>
+<li>D. Replicando el estudio.</li>
+</ul>
+<details>
+<summary>
+Ver retroalimentación
+</summary>
+<p><strong>Respuesta: C.</strong></p>
+<p>El checksum permite comprobar que el archivo descargado está completo y no cambió durante la transferencia. Es una acción de verificación.</p>
+</details>
+<hr>
+</section>
+<section id="pregunta-4-validación" class="level4">
+<h4 class="anchored" data-anchor-id="pregunta-4-validación">Pregunta 4 — Validación</h4>
+<p>Quieres conocer cuántos genes contiene un archivo GFF, pero cuentas todas sus líneas, incluyendo comentarios, regiones y otros tipos de elementos.</p>
+<p>Aunque el comando funcione, ¿cuál es el principal problema?</p>
+<ul>
+<li>A. El archivo no es FAIR.</li>
+<li>B. La operación no está validada para responder la pregunta.</li>
+<li>C. El resultado no puede documentarse.</li>
+<li>D. El archivo original fue replicado.</li>
+</ul>
+<details>
+<summary>
+Ver retroalimentación
+</summary>
+<p><strong>Respuesta: B.</strong></p>
+<p>Contar todas las líneas no equivale necesariamente a contar genes. Es necesario comprobar qué registros representan genes y diseñar una operación que produzca la evidencia adecuada para responder la pregunta.</p>
+</details>
+<hr>
+</section>
+<section id="pregunta-5-orden-del-razonamiento" class="level4">
+<h4 class="anchored" data-anchor-id="pregunta-5-orden-del-razonamiento">Pregunta 5 — Orden del razonamiento</h4>
+<p>¿Cuál es el orden más adecuado para diseñar un análisis bioinformático?</p>
+<ul>
+<li>A. Herramienta → comando → datos → pregunta → evidencia.</li>
+<li>B. Datos → herramienta → pregunta → resultado → interpretación.</li>
+<li>C. Pregunta → evidencia → datos → operación → herramienta.</li>
+<li>D. Comando → resultado → pregunta → validación.</li>
+</ul>
+<details>
+<summary>
+Ver retroalimentación
+</summary>
+<p><strong>Respuesta: C.</strong></p>
+<p>Primero se define qué se quiere responder; después, qué evidencia permitiría responderlo, dónde se encuentra esa evidencia, qué operación conceptual se necesita y, finalmente, qué herramienta puede realizarla.</p>
+</details>
+<hr>
+</section>
+<section id="pregunta-6-organización-de-los-datos" class="level4">
+<h4 class="anchored" data-anchor-id="pregunta-6-organización-de-los-datos">Pregunta 6 — Organización de los datos</h4>
+<p>Tienes un archivo original y una versión limpia en la que corregiste formatos y eliminaste registros inválidos.</p>
+<p>¿Dónde debería guardarse cada archivo?</p>
+<ul>
+<li>A. Ambos en <code>results/</code>.</li>
+<li>B. El original en <code>data/source/</code> y el derivado en <code>data/processed/</code>.</li>
+<li>C. El original en <code>src/</code> y el derivado en <code>doc/</code>.</li>
+<li>D. Ambos en <code>data/source/</code>, reemplazando el archivo anterior.</li>
+</ul>
+<details>
+<summary>
+Ver retroalimentación
+</summary>
+<p><strong>Respuesta: B.</strong></p>
+<p>Los datos originales deben conservarse intactos en <code>data/source/</code>. Los datos limpios o transformados son archivos derivados y deben guardarse por separado en <code>data/processed/</code>.</p>
+</details>
+<hr>
+</section>
+<section id="pregunta-7-fair" class="level4">
+<h4 class="anchored" data-anchor-id="pregunta-7-fair">Pregunta 7 — FAIR</h4>
+<p>¿Cuál afirmación describe correctamente los principios FAIR?</p>
+<ul>
+<li>A. Todo dato FAIR debe ser gratuito y público.</li>
+<li>B. FAIR significa que los datos no necesitan metadatos.</li>
+<li>C. FAIR busca que los datos sean localizables, accesibles, interoperables y reutilizables.</li>
+<li>D. FAIR solo se aplica a grandes repositorios internacionales.</li>
+</ul>
+<details>
+<summary>
+Ver retroalimentación
+</summary>
+<p><strong>Respuesta: C.</strong></p>
+<p>FAIR significa <em>Findable, Accessible, Interoperable and Reusable</em>. Un recurso FAIR no tiene que ser necesariamente abierto o gratuito, pero debe contar con metadatos, condiciones de acceso claras, formatos adecuados y suficiente documentación para su reutilización.</p>
+</details>
+<hr>
+</section>
+<section id="pregunta-8-uso-crítico-de-ia" class="level4">
+<h4 class="anchored" data-anchor-id="pregunta-8-uso-crítico-de-ia">Pregunta 8 — Uso crítico de IA</h4>
+<p>Un asistente afirma que el código <code>C12</code> de <code>pacientes.md</code> corresponde a una enfermedad específica, aunque no recibió un diccionario de códigos ni una fuente clínica.</p>
+<p>¿Qué deberías hacer?</p>
+<ul>
+<li>A. Aceptar la respuesta porque el código parece médico.</li>
+<li>B. Copiar la interpretación y citar al asistente.</li>
+<li>C. Marcar el significado como no documentado y buscar una fuente o diccionario confiable.</li>
+<li>D. Eliminar la columna porque la IA no pudo interpretarla.</li>
+</ul>
+<details>
+<summary>
+Ver retroalimentación
+</summary>
+<p><strong>Respuesta: C.</strong></p>
+<p>El significado de <code>dx</code> no puede inferirse únicamente por la apariencia del código. La IA podría estar asociándolo con un sistema real sin evidencia de que ese sistema se utilice en el archivo. La respuesta debe contrastarse con los metadatos, el responsable de los datos o un diccionario documentado.</p>
+</details>
+<hr>
+</section>
+<section id="pregunta-9-robustez" class="level4">
+<h4 class="anchored" data-anchor-id="pregunta-9-robustez">Pregunta 9 — Robustez</h4>
+<p>Obtienes el mismo conteo mediante dos estrategias independientes y ambas coinciden con un caso pequeño cuyo resultado conoces.</p>
+<p>¿Qué propiedad estás fortaleciendo principalmente?</p>
+<ul>
+<li>A. Robustez.</li>
+<li>B. Accesibilidad.</li>
+<li>C. Replicabilidad.</li>
+<li>D. Formato Markdown.</li>
+</ul>
+<details>
+<summary>
+Ver retroalimentación
+</summary>
+<p><strong>Respuesta: A.</strong></p>
+<p>Obtener el resultado por caminos diferentes y probar con un caso conocido reduce la posibilidad de que la conclusión dependa de un error silencioso o de una única estrategia frágil.</p>
+</details>
+<hr>
+</section>
+</section>
+<section id="reto-final-qué-permiten-concluir-los-datos" class="level3">
+<h3 class="anchored" data-anchor-id="reto-final-qué-permiten-concluir-los-datos">Reto final — ¿Qué permiten concluir los datos?</h3>
+<p>Considera nuevamente el archivo ficticio <code>pacientes.md</code>:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>id</th>
+<th style="text-align: right;">peso</th>
+<th style="text-align: right;">altura</th>
+<th>sexo</th>
+<th style="text-align: right;">edad</th>
+<th>dx</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>001</td>
+<td style="text-align: right;">65</td>
+<td style="text-align: right;">170</td>
+<td>F</td>
+<td style="text-align: right;">23</td>
+<td>A23</td>
+</tr>
+<tr class="even">
+<td>002</td>
+<td style="text-align: right;">78</td>
+<td style="text-align: right;">180</td>
+<td>M</td>
+<td style="text-align: right;">45</td>
+<td>B15</td>
+</tr>
+<tr class="odd">
+<td>003</td>
+<td style="text-align: right;">70</td>
+<td style="text-align: right;">165</td>
+<td>F</td>
+<td style="text-align: right;">38</td>
+<td>C12</td>
+</tr>
+</tbody>
+</table>
+<p>Un compañero afirma:</p>
+<blockquote class="blockquote">
+<p>“El diagnóstico <code>C12</code> está relacionado con un índice de masa corporal mayor porque el paciente <code>003</code> tiene el valor más alto.”</p>
+</blockquote>
+<p>Antes de aceptar o rechazar la afirmación, responde:</p>
+<ol type="1">
+<li>¿Qué evidencia sí puede obtenerse con los datos disponibles?</li>
+<li>¿Qué unidades necesitas confirmar antes de calcular el IMC?</li>
+<li>¿Qué significa la variable <code>dx</code> y dónde debería estar documentada?</li>
+<li>¿Cuántos pacientes hay para cada diagnóstico?</li>
+<li>¿Es posible distinguir una asociación de una diferencia individual?</li>
+<li>¿Qué datos adicionales necesitarías?</li>
+<li>¿Qué métodos usarías para verificar los cálculos?</li>
+<li>¿Cuál sería una conclusión que no exceda la evidencia?</li>
+</ol>
+<section id="mi-respuesta" class="level4">
+<h4 class="anchored" data-anchor-id="mi-respuesta">Mi respuesta</h4>
+<p><strong>Evidencia que sí puedo obtener:</strong></p>
+<p>…</p>
+<p><strong>Información o metadatos faltantes:</strong></p>
+<p>…</p>
+<p><strong>Operaciones necesarias:</strong></p>
+<p>…</p>
+<p><strong>Método de validación:</strong></p>
+<p>…</p>
+<p><strong>Conclusión:</strong></p>
+<p>…</p>
+<details>
+<summary>
+Ver retroalimentación
+</summary>
+<p>Una respuesta adecuada debería reconocer que:</p>
+<ul>
+<li>Es posible describir el peso, la altura, la edad y el sexo de cada paciente.</li>
+<li>El IMC solo puede calcularse válidamente después de confirmar las unidades.</li>
+<li>El significado de <code>dx</code> debe obtenerse de los metadatos o de un diccionario documentado.</li>
+<li>Cada diagnóstico aparece una sola vez.</li>
+<li>No existe replicación dentro de los grupos de diagnóstico.</li>
+<li>No hay un grupo de comparación.</li>
+<li>Las diferencias también podrían deberse a edad, sexo u otras variables no registradas.</li>
+<li>Es posible identificar qué paciente tiene el valor calculado más alto, pero no atribuirlo al diagnóstico.</li>
+<li>Se necesitan más pacientes por diagnóstico, controles y variables clínicas relevantes.</li>
+<li>Concluir que la evidencia es insuficiente también es un resultado científicamente válido.</li>
+</ul>
+<p>Una posible conclusión sería:</p>
+<blockquote class="blockquote">
+<p>Los datos permiten describir las características biométricas de los tres pacientes, pero no permiten determinar si el IMC está asociado con el diagnóstico. Solo existe un paciente por categoría y el significado de <code>dx</code> no está documentado. Se requieren más observaciones, controles y metadatos clínicos antes de evaluar la relación propuesta.</p>
+</blockquote>
+</details>
+<hr>
+</section>
+</section>
+<section id="resultado-de-la-autoevaluación" class="level3">
+<h3 class="anchored" data-anchor-id="resultado-de-la-autoevaluación">Resultado de la autoevaluación</h3>
+<p>Asigna un punto por cada respuesta correcta de la sección 11.2.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Resultado</th>
+<th>Interpretación</th>
+<th>Acción recomendada</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>8–9 respuestas correctas</td>
+<td>Comprensión sólida</td>
+<td>Continúa con el reto final y documenta tus evidencias</td>
+</tr>
+<tr class="even">
+<td>6–7 respuestas correctas</td>
+<td>Comprensión en desarrollo</td>
+<td>Revisa las preguntas incorrectas y explica por qué cambiaste tu respuesta</td>
+</tr>
+<tr class="odd">
+<td>4–5 respuestas correctas</td>
+<td>Hay conceptos que necesitan refuerzo</td>
+<td>Retoma las secciones relacionadas y consulta tus ejemplos</td>
+</tr>
+<tr class="even">
+<td>0–3 respuestas correctas</td>
+<td>Necesitas acompañamiento</td>
+<td>Lleva tus dudas al taller y resuelve nuevamente el cuestionario</td>
+</tr>
+</tbody>
+</table>
+<p>El número de respuestas correctas es solo una orientación. Lo más importante es que puedas explicar por qué una respuesta es correcta y mostrar evidencia de que aplicaste esa habilidad.</p>
+<hr>
+</section>
+<section id="semáforo-de-salida" class="level3">
+<h3 class="anchored" data-anchor-id="semáforo-de-salida">Semáforo de salida</h3>
+<p>Marca el nivel que describe mejor tu situación actual.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Color</th>
+<th>Significado</th>
+<th>Marca</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>🟢 Verde</td>
+<td>Puedo explicarlo, aplicarlo y mostrar una evidencia</td>
+<td>☐</td>
+</tr>
+<tr class="even">
+<td>🟡 Amarillo</td>
+<td>Comprendo la idea, pero todavía necesito ayuda para aplicarla</td>
+<td>☐</td>
+</tr>
+<tr class="odd">
+<td>🔴 Rojo</td>
+<td>Aún no puedo explicarla o no sé cómo comenzar</td>
+<td>☐</td>
+</tr>
+</tbody>
+</table>
+<section id="habilidad-en-verde" class="level4">
+<h4 class="anchored" data-anchor-id="habilidad-en-verde">Habilidad en verde</h4>
+<p>La habilidad que puedo demostrar mejor es:</p>
+<p>…</p>
+<p>La evidencia que puedo mostrar es:</p>
+<p>…</p>
+</section>
+<section id="habilidad-en-amarillo-o-rojo" class="level4">
+<h4 class="anchored" data-anchor-id="habilidad-en-amarillo-o-rojo">Habilidad en amarillo o rojo</h4>
+<p>La habilidad que necesito reforzar es:</p>
+<p>…</p>
+<p>Mi duda concreta es:</p>
+<p>…</p>
+<p>La acción que realizaré antes de comenzar la Unidad 2 es:</p>
+<p>…</p>
+</section>
+</section>
+<section id="tareas-a-entregar-después-del-taller" class="level3">
+<h3 class="anchored" data-anchor-id="tareas-a-entregar-después-del-taller">Tareas a entregar (después del taller)</h3>
+<ul>
+<li><strong>Tarea 1</strong> — <code>protocolo.md</code> iniciado (pregunta, subpreguntas y estrategia, de las Prácticas 1 y 3) y <code>reporte-lectura.md</code> del Cap. 1 de Buffalo (2015).</li>
+<li><strong>Tarea 2</strong> — estructura del proyecto con metadatos (campos mínimos, Práctica 2) y <code>bitacora-ia.md</code> con las entradas de la Práctica 4 (más cualquier otro uso de IA que hayas registrado).</li>
+</ul>
+</section>
+<section id="lecturas-consulta-previa-para-la-unidad-2" class="level3">
+<h3 class="anchored" data-anchor-id="lecturas-consulta-previa-para-la-unidad-2">Lecturas / consulta previa para la Unidad 2</h3>
+<ul>
+<li>Buffalo (2015), Cap. 3 (“Remedial Unix Shell”): filosofía de Unix y por qué se usa en bioinformática.</li>
+<li>Instalar un cliente de transferencia de archivos (FileZilla) si aún no lo tienes.</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Los cuatro principios —reproducibilidad, verificación, validación y robustez— se retoman progresivamente en las siguientes unidades y culminan en el <strong>proyecto integrador</strong>.</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="anexo-a.-correspondencia-resultadoactividadevidenciacriterio" class="level2">
+<h2 class="anchored" data-anchor-id="anexo-a.-correspondencia-resultadoactividadevidenciacriterio">Anexo A. Correspondencia resultado–actividad–evidencia–criterio</h2>
+<p><strong>Nivel en U1:</strong> <em>comprensión</em> (se entiende), <em>diseño anticipado</em> (se planea, aún no se ejecuta) o <em>ejecución</em> (se realiza en esta unidad).</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Resultado de aprendizaje</th>
+<th>Actividad</th>
+<th>Evidencia</th>
+<th>Criterio (rúbrica)</th>
+<th>Momento</th>
+<th>Nivel en U1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RA1 Importancia de la reproducibilidad</td>
+<td>Lectura + discusión; cuestionario 11.2</td>
+<td>Participación; respuestas</td>
+<td>9.2; autoevaluación</td>
+<td>Taller</td>
+<td>comprensión</td>
+</tr>
+<tr class="even">
+<td>RA2 Distinguir los cinco conceptos (replicabilidad conceptual)</td>
+<td>Cuestionario 11.2; protocolo</td>
+<td>Respuestas; <code>protocolo.md</code></td>
+<td>9.3; 11.2</td>
+<td>Taller/entrega</td>
+<td>comprensión</td>
+</tr>
+<tr class="odd">
+<td>RA3 Fases del manejo de datos</td>
+<td>Práctica 2</td>
+<td>Estructura + metadatos</td>
+<td>9.4 (estructura)</td>
+<td>Entrega</td>
+<td>comprensión / ejecución</td>
+</tr>
+<tr class="even">
+<td>RA4 Diseñar una estrategia</td>
+<td>Práctica 3</td>
+<td>Tabla de estrategia en <code>protocolo.md</code></td>
+<td>9.3 (estrategia)</td>
+<td>Entrega</td>
+<td>diseño anticipado</td>
+</tr>
+<tr class="odd">
+<td>RA5 Descomponer en subpreguntas</td>
+<td>Práctica 3</td>
+<td>Subpreguntas en <code>protocolo.md</code></td>
+<td>9.3 (pregunta y subpreguntas)</td>
+<td>Entrega</td>
+<td>diseño anticipado</td>
+</tr>
+<tr class="even">
+<td>RA6 Relacionar subpregunta–evidencia–datos–validación</td>
+<td>Práctica 3</td>
+<td>Tabla de estrategia</td>
+<td>9.3 (estrategia)</td>
+<td>Entrega</td>
+<td>diseño anticipado</td>
+</tr>
+<tr class="odd">
+<td>RA7 Documentar en Markdown</td>
+<td>Prácticas 1–2</td>
+<td><code>protocolo.md</code>, <code>reporte-lectura.md</code></td>
+<td>9.3 (Markdown)</td>
+<td>Entrega</td>
+<td>ejecución</td>
+</tr>
+<tr class="even">
+<td>RA8 Organización reproducible</td>
+<td>Práctica 2</td>
+<td>Árbol del proyecto</td>
+<td>9.4 (estructura)</td>
+<td>Entrega</td>
+<td>ejecución (a mano)</td>
+</tr>
+<tr class="odd">
+<td>RA9 Metadatos de datos (FAIR) + software conceptual</td>
+<td>Práctica 2</td>
+<td><code>pacientes-metadatos.md</code>; sección de entorno en <code>README.md</code></td>
+<td>9.4 (metadatos)</td>
+<td>Entrega</td>
+<td>ejecución (datos) / comprensión (software)</td>
+</tr>
+<tr class="even">
+<td>RA10 IA crítica y verificable</td>
+<td>Práctica 4</td>
+<td><code>bitacora-ia.md</code></td>
+<td>9.4 (bitácora, validación)</td>
+<td>Entrega</td>
+<td>ejecución</td>
+</tr>
+<tr class="odd">
+<td>RA11 Conclusión provisional y limitaciones</td>
+<td>Práctica 3; reto 11.3</td>
+<td>Conclusión + limitaciones en <code>protocolo.md</code></td>
+<td>9.3 (conclusión)</td>
+<td>Entrega</td>
+<td>diseño anticipado</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="anexo-b.-alineación-transversal" class="level2">
+<h2 class="anchored" data-anchor-id="anexo-b.-alineación-transversal">Anexo B. Alineación transversal</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Objetivo del curso</th>
+<th>Resultado de la unidad</th>
+<th>Práctica</th>
+<th>Evidencia</th>
+<th>Reproducibilidad</th>
+<th>Verificación</th>
+<th>Validación</th>
+<th>Robustez</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Resolver problemas bioinformáticos documentados y reproducibles</td>
+<td>RA4–RA6, RA11</td>
+<td>Práctica 3</td>
+<td>Estrategia y conclusión en <code>protocolo.md</code></td>
+<td>Protocolo permite regenerar el análisis</td>
+<td>Probar con caso pequeño conocido</td>
+<td>La estrategia responde la pregunta</td>
+<td>Obtener el conteo por dos caminos</td>
+</tr>
+<tr class="even">
+<td>Trabajo verificado y válido</td>
+<td>RA2, RA10</td>
+<td>Práctica 4</td>
+<td>Bitácora de validación de IA</td>
+<td>Registro reproducible del proceso</td>
+<td>Contrastar con fuente confiable</td>
+<td>Confirmar que la respuesta resuelve la duda</td>
+<td>Concluir grado de confiabilidad</td>
+</tr>
+<tr class="odd">
+<td>Datos gestionados con buenas prácticas</td>
+<td>RA3, RA8, RA9</td>
+<td>Práctica 2</td>
+<td>Metadatos + estructura</td>
+<td>Datos fuente recuperables</td>
+<td>Checksum (reservado)</td>
+<td>Metadatos suficientes para reusar</td>
+<td>Original intacto + derivados aparte</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Cuando aún no sea posible una comprobación completa de robustez, basta una actividad inicial: comparar dos formas de obtener un mismo conteo, probar con un archivo pequeño de resultado conocido, examinar a mano una muestra de registros, cambiar un parámetro y ver si cambia la conclusión, o contrastar con una fuente independiente.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="glosario" class="level2">
+<h2 class="anchored" data-anchor-id="glosario">Glosario</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Español</th>
+<th>Inglés</th>
+<th>Definición breve</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Reproducibilidad</td>
+<td>Reproducibility</td>
+<td>Regenerar resultados con los mismos datos y procedimientos</td>
+</tr>
+<tr class="even">
+<td>Replicabilidad</td>
+<td>Replicability</td>
+<td>Evidencia compatible con datos o estudios independientes</td>
+</tr>
+<tr class="odd">
+<td>Verificación</td>
+<td>Verification</td>
+<td>Comprobar que archivos, comandos y resultados funcionan como se espera</td>
+</tr>
+<tr class="even">
+<td>Validación</td>
+<td>Validation</td>
+<td>Demostrar que el procedimiento responde la pregunta</td>
+</tr>
+<tr class="odd">
+<td>Robustez</td>
+<td>Robustness</td>
+<td>Que la conclusión no dependa de decisiones frágiles</td>
+</tr>
+<tr class="even">
+<td>Metadatos</td>
+<td>Metadata</td>
+<td>Datos que describen un dato</td>
+</tr>
+<tr class="odd">
+<td>Checksum / suma de verificación</td>
+<td>Checksum</td>
+<td>Huella digital para comprobar integridad de un archivo</td>
+</tr>
+<tr class="even">
+<td>Procedencia</td>
+<td>Provenance</td>
+<td>Origen e historia de un dato</td>
+</tr>
+<tr class="odd">
+<td>Feature (elemento)</td>
+<td>Feature</td>
+<td>Elemento anotado del genoma (gen, región, etc.)</td>
+</tr>
+<tr class="even">
+<td>Cadena / hebra</td>
+<td>Strand</td>
+<td>Hebra del ADN donde se ubica un feature (<code>+</code> o <code>-</code>)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="referencias" class="level2">
+<h2 class="anchored" data-anchor-id="referencias">Referencias</h2>
+<ul>
+<li>Buffalo, V. (2015). <em>Bioinformatics Data Skills: Reproducible and Robust Research with Open Source Tools</em>. O’Reilly Media. — Cap. 1 (reproducibilidad, robustez, Regla de Oro) y Cap. 2 (organización de proyectos, documentación, Markdown). Disponible en <code>referencias/bioinformatics-data-skills.pdf</code>.</li>
+<li>Wilkinson, M. D., et al.&nbsp;(2016). The FAIR Guiding Principles for scientific data management and stewardship. <em>Scientific Data</em>, 3, 160018. doi:10.1038/sdata.2016.18.</li>
+<li>Miller, G. (2006). A Scientist’s Nightmare: Software Problem Leads to Five Retractions. <em>Science</em>, 314(5807), 1856–1857. doi:10.1126/science.314.5807.1856.</li>
+<li>Cyranoski, D. (2015, 18 de febrero). <em>Haruko Obokata: the STAP cells controversy</em>. The Guardian. <a href="https://www.theguardian.com/science/2015/feb/18/haruko-obokata-stap-cells-controversy-scientists-lie" class="uri">https://www.theguardian.com/science/2015/feb/18/haruko-obokata-stap-cells-controversy-scientists-lie</a></li>
+<li>The Japan Times (2024, 9 de abril). <em>10 years since STAP</em>. <a href="https://www.japantimes.co.jp/news/2024/04/09/japan/science-health/10-years-since-stap/" class="uri">https://www.japantimes.co.jp/news/2024/04/09/japan/science-health/10-years-since-stap/</a></li>
+<li>Popper, K. (1959). <em>The Logic of Scientific Discovery</em>. Hutchinson &amp; Co.</li>
+<li>Collado-Torres, L., Nellore, A., Kammers, K., Ellis, S. E., Taub, M. A., Hansen, K. D., Jaffe, A. E., Langmead, B., &amp; Leek, J. T. (2017). Reproducible RNA-seq analysis using recount2. <em>Nature Biotechnology</em>, 35(4), 319–321. doi:10.1038/nbt.3838.</li>
+<li>Barker, M., Chue Hong, N. P., Katz, D. S., et al.&nbsp;(2022). Introducing the FAIR Principles for research software (FAIR4RS). <em>Scientific Data</em>, 9, 622. doi:10.1038/s41597-022-01710-x.</li>
+<li>Noble, W. S. (2009). A Quick Guide to Organizing Computational Biology Projects. <em>PLoS Computational Biology</em>, 5(7), e1000424. doi:10.1371/journal.pcbi.1000424. (organización de directorios: <code>data/</code>, <code>results/</code>, <code>src/</code>, <code>doc/</code>).</li>
+<li>GO-FAIR. FAIR Principles. <a href="https://www.go-fair.org/fair-principles/" class="uri">https://www.go-fair.org/fair-principles/</a></li>
+<li>Markdown — página oficial (John Gruber). <a href="https://daringfireball.net/projects/markdown/" class="uri">https://daringfireball.net/projects/markdown/</a></li>
+<li>Markdown Guide. <a href="https://www.markdownguide.org/" class="uri">https://www.markdownguide.org/</a></li>
+<li>StackEdit — editor de Markdown en línea. <a href="https://stackedit.io" class="uri">https://stackedit.io</a></li>
+<li>Mermaid — documentación oficial. <a href="https://mermaid.js.org/" class="uri">https://mermaid.js.org/</a></li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/helysalgado\.github\.io\/introbioinfo-unix\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./u1-s1-documentar-markdown-fases.html" class="pagination-link" aria-label="S1 — Documentar">
+        <span class="nav-page-text">S1 — Documentar</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://hits.sh/helysalgado.github.io/introbioinfo-unix/"><img src="https://hits.sh/helysalgado.github.io/introbioinfo-unix/.svg?style=flat-square&amp;label=Visitas&amp;color=4a7c9e" class="img-fluid figure-img"></a></p>
+<figcaption>Visitas</figcaption>
+</figure>
+</div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Helysalgado/introbioinfo-unix/edit/main/u1-trabajo-reproducible.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/Helysalgado/introbioinfo-unix/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
