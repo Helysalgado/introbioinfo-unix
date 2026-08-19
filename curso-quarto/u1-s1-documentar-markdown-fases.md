@@ -363,50 +363,13 @@ descomposición es más importante que memorizar comandos.
 
 ### Práctica 1 — De la pregunta biológica a la estrategia *(en la sesión y después)*
 
-**Antes de clase (primer intento).** Retomarás el archivo `pacientes.md` y los metadatos elaborados
-en la práctica anterior.
+[Abrir en ventana completa — Bioinformatics Strategy Lab (HTML)](html/u1-s1-p1-bioinformatics_strategy_lab.html)
 
-Un integrante del equipo propone utilizar estos datos para investigar la siguiente pregunta:
-
-> **¿Los datos de `pacientes.md` son suficientes para evaluar si el índice de masa corporal está
-> relacionado con el diagnóstico registrado en `dx`?**
-
-**Antes de pensar en comandos**, completa la siguiente tabla:
-
-| Elemento | Tu respuesta |
-| --- | --- |
-| Pregunta central | |
-| Subpreguntas | |
-| Evidencia esperada | |
-| Datos necesarios | |
-| Operaciones requeridas | |
-| Posible herramienta | |
-| Método de validación | |
-| Posible interpretación | |
-
-Para construir tu estrategia, considera:
-
-- ¿Están documentadas las unidades de `peso` y `altura`?
-- ¿Qué operación permitiría calcular el índice de masa corporal?
-- ¿Qué significa cada código de `dx`?
-- ¿Cuántos pacientes hay para cada diagnóstico?
-- ¿Es posible distinguir una asociación de una diferencia individual?
-- ¿Qué datos o metadatos adicionales serían necesarios?
-- ¿Qué conclusión sería válida si la evidencia disponible resulta insuficiente?
-
-No es obligatorio concluir que existe una relación. Determinar que los datos son insuficientes, y
-explicar por qué, también constituye un resultado científico válido.
-
-**Durante el taller.** Compararemos las estrategias y discutiremos por qué puede haber varias
-descomposiciones correctas de la misma pregunta. Distinguiremos entre calcular una variable,
-observar diferencias y demostrar una asociación. Revisaremos qué limitaciones provienen del tamaño
-del conjunto de datos y cuáles se deben a metadatos incompletos.
-
-**Después del taller (entrega final).** Integra la tabla corregida en la sección *Estrategia* de
-`protocolo.md`. La estrategia debe relacionar claramente pregunta, subpreguntas, evidencia, datos,
-operaciones, validación e interpretación. Incluye un apartado breve de **limitaciones de los datos**.
-Las secciones *Comandos* y *Resultados* pueden permanecer vacías, porque en esta práctica se evalúa
-el razonamiento previo al análisis.
+<iframe
+  src="html/u1-s1-p1-bioinformatics_strategy_lab.html"
+  title="Práctica 1 — Bioinformatics Strategy Lab: de la pregunta a la estrategia"
+  style="width:100%;min-height:860px;border:1px solid #d7cdc7;border-radius:12px;background:#fff;"
+  loading="lazy"></iframe>
 
 ---
 
@@ -477,20 +440,13 @@ trabajado en
 
 ### Práctica 2 — Protocolo y reporte de lectura en Markdown *(después de la sesión)*
 
-**Antes de clase (primer intento).** Crea un borrador de `protocolo.md` con la estructura de la
-sección 4 (Introducción, Pregunta central, Subpreguntas, Datos, Estrategia; deja Comandos,
-Resultados, Validación, Discusión y Conclusiones como secciones vacías rotuladas). Crea también un
-`reporte-lectura.md` del **Cap. 1 de Buffalo (2015)** —la lectura base de la unidad— con las
-secciones: Referencia, Resumen, Aportación principal, Crítica o duda. Anota al menos una duda y la
-parte más difícil.
+[Abrir en ventana completa — Protocol Builder (HTML)](html/u1-s2-p2-protocol_builder.html)
 
-**Durante el taller.** Revisaremos tu estructura, compararemos cómo distintos estudiantes plantearon
-la pregunta central y las subpreguntas, y corregiremos el uso de Markdown según su función
-comunicativa.
-
-**Después del taller (entrega final).** Entrega `protocolo.md` y `reporte-lectura.md` corregidos.
-Ambos deben usar los elementos de Markdown que aporten claridad (al menos títulos, una lista y un
-enlace; tabla y bloque de código solo donde tengan función). Verifica que se ven bien en StackEdit.
+<iframe
+  src="html/u1-s2-p2-protocol_builder.html"
+  title="Práctica 2 — Protocol Builder: de la estrategia al protocolo en Markdown"
+  style="width:100%;min-height:860px;border:1px solid #d7cdc7;border-radius:12px;background:#fff;"
+  loading="lazy"></iframe>
 
 ---
 
