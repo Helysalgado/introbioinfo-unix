@@ -16,6 +16,7 @@ project:
 lang: es
 
 website:
+  google-analytics: "G-QXNMZZP0K9"
   title: "Introducción a la Bioinformática"
   site-url: https://helysalgado.github.io/introbioinfo-unix/
   repo-url: https://github.com/Helysalgado/introbioinfo-unix
@@ -168,3 +169,5 @@ format:
     code-copy: true
     code-overflow: wrap
     link-external-newwindow: true
+
+
