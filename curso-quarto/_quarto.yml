@@ -78,9 +78,9 @@ website:
             text: Portada
           - href: u2-s3-shell-acceso-remoto.md
             text: "S3 — Conectar"
-          - href: u2-s4-sistema-archivos-v3.md
+          - href: u2-s4-sistema-archivos.md
             text: "S4 — Navegar"
-          - href: u2-s5-archivos-permisos-procesos-v2.md
+          - href: u2-s5-archivos-permisos-procesos.md
             text: "S5 — Archivos y procesos"
           - href: u2-s6-consolidacion-entorno-unix.md
             text: "S6 — Consolidar"

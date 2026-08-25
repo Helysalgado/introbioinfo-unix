@@ -440,10 +440,10 @@ trabajado en
 
 ### Práctica 2 — Protocolo y reporte de lectura en Markdown *(después de la sesión)*
 
-[Abrir en ventana completa — Protocol Builder (HTML)](html/u1-s2-p2-protocol_builder.html)
+[Abrir en ventana completa — Protocol Builder (HTML)](html/u1-s1-p2-protocol_builder.html)
 
 <iframe
-  src="html/u1-s2-p2-protocol_builder.html"
+  src="html/u1-s1-p2-protocol_builder.html"
   title="Práctica 2 — Protocol Builder: de la estrategia al protocolo en Markdown"
   style="width:100%;min-height:860px;border:1px solid #d7cdc7;border-radius:12px;background:#fff;"
   loading="lazy"></iframe>

@@ -464,9 +464,9 @@ quedaron en S1. La versión previa se conserva íntegra, sin publicar, en
 -   [`u2-s3-shell-acceso-remoto.md`](u2-s3-shell-acceso-remoto.md):
     shell, ayuda, protocolos, SSH y transferencia con verificación de
     integridad.
--   [`u2-s4-sistema-archivos-v3.md`](u2-s4-sistema-archivos-v3.md):
+-   [`u2-s4-sistema-archivos.md`](u2-s4-sistema-archivos.md):
     sistema de archivos, rutas, navegación y operaciones seguras.
--   [`u2-s5-archivos-permisos-procesos-v2.md`](u2-s5-archivos-permisos-procesos-v2.md):
+-   [`u2-s5-archivos-permisos-procesos.md`](u2-s5-archivos-permisos-procesos.md):
     archivos, compresión, permisos y procesos.
 -   [`u2-s6-consolidacion-entorno-unix.md`](u2-s6-consolidacion-entorno-unix.md):
     verificación del entorno, integridad de los originales, permiso

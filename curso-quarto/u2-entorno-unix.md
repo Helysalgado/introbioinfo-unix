@@ -101,13 +101,13 @@ Partiendo de un problema real —trasladar un archivo de datos y sus metadatos a
 que llegaron intactos y documentar el procedimiento—, abrirás una terminal, entenderás qué es un
 comando, te conectarás por SSH y transferirás verificando integridad.
 
-### [S4 — Navegar: el sistema de archivos, su organización y su edición](u2-s4-sistema-archivos-v3.md)
+### [S4 — Navegar: el sistema de archivos, su organización y su edición](u2-s4-sistema-archivos.md)
 
 Te moverás por el sistema de archivos con rutas absolutas y relativas, y crearás por primera vez la
 estructura real del proyecto en tu espacio del servidor, colocando dentro los archivos ya
 transferidos. Esta sesión desarrolla la **Tarea 3**.
 
-### [S5 — Gestionar: archivos, compresión, permisos y procesos](u2-s5-archivos-permisos-procesos-v2.md)
+### [S5 — Gestionar: archivos, compresión, permisos y procesos](u2-s5-archivos-permisos-procesos.md)
 
 Sin reiniciar el proyecto ni traer datos nuevos, inspeccionarás sus archivos sin modificar los
 originales, comprimirás y restaurarás una copia, concederás a un script solo el permiso que necesita

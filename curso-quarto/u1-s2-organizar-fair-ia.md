@@ -246,6 +246,18 @@ trabaja formalmente en la **Unidad 2**. Para tu primer intento puedes **dibujar*
 
 ### Práctica 1 — Organización del proyecto y metadatos *(antes de clase, primer intento)*
 
+Esta práctica se realiza en el laboratorio interactivo **Data Steward Lab**: estructura del
+proyecto, ubicación de originales y derivados, y ficha de metadatos. Puedes usarlo junto con el
+conjunto de datos del curso; conserva tu entrega en Markdown del repositorio.
+
+[Data Steward Lab (HTML)](html/u1-s2-p1-data_steward_lab.html)
+
+<iframe
+  src="html/u1-s2-p1-data_steward_lab.html"
+  title="Práctica 1 — Data Steward Lab: organización del proyecto y metadatos"
+  style="width:100%;min-height:860px;border:1px solid #d7cdc7;border-radius:12px;background:#fff;"
+  loading="lazy"></iframe>
+
 **Antes de clase (primer intento).** Trabajarás con el conjunto de datos pequeño del curso
 [`ejemplos/pacientes.md`](ejemplos/pacientes.md), un conjunto de datos **sintético** (creado
 para el ejercicio, no proviene de personas reales) con tres registros y fines exclusivamente
@@ -404,8 +416,19 @@ o prompt**, **respuesta relevante**, **error o limitación detectada**, **fuente
 
 ### Práctica 2 — Formular y validar el uso de IA *(durante el taller y entrega posterior)*
 
-> **Regla — primero a mano, después con IA.** En las Prácticas 2 y 3 elaboraste los metadatos y la
-> estrategia sin ayuda de un asistente. Ahora usarás IA para generar propuestas alternativas y
+Esta práctica se realiza en el laboratorio interactivo **IA bajo la lupa**: formular prompts,
+contrastar respuestas con tu línea base manual y registrar la validación independiente.
+
+[IA bajo la lupa (HTML)](html/u1-s2-p2-ia_bajo_la_lupa.html)
+
+<iframe
+  src="html/u1-s2-p2-ia_bajo_la_lupa.html"
+  title="Práctica 2 — IA bajo la lupa: formular y validar el uso de IA"
+  style="width:100%;min-height:860px;border:1px solid #d7cdc7;border-radius:12px;background:#fff;"
+  loading="lazy"></iframe>
+
+> **Regla — primero a mano, después con IA.** En la Práctica 1 elaboraste los metadatos y la
+> organización sin ayuda de un asistente. Ahora usarás IA para generar propuestas alternativas y
 > compararlas con tu trabajo manual. Tu trabajo previo es la **línea base** de la comparación —**no
 > una verdad absoluta**, porque también puede contener errores—. La **referencia final** se construye
 > con el archivo original, los metadatos disponibles, la documentación autorizada, pruebas
@@ -422,7 +445,7 @@ se los proporciones. No aceptes como hechos las suposiciones que genere.
 
 #### a) Metadatos con IA
 
-En la Práctica 2 redactaste manualmente los metadatos y el diccionario de variables de
+En la Práctica 1 redactaste manualmente los metadatos y el diccionario de variables de
 `pacientes.md`. Ahora formula un prompt para que un asistente genere su propia propuesta.
 
 Puedes utilizar y adaptar el siguiente prompt:
@@ -456,7 +479,8 @@ Registra en `bitacora-ia.md`:
 
 #### b) Estrategia con IA
 
-En la Práctica 3 construiste manualmente una estrategia para responder la pregunta:
+En la Sesión 1 (Práctica 1) construiste manualmente una estrategia para responder preguntas
+biológicas con evidencia. Retoma ese método para la pregunta:
 
 > **¿Los datos de `pacientes.md` son suficientes para evaluar si el índice de masa corporal está
 > relacionado con el diagnóstico registrado en `dx`?**
