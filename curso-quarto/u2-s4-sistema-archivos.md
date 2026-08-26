@@ -127,13 +127,21 @@ comprueba el contexto con `hostname`, `whoami` y `pwd`. `scp` (§9) **se lanza d
 
 ---
 
-## App interactiva de S4 — Sistema de archivos
+### Bitácora interactiva de S4
 
-Antes de empezar con los ejercicios, abre esta app. Te ayudará a construir el modelo mental del sistema de archivos, practicar rutas y registrar tus decisiones mientras realizas las microprácticas y la Práctica S4.
+Durante esta sesión trabajarás con **tres espacios que se complementan**:
 
-**La app no sustituye la terminal ni el protocolo.** Mantenla visible mientras trabajas en el servidor.
+1. **Esta guía**, donde encontrarás los conceptos, instrucciones y retos.
+2. **La terminal Unix**, donde ejecutarás y comprobarás los comandos reales.
+3. **La bitácora interactiva**, donde podrás predecir resultados, comprobar
+   tu razonamiento, corregir errores y registrar evidencias.
 
-[Abrir en ventana completa — Sistema de archivos S4 (HTML)](html/u2-s4-sistema-archivos.html)
+> **Importante:** no debes completar toda la bitácora ahora.
+> La irás utilizando a medida que avances por las secciones de S4.
+
+Mantén la bitácora abierta durante la sesión:
+
+[Abrir Bitácora Interactiva S4 en ventana completa](html/u2-s4-sistema-archivos.html)
 
 <iframe
   src="html/u2-s4-sistema-archivos.html"
@@ -216,102 +224,34 @@ Una misma ubicación se puede alcanzar por **muchos caminos**. Desde
 es una forma sencilla de **robustez** (§11).
 :::
 
-### Micropráctica 1 — Muévete por el árbol: construye rutas
 
-Antes de escribir comandos, construye un modelo mental del árbol. En cada reto sigue esta secuencia:
+### 🧩 Micropráctica 1 — Muévete por el árbol: construye rutas
 
-**OBSERVA EL ÁRBOL → IDENTIFICA “ESTOY AQUÍ” → IDENTIFICA EL DESTINO → PIENSA CUÁNTOS NIVELES SUBIR O BAJAR → CONSTRUYE O PREDICE LA RUTA → EXPLÍCALA**
+Ahora que conoces la estructura en árbol y la diferencia entre rutas absolutas y
+relativas, abre la pestaña **1. Árbol y Rutas** de la bitácora interactiva.
 
-Para los primeros retos usaremos solo los elementos necesarios de la estructura real de S4:
+En esta micropráctica trabajarás con un árbol basado en la estructura de S4.
+En cada reto tendrás que **ubicarte primero** y razonar cómo llegar a un destino.
 
-```text
-~/
-└── proyecto/
-    ├── README.md
-    ├── data/
-    │   ├── source/
-    │   │   └── pacientes.md
-    │   └── processed/
-    ├── src/
-    ├── results/
-    └── doc/
-        └── protocolo.md
-```
+Trabajarás progresivamente con:
 
-#### Reto A — ¿Dónde estoy?
+- tu ubicación actual dentro del árbol;
+- subir uno o varios niveles;
+- cambiar de una rama a otra;
+- rutas absolutas y relativas;
+- rutas que pueden llevar al mismo destino;
+- detección y corrección de una ruta equivocada.
 
-**Estás aquí:** `~/proyecto/data/source/`
+> **Primero piensa, después comprueba.**
+> En esta micropráctica todavía no necesitas ejecutar los recorridos en la
+> terminal. El objetivo es construir mentalmente el camino antes de usar `cd`
+> en Unix.
 
-1. ¿En qué carpeta estás?
-2. ¿Qué carpeta está inmediatamente arriba?
-3. ¿Qué archivo aparece dentro de la carpeta donde estás?
-4. Si escribieras ahora una ruta relativa, ¿desde qué carpeta comenzaría a interpretarse?
+Realiza los **Retos A–F** en la pestaña **1. Árbol y Rutas**.
 
-#### Reto B — Subir un nivel
+Cuando termines, continúa con la guía. En la siguiente etapa comprobarás algunas
+de estas ideas en la terminal real.
 
-Sin usar todavía la terminal, predice dónde terminarías si desde
-`~/proyecto/data/source/` subieras un nivel con `..`.
-
-#### Reto C — Subir más de un nivel
-
-Desde la misma ubicación, ¿qué representa `../..`? Dibuja o explica el recorrido desde `source/` hasta
-el lugar al que llegarías.
-
-#### Reto D — Cambiar de rama
-
-**Estás aquí:** `~/proyecto/doc/`
-
-**Destino:** `pacientes.md` dentro de `data/source/`.
-
-Construye una ruta relativa para llegar al archivo. Antes de escribirla, explica cuántos niveles debes
-subir y por qué rama debes bajar.
-
-#### Reto E — Dos caminos, un destino
-
-**Estás aquí:** `~/proyecto/`
-
-**Destino:** `data/source/`
-
-1. Desde donde estás, construye una ruta relativa para llegar al destino.
-2. ¿Desde dónde tendría que comenzar una ruta absoluta?
-3. ¿Una ruta absoluta y una relativa pueden llevar al mismo directorio? Explica por qué.
-
-La ruta absoluta real se comprobará después en Unix usando `pwd`.
-
-#### Reto F — Detecta y corrige el error
-
-**Estás aquí:** `~/proyecto/doc/`
-
-Alguien escribió esta ruta para llegar a `pacientes.md`:
-
-```text
-data/source/pacientes.md
-```
-
-¿Llegará al archivo esperado desde donde estás? Primero explica qué ubicación intentaría buscar el
-sistema. Después corrige la ruta.
-
-<details>
-<summary>Ver retroalimentación después de intentarlo</summary>
-
-El punto de partida cambia el significado de una ruta relativa. En el Reto A, el directorio actual es
-`source/`; por eso toda ruta relativa empieza allí. En el Reto B, `..` recorre
-`source → data`. En el Reto C, `../..` recorre `source → data → proyecto`.
-
-En el Reto D, desde `doc/` primero debes subir a `proyecto/` con `..` y después bajar por
-`data/source/`; la ruta es `../data/source/pacientes.md`.
-
-En el Reto E, una ruta absoluta comienza en `/`; una ruta relativa comienza en el directorio actual.
-Ambas pueden señalar el mismo destino. Todavía no necesitamos inventar la ruta absoluta real del
-servidor: se comprobará después con `pwd`.
-
-En el Reto F, `data/source/pacientes.md` intentaría buscar una carpeta `data/` dentro de `doc/`, es
-decir, `~/proyecto/doc/data/source/pacientes.md`. Esa ubicación no existe. La ruta correcta es
-`../data/source/pacientes.md`.
-
-**Idea clave:** una ruta relativa depende de dónde estás.
-
-</details>
 
 ## 3. Navegar: `pwd`, `ls`, `cd`
 
@@ -334,73 +274,85 @@ Combina la tecla **Tab** para autocompletar nombres de rutas y evitar errores de
 estabas antes.
 :::
 
-### Micropráctica 2 — ¿Dónde estoy? Comprueba el contexto
+### 💻 Micropráctica 2 — ¿Dónde estoy? Comprueba el contexto
 
-::: {.callout-note}
-**Problema.** Antes de crear la estructura necesitas confirmar en qué máquina estás, con qué cuenta,
-cuál es tu *home* y qué archivos provenientes de S3 tienes disponibles.
-:::
+Ya razonaste sobre el árbol y las rutas. Ahora vas a comprobar algunas de esas
+ideas en el **servidor real**.
 
-**[LOCAL] En tu computadora, conéctate:**
+En esta micropráctica trabajarás principalmente en la terminal. Usa la pestaña
+**2. Comprueba Unix** de la bitácora para registrar lo que observes.
 
-```bash
-ssh usuario@servidor        # usa las credenciales dadas en clase
-```
+#### 1. Confirma tu contexto
 
-**[REMOTO] Ya dentro del servidor, comprueba el contexto y explora:**
+Ejecuta:
 
 ```bash
-hostname     # ¿en qué computadora estoy? (debe ser el servidor)
-whoami       # ¿con qué cuenta trabajo?
-cd ~         # ve a tu home
-pwd          # registra la ruta absoluta de tu home
-ls -lah      # ¿están aquí los archivos de S3?
-ls -ld /export/space3/users/$USER  # reconoce el espacio institucional, sin entrar todavía
+hostname
+whoami
+cd ~
+pwd
+ls -lah
 ```
 
-Debes ver `pacientes.md`, `pacientes-metadatos.md` y `protocolo.md`, que transferiste al *home* en S3.
-Si alguno no aparece, detente y revisa la evidencia de S3 antes de continuar: puede haber faltado una
-transferencia o quizá estás en otra ubicación.
+Antes de continuar, asegúrate de poder responder:
 
-::: {.callout-tip}
-**Después de la micropráctica, responde:** (1) ¿Cuál es la ruta absoluta de tu *home*? (2) ¿En qué se
-diferencia de `/export/space3/users/$USER`? (3) ¿Aparecen en `~` los tres archivos de S3? (4) ¿Ves
-también `bitacora-ia.md`?
-:::
+- ¿en qué máquina estás?;
+- ¿con qué usuario entraste?;
+- ¿cuál es tu directorio *home*?;
+- ¿qué archivos de S3 encuentras allí?
 
-<details>
-<summary>Ver retroalimentación — Micropráctica 2</summary>
+> 🧩 **En la bitácora:** registra la evidencia que te pide la pestaña
+> **2. Comprueba Unix**. No necesitas copiar nuevamente todos los comandos.
 
-1. La respuesta exacta es la salida de `pwd` inmediatamente después de `cd ~`; depende de la cuenta y
-   de la configuración del servidor. Puede tener una forma semejante a `/home/usuario`, pero debes
-   registrar **tu salida real**, no copiar este ejemplo.
-2. El *home* (`~`) es el directorio personal donde trabajaremos en S4. En cambio,
-   `/export/space3/users/$USER` es el espacio institucional destinado a datos y procesos más pesados;
-   es una ruta distinta y no se usará todavía para construir este proyecto.
-3. Sí. En `~` deben aparecer `pacientes.md`, `pacientes-metadatos.md` y `protocolo.md`, porque allí se
-   transfirieron en S3. Si falta alguno, hay que confirmar la ubicación con `pwd` y revisar la
-   transferencia antes de continuar.
-4. No se espera que `bitacora-ia.md` aparezca todavía en el servidor: permanece en la computadora
-   local y se transferirá directamente a `~/proyecto/doc/` durante S4.
+#### 2. Compara tu *home* con el espacio institucional
 
-</details>
-
-> **App S4:** registra la ruta absoluta de tu *home* (salida de `pwd` tras `cd ~`), si los tres archivos de S3 aparecen en `~`, y si `bitacora-ia.md` ya está disponible en el servidor.
-
-#### Ahora comprueba en Unix lo que razonaste en el árbol
-
-Desde tu *home*, ejecuta:
+Ahora observa:
 
 ```bash
-cd ..        # sube un nivel desde tu home
-pwd          # observa la nueva ubicación
-cd -         # regresa al directorio anterior
-pwd          # confirma que volviste
+ls -ld /export/space3/users/$USER
 ```
 
-Compara las dos salidas de `pwd`. Cambiar de ubicación cambia el punto de partida de una ruta relativa.
-Todavía no necesitas crear `~/proyecto/`: esta comprobación solo conecta el árbol conceptual con Unix
-real.
+Compara esa ubicación con la salida que obtuviste mediante:
+
+```bash
+pwd
+```
+
+No asumas que dos rutas diferentes representan necesariamente lugares
+diferentes. Observa la evidencia que te devuelve el sistema.
+
+#### 3. Comprueba un cambio de ubicación
+
+Ahora experimenta:
+
+```bash
+cd ..
+pwd
+cd -
+pwd
+```
+
+Antes de cada `pwd`, intenta predecir dónde estarás.
+
+Compara después tu predicción con la salida real.
+
+> **Conecta con la Micropráctica 1:** allí razonaste visualmente qué significa
+> cambiar de nivel en el árbol. Aquí Unix te muestra la ubicación real después
+> del movimiento.
+
+#### 4. Registra lo que descubriste
+
+Vuelve a la pestaña **2. Comprueba Unix** de la bitácora.
+
+Registra únicamente la evidencia solicitada y compara lo que esperabas con lo
+que observaste.
+
+Si algo no coincide, no lo borres simplemente: úsalo para identificar qué parte
+de tu modelo mental necesitas corregir.
+
+> **Idea clave:** `pwd` te permite comprobar dónde estás realmente. Una ruta
+> relativa se interpretará a partir de esa ubicación.
+
 
 ## 4. Crear directorios y archivos
 
@@ -440,43 +392,172 @@ lo **reemplazan sin avisar** y el contenido anterior se pierde. Mientras te acos
 hasta terminar de verificar (§8).
 :::
 
-### Micropráctica 3 — Copiar, mover y renombrar en una carpeta de prueba
+### Micropráctica 3 — Copiar, mover y renombrar con seguridad
 
-::: {.callout-note}
-**Problema.** Antes de tocar tus archivos reales, practica copia, movimiento y renombrado en un lugar
-donde un error no tenga consecuencias.
+Ahora practicarás operaciones sobre archivos en una carpeta creada exclusivamente para experimentar.
+
+El objetivo no es memorizar comandos, sino **observar qué cambia** cuando copias un archivo, cambias su nombre o lo mueves a otra carpeta.
+
+::: {.callout-note title="Trabaja en tu espacio de prueba"}
+Realiza esta micropráctica únicamente dentro de `prueba-s4/`.
+
+Antes de modificar archivos, usa `pwd` para comprobar dónde estás.
 :::
 
-**[REMOTO] En el servidor, dentro de tu espacio de trabajo:**
+#### 1. Prepara tu espacio de prueba
+
+En la terminal real ejecuta:
 
 ```bash
-mkdir -p prueba-s4          # carpeta aislada solo para practicar
+mkdir -p prueba-s4
 cd prueba-s4
-touch a.txt                 # crea un archivo de prueba
-cp -i a.txt b.txt           # copia a.txt como b.txt
-mv -i b.txt c.txt           # renombra b.txt a c.txt
-mkdir sub
-mv -i c.txt sub/            # mueve c.txt dentro de sub/
-ls -R                       # observa el resultado
-cd ..
+pwd
+touch a.txt
+ls
 ```
 
-::: {.callout-tip}
-**Después de la micropráctica, responde:** (1) ¿En qué se diferenció **renombrar** (`mv a b` en el
-mismo directorio) de **mover** (`mv a carpeta/`)? (2) ¿Por qué conviene usar `-i`?
+Comprueba que:
+
+- estás dentro de `prueba-s4/`;
+- existe el archivo `a.txt`.
+
+#### 2. Copia un archivo
+
+Ejecuta:
+
+```bash
+cp -i a.txt b.txt
+ls
+```
+
+Observa el resultado y pregúntate:
+
+- ¿sigue existiendo `a.txt`?;
+- ¿apareció `b.txt`?;
+- ¿qué cambió después de ejecutar `cp`?
+
+::: {.callout-tip title="Observa, no memorices"}
+Fíjate en el estado de la carpeta **antes y después** del comando.
+
+Al copiar, el archivo original permanece y aparece una copia en el destino.
 :::
 
-<details>
-<summary>Ver retroalimentación — Micropráctica 3</summary>
+#### 3. Antes de usar `mv`, predice
 
-1. Al ejecutar `mv -i b.txt c.txt` dentro del mismo directorio, el archivo permaneció en ese lugar,
-   pero cambió de nombre. Al ejecutar `mv -i c.txt sub/`, conservó su nombre y cambió de ubicación:
-   pasó a ser `sub/c.txt`. El comando `mv` puede realizar ambas operaciones según el destino.
-2. La opción `-i` solicita confirmación antes de sobrescribir un archivo que ya existe. Es una barrera
-   de seguridad útil mientras se aprende, aunque no sustituye comprobar `pwd`, inspeccionar el destino
-   con `ls` y conservar respaldos.
+Ahora trabajarás con `mv`.
 
-</details>
+Primero analiza estas dos operaciones:
+
+```bash
+mv -i b.txt c.txt
+```
+
+```bash
+mv -i c.txt sub/
+```
+
+::: {.callout-note title="🧩 Antes de ejecutar `mv`"}
+Abre la pestaña **3. Organiza con cuidado** de la bitácora interactiva.
+
+Para cada operación, decide qué esperas que cambie:
+
+- el nombre;
+- la ubicación;
+- o si necesitas revisar mejor el origen y el destino.
+
+**No ejecutes todavía los comandos. Primero haz tu predicción.**
+:::
+
+
+
+#### 4. Comprueba la primera predicción
+
+Regresa a la terminal y ejecuta:
+
+```bash
+mv -i b.txt c.txt
+ls
+```
+
+Observa el resultado.
+
+Compara lo ocurrido con tu predicción:
+
+- ¿sigue existiendo `b.txt`?;
+- ¿apareció `c.txt`?;
+- ¿el archivo cambió de carpeta?
+
+Si el resultado fue distinto de lo que esperabas, vuelve a la bitácora y corrige tu decisión a partir de la evidencia.
+
+#### 5. Ahora cambia un archivo de ubicación
+
+Primero crea una subcarpeta:
+
+```bash
+mkdir sub
+ls
+```
+
+Ahora ejecuta:
+
+```bash
+mv -i c.txt sub/
+ls -R
+```
+
+Observa dónde quedó `c.txt`.
+
+Vuelve a la pestaña **3. Organiza con cuidado** y compara el resultado con tu segunda predicción.
+
+::: {.callout-tip title="¿Qué hizo realmente `mv`?"}
+Compara las dos operaciones:
+
+```text
+b.txt → c.txt
+```
+
+y:
+
+```text
+c.txt → sub/
+```
+
+En la primera, el archivo permaneció en la misma carpeta pero cambió de **nombre**.
+
+En la segunda, conservó su nombre pero cambió de **ubicación**.
+
+Para interpretar `mv`, observa siempre el **origen** y el **destino**.
+:::
+
+#### 6. Comprueba el estado final
+
+Ejecuta:
+
+```bash
+pwd
+ls -R
+```
+
+Tu espacio de prueba debe contener ahora una estructura equivalente a:
+
+```text
+prueba-s4/
+├── a.txt
+└── sub/
+    └── c.txt
+```
+
+No necesitas copiar esta salida como evidencia si ya la observaste en la terminal.
+
+Lo importante es que puedas explicar **qué operación produjo cada cambio**.
+
+::: {.callout-note title="Antes de continuar"}
+**No borres todavía `sub/` ni `c.txt`.**
+
+Conserva `prueba-s4/` tal como quedó.
+
+En la siguiente micropráctica utilizaremos esta misma estructura para investigar qué ocurre cuando intentas eliminar una carpeta que todavía contiene un archivo.
+:::
 
 ## 6. Eliminar de forma segura
 
@@ -503,37 +584,206 @@ la costumbre de confirmar "sí" a todo anula la protección. Para vaciar una car
 primero sus archivos con `rm -i` y luego el directorio vacío con `rmdir`.
 :::
 
-### Micropráctica 4 — Eliminación segura (solo en `prueba-s4/`)
+### Micropráctica 4 — Eliminar con seguridad
 
-**[REMOTO] En el servidor:**
+En la micropráctica anterior dejaste un espacio de prueba como este:
+
+```text
+prueba-s4/
+├── a.txt
+└── sub/
+    └── c.txt
+```
+
+Ahora lo utilizarás para aprender una rutina importante: **antes de borrar, comprueba dónde estás y qué existe allí**.
+
+::: {.callout-note title="Trabaja únicamente en `prueba-s4/`"}
+En esta micropráctica eliminarás archivos y carpetas reales, pero solo dentro del espacio creado para experimentar.
+
+No borres archivos de `~/proyecto/`.
+:::
+
+#### 1. Antes de borrar, comprueba
+
+Entra a tu espacio de prueba y ejecuta:
 
 ```bash
-cd prueba-s4
-pwd                    # confirma que estás en la carpeta de prueba
-ls -R                  # confirma qué vas a borrar
-rmdir sub              # observa el error: aún contiene c.txt
-rm -i sub/c.txt        # ahora borra el archivo, confirmando
-rmdir sub              # sub/ ya está vacío: se puede borrar
-rm -i a.txt            # borra el resto de archivos de prueba
+cd ~/prueba-s4
+pwd
+ls -R
+```
+
+Antes de continuar, observa las salidas.
+
+Pregúntate:
+
+- ¿estoy realmente dentro de `prueba-s4/`?;
+- ¿qué archivos existen?;
+- ¿qué contiene `sub/`?
+
+::: {.callout-tip title="Una rutina antes de borrar"}
+Antes de usar un comando de eliminación, acostúmbrate a comprobar:
+
+**¿Dónde estoy? → ¿Qué existe aquí? → ¿Qué quiero borrar? → entonces ejecuto.**
+
+`pwd` y `ls` te ayudan a responder las primeras preguntas.
+:::
+
+#### 2. Predice antes de usar `rmdir`
+
+Observa nuevamente:
+
+```text
+prueba-s4/
+├── a.txt
+└── sub/
+    └── c.txt
+```
+
+La carpeta `sub/` todavía contiene `c.txt`.
+
+¿Qué crees que ocurrirá si intentas:
+
+```bash
+rmdir sub
+```
+
+::: {.callout-note title="🧩 Primero haz tu predicción"}
+Antes de ejecutar el comando, abre la pestaña **3. Organiza con cuidado** de la bitácora interactiva.
+
+Busca la actividad de eliminación segura y registra tu predicción.
+
+**Todavía no ejecutes `rmdir sub`.**
+:::
+
+#### 3. Comprueba tu predicción en Unix
+
+Ahora sí, vuelve a la terminal y ejecuta:
+
+```bash
+rmdir sub
+```
+
+Observa cuidadosamente el mensaje que devuelve Unix.
+
+No te preocupes si el comando no hace lo que esperabas. En esta carpeta de prueba, ese resultado forma parte del experimento.
+
+Comprueba nuevamente:
+
+```bash
+ls -R
+```
+
+¿Sigue existiendo `sub/`?
+
+¿Sigue allí `c.txt`?
+
+Vuelve a la bitácora y compara el resultado real con tu predicción.
+
+Si no coincidieron, corrige tu respuesta usando la evidencia que acabas de obtener.
+
+::: {.callout-tip title="¿Qué descubriste sobre `rmdir`?"}
+No memorices únicamente “funcionó” o “falló”.
+
+Relaciona el resultado con lo que observaste antes:
+
+**¿la carpeta estaba vacía o todavía contenía algo?**
+:::
+
+#### 4. Elimina primero el archivo
+
+Ahora elimina el archivo que está dentro de `sub/`:
+
+```bash
+rm -i sub/c.txt
+```
+
+Lee la pregunta que muestra `rm -i` antes de confirmar.
+
+Después comprueba:
+
+```bash
+ls -R
+```
+
+Observa qué cambió.
+
+La carpeta `sub/` debe seguir existiendo, pero ahora ya no contiene `c.txt`.
+
+#### 5. Intenta nuevamente con `rmdir`
+
+Ahora ejecuta:
+
+```bash
+rmdir sub
+ls -R
+```
+
+Compara este resultado con el primer intento.
+
+Pregúntate:
+
+- ¿qué era diferente la primera vez?;
+- ¿qué cambió antes del segundo intento?;
+- ¿por qué ahora el resultado fue distinto?
+
+::: {.callout-tip title="Relaciona los dos intentos"}
+En el primer intento, `sub/` todavía contenía `c.txt`.
+
+Después eliminaste el archivo y volviste a intentar la misma operación.
+
+La comparación entre ambos resultados te permite entender qué condición necesita `rmdir` para eliminar una carpeta.
+:::
+
+#### 6. Termina la limpieza
+
+Todavía queda `a.txt`.
+
+Elimínalo de forma interactiva:
+
+```bash
+rm -i a.txt
+```
+
+Comprueba el resultado:
+
+```bash
+ls -la
+```
+
+Después sal de la carpeta:
+
+```bash
 cd ..
 ```
 
-::: {.callout-tip}
-**Después de la micropráctica, responde:** (1) ¿Por qué `rmdir sub` falló si `sub/` aún contenía
-`c.txt`? (2) ¿Cómo te protegió comprobar `pwd` y `ls` antes de borrar?
+No necesitas eliminar `prueba-s4/` todavía si la guía la utilizará posteriormente.
+
+::: {.callout-note title="🧩 Registra lo que observaste"}
+Vuelve a la pestaña **3. Organiza con cuidado** de la bitácora.
+
+Registra el resultado del experimento y, si tu predicción inicial fue incorrecta, conserva también la corrección.
+
+No necesitamos registrar cada comando: interesa especialmente **qué esperabas, qué ocurrió y qué aprendiste al comparar ambos intentos**.
 :::
 
-<details>
-<summary>Ver retroalimentación — Micropráctica 4</summary>
+#### 7. Antes de borrar en el proyecto real
 
-1. `rmdir` solo elimina directorios vacíos. Falló porque `sub/` todavía contenía `c.txt`; después de
-   borrar ese archivo de forma explícita con `rm -i sub/c.txt`, el directorio quedó vacío y `rmdir sub`
-   pudo eliminarlo.
-2. `pwd` permitió confirmar que la operación ocurriría dentro de `prueba-s4/`, no dentro del proyecto
-   ni en otro directorio. `ls -R` mostró exactamente qué elementos existían y ayudó a identificar el
-   blanco antes de ejecutar un borrado que en Unix no pasa por una papelera.
+Hasta ahora trabajaste en una carpeta creada para experimentar.
 
-</details>
+Cuando trabajes posteriormente con archivos de `~/proyecto/`, no debes asumir que una operación de eliminación es segura solo porque conoces el comando.
+
+::: {.callout-tip title="Rutina de seguridad"}
+Antes de borrar un archivo o una carpeta:
+
+1. comprueba dónde estás con `pwd`;
+2. observa qué existe con `ls`;
+3. identifica exactamente qué quieres eliminar;
+4. revisa nuevamente el nombre y la ruta;
+5. solo entonces ejecuta el comando.
+
+En esta etapa del curso, **no uses `rm -r` o `rm -ri` como rutina**.
+:::
 
 ## 7. Ver el árbol: `tree` o `ls -R`
 
@@ -686,56 +936,155 @@ la salida en pantalla. Si parece que la terminal quedó congelada después de pu
 
 **[REMOTO] En el servidor:**
 
-1. Ejecuta `cd ~/proyecto`, confirma con `pwd` y abre `nano README.md`.
-2. Escribe un contenido mínimo con un título, una descripción y el propósito de cada directorio:
+Ahora vas a editar un archivo que **sí forma parte de tu proyecto real**.
 
-   ```markdown
-   # Proyecto de introducción a la bioinformática
+Trabajarás con:
 
-   Este proyecto organiza los archivos iniciados en las sesiones S1–S3.
+```text
+~/proyecto/README.md
+```
 
-   - data/source/: datos originales que no deben modificarse
-   - data/processed/: datos derivados
-   - src/: scripts
-   - results/: resultados
-   - doc/: protocolo y bitácora
-   ```
+El objetivo no es memorizar los atajos de `nano`, sino completar y comprobar este ciclo:
 
-3. Busca la palabra `source` con `Ctrl-W`.
-4. Guarda con `Ctrl-O`, confirma **el mismo nombre** (`README.md`) con Enter y sal con `Ctrl-X`.
-5. Comprueba desde la terminal el nombre, tamaño y contenido con `ls -l README.md` y `cat README.md`.
-6. Vuelve a abrir el archivo con `nano README.md`; confirma que el contenido persiste y sal con
-   `Ctrl-X` sin hacer cambios.
+**ABRIR → EDITAR → GUARDAR → SALIR → COMPROBAR**
 
-Después responde: (1) ¿qué diferencia hay entre guardar y salir?, (2) ¿cómo comprobaste fuera del
-editor que el archivo se guardó?, y (3) ¿por qué no debes ejecutar `nano data/source/pacientes.md`?
+::: {.callout-note title="Trabaja en tu proyecto real"}
+A diferencia de las prácticas de eliminación, aquí **sí trabajarás dentro de `~/proyecto/`**.
 
-<details>
-<summary>Ver retroalimentación — Micropráctica 5</summary>
+Editarás únicamente documentación: `README.md`.
 
-1. Guardar (`Ctrl-O` y Enter) escribe los cambios en el archivo, pero mantiene abierto el editor;
-   salir (`Ctrl-X`) cierra `nano`. Si existen cambios sin guardar, `nano` solicita una decisión antes
-   de salir.
-2. `ls -l README.md` confirmó que el archivo existe y mostró sus metadatos; `cat README.md` permitió
-   revisar el contenido desde la terminal. Volver a abrirlo confirmó que los cambios persistieron.
-3. `data/source/pacientes.md` es un dato original. Editarlo rompería la política de inmutabilidad y
-   cambiaría su *checksum*, afectando la procedencia y la reproducibilidad. Las transformaciones deben
-   producir archivos nuevos en `data/processed/`.
-
-</details>
-
-::: {.callout-note}
-En el servidor también existe `vi` (o `vim`), un editor
-muy potente pero de manejo distinto. En este curso lo tratamos **solo como consulta**: lo importante
-es que, si entras a `vi` por accidente, sepas **salir** pulsando `Esc` y escribiendo `:q!` seguido de
-Enter (salir sin guardar). Para editar en S4 usa `nano`.
+Los archivos originales de `data/source/` **no se modifican**.
 :::
 
-::: {.callout-tip}
-No es necesario editar archivos enormes en la terminal. `nano` es ideal para retoques
-rápidos —completar un `README.md`, añadir una sección a `protocolo.md`— directamente en el servidor,
-sin transferir de ida y vuelta.
+#### 1. Confirma dónde estás
+
+En el servidor ejecuta:
+
+```bash
+cd ~/proyecto
+pwd
+ls -l README.md
+```
+
+Antes de editar, comprueba que estás en `~/proyecto/` y que `README.md` existe.
+
+#### 2. Edita `README.md`
+
+Abre el archivo:
+
+```bash
+nano README.md
+```
+
+Escribe un contenido mínimo con un título, una descripción y el propósito de cada directorio:
+
+```markdown
+# Proyecto de introducción a la bioinformática
+
+Este proyecto organiza los archivos iniciados en las sesiones S1–S3.
+
+- data/source/: datos originales que no deben modificarse
+- data/processed/: datos derivados
+- src/: scripts
+- results/: resultados
+- doc/: protocolo y bitácora
+```
+
+Ahora busca la palabra `source` con:
+
+```text
+Ctrl-W
+```
+
+#### 3. Guarda y sal
+
+Guarda con:
+
+```text
+Ctrl-O
+```
+
+Revisa que el nombre mostrado sea:
+
+```text
+README.md
+```
+
+Confirma con `Enter`.
+
+Después sal con:
+
+```text
+Ctrl-X
+```
+
+::: {.callout-tip title="Guardar y salir no son lo mismo"}
+Observa las dos acciones por separado.
+
+Primero **guardas** los cambios en el archivo.
+
+Después **sales** del editor.
+
+Enseguida comprobarás desde Unix si el contenido realmente quedó guardado.
 :::
+
+#### 4. Comprueba fuera del editor
+
+Ya en la terminal ejecuta:
+
+```bash
+ls -l README.md
+cat README.md
+```
+
+No te limites a comprobar que el archivo existe.
+
+Observa si `cat README.md` muestra realmente el contenido que acabas de escribir.
+
+Después vuelve a abrirlo:
+
+```bash
+nano README.md
+```
+
+Comprueba que el contenido sigue allí y sal con `Ctrl-X` sin hacer cambios.
+
+::: {.callout-note title="🧩 Registra tu comprobación"}
+Vuelve a la bitácora interactiva y registra la evidencia solicitada sobre la edición.
+
+No necesitas copiar todos los comandos.
+
+Interesa especialmente distinguir:
+
+**qué hiciste → cómo lo comprobaste → qué evidencia demuestra que el cambio permaneció.**
+:::
+
+#### 5. Explica lo que acabas de hacer
+
+A partir de tu propia experiencia, responde en la bitácora:
+
+1. ¿Qué diferencia observaste entre **guardar** y **salir**?
+2. ¿Cómo comprobaste, fuera de `nano`, que `README.md` quedó guardado?
+3. `pacientes.md` está en `data/source/`. ¿Por qué no deberías abrirlo con `nano` para modificar sus datos?
+
+::: {.callout-tip title="Piensa en la evidencia"}
+No basta con decir *“porque lo guardé”*.
+
+Busca qué observación independiente te permite demostrar que el contenido permaneció después de cerrar el editor.
+:::
+
+#### 6. Conecta con la Tarea 3
+
+Acabas de practicar el ciclo completo de edición y comprobación con el `README.md` real del proyecto.
+
+En la **Tarea 3** usarás la misma forma de trabajo para actualizar:
+
+```text
+~/proyecto/doc/protocolo.md
+```
+
+Después de editarlo, también deberás comprobar desde la terminal que los cambios quedaron guardados.
+
 
 ## Clasificación de los comandos de S4
 
