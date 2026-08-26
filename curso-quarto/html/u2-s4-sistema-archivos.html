@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LCG UNAM 2026 • Bitácora Interactiva Sesión 4</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        unam: {
+                            blue: '#002B49',
+                            accent: '#004B87',
+                            gold: '#C59B27',
+                            goldlight: '#FFF9E6',
+                            hover: '#001A2C'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 260px;
+            max-height: 280px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 280px;
+            }
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-full font-sans text-slate-800 bg-slate-50 antialiased">
+
+<!-- Chosen Palette: Academic Navy & Warm Gold (UNAM Palette: #002B49, #004B87, #C59B27, #F8FAFC) -->
+
+<!-- Application Structure Plan:
+     1. Top Header: UNAM LCG 2026 Branding & Quick Session Metadata.
+     2. Overall Progress Dashboard: Interactive Chart.js donut showing completion of challenges, metric badges, and overall status.
+     3. Tabbed Navigation Bar: Clean, responsive tabs for intuitive flow (Inicio, 1. Árbol y Rutas, 2. Comprueba en Unix, 3. Organiza con Cuidado, 4. Verifica y Documenta, 5. Revisión IA, ✓ Resumen).
+     4. Dynamic Content Panels:
+        - Inicio: Goals, canonical folder structure display, and introductory briefing.
+        - Árbol y Rutas: Interactive Unix Directory Tree Visualizer rendered on HTML5 Canvas. Side-by-side Retos (A-F) with immediate validation, hints, and feedback.
+        - Comprueba en Unix: Terminal identity verification list & state checklist.
+        - Organiza con Cuidado: Command behavior sorter (mv vs cp), rmdir safety test, and interactive error predictor.
+        - Verifica y Documenta: File integrity validator (SHA256 checksums), SCP transfer logger, and safe text editing rules (nano vs raw data).
+        - Revisión con IA: Prompt constructor & security parameter validator.
+        - ✓ Resumen: Global status report with automated Markdown (.md) downloaders for lab turn-ins.
+     Why: Decouples theoretical path reasoning from actual Unix execution while providing interactive feedback, reducing confusion around absolute/relative path navigation. -->
+
+<!-- Visualization & Content Choices:
+     - Directory Tree Visualization: HTML5 Canvas API (custom drawing nodes and paths). Allows dynamic line rendering based on user's current directory selection without SVG/Mermaid.
+     - Progress Dashboard: Chart.js Doughnut Chart (Canvas) tracking overall completion state of retos and tasks.
+     - Interactive Forms/Inputs: Dynamic state persistence using localStorage, real-time recalculation of progress metrics.
+     - NO SVG graphics used. NO Mermaid JS used. All visual components rely on Tailwind CSS layout components, HTML5 Canvas API, Unicode icons, or Chart.js. -->
+
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Header Section -->
+    <header class="bg-unam-blue text-white shadow-lg border-b-4 border-unam-gold">
+        <div class="max-w-6xl mx-auto px-4 py-4 sm:px-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+            <div>
+                <div class="flex items-center gap-2">
+                    <span class="bg-unam-gold text-unam-blue font-bold px-2 py-0.5 rounded text-xs tracking-wide">UNAM LCG 2026</span>
+                    <span class="text-xs text-blue-200">Introducción a la Bioinformática</span>
+                </div>
+                <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight text-white mt-1">
+                    Sesión 4 • Navegar y Organizar el Proyecto
+                </h1>
+            </div>
+            <div class="flex items-center gap-3 self-end sm:self-center">
+                <button onclick="resetPractice()" class="text-xs font-semibold text-rose-300 hover:text-rose-100 bg-rose-950/40 hover:bg-rose-900/60 px-3 py-1.5 rounded border border-rose-800 transition">
+                    🔄 Reiniciar Práctica
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-6 flex flex-col gap-6">
+
+        <!-- Progress Overview Bar & Chart Card -->
+        <section class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 sm:p-5">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                <div class="md:col-span-2 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-base font-bold text-unam-blue uppercase tracking-wider">Progreso de la Bitácora</h2>
+                        <span id="progress-percent" class="text-xl font-extrabold text-unam-accent">0%</span>
+                    </div>
+                    <!-- Custom Tailwind Progress Bar -->
+                    <div class="w-full bg-slate-100 rounded-full h-3 overflow-hidden border border-slate-200">
+                        <div id="progress-bar-inner" class="bg-gradient-to-r from-unam-accent to-unam-gold h-full w-0 transition-all duration-500"></div>
+                    </div>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 text-center text-xs">
+                        <div class="p-2 rounded bg-slate-50 border border-slate-200">
+                            <span class="block text-slate-500 font-medium">Comprobados</span>
+                            <span id="badge-completed" class="text-sm font-bold text-emerald-600">0</span>
+                        </div>
+                        <div class="p-2 rounded bg-slate-50 border border-slate-200">
+                            <span class="block text-slate-500 font-medium">Corregidos</span>
+                            <span id="badge-corrected" class="text-sm font-bold text-teal-600">0</span>
+                        </div>
+                        <div class="p-2 rounded bg-slate-50 border border-slate-200">
+                            <span class="block text-slate-500 font-medium">Por Revisar</span>
+                            <span id="badge-review" class="text-sm font-bold text-amber-600">0</span>
+                        </div>
+                        <div class="p-2 rounded bg-slate-50 border border-slate-200">
+                            <span class="block text-slate-500 font-medium">Pendientes</span>
+                            <span id="badge-pending" class="text-sm font-bold text-slate-600">6</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-center border-t md:border-t-0 md:border-l border-slate-200 pt-4 md:pt-0 md:pl-4">
+                    <div class="chart-container">
+                        <canvas id="progressChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic Navigation Tabs -->
+        <nav class="bg-white rounded-xl shadow-sm border border-slate-200 p-1.5 overflow-x-auto">
+            <ul class="flex space-x-1 min-w-max text-sm font-medium" role="tablist">
+                <li><button id="tab-inicio" onclick="activateTab('inicio')" class="tab-btn active px-4 py-2 rounded-lg text-slate-600 hover:text-unam-blue hover:bg-slate-100 transition">Inicio</button></li>
+                <li><button id="tab-arbol" onclick="activateTab('arbol')" class="tab-btn px-4 py-2 rounded-lg text-slate-600 hover:text-unam-blue hover:bg-slate-100 transition">1. Árbol y Rutas</button></li>
+                <li><button id="tab-unix" onclick="activateTab('unix')" class="tab-btn px-4 py-2 rounded-lg text-slate-600 hover:text-unam-blue hover:bg-slate-100 transition">2. Comprueba Unix</button></li>
+                <li><button id="tab-organiza" onclick="activateTab('organiza')" class="tab-btn px-4 py-2 rounded-lg text-slate-600 hover:text-unam-blue hover:bg-slate-100 transition">3. Organiza Cuidado</button></li>
+                <li><button id="tab-verifica" onclick="activateTab('verifica')" class="tab-btn px-4 py-2 rounded-lg text-slate-600 hover:text-unam-blue hover:bg-slate-100 transition">4. Verifica y Documenta</button></li>
+                <li><button id="tab-ia" onclick="activateTab('ia')" class="tab-btn px-4 py-2 rounded-lg text-slate-600 hover:text-unam-blue hover:bg-slate-100 transition">5. Revisión IA</button></li>
+                <li><button id="tab-resumen" onclick="activateTab('resumen')" class="tab-btn px-4 py-2 rounded-lg font-bold text-unam-accent hover:bg-amber-50 transition">✓ Resumen</button></li>
+            </ul>
+        </nav>
+
+        <!-- TAB CONTENT 1: INICIO -->
+        <section id="panel-inicio" class="tab-panel bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-6">
+            <div class="border-b border-slate-200 pb-4">
+                <h2 class="text-2xl font-bold text-unam-blue">Bienvenida a la Bitácora Interactiva de S4</h2>
+                <p class="text-slate-600 mt-1">
+                    En la Sesión 3 aprendiste a conectarte por SSH, transferir archivos y comparar checksums. Los archivos descargados quedaron temporalmente en tu directorio principal (<em>home</em>).
+                </p>
+            </div>
+
+            <div class="p-4 rounded-lg bg-amber-50 border-l-4 border-unam-gold text-amber-900 text-sm space-y-1">
+                <p class="font-bold flex items-center gap-1.5">
+                    <span>⚠️</span> Nota importante sobre esta herramienta:
+                </p>
+                <p>
+                    Esta aplicación es una guía metodológica para <strong>razonar, predecir, corregir y registrar la evidencia</strong> de tus actividades. Todas las ejecuciones reales deben realizarse en la terminal del servidor Unix.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                <div class="space-y-4">
+                    <h3 class="text-lg font-bold text-unam-accent">Estructura Objetivo del Proyecto</h3>
+                    <p class="text-sm text-slate-600">
+                        Al finalizar la práctica en la terminal, la estructura jerárquica dentro de tu directorio <code>~/proyecto/</code> debe cumplir la especificación canónica:
+                    </p>
+                    <div class="bg-slate-900 text-slate-100 p-4 rounded-xl font-mono text-sm overflow-x-auto shadow-inner">
+                        <pre><code>proyecto/
+├── README.md
+├── data/
+│   ├── source/
+│   │   ├── pacientes.md
+│   │   └── pacientes-metadatos.md
+│   └── processed/
+├── src/
+├── results/
+└── doc/
+    ├── protocolo.md
+    └── bitacora-ia.md</code></pre>
+                    </div>
+                </div>
+
+                <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 space-y-4">
+                    <h3 class="text-lg font-bold text-unam-blue">Objetivos Didácticos de S4</h3>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald-600 font-bold">✓</span>
+                            <span>Dominar la navegación entre directorios mediante rutas relativas y absolutas.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald-600 font-bold">✓</span>
+                            <span>Comprender el comportamiento de los comandos <code>mv</code>, <code>cp</code>, <code>rm</code> y <code>rmdir</code>.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald-600 font-bold">✓</span>
+                            <span>Verificar la integridad de archivos fuente mediante algoritmos de checksum hash.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald-600 font-bold">✓</span>
+                            <span>Establecer un flujo seguro de edición en Markdown (sin alterar datos crudos).</span>
+                        </li>
+                    </ul>
+                    <button onclick="activateTab('arbol')" class="w-full mt-2 py-2.5 bg-unam-accent hover:bg-unam-blue text-white font-semibold rounded-lg shadow-sm transition flex items-center justify-center gap-2">
+                        <span>Comenzar Micropráctica Conceptual</span>
+                        <span>➔</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB CONTENT 2: 1. ÁRBOL Y RUTAS -->
+        <section id="panel-arbol" class="tab-panel hidden bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-6">
+            <div class="border-b border-slate-200 pb-3">
+                <h2 class="text-2xl font-bold text-unam-blue">1. Árbol y Rutas (Micropráctica Conceptual)</h2>
+                <p class="text-slate-600 text-sm mt-1">
+                    Visualiza la topología del árbol de archivos. Selecciona carpetas en la gráfica o en el control para predecir el comportamiento del comando <code>cd</code> y la construcción de rutas relativas.
+                </p>
+            </div>
+
+            <!-- Canvas Visualizer Section -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                <div class="lg:col-span-5 bg-slate-900 text-slate-200 p-4 rounded-xl space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-semibold uppercase tracking-wider text-amber-400">Visualizador Canónico de Directorios</span>
+                        <span id="canvas-active-node" class="text-xs bg-slate-800 text-emerald-400 px-2 py-0.5 rounded font-mono">Ubicación: ~/</span>
+                    </div>
+                    <div class="bg-slate-950 rounded-lg p-2 border border-slate-800 flex justify-center">
+                        <canvas id="treeCanvas" width="380" height="300" class="w-full max-w-[380px] h-[300px] cursor-pointer"></canvas>
+                    </div>
+                    <p class="text-xs text-slate-400 text-center">
+                        💡 Haz clic en los nodos interactivos para simular navegación o resaltar rutas de los retos.
+                    </p>
+                </div>
+
+                <div class="lg:col-span-7 space-y-6">
+
+                    <!-- Reto A -->
+                    <div class="border border-slate-200 rounded-xl p-5 bg-slate-50 space-y-4 shadow-sm">
+                        <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+                            <h3 class="font-bold text-unam-blue">Reto A: Me ubico en el árbol</h3>
+                            <span class="text-xs font-mono bg-blue-100 text-blue-800 px-2 py-0.5 rounded">Origen: ~/proyecto/data/source/</span>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                            <div>
+                                <label class="block font-medium text-slate-700 mb-1" for="retoA_q1">1. ¿En qué carpeta estás ubicado?</label>
+                                <select id="retoA_q1" class="w-full p-2 border border-slate-300 rounded-lg bg-white focus:ring-2 focus:ring-unam-accent focus:outline-none">
+                                    <option value="">Selecciona...</option>
+                                    <option value="proyecto">proyecto</option>
+                                    <option value="data">data</option>
+                                    <option value="source">source</option>
+                                    <option value="doc">doc</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block font-medium text-slate-700 mb-1" for="retoA_q2">2. ¿Cuál es el directorio padre?</label>
+                                <select id="retoA_q2" class="w-full p-2 border border-slate-300 rounded-lg bg-white focus:ring-2 focus:ring-unam-accent focus:outline-none">
+                                    <option value="">Selecciona...</option>
+                                    <option value="proyecto">proyecto</option>
+                                    <option value="data">data</option>
+                                    <option value="source">source</option>
+                                    <option value="~">~ (home)</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block font-medium text-slate-700 mb-1" for="retoA_q3">3. Archivo contenido directamente:</label>
+                                <select id="retoA_q3" class="w-full p-2 border border-slate-300 rounded-lg bg-white focus:ring-2 focus:ring-unam-accent focus:outline-none">
+                                    <option value="">Selecciona...</option>
+                                    <option value="README.md">README.md</option>
+                                    <option value="protocolo.md">protocolo.md</option>
+                                    <option value="pacientes.md">pacientes.md</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block font-medium text-slate-700 mb-1" for="retoA_q4">4. Origen de ruta relativa:</label>
+                                <input type="text" id="retoA_q4" placeholder="Escribe el nombre de carpeta..." class="w-full p-2 border border-slate-300 rounded-lg bg-white focus:ring-2 focus:ring-unam-accent focus:outline-none">
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-2 pt-2">
+                            <button onclick="checkRetoA()" class="px-4 py-2 bg-unam-accent text-white text-sm font-semibold rounded-lg hover:bg-unam-blue transition">Comprobar Reto A</button>
+                            <button id="btn-hint-A" onclick="showHint('hint-A', 'A')" class="hidden px-3 py-2 bg-amber-100 text-amber-800 text-sm font-semibold rounded-lg hover:bg-amber-200 transition">💡 Pedir Pista</button>
+                        </div>
+                        <div id="hint-A" class="hidden text-xs p-3 bg-amber-50 border border-amber-200 rounded-lg text-amber-900">
+                            <strong>Pista:</strong> Ubica la etiqueta <code>source/</code> en el canvas o diagrama y revisa la rama directa hacia la izquierda (directorio superior).
+                        </div>
+                        <div id="feedback-A" class="hidden text-xs p-3 rounded-lg font-medium"></div>
+                    </div>
+
+                    <!-- Reto B -->
+                    <div class="border border-slate-200 rounded-xl p-5 bg-slate-50 space-y-4 shadow-sm">
+                        <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+                            <h3 class="font-bold text-unam-blue">Reto B: Subo un nivel (cd ..)</h3>
+                            <span class="text-xs font-mono bg-blue-100 text-blue-800 px-2 py-0.5 rounded">Origen: ~/proyecto/data/source/</span>
+                        </div>
+
+                        <div class="text-sm">
+                            <label class="block font-medium text-slate-700 mb-1" for="retoB_pred">Predicción: Si ejecutas <code>cd ..</code>, ¿a qué carpeta llegarás?</label>
+                            <select id="retoB_pred" class="w-full p-2 border border-slate-300 rounded-lg bg-white focus:ring-2 focus:ring-unam-accent focus:outline-none">
+                                <option value="">Selecciona carpeta destino...</option>
+                                <option value="proyecto">~/proyecto/</option>
+                                <option value="data">~/proyecto/data/</option>
+                                <option value="processed">~/proyecto/data/processed/</option>
+                                <option value="home">~ (home)</option>
+                            </select>
+                        </div>
+
+                        <div class="flex items-center gap-2 pt-1">
+                            <button onclick="checkRetoB()" class="px-4 py-2 bg-unam-accent text-white text-sm font-semibold rounded-lg hover:bg-unam-blue transition">Comprobar Reto B</button>
+                            <button id="btn-hint-B" onclick="showHint('hint-B', 'B')" class="hidden px-3 py-2 bg-amber-100 text-amber-800 text-sm font-semibold rounded-lg hover:bg-amber-200 transition">💡 Pedir Pista</button>
+                        </div>
+                        <div id="hint-B" class="hidden text-xs p-3 bg-amber-50 border border-amber-200 rounded-lg text-amber-900">
+                            <strong>Pista:</strong> El comodín <code>..</code> significa exactamente ascender 1 nivel directo en el árbol de directorios.
+                        </div>
+                        <div id="feedback-B" class="hidden text-xs p-3 rounded-lg font-medium"></div>
+                    </div>
+
+                    <!-- Reto C -->
+                    <div class="border border-slate-200 rounded-xl p-5 bg-slate-50 space-y-4 shadow-sm">
+                        <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+                            <h3 class="font-bold text-unam-blue">Reto C: Subo varios niveles (cd ../..)</h3>
+                            <span class="text-xs font-mono bg-blue-100 text-blue-800 px-2 py-0.5 rounded">Origen: ~/proyecto/data/source/</span>
+                        </div>
+
+                        <div class="text-sm">
+                            <label class="block font-medium text-slate-700 mb-1" for="retoC_pred">Predicción: Si ejecutas <code>cd ../..</code>, ¿en cuál carpeta terminarás?</label>
+                            <select id="retoC_pred" class="w-full p-2 border border-slate-300 rounded-lg bg-white focus:ring-2 focus:ring-unam-accent focus:outline-none">
+                                <option value="">Selecciona destino...</option>
+                                <option value="proyecto">~/proyecto/</option>
+                                <option value="data">~/proyecto/data/</option>
+                                <option value="home">~ (home)</option>
+                                <option value="root">/</option>
+                            </select>
+                        </div>
+
+                        <div class="flex items-center gap-2 pt-1">
+                            <button onclick="checkRetoC()" class="px-4 py-2 bg-unam-accent text-white text-sm font-semibold rounded-lg hover:bg-unam-blue transition">Comprobar Reto C</button>
+                            <button id="btn-hint-C" onclick="showHint('hint-C', 'C')" class="hidden px-3 py-2 bg-amber-100 text-amber-800 text-sm font-semibold rounded-lg hover:bg-amber-200 transition">💡 Pedir Pista</button>
+                        </div>
+                        <div id="hint-C" class="hidden text-xs p-3 bg-amber-50 border border-amber-200 rounded-lg text-amber-900">
+                            <strong>Pista:</strong> Cuenta dos saltos ascendentes: de <code>source</code> sube a <code>data</code>, y de <code>data</code> sube a su correspondiente padre.
+                        </div>
+                        <div id="feedback-C" class="hidden text-xs p-3 rounded-lg font-medium"></div>
+                    </div>
+
+                    <!-- Reto D -->
+                    <div class="border border-slate-200 rounded-xl p-5 bg-slate-50 space-y-4 shadow-sm">
+                        <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+                            <h3 class="font-bold text-unam-blue">Reto D: Cambio de rama</h3>
+                            <span class="text-xs font-mono bg-blue-100 text-blue-800 px-2 py-0.5 rounded">Origen: ~/proyecto/doc/</span>
+                        </div>
+
+                        <div class="space-y-3 text-sm">
+                            <div>
+                                <label class="block font-medium text-slate-700 mb-1" for="retoD_input">Ruta relativa exacta hacia <code>pacientes.md</code>:</label>
+                                <input type="text" id="retoD_input" placeholder="Ejemplo: ../otra/archivo.ext" class="w-full p-2 border border-slate-300 rounded-lg bg-white font-mono focus:ring-2 focus:ring-unam-accent focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block font-medium text-slate-700 mb-1" for="retoD_expl">Explicación breve del recorrido entre ramas:</label>
+                                <textarea id="retoD_expl" rows="2" placeholder="Describe los niveles a subir y las subcarpetas a bajar..." class="w-full p-2 border border-slate-300 rounded-lg bg-white focus:ring-2 focus:ring-unam-accent focus:outline-none"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-2 pt-1">
+                            <button onclick="checkRetoD()" class="px-4 py-2 bg-unam-accent text-white text-sm font-semibold rounded-lg hover:bg-unam-blue transition">Comprobar Reto D</button>
+                            <button id="btn-hint-D" onclick="showHint('hint-D', 'D')" class="hidden px-3 py-2 bg-amber-100 text-amber-800 text-sm font-semibold rounded-lg hover:bg-amber-200 transition">💡 Pedir Pista</button>
+                        </div>
+                        <div id="hint-D" class="hidden text-xs p-3 bg-amber-50 border border-amber-200 rounded-lg text-amber-900">
+                            <strong>Pista:</strong> Sube a la intersección común (<code>proyecto</code>) usando <code>..</code> y desciende hacia <code>data/source/pacientes.md</code>.
+                        </div>
+                        <div id="feedback-D" class="hidden text-xs p-3 rounded-lg font-medium"></div>
+                    </div>
+
+                    <!-- Reto E -->
+                    <div class="border border-slate-200 rounded-xl p-5 bg-slate-50 space-y-4 shadow-sm">
+                        <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+                            <h3 class="font-bold text-unam-blue">Reto E — Dos formas de indicar el mismo destino</h3>
+                            <span class="text-xs font-mono bg-blue-100 text-blue-800 px-2 py-0.5 rounded">Origen: ~/proyecto/</span>
+                        </div>
+
+                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 text-xs flex flex-col sm:flex-row gap-4">
+                            <div><strong class="text-slate-700">Estás aquí:</strong> <code class="text-unam-accent font-bold">~/proyecto/</code></div>
+                            <div><strong class="text-slate-700">Destino:</strong> <code class="text-unam-accent font-bold">data/source/</code></div>
+                        </div>
+
+                        <!-- Paso 1 -->
+                        <div class="space-y-1 text-sm">
+                            <label class="block font-medium text-slate-700" for="retoE_rel">
+                                <strong>Paso 1:</strong> Desde donde estás, ¿qué ruta relativa usarías para llegar a <code>data/source/</code>?
+                            </label>
+                            <input type="text" id="retoE_rel" placeholder="Escribe la ruta..." class="w-full p-2 border border-slate-300 rounded-lg bg-white font-mono text-sm focus:ring-2 focus:ring-unam-accent focus:outline-none">
+                        </div>
+
+                        <!-- Paso 2 -->
+                        <div class="space-y-2 text-sm pt-2 border-t border-slate-200">
+                            <p class="font-bold text-slate-800">Paso 2 — ¿Desde dónde comienza?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="bg-white p-3 rounded-lg border border-slate-200 space-y-2">
+                                    <label class="block font-medium text-slate-700 text-xs" for="retoE_startRel">
+                                        ¿Desde dónde comienza a interpretarse una <strong>ruta relativa</strong>?
+                                    </label>
+                                    <select id="retoE_startRel" class="w-full p-2 border border-slate-300 rounded-lg bg-white text-xs focus:ring-2 focus:ring-unam-accent focus:outline-none">
+                                        <option value="">Selecciona una opción...</option>
+                                        <option value="root">Desde /</option>
+                                        <option value="here">Desde donde estoy</option>
+                                        <option value="home">Siempre desde ~</option>
+                                        <option value="unsure">No estoy seguro</option>
+                                    </select>
+                                </div>
+
+                                <div class="bg-white p-3 rounded-lg border border-slate-200 space-y-2">
+                                    <label class="block font-medium text-slate-700 text-xs" for="retoE_startAbs">
+                                        ¿Desde dónde comienza una <strong>ruta absoluta</strong>?
+                                    </label>
+                                    <select id="retoE_startAbs" class="w-full p-2 border border-slate-300 rounded-lg bg-white text-xs focus:ring-2 focus:ring-unam-accent focus:outline-none">
+                                        <option value="">Selecciona una opción...</option>
+                                        <option value="root">Desde /</option>
+                                        <option value="here">Desde donde estoy</option>
+                                        <option value="home">Siempre desde ~</option>
+                                        <option value="unsure">No estoy seguro</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Paso 3 -->
+                        <div class="space-y-2 text-sm pt-2 border-t border-slate-200">
+                            <label class="block font-medium text-slate-700" for="retoE_sameDest">
+                                <strong>Paso 3:</strong> ¿Una ruta absoluta y una ruta relativa pueden llevar al mismo directorio?
+                            </label>
+                            <select id="retoE_sameDest" class="w-full p-2 border border-slate-300 rounded-lg bg-white text-sm focus:ring-2 focus:ring-unam-accent focus:outline-none">
+                                <option value="">Selecciona una opción...</option>
+                                <option value="si">Sí</option>
+                                <option value="no">No</option>
+                                <option value="unsure">No estoy seguro</option>
+                            </select>
+                        </div>
+
+                        <div class="flex items-center gap-2 pt-2">
+                            <button onclick="checkRetoE()" class="px-4 py-2 bg-unam-accent text-white text-sm font-semibold rounded-lg hover:bg-unam-blue transition">Comprobar Reto E</button>
+                            <button id="btn-hint-E" onclick="showHint('hint-E', 'E')" class="hidden px-3 py-2 bg-amber-100 text-amber-800 text-sm font-semibold rounded-lg hover:bg-amber-200 transition">💡 Pedir Pista</button>
+                        </div>
+
+                        <div id="hint-E" class="hidden text-xs p-3 bg-amber-50 border border-amber-200 rounded-lg text-amber-900 space-y-1">
+                            <p><strong>Pistas de reflexión:</strong></p>
+                            <ul class="list-disc list-inside space-y-1">
+                                <li><strong>Ruta relativa:</strong> Observa dónde estás y dónde está el destino en el árbol. ¿Necesitas subir algún nivel?</li>
+                                <li><strong>Punto de partida:</strong> Piensa si el camino depende o no de tu ubicación actual.</li>
+                                <li><strong>Mismo destino:</strong> Dos caminos pueden describirse desde puntos de partida diferentes. ¿Eso obliga a que terminen en lugares distintos?</li>
+                            </ul>
+                        </div>
+
+                        <div id="feedback-E" class="hidden text-xs p-3 rounded-lg font-medium"></div>
+                    </div>
+
+                    <!-- Reto F (Nuevo: Detective de rutas) -->
+                    <div class="border border-slate-200 rounded-xl p-5 bg-slate-50 space-y-4 shadow-sm">
+                        <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+                            <h3 class="font-bold text-unam-blue">Reto F — Detective de rutas</h3>
+                            <span class="text-xs font-mono bg-blue-100 text-blue-800 px-2 py-0.5 rounded">Origen: ~/proyecto/doc/</span>
+                        </div>
+
+                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 text-xs space-y-1 text-slate-700">
+                            <p><strong>Estás aquí:</strong> <code class="text-unam-accent font-bold">~/proyecto/doc/</code></p>
+                            <p><strong>Quieres llegar a:</strong> <code class="text-unam-accent font-bold">~/proyecto/data/source/pacientes.md</code></p>
+                            <p><strong>Propuesta de un estudiante:</strong> <code class="text-amber-800 bg-amber-100 px-1.5 py-0.5 rounded font-mono">data/source/pacientes.md</code></p>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                            <div>
+                                <label class="block font-medium text-slate-700 mb-1" for="retoF_where">1. Carpeta desde la cual Unix interpretará la ruta propuesta:</label>
+                                <input type="text" id="retoF_where" placeholder="Escribe el nombre de la carpeta..." class="w-full p-2 border border-slate-300 rounded-lg bg-white focus:ring-2 focus:ring-unam-accent focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block font-medium text-slate-700 mb-1" for="retoF_work">2. ¿Funcionará la propuesta?</label>
+                                <select id="retoF_work" class="w-full p-2 border border-slate-300 rounded-lg bg-white focus:ring-2 focus:ring-unam-accent focus:outline-none">
+                                    <option value="">Selecciona una opción...</option>
+                                    <option value="si">Sí, funcionará</option>
+                                    <option value="no">No, fallará</option>
+                                </select>
+                            </div>
+                            <div class="sm:col-span-2">
+                                <label class="block font-medium text-slate-700 mb-1" for="retoF_corr">3. Ruta relativa corregida para lograr el acceso:</label>
+                                <input type="text" id="retoF_corr" placeholder="Escribe la ruta relativa correcta..." class="w-full p-2 border border-slate-300 rounded-lg bg-white font-mono focus:ring-2 focus:ring-unam-accent focus:outline-none">
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-2 pt-1">
+                            <button onclick="checkRetoF()" class="px-4 py-2 bg-unam-accent text-white text-sm font-semibold rounded-lg hover:bg-unam-blue transition">Comprobar Reto F</button>
+                            <button id="btn-hint-F" onclick="showHint('hint-F', 'F')" class="hidden px-3 py-2 bg-amber-100 text-amber-800 text-sm font-semibold rounded-lg hover:bg-amber-200 transition">💡 Pedir Pista</button>
+                        </div>
+                        <div id="hint-F" class="hidden text-xs p-3 bg-amber-50 border border-amber-200 rounded-lg text-amber-900">
+                            <strong>Pista:</strong> Al no iniciar la ruta con <code>/</code> ni con <code>..</code>, Unix buscará la subcarpeta <code>data/</code> a partir del directorio donde te encuentres actualmente.
+                        </div>
+                        <div id="feedback-F" class="hidden text-xs p-3 rounded-lg font-medium"></div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB CONTENT 3: 2. COMPRUEBA UNIX -->
+        <section id="panel-unix" class="tab-panel hidden bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-6">
+            <div class="border-b border-slate-200 pb-3">
+                <h2 class="text-2xl font-bold text-unam-blue">2. Comprueba en Unix Real</h2>
+                <p class="text-slate-600 text-sm mt-1">
+                    Ejecuta la secuencia de inspección remota en tu terminal para confirmar usuario, entorno y ubicación física.
+                </p>
+            </div>
+
+            <div class="bg-slate-900 text-slate-100 p-4 rounded-xl font-mono text-sm space-y-1 shadow-inner">
+                <p class="text-blue-400"># 1. Verificar nombre del host y usuario activo</p>
+                <p><span class="text-amber-400">[REMOTO]$</span> hostname</p>
+                <p><span class="text-amber-400">[REMOTO]$</span> whoami</p>
+                <p class="text-blue-400 pt-2"># 2. Confirmar directorio personal (home) y listar elementos</p>
+                <p><span class="text-amber-400">[REMOTO]$</span> cd ~</p>
+                <p><span class="text-amber-400">[REMOTO]$</span> pwd</p>
+                <p><span class="text-amber-400">[REMOTO]$</span> ls -lah</p>
+                <p class="text-blue-400 pt-2"># 3. Diferenciar tu home vs export espacial</p>
+                <p><span class="text-amber-400">[REMOTO]$</span> ls -ld /export/space3/users/$USER</p>
+            </div>
+
+            <div class="border border-slate-200 rounded-xl p-5 bg-slate-50 space-y-4">
+                <h3 class="font-bold text-unam-blue">Registro de Evidencias Iniciales</h3>
+
+                <div class="space-y-3 text-sm">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" id="unix_confirm_user" onchange="saveState()" class="w-4 h-4 text-unam-accent rounded focus:ring-unam-accent">
+                        <span class="font-medium text-slate-800">Confirmo que ejecuté los comandos en el servidor y verifiqué mi usuario y ubicación física.</span>
+                    </label>
+
+                    <div>
+                        <label class="block font-medium text-slate-700 mb-1" for="unix_files_found">
+                            ¿Encontraste en tu <em>home</em> los tres archivos transferidos en la Sesión 3?
+                        </label>
+                        <select id="unix_files_found" onchange="saveState()" class="w-full p-2.5 border border-slate-300 rounded-lg bg-white focus:ring-2 focus:ring-unam-accent focus:outline-none">
+                            <option value="">Selecciona estado...</option>
+                            <option value="si">Sí, están presentes pacientes.md, pacientes-metadatos.md y protocolo.md</option>
+                            <option value="incompleto">Falta alguno de los archivos fuente</option>
+                            <option value="no">No se encuentra ninguno en el directorio principal</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block font-medium text-slate-700 mb-1" for="unix_reflection">
+                            Reflexión: ¿Qué información verificas en la terminal real que no puedes deducir de memoria?
+                        </label>
+                        <textarea id="unix_reflection" rows="3" oninput="saveState()" placeholder="Describe lo aprendido sobre pwd, whoami y estructura de servidor..." class="w-full p-2.5 border border-slate-300 rounded-lg bg-white focus:ring-2 focus:ring-unam-accent focus:outline-none"></textarea>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB CONTENT 4: 3. ORGANIZA CON CUIDADO -->
+        <section id="panel-organiza" class="tab-panel hidden bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-6">
+            <div class="border-b border-slate-200 pb-3">
+                <h2 class="text-2xl font-bold text-unam-blue">3. Organiza con Cuidado</h2>
+                <p class="text-slate-600 text-sm mt-1">
+                    Prueba el comportamiento de manipulación de archivos utilizando la carpeta segura de prueba <code>prueba-s4/</code> antes de alterar tus datos definitivos.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+                <!-- Dynamic Command Sandbox -->
+                <div class="border border-slate-200 rounded-xl p-5 bg-slate-50 space-y-4">
+                    <h3 class="font-bold text-unam-blue flex items-center justify-between">
+                        <span>Clasificación de <code>mv -i</code></span>
+                        <span class="text-xs font-normal text-slate-500">Prueba conceptual</span>
+                    </h3>
+
+                    <div class="space-y-4 text-sm">
+                        <div class="p-3 bg-white rounded-lg border border-slate-200 space-y-2">
+                            <p class="font-semibold text-slate-800">Situación 1: Ejecutar <code>mv -i b.txt c.txt</code></p>
+                            <div class="space-y-1">
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="radio" name="mv_sit1" value="rename" onchange="saveState()" class="text-unam-accent focus:ring-unam-accent">
+                                    <span>Cambia el nombre del archivo en la misma carpeta</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="radio" name="mv_sit1" value="move" onchange="saveState()" class="text-unam-accent focus:ring-unam-accent">
+                                    <span>Desplaza el archivo a otro directorio</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-white rounded-lg border border-slate-200 space-y-2">
+                            <p class="font-semibold text-slate-800">Situación 2: Ejecutar <code>mv -i c.txt sub/</code></p>
+                            <div class="space-y-1">
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="radio" name="mv_sit2" value="rename" onchange="saveState()" class="text-unam-accent focus:ring-unam-accent">
+                                    <span>Cambia el nombre del archivo en la misma carpeta</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="radio" name="mv_sit2" value="move" onchange="saveState()" class="text-unam-accent focus:ring-unam-accent">
+                                    <span>Desplaza el archivo a otro directorio</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <button onclick="checkMvClasification()" class="px-4 py-2 bg-unam-accent text-white font-semibold rounded-lg hover:bg-unam-blue transition text-xs">Validar Clasificación</button>
+                        <div id="feedback-mv" class="hidden text-xs p-3 rounded-lg font-medium"></div>
+
+                        <div class="pt-2">
+                            <label class="block font-medium text-slate-700 mb-1" for="mv_flag_expl">
+                                ¿Por qué la bandera <code>-i</code> (interactivo) es crucial al mover/renombrar?
+                            </label>
+                            <textarea id="mv_flag_expl" rows="2" oninput="saveState()" placeholder="Explica la protección contra sobrescritura implícita..." class="w-full p-2 border border-slate-300 rounded-lg bg-white focus:ring-2 focus:ring-unam-accent focus:outline-none"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Deletion Safety Protocol -->
+                <div class="border border-slate-200 rounded-xl p-5 bg-slate-50 space-y-4">
+                    <h3 class="font-bold text-unam-blue">Eliminación Segura con <code>rmdir</code></h3>
+
+                    <div class="space-y-3 text-sm">
+                        <div class="bg-amber-50 border border-amber-200 p-3 rounded-lg text-amber-900 text-xs">
+                            <strong>Ciclo preventivo de borrado:</strong><br>
+                            <code>pwd</code> (¿Dónde estoy?) ➔ <code>ls -R</code> (¿Qué hay dentro?) ➔ Confirmar ➔ Eliminar.
+                        </div>
+
+                        <div>
+                            <label class="block font-medium text-slate-700 mb-1" for="rmdir_pred">
+                                Predicción: Si ejecutas <code>rmdir sub</code> cuando <code>sub/</code> contiene a <code>c.txt</code>:
+                            </label>
+                            <select id="rmdir_pred" onchange="saveState()" class="w-full p-2 border border-slate-300 rounded-lg bg-white focus:ring-2 focus:ring-unam-accent focus:outline-none">
+                                <option value="">Selecciona resultado...</option>
+                                <option value="error">Lanzará error indicando que el directorio no está vacío</option>
+                                <option value="ok">Borrará la carpeta y su contenido sin preguntar</option>
+                            </select>
+                        </div>
+
+                        <button onclick="checkRmdirPred()" class="px-4 py-2 bg-unam-accent text-white font-semibold rounded-lg hover:bg-unam-blue transition text-xs">Comprobar Predicción</button>
+                        <div id="feedback-rmdir" class="hidden text-xs p-3 rounded-lg font-medium"></div>
+
+                        <div>
+                            <label class="block font-medium text-slate-700 mb-1" for="rmdir_real_obs">
+                                Registro de resultado en terminal real:
+                            </label>
+                            <input type="text" id="rmdir_real_obs" oninput="saveState()" placeholder="Ejemplo: Directory not empty error" class="w-full p-2 border border-slate-300 rounded-lg bg-white focus:ring-2 focus:ring-unam-accent focus:outline-none">
+                        </div>
+
+                        <div>
+                            <label class="block font-medium text-slate-700 mb-1" for="rmdir_final_q">
+                                Justificación: ¿Por qué funcionó <code>rmdir sub</code> tras ejecutar <code>rm sub/c.txt</code>?
+                            </label>
+                            <textarea id="rmdir_final_q" rows="2" oninput="saveState()" placeholder="Explica la regla de directorios vacíos..." class="w-full p-2 border border-slate-300 rounded-lg bg-white focus:ring-2 focus:ring-unam-accent focus:outline-none"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- TAB CONTENT 5: 4. VERIFICA Y DOCUMENTA -->
+        <section id="panel-verifica" class="tab-panel hidden bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-6">
+            <div class="border-b border-slate-200 pb-3">
+                <h2 class="text-2xl font-bold text-unam-blue">4. Verifica e Integridad de Archivos</h2>
+                <p class="text-slate-600 text-sm mt-1">
+                    Comprueba mediante algoritmos criptográficos que tus transferencias conservaron el contenido intacto.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+
+                <!-- Checksum Section -->
+                <div class="border border-slate-200 rounded-xl p-5 bg-slate-50 space-y-4">
+                    <h3 class="font-bold text-unam-blue flex items-center gap-2">
+                        <span>🛡️</span> Verificación Checksum (SHA256)
+                    </h3>
+                    <p class="text-xs text-slate-600">
+                        Compara el valor digest obtenido localmente con la referencia oficial del servidor de origen S3:
+                    </p>
+
+                    <div>
+                        <label class="block font-medium text-slate-700 mb-1" for="checksum_status">Estado de coincidencia de <code>sha256sum pacientes.md</code>:</label>
+                        <select id="checksum_status" onchange="checkChecksumStatus()" class="w-full p-2.5 border border-slate-300 rounded-lg bg-white focus:ring-2 focus:ring-unam-accent focus:outline-none">
+                            <option value="">Selecciona resultado...</option>
+                            <option value="coinciden">Coinciden exactamente los 64 caracteres Hex</option>
+                            <option value="nocoinciden">No coinciden (archivo corrupto o editado)</option>
+                            <option value="pendiente">Pendiente por verificar en terminal</option>
+                        </select>
+                    </div>
+                    <div id="feedback-checksum" class="hidden text-xs p-3 rounded-lg font-medium"></div>
+
+                    <div class="pt-2 border-t border-slate-200 space-y-2">
+                        <p class="font-semibold text-slate-800">Transferencia SCP de Bitácora Local</p>
+                        <div class="bg-slate-900 text-slate-100 p-2.5 rounded font-mono text-xs">
+                            scp bitacora-ia.md usuario@servidor:~/proyecto/doc/
+                        </div>
+                        <label class="flex items-center gap-2 cursor-pointer pt-1">
+                            <input type="checkbox" id="scp_success" onchange="saveState()" class="w-4 h-4 text-unam-accent rounded">
+                            <span class="font-medium text-slate-800">Confirmo que <code>bitacora-ia.md</code> llegó a <code>~/proyecto/doc/</code></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Safe Nano Editing Rules -->
+                <div class="border border-slate-200 rounded-xl p-5 bg-slate-50 space-y-4">
+                    <h3 class="font-bold text-unam-blue flex items-center gap-2">
+                        <span>📝</span> Reglas de Edición Segura en Terminal
+                    </h3>
+
+                    <div class="p-3 bg-white rounded-lg border border-slate-200 space-y-2">
+                        <p class="font-medium text-slate-800 text-xs">Ciclo seguro de Nano:</p>
+                        <p class="text-xs font-mono text-unam-accent">Abrir ➔ Editar ➔ Guardar (Ctrl+O) ➔ Salir (Ctrl+X) ➔ Inspeccionar fuera</p>
+                    </div>
+
+                    <div>
+                        <label class="block font-medium text-slate-700 mb-1" for="nano_q">
+                            Reflexión: ¿Por qué el archivo <code>pacientes.md</code> NO debe ser modificado con <code>nano</code>?
+                        </label>
+                        <textarea id="nano_q" rows="3" oninput="saveState()" placeholder="Explica la inmutabilidad de los datos crudos de investigación..." class="w-full p-2.5 border border-slate-300 rounded-lg bg-white focus:ring-2 focus:ring-unam-accent focus:outline-none"></textarea>
+                    </div>
+                    <button onclick="checkNanoReflection()" class="px-4 py-2 bg-unam-accent text-white font-semibold rounded-lg hover:bg-unam-blue transition text-xs">Validar Reflexión</button>
+                    <div id="feedback-nano" class="hidden text-xs p-3 rounded-lg font-medium"></div>
+                </div>
+
+            </div>
+
+            <div class="border border-slate-200 rounded-xl p-5 bg-slate-50 space-y-3 text-sm">
+                <h3 class="font-bold text-unam-blue">Registro de Evidencia para Protocolo</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <div>
+                        <label class="block font-medium text-slate-700 mb-1" for="evid_check">Comprobaciones clave:</label>
+                        <input type="text" id="evid_check" oninput="saveState()" placeholder="Árbol verificado con tree..." class="w-full p-2 border border-slate-300 rounded-lg bg-white">
+                    </div>
+                    <div>
+                        <label class="block font-medium text-slate-700 mb-1" for="evid_prob">Dificultad encontrada:</label>
+                        <input type="text" id="evid_prob" oninput="saveState()" placeholder="Ruta relativa incorrecta..." class="w-full p-2 border border-slate-300 rounded-lg bg-white">
+                    </div>
+                    <div>
+                        <label class="block font-medium text-slate-700 mb-1" for="evid_sol">Solución aplicada:</label>
+                        <input type="text" id="evid_sol" oninput="saveState()" placeholder="Uso de cd .. para subir nivel..." class="w-full p-2 border border-slate-300 rounded-lg bg-white">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB CONTENT 6: 5. REVISIÓN CON IA -->
+        <section id="panel-ia" class="tab-panel hidden bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-6">
+            <div class="border-b border-slate-200 pb-3">
+                <h2 class="text-2xl font-bold text-unam-blue">5. Revisión con Inteligencia Artificial</h2>
+                <p class="text-slate-600 text-sm mt-1">
+                    Aprende a formular prompts seguros para auditoría de scripts en Bash sin revelar rutas absolutas del servidor o credenciales.
+                </p>
+            </div>
+
+            <div class="bg-amber-50 border-l-4 border-unam-gold p-4 rounded-r-xl text-amber-900 text-xs space-y-1">
+                <p class="font-bold">🛡️ Regla de Privacidad en Prompting:</p>
+                <p>Sustituye cualquier dato confidencial con etiquetas neutras como <code>[SERVIDOR]</code>, <code>[USUARIO]</code> y <code>[RUTA]</code>. No incluyas llaves SSH ni contraseñas.</p>
+            </div>
+
+            <div class="space-y-4">
+                <h3 class="font-bold text-unam-blue text-sm">Prompt Sugerido de Auditoría</h3>
+                <div class="bg-slate-900 text-slate-100 p-4 rounded-xl font-mono text-xs leading-relaxed relative">
+                    <code>Actúa como consultor de sistemas Unix. Propón una secuencia de comandos en bash para crear la estructura de carpetas de un proyecto personal en el home (~/proyecto/) con las subcarpetas data/source, data/processed, src, results y doc. Indica qué comandos verifican que la estructura fue creada correctamente y señala posibles riesgos de sobrescribir datos. No utilices la ruta /export/space3.</code>
+                </div>
+            </div>
+
+            <div class="border border-slate-200 rounded-xl p-5 bg-slate-50 space-y-4 text-sm">
+                <h3 class="font-bold text-unam-blue">Registro de Interacción y Evaluación</h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block font-medium text-slate-700 mb-1" for="ia_obs">1. Sugerencia relevante de la IA:</label>
+                        <textarea id="ia_obs" rows="3" oninput="saveState()" placeholder="Uso de la bandera mkdir -p para evitar errores si la carpeta existe..." class="w-full p-2.5 border border-slate-300 rounded-lg bg-white focus:ring-2 focus:ring-unam-accent focus:outline-none"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block font-medium text-slate-700 mb-1" for="ia_verify">2. Comprobación independiente (man / prueba-s4):</label>
+                        <textarea id="ia_verify" rows="3" oninput="saveState()" placeholder="Verifique el manual con man mkdir..." class="w-full p-2.5 border border-slate-300 rounded-lg bg-white focus:ring-2 focus:ring-unam-accent focus:outline-none"></textarea>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block font-medium text-slate-700 mb-1" for="ia_decision">3. Decisión final adoptada:</label>
+                    <select id="ia_decision" onchange="saveState()" class="w-full p-2.5 border border-slate-300 rounded-lg bg-white focus:ring-2 focus:ring-unam-accent focus:outline-none">
+                        <option value="">Selecciona decisión...</option>
+                        <option value="aceptada">Acepté la sugerencia tras verificarla en prueba-s4/</option>
+                        <option value="rechazada">Rechacé la sugerencia por no cumplir con la norma canónica</option>
+                        <option value="pendiente">Pendiente de evaluación en terminal</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB CONTENT 7: ✓ RESUMEN & DESCARGAS -->
+        <section id="panel-resumen" class="tab-panel hidden bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-6">
+            <div class="border-b border-slate-200 pb-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                <div>
+                    <h2 class="text-2xl font-bold text-unam-blue">✓ Resumen Integrado de la Bitácora</h2>
+                    <p class="text-slate-600 text-sm mt-0.5">Estado global consolidado de respuestas y evidencias de la Sesión 4.</p>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="downloadMarkdownBitacora()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs rounded-lg shadow-sm transition flex items-center gap-1.5">
+                        <span>⬇️ Descargar Bitácora (.md)</span>
+                    </button>
+                    <button onclick="downloadMarkdownProtocolo()" class="px-4 py-2 bg-unam-accent hover:bg-unam-blue text-white font-semibold text-xs rounded-lg shadow-sm transition flex items-center gap-1.5">
+                        <span>⬇️ Notas Protocolo (.md)</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Dynamic Summary Content Container -->
+            <div id="summary-content" class="space-y-6 text-sm">
+                <!-- Populated dynamically via JS -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 py-6 mt-12">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 text-center text-xs space-y-2">
+            <p>Licenciatura en Ciencias Genómicas • Universidad Nacional Autónoma de México (UNAM 2026)</p>
+            <p class="text-slate-500">Bitácora Interactiva de Bioinformática • Sesión 4</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // State Store Definition
+        const DEFAULT_STATE = {
+            activeTab: 'inicio',
+            retoA: { q1: '', q2: '', q3: '', q4: '', status: 'pendiente', hintUsed: false },
+            retoB: { pred: '', status: 'pendiente', hintUsed: false },
+            retoC: { pred: '', status: 'pendiente', hintUsed: false },
+            retoD: { input: '', expl: '', status: 'pendiente', hintUsed: false },
+            retoE: { rel: '', startRel: '', startAbs: '', sameDest: '', status: 'pendiente', hintUsed: false },
+            retoF: { where: '', work: '', corr: '', status: 'pendiente', hintUsed: false },
+            unix: { confirmUser: false, filesFound: '', reflection: '' },
+            organiza: { mvSit1: '', mvSit2: '', mvFlagExpl: '', rmdirPred: '', rmdirObs: '', rmdirFinal: '' },
+            verifica: { checksumStatus: '', scpSuccess: false, nanoExpl: '', evidCheck: '', evidProb: '', evidSol: '' },
+            ia: { obs: '', verify: '', decision: '' }
+        };
+
+        let state = JSON.parse(JSON.stringify(DEFAULT_STATE));
+        let progressChartInstance = null;
+        let selectedCanvasNode = 'home';
+
+        // Application Initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            loadState();
+            initChart();
+            initCanvasTree();
+            updateUIFromState();
+        });
+
+        function loadState() {
+            const saved = localStorage.getItem('s4_bitacora_state');
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    state = { ...DEFAULT_STATE, ...parsed };
+                } catch (e) {
+                    console.error("Error loading localStorage", e);
+                }
+            }
+        }
+
+        function saveState() {
+            // Bind input state values
+            state.unix.confirmUser = document.getElementById('unix_confirm_user').checked;
+            state.unix.filesFound = document.getElementById('unix_files_found').value;
+            state.unix.reflection = document.getElementById('unix_reflection').value;
+
+            const sit1 = document.querySelector('input[name="mv_sit1"]:checked');
+            state.organiza.mvSit1 = sit1 ? sit1.value : '';
+            const sit2 = document.querySelector('input[name="mv_sit2"]:checked');
+            state.organiza.mvSit2 = sit2 ? sit2.value : '';
+            state.organiza.mvFlagExpl = document.getElementById('mv_flag_expl').value;
+            state.organiza.rmdirPred = document.getElementById('rmdir_pred').value;
+            state.organiza.rmdirObs = document.getElementById('rmdir_real_obs').value;
+            state.organiza.rmdirFinal = document.getElementById('rmdir_final_q').value;
+
+            state.verifica.checksumStatus = document.getElementById('checksum_status').value;
+            state.verifica.scpSuccess = document.getElementById('scp_success').checked;
+            state.verifica.nanoExpl = document.getElementById('nano_q').value;
+            state.verifica.evidCheck = document.getElementById('evid_check').value;
+            state.verifica.evidProb = document.getElementById('evid_prob').value;
+            state.verifica.evidSol = document.getElementById('evid_sol').value;
+
+            state.ia.obs = document.getElementById('ia_obs').value;
+            state.ia.verify = document.getElementById('ia_verify').value;
+            state.ia.decision = document.getElementById('ia_decision').value;
+
+            localStorage.setItem('s4_bitacora_state', JSON.stringify(state));
+            updateMetricsAndChart();
+            renderSummary();
+        }
+
+        function activateTab(tabName) {
+            state.activeTab = tabName;
+            
+            // Toggle Tab UI
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-unam-blue', 'text-white', 'font-bold');
+                btn.classList.add('text-slate-600');
+            });
+            document.querySelectorAll('.tab-panel').forEach(panel => {
+                panel.classList.add('hidden');
+            });
+
+            const activeBtn = document.getElementById(`tab-${tabName}`);
+            const activePanel = document.getElementById(`panel-${tabName}`);
+
+            if (activeBtn && activePanel) {
+                activeBtn.classList.add('bg-unam-blue', 'text-white', 'font-bold');
+                activeBtn.classList.remove('text-slate-600');
+                activePanel.classList.remove('hidden');
+            }
+            saveState();
+        }
+
+        function updateUIFromState() {
+            activateTab(state.activeTab || 'inicio');
+
+            // Form Population
+            document.getElementById('retoA_q1').value = state.retoA.q1 || '';
+            document.getElementById('retoA_q2').value = state.retoA.q2 || '';
+            document.getElementById('retoA_q3').value = state.retoA.q3 || '';
+            document.getElementById('retoA_q4').value = state.retoA.q4 || '';
+
+            document.getElementById('retoB_pred').value = state.retoB.pred || '';
+            document.getElementById('retoC_pred').value = state.retoC.pred || '';
+            document.getElementById('retoD_input').value = state.retoD.input || '';
+            document.getElementById('retoD_expl').value = state.retoD.expl || '';
+
+            document.getElementById('retoE_rel').value = state.retoE.rel || '';
+            document.getElementById('retoE_startRel').value = state.retoE.startRel || '';
+            document.getElementById('retoE_startAbs').value = state.retoE.startAbs || '';
+            document.getElementById('retoE_sameDest').value = state.retoE.sameDest || '';
+
+            document.getElementById('retoF_where').value = state.retoF.where || '';
+            document.getElementById('retoF_work').value = state.retoF.work || '';
+            document.getElementById('retoF_corr').value = state.retoF.corr || '';
+
+            document.getElementById('unix_confirm_user').checked = !!state.unix.confirmUser;
+            document.getElementById('unix_files_found').value = state.unix.filesFound || '';
+            document.getElementById('unix_reflection').value = state.unix.reflection || '';
+
+            if (state.organiza.mvSit1) {
+                const el = document.querySelector(`input[name="mv_sit1"][value="${state.organiza.mvSit1}"]`);
+                if (el) el.checked = true;
+            }
+            if (state.organiza.mvSit2) {
+                const el = document.querySelector(`input[name="mv_sit2"][value="${state.organiza.mvSit2}"]`);
+                if (el) el.checked = true;
+            }
+            document.getElementById('mv_flag_expl').value = state.organiza.mvFlagExpl || '';
+            document.getElementById('rmdir_pred').value = state.organiza.rmdirPred || '';
+            document.getElementById('rmdir_real_obs').value = state.organiza.rmdirObs || '';
+            document.getElementById('rmdir_final_q').value = state.organiza.rmdirFinal || '';
+
+            document.getElementById('checksum_status').value = state.verifica.checksumStatus || '';
+            document.getElementById('scp_success').checked = !!state.verifica.scpSuccess;
+            document.getElementById('nano_q').value = state.verifica.nanoExpl || '';
+            document.getElementById('evid_check').value = state.verifica.evidCheck || '';
+            document.getElementById('evid_prob').value = state.verifica.evidProb || '';
+            document.getElementById('evid_sol').value = state.verifica.evidSol || '';
+
+            document.getElementById('ia_obs').value = state.ia.obs || '';
+            document.getElementById('ia_verify').value = state.ia.verify || '';
+            document.getElementById('ia_decision').value = state.ia.decision || '';
+
+            updateMetricsAndChart();
+            renderSummary();
+        }
+
+        // --- CHART.JS METRICS & DASHBOARD ---
+
+        function initChart() {
+            const ctx = document.getElementById('progressChart').getContext('2d');
+            progressChartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Comprobado', 'Corregido', 'Por Revisar', 'Pendiente'],
+                    datasets: [{
+                        data: [0, 0, 0, 6],
+                        backgroundColor: ['#10B981', '#14B8A6', '#F59E0B', '#94A3B8'],
+                        borderWidth: 2,
+                        borderColor: '#FFFFFF'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: { size: 10 },
+                                boxWidth: 12
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return ` ${context.label}: ${context.raw} retos`;
+                                }
+                            }
+                        }
+                    },
+                    cutout: '70%'
+                }
+            });
+        }
+
+        function updateMetricsAndChart() {
+            const challenges = [state.retoA.status, state.retoB.status, state.retoC.status, state.retoD.status, state.retoE.status, state.retoF.status];
+            
+            let completed = 0, corrected = 0, review = 0, pending = 0;
+            challenges.forEach(s => {
+                if (s === 'comprobado') completed++;
+                else if (s === 'corregido') corrected++;
+                else if (s === 'revisar') review++;
+                else pending++;
+            });
+
+            document.getElementById('badge-completed').textContent = completed;
+            document.getElementById('badge-corrected').textContent = corrected;
+            document.getElementById('badge-review').textContent = review;
+            document.getElementById('badge-pending').textContent = pending;
+
+            const percent = Math.round(((completed + corrected) / challenges.length) * 100);
+            document.getElementById('progress-percent').textContent = `${percent}%`;
+            document.getElementById('progress-bar-inner').style.width = `${percent}%`;
+
+            if (progressChartInstance) {
+                progressChartInstance.data.datasets[0].data = [completed, corrected, review, pending];
+                progressChartInstance.update();
+            }
+        }
+
+        // --- HTML5 CANVAS DIRECTORY TREE VISUALIZER ---
+
+        const treeNodes = [
+            { id: 'home', label: '~ (Home)', x: 190, y: 35, parent: null },
+            { id: 'proyecto', label: 'proyecto/', x: 190, y: 90, parent: 'home' },
+            { id: 'readme', label: 'README.md', x: 50, y: 155, parent: 'proyecto', isFile: true },
+            { id: 'data', label: 'data/', x: 130, y: 155, parent: 'proyecto' },
+            { id: 'src', label: 'src/', x: 210, y: 155, parent: 'proyecto' },
+            { id: 'results', label: 'results/', x: 280, y: 155, parent: 'proyecto' },
+            { id: 'doc', label: 'doc/', x: 340, y: 155, parent: 'proyecto' },
+            { id: 'source', label: 'source/', x: 90, y: 220, parent: 'data' },
+            { id: 'processed', label: 'processed/', x: 160, y: 220, parent: 'data' },
+            { id: 'pacientes', label: 'pacientes.md', x: 90, y: 275, parent: 'source', isFile: true },
+            { id: 'protocolo', label: 'protocolo.md', x: 340, y: 220, parent: 'doc', isFile: true }
+        ];
+
+        function initCanvasTree() {
+            const canvas = document.getElementById('treeCanvas');
+            const ctx = canvas.getContext('2d');
+
+            canvas.addEventListener('click', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const clickX = e.clientX - rect.left;
+                const clickY = e.clientY - rect.top;
+
+                treeNodes.forEach(node => {
+                    const dist = Math.hypot(node.x - clickX, node.y - clickY);
+                    if (dist < 18) {
+                        selectedCanvasNode = node.id;
+                        document.getElementById('canvas-active-node').textContent = `Ubicación: ${node.label}`;
+                        drawTree();
+                    }
+                });
+            });
+
+            drawTree();
+        }
+
+        function drawTree() {
+            const canvas = document.getElementById('treeCanvas');
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw Connection Lines
+            treeNodes.forEach(node => {
+                if (node.parent) {
+                    const parentNode = treeNodes.find(n => n.id === node.parent);
+                    if (parentNode) {
+                        ctx.beginPath();
+                        ctx.moveTo(parentNode.x, parentNode.y);
+                        ctx.lineTo(node.x, node.y);
+                        ctx.strokeStyle = (selectedCanvasNode === node.id || selectedCanvasNode === parentNode.id) ? '#C59B27' : '#334155';
+                        ctx.lineWidth = (selectedCanvasNode === node.id || selectedCanvasNode === parentNode.id) ? 2.5 : 1.5;
+                        ctx.stroke();
+                    }
+                }
+            });
+
+            // Draw Node Circles and Labels
+            treeNodes.forEach(node => {
+                const isSelected = selectedCanvasNode === node.id;
+
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, node.isFile ? 8 : 11, 0, Math.PI * 2);
+                ctx.fillStyle = isSelected ? '#C59B27' : (node.isFile ? '#475569' : '#004B87');
+                ctx.fill();
+                ctx.strokeStyle = '#FFFFFF';
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+
+                // Text Labels
+                ctx.fillStyle = isSelected ? '#FDE047' : (node.isFile ? '#94A3B8' : '#F8FAFC');
+                ctx.font = isSelected ? 'bold 10px monospace' : '10px monospace';
+                ctx.textAlign = 'center';
+                ctx.fillText(node.label, node.x, node.y + (node.isFile ? 18 : 22));
+            });
+        }
+
+        // --- RETO VALIDATION LOGIC ---
+
+        function showHint(hintId, key) {
+            document.getElementById(hintId).classList.remove('hidden');
+            if (key === 'A') state.retoA.hintUsed = true;
+            if (key === 'B') state.retoB.hintUsed = true;
+            if (key === 'C') state.retoC.hintUsed = true;
+            if (key === 'D') state.retoD.hintUsed = true;
+            if (key === 'E') state.retoE.hintUsed = true;
+            if (key === 'F') state.retoF.hintUsed = true;
+            saveState();
+        }
+
+        function checkRetoA() {
+            const q1 = document.getElementById('retoA_q1').value;
+            const q2 = document.getElementById('retoA_q2').value;
+            const q3 = document.getElementById('retoA_q3').value;
+            const q4 = document.getElementById('retoA_q4').value.trim().toLowerCase();
+
+            state.retoA.q1 = q1; state.retoA.q2 = q2; state.retoA.q3 = q3; state.retoA.q4 = q4;
+            const fb = document.getElementById('feedback-A');
+            fb.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-900', 'bg-rose-100', 'text-rose-900');
+
+            if (q1 === 'source' && q2 === 'data' && q3 === 'pacientes.md' && (q4.includes('source') || q4 === '~/proyecto/data/source/')) {
+                fb.classList.add('bg-emerald-100', 'text-emerald-900');
+                fb.innerHTML = `<strong>¡Correcto!</strong> Ubicación: <code>source</code>. Padre: <code>data</code>. Toda ruta relativa parte de <code>source</code>.`;
+                state.retoA.status = state.retoA.hintUsed ? 'corregido' : 'comprobado';
+            } else {
+                fb.classList.add('bg-rose-100', 'text-rose-900');
+                fb.innerHTML = `<strong>Revisión necesaria:</strong> Compara con la jerarquía en el visualizador.`;
+                document.getElementById('btn-hint-A').classList.remove('hidden');
+                state.retoA.status = 'revisar';
+            }
+            saveState();
+        }
+
+        function checkRetoB() {
+            const pred = document.getElementById('retoB_pred').value;
+            state.retoB.pred = pred;
+            const fb = document.getElementById('feedback-B');
+            fb.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-900', 'bg-rose-100', 'text-rose-900');
+
+            if (pred === 'data') {
+                fb.classList.add('bg-emerald-100', 'text-emerald-900');
+                fb.innerHTML = `<strong>¡Correcto!</strong> <code>cd ..</code> sube exactamente un nivel: <code>source → data</code>.`;
+                state.retoB.status = state.retoB.hintUsed ? 'corregido' : 'comprobado';
+            } else {
+                fb.classList.add('bg-rose-100', 'text-rose-900');
+                fb.innerHTML = `<strong>Revisión:</strong> El símbolo <code>..</code> sube 1 solo nivel al directorio padre directo.`;
+                document.getElementById('btn-hint-B').classList.remove('hidden');
+                state.retoB.status = 'revisar';
+            }
+            saveState();
+        }
+
+        function checkRetoC() {
+            const pred = document.getElementById('retoC_pred').value;
+            state.retoC.pred = pred;
+            const fb = document.getElementById('feedback-C');
+            fb.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-900', 'bg-rose-100', 'text-rose-900');
+
+            if (pred === 'proyecto') {
+                fb.classList.add('bg-emerald-100', 'text-emerald-900');
+                fb.innerHTML = `<strong>¡Correcto!</strong> <code>cd ../..</code> realiza dos saltos: <code>source → data → proyecto</code>.`;
+                state.retoC.status = state.retoC.hintUsed ? 'corregido' : 'comprobado';
+            } else {
+                fb.classList.add('bg-rose-100', 'text-rose-900');
+                fb.innerHTML = `<strong>Revisión:</strong> Cada <code>..</code> asciende un nivel en el árbol.`;
+                document.getElementById('btn-hint-C').classList.remove('hidden');
+                state.retoC.status = 'revisar';
+            }
+            saveState();
+        }
+
+        function checkRetoD() {
+            const input = document.getElementById('retoD_input').value.trim().replace(/\/+/g, '/');
+            const expl = document.getElementById('retoD_expl').value.trim();
+            state.retoD.input = input; state.retoD.expl = expl;
+
+            const fb = document.getElementById('feedback-D');
+            fb.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-900', 'bg-rose-100', 'text-rose-900');
+
+            if (input === '../data/source/pacientes.md' && expl.length > 5) {
+                fb.classList.add('bg-emerald-100', 'text-emerald-900');
+                fb.innerHTML = `<strong>¡Correcto!</strong> Subes con <code>..</code> a la raíz común (<code>proyecto</code>) y bajas por <code>data/source/pacientes.md</code>.`;
+                state.retoD.status = state.retoD.hintUsed ? 'corregido' : 'comprobado';
+            } else {
+                fb.classList.add('bg-rose-100', 'text-rose-900');
+                fb.innerHTML = `<strong>Revisión:</strong> Verifica haber escrito <code>../data/source/pacientes.md</code> y detallar la explicación.`;
+                document.getElementById('btn-hint-D').classList.remove('hidden');
+                state.retoD.status = 'revisar';
+            }
+            saveState();
+        }
+
+        function checkRetoE() {
+            const rawRel = document.getElementById('retoE_rel').value.trim();
+            const relClean = rawRel.replace(/\/+/g, '/').toLowerCase();
+            const startRel = document.getElementById('retoE_startRel').value;
+            const startAbs = document.getElementById('retoE_startAbs').value;
+            const sameDest = document.getElementById('retoE_sameDest').value;
+
+            state.retoE.rel = rawRel;
+            state.retoE.startRel = startRel;
+            state.retoE.startAbs = startAbs;
+            state.retoE.sameDest = sameDest;
+
+            const fb = document.getElementById('feedback-E');
+            fb.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-900', 'bg-rose-100', 'text-rose-900', 'bg-amber-100', 'text-amber-900');
+
+            const validRelRoutes = ['data/source', 'data/source/', './data/source', './data/source/'];
+            const isRelValid = validRelRoutes.includes(relClean);
+            const isStartRelValid = startRel === 'here';
+            const isStartAbsValid = startAbs === 'root';
+            const isSameDestValid = sameDest === 'si';
+
+            if (isRelValid && isStartRelValid && isStartAbsValid && isSameDestValid) {
+                fb.classList.add('bg-emerald-100', 'text-emerald-900');
+                fb.innerHTML = `
+                    <div class="space-y-2">
+                        <p><strong>¡Excelente deducción!</strong> Has identificado con precisión la diferencia conceptual entre ambas rutas:</p>
+                        <div class="bg-white/90 p-3 rounded border border-emerald-300 font-mono text-center text-[11px] leading-relaxed text-slate-800 shadow-sm overflow-x-auto">
+<pre><code>                 MISMO DESTINO
+                  data/source/
+                    ↗     ↖
+                   /       \
+          ruta absoluta   ruta relativa
+          empieza en /    empieza donde estoy</code></pre>
+                        </div>
+                        <p class="text-xs">Ambas formas nos llevan al mismo directorio objetivo, pero la ruta relativa se calcula partiendo de donde estás ubicado actualmente, mientras que la absoluta siempre se describe desde la raíz absoluta (<code>/</code>).</p>
+                    </div>
+                `;
+                state.retoE.status = state.retoE.hintUsed ? 'corregido' : 'comprobado';
+            } else {
+                fb.classList.add('bg-rose-100', 'text-rose-900');
+                let errorList = [];
+                if (!isRelValid) errorList.push('La ruta relativa para llegar a data/source/ desde ~/proyecto/');
+                if (!isStartRelValid) errorList.push('El punto inicial desde donde se interpreta la ruta relativa');
+                if (!isStartAbsValid) errorList.push('El punto inicial de donde comienza la ruta absoluta');
+                if (!isSameDestValid) errorList.push('La conclusión de si ambas pueden dirigir al mismo destino');
+
+                fb.innerHTML = `
+                    <p><strong>Revisión necesaria en:</strong></p>
+                    <ul class="list-disc list-inside mt-1 space-y-0.5 text-xs">
+                        ${errorList.map(item => `<li>${item}</li>`).join('')}
+                    </ul>
+                `;
+                document.getElementById('btn-hint-E').classList.remove('hidden');
+                state.retoE.status = 'revisar';
+            }
+            saveState();
+        }
+
+        function checkRetoF() {
+            const where = document.getElementById('retoF_where').value.trim().toLowerCase();
+            const work = document.getElementById('retoF_work').value;
+            const corr = document.getElementById('retoF_corr').value.trim().replace(/\/+/g, '/');
+            state.retoF.where = where; state.retoF.work = work; state.retoF.corr = corr;
+
+            const fb = document.getElementById('feedback-F');
+            fb.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-900', 'bg-rose-100', 'text-rose-900');
+
+            const isWhereValid = where.includes('doc');
+            const isWorkValid = work === 'no';
+            const isCorrValid = corr === '../data/source/pacientes.md';
+
+            if (isWhereValid && isWorkValid && isCorrValid) {
+                fb.classList.add('bg-emerald-100', 'text-emerald-900');
+                fb.innerHTML = `<strong>¡Excelente trabajo de detective!</strong> Como estás en <code>doc/</code>, Unix busca <code>data/</code> dentro de esa misma carpeta (<code>doc/data/</code>), la cual no existe. Para llegar a <code>pacientes.md</code> debes subir primero un nivel con <code>..</code> hacia <code>proyecto/</code> y luego bajar a <code>data/source/pacientes.md</code>.`;
+                state.retoF.status = state.retoF.hintUsed ? 'corregido' : 'comprobado';
+            } else {
+                fb.classList.add('bg-rose-100', 'text-rose-900');
+                let errorList = [];
+                if (!isWhereValid) errorList.push('La carpeta de partida desde la cual Unix busca');
+                if (!isWorkValid) errorList.push('La evaluación de si funcionará o no la propuesta');
+                if (!isCorrValid) errorList.push('La ruta relativa corregida');
+
+                fb.innerHTML = `
+                    <p><strong>Revisión necesaria en:</strong></p>
+                    <ul class="list-disc list-inside mt-1 space-y-0.5 text-xs">
+                        ${errorList.map(item => `<li>${item}</li>`).join('')}
+                    </ul>
+                `;
+                document.getElementById('btn-hint-F').classList.remove('hidden');
+                state.retoF.status = 'revisar';
+            }
+            saveState();
+        }
+
+        function checkMvClasification() {
+            const fb = document.getElementById('feedback-mv');
+            fb.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-900', 'bg-rose-100', 'text-rose-900');
+            if (state.organiza.mvSit1 === 'rename' && state.organiza.mvSit2 === 'move') {
+                fb.classList.add('bg-emerald-100', 'text-emerald-900');
+                fb.innerHTML = `<strong>¡Correcto!</strong> <code>mv file1 file2</code> renombra. <code>mv file dir/</code> desplaza de carpeta.`;
+            } else {
+                fb.classList.add('bg-rose-100', 'text-rose-900');
+                fb.innerHTML = `<strong>Revisión:</strong> Si el segundo argumento es una carpeta existente, <code>mv</code> desplaza el archivo.`;
+            }
+        }
+
+        function checkRmdirPred() {
+            const pred = document.getElementById('rmdir_pred').value;
+            const fb = document.getElementById('feedback-rmdir');
+            fb.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-900', 'bg-rose-100', 'text-rose-900');
+
+            if (pred === 'error') {
+                fb.classList.add('bg-emerald-100', 'text-emerald-900');
+                fb.innerHTML = `<strong>¡Deducción acertada!</strong> <code>rmdir</code> únicamente remueve carpetas vacías por protección de sistema.`;
+            } else {
+                fb.classList.add('bg-rose-100', 'text-rose-900');
+                fb.innerHTML = `<strong>Revisión:</strong> Recuerda la regla estricta de <code>rmdir</code> sobre contenido interno.`;
+            }
+        }
+
+        function checkChecksumStatus() {
+            const val = document.getElementById('checksum_status').value;
+            const fb = document.getElementById('feedback-checksum');
+            fb.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-900', 'bg-rose-100', 'text-rose-900', 'bg-amber-100', 'text-amber-900');
+
+            if (val === 'coinciden') {
+                fb.classList.add('bg-emerald-100', 'text-emerald-900');
+                fb.innerHTML = `<strong>Integridad Confirmada:</strong> El digest SHA256 coincide exactamente con la versión de S3.`;
+            } else if (val === 'nocoinciden') {
+                fb.classList.add('bg-rose-100', 'text-rose-900');
+                fb.innerHTML = `<strong>⚠️ Alerta:</strong> Si el digest difiere, el archivo se modificó o corrompió en el envío.`;
+            } else {
+                fb.classList.add('bg-amber-100', 'text-amber-900');
+                fb.innerHTML = `Pendiente por calcular en terminal.`;
+            }
+            saveState();
+        }
+
+        function checkNanoReflection() {
+            const val = document.getElementById('nano_q').value.trim();
+            const fb = document.getElementById('feedback-nano');
+            fb.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-900', 'bg-rose-100', 'text-rose-900');
+
+            if (val.length > 5) {
+                fb.classList.add('bg-emerald-100', 'text-emerald-900');
+                fb.innerHTML = `<strong>Correcto:</strong> <code>pacientes.md</code> es un dato fuente original e inmutable de análisis.`;
+            } else {
+                fb.classList.add('bg-rose-100', 'text-rose-900');
+                fb.innerHTML = `Por favor amplía la respuesta argumentando la integridad de los datos crudos.`;
+            }
+        }
+
+        // --- SUMMARY RENDER & MARKDOWN DOWNLOADS ---
+
+        function renderSummary() {
+            const container = document.getElementById('summary-content');
+            if (!container) return;
+
+            const formatBadge = (status) => {
+                if (status === 'comprobado') return '<span class="px-2 py-0.5 rounded text-xs font-bold bg-emerald-100 text-emerald-800">Comprobado</span>';
+                if (status === 'corregido') return '<span class="px-2 py-0.5 rounded text-xs font-bold bg-teal-100 text-teal-800">Corregido</span>';
+                if (status === 'revisar') return '<span class="px-2 py-0.5 rounded text-xs font-bold bg-amber-100 text-amber-800">Requiere Revisión</span>';
+                return '<span class="px-2 py-0.5 rounded text-xs font-bold bg-slate-100 text-slate-600">Pendiente</span>';
+            };
+
+            container.innerHTML = `
+                <div class="border border-slate-200 rounded-xl p-4 bg-slate-50 space-y-3">
+                    <h3 class="font-bold text-unam-blue border-b border-slate-200 pb-2">1. Micropráctica de Rutas (Retos A-F)</h3>
+                    <ul class="space-y-1.5 text-xs text-slate-700">
+                        <li class="flex justify-between items-center"><span>Reto A (Ubicación):</span> ${formatBadge(state.retoA.status)}</li>
+                        <li class="flex justify-between items-center"><span>Reto B (cd ..):</span> ${formatBadge(state.retoB.status)}</li>
+                        <li class="flex justify-between items-center"><span>Reto C (cd ../..):</span> ${formatBadge(state.retoC.status)}</li>
+                        <li class="flex justify-between items-center"><span>Reto D (Cambio de Rama):</span> ${formatBadge(state.retoD.status)}</li>
+                        <li class="flex justify-between items-center"><span>Reto E (Dos formas de indicar el mismo destino):</span> ${formatBadge(state.retoE.status)}</li>
+                        <li class="flex justify-between items-center"><span>Reto F (Detective de rutas):</span> ${formatBadge(state.retoF.status)}</li>
+                    </ul>
+                </div>
+
+                <div class="border border-slate-200 rounded-xl p-4 bg-slate-50 space-y-3">
+                    <h3 class="font-bold text-unam-blue border-b border-slate-200 pb-2">2. Verificación Unix Real & Entorno</h3>
+                    <p><strong>Confirmación de Entorno:</strong> ${state.unix.confirmUser ? '✓ Verificado en servidor' : '✕ Pendiente'}</p>
+                    <p><strong>Archivos Fuente en Home:</strong> ${state.unix.filesFound || 'Sin registro'}</p>
+                    <p><strong>Reflexión:</strong> <span class="text-slate-600 italic">"${state.unix.reflection || 'Sin respuesta'}"</span></p>
+                </div>
+
+                <div class="border border-slate-200 rounded-xl p-4 bg-slate-50 space-y-3">
+                    <h3 class="font-bold text-unam-blue border-b border-slate-200 pb-2">3. Manipulación Cuidadosa</h3>
+                    <p><strong>Comportamiento mv:</strong> Sit1 (${state.organiza.mvSit1 || '-'}), Sit2 (${state.organiza.mvSit2 || '-'})</p>
+                    <p><strong>Predicción rmdir:</strong> ${state.organiza.rmdirPred || 'Pendiente'}</p>
+                    <p><strong>Observación Real rmdir:</strong> ${state.organiza.rmdirObs || 'Sin registro'}</p>
+                </div>
+
+                <div class="border border-slate-200 rounded-xl p-4 bg-slate-50 space-y-3">
+                    <h3 class="font-bold text-unam-blue border-b border-slate-200 pb-2">4. Integridad y Transferencia</h3>
+                    <p><strong>SHA256 Checksum:</strong> ${state.verifica.checksumStatus || 'Aún no verificado'}</p>
+                    <p><strong>Transferencia SCP:</strong> ${state.verifica.scpSuccess ? '✓ Confirmado en ~/proyecto/doc/' : '✕ Pendiente'}</p>
+                    <p><strong>Inmutabilidad Nano:</strong> <span class="text-slate-600 italic">"${state.verifica.nanoExpl || 'Sin respuesta'}"</span></p>
+                </div>
+
+                <div class="border border-slate-200 rounded-xl p-4 bg-slate-50 space-y-3">
+                    <h3 class="font-bold text-unam-blue border-b border-slate-200 pb-2">5. Evaluación Prompt IA</h3>
+                    <p><strong>Observación IA:</strong> ${state.ia.obs || 'Sin registro'}</p>
+                    <p><strong>Validación Independiente:</strong> ${state.ia.verify || 'Sin registro'}</p>
+                    <p><strong>Decisión Final:</strong> ${state.ia.decision || 'Pendiente'}</p>
+                </div>
+            `;
+        }
+
+        function downloadFile(content, fileName) {
+            const blob = new Blob([content], { type: 'text/markdown;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function downloadMarkdownBitacora() {
+            const date = new Date().toLocaleDateString();
+            const md = `# Bitácora de Práctica S4 - Introducción a la Bioinformática
+**Fecha:** ${date}
+**Curso:** LCG UNAM 2026
+
+---
+
+## 1. Razonamiento de Rutas y Árbol
+
+- **Reto A (Ubicación):** ${state.retoA.status}
+  - Carpeta actual: ${state.retoA.q1 || 'N/A'}
+  - Carpeta padre: ${state.retoA.q2 || 'N/A'}
+  - Archivo contenido: ${state.retoA.q3 || 'N/A'}
+- **Reto B (cd ..):** ${state.retoB.status} (Predicción: ${state.retoB.pred || 'N/A'})
+- **Reto C (cd ../..):** ${state.retoC.status} (Predicción: ${state.retoC.pred || 'N/A'})
+- **Reto D (Cambio de rama):** ${state.retoD.status}
+  - Ruta propuesta: \`${state.retoD.input || 'N/A'}\`
+  - Explicación: ${state.retoD.expl || 'N/A'}
+- **Reto E (Dos formas de indicar el mismo destino):** ${state.retoE.status}
+  - Ruta relativa propuesta: \`${state.retoE.rel || 'N/A'}\`
+  - Inicio ruta relativa: ${state.retoE.startRel || 'N/A'}
+  - Inicio ruta absoluta: ${state.retoE.startAbs || 'N/A'}
+  - Coincidencia de destino: ${state.retoE.sameDest || 'N/A'}
+- **Reto F (Detective de rutas):** ${state.retoF.status}
+  - Carpeta interpretada por Unix: \`${state.retoF.where || 'N/A'}\`
+  - ¿Funcionará propuesta?: ${state.retoF.work || 'N/A'}
+  - Ruta corregida: \`${state.retoF.corr || 'N/A'}\`
+
+---
+
+## 2. Comprobación Real en Unix Remoto
+
+- **Identidad confirmada en servidor:** ${state.unix.confirmUser ? 'Sí' : 'No'}
+- **Archivos fuente presentes en home:** ${state.unix.filesFound || 'Sin registro'}
+- **Reflexión sobre comandos Unix:** ${state.unix.reflection || 'Sin respuesta'}
+
+---
+
+## 3. Manipulación Cuidadosa de Archivos
+
+- **Clasificación mv:** Sit1: ${state.organiza.mvSit1 || '-'}, Sit2: ${state.organiza.mvSit2 || '-'}
+- **Protección con -i:** ${state.organiza.mvFlagExpl || 'Sin respuesta'}
+- **Predicción rmdir:** ${state.organiza.rmdirPred || 'Sin respuesta'}
+- **Observación real en terminal:** ${state.organiza.rmdirObs || 'Sin registro'}
+- **Justificación final rmdir:** ${state.organiza.rmdirFinal || 'Sin respuesta'}
+
+---
+
+## 4. Integridad y Documentación
+
+- **Estado Checksum SHA256 pacientes.md:** ${state.verifica.checksumStatus || 'Pendiente'}
+- **Transferencia SCP bitacora-ia.md:** ${state.verifica.scpSuccess ? 'Exitosa' : 'Pendiente'}
+- **Inmutabilidad Nano:** ${state.verifica.nanoExpl || 'Sin respuesta'}
+- **Evidencia en Protocolo:** ${state.verifica.evidCheck || 'N/A'}
+
+---
+
+## 5. Auditoría de Prompt IA
+
+- **Sugerencia relevante IA:** ${state.ia.obs || 'Sin respuesta'}
+- **Comprobación independiente:** ${state.ia.verify || 'Sin respuesta'}
+- **Decisión adoptada:** ${state.ia.decision || 'Pendiente'}
+`;
+
+            downloadFile(md, 'bitacora-s4-rutas-y-proyecto.md');
+        }
+
+        function downloadMarkdownProtocolo() {
+            const date = new Date().toLocaleDateString();
+            const md = `### Sección Sesión 4 - Navegación y Estructura del Proyecto
+**Fecha de ejecución:** ${date}
+
+#### 1. Evidencia de Rutas y Navegación
+- **Ruta relativa verificada entre ramas:** \`${state.retoD.input || 'Pendiente'}\` (de \`doc/\` a \`pacientes.md\`).
+- **Navegación relativa desde proyecto:** \`${state.retoE.rel || 'Pendiente'}\`.
+
+#### 2. Integridad de Archivos
+- **Estado del Checksum SHA256:** ${state.verifica.checksumStatus || 'Pendiente'}
+- **Transferencia SCP (bitacora-ia.md):** ${state.verifica.scpSuccess ? 'Completada a ~/proyecto/doc/' : 'Pendiente'}
+
+#### 3. Incidencias y Soluciones
+- **Comprobación registrada:** ${state.verifica.evidCheck || 'Estructura verificada en servidor'}
+- **Dificultad observada:** ${state.verifica.evidProb || 'Ninguna'}
+- **Solución aplicada:** ${state.verifica.evidSol || 'N/A'}
+`;
+
+            downloadFile(md, 'notas-protocolo-s4.md');
+        }
+
+        function resetPractice() {
+            if (confirm("¿Deseas reiniciar la bitácora? Se borrarán las respuestas almacenadas localmente en esta aplicación.")) {
+                localStorage.removeItem('s4_bitacora_state');
+                state = JSON.parse(JSON.stringify(DEFAULT_STATE));
+
+                document.querySelectorAll('input[type="text"], textarea').forEach(el => el.value = '');
+                document.querySelectorAll('select').forEach(el => el.value = '');
+                document.querySelectorAll('input[type="checkbox"], input[type="radio"]').forEach(el => el.checked = false);
+                document.querySelectorAll('#panel-arbol [id^="feedback-"], #panel-arbol [id^="hint-"], #panel-organiza [id^="feedback-"], #panel-verifica [id^="feedback-"]').forEach(el => el.classList.add('hidden'));
+
+                updateUIFromState();
+            }
+        }
+    </script>
+</body>
+</html>

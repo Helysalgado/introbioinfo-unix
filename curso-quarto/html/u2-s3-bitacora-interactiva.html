@@ -1,0 +1,1679 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitácora de Laboratorio S3 — LCG UNAM 2026</title>
+    <style>
+        :root {
+            --color-unam-blue: #002B49;
+            --color-unam-navy: #1B365D;
+            --color-unam-gold: #C59B27;
+            --color-gold-light: #FDF8E1;
+            --color-bg: #F4F6F9;
+            --color-card-bg: #FFFFFF;
+            --color-text-main: #1E293B;
+            --color-text-muted: #64748B;
+            --color-border: #CBD5E1;
+            --color-border-light: #E2E8F0;
+            --color-focus: #2563EB;
+            
+            /* Status Badge Colors */
+            --badge-pending-bg: #F1F5F9;
+            --badge-pending-text: #475569;
+            --badge-registered-bg: #DBEAFE;
+            --badge-registered-text: #1E40AF;
+            --badge-reviewed-bg: #DCFCE7;
+            --badge-reviewed-text: #166534;
+            --badge-corrected-bg: #FEF3C7;
+            --badge-corrected-text: #92400E;
+            --badge-check-bg: #FEE2E2;
+            --badge-check-text: #991B1B;
+
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-mono: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--color-bg);
+            color: var(--color-text-main);
+            line-height: 1.5;
+            padding-bottom: 3rem;
+        }
+
+        header {
+            background-color: var(--color-unam-blue);
+            color: #FFFFFF;
+            padding: 1.25rem 1.5rem;
+            border-bottom: 4px solid var(--color-unam-gold);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .header-title-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .unam-badge {
+            background-color: var(--color-unam-gold);
+            color: var(--color-unam-blue);
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding: 0.35rem 0.75rem;
+            border-radius: var(--radius-sm);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        header h1 {
+            font-size: 1.35rem;
+            font-weight: 600;
+        }
+
+        header p {
+            font-size: 0.9rem;
+            color: #E2E8F0;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        nav.tab-bar-container {
+            background-color: var(--color-unam-navy);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .tab-bar {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 0.5rem;
+            list-style: none;
+        }
+
+        .tab-button {
+            background: none;
+            border: none;
+            color: #94A3B8;
+            padding: 0.85rem 1.1rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-main);
+        }
+
+        .tab-button:hover {
+            color: #FFFFFF;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .tab-button[aria-selected="true"] {
+            color: #FFFFFF;
+            border-bottom-color: var(--color-unam-gold);
+            font-weight: 600;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .tab-button:focus-visible {
+            outline: 2px solid var(--color-unam-gold);
+            outline-offset: -2px;
+        }
+
+        main.content-container {
+            max-width: 1000px;
+            margin: 2rem auto 0 auto;
+            padding: 0 1rem;
+        }
+
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        .card {
+            background-color: var(--color-card-bg);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--color-border-light);
+            box-shadow: var(--shadow-sm);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-header {
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--color-border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            color: var(--color-unam-navy);
+            font-weight: 600;
+        }
+
+        .card-subtitle {
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+            margin-top: 0.25rem;
+        }
+
+        .status-badge {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.6rem;
+            border-radius: var(--radius-sm);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .status-badge.pendiente { background-color: var(--badge-pending-bg); color: var(--badge-pending-text); }
+        .status-badge.registrado { background-color: var(--badge-registered-bg); color: var(--badge-registered-text); }
+        .status-badge.revisado { background-color: var(--badge-reviewed-bg); color: var(--badge-reviewed-text); }
+        .status-badge.corregido { background-color: var(--badge-corrected-bg); color: var(--badge-corrected-text); }
+        .status-badge.requiere-revisar { background-color: var(--badge-check-bg); color: var(--badge-check-text); }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.35rem;
+            color: var(--color-text-main);
+        }
+
+        .label-desc {
+            font-size: 0.825rem;
+            font-weight: 400;
+            color: var(--color-text-muted);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        input[type="text"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 0.6rem 0.75rem;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            font-family: var(--font-main);
+            font-size: 0.9rem;
+            background-color: #FFFFFF;
+            color: var(--color-text-main);
+            transition: border-color 0.15s ease;
+        }
+
+        input[type="text"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--color-focus);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        .code-input,
+        textarea.code-font {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            background-color: #F8FAFC;
+        }
+
+        code, pre {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+        }
+
+        .command-box {
+            background-color: #0F172A;
+            color: #F8FAFC;
+            padding: 1rem 1.25rem;
+            border-radius: var(--radius-sm);
+            margin: 1rem 0;
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            line-height: 1.6;
+            overflow-x: auto;
+            border-left: 4px solid var(--color-unam-gold);
+        }
+
+        .command-box .comment { color: #64748B; }
+        .command-box .prompt { color: #38BDF8; font-weight: bold; }
+        .command-box .cmd { color: #FACC15; }
+
+        .callout {
+            background-color: #F0F9FF;
+            border-left: 4px solid #0284C7;
+            padding: 1rem;
+            border-radius: var(--radius-sm);
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+
+        .callout-warning {
+            background-color: #FFFBEB;
+            border-left-color: #D97706;
+            color: #92400E;
+        }
+
+        .callout-title {
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.55rem 1.1rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border-radius: var(--radius-sm);
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            gap: 0.4rem;
+            font-family: var(--font-main);
+        }
+
+        .btn-primary {
+            background-color: var(--color-unam-navy);
+            color: #FFFFFF;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-unam-blue);
+        }
+
+        .btn-secondary {
+            background-color: #FFFFFF;
+            border-color: var(--color-border);
+            color: var(--color-text-main);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--color-bg);
+        }
+
+        .btn-danger {
+            background-color: #DC2626;
+            color: #FFFFFF;
+        }
+
+        .btn-danger:hover {
+            background-color: #B91C1C;
+        }
+
+        .btn-outline-gold {
+            background-color: transparent;
+            border-color: var(--color-unam-gold);
+            color: var(--color-unam-gold);
+        }
+
+        .btn-outline-gold:hover {
+            background-color: var(--color-gold-light);
+        }
+
+        .btn:focus-visible {
+            outline: 2px solid var(--color-focus);
+            outline-offset: 2px;
+        }
+
+        .classification-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin: 1rem 0;
+        }
+
+        .class-item {
+            background-color: #F8FAFC;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            padding: 0.85rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .class-item-text {
+            font-size: 0.9rem;
+            flex: 1;
+            min-width: 240px;
+        }
+
+        .class-select {
+            width: auto;
+            min-width: 160px;
+        }
+
+        .feedback-box {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .feedback-box.visible {
+            display: block;
+        }
+
+        .feedback-box.info {
+            background-color: #EFF6FF;
+            border: 1px solid #BFDBFE;
+            color: #1E40AF;
+        }
+
+        .feedback-box.warning {
+            background-color: #FEF3C7;
+            border: 1px solid #FDE68A;
+            color: #92400E;
+        }
+
+        .feedback-box.success {
+            background-color: #DCFCE7;
+            border: 1px solid #BBF7D0;
+            color: #166534;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-card {
+            background-color: #FFFFFF;
+            border-radius: var(--radius-md);
+            width: 90%;
+            max-width: 480px;
+            padding: 1.5rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--color-unam-navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-body {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+            margin-bottom: 1.25rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .summary-card-item {
+            background-color: #F8FAFC;
+            border: 1px solid var(--color-border-light);
+            border-radius: var(--radius-sm);
+            padding: 1rem;
+        }
+
+        .summary-card-item h4 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+            margin-bottom: 0.4rem;
+            letter-spacing: 0.5px;
+        }
+
+        .summary-card-item p {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        @media (max-width: 640px) {
+            header {
+                padding: 1rem;
+            }
+            .header-title-container {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.3rem;
+            }
+            .tab-button {
+                padding: 0.75rem 0.85rem;
+                font-size: 0.825rem;
+            }
+            main.content-container {
+                padding: 0 0.5rem;
+            }
+            .card {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-title-container">
+            <span class="unam-badge">LCG UNAM 2026</span>
+            <div>
+                <h1>Introducción a la Bioinformática • Sesión 3</h1>
+                <p>Bitácora de laboratorio: conectar, transferir y verificar</p>
+            </div>
+        </div>
+        <div class="header-actions">
+            <button class="btn btn-secondary" onclick="openResetModal()">
+                ↺ Reiniciar práctica
+            </button>
+        </div>
+    </header>
+
+    <nav class="tab-bar-container" aria-label="Navegación de prácticas">
+        <ul class="tab-bar" role="tablist">
+            <li role="presentation">
+                <button class="tab-button" id="tab-btn-1" role="tab" aria-selected="true" aria-controls="panel-1" onclick="activateTab('1')">
+                    1. Antes de conectarme
+                </button>
+            </li>
+            <li role="presentation">
+                <button class="tab-button" id="tab-btn-2" role="tab" aria-selected="false" aria-controls="panel-2" onclick="activateTab('2')">
+                    2. Autonomía
+                </button>
+            </li>
+            <li role="presentation">
+                <button class="tab-button" id="tab-btn-3" role="tab" aria-selected="false" aria-controls="panel-3" onclick="activateTab('3')">
+                    3. Orientación y Control
+                </button>
+            </li>
+            <li role="presentation">
+                <button class="tab-button" id="tab-btn-4" role="tab" aria-selected="false" aria-controls="panel-4" onclick="activateTab('4')">
+                    4. Transferencia
+                </button>
+            </li>
+            <li role="presentation">
+                <button class="tab-button" id="tab-btn-5" role="tab" aria-selected="false" aria-controls="panel-5" onclick="activateTab('5')">
+                    5. Integridad (Hashes)
+                </button>
+            </li>
+            <li role="presentation">
+                <button class="tab-button" id="tab-btn-6" role="tab" aria-selected="false" aria-controls="panel-6" onclick="activateTab('6')">
+                    6. Protocolo y Revisión IA
+                </button>
+            </li>
+            <li role="presentation">
+                <button class="tab-button" id="tab-btn-7" role="tab" aria-selected="false" aria-controls="panel-7" onclick="activateTab('7')">
+                    ✓ Resumen
+                </button>
+            </li>
+        </ul>
+    </nav>
+
+    <main class="content-container">
+
+        <section id="panel-1" class="tab-panel active" role="tabpanel" aria-labelledby="tab-btn-1">
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h2 class="card-title">Práctica 1: Rutina previa y conexión remota</h2>
+                        <p class="card-subtitle">Rutina obligatoria: Confirmar ubicación, cuenta y contexto antes de operar en el servidor.</p>
+                    </div>
+                    <span id="badge-p1" class="status-badge pendiente">Pendiente</span>
+                </div>
+
+                <div class="callout">
+                    <div class="callout-title">Principio del laboratorio</div>
+                    <p>Antes de ejecutar o transferir cualquier archivo, debes responder: <em>¿Dónde estoy y con qué cuenta estoy trabajando?</em></p>
+                </div>
+
+                <div class="form-group">
+                    <label for="p1-pred1">1. Predicción: ¿Qué crees que cambia visual y funcionalmente al pasar de tu computadora local al servidor remoto?</label>
+                    <textarea id="p1-pred1" placeholder="Escribe tu predicción..." oninput="saveData()"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="p1-pred2">2. Predicción: ¿Qué comandos Unix pueden ayudarte a confirmar de inmediato la identidad del servidor, el usuario activo y tu ubicación actual?</label>
+                    <input type="text" id="p1-pred2" placeholder="Escribe los comandos..." oninput="saveData()">
+                </div>
+
+                <div class="form-group">
+                    <label>Estructura de comandos en la terminal real (Guía de referencia)</label>
+                    <div class="command-box">
+                        <span class="comment"># 1. En tu máquina LOCAL:</span><br>
+                        <span class="prompt">local$</span> <span class="cmd">ssh usuario@servidor</span><br><br>
+                        <span class="comment"># 2. Una vez dentro del servidor REMOTO:</span><br>
+                        <span class="prompt">remoto$</span> <span class="cmd">hostname</span><br>
+                        <span class="prompt">remoto$</span> <span class="cmd">whoami</span><br>
+                        <span class="prompt">remoto$</span> <span class="cmd">pwd</span><br>
+                        <span class="prompt">remoto$</span> <span class="cmd">exit</span>
+                    </div>
+                    <span class="label-desc">Nota: <code>usuario@servidor</code> es una plantilla estructural. Usa tus credenciales asignadas en clase. Nunca registres contraseñas ni llaves privadas en esta bitácora.</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="p1-prompt-obs">3. Registro de observación: Describe cómo cambió exactamente el <em>prompt</em> de la terminal al establecer la conexión SSH.</label>
+                    <input type="text" id="p1-prompt-obs" placeholder="Describe los cambios observados..." oninput="saveData()">
+                </div>
+
+                <div class="form-group">
+                    <label for="p1-decision">4. Decisión de verificación inicial:</label>
+                    <select id="p1-decision" onchange="saveData()">
+                        <option value="">Selecciona una opción...</option>
+                        <option value="Confirmé la computadora con hostname, el usuario con whoami y el directorio con pwd">Confirmé la computadora con hostname, el usuario con whoami y el directorio con pwd</option>
+                        <option value="Inicié a trabajar directamente sin confirmar el contexto">Inicié a trabajar directamente sin confirmar el contexto</option>
+                        <option value="Solo verifiqué el nombre del servidor">Solo verifiqué el nombre del servidor</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="p1-diff">5. Dificultad o corrección observada (Opcional):</label>
+                    <textarea id="p1-diff" placeholder="Registra cualquier dificultad o corrección si ocurrió..." oninput="saveData()"></textarea>
+                </div>
+            </div>
+        </section>
+
+        <section id="panel-2" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-2">
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h2 class="card-title">Práctica 2: Repetición deliberada para la autonomía</h2>
+                        <p class="card-subtitle">Entrar, reconocer y salir. Conectarse es una habilidad que se afianza con la práctica constante.</p>
+                    </div>
+                    <span id="badge-p2" class="status-badge pendiente">Pendiente</span>
+                </div>
+
+                <p style="font-size:0.9rem; margin-bottom:1rem;">Realiza la secuencia completa tres veces consecutivas en tu terminal real: <code>ssh</code> → <code>hostname</code> → <code>whoami</code> → <code>pwd</code> → <code>exit</code>.</p>
+
+                <div style="background-color:#F8FAFC; border:1px solid var(--color-border); border-radius:var(--radius-sm); padding:1rem; margin-bottom:1rem; display:flex; flex-direction:column; gap:0.75rem;">
+                    <label style="display:flex; align-items:center; gap:0.5rem; font-weight:normal; cursor:pointer;">
+                        <input type="checkbox" id="p2-r1-check" onchange="saveData()"> Ronda 1 (Con guía) completada
+                    </label>
+                    <label style="display:flex; align-items:center; gap:0.5rem; font-weight:normal; cursor:pointer;">
+                        <input type="checkbox" id="p2-r2-check" onchange="saveData()"> Ronda 2 (Con notas) completada
+                    </label>
+                    <label style="display:flex; align-items:center; gap:0.5rem; font-weight:normal; cursor:pointer;">
+                        <input type="checkbox" id="p2-r3-check" onchange="saveData()"> Ronda 3 (De memoria) completada
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label for="p2-final-support">En la última ronda necesité:</label>
+                    <select id="p2-final-support" onchange="saveData()" style="max-width:300px;">
+                        <option value="">Selecciona...</option>
+                        <option value="Nada">Nada</option>
+                        <option value="Consultar mis notas">Consultar mis notas</option>
+                        <option value="Ayuda puntual">Ayuda puntual</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="p2-explain">Reflexión de autonomía: ¿Qué acción de esta secuencia puedes realizar o explicar ahora que antes necesitabas consultar?</label>
+                    <textarea id="p2-explain" placeholder="Escribe tu reflexión..." oninput="saveData()"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="p2-diff">Dificultad o corrección observada (Opcional):</label>
+                    <textarea id="p2-diff" placeholder="Registra cualquier dificultad o corrección si ocurrió..." oninput="saveData()"></textarea>
+                </div>
+            </div>
+        </section>
+
+        <section id="panel-3" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-3">
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h2 class="card-title">Práctica 3: Orientación, Consulta de Ayuda y Control</h2>
+                        <p class="card-subtitle">Estrategias para explorar directorios, leer documentación y controlar procesos de forma segura.</p>
+                    </div>
+                    <span id="badge-p3" class="status-badge pendiente">Pendiente</span>
+                </div>
+
+                <!-- Subsección Orientarme -->
+                <div style="margin-bottom:1.5rem;">
+                    <h3 style="font-size:1.05rem; color:var(--color-unam-navy); border-bottom:2px solid var(--color-border-light); padding-bottom:0.3rem; margin-bottom:0.75rem;">1. Orientarme (Exploración de archivos)</h3>
+                    
+                    <div class="form-group">
+                        <label for="p3-pred-ls">Predicción: ¿Qué esperas que cambie entre ejecutar <code>ls</code> y <code>ls -l</code>?</label>
+                        <input type="text" id="p3-pred-ls" placeholder="Escribe tu hipótesis..." oninput="saveData()">
+                    </div>
+
+                    <div class="command-box">
+                        <span class="prompt">remoto$</span> <span class="cmd">pwd</span><br>
+                        <span class="prompt">remoto$</span> <span class="cmd">ls</span><br>
+                        <span class="prompt">remoto$</span> <span class="cmd">ls -l</span><br>
+                        <span class="prompt">remoto$</span> <span class="cmd">ls -lh</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="p3-obs-ls">Registro de observación: ¿Qué información detallada añade <code>-l</code> y qué aporta el modificador <code>-h</code> en <code>ls -lh</code>?</label>
+                        <textarea id="p3-obs-ls" placeholder="Describe las diferencias que observas..." oninput="saveData()"></textarea>
+                    </div>
+                    
+                    <div class="callout callout-warning">
+                        <div class="callout-title">Atención pedagógica</div>
+                        <p>El comando <code>ls -lh</code> confirma la <strong>presencia</strong>, el nombre y el tamaño visible del archivo, pero <strong>NO demuestra su integridad ni su contenido intacto</strong>.</p>
+                    </div>
+                </div>
+
+                <!-- Subsección Consultar -->
+                <div style="margin-bottom:1.5rem;">
+                    <h3 style="font-size:1.05rem; color:var(--color-unam-navy); border-bottom:2px solid var(--color-border-light); padding-bottom:0.3rem; margin-bottom:0.75rem;">2. Consultar (Uso de man)</h3>
+                    
+                    <p style="font-size:0.9rem; margin-bottom:0.5rem;">Ejecuta en el servidor remoto: <code>man ls</code>. Busca la opción <code>-h</code> utilizando las flechas de navegación y sal presionando la tecla <code>q</code>.</p>
+                    
+                    <div class="form-group">
+                        <label for="p3-man-obs">¿Qué describe el manual de <code>man</code> para la bandera <code>-h</code> y cómo te ayuda esta herramienta cuando no recuerdas una opción?</label>
+                        <textarea id="p3-man-obs" placeholder="Describe lo que encontraste..." oninput="saveData()"></textarea>
+                    </div>
+                </div>
+
+                <!-- Subsección Controlar -->
+                <div>
+                    <h3 style="font-size:1.05rem; color:var(--color-unam-navy); border-bottom:2px solid var(--color-border-light); padding-bottom:0.3rem; margin-bottom:0.75rem;">3. Controlar (Autocompletado, Historial e Interrupción)</h3>
+                    
+                    <p style="font-size:0.9rem; margin-bottom:0.5rem;">Prueba en tu terminal real: usar la tecla <strong>Tab</strong> para autocompletar, la flecha <strong>↑</strong> y el comando <code>history</code>, y el comando <code>sleep 30</code> seguido inmediatamente de <code>Ctrl-C</code>.</p>
+
+                    <div class="form-group">
+                        <label for="p3-control-select">Selecciona el recurso de control que te resultó más útil:</label>
+                        <select id="p3-control-select" onchange="saveData()">
+                            <option value="">Selecciona...</option>
+                            <option value="Tecla Tab (Autocompletado de nombres y rutas)">Tecla Tab (Autocompletado de nombres y rutas)</option>
+                            <option value="Flechas de historial / comando history">Flechas de historial / comando history</option>
+                            <option value="Ctrl-C para interrumpir procesos (ej. sleep 30)">Ctrl-C para interrumpir procesos (ej. sleep 30)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="p3-control-desc">Describe un escenario específico de laboratorio donde usarías este recurso:</label>
+                        <textarea id="p3-control-desc" placeholder="Describe el escenario..." oninput="saveData()"></textarea>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="panel-4" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-4">
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h2 class="card-title">Práctica 4: Transferencia de Datos y Metadatos</h2>
+                        <p class="card-subtitle">Local vs. Remoto: Transferir archivos asegurando la coherencia entre el dato y su contexto.</p>
+                    </div>
+                    <span id="badge-p4" class="status-badge pendiente">Pendiente</span>
+                </div>
+
+                <!-- Actividad 1: Selección de Archivos -->
+                <div style="margin-bottom:1.5rem;">
+                    <h3 style="font-size:1.05rem; color:var(--color-unam-navy); margin-bottom:0.5rem;">Actividad 1: ¿Qué archivos deben viajar en esta transferencia inicial de S3?</h3>
+                    <p style="font-size:0.875rem; color:var(--color-text-muted); margin-bottom:0.75rem;">Selecciona los archivos correspondientes a la Práctica 4 de hoy:</p>
+                    
+                    <div class="form-group" style="display:flex; flex-direction:column; gap:0.5rem;">
+                        <label style="font-weight:normal; cursor:pointer;"><input type="checkbox" class="p4-file-cb" value="pacientes.md"> <code>pacientes.md</code> (Archivo de datos)</label>
+                        <label style="font-weight:normal; cursor:pointer;"><input type="checkbox" class="p4-file-cb" value="pacientes-metadatos.md"> <code>pacientes-metadatos.md</code> (Archivo de metadatos)</label>
+                        <label style="font-weight:normal; cursor:pointer;"><input type="checkbox" class="p4-file-cb" value="protocolo.md"> <code>protocolo.md</code> (Protocolo de laboratorio)</label>
+                        <label style="font-weight:normal; cursor:pointer;"><input type="checkbox" class="p4-file-cb" value="solo_datos"> Solo el archivo de datos sin metadatos</label>
+                    </div>
+
+                    <button class="btn btn-secondary" onclick="checkP4Files()">Comprobar selección de archivos</button>
+                    <div id="p4-files-feedback" class="feedback-box"></div>
+                </div>
+
+                <!-- Actividad 2: Clasificación Contextual -->
+                <div style="margin-bottom:1.5rem;">
+                    <h3 style="font-size:1.05rem; color:var(--color-unam-navy); margin-bottom:0.5rem;">Actividad 2: Distinguir el contexto LOCAL, SFTP y REMOTO</h3>
+                    <p style="font-size:0.875rem; color:var(--color-text-muted); margin-bottom:0.75rem;">Clasifica las siguientes acciones según el entorno donde se ejecutan u observan:</p>
+
+                    <div class="classification-container">
+                        <div class="class-item">
+                            <span class="class-item-text">1. Localizar los archivos en la computadora personal antes de abrir cualquier cliente.</span>
+                            <select class="class-select p4-class-input" data-correct="LOCAL">
+                                <option value="">Selecciona...</option>
+                                <option value="LOCAL">LOCAL</option>
+                                <option value="SFTP">SFTP</option>
+                                <option value="REMOTO">REMOTO</option>
+                            </select>
+                        </div>
+                        <div class="class-item">
+                            <span class="class-item-text">2. Ejecutar comandos interactivos (<code>lpwd</code>, <code>lls</code>, <code>pwd</code>, <code>ls</code>, <code>put</code>) dentro de la sesión iniciada con <code>sftp</code>.</span>
+                            <select class="class-select p4-class-input" data-correct="SFTP">
+                                <option value="">Selecciona...</option>
+                                <option value="LOCAL">LOCAL</option>
+                                <option value="SFTP">SFTP</option>
+                                <option value="REMOTO">REMOTO</option>
+                            </select>
+                        </div>
+                        <div class="class-item">
+                            <span class="class-item-text">3. Confirmar la presencia y detalles del archivo con <code>ls -lh</code> en la sesión interactiva de <code>ssh</code>.</span>
+                            <select class="class-select p4-class-input" data-correct="REMOTO">
+                                <option value="">Selecciona...</option>
+                                <option value="LOCAL">LOCAL</option>
+                                <option value="SFTP">SFTP</option>
+                                <option value="REMOTO">REMOTO</option>
+                            </select>
+                        </div>
+                        <div class="class-item">
+                            <span class="class-item-text">4. ¿En qué dirección viajan los datos al ejecutar <code>put pacientes.md</code>?</span>
+                            <select class="class-select p4-class-input" data-correct="LOCAL_TO_REMOTO">
+                                <option value="">Selecciona...</option>
+                                <option value="LOCAL_TO_REMOTO">LOCAL → REMOTO</option>
+                                <option value="REMOTO_TO_LOCAL">REMOTO → LOCAL</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-secondary" onclick="checkP4Context()">Comprobar clasificación contextual</button>
+                    <div id="p4-context-feedback" class="feedback-box"></div>
+                </div>
+
+                <!-- Guía de ejecución real -->
+                <div class="form-group">
+                    <label>Rutas de acción para la transferencia real</label>
+                    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:1rem; margin-top:0.5rem;">
+                        <div style="background-color:#F8FAFC; border:1px solid var(--color-border); padding:1rem; border-radius:var(--radius-sm);">
+                            <h4 style="font-size:0.9rem; color:var(--color-unam-navy); margin-bottom:0.5rem;">Opción A: SFTP por Línea de Comandos</h4>
+                            <div class="command-box" style="margin:0; font-size:0.8rem;">
+                                <span class="prompt">local$</span> sftp usuario@servidor<br>
+                                <span class="prompt">sftp></span> lpwd<br>
+                                <span class="prompt">sftp></span> lls<br>
+                                <span class="prompt">sftp></span> pwd<br>
+                                <span class="prompt">sftp></span> ls<br>
+                                <span class="prompt">sftp></span> put pacientes.md<br>
+                                <span class="prompt">sftp></span> put pacientes-metadatos.md<br>
+                                <span class="prompt">sftp></span> exit
+                            </div>
+                        </div>
+                        <div style="background-color:#F8FAFC; border:1px solid var(--color-border); padding:1rem; border-radius:var(--radius-sm);">
+                            <h4 style="font-size:0.9rem; color:var(--color-unam-navy); margin-bottom:0.5rem;">Opción B: FileZilla (Cliente Gráfico)</h4>
+                            <ul style="font-size:0.85rem; padding-left:1.2rem; color:var(--color-text-main);">
+                                <li>Conexión mediante protocolo <strong>SFTP</strong>.</li>
+                                <li>Panel izquierdo: Directorio Local.</li>
+                                <li>Panel derecho: Directorio Remoto.</li>
+                                <li>Transferir ambos archivos: <code>pacientes.md</code> y <code>pacientes-metadatos.md</code>.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Registro post transferencia -->
+                <div class="form-group">
+                    <label for="p4-tool-used">Herramienta utilizada para la transferencia real:</label>
+                    <select id="p4-tool-used" onchange="saveData()">
+                        <option value="">Selecciona...</option>
+                        <option value="SFTP en Terminal (Línea de comandos)">SFTP en Terminal (Línea de comandos)</option>
+                        <option value="FileZilla (Cliente gráfico SFTP)">FileZilla (Cliente gráfico SFTP)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="p4-distinguish-obs">¿Cómo distinguiste el lado local del remoto durante la transferencia?</label>
+                    <textarea id="p4-distinguish-obs" placeholder="Explica las marcas lls/ls, lpwd/pwd o el panel izquierdo/derecho..." oninput="saveData()"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="p4-confirm-server">Confirmación de presencia en el servidor remoto:</label>
+                    <input type="text" id="p4-confirm-server" placeholder="Confirma que visualizaste ambos archivos con ls -lh en la sesión SSH..." oninput="saveData()">
+                </div>
+            </div>
+        </section>
+
+        <section id="panel-5" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-5">
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h2 class="card-title">Práctica 5: Verificación de Integridad con Hashes SHA-256</h2>
+                        <p class="card-subtitle">Evidencia antes de confianza: Ver un archivo ≠ demostrar que llegó intacto.</p>
+                    </div>
+                    <span id="badge-p5" class="status-badge pendiente">Pendiente</span>
+                </div>
+
+                <div class="callout callout-warning">
+                    <div class="callout-title">Regla de oro de la Bioinformática</div>
+                    <p>Un archivo dañado, incompleto o alterado durante la transferencia conducirá a análisis erróneos. El comando <code>ls -lh</code> confirma la existencia del archivo, pero solo la verificación criptográfica mediante <strong>SHA-256</strong> demuestra integridad.</p>
+                </div>
+
+                <!-- Referencia de Comandos Real -->
+                <div class="form-group">
+                    <label>Comandos para calcular el checksum SHA-256 en tus entornos reales</label>
+                    <div class="command-box" style="font-size:0.8rem;">
+                        <span class="comment"># macOS (Terminal local):</span><br>
+                        shasum -a 256 pacientes.md<br>
+                        shasum -a 256 pacientes-metadatos.md<br><br>
+                        <span class="comment"># Linux / WSL / Git Bash (Local) y Servidor Remoto (Linux):</span><br>
+                        sha256sum pacientes.md<br>
+                        sha256sum pacientes-metadatos.md<br><br>
+                        <span class="comment"># PowerShell (Windows Local):</span><br>
+                        Get-FileHash .\pacientes.md -Algorithm SHA256<br>
+                        Get-FileHash .\pacientes-metadatos.md -Algorithm SHA256
+                    </div>
+                </div>
+
+                <!-- Formulario de Hashes para pacientes.md -->
+                <div style="background-color:#F8FAFC; border:1px solid var(--color-border); padding:1.25rem; border-radius:var(--radius-sm); margin-bottom:1.5rem;">
+                    <h3 style="font-size:1rem; color:var(--color-unam-navy); margin-bottom:0.75rem;">1. Verificación para <code>pacientes.md</code></h3>
+                    
+                    <div class="form-group">
+                        <label for="p5-f1-local">Checksum SHA-256 (Equipo Local):</label>
+                        <input type="text" id="p5-f1-local" class="code-input" placeholder="Pega el hash SHA-256 obtenido en tu máquina local..." oninput="saveData()">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="p5-f1-remote">Checksum SHA-256 (Servidor Remoto):</label>
+                        <input type="text" id="p5-f1-remote" class="code-input" placeholder="Pega el hash SHA-256 obtenido en el servidor remoto..." oninput="saveData()">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="p5-f1-pred">Decisión sobre la integridad de <code>pacientes.md</code>:</label>
+                        <select id="p5-f1-pred" onchange="saveData()">
+                            <option value="">Selecciona...</option>
+                            <option value="Coinciden">Coinciden (El archivo llegó intacto)</option>
+                            <option value="No coinciden">No coinciden (El archivo está corrupto/incompleto)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="p5-f1-just">Justificación técnica de la decisión:</label>
+                        <input type="text" id="p5-f1-just" placeholder="Explica tu comparación..." oninput="saveData()">
+                    </div>
+                </div>
+
+                <!-- Formulario de Hashes para pacientes-metadatos.md -->
+                <div style="background-color:#F8FAFC; border:1px solid var(--color-border); padding:1.25rem; border-radius:var(--radius-sm); margin-bottom:1.5rem;">
+                    <h3 style="font-size:1rem; color:var(--color-unam-navy); margin-bottom:0.75rem;">2. Verificación para <code>pacientes-metadatos.md</code></h3>
+                    
+                    <div class="form-group">
+                        <label for="p5-f2-local">Checksum SHA-256 (Equipo Local):</label>
+                        <input type="text" id="p5-f2-local" class="code-input" placeholder="Pega el hash SHA-256 obtenido en tu máquina local..." oninput="saveData()">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="p5-f2-remote">Checksum SHA-256 (Servidor Remoto):</label>
+                        <input type="text" id="p5-f2-remote" class="code-input" placeholder="Pega el hash SHA-256 obtenido en el servidor remoto..." oninput="saveData()">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="p5-f2-pred">Decisión sobre la integridad de <code>pacientes-metadatos.md</code>:</label>
+                        <select id="p5-f2-pred" onchange="saveData()">
+                            <option value="">Selecciona...</option>
+                            <option value="Coinciden">Coinciden (El archivo llegó intacto)</option>
+                            <option value="No coinciden">No coinciden (El archivo está corrupto/incompleto)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="p5-f2-just">Justificación técnica de la decisión:</label>
+                        <input type="text" id="p5-f2-just" placeholder="Explica tu comparación..." oninput="saveData()">
+                    </div>
+                </div>
+
+                <div style="display:flex; gap:1rem; align-items:center; flex-wrap:wrap;">
+                    <button class="btn btn-primary" onclick="verifyHashes()">Comprobar integridad</button>
+                    <button class="btn btn-outline-gold" onclick="toggleHint('p5-hint')">💡 Solicitar pista</button>
+                </div>
+
+                <div id="p5-hint" class="feedback-box info">
+                    <strong>Pista:</strong> Para considerar iguales dos checksums, las cadenas completas deben ser exactamente iguales. Compáralas completas.
+                </div>
+
+                <div id="p5-feedback" class="feedback-box"></div>
+
+                <div class="form-group" style="margin-top:1.5rem;">
+                    <label for="p5-why-integrity">Reflexión conceptual: ¿Por qué un archivo puede estar presente en el servidor (visible en <code>ls -lh</code>) y aún así NO estar listo para usarse en un análisis?</label>
+                    <textarea id="p5-why-integrity" placeholder="Escribe tu reflexión..." oninput="saveData()"></textarea>
+                </div>
+            </div>
+        </section>
+
+        <section id="panel-6" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-6">
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h2 class="card-title">Cierre de Sesión: Documentación y Revisión Crítica con IA</h2>
+                        <p class="card-subtitle">Construcción del borrador para <code>protocolo.md</code> y pautas para la revisión asistida.</p>
+                    </div>
+                    <span id="badge-p6" class="status-badge pendiente">Pendiente</span>
+                </div>
+
+                <!-- Subsección 1: Protocolo -->
+                <div style="margin-bottom:2rem;">
+                    <h3 style="font-size:1.1rem; color:var(--color-unam-navy); margin-bottom:0.75rem;">1. Borrador consolidado para <code>protocolo.md</code></h3>
+                    <p style="font-size:0.875rem; color:var(--color-text-muted); margin-bottom:1rem;">Este borrador recupera automáticamente las evidencias reales y decisiones registradas durante las prácticas anteriores.</p>
+
+                    <div class="form-group">
+                        <label for="p6-protocol-preview">Vista previa Markdown del protocolo (Editable):</label>
+                        <textarea id="p6-protocol-preview" class="code-font" style="min-height:280px;" oninput="saveData()"></textarea>
+                    </div>
+
+                    <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+                        <button class="btn btn-primary" onclick="updateProtocolDraft()">↺ Actualizar borrador con datos capturados</button>
+                        <button class="btn btn-secondary" onclick="downloadProtocolFile()">⬇ Descargar borrador para protocolo.md</button>
+                    </div>
+                </div>
+
+                <!-- Subsección 2: Guía IA -->
+                <div style="border-top:2px solid var(--color-border-light); padding-top:1.5rem;">
+                    <h3 style="font-size:1.1rem; color:var(--color-unam-navy); margin-bottom:0.75rem;">2. Revisión crítica con IA (Después del trabajo manual)</h3>
+                    
+                    <div class="callout">
+                        <div class="callout-title">Uso ético y crítico de la Inteligencia Artificial</div>
+                        <p>La IA actúa como una revisora crítica de tu redacción y lógica, NO como la operadora del servidor ni como sustituta de la ejecución manual. Nunca introduzcas contraseñas, llaves, IPs o datos institucionales sensibles en la IA.</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="p6-ia-anon">1. Confirmación de anonimización del texto:</label>
+                        <select id="p6-ia-anon" onchange="saveData()">
+                            <option value="">Selecciona...</option>
+                            <option value="SÍ: Sustituí datos sensibles por marcadores como [SERVIDOR] y [USUARIO]">SÍ: Sustituí datos sensibles por marcadores como [SERVIDOR] y [USUARIO]</option>
+                            <option value="NO: El texto no contiene datos sensibles">NO: El texto no contiene datos sensibles</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="p6-ia-obs">2. Registro de revisión con IA para <code>bitacora-ia.md</code>:</label>
+                        <textarea id="p6-ia-obs" placeholder="Registra: ¿Qué sugerencias hizo la IA? ¿Qué aceptaste o rechazaste y con qué evidencia real lo verificaste?" oninput="saveData()"></textarea>
+                    </div>
+
+                    <button class="btn btn-outline-gold" onclick="downloadIaTemplate()">⬇ Descargar plantilla para bitacora-ia.md</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="panel-7" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-7">
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h2 class="card-title">✓ Resumen General de la Bitácora S3</h2>
+                        <p class="card-subtitle">Vista acumulada del trabajo real realizado, decisiones y evidencias capturadas.</p>
+                    </div>
+                    <span id="badge-p7" class="status-badge pendiente">Pendiente</span>
+                </div>
+
+                <div class="summary-grid">
+                    <div class="summary-card-item">
+                        <h4>P1. Conexión Inicial</h4>
+                        <p id="sum-p1-status">Pendiente</p>
+                    </div>
+                    <div class="summary-card-item">
+                        <h4>P2. Autonomía (Rondas)</h4>
+                        <p id="sum-p2-status">Pendiente</p>
+                    </div>
+                    <div class="summary-card-item">
+                        <h4>P3. Orientación y Control</h4>
+                        <p id="sum-p3-status">Pendiente</p>
+                    </div>
+                    <div class="summary-card-item">
+                        <h4>P4. Transferencia</h4>
+                        <p id="sum-p4-status">Pendiente</p>
+                    </div>
+                    <div class="summary-card-item">
+                        <h4>P5. Verificación SHA-256</h4>
+                        <p id="sum-p5-status">Pendiente</p>
+                    </div>
+                    <div class="summary-card-item">
+                        <h4>P6. Documentación e IA</h4>
+                        <p id="sum-p6-status">Pendiente</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Detalle de Evidencia Acumulada</label>
+                    <div id="summary-details-box" style="background-color:#F8FAFC; border:1px solid var(--color-border); padding:1rem; border-radius:var(--radius-sm); font-size:0.875rem; white-space:pre-wrap; max-height:320px; overflow-y:auto; font-family:var(--font-mono);">
+                        Cargando información...
+                    </div>
+                </div>
+
+                <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1.5rem;">
+                    <button class="btn btn-primary" onclick="downloadFullResults()">
+                        ⬇ Descargar resultados completos de la práctica (.md)
+                    </button>
+                    <button class="btn btn-secondary" onclick="downloadProtocolFile()">
+                        ⬇ Descargar borrador protocolo.md
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="reset-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-text">
+        <div class="modal-card">
+            <h3 id="modal-title-text" class="modal-title">¿Reiniciar práctica actual?</h3>
+            <p class="modal-body">Esta acción borrará únicamente las respuestas y evidencias registradas en esta bitácora y restaurará el estado inicial. Esta acción no se puede deshacer.</p>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeResetModal()">Cancelar</button>
+                <button class="btn btn-danger" onclick="confirmReset()">Sí, reiniciar datos</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const APP_STORAGE_KEY = 'LCG_UNAM_S3_BITACORA_STATE_2026';
+        let state = {};
+
+        window.addEventListener('DOMContentLoaded', () => {
+            loadData();
+            updateProtocolDraft();
+            updateSummaryView();
+            updateBadges();
+        });
+
+        function activateTab(tabId) {
+            // Hide all tab panels
+            const panels = document.querySelectorAll('.tab-panel');
+            panels.forEach(p => p.classList.remove('active'));
+
+            // De-select all tab buttons
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(b => {
+                b.setAttribute('aria-selected', 'false');
+            });
+
+            // Activate chosen tab panel & button
+            const targetPanel = document.getElementById(`panel-${tabId}`);
+            const targetButton = document.getElementById(`tab-btn-${tabId}`);
+
+            if (targetPanel && targetButton) {
+                targetPanel.classList.add('active');
+                targetButton.setAttribute('aria-selected', 'true');
+            }
+
+            state.activeTab = tabId;
+            saveDataToStorage();
+
+            if (tabId === '6') {
+                updateProtocolDraft();
+            } else if (tabId === '7') {
+                updateSummaryView();
+            }
+        }
+
+        function saveData() {
+            // Tab 1
+            state.p1_pred1 = document.getElementById('p1-pred1')?.value || '';
+            state.p1_pred2 = document.getElementById('p1-pred2')?.value || '';
+            state.p1_prompt_obs = document.getElementById('p1-prompt-obs')?.value || '';
+            state.p1_decision = document.getElementById('p1-decision')?.value || '';
+            state.p1_diff = document.getElementById('p1-diff')?.value || '';
+
+            // Tab 2
+            state.p2_r1_check = document.getElementById('p2-r1-check')?.checked || false;
+            state.p2_r2_check = document.getElementById('p2-r2-check')?.checked || false;
+            state.p2_r3_check = document.getElementById('p2-r3-check')?.checked || false;
+            
+            state.p2_final_support = document.getElementById('p2-final-support')?.value || '';
+            state.p2_explain = document.getElementById('p2-explain')?.value || '';
+            state.p2_diff = document.getElementById('p2-diff')?.value || '';
+
+            // Tab 3
+            state.p3_pred_ls = document.getElementById('p3-pred-ls')?.value || '';
+            state.p3_obs_ls = document.getElementById('p3-obs-ls')?.value || '';
+            state.p3_man_obs = document.getElementById('p3-man-obs')?.value || '';
+            state.p3_control_select = document.getElementById('p3-control-select')?.value || '';
+            state.p3_control_desc = document.getElementById('p3-control-desc')?.value || '';
+
+            // Tab 4
+            state.p4_tool_used = document.getElementById('p4-tool-used')?.value || '';
+            state.p4_distinguish_obs = document.getElementById('p4-distinguish-obs')?.value || '';
+            state.p4_confirm_server = document.getElementById('p4-confirm-server')?.value || '';
+
+            // Tab 5
+            state.p5_f1_local = document.getElementById('p5-f1-local')?.value || '';
+            state.p5_f1_remote = document.getElementById('p5-f1-remote')?.value || '';
+            state.p5_f1_pred = document.getElementById('p5-f1-pred')?.value || '';
+            state.p5_f1_just = document.getElementById('p5-f1-just')?.value || '';
+
+            state.p5_f2_local = document.getElementById('p5-f2-local')?.value || '';
+            state.p5_f2_remote = document.getElementById('p5-f2-remote')?.value || '';
+            state.p5_f2_pred = document.getElementById('p5-f2-pred')?.value || '';
+            state.p5_f2_just = document.getElementById('p5-f2-just')?.value || '';
+
+            state.p5_why_integrity = document.getElementById('p5-why-integrity')?.value || '';
+
+            // Tab 6
+            state.p6_protocol_preview = document.getElementById('p6-protocol-preview')?.value || '';
+            state.p6_ia_anon = document.getElementById('p6-ia-anon')?.value || '';
+            state.p6_ia_obs = document.getElementById('p6-ia-obs')?.value || '';
+
+            saveDataToStorage();
+            updateBadges();
+        }
+
+        function saveDataToStorage() {
+            try {
+                localStorage.setItem(APP_STORAGE_KEY, JSON.stringify(state));
+            } catch (e) {
+                console.warn('Unable to write to localStorage', e);
+            }
+        }
+
+        function loadData() {
+            try {
+                const raw = localStorage.getItem(APP_STORAGE_KEY);
+                if (raw) {
+                    state = JSON.parse(raw);
+                }
+            } catch (e) {
+                state = {};
+            }
+
+            // Restore tab
+            if (state.activeTab) {
+                activateTab(state.activeTab);
+            }
+
+            // Restore inputs
+            const restoreInput = (id, key) => {
+                const el = document.getElementById(id);
+                if (el && state[key] !== undefined) {
+                    el.value = state[key];
+                }
+            };
+
+            const restoreCheckbox = (id, key) => {
+                const el = document.getElementById(id);
+                if (el && state[key] !== undefined) {
+                    el.checked = state[key];
+                }
+            };
+
+            // P1
+            restoreInput('p1-pred1', 'p1_pred1');
+            restoreInput('p1-pred2', 'p1_pred2');
+            restoreInput('p1-prompt-obs', 'p1_prompt_obs');
+            restoreInput('p1-decision', 'p1_decision');
+            restoreInput('p1-diff', 'p1_diff');
+
+            // P2
+            restoreCheckbox('p2-r1-check', 'p2_r1_check');
+            restoreCheckbox('p2-r2-check', 'p2_r2_check');
+            restoreCheckbox('p2-r3-check', 'p2_r3_check');
+            
+            restoreInput('p2-final-support', 'p2_final_support');
+            restoreInput('p2-explain', 'p2_explain');
+            restoreInput('p2-diff', 'p2_diff');
+
+            // P3
+            restoreInput('p3-pred-ls', 'p3_pred_ls');
+            restoreInput('p3-obs-ls', 'p3_obs_ls');
+            restoreInput('p3-man-obs', 'p3_man_obs');
+            restoreInput('p3-control-select', 'p3_control_select');
+            restoreInput('p3-control-desc', 'p3_control_desc');
+
+            // P4
+            restoreInput('p4-tool-used', 'p4_tool_used');
+            restoreInput('p4-distinguish-obs', 'p4_distinguish_obs');
+            restoreInput('p4-confirm-server', 'p4_confirm_server');
+
+            // P5
+            restoreInput('p5-f1-local', 'p5_f1_local');
+            restoreInput('p5-f1-remote', 'p5_f1_remote');
+            restoreInput('p5-f1-pred', 'p5_f1_pred');
+            restoreInput('p5-f1-just', 'p5_f1_just');
+
+            restoreInput('p5-f2-local', 'p5_f2_local');
+            restoreInput('p5-f2-remote', 'p5_f2_remote');
+            restoreInput('p5-f2-pred', 'p5_f2_pred');
+            restoreInput('p5-f2-just', 'p5_f2_just');
+
+            restoreInput('p5-why-integrity', 'p5_why_integrity');
+
+            // P6
+            restoreInput('p6-protocol-preview', 'p6_protocol_preview');
+            restoreInput('p6-ia-anon', 'p6_ia_anon');
+            restoreInput('p6-ia-obs', 'p6_ia_obs');
+        }
+
+        function updateBadges() {
+            const setBadge = (id, text, type) => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                el.textContent = text;
+                el.className = `status-badge ${type}`;
+            };
+
+            // P1
+            if (state.p1_prompt_obs || state.p1_decision) {
+                setBadge('badge-p1', 'Registrado', 'registrado');
+            } else {
+                setBadge('badge-p1', 'Pendiente', 'pendiente');
+            }
+
+            // P2
+            if (state.p2_r1_check || state.p2_r2_check || state.p2_r3_check) {
+                setBadge('badge-p2', 'Registrado', 'registrado');
+            } else {
+                setBadge('badge-p2', 'Pendiente', 'pendiente');
+            }
+
+            // P3
+            if (state.p3_obs_ls || state.p3_man_obs || state.p3_control_desc) {
+                setBadge('badge-p3', 'Registrado', 'registrado');
+            } else {
+                setBadge('badge-p3', 'Pendiente', 'pendiente');
+            }
+
+            // P4
+            if (state.p4_tool_used || state.p4_distinguish_obs) {
+                setBadge('badge-p4', 'Registrado', 'registrado');
+            } else {
+                setBadge('badge-p4', 'Pendiente', 'pendiente');
+            }
+
+            // P5
+            if (state.p5_f1_local || state.p5_f2_local) {
+                setBadge('badge-p5', 'Revisado', 'revisado');
+            } else {
+                setBadge('badge-p5', 'Pendiente', 'pendiente');
+            }
+
+            // P6
+            if (state.p6_ia_obs || state.p6_protocol_preview) {
+                setBadge('badge-p6', 'Registrado', 'registrado');
+            } else {
+                setBadge('badge-p6', 'Pendiente', 'pendiente');
+            }
+
+            // P7
+            setBadge('badge-p7', 'Resumen Activo', 'revisado');
+        }
+
+        function checkP4Files() {
+            const checkboxes = document.querySelectorAll('.p4-file-cb:checked');
+            const selected = Array.from(checkboxes).map(c => c.value);
+            const feedback = document.getElementById('p4-files-feedback');
+
+            if (selected.length === 0) {
+                feedback.className = "feedback-box visible warning";
+                feedback.innerHTML = "<strong>Pista:</strong> Selecciona al menos un archivo para evaluar.";
+                return;
+            }
+
+            const hasData = selected.includes('pacientes.md');
+            const hasMeta = selected.includes('pacientes-metadatos.md');
+            const hasProtocol = selected.includes('protocolo.md');
+            const hasOnlyData = selected.includes('solo_datos');
+
+            if (hasData && hasMeta && !hasProtocol && !hasOnlyData) {
+                feedback.className = "feedback-box visible success";
+                feedback.innerHTML = "<strong>Correcto:</strong> En la transferencia inicial de la Sesión 3 deben viajar juntos el archivo de datos (<code>pacientes.md</code>) y sus metadatos asociados (<code>pacientes-metadatos.md</code>).";
+            } else if (hasProtocol) {
+                feedback.className = "feedback-box visible warning";
+                feedback.innerHTML = "<strong>Pista / Corrección:</strong> <code>protocolo.md</code> se genera y transfiere al cierre del laboratorio para documentar la práctica completa. Para esta transferencia inicial solo se envían los datos y metadatos del proyecto.";
+            } else if (hasOnlyData || (hasData && !hasMeta)) {
+                feedback.className = "feedback-box visible warning";
+                feedback.innerHTML = "<strong>Pista de metadatos:</strong> Un archivo de datos sin metadatos no se puede interpretar correctamente por otros investigadores. Debes transferir siempre los datos acompañados de sus metadatos.";
+            } else {
+                feedback.className = "feedback-box visible warning";
+                feedback.innerHTML = "<strong>Revisa la selección:</strong> Recuerda que en S3 trabajamos únicamente con <code>pacientes.md</code> y <code>pacientes-metadatos.md</code>.";
+            }
+        }
+
+        function checkP4Context() {
+            const inputs = document.querySelectorAll('.p4-class-input');
+            let total = inputs.length;
+            let correctCount = 0;
+            let unselected = 0;
+
+            inputs.forEach(input => {
+                const val = input.value;
+                const expected = input.getAttribute('data-correct');
+                if (!val) {
+                    unselected++;
+                } else if (val === expected) {
+                    correctCount++;
+                }
+            });
+
+            const feedback = document.getElementById('p4-context-feedback');
+
+            if (unselected > 0) {
+                feedback.className = "feedback-box visible warning";
+                feedback.innerHTML = `<strong>Pendiente:</strong> Has clasificado ${total - unselected} de ${total} acciones. Selecciona una opción para todas las preguntas.`;
+                return;
+            }
+
+            if (correctCount === total) {
+                feedback.className = "feedback-box visible success";
+                feedback.innerHTML = "<strong>¡Excelente distinción!</strong> Has reconocido correctamente las acciones, clientes y la dirección de transferencia de los datos.";
+            } else {
+                feedback.className = "feedback-box visible warning";
+                feedback.innerHTML = `<strong>Revisión requerida (${correctCount}/${total} correctas):</strong> Revisa la distinción. Recuerda: <code>sftp</code> gestiona comandos interactivos como <code>put</code> (para enviar de LOCAL a REMOTO), mientras que <code>ssh</code> opera directamente en el entorno REMOTO.`;
+            }
+        }
+
+        function verifyHashes() {
+            const f1Local = document.getElementById('p5-f1-local')?.value.trim().toLowerCase();
+            const f1Remote = document.getElementById('p5-f1-remote')?.value.trim().toLowerCase();
+            const f1Pred = document.getElementById('p5-f1-pred')?.value;
+
+            const f2Local = document.getElementById('p5-f2-local')?.value.trim().toLowerCase();
+            const f2Remote = document.getElementById('p5-f2-remote')?.value.trim().toLowerCase();
+            const f2Pred = document.getElementById('p5-f2-pred')?.value;
+
+            const feedback = document.getElementById('p5-feedback');
+
+            if (!f1Local || !f1Remote || !f2Local || !f2Remote || !f1Pred || !f2Pred) {
+                feedback.className = "feedback-box visible warning";
+                feedback.innerHTML = "<strong>Falta evidencia:</strong> Por favor pega los checksums SHA-256 para ambos archivos y selecciona una decisión para cada uno antes de comprobar.";
+                return;
+            }
+
+            // Registrar decisión inicial
+            if (!state.p5_f1_initial_pred) state.p5_f1_initial_pred = f1Pred;
+            if (!state.p5_f2_initial_pred) state.p5_f2_initial_pred = f2Pred;
+
+            const match1 = (f1Local === f1Remote);
+            const match2 = (f2Local === f2Remote);
+
+            const isF1Correct = (match1 && f1Pred === 'Coinciden') || (!match1 && f1Pred === 'No coinciden');
+            const isF2Correct = (match2 && f2Pred === 'Coinciden') || (!match2 && f2Pred === 'No coinciden');
+
+            if (isF1Correct && isF2Correct) {
+                // Registro de corrección
+                state.p5_f1_corrected_pred = f1Pred;
+                state.p5_f2_corrected_pred = f2Pred;
+                saveDataToStorage();
+
+                feedback.className = "feedback-box visible success";
+                let msg = [];
+                if (match1) {
+                    msg.push("✓ <code>pacientes.md</code>: Los checksums coinciden. El archivo llegó intacto.");
+                } else {
+                    msg.push("✓ <code>pacientes.md</code>: Detectaste correctamente que los checksums NO coinciden (repetir transferencia).");
+                }
+                if (match2) {
+                    msg.push("✓ <code>pacientes-metadatos.md</code>: Los checksums coinciden. El archivo llegó intacto.");
+                } else {
+                    msg.push("✓ <code>pacientes-metadatos.md</code>: Detectaste correctamente que los checksums NO coinciden (repetir transferencia).");
+                }
+                feedback.innerHTML = "<strong>Comprobación exitosa:</strong> Tus decisiones coinciden con la evidencia obtenida.<br>" + msg.join("<br>");
+            } else {
+                feedback.className = "feedback-box visible warning";
+                feedback.innerHTML = "<strong>Revisión requerida:</strong> Tu decisión para al menos uno de los archivos no coincide con la evidencia de los hashes. Revisa las cadenas completas, solicita una pista si lo necesitas y corrige tu selección.";
+            }
+        }
+
+        function toggleHint(id) {
+            const hint = document.getElementById(id);
+            if (hint) {
+                hint.classList.toggle('visible');
+                if (id === 'p5-hint') {
+                    state.p5_hint_used = true;
+                    saveDataToStorage();
+                }
+            }
+        }
+
+        function updateProtocolDraft() {
+            const getValue = (key, fallback = 'Pendiente') => {
+                return (state[key] && state[key].trim() !== '') ? state[key].trim() : `[${fallback}]`;
+            };
+
+            const draft = `# Protocolo de laboratorio — Sesión 3: Conectar, transferir y verificar
+
+## 1. Contexto y Verificación de Entorno Remoto
+- **Predicción inicial:** ${getValue('p1_pred1')}
+- **Comandos de confirmación recomendados:** ${getValue('p1_pred2')}
+- **Observación del prompt SSH:** ${getValue('p1_prompt_obs')}
+- **Decisión de rutina inicial:** ${getValue('p1_decision')}
+- **Dificultad u observación:** ${getValue('p1_diff', 'Sin incidencias registradas')}
+
+## 2. Autonomía y Secuencia de Entrada/Salida
+- **Rondas completadas:** R1 (${state.p2_r1_check ? 'Sí' : 'No'}), R2 (${state.p2_r2_check ? 'Sí' : 'No'}), R3 (${state.p2_r3_check ? 'Sí' : 'No'})
+- **Apoyo final requerido (Ronda 3):** ${getValue('p2_final_support')}
+- **Reflexión de autonomía:** ${getValue('p2_explain')}
+- **Dificultad u observación:** ${getValue('p2_diff', 'Sin incidencias registradas')}
+
+## 3. Orientación, Consulta y Control
+- **Diferencia observada entre ls y ls -lh:** ${getValue('p3_obs_ls')}
+- **Consulta con man ls (-h):** ${getValue('p3_man_obs')}
+- **Herramienta de control seleccionada:** ${getValue('p3_control_select')}
+- **Aplicación práctica:** ${getValue('p3_control_desc')}
+
+## 4. Transferencia de Datos y Metadatos
+- **Cliente / Herramienta utilizada:** ${getValue('p4_tool_used')}
+- **Distinción Local vs. Remoto:** ${getValue('p4_distinguish_obs')}
+- **Confirmación de archivos en el servidor:** ${getValue('p4_confirm_server')}
+
+## 5. Verificación Criptográfica de Integridad (SHA-256)
+### Archivo: pacientes.md
+- **Checksum Local:** \`${getValue('p5_f1_local')}\`
+- **Checksum Remoto:** \`${getValue('p5_f1_remote')}\`
+- **Decisión de Integridad:** ${getValue('p5_f1_pred')} (Coherente con evidencia)
+- **Justificación:** ${getValue('p5_f1_just')}
+
+### Archivo: pacientes-metadatos.md
+- **Checksum Local:** \`${getValue('p5_f2_local')}\`
+- **Checksum Remoto:** \`${getValue('p5_f2_remote')}\`
+- **Decisión de Integridad:** ${getValue('p5_f2_pred')} (Coherente con evidencia)
+- **Justificación:** ${getValue('p5_f2_just')}
+
+- **Uso de pista de revisión:** ${state.p5_hint_used ? 'Sí' : 'No'}
+- **Reflexión sobre integridad:** ${getValue('p5_why_integrity')}
+
+## 6. Revisión asistida por IA
+- **Anonimización:** ${getValue('p6_ia_anon')}
+- **Registro de observaciones de IA:** ${getValue('p6_ia_obs')}
+`;
+
+            const area = document.getElementById('p6-protocol-preview');
+            if (area) {
+                area.value = draft;
+                state.p6_protocol_preview = draft;
+            }
+        }
+
+        function updateSummaryView() {
+            const setStatus = (id, text) => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = text;
+            };
+
+            setStatus('sum-p1-status', state.p1_prompt_obs ? 'Registrado' : 'Pendiente');
+            setStatus('sum-p2-status', (state.p2_r1_check || state.p2_r2_check || state.p2_r3_check) ? 'Registrado' : 'Pendiente');
+            setStatus('sum-p3-status', state.p3_obs_ls ? 'Registrado' : 'Pendiente');
+            setStatus('sum-p4-status', state.p4_tool_used ? 'Registrado' : 'Pendiente');
+            setStatus('sum-p5-status', (state.p5_f1_local && state.p5_f1_remote && state.p5_f1_pred) ? 'Revisado' : 'Pendiente');
+            setStatus('sum-p6-status', state.p6_ia_obs ? 'Registrado' : 'Pendiente');
+
+            const detailsBox = document.getElementById('summary-details-box');
+            if (detailsBox) {
+                detailsBox.textContent = `=== EVIDENCIA ACUMULADA DE LA SESIÓN 3 ===\n\n` +
+                    `[1. Conexión Inicial]\nPrompt: ${state.p1_prompt_obs || 'Sin registro'}\nDecisión: ${state.p1_decision || 'Sin registro'}\n\n` +
+                    `[2. Autonomía]\nSecuencia realizada: R1=${state.p2_r1_check?'Sí':'No'}, R2=${state.p2_r2_check?'Sí':'No'}, R3=${state.p2_r3_check?'Sí':'No'}\nApoyo final: ${state.p2_final_support || 'Sin registro'}\n\n` +
+                    `[3. Orientación y Control]\nls vs ls -lh: ${state.p3_obs_ls || 'Sin registro'}\nman ls: ${state.p3_man_obs || 'Sin registro'}\n\n` +
+                    `[4. Transferencia]\nHerramienta: ${state.p4_tool_used || 'Sin registro'}\nConfirmación: ${state.p4_confirm_server || 'Sin registro'}\n\n` +
+                    `[5. Hashes SHA-256]\npacientes.md -> Decisión final: ${state.p5_f1_pred || 'Pendiente'}\npacientes-metadatos.md -> Decisión final: ${state.p5_f2_pred || 'Pendiente'}\nPista usada: ${state.p5_hint_used ? 'Sí' : 'No'}\n\n` +
+                    `[6. Protocolo & IA]\nRevisión IA: ${state.p6_ia_obs || 'Sin registro'}`;
+            }
+        }
+
+        function downloadFile(filename, textContent) {
+            const blob = new Blob([textContent], { type: 'text/markdown;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function downloadFullResults() {
+            saveData();
+            updateProtocolDraft();
+            
+            const getValue = (key, fallback = 'Pendiente') => {
+                return (state[key] && state[key].trim() !== '') ? state[key].trim() : `[${fallback}]`;
+            };
+
+            const markdownContent = `# Sesión 3 — Bitácora de laboratorio: Conectar, transferir y verificar
+*LCG UNAM 2026 — Introducción a la Bioinformática*
+
+## Antes de conectarme
+- **Predicción de cambio local/remoto:** ${getValue('p1_pred1')}
+- **Comandos de confirmación predichos:** ${getValue('p1_pred2')}
+- **Observación real del prompt SSH:** ${getValue('p1_prompt_obs')}
+- **Decisión de verificación inicial:** ${getValue('p1_decision')}
+- **Dificultad o corrección:** ${getValue('p1_diff', 'Sin incidencias')}
+
+## De acompañamiento a autonomía
+- **Ronda 1 completada:** ${state.p2_r1_check ? 'Sí' : 'No'}
+- **Ronda 2 completada:** ${state.p2_r2_check ? 'Sí' : 'No'}
+- **Ronda 3 completada:** ${state.p2_r3_check ? 'Sí' : 'No'}
+- **Apoyo en última ronda:** ${getValue('p2_final_support')}
+- **Reflexión de autonomía:** ${getValue('p2_explain')}
+- **Dificultad o corrección:** ${getValue('p2_diff', 'Sin incidencias')}
+
+## Orientarme, consultar y controlar
+- **Observación ls vs ls -lh:** ${getValue('p3_obs_ls')}
+- **Consulta man ls:** ${getValue('p3_man_obs')}
+- **Acción de control elegida:** ${getValue('p3_control_select')}
+- **Situación de aplicación:** ${getValue('p3_control_desc')}
+
+## Transferencia de datos y metadatos
+- **Herramienta utilizada:** ${getValue('p4_tool_used')}
+- **Distinción de contextos:** ${getValue('p4_distinguish_obs')}
+- **Confirmación en servidor:** ${getValue('p4_confirm_server')}
+
+## Verificación de integridad
+- **pacientes.md (Local):** \`${getValue('p5_f1_local')}\`
+- **pacientes.md (Remoto):** \`${getValue('p5_f1_remote')}\`
+- **Decisión:** ${getValue('p5_f1_pred')}
+- **Justificación:** ${getValue('p5_f1_just')}
+- **pacientes-metadatos.md (Local):** \`${getValue('p5_f2_local')}\`
+- **pacientes-metadatos.md (Remoto):** \`${getValue('p5_f2_remote')}\`
+- **Decisión:** ${getValue('p5_f2_pred')}
+- **Justificación:** ${getValue('p5_f2_just')}
+- **Uso de pista de revisión:** ${state.p5_hint_used ? 'Sí' : 'No'}
+- **Reflexión sobre integridad:** ${getValue('p5_why_integrity')}
+
+## Borrador para protocolo.md
+\`\`\`markdown
+${document.getElementById('p6-protocol-preview')?.value || ''}
+\`\`\`
+
+## Revisión crítica con IA
+- **Anonimización:** ${getValue('p6_ia_anon')}
+- **Bitácora de IA:** ${getValue('p6_ia_obs')}
+`;
+
+            downloadFile('u2-s3-bitacora-interactiva-resultados.md', markdownContent);
+        }
+
+        function downloadProtocolFile() {
+            saveData();
+            updateProtocolDraft();
+            const text = document.getElementById('p6-protocol-preview')?.value || '';
+            downloadFile('protocolo.md', text);
+        }
+
+        function downloadIaTemplate() {
+            const template = `# Plantilla de Bitácora de Revisión con IA (bitacora-ia.md)
+*LCG UNAM 2026 — Sesión 3*
+
+## 1. Procedimiento Manual Ejecutado
+- Describir brevemente las acciones ejecutadas de forma manual en la terminal o FileZilla.
+
+## 2. Copia Anonimizada Compartida con la IA
+- Marcadores utilizados: \`[SERVIDOR]\`, \`[USUARIO]\`, \`[IP_OMITIDA]\`.
+
+## 3. Sugerencias de la IA
+- **Sugerencias aceptadas:**
+- **Sugerencias rechazadas:**
+
+## 4. Evidencia de Verificación Real
+- ¿Cómo comprobaste experimentalmente que las sugerencias aceptadas eran correctas?
+
+## 5. Correcciones Aplicadas en protocolo.md
+- Cambios realizados en la documentación final.
+`;
+            downloadFile('bitacora-ia.md', template);
+        }
+
+        function openResetModal() {
+            document.getElementById('reset-modal').classList.add('active');
+        }
+
+        function closeResetModal() {
+            document.getElementById('reset-modal').classList.remove('active');
+        }
+
+        function confirmReset() {
+            localStorage.removeItem(APP_STORAGE_KEY);
+            state = {};
+            location.reload();
+        }
+    </script>
+</body>
+</html>

@@ -200,27 +200,100 @@ Una misma ubicación se puede alcanzar por **muchos caminos**. Desde
 es una forma sencilla de **robustez** (§11).
 :::
 
-### Pausa de predicción — antes de ejecutar
+### Micropráctica 1 — Muévete por el árbol: construye rutas
 
-Sin usar todavía el servidor, imagina que tu directorio actual es `~/proyecto/` y responde:
+Antes de escribir comandos, construye un modelo mental del árbol. En cada reto sigue esta secuencia:
 
-1. ¿Cuál de estas rutas es absoluta: `/home/usuario/proyecto/data/source/` o `data/source/`?
-2. ¿A qué lugar apunta `./data/source/`?
-3. Si estás en `~/proyecto/doc/`, ¿qué ruta relativa usarías para llegar a `pacientes.md`?
-4. ¿La ruta relativa `data/source/` funcionará igual si tu directorio actual cambia a `~/proyecto/doc/`?
+**OBSERVA EL ÁRBOL → IDENTIFICA “ESTOY AQUÍ” → IDENTIFICA EL DESTINO → PIENSA CUÁNTOS NIVELES SUBIR O BAJAR → CONSTRUYE O PREDICE LA RUTA → EXPLÍCALA**
+
+Para los primeros retos usaremos solo los elementos necesarios de la estructura real de S4:
+
+```text
+~/
+└── proyecto/
+    ├── README.md
+    ├── data/
+    │   ├── source/
+    │   │   └── pacientes.md
+    │   └── processed/
+    ├── src/
+    ├── results/
+    └── doc/
+        └── protocolo.md
+```
+
+#### Reto A — ¿Dónde estoy?
+
+**Estás aquí:** `~/proyecto/data/source/`
+
+1. ¿En qué carpeta estás?
+2. ¿Qué carpeta está inmediatamente arriba?
+3. ¿Qué archivo aparece dentro de la carpeta donde estás?
+4. Si escribieras ahora una ruta relativa, ¿desde qué carpeta comenzaría a interpretarse?
+
+#### Reto B — Subir un nivel
+
+Sin usar todavía la terminal, predice dónde terminarías si desde
+`~/proyecto/data/source/` subieras un nivel con `..`.
+
+#### Reto C — Subir más de un nivel
+
+Desde la misma ubicación, ¿qué representa `../..`? Dibuja o explica el recorrido desde `source/` hasta
+el lugar al que llegarías.
+
+#### Reto D — Cambiar de rama
+
+**Estás aquí:** `~/proyecto/doc/`
+
+**Destino:** `pacientes.md` dentro de `data/source/`.
+
+Construye una ruta relativa para llegar al archivo. Antes de escribirla, explica cuántos niveles debes
+subir y por qué rama debes bajar.
+
+#### Reto E — Dos caminos, un destino
+
+**Estás aquí:** `~/proyecto/`
+
+**Destino:** `data/source/`
+
+1. Desde donde estás, construye una ruta relativa para llegar al destino.
+2. ¿Desde dónde tendría que comenzar una ruta absoluta?
+3. ¿Una ruta absoluta y una relativa pueden llevar al mismo directorio? Explica por qué.
+
+La ruta absoluta real se comprobará después en Unix usando `pwd`.
+
+#### Reto F — Detecta y corrige el error
+
+**Estás aquí:** `~/proyecto/doc/`
+
+Alguien escribió esta ruta para llegar a `pacientes.md`:
+
+```text
+data/source/pacientes.md
+```
+
+¿Llegará al archivo esperado desde donde estás? Primero explica qué ubicación intentaría buscar el
+sistema. Después corrige la ruta.
 
 <details>
-<summary>Ver retroalimentación</summary>
+<summary>Ver retroalimentación después de intentarlo</summary>
 
-1. `/home/usuario/proyecto/data/source/` es absoluta porque comienza en `/`; `data/source/` es
-   relativa porque comienza en el directorio actual. `/home/usuario` es solo un ejemplo: la ruta real
-   del *home* debe obtenerse con `cd ~` y `pwd`.
-2. `.` representa el directorio actual. Desde `~/proyecto/`, `./data/source/` apunta al mismo lugar que
-   `data/source/`.
-3. `../data/source/pacientes.md`: `..` sube de `doc/` a `proyecto/` y después la ruta baja por
-   `data/source/`.
-4. No. Desde `~/proyecto/doc/`, `data/source/` intentaría buscar `doc/data/source/`, que no existe en
-   la estructura. Las rutas relativas dependen siempre del punto de partida.
+El punto de partida cambia el significado de una ruta relativa. En el Reto A, el directorio actual es
+`source/`; por eso toda ruta relativa empieza allí. En el Reto B, `..` recorre
+`source → data`. En el Reto C, `../..` recorre `source → data → proyecto`.
+
+En el Reto D, desde `doc/` primero debes subir a `proyecto/` con `..` y después bajar por
+`data/source/`; la ruta es `../data/source/pacientes.md`.
+
+En el Reto E, una ruta absoluta comienza en `/`; una ruta relativa comienza en el directorio actual.
+Ambas pueden señalar el mismo destino. Todavía no necesitamos inventar la ruta absoluta real del
+servidor: se comprobará después con `pwd`.
+
+En el Reto F, `data/source/pacientes.md` intentaría buscar una carpeta `data/` dentro de `doc/`, es
+decir, `~/proyecto/doc/data/source/pacientes.md`. Esa ubicación no existe. La ruta correcta es
+`../data/source/pacientes.md`.
+
+**Idea clave:** una ruta relativa depende de dónde estás.
 
 </details>
 
@@ -245,11 +318,11 @@ Combina la tecla **Tab** para autocompletar nombres de rutas y evitar errores de
 estabas antes.
 :::
 
-### Micropráctica 1 — Reconocer el contexto y navegar
+### Micropráctica 2 — ¿Dónde estoy? Comprueba el contexto
 
 ::: {.callout-note}
-**Problema.** Antes de crear la estructura necesitas confirmar en qué máquina estás, con qué cuenta y
-en qué ubicación, y saber moverte con seguridad.
+**Problema.** Antes de crear la estructura necesitas confirmar en qué máquina estás, con qué cuenta,
+cuál es tu *home* y qué archivos provenientes de S3 tienes disponibles.
 :::
 
 **[LOCAL] En tu computadora, conéctate:**
@@ -267,9 +340,6 @@ cd ~         # ve a tu home
 pwd          # registra la ruta absoluta de tu home
 ls -lah      # ¿están aquí los archivos de S3?
 ls -ld /export/space3/users/$USER  # reconoce el espacio institucional, sin entrar todavía
-cd ..        # sube un nivel
-pwd          # confirma que cambiaste de ubicación
-cd -         # regresa al directorio anterior
 ```
 
 Debes ver `pacientes.md`, `pacientes-metadatos.md` y `protocolo.md`, que transferiste al *home* en S3.
@@ -283,7 +353,7 @@ también `bitacora-ia.md`?
 :::
 
 <details>
-<summary>Ver retroalimentación — Micropráctica 1</summary>
+<summary>Ver retroalimentación — Micropráctica 2</summary>
 
 1. La respuesta exacta es la salida de `pwd` inmediatamente después de `cd ~`; depende de la cuenta y
    de la configuración del servidor. Puede tener una forma semejante a `/home/usuario`, pero debes
@@ -298,6 +368,21 @@ también `bitacora-ia.md`?
    local y se transferirá directamente a `~/proyecto/doc/` durante S4.
 
 </details>
+
+#### Ahora comprueba en Unix lo que razonaste en el árbol
+
+Desde tu *home*, ejecuta:
+
+```bash
+cd ..        # sube un nivel desde tu home
+pwd          # observa la nueva ubicación
+cd -         # regresa al directorio anterior
+pwd          # confirma que volviste
+```
+
+Compara las dos salidas de `pwd`. Cambiar de ubicación cambia el punto de partida de una ruta relativa.
+Todavía no necesitas crear `~/proyecto/`: esta comprobación solo conecta el árbol conceptual con Unix
+real.
 
 ## 4. Crear directorios y archivos
 
@@ -337,7 +422,7 @@ lo **reemplazan sin avisar** y el contenido anterior se pierde. Mientras te acos
 hasta terminar de verificar (§8).
 :::
 
-### Micropráctica 2 — Copiar, mover y renombrar en una carpeta de prueba
+### Micropráctica 3 — Copiar, mover y renombrar en una carpeta de prueba
 
 ::: {.callout-note}
 **Problema.** Antes de tocar tus archivos reales, practica copia, movimiento y renombrado en un lugar
@@ -364,7 +449,7 @@ mismo directorio) de **mover** (`mv a carpeta/`)? (2) ¿Por qué conviene usar `
 :::
 
 <details>
-<summary>Ver retroalimentación — Micropráctica 2</summary>
+<summary>Ver retroalimentación — Micropráctica 3</summary>
 
 1. Al ejecutar `mv -i b.txt c.txt` dentro del mismo directorio, el archivo permaneció en ese lugar,
    pero cambió de nombre. Al ejecutar `mv -i c.txt sub/`, conservó su nombre y cambió de ubicación:
@@ -400,7 +485,7 @@ la costumbre de confirmar "sí" a todo anula la protección. Para vaciar una car
 primero sus archivos con `rm -i` y luego el directorio vacío con `rmdir`.
 :::
 
-### Micropráctica 3 — Eliminación segura (solo en `prueba-s4/`)
+### Micropráctica 4 — Eliminación segura (solo en `prueba-s4/`)
 
 **[REMOTO] En el servidor:**
 
@@ -421,7 +506,7 @@ cd ..
 :::
 
 <details>
-<summary>Ver retroalimentación — Micropráctica 3</summary>
+<summary>Ver retroalimentación — Micropráctica 4</summary>
 
 1. `rmdir` solo elimina directorios vacíos. Falló porque `sub/` todavía contenía `c.txt`; después de
    borrar ese archivo de forma explícita con `rm -i sub/c.txt`, el directorio quedó vacío y `rmdir sub`
@@ -579,7 +664,7 @@ la salida en pantalla. Si parece que la terminal quedó congelada después de pu
 `Ctrl-Q`. Para guardar en `nano` usa `Ctrl-O`.
 :::
 
-### Micropráctica 4 — Editar y comprobar `README.md`
+### Micropráctica 5 — Editar y comprobar `README.md`
 
 **[REMOTO] En el servidor:**
 
@@ -608,7 +693,7 @@ Después responde: (1) ¿qué diferencia hay entre guardar y salir?, (2) ¿cómo
 editor que el archivo se guardó?, y (3) ¿por qué no debes ejecutar `nano data/source/pacientes.md`?
 
 <details>
-<summary>Ver retroalimentación — Micropráctica 4</summary>
+<summary>Ver retroalimentación — Micropráctica 5</summary>
 
 1. Guardar (`Ctrl-O` y Enter) escribe los cambios en el archivo, pero mantiene abierto el editor;
    salir (`Ctrl-X`) cierra `nano`. Si existen cambios sin guardar, `nano` solicita una decisión antes
@@ -757,7 +842,7 @@ presencial se dedica a **ejecutar, diagnosticar, comparar y corregir** el primer
    absoluta del *home* que registraste con `pwd`; no uses `$USER` en el comando local.
 9. **Verifica** desde el servidor que `bitacora-ia.md` está en `~/proyecto/doc/` y comprueba el árbol
    completo con `tree` o `ls -R`.
-10. **Realiza la Micropráctica 4** con `README.md` y después **actualiza**
+10. **Realiza la Micropráctica 5** con `README.md` y después **actualiza**
     `~/proyecto/doc/protocolo.md` con `nano` usando la plantilla de la entrega final. Verifica ambos
     archivos desde la terminal después de cerrar el editor.
 11. **Practica `mv -i`, `rm -i` y `rmdir`** exclusivamente dentro de `prueba-s4/`, nunca con los
@@ -975,15 +1060,15 @@ puntos por preparación y por corrección argumentada). La **Tarea 3** (entrega 
 | Tiempo | Actividad |
 | --- | --- |
 | 0–8 min | Recuperación activa de la lectura y S2–S3: productos disponibles y problema conductor |
-| 8–18 min | Comparar el primer intento; distinguir con comandos el home y el espacio institucional |
-| 18–32 min | Micropráctica 1: contexto y navegación por rutas absolutas y relativas |
-| 32–48 min | Corregir el intento y construir directamente `~/proyecto/` paso a paso |
-| 48–60 min | Micropráctica 2 en `prueba-s4/`: copiar, mover y renombrar con seguridad |
-| 60–78 min | Copiar los archivos de S3 a `data/source/` y `doc/`; transferir `bitacora-ia.md` con `scp` |
-| 78–90 min | Verificar el árbol y comparar el checksum de `pacientes.md` con S3 |
-| 90–105 min | Micropráctica 4: abrir, editar, guardar, salir y comprobar `README.md` con `nano` |
-| 105–114 min | Actualizar `doc/protocolo.md` con `nano`; verificar y documentar decisiones y problemas |
-| 114–118 min | Micropráctica 3: diagnóstico y eliminación segura con `rm -i`/`rmdir` solo en `prueba-s4/` |
+| 8–20 min | Micropráctica 1: construir rutas en el árbol y predecir destinos |
+| 20–35 min | Micropráctica 2: comprobar contexto, home, espacio institucional y archivos de S3 |
+| 35–50 min | Corregir el intento y construir directamente `~/proyecto/` paso a paso |
+| 50–60 min | Micropráctica 3 en `prueba-s4/`: copiar, mover y renombrar con seguridad |
+| 60–76 min | Copiar los archivos de S3 a `data/source/` y `doc/`; transferir `bitacora-ia.md` con `scp` |
+| 76–88 min | Verificar el árbol y comparar el checksum de `pacientes.md` con S3 |
+| 88–100 min | Micropráctica 5: abrir, editar, guardar, salir y comprobar `README.md` con `nano` |
+| 100–112 min | Actualizar `doc/protocolo.md` con `nano`; verificar y documentar decisiones y problemas |
+| 112–118 min | Micropráctica 4: diagnóstico y eliminación segura con `rm -i`/`rmdir` solo en `prueba-s4/` |
 | 118–120 min | Semáforo de salida y registro de dudas |
 :::
 
@@ -1006,10 +1091,10 @@ acercamiento a un archivo con `file` y `head`.
 
 | Resultado de aprendizaje | Actividad | Evidencia | Criterio (rúbrica) | Momento | Nivel en S4 |
 | --- | --- | --- | --- | --- | --- |
-| RA1 Árbol, `/`, `~`, actual; home vs. espacio institucional | §1; Micropráctica 1 | Explicación en `protocolo.md`; proyecto creado en el home | Tarea 3 (estructura y espacios) | Taller | comprensión/ejecución |
-| RA2 Rutas absolutas y relativas; `.`, `..`, `~` | §2–§3; Micropráctica 1 | Registro de navegación por ambos tipos de ruta | Tarea 3 (navegación) | Taller/entrega | ejecución |
-| RA3 Navegar con `pwd`/`ls`/`cd` tras comprobar contexto | Micropráctica 1; taller | Comandos con `hostname`/`whoami`/`pwd` | Participación | Taller | ejecución |
-| RA4 Crear y organizar; eliminar de forma segura | §4–§6; Microprácticas 2–3 | Operaciones en `prueba-s4/` documentadas | Participación (práctica segura) | Taller | ejecución |
+| RA1 Árbol, `/`, `~`, actual; home vs. espacio institucional | §1; Micropráctica 2 | Explicación en `protocolo.md`; proyecto creado en el home | Tarea 3 (estructura y espacios) | Taller | comprensión/ejecución |
+| RA2 Rutas absolutas y relativas; `.`, `..`, `~` | §2; Micropráctica 1 | Construcción y comprobación de rutas | Tarea 3 (navegación) | Taller/entrega | comprensión/ejecución |
+| RA3 Navegar con `pwd`/`ls`/`cd` tras comprobar contexto | Micropráctica 2; taller | Comandos con `hostname`/`whoami`/`pwd` | Participación | Taller | ejecución |
+| RA4 Crear y organizar; eliminar de forma segura | §4–§6; Microprácticas 3–4 | Operaciones en `prueba-s4/` documentadas | Participación (práctica segura) | Taller | ejecución |
 | RA5 Construir `~/proyecto/` y colocar los archivos de S3 | Práctica S4 (Tarea 3) | Estructura directa + archivos en su lugar | Tarea 3 (estructura y ubicación) | Entrega | ejecución |
 | RA6 Verificar árbol e integridad | Práctica S4, pasos 9–10 | Salida de `tree`/`ls -R` + checksum comparado con S3 | Tarea 3 (verificación) | Entrega | ejecución |
 | RA7 Transferir con `scp`; reconocer `rsync` | §9; Práctica S4 | `bitacora-ia.md` presente en `doc/` | Tarea 3 (ubicación) | Taller/entrega | ejecución/consulta |
@@ -1021,7 +1106,7 @@ acercamiento a un archivo con `file` y `head`.
 | --- | --- | --- | --- | --- | --- | --- |
 | Construir y organizar la estructura (RA5) | Práctica S4 (Tarea 3) | `~/proyecto/` + archivos ubicados | Los comandos en `protocolo.md` permiten **recrear** la estructura | Confirmar el árbol con `tree`/`ls -R` | La estructura corresponde al diseño de S2 | Llegar al mismo directorio por ruta absoluta y relativa |
 | Preservar el dato original (RA6) | Pasos 7–9 | Checksum de `pacientes.md` | Original intacto en `data/source/`, copias aparte | Comparar checksum antes/después | El dato conservado sigue siendo el de S3 | Copiar (no mover) hasta verificar |
-| Operar con seguridad (RA4, RA7) | Microprácticas 2–3; §9 | Registro de operaciones seguras | Registro reproducible de cada operación | Probar en `prueba-s4/` | Contrastar sintaxis con `man` | Comprobar contexto con `hostname`/`whoami`/`pwd` |
+| Operar con seguridad (RA4, RA7) | Microprácticas 3–4; §9 | Registro de operaciones seguras | Registro reproducible de cada operación | Probar en `prueba-s4/` | Contrastar sintaxis con `man` | Comprobar contexto con `hostname`/`whoami`/`pwd` |
 | Usar IA de forma crítica (RA8) | Actividad formativa de IA | Entrada en `bitacora-ia.md` | Prompt y decisión registrados | Validar con `man` y prueba controlada | Confirmar que la propuesta resuelve la tarea | Comparar la solución manual con la de IA |
 
 ::: {.callout-note}
