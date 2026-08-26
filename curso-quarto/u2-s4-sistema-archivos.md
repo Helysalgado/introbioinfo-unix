@@ -127,6 +127,22 @@ comprueba el contexto con `hostname`, `whoami` y `pwd`. `scp` (§9) **se lanza d
 
 ---
 
+## App interactiva de S4 — Sistema de archivos
+
+Antes de empezar con los ejercicios, abre esta app. Te ayudará a construir el modelo mental del sistema de archivos, practicar rutas y registrar tus decisiones mientras realizas las microprácticas y la Práctica S4.
+
+**La app no sustituye la terminal ni el protocolo.** Mantenla visible mientras trabajas en el servidor.
+
+[Abrir en ventana completa — Sistema de archivos S4 (HTML)](html/u2-s4-sistema-archivos.html)
+
+<iframe
+  src="html/u2-s4-sistema-archivos.html"
+  title="Bitácora interactiva — Sesión 4"
+  style="width:100%;min-height:860px;border:1px solid #d7cdc7;border-radius:12px;background:#fff;"
+  loading="lazy"></iframe>
+
+---
+
 ## 1. La estructura en árbol, la raíz y tu espacio de trabajo
 
 En Unix, archivos y directorios (carpetas) se organizan en una **jerarquía en forma de árbol** que
@@ -368,6 +384,8 @@ también `bitacora-ia.md`?
    local y se transferirá directamente a `~/proyecto/doc/` durante S4.
 
 </details>
+
+> **App S4:** registra la ruta absoluta de tu *home* (salida de `pwd` tras `cd ~`), si los tres archivos de S3 aparecen en `~`, y si `bitacora-ia.md` ya está disponible en el servidor.
 
 #### Ahora comprueba en Unix lo que razonaste en el árbol
 
@@ -838,6 +856,9 @@ presencial se dedica a **ejecutar, diagnosticar, comparar y corregir** el primer
    ```
 
    Si no coincide, detente y vuelve a copiar desde el original; no borres ninguna copia.
+
+   > **App S4:** registra el checksum de `pacientes.md` después de copiarlo a `data/source/` y anota si coincide con el que guardaste en S3. Esta es la evidencia de integridad que irá a `protocolo.md`.
+
 8. **Transfiere `bitacora-ia.md` directamente a `doc/`** con `scp` desde tu computadora. Usa la ruta
    absoluta del *home* que registraste con `pwd`; no uses `$USER` en el comando local.
 9. **Verifica** desde el servidor que `bitacora-ia.md` está en `~/proyecto/doc/` y comprueba el árbol

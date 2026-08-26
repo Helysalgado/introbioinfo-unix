@@ -269,6 +269,22 @@ la conexión.
 
 ---
 
+## Bitácora interactiva de S3
+
+Durante esta sesión trabajarás en la terminal real: te conectarás por SSH, explorarás el servidor y transferirás tus archivos. Esta bitácora te ayudará a registrar lo que observas en cada práctica, anotar tus decisiones y reunir la evidencia que necesitarás para completar `protocolo.md` al final.
+
+**La bitácora no sustituye la terminal ni el protocolo.** Ábrela ahora y mantenla visible mientras realizas las cinco prácticas de S3.
+
+[Abrir en ventana completa — Bitácora interactiva S3 (HTML)](html/u2-s3-bitacora-interactiva.html)
+
+<iframe
+  src="html/u2-s3-bitacora-interactiva.html"
+  title="Bitácora interactiva — Sesión 3"
+  style="width:100%;min-height:860px;border:1px solid #d7cdc7;border-radius:12px;background:#fff;"
+  loading="lazy"></iframe>
+
+---
+
 ## Bloque 2 — Entrar al servidor y reconocer el entorno
 
 ### 7. Conexión por SSH
@@ -385,6 +401,8 @@ Ten claro que:
 > **Después de la práctica, responde:** (1) ¿Qué observaste en el *prompt* al conectarte y al salir?
 > (2) ¿Cómo se relaciona saber "dónde estás" con el problema de trasladar `pacientes.md` sin
 > equivocarte de máquina?
+
+> **Bitácora:** registra en tu bitácora qué mostraron `hostname`, `whoami` y `pwd` dentro del servidor, y qué cambio notaste en el *prompt* al conectarte y al salir.
 
 ### Práctica 2 — Entrar, salir y volver a entrar
 
@@ -589,6 +607,8 @@ ls -lh       # deben aparecer pacientes.md y pacientes-metadatos.md
 > **Después de la práctica, responde:** (1) ¿Cómo distinguiste el lado local del remoto? (2) ¿Por qué
 > el dato debe viajar junto con sus metadatos y no solo?
 
+> **Bitácora:** anota qué herramienta usaste (SFTP por terminal o FileZilla), cómo identificaste el lado local y el remoto, y el resultado de `ls -lh` que confirma la llegada de ambos archivos.
+
 ### 9. Verificación de integridad con *checksums*
 
 Que el **nombre** del archivo aparezca en el servidor **no** demuestra que su **contenido** sea
@@ -650,6 +670,8 @@ biológicos reales al descargar de bases públicas en la **Unidad 3**.
 
 > **Después de la práctica, responde:** (1) ¿Coincidieron las huellas del archivo local y del archivo
 > remoto? (2) ¿Por qué no basta con ver que el archivo "está" en el servidor?
+
+> **Bitácora:** registra los *checksums* locales y remotos de `pacientes.md` y `pacientes-metadatos.md`, y anota si coincidieron. Tendrás esta tabla lista para copiarla después en `protocolo.md`.
 
 ---
 
