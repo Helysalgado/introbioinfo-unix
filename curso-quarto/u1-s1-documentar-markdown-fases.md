@@ -62,33 +62,135 @@ Al terminar S1, el estudiante es capaz de:
 
 ---
 
+## Antes de empezar: ¿de dónde viene la bioinformática?
+
+Hoy es fácil asociar la bioinformática con genomas, secuenciación masiva, grandes bases de datos o inteligencia artificial. Sin embargo, **la bioinformática comenzó mucho antes de la era genómica**.
+
+Sus raíces se remontan a principios de la década de 1960, cuando todavía no era posible secuenciar DNA y las computadoras personales ni siquiera existían. Algunos de los primeros problemas abordados computacionalmente fueron el análisis de **secuencias de proteínas**: cómo reconstruirlas, compararlas, almacenarlas y estudiar sus relaciones (Gauthier et al., 2019).
+
+La disciplina fue creciendo gracias a dos desarrollos que avanzaron en paralelo:
+
+- **La biología molecular**, que hizo posible manipular y posteriormente secuenciar DNA.
+- **La computación**, con computadoras cada vez más potentes y software capaz de procesar información biológica.
+
+Conforme fue posible obtener más secuencias, surgió otra necesidad fundamental: **almacenar y organizar los datos**. Aparecieron las primeras bases de datos biológicas y, con ellas, nuevas formas de almacenar, buscar y compartir información.
+
+En las décadas de 1990 y 2000, los avances en las tecnologías de secuenciación y la disminución de sus costos produjeron un crecimiento extraordinario de los datos biológicos. La bioinformática tuvo entonces que enfrentar un problema cada vez mayor:
+
+> **¿Cómo almacenar, encontrar, procesar, analizar y compartir cantidades cada vez mayores de datos?**
+
+Pero el crecimiento de los datos trajo consigo otro reto. Cada vez había más archivos, programas, parámetros y pasos involucrados en un análisis. Ya no bastaba con obtener un resultado: también era necesario saber **cómo se obtuvo** y poder **reproducirlo**.
+
+Esta historia nos lleva directamente al punto de partida de este curso.
+
+### La bioinformática no empieza con una herramienta
+
+Antes de usar BLAST, descargar genomas o escribir programas, necesitamos aprender a trabajar de manera organizada con la computadora y con nuestros datos.
+
+Durante el curso iremos construyendo progresivamente este camino:
+
+**pregunta biológica → datos → archivos → herramientas → análisis → resultados → evidencia**
+
+Y hay algo que debe acompañar todo el proceso:
+
+> **documentar qué hicimos, con qué datos, cómo lo hicimos y qué obtuvimos.**
+
+Por eso nuestra primera sesión comienza con una habilidad que puede parecer sencilla, pero que será fundamental durante todo el curso: **documentar nuestro trabajo para que pueda entenderse, revisarse y reproducirse**.
+
+::: {.callout-tip title="Para pensar"}
+Imagina que realizas hoy un análisis bioinformático y obtienes un resultado interesante.
+
+Seis meses después quieres repetirlo.
+
+**¿Qué necesitarías haber guardado y documentado para poder hacerlo?**
+:::
+
+---
+
 ## 1. La bioinformática, las habilidades con datos y la reproducibilidad
 
 ### 1.1 ¿Qué es la bioinformática y por qué necesitas habilidades con datos?
 
-Hace algunas décadas, determinar los elementos genéticos de un genoma requería miles de experimentos
-a lo largo de muchos años. Por ejemplo, la información sobre la regulación de la expresión de genes
-en *Escherichia coli* —recopilada en la base de datos **RegulonDB**— proviene de varios miles de
-publicaciones experimentales. Hoy las tecnologías de secuenciación han cambiado el panorama: la
-cantidad de datos biológicos generados cada día es **masiva** y crece de forma acelerada (Buffalo,
-2015). El repositorio de secuencias **SRA** del NCBI, por citar un caso, ha crecido de manera
-exponencial en la última década.
+La historia que acabamos de recorrer explica por qué la computadora se volvió una herramienta indispensable para estudiar la biología.
 
-La **bioinformática** es la disciplina que aplica herramientas computacionales para **almacenar,
-acceder y analizar** esa avalancha de datos biológicos. La única forma práctica de trabajar con
-tantos datos es a través de la computadora, automatizando tareas para ahorrar tiempo y reducir
-errores.
+Hoy podemos obtener enormes cantidades de información: **secuencias de DNA, genes, proteínas y mediciones provenientes de miles de experimentos**.
 
-![La bioinformática en cinco pasos: (1) una pregunta biológica, (2) experimentos y repositorios que generan datos, (3) datos biológicos (secuencias, anotaciones, tablas, imágenes), (4) la bioinformática que almacena, accede, explora y analiza a escala, y (5) evidencia e interpretación; el trabajo científico confiable —automatización, documentación, verificación y reproducibilidad— atraviesa todo el proceso.](images/figura-u1-s01-introduccion-bioinformatica.png)
+Pero hay una diferencia importante entre **tener datos** y **poder obtener conocimiento a partir de ellos**.
 
-**Figura 1.** Qué hace la bioinformática: transforma una pregunta y datos biológicos en evidencia interpretable mediante herramientas computacionales. Las habilidades con datos y el trabajo confiable atraviesan todo el proceso.
+Imagina, por ejemplo, que quieres responder una pregunta aparentemente sencilla:
+
+> **¿Qué información contiene una secuencia de DNA que descargamos de una base de datos?**
+
+Antes de llegar a una respuesta tendrás que encontrar los datos, descargarlos, reconocer cómo están organizados, explorar su contenido y utilizar distintas herramientas para analizarlos.
+
+Y si quieres que otra persona pueda revisar tu trabajo —o que tú puedas repetirlo meses después— también tendrás que **documentar lo que hiciste**.
+
+Ahí entra la **bioinformática**:
+
+> La bioinformática utiliza métodos y herramientas computacionales para **almacenar, acceder, organizar, explorar y analizar datos biológicos** con el propósito de responder preguntas sobre los sistemas vivos.
+
+En otras palabras, la computadora no sustituye la pregunta biológica. Nos ayuda a recorrer el camino entre **los datos y la evidencia** necesaria para responderla.
+
+![La bioinformática en cinco pasos: (1) una pregunta biológica, (2) experimentos y repositorios que generan datos, (3) datos biológicos —secuencias, anotaciones, tablas, imágenes—, (4) la bioinformática que almacena, accede, explora y analiza a escala, y (5) evidencia e interpretación; el trabajo científico confiable —automatización, documentación, verificación y reproducibilidad— atraviesa todo el proceso.](images/figura-u1-s01-introduccion-bioinformatica.png)
+
+**Figura 1.** La bioinformática transforma preguntas y datos biológicos en evidencia que podemos interpretar. La organización, documentación, verificación y reproducibilidad acompañan todo el proceso.
+
+### No se trata de memorizar programas
+
+Durante el curso conocerás diferentes comandos, programas y recursos bioinformáticos. Pero aprender bioinformática **no consiste en memorizar una lista de herramientas**.
+
+Las herramientas cambian.
+
+Lo importante es desarrollar **habilidades para trabajar con datos**: aprender a explorarlos, reconocer cómo están organizados, transformarlos y combinar distintas herramientas para resolver un problema.
+
+Buffalo (2015) describe estas habilidades con datos (*data skills*) como la capacidad de encontrar rápidamente una manera de explorar conjuntos de datos complejos utilizando un conjunto conocido de herramientas.
+
+Estas habilidades no se desarrollan solamente leyendo cómo funciona un comando. Se desarrollan **trabajando con datos reales en la computadora**:
+
+**observar → probar → comprobar → interpretar → corregir → documentar**
 
 ::: {.callout-note}
-Aprender bioinformática no es memorizar programas, sino desarrollar **habilidades con
-datos**: *"la capacidad de improvisar rápidamente una forma de ver conjuntos de datos complejos,
-usando un conjunto conocido de herramientas"* (Buffalo, 2015). Se aprende como lo hace un
-bioinformático: **probando cosas con datos en la computadora y comprendiendo sus resultados.**
+### Una idea importante para este curso
+
+No esperamos que memorices todos los comandos.
+
+Esperamos que aprendas a **pensar frente a los datos**:
+
+- ¿Qué tengo?
+- ¿Cómo está organizado?
+- ¿Qué quiero averiguar?
+- ¿Qué herramienta podría ayudarme?
+- ¿Cómo compruebo que el resultado tiene sentido?
+- ¿Qué debo registrar para poder repetirlo?
+
+Estas preguntas aparecerán una y otra vez durante el curso.
 :::
+
+### Trabajar con datos también significa trabajar de forma confiable
+
+Cuando un análisis tiene pocos pasos, puede parecer fácil recordar qué hicimos.
+
+Pero muy pronto nuestros análisis tendrán varios archivos, comandos, programas, parámetros y resultados intermedios.
+
+Entonces depender solamente de nuestra memoria deja de funcionar.
+
+Un análisis bioinformático confiable debe permitirnos reconstruir el camino:
+
+**¿qué datos usamos? → ¿qué hicimos con ellos? → ¿qué obtuvimos? → ¿cómo llegamos a esa conclusión?**
+
+Esto nos lleva a otro concepto central del curso: la **reproducibilidad**.
+
+Un trabajo reproducible conserva suficiente información para que el análisis pueda volver a realizarse y sus resultados puedan ser revisados.
+
+Y eso no es solamente una buena costumbre de programación.
+
+Es parte del **trabajo científico**.
+
+La pregunta entonces es:
+
+> **¿Qué puede ocurrir cuando no documentamos, verificamos o conservamos adecuadamente nuestro proceso de análisis?**
+
+Veamos dos casos reales.
 
 ### 1.2 Cuando descuidamos el trabajo: dos casos reales
 
@@ -640,6 +742,9 @@ Para este curso, el `flowchart` cubre prácticamente todo lo que necesitarás
 
 ## Referencias
 
+- Gauthier, J., Vincent, A. T., Charette, S. J., & Derome, N. (2019).  
+*A brief history of bioinformatics*. **Briefings in Bioinformatics, 20**(6), 1981–1996.  
+https://doi.org/10.1093/bib/bby063
 - Buffalo, V. (2015). *Bioinformatics Data Skills: Reproducible and Robust Research with Open Source
   Tools*. O'Reilly Media. — Cap. 1 (reproducibilidad, robustez, Regla de Oro) y Cap. 2 (organización
   de proyectos, documentación, Markdown). Disponible en `referencias/bioinformatics-data-skills.pdf`.
@@ -665,3 +770,5 @@ Para este curso, el `flowchart` cubre prácticamente todo lo que necesitarás
 - Markdown Guide. <https://www.markdownguide.org/>
 - StackEdit — editor de Markdown en línea. <https://stackedit.io>
 - Mermaid — documentación oficial. <https://mermaid.js.org/>
+
+
