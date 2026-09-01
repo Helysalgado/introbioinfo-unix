@@ -398,13 +398,13 @@ El siguiente diagrama resume los pasos que recorreremos:
 
 ```mermaid
 flowchart TD
-  P[B1-B2 · Pregunta y subpreguntas] --> E[B3 · Evidencia necesaria]
-  E --> D[B4-B5 · Datos y su formato]
-  D --> Est[B6-B7 · Estrategia y operaciones]
-  Est --> H[B8-B9 · Herramienta y prueba pequeña]
-  H --> V[B10 · Verificación]
-  V --> I[B11 · Interpretación]
-  I --> C[B12 · Conclusión integrada]
+  P["B1-B2: Pregunta y subpreguntas"] --> E["B3: Evidencia necesaria"]
+  E --> D["B4-B5: Datos y su formato"]
+  D --> S67["B6-B7: Estrategia y operaciones"]
+  S67 --> H["B8-B9: Herramienta y prueba pequeña"]
+  H --> V["B10: Verificación"]
+  V --> I["B11: Interpretación"]
+  I --> C["B12: Conclusión integrada"]
 ```
 
 ### El proceso B aplicado a un ejemplo
