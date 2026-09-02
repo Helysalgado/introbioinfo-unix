@@ -3,8 +3,11 @@
 *.html
 !ejemplos/**/*.html
 !html/**/*.html
+!mermaid-header.html
 .DS_Store
 
 **/*.quarto_ipynb
 
-site_libs/
+site_libs/*
+!site_libs/quarto-diagram/
+!site_libs/quarto-diagram/**

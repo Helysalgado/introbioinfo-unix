@@ -12,6 +12,7 @@ project:
     - images/**
     - html/**
     - referencias/**
+    - site_libs/quarto-diagram/**
 
 lang: es
 
@@ -171,5 +172,9 @@ format:
     code-copy: true
     code-overflow: wrap
     link-external-newwindow: true
+    include-in-header:
+      - mermaid-header.html
+    mermaid:
+      theme: default
 
 

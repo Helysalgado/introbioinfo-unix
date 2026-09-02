@@ -3,4 +3,6 @@
 curso-quarto/_site/
 curso-quarto/.quarto
 
-curso-quarto/site_libs/
+curso-quarto/site_libs/*
+!curso-quarto/site_libs/quarto-diagram/
+!curso-quarto/site_libs/quarto-diagram/**
