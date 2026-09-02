@@ -1,0 +1,2373 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>u2-s6-consolidacion-entorno-unix – Introducción a la Bioinformática</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./u3-datos-bases-datos.html" rel="next">
+<link href="./u2-s5-archivos-permisos-procesos.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fe29f166eb879f148ae4045f3c41549b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXNMZZP0K9"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-QXNMZZP0K9', { 'anonymize_ip': true});
+</script>
+<meta name="mermaid-theme" content="default">
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-md-bootstrap.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Introducción a la Bioinformática</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Inicio</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-programa" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Programa</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-programa">    
+        <li>
+    <a class="dropdown-item" href="./programa.html">
+ <span class="dropdown-text">Ruta de sesiones</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./programa-detallado.html">
+ <span class="dropdown-text">Programa detallado</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-unidades" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Unidades</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-unidades">    
+        <li>
+    <a class="dropdown-item" href="./u1-trabajo-reproducible.html">
+ <span class="dropdown-text">U1 — Trabajo reproducible</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u2-entorno-unix.html">
+ <span class="dropdown-text">U2 — Entorno Unix</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u3-datos-bases-datos.html">
+ <span class="dropdown-text">U3 — Datos y bases</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u4-procesamiento-exploracion.html">
+ <span class="dropdown-text">U4 — Procesamiento genómico</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u5-automatizacion-scripting.html">
+ <span class="dropdown-text">U5 — Automatización</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u6-comparacion-homologia.html">
+ <span class="dropdown-text">U6 — Comparar / hipótesis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./s14-s15-mini-proyecto-investigacion-I.html">
+ <span class="dropdown-text">Transversal S14–S17</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="./recursos.html" aria-current="page"> 
+<span class="menu-text">Recursos</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./acerca.html"> 
+<span class="menu-text">Acerca</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./contribuir.html"> 
+<span class="menu-text">Contribuir</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Alternar modo lector">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./u2-entorno-unix.html">Unidad 2</a></li><li class="breadcrumb-item"><a href="./u2-s6-consolidacion-entorno-unix.html">S6 — Consolidar</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 1</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-trabajo-reproducible.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-s1-documentar-markdown-fases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S1 — Documentar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-s2-organizar-fair-ia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S2 — Organizar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Unidad 2</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-entorno-unix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s3-shell-acceso-remoto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S3 — Conectar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s4-sistema-archivos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S4 — Navegar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s5-archivos-permisos-procesos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S5 — Archivos y procesos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s6-consolidacion-entorno-unix.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">S6 — Consolidar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 3</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-datos-bases-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s7-secuencias-formatos-genbank.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S7 — Formatos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s8-bases-datos-descarga-integridad.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S8 — Descargar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s9-inspeccion-transferencia-verificable.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S9 — Transferir</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 4</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-procesamiento-exploracion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s10-anatomia-flujos-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S10 — Anatomía y flujos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s11-estructura-tabular-anotacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S11 — Anotación tabular</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s12-filtrado-conteos-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S12 — Filtrar y contar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s13-inventario-resumen-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S13 — Inventario</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s18-precision-patrones-expresiones-regulares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S18 — Patrones</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s19-extraccion-identificadores-correspondencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S19 — Identificadores</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s20-normalizar-datos-comparables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S20 — Normalizar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s21-confrontar-fuente-independiente.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S21 — Confrontar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s22-condicionar-calcular-columnas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S22 — Condicionar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s23-protocolo-ejecutable-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S23 — Protocolo ejecutable</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Transversal</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s14-s15-mini-proyecto-investigacion-I.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S14–S15 — Mini-proyecto I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s16-mini-proyecto-revision-pares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S16 — Revisión por pares</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s17-evaluacion-individual-demostrativa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S17 — Evaluación demostrativa</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mini-proyecto-dictamen-cientifico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dictamen científico</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 5</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-automatizacion-scripting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s24-del-protocolo-al-script.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S24 — Del protocolo al script</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s25-separar-procedimiento-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S25 — Separar datos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s26-procesamiento-por-lotes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S26 — Por lotes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s27-herramienta-cientifica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S27 — Herramienta científica</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s28-proyecto-integrador.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S28 — Proyecto integrador</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s29-cluster-hpc-sge.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S29 — Cluster SGE</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 6</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-comparacion-homologia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s30-comparar-alinear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S30 — Comparar / alinear</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s31-buscar-blast.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S31 — Buscar (BLAST)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s32-interpretar-inferir.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S32 — Interpretar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s33-defender-hipotesis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S33 — Inferir</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s34-integrar-hipotesis-casos-ciegos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S34 — Integrar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./programa-detallado.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programa detallado</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./recursos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recursos</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#s6-consolidar-el-entorno-unix-listo-para-datos-biológicos" id="toc-s6-consolidar-el-entorno-unix-listo-para-datos-biológicos" class="nav-link active" data-scroll-target="#s6-consolidar-el-entorno-unix-listo-para-datos-biológicos">S6 — Consolidar: el entorno Unix listo para datos biológicos</a>
+  <ul class="collapse">
+  <li><a href="#ficha-del-módulo" id="toc-ficha-del-módulo" class="nav-link" data-scroll-target="#ficha-del-módulo">Ficha del módulo</a></li>
+  <li><a href="#relación-con-lo-anterior" id="toc-relación-con-lo-anterior" class="nav-link" data-scroll-target="#relación-con-lo-anterior">Relación con lo anterior</a></li>
+  <li><a href="#resultados-de-aprendizaje" id="toc-resultados-de-aprendizaje" class="nav-link" data-scroll-target="#resultados-de-aprendizaje">Resultados de aprendizaje</a></li>
+  <li><a href="#antes-de-empezar-lista-de-verificación" id="toc-antes-de-empezar-lista-de-verificación" class="nav-link" data-scroll-target="#antes-de-empezar-lista-de-verificación">Antes de empezar: lista de verificación</a></li>
+  <li><a href="#ruta-de-s6" id="toc-ruta-de-s6" class="nav-link" data-scroll-target="#ruta-de-s6">Ruta de S6</a></li>
+  <li><a href="#una-afirmación-no-es-una-evidencia-indispensable" id="toc-una-afirmación-no-es-una-evidencia-indispensable" class="nav-link" data-scroll-target="#una-afirmación-no-es-una-evidencia-indispensable">1. Una afirmación no es una evidencia [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#práctica-1-lo-que-crees-que-tienes-antes-de-clase-primer-intento" id="toc-práctica-1-lo-que-crees-que-tienes-antes-de-clase-primer-intento" class="nav-link" data-scroll-target="#práctica-1-lo-que-crees-que-tienes-antes-de-clase-primer-intento">Práctica 1 — Lo que crees que tienes <em>(antes de clase, primer intento)</em></a></li>
+  </ul></li>
+  <li><a href="#verificar-el-acceso-reconectar-sin-ayuda-indispensable" id="toc-verificar-el-acceso-reconectar-sin-ayuda-indispensable" class="nav-link" data-scroll-target="#verificar-el-acceso-reconectar-sin-ayuda-indispensable">2. Verificar el acceso: reconectar sin ayuda [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#práctica-2-entrar-y-situarse-durante-el-taller" id="toc-práctica-2-entrar-y-situarse-durante-el-taller" class="nav-link" data-scroll-target="#práctica-2-entrar-y-situarse-durante-el-taller">Práctica 2 — Entrar y situarse <em>(durante el taller)</em></a></li>
+  </ul></li>
+  <li><a href="#verificar-la-estructura-que-el-árbol-sea-el-que-dices-indispensable" id="toc-verificar-la-estructura-que-el-árbol-sea-el-que-dices-indispensable" class="nav-link" data-scroll-target="#verificar-la-estructura-que-el-árbol-sea-el-que-dices-indispensable">3. Verificar la estructura: que el árbol sea el que dices [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#práctica-3-el-árbol-real-frente-al-declarado-durante-el-taller" id="toc-práctica-3-el-árbol-real-frente-al-declarado-durante-el-taller" class="nav-link" data-scroll-target="#práctica-3-el-árbol-real-frente-al-declarado-durante-el-taller">Práctica 3 — El árbol real frente al declarado <em>(durante el taller)</em></a></li>
+  </ul></li>
+  <li><a href="#verificar-los-originales-el-checksum-como-prueba-no-como-ritual-indispensable" id="toc-verificar-los-originales-el-checksum-como-prueba-no-como-ritual-indispensable" class="nav-link" data-scroll-target="#verificar-los-originales-el-checksum-como-prueba-no-como-ritual-indispensable">4. Verificar los originales: el checksum como prueba, no como ritual [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#herramienta-mínima-un-archivo-de-sumas" id="toc-herramienta-mínima-un-archivo-de-sumas" class="nav-link" data-scroll-target="#herramienta-mínima-un-archivo-de-sumas">Herramienta mínima: un archivo de sumas</a></li>
+  <li><a href="#práctica-4-demostrar-que-los-originales-no-cambiaron-durante-el-taller" id="toc-práctica-4-demostrar-que-los-originales-no-cambiaron-durante-el-taller" class="nav-link" data-scroll-target="#práctica-4-demostrar-que-los-originales-no-cambiaron-durante-el-taller">Práctica 4 — Demostrar que los originales no cambiaron <em>(durante el taller)</em></a></li>
+  </ul></li>
+  <li><a href="#verificar-permisos-el-mínimo-necesario-indispensable" id="toc-verificar-permisos-el-mínimo-necesario-indispensable" class="nav-link" data-scroll-target="#verificar-permisos-el-mínimo-necesario-indispensable">5. Verificar permisos: el mínimo necesario [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#práctica-5-justificar-cada-permiso-durante-el-taller" id="toc-práctica-5-justificar-cada-permiso-durante-el-taller" class="nav-link" data-scroll-target="#práctica-5-justificar-cada-permiso-durante-el-taller">Práctica 5 — Justificar cada permiso <em>(durante el taller)</em></a></li>
+  </ul></li>
+  <li><a href="#verificar-el-registro-puede-otra-persona-repetirlo-indispensable" id="toc-verificar-el-registro-puede-otra-persona-repetirlo-indispensable" class="nav-link" data-scroll-target="#verificar-el-registro-puede-otra-persona-repetirlo-indispensable">6. Verificar el registro: ¿puede otra persona repetirlo? [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#práctica-6-leer-el-protocolo-de-otra-persona-durante-el-taller" id="toc-práctica-6-leer-el-protocolo-de-otra-persona-durante-el-taller" class="nav-link" data-scroll-target="#práctica-6-leer-el-protocolo-de-otra-persona-durante-el-taller">Práctica 6 — Leer el protocolo de otra persona <em>(durante el taller)</em></a></li>
+  </ul></li>
+  <li><a href="#preparar-el-espacio-para-datos-que-no-son-tuyos-indispensable" id="toc-preparar-el-espacio-para-datos-que-no-son-tuyos-indispensable" class="nav-link" data-scroll-target="#preparar-el-espacio-para-datos-que-no-son-tuyos-indispensable">7. Preparar el espacio para datos que no son tuyos [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#práctica-7-dejar-el-proyecto-listo-durante-el-taller" id="toc-práctica-7-dejar-el-proyecto-listo-durante-el-taller" class="nav-link" data-scroll-target="#práctica-7-dejar-el-proyecto-listo-durante-el-taller">Práctica 7 — Dejar el proyecto listo <em>(durante el taller)</em></a></li>
+  </ul></li>
+  <li><a href="#lo-que-ya-puedes-afirmar-y-lo-que-todavía-no-indispensable" id="toc-lo-que-ya-puedes-afirmar-y-lo-que-todavía-no-indispensable" class="nav-link" data-scroll-target="#lo-que-ya-puedes-afirmar-y-lo-que-todavía-no-indispensable">8. Lo que ya puedes afirmar, y lo que todavía no [Indispensable]</a></li>
+  <li><a href="#documentar-la-sección-del-protocolo-indispensable" id="toc-documentar-la-sección-del-protocolo-indispensable" class="nav-link" data-scroll-target="#documentar-la-sección-del-protocolo-indispensable">9. Documentar: la sección del protocolo [Indispensable]</a></li>
+  <li><a href="#evidencia-de-la-sesión" id="toc-evidencia-de-la-sesión" class="nav-link" data-scroll-target="#evidencia-de-la-sesión">Evidencia de la sesión</a></li>
+  <li><a href="#errores-frecuentes-y-estrategias-de-diagnóstico" id="toc-errores-frecuentes-y-estrategias-de-diagnóstico" class="nav-link" data-scroll-target="#errores-frecuentes-y-estrategias-de-diagnóstico">Errores frecuentes y estrategias de diagnóstico</a></li>
+  <li><a href="#rúbricas" id="toc-rúbricas" class="nav-link" data-scroll-target="#rúbricas">Rúbricas</a>
+  <ul class="collapse">
+  <li><a href="#primer-intento-práctica-1-formativo" id="toc-primer-intento-práctica-1-formativo" class="nav-link" data-scroll-target="#primer-intento-práctica-1-formativo">Primer intento (Práctica 1) — formativo</a></li>
+  <li><a href="#participación-en-el-taller-formativo" id="toc-participación-en-el-taller-formativo" class="nav-link" data-scroll-target="#participación-en-el-taller-formativo">Participación en el taller — formativo</a></li>
+  <li><a href="#evidencia-de-cierre-de-u2-calificada" id="toc-evidencia-de-cierre-de-u2-calificada" class="nav-link" data-scroll-target="#evidencia-de-cierre-de-u2-calificada">Evidencia de cierre de U2 — calificada</a></li>
+  </ul></li>
+  <li><a href="#autoevaluación" id="toc-autoevaluación" class="nav-link" data-scroll-target="#autoevaluación">Autoevaluación</a></li>
+  <li><a href="#distribución-estimada-de-las-dos-horas" id="toc-distribución-estimada-de-las-dos-horas" class="nav-link" data-scroll-target="#distribución-estimada-de-las-dos-horas">Distribución estimada de las dos horas</a></li>
+  <li><a href="#anexo-a.-correspondencia-resultadoactividadevidenciacriterio" id="toc-anexo-a.-correspondencia-resultadoactividadevidenciacriterio" class="nav-link" data-scroll-target="#anexo-a.-correspondencia-resultadoactividadevidenciacriterio">Anexo A. Correspondencia resultado–actividad–evidencia–criterio</a></li>
+  <li><a href="#anexo-b.-alineación-transversal" id="toc-anexo-b.-alineación-transversal" class="nav-link" data-scroll-target="#anexo-b.-alineación-transversal">Anexo B. Alineación transversal</a></li>
+  <li><a href="#glosario" id="toc-glosario" class="nav-link" data-scroll-target="#glosario">Glosario</a></li>
+  <li><a href="#referencias" id="toc-referencias" class="nav-link" data-scroll-target="#referencias">Referencias</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/Helysalgado/introbioinfo-unix/edit/main/u2-s6-consolidacion-entorno-unix.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/Helysalgado/introbioinfo-unix/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./u2-entorno-unix.html">Unidad 2</a></li><li class="breadcrumb-item"><a href="./u2-s6-consolidacion-entorno-unix.html">S6 — Consolidar</a></li></ol></nav></header>
+
+
+
+
+<section id="s6-consolidar-el-entorno-unix-listo-para-datos-biológicos" class="level1">
+<h1>S6 — Consolidar: el entorno Unix listo para datos biológicos</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="Aula invertida">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Aula invertida
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Este documento se lee <strong>antes de la sesión S6</strong>. No introduce herramientas nuevas: usa las de S3, S4 y S5 para responder una pregunta distinta. Antes del taller harás un <strong>primer intento</strong> de inventario de tus evidencias; durante la sesión comprobarás cada una sobre el servidor y corregirás lo que falte; después entregarás la <strong>evidencia de cierre de la Unidad 2</strong> en <code>doc/protocolo.md</code>.</p>
+</div>
+</div>
+<p>Cuarto y último módulo de la <a href="./u2-entorno-unix.html">Unidad 2</a>. En S3 te conectaste y transferiste; en S4 construiste la estructura del proyecto; en S5 aprendiste a inspeccionar, comprimir, ajustar permisos y controlar procesos. Hoy no vas a construir nada nuevo: vas a <strong>demostrar que lo construido está bien</strong>, y a dejar el proyecto en condiciones de recibir datos que no inventaste tú.</p>
+<section id="ficha-del-módulo" class="level2">
+<h2 class="anchored" data-anchor-id="ficha-del-módulo">Ficha del módulo</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Elemento</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Sesión</strong></td>
+<td>S6 (2 h)</td>
+</tr>
+<tr class="even">
+<td><strong>Tema</strong></td>
+<td>Consolidación del entorno Unix y preparación para datos biológicos</td>
+</tr>
+<tr class="odd">
+<td><strong>Competencias</strong></td>
+<td>B — Dominio del entorno Unix y del cómputo científico; A — Trabajo reproducible y comunicación científica</td>
+</tr>
+<tr class="even">
+<td><strong>Resultado (plan)</strong></td>
+<td>Consolida las evidencias de S3–S5 y deja listo el proyecto para comenzar a trabajar con datos biológicos reales</td>
+</tr>
+<tr class="odd">
+<td><strong>Consulta previa (plan)</strong></td>
+<td>Repaso de S3–S5 y cierre de la Unidad 2</td>
+</tr>
+<tr class="even">
+<td><strong>Lectura base</strong></td>
+<td>Este módulo + los módulos S3, S4 y S5 (secciones indispensables)</td>
+</tr>
+<tr class="odd">
+<td><strong>Caso conductor</strong></td>
+<td>Demostrar, con evidencia comprobable, que tu proyecto en el servidor está íntegro, organizado, protegido y documentado</td>
+</tr>
+<tr class="even">
+<td><strong>Evidencia</strong></td>
+<td>Evidencia de cierre de U2: proyecto verificado + registros de S3–S5 completos en <code>doc/protocolo.md</code></td>
+</tr>
+<tr class="odd">
+<td><strong>Ajuste integrado</strong></td>
+<td><strong>[Reubicado]</strong> el trabajo con cluster y SGE ya no se imparte aquí; se desarrolla en <strong>S29</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-important callout-titled" title="qué NO es esta sesión">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>qué NO es esta sesión
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No es un repaso ni un examen sorpresa. Es la diferencia entre <em>«me funcionó»</em> y <em>«puedo demostrar que funciona»</em>. Esa diferencia es el corazón de la reproducibilidad, y se practica aquí por primera vez sobre algo que construiste tú.</p>
+</div>
+</div>
+</section>
+<section id="relación-con-lo-anterior" class="level2">
+<h2 class="anchored" data-anchor-id="relación-con-lo-anterior">Relación con lo anterior</h2>
+<p>Cada sesión de esta unidad te dejó un producto y una deuda:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Sesión</th>
+<th>Qué construiste</th>
+<th>Qué quedó sin comprobar</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>S3</td>
+<td>Conexión por SSH y transferencia de tres archivos</td>
+<td>Si puedes reconectar <strong>sin ayuda</strong> y si los archivos <strong>siguen</strong> íntegros semanas después</td>
+</tr>
+<tr class="even">
+<td>S4</td>
+<td>La estructura <code>~/proyecto/</code> con los archivos colocados</td>
+<td>Si el árbol real coincide con el que <strong>crees</strong> tener</td>
+</tr>
+<tr class="odd">
+<td>S5</td>
+<td>Inspección, compresión, permisos y procesos</td>
+<td>Si los permisos actuales son los <strong>mínimos</strong> y si los originales siguen intactos tras haber practicado sobre ellos</td>
+</tr>
+</tbody>
+</table>
+<p>Las tres deudas tienen la misma forma: <strong>hiciste algo y no volviste a mirarlo</strong>. En un proyecto de dos semanas eso no se nota. En un análisis que dura meses, es la causa más común de resultados que no se pueden reproducir.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>En S5 practicaste con copias precisamente para no tocar los originales. Hoy lo <strong>compruebas</strong>: la política de datos deja de ser una regla que te dijeron y pasa a ser una afirmación que puedes sostener con evidencia.</p>
+</div>
+</div>
+</section>
+<section id="resultados-de-aprendizaje" class="level2">
+<h2 class="anchored" data-anchor-id="resultados-de-aprendizaje">Resultados de aprendizaje</h2>
+<p>Al terminar S6, el estudiante es capaz de:</p>
+<ol type="1">
+<li><strong>Distinguir</strong> una afirmación sobre su entorno de la evidencia que la sostiene.</li>
+<li><strong>Restablecer</strong> el acceso al servidor de forma autónoma y <strong>describir</strong> el entorno en el que trabaja.</li>
+<li><strong>Comparar</strong> la estructura real de su proyecto con la estructura declarada, y <strong>explicar</strong> cualquier diferencia.</li>
+<li><strong>Demostrar</strong> que los datos originales no han cambiado, mediante una comprobación de integridad registrada y repetible.</li>
+<li><strong>Justificar</strong> los permisos vigentes de cada archivo en términos del <strong>permiso mínimo necesario</strong>.</li>
+<li><strong>Comprobar</strong> que su <code>protocolo.md</code> permite a otra persona repetir el procedimiento, y <strong>corregir</strong> lo que impida hacerlo.</li>
+<li><strong>Preparar</strong> el proyecto para recibir datos externos, reconociendo qué información le faltará cuando los datos no sean suyos.</li>
+</ol>
+</section>
+<section id="antes-de-empezar-lista-de-verificación" class="level2">
+<h2 class="anchored" data-anchor-id="antes-de-empezar-lista-de-verificación">Antes de empezar: lista de verificación</h2>
+<p>Marca cada punto antes del taller. Si alguno falla, <strong>no lo resuelvas todavía</strong>: anótalo, es exactamente el material de la sesión.</p>
+<ul class="task-list">
+<li><label><input type="checkbox">Tienes a mano las credenciales del servidor y sabes cómo conectarte.</label></li>
+<li><label><input type="checkbox">Conservas <code>doc/protocolo.md</code> con los registros de S3, S4 y S5.</label></li>
+<li><label><input type="checkbox">Recuerdas dónde anotaste los <em>checksums</em> que calculaste en S3.</label></li>
+<li><label><input type="checkbox">Tienes en tu equipo las copias locales de <code>pacientes.md</code> y <code>pacientes-metadatos.md</code>.</label></li>
+<li><label><input type="checkbox">Has hecho el <strong>primer intento</strong> de la Práctica 1.</label></li>
+</ul>
+</section>
+<section id="ruta-de-s6" class="level2">
+<h2 class="anchored" data-anchor-id="ruta-de-s6">Ruta de S6</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Momento</th>
+<th>Trabajo</th>
+<th>Producto</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Antes de clase</td>
+<td>Leer §1 y hacer la Práctica 1 (inventario declarado, <strong>sin conectarte</strong>)</td>
+<td>Tabla de afirmaciones</td>
+</tr>
+<tr class="even">
+<td>Durante el taller</td>
+<td>§2–§7 con sus prácticas: comprobar cada afirmación sobre el servidor</td>
+<td>Tabla contrastada y correcciones aplicadas</td>
+</tr>
+<tr class="odd">
+<td>Después del taller</td>
+<td>§8–§9: cerrar el protocolo y entregar</td>
+<td>Evidencia de cierre de U2</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="una-afirmación-no-es-una-evidencia-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="una-afirmación-no-es-una-evidencia-indispensable">1. Una afirmación no es una evidencia [Indispensable]</h2>
+<p>Cuando alguien pregunta si tu proyecto está bien, hay tres respuestas posibles, y solo una sirve:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Respuesta</th>
+<th>Qué es</th>
+<th>Vale como evidencia</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>«Sí, lo hice en S4.»</td>
+<td>Un <strong>recuerdo</strong></td>
+<td>No</td>
+</tr>
+<tr class="even">
+<td>«Sí, la carpeta <code>data/source/</code> está ahí.»</td>
+<td>Una <strong>afirmación</strong></td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<td>«Sí: aquí está la salida de <code>ls -R ~/proyecto</code> y aquí el <code>sha256sum</code> que coincide con el que anoté en S3.»</td>
+<td>Una <strong>evidencia</strong></td>
+<td>Sí</td>
+</tr>
+</tbody>
+</table>
+<p>La diferencia no es de rigor personal, sino de <strong>verificabilidad</strong>: la tercera respuesta puede comprobarla otra persona sin creerte, y puedes comprobarla tú misma dentro de seis meses, cuando ya no recuerdes nada.</p>
+<p>Esta sesión convierte, una por una, tus afirmaciones sobre el entorno en evidencias registradas.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La verificación tiene un coste, y por eso conviene hacerla bien: se verifica <strong>lo que sostiene una conclusión</strong>, no todo. En este proyecto sostienen conclusiones cuatro cosas: el acceso, la estructura, la integridad de los originales y el registro. Son las cuatro que comprobarás hoy.</p>
+</div>
+</div>
+<section id="práctica-1-lo-que-crees-que-tienes-antes-de-clase-primer-intento" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-1-lo-que-crees-que-tienes-antes-de-clase-primer-intento">Práctica 1 — Lo que crees que tienes <em>(antes de clase, primer intento)</em></h3>
+<p><strong>Sin conectarte al servidor</strong>, y <strong>sin consultar tus apuntes</strong>, completa esta tabla de memoria:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Afirmación</th>
+<th>Tu respuesta de memoria</th>
+<th>¿Con qué lo comprobarías?</th>
+<th>Comprobado (taller)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Ruta absoluta de mi proyecto en el servidor</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Número de directorios dentro de <code>proyecto/</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Archivos que hay en <code>data/source/</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Archivos que hay en <code>doc/</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Permisos actuales de <code>data/source/pacientes.md</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>¿Hay algún archivo con permiso de ejecución? ¿Cuál y por qué?</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>¿Sigue <code>pacientes.md</code> idéntico al de tu equipo?</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Entrega.</strong> La tabla con las dos primeras columnas llenas. <strong>No la corrijas antes del taller</strong>: su valor está en la diferencia entre lo que creías y lo que hay.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si en la columna «¿con qué lo comprobarías?» te quedas en blanco en alguna fila, márcala. Esa fila es la que más vas a aprender hoy.</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="verificar-el-acceso-reconectar-sin-ayuda-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="verificar-el-acceso-reconectar-sin-ayuda-indispensable">2. Verificar el acceso: reconectar sin ayuda [Indispensable]</h2>
+<p>En S3 te conectaste acompañada. Hoy la pregunta es otra: <strong>¿puedes hacerlo sola?</strong> Y una vez dentro, <strong>¿sabes dónde estás?</strong></p>
+<p>Tres comandos responden a lo segundo, y conviene ejecutarlos siempre al entrar:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hostname</span>     <span class="co"># en qué máquina estoy</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">whoami</span>       <span class="co"># con qué usuario</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span>          <span class="co"># en qué directorio me dejó la conexión</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Parecen triviales y evitan el error más caro del curso: <strong>ejecutar en la máquina equivocada</strong>. Un <code>rm</code> lanzado en tu equipo creyendo estar en el servidor, o al revés, no tiene deshacer.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Advertencia
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si <code>hostname</code> no devuelve el nombre del servidor del curso, <strong>estás en tu propia máquina</strong>. Detente y vuelve a conectarte antes de ejecutar cualquier otra cosa.</p>
+</div>
+</div>
+<section id="práctica-2-entrar-y-situarse-durante-el-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-2-entrar-y-situarse-durante-el-taller">Práctica 2 — Entrar y situarse <em>(durante el taller)</em></h3>
+<ol type="1">
+<li><strong>Cierra</strong> cualquier sesión abierta con <code>exit</code>.</li>
+<li><strong>Conéctate</strong> desde cero, sin mirar los apuntes de S3. Si no puedes, míralos: el objetivo es detectar qué no recordabas, no aprobar un examen.</li>
+<li><strong>Sitúate.</strong> Ejecuta los tres comandos y copia la salida al protocolo.</li>
+<li><strong>Compara.</strong> ¿La ruta que devuelve <code>pwd</code> coincide con la que escribiste de memoria en la Práctica 1?</li>
+<li><strong>Documenta.</strong> Anota cuántos intentos necesitaste y qué te faltó recordar.</li>
+</ol>
+<details>
+<summary>
+Ver retroalimentación
+</summary>
+<p>Lo esperable es que <code>pwd</code> al entrar te deje en tu <strong><em>home</em></strong>, es decir <code>/home/tu-usuario</code> o similar, <strong>no</strong> dentro de <code>~/proyecto/</code>. Una conexión siempre te deja en el <em>home</em>; llegar al proyecto es un paso que haces tú.</p>
+<p>Si en la Práctica 1 escribiste <code>~/proyecto</code> como respuesta a «ruta absoluta», la respuesta es <strong>incompleta</strong>: <code>~</code> es una abreviatura que el shell expande, no una ruta absoluta. La ruta absoluta empieza por <code>/</code> y es la que devuelve <code>pwd</code> una vez dentro del directorio.</p>
+<p>Que hayas necesitado consultar los apuntes no es un problema: lo que se evalúa es que sepas <strong>qué</strong> consultar. No recordar la sintaxis exacta es normal; no saber que existe <code>hostname</code> sí es una laguna que conviene cerrar hoy.</p>
+</details>
+<hr>
+</section>
+</section>
+<section id="verificar-la-estructura-que-el-árbol-sea-el-que-dices-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="verificar-la-estructura-que-el-árbol-sea-el-que-dices-indispensable">3. Verificar la estructura: que el árbol sea el que dices [Indispensable]</h2>
+<p>En S4 construiste la estructura. Pero entre S4 y hoy hubo una sesión entera de prácticas (S5) en la que creaste copias, comprimiste archivos y ejecutaste un script. Es muy probable que el árbol real <strong>ya no sea</strong> el que dibujaste.</p>
+<p>Eso no está mal: un proyecto vivo acumula archivos. Lo que está mal es <strong>no saberlo</strong>.</p>
+<p>Para ver el árbol completo de una vez:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-R</span> ~/proyecto</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>ls -R</code> recorre el directorio y todos sus subdirectorios (<em>recursive</em>). Es la forma más directa de comparar lo que hay con lo que declaraste, usando solo lo que ya conoces.</p>
+<p>La estructura declarada en la Unidad 1 y construida en S4 es:</p>
+<pre class="text"><code>proyecto/
+├── README.md
+├── data/
+│   ├── source/
+│   │   ├── pacientes.md
+│   │   └── pacientes-metadatos.md
+│   └── processed/
+├── src/
+├── results/
+└── doc/
+    ├── protocolo.md
+    └── bitacora-ia.md</code></pre>
+<div class="callout callout-style-default callout-note callout-titled" title="archivos que aparecen solos">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>archivos que aparecen solos
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Verás cosas que no pusiste ahí a propósito: restos de las prácticas de S5, copias de trabajo, algún <code>.tar.gz</code>. Cada uno merece una decisión explícita: <strong>conservarlo</strong> (y decir para qué), <strong>moverlo</strong> a donde corresponda, o <strong>eliminarlo</strong>. Lo que no vale es dejarlo sin decidir: dentro de tres meses no sabrás si es importante.</p>
+</div>
+</div>
+<section id="práctica-3-el-árbol-real-frente-al-declarado-durante-el-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-3-el-árbol-real-frente-al-declarado-durante-el-taller">Práctica 3 — El árbol real frente al declarado <em>(durante el taller)</em></h3>
+<ol type="1">
+<li><strong>Predice.</strong> Antes de ejecutar nada, escribe cuántos archivos crees que hay dentro de <code>~/proyecto/</code>.</li>
+<li><strong>Localiza.</strong> Ejecuta <code>ls -R ~/proyecto</code> y copia la salida completa al protocolo.</li>
+<li><strong>Contrasta.</strong> Marca en la salida: (a) lo que coincide con la estructura declarada, (b) lo que sobra, (c) lo que falta.</li>
+<li><strong>Decide.</strong> Para cada elemento que sobre, escribe una línea: <code>conservar porque…</code>, <code>mover a…</code> o <code>eliminar porque…</code>. Aplica solo las decisiones de las que estés segura.</li>
+<li><strong>Documenta.</strong> Registra la diferencia entre tu predicción y el número real.</li>
+</ol>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Advertencia
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No elimines nada de <code>data/source/</code>. Si algo te sobra ahí, anótalo y consúltalo: es el único directorio del proyecto donde borrar tiene consecuencias irreversibles para tu evidencia.</p>
+</div>
+</div>
+<details>
+<summary>
+Ver retroalimentación
+</summary>
+<p>Casi todo el mundo predice <strong>menos</strong> archivos de los que hay. Lo habitual tras S5 es encontrar entre tres y seis elementos no declarados: la copia de <code>README.md</code> que hiciste para practicar compresión, el <code>.tar.gz</code> resultante, el script de prueba en <code>src/</code>, y a veces un archivo restaurado con otro nombre.</p>
+<p>Los tres directorios que aparecen <strong>vacíos</strong> —<code>data/processed/</code>, <code>results/</code> y <code>src/</code>, si no dejaste el script— no son un error: están reservados. <code>ls -R</code> los muestra sin contenido y así debe ser hasta la Unidad 3, cuando <code>data/processed/</code> empiece a recibir archivos derivados.</p>
+<p>Si te falta <code>bitacora-ia.md</code> en <code>doc/</code>, es la deuda que S4 dejó abierta: ese archivo vivía en tu equipo y había que transferirlo. Transferirlo ahora es la corrección correcta, y conviene registrarla como tal en el protocolo, no hacerla en silencio.</p>
+</details>
+<hr>
+</section>
+</section>
+<section id="verificar-los-originales-el-checksum-como-prueba-no-como-ritual-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="verificar-los-originales-el-checksum-como-prueba-no-como-ritual-indispensable">4. Verificar los originales: el checksum como prueba, no como ritual [Indispensable]</h2>
+<p>En S3 calculaste un <em>checksum</em> de <code>pacientes.md</code> en tu equipo y otro en el servidor, y comprobaste que coincidían. Eso demostró que la <strong>transferencia</strong> fue correcta. No demuestra nada sobre lo que pasó después.</p>
+<p>La pregunta de hoy es distinta y más importante: <strong>¿siguen los originales como estaban?</strong> Entre medias hubo una sesión completa manipulando archivos.</p>
+<p>Recuerda cómo se calcula:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sha256sum</span> ~/proyecto/data/source/pacientes.md</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sha256sum</span> ~/proyecto/data/source/pacientes-metadatos.md</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Comparar esas cadenas a ojo contra las que anotaste en S3 funciona con dos archivos, pero no escala y es propenso a error. Conviene dar un paso más.</p>
+<section id="herramienta-mínima-un-archivo-de-sumas" class="level3">
+<h3 class="anchored" data-anchor-id="herramienta-mínima-un-archivo-de-sumas">Herramienta mínima: un archivo de sumas</h3>
+<p><strong>Sintaxis mínima</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/proyecto/data/source</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sha256sum</span> pacientes.md pacientes-metadatos.md <span class="op">&gt;</span> ../../doc/checksums-u2.txt</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sha256sum</span> <span class="at">-c</span> ../../doc/checksums-u2.txt</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>¿Qué hace?</strong> La primera orden guarda las sumas en un archivo de texto. La segunda las vuelve a calcular y compara cada una con la guardada, respondiendo <code>OK</code> o <code>FAILED</code> por archivo.</p>
+<p><strong>¿Por qué aparece en esta sesión?</strong> Porque comparar cadenas a ojo no es reproducible: depende de tu atención. Un archivo de sumas convierte la comprobación en algo que <strong>cualquiera</strong> puede repetir con una sola orden, hoy o dentro de un año.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="prompt al asistente del curso">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>prompt al asistente del curso
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><em>«Explícame qué significa cada columna de la salida de <code>sha256sum -c</code> y qué causas puede tener un <code>FAILED</code> que no sea corrupción del archivo.»</em> Contrasta la respuesta con <code>man sha256sum</code> antes de darla por buena.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El archivo de sumas se guarda en <code>doc/</code>, <strong>no</strong> en <code>data/source/</code>. Es documentación que tú generas, no un dato original.</p>
+</div>
+</div>
+</section>
+<section id="práctica-4-demostrar-que-los-originales-no-cambiaron-durante-el-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-4-demostrar-que-los-originales-no-cambiaron-durante-el-taller">Práctica 4 — Demostrar que los originales no cambiaron <em>(durante el taller)</em></h3>
+<ol type="1">
+<li><strong>Recupera</strong> del protocolo de S3 los <em>checksums</em> que anotaste entonces.</li>
+<li><strong>Calcula</strong> de nuevo las sumas de los dos archivos de <code>data/source/</code>.</li>
+<li><strong>Compara</strong> con las de S3. ¿Coinciden?</li>
+<li><strong>Construye</strong> el archivo <code>doc/checksums-u2.txt</code> con la sintaxis mínima de arriba.</li>
+<li><strong>Comprueba</strong> con <code>sha256sum -c</code> y copia la salida al protocolo.</li>
+<li><strong>Interpreta.</strong> Escribe una frase que empiece por: <em>«Puedo afirmar que los datos originales no han cambiado desde S3 porque…»</em>.</li>
+</ol>
+<details>
+<summary>
+Ver retroalimentación
+</summary>
+<p>Lo esperado es que las sumas <strong>coincidan</strong> y que <code>sha256sum -c</code> devuelva:</p>
+<pre class="text"><code>pacientes.md: La suma coincide
+pacientes-metadatos.md: La suma coincide</code></pre>
+<p>(o <code>OK</code> en lugar de <code>La suma coincide</code>, según el idioma configurado en el sistema).</p>
+<p>Si alguna <strong>no</strong> coincide, no supongas corrupción. Por orden de probabilidad, las causas son:</p>
+<ol type="1">
+<li><strong>Abriste el archivo con <code>nano</code> y guardaste sin querer.</strong> <code>nano</code> puede añadir un salto de línea final. Basta con eso para cambiar la suma por completo: un <em>checksum</em> no mide «cuánto» cambió un archivo, solo si cambió.</li>
+<li><strong>Copiaste el checksum de S3 con un espacio o carácter de más</strong> al pegarlo en el protocolo.</li>
+<li><strong>Estás comparando archivos distintos</strong>: por ejemplo, el del <em>home</em> contra el de <code>data/source/</code>.</li>
+</ol>
+<p>La corrupción real en una transferencia local es rarísima. Si descartas las tres causas anteriores, restaura el archivo desde tu copia local y <strong>registra el incidente</strong> en el protocolo: una limitación declarada es evidencia de buen trabajo, no de mal trabajo.</p>
+<p>Sobre la frase final: <em>«…porque el <code>sha256sum</code> calculado hoy coincide con el que registré en S3, y la comprobación queda automatizada en <code>doc/checksums-u2.txt</code>»</em> es una respuesta completa. <em>«…porque no los toqué»</em> no lo es: eso es un recuerdo, no una evidencia.</p>
+</details>
+<hr>
+</section>
+</section>
+<section id="verificar-permisos-el-mínimo-necesario-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="verificar-permisos-el-mínimo-necesario-indispensable">5. Verificar permisos: el mínimo necesario [Indispensable]</h2>
+<p>En S5 aprendiste que un permiso se concede porque hace falta, no por si acaso. Hoy revisas si el estado actual de tu proyecto lo refleja.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> ~/proyecto/data/source/</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> ~/proyecto/src/</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>La regla es corta:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tipo de archivo</th>
+<th>Permiso esperado</th>
+<th>Por qué</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Datos originales (<code>data/source/</code>)</td>
+<td>lectura; <strong>sin ejecución</strong></td>
+<td>No son programas y no deben modificarse</td>
+</tr>
+<tr class="even">
+<td>Documentación (<code>doc/</code>)</td>
+<td>lectura y escritura del dueño</td>
+<td>Son documentos vivos que corriges</td>
+</tr>
+<tr class="odd">
+<td>Scripts (<code>src/</code>)</td>
+<td>ejecución <strong>solo si se ejecutan</strong></td>
+<td>El permiso mínimo que la tarea requiere</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Advertencia
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Un archivo <code>.md</code> con permiso de ejecución no es peligroso por sí mismo, pero es una <strong>señal</strong>: indica que en algún momento aplicaste <code>chmod</code> a más archivos de los que pretendías. Vale la pena averiguar cuándo pasó.</p>
+</div>
+</div>
+<section id="práctica-5-justificar-cada-permiso-durante-el-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-5-justificar-cada-permiso-durante-el-taller">Práctica 5 — Justificar cada permiso <em>(durante el taller)</em></h3>
+<ol type="1">
+<li><strong>Localiza.</strong> Ejecuta los dos <code>ls -l</code> y copia las salidas.</li>
+<li><strong>Clasifica.</strong> Para cada archivo, escribe qué permisos tiene y <strong>por qué los necesita</strong>.</li>
+<li><strong>Detecta.</strong> Marca cualquier archivo cuyos permisos no puedas justificar.</li>
+<li><strong>Corrige</strong> con <code>chmod</code> simbólico, cambiando <strong>solo</strong> lo que sobra, y vuelve a ejecutar <code>ls -l</code> para comprobar el efecto.</li>
+<li><strong>Documenta</strong> cada cambio: qué archivo, qué permiso retiraste o añadiste y con qué argumento.</li>
+</ol>
+<details>
+<summary>
+Ver retroalimentación
+</summary>
+<p>El caso más frecuente es un archivo de datos o de documentación con <code>x</code> en los permisos del dueño (<code>-rwxr--r--</code> en lugar de <code>-rw-r--r--</code>). Se corrige con:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> u-x ~/proyecto/data/source/pacientes.md</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>El segundo caso frecuente es el contrario: el script de S5 en <code>src/</code> <strong>sin</strong> permiso de ejecución, porque lo restauraste desde el archivo comprimido y la restauración no siempre conserva el bit de ejecución. Se corrige con <code>chmod u+x</code>.</p>
+<p>Fíjate en que ambas correcciones usan notación <strong>simbólica</strong> (<code>u-x</code>, <code>u+x</code>) y afectan a <strong>un</strong> archivo. Si te ves escribiendo <code>chmod</code> sobre un directorio completo, detente: casi siempre significa que no has identificado qué archivo concreto tiene el problema.</p>
+<p>Un permiso que <strong>no</strong> debes «corregir» es el de lectura para grupo y otros (<code>r--r--</code>) en tus archivos de trabajo: en el servidor del curso es el estado normal y retirarlo no aporta seguridad real a datos sintéticos. El criterio es el permiso mínimo <strong>necesario para la tarea</strong>, no el mínimo posible.</p>
+</details>
+<hr>
+</section>
+</section>
+<section id="verificar-el-registro-puede-otra-persona-repetirlo-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="verificar-el-registro-puede-otra-persona-repetirlo-indispensable">6. Verificar el registro: ¿puede otra persona repetirlo? [Indispensable]</h2>
+<p>Los cinco puntos anteriores comprueban el <strong>entorno</strong>. Este comprueba el <strong>documento</strong>, y es el que distingue un proyecto reproducible de uno que simplemente funcionó una vez.</p>
+<p>Un <code>protocolo.md</code> sirve si otra persona, con tus mismas credenciales y sin hablar contigo, puede llegar al mismo estado. Los fallos típicos no son de contenido, sino de <strong>contexto ausente</strong>:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Fallo</th>
+<th>Cómo se ve</th>
+<th>Por qué rompe la repetición</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Comandos sin decir dónde se ejecutan</td>
+<td><code>sha256sum pacientes.md</code></td>
+<td>¿En el equipo o en el servidor? ¿Desde qué directorio?</td>
+</tr>
+<tr class="even">
+<td>Resultados sin el comando que los produjo</td>
+<td>Una cadena de 64 caracteres suelta</td>
+<td>No se sabe cómo obtenerla otra vez</td>
+</tr>
+<tr class="odd">
+<td>Decisiones sin argumento</td>
+<td>«Cambié los permisos»</td>
+<td>No se sabe a qué ni por qué</td>
+</tr>
+<tr class="even">
+<td>Rutas que solo existen en tu equipo</td>
+<td><code>/Users/ana/Escritorio/…</code></td>
+<td>Nadie más las tiene</td>
+</tr>
+<tr class="odd">
+<td>Credenciales escritas</td>
+<td>Usuario y contraseña en el texto</td>
+<td><strong>Nunca</strong>: se retiran de inmediato</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-warning callout-titled" title="credenciales">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Advertencia</span>credenciales
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si encuentras una contraseña en tu protocolo, elimínala ahora y avisa a quien imparte el curso. Un protocolo se comparte; una contraseña no.</p>
+</div>
+</div>
+<section id="práctica-6-leer-el-protocolo-de-otra-persona-durante-el-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-6-leer-el-protocolo-de-otra-persona-durante-el-taller">Práctica 6 — Leer el protocolo de otra persona <em>(durante el taller)</em></h3>
+<p>Trabaja en parejas. Cada quien lee el protocolo del otro <strong>sin preguntar nada</strong>.</p>
+<ol type="1">
+<li><strong>Intenta seguirlo.</strong> Marca la primera instrucción que no puedas ejecutar por falta de información.</li>
+<li><strong>Clasifica</strong> cada problema según la tabla anterior.</li>
+<li><strong>Devuelve</strong> a tu pareja tres observaciones concretas, en forma de pregunta: <em>«¿dónde se ejecuta esto?»</em>, <em>«¿de dónde sale este número?»</em>, <em>«¿por qué esta decisión y no otra?»</em>.</li>
+<li><strong>Corrige</strong> tu propio protocolo a partir de lo que te devolvieron. No discutas las observaciones: si tu pareja no lo entendió, algo falta.</li>
+<li><strong>Documenta</strong> qué cambiaste y por qué.</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Esta es la primera revisión por pares del curso, y es deliberadamente corta. En S16 harás una revisión completa, con criterios explícitos y dictamen escrito. Aquí solo practicas la experiencia básica: <strong>descubrir que lo obvio para ti no lo es para nadie más</strong>.</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="preparar-el-espacio-para-datos-que-no-son-tuyos-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="preparar-el-espacio-para-datos-que-no-son-tuyos-indispensable">7. Preparar el espacio para datos que no son tuyos [Indispensable]</h2>
+<p>Hasta ahora todos tus datos fueron <strong>sintéticos</strong>: <code>pacientes.md</code> tiene tres registros que se inventaron para el curso. Los conoces enteros, caben en pantalla y no tienen historia.</p>
+<p>En la Unidad 3 llegan datos <strong>reales</strong>: un genoma descargado de una base pública. Y con ellos, tres diferencias que cambian cómo hay que trabajar:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Datos sintéticos (U1–U2)</th>
+<th>Datos reales (U3 en adelante)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Tamaño</strong></td>
+<td>Caben en pantalla</td>
+<td>Millones de líneas; no se abren enteros</td>
+</tr>
+<tr class="even">
+<td><strong>Origen</strong></td>
+<td>Los hiciste tú</td>
+<td>Vienen de una base pública, con versión y fecha</td>
+</tr>
+<tr class="odd">
+<td><strong>Confianza</strong></td>
+<td>Sabes qué contienen</td>
+<td>Hay que comprobar qué contienen y si llegaron completos</td>
+</tr>
+</tbody>
+</table>
+<p>De ahí sale lo único que hay que preparar hoy: un lugar donde ponerlos y la costumbre de anotar de dónde vienen.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="dónde irán los datos grandes">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>dónde irán los datos grandes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Los archivos de esta unidad son pequeños y viven en tu <em>home</em>. Cuando los genomas lo justifiquen, el curso usará el espacio institucional <code>/export/space3/users/$USER</code>. <strong>Hoy no lo necesitas</strong> y no debes usarlo todavía.</p>
+</div>
+</div>
+<section id="práctica-7-dejar-el-proyecto-listo-durante-el-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-7-dejar-el-proyecto-listo-durante-el-taller">Práctica 7 — Dejar el proyecto listo <em>(durante el taller)</em></h3>
+<ol type="1">
+<li><strong>Comprueba</strong> que <code>data/processed/</code> y <code>results/</code> existen y están vacíos. Si no existen, créalos.</li>
+<li><strong>Actualiza</strong> <code>README.md</code> con <code>nano</code>: qué contiene el proyecto, cómo está organizado y qué representa cada directorio. Dos o tres frases por directorio bastan.</li>
+<li><strong>Anticipa.</strong> Escribe en el protocolo, bajo el título <em>Preguntas abiertas para U3</em>, tres cosas que no sabrías comprobar de un archivo que no hiciste tú.</li>
+<li><strong>Verifica</strong> por última vez con <code>ls -R ~/proyecto</code> que el árbol es el que declaras en <code>README.md</code>.</li>
+</ol>
+<details>
+<summary>
+Ver retroalimentación
+</summary>
+<p>Las tres preguntas de la actividad 3 no tienen una respuesta única, pero las más productivas suelen girar en torno a:</p>
+<ul>
+<li><strong>Procedencia:</strong> ¿de qué base salió, qué versión es y en qué fecha se descargó? Sin eso, el análisis no se puede repetir aunque los comandos sean perfectos.</li>
+<li><strong>Integridad:</strong> el <code>sha256sum</code> que calculas tú solo demuestra que el archivo no cambió <strong>después</strong> de llegar. Para saber si llegó completo hace falta una suma <strong>publicada por la fuente</strong>.</li>
+<li><strong>Contenido:</strong> si el archivo tiene millones de líneas, <code>cat</code> deja de servir. ¿Cómo miras un archivo que no cabe en pantalla, y cómo sabes cuántos registros tiene realmente?</li>
+</ul>
+<p>Las tres son exactamente las preguntas que abren la Unidad 3. Si llegaste a alguna por tu cuenta, has entendido para qué servía esta sesión.</p>
+</details>
+<hr>
+</section>
+</section>
+<section id="lo-que-ya-puedes-afirmar-y-lo-que-todavía-no-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="lo-que-ya-puedes-afirmar-y-lo-que-todavía-no-indispensable">8. Lo que ya puedes afirmar, y lo que todavía no [Indispensable]</h2>
+<p><strong>Puedes afirmar, con evidencia:</strong></p>
+<ul>
+<li>que accedes al servidor de forma autónoma y sabes reconocer dónde estás;</li>
+<li>que tu proyecto tiene la estructura declarada, y que cada elemento no declarado tiene una decisión escrita;</li>
+<li>que los datos originales no han cambiado desde S3, y que cualquiera puede comprobarlo con una orden;</li>
+<li>que cada permiso vigente responde a una necesidad que puedes justificar;</li>
+<li>que tu procedimiento es repetible por otra persona, porque alguien lo intentó.</li>
+</ul>
+<p><strong>Todavía no puedes:</strong></p>
+<ul>
+<li>comprobar la integridad de un archivo contra una suma <strong>publicada por su fuente</strong> —hasta ahora siempre comparaste contra ti misma—;</li>
+<li>describir el contenido de un archivo que no cabe en pantalla;</li>
+<li>documentar la procedencia de un dato que no produjiste tú.</li>
+</ul>
+<p>Esas tres carencias no son un fallo de esta sesión: son su resultado. El entorno ya está listo; <strong>lo que falta ahora son los datos</strong>, y con ellos empieza la Unidad 3.</p>
+<hr>
+</section>
+<section id="documentar-la-sección-del-protocolo-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="documentar-la-sección-del-protocolo-indispensable">9. Documentar: la sección del protocolo [Indispensable]</h2>
+<p>Añade a <code>doc/protocolo.md</code> un apartado nuevo. <strong>No reescribas</strong> los de S3, S4 y S5: se conservan tal como quedaron, y las correcciones de hoy se registran aquí, indicando qué corrigen.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Unidad 2 · S6 — Cierre y verificación del entorno</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">### Estado verificado</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Acceso: (salida de hostname, whoami, pwd)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Estructura: (salida de ls -R y diferencias con la estructura declarada)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Integridad de originales: (salida de sha256sum -c)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Permisos: (salida de ls -l y justificación por archivo)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="fu">### Diferencias encontradas entre lo declarado y lo real</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="fu">### Correcciones aplicadas</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>(qué se corrigió, en qué sesión se había originado y con qué argumento)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="fu">### Revisión por pares</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>(observaciones recibidas y cambios que produjeron)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="fu">### Limitaciones</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>(qué no se pudo comprobar y por qué)</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="fu">### Preguntas abiertas para U3</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El apartado <em>Diferencias encontradas</em> no debe quedar vacío. Si de verdad no hubo ninguna, escríbelo explícitamente junto con la evidencia que lo respalda. Un apartado en blanco no se distingue de un apartado sin hacer.</p>
+</div>
+</div>
+</section>
+<section id="evidencia-de-la-sesión" class="level2">
+<h2 class="anchored" data-anchor-id="evidencia-de-la-sesión">Evidencia de la sesión</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Elemento</th>
+<th>Dónde</th>
+<th>Qué demuestra</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Tabla de la Práctica 1, con la columna «comprobado» llena</td>
+<td><code>doc/protocolo.md</code></td>
+<td>Distinción entre afirmación y evidencia</td>
+</tr>
+<tr class="even">
+<td>Salidas de <code>ls -R</code>, <code>sha256sum -c</code> y <code>ls -l</code></td>
+<td><code>doc/protocolo.md</code></td>
+<td>Verificación del entorno</td>
+</tr>
+<tr class="odd">
+<td><code>doc/checksums-u2.txt</code></td>
+<td><code>doc/</code></td>
+<td>Comprobación de integridad repetible</td>
+</tr>
+<tr class="even">
+<td>Registro de correcciones</td>
+<td><code>doc/protocolo.md</code></td>
+<td>Trazabilidad de los cambios</td>
+</tr>
+<tr class="odd">
+<td><code>README.md</code> actualizado</td>
+<td>Raíz del proyecto</td>
+<td>El proyecto se explica solo</td>
+</tr>
+<tr class="even">
+<td>Preguntas abiertas para U3</td>
+<td><code>doc/protocolo.md</code></td>
+<td>Reconocimiento de los límites actuales</td>
+</tr>
+</tbody>
+</table>
+<p>Esta es la <strong>evidencia de cierre de la Unidad 2</strong> que pide el plan de clases.</p>
+</section>
+<section id="errores-frecuentes-y-estrategias-de-diagnóstico" class="level2">
+<h2 class="anchored" data-anchor-id="errores-frecuentes-y-estrategias-de-diagnóstico">Errores frecuentes y estrategias de diagnóstico</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Error</th>
+<th>Síntoma</th>
+<th>Diagnóstico</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Ejecutar en la máquina equivocada</td>
+<td>El comando funciona pero no encuentra los archivos</td>
+<td><code>hostname</code> y <code>pwd</code> antes de nada</td>
+</tr>
+<tr class="even">
+<td>Corregir sin registrar</td>
+<td>El árbol queda bien pero el protocolo no lo explica</td>
+<td>Toda corrección lleva una línea en <em>Correcciones aplicadas</em></td>
+</tr>
+<tr class="odd">
+<td>Confundir <code>~</code> con ruta absoluta</td>
+<td>La ruta anotada no funciona para otra persona</td>
+<td><code>pwd</code> dentro del directorio da la ruta real</td>
+</tr>
+<tr class="even">
+<td><code>sha256sum -c</code> con rutas relativas</td>
+<td><code>FAILED open or read</code></td>
+<td>El archivo de sumas guarda las rutas tal como se escribieron: ejecuta <code>-c</code> desde el mismo directorio</td>
+</tr>
+<tr class="odd">
+<td><code>chmod</code> sobre un directorio entero</td>
+<td>Cambian permisos que no querías tocar</td>
+<td>Identifica el archivo concreto; usa notación simbólica</td>
+</tr>
+<tr class="even">
+<td>Borrar lo que «sobra» sin mirar</td>
+<td>Se pierde evidencia de S5</td>
+<td>Decide primero por escrito, aplica después</td>
+</tr>
+<tr class="odd">
+<td>Dejar el protocolo sin limitaciones</td>
+<td>Todo parece perfecto</td>
+<td>Un trabajo sin limitaciones declaradas está incompleto, no perfecto</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="rúbricas" class="level2">
+<h2 class="anchored" data-anchor-id="rúbricas">Rúbricas</h2>
+<section id="primer-intento-práctica-1-formativo" class="level3">
+<h3 class="anchored" data-anchor-id="primer-intento-práctica-1-formativo">Primer intento (Práctica 1) — formativo</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Nivel</th>
+<th>Descriptor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Logrado</td>
+<td>Completa la tabla de memoria y propone una comprobación plausible para cada fila</td>
+</tr>
+<tr class="even">
+<td>Parcialmente logrado</td>
+<td>Completa la tabla pero deja sin proponer comprobación en varias filas</td>
+</tr>
+<tr class="odd">
+<td>Aún no logrado</td>
+<td>Consulta los apuntes o el servidor para rellenarla, perdiendo el contraste</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="participación-en-el-taller-formativo" class="level3">
+<h3 class="anchored" data-anchor-id="participación-en-el-taller-formativo">Participación en el taller — formativo</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Nivel</th>
+<th>Descriptor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Logrado</td>
+<td>Comprueba cada afirmación, detecta diferencias y las argumenta; da y recibe revisión por pares con observaciones concretas</td>
+</tr>
+<tr class="even">
+<td>Parcialmente logrado</td>
+<td>Comprueba pero no interpreta las diferencias, o participa en la revisión de forma genérica</td>
+</tr>
+<tr class="odd">
+<td>Aún no logrado</td>
+<td>Ejecuta los comandos sin contrastarlos con su tabla inicial</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="evidencia-de-cierre-de-u2-calificada" class="level3">
+<h3 class="anchored" data-anchor-id="evidencia-de-cierre-de-u2-calificada">Evidencia de cierre de U2 — calificada</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterio</th>
+<th>Logrado</th>
+<th>Parcialmente logrado</th>
+<th>Aún no logrado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Verificación del entorno</td>
+<td>Las cuatro comprobaciones están, con su salida</td>
+<td>Faltan una o dos</td>
+<td>Hay afirmaciones sin salida que las respalde</td>
+</tr>
+<tr class="even">
+<td>Integridad</td>
+<td>Demuestra que los originales no cambiaron y deja la comprobación automatizada</td>
+<td>Compara a ojo, sin archivo de sumas</td>
+<td>No comprueba integridad</td>
+</tr>
+<tr class="odd">
+<td>Justificación de permisos</td>
+<td>Cada permiso tiene un argumento en términos de necesidad</td>
+<td>Justifica algunos</td>
+<td>Enumera permisos sin justificarlos</td>
+</tr>
+<tr class="even">
+<td>Trazabilidad de correcciones</td>
+<td>Cada corrección dice qué arregla y de dónde venía</td>
+<td>Registra el cambio sin su origen</td>
+<td>Corrige en silencio</td>
+</tr>
+<tr class="odd">
+<td>Repetibilidad</td>
+<td>Otra persona siguió el protocolo e identificó los puntos ciegos, que fueron corregidos</td>
+<td>Hubo revisión pero sin corrección posterior</td>
+<td>No hubo revisión</td>
+</tr>
+<tr class="even">
+<td>Límites declarados</td>
+<td>Declara qué no pudo comprobar y qué le faltará en U3</td>
+<td>Menciona límites de forma vaga</td>
+<td>No declara límites</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="autoevaluación" class="level2">
+<h2 class="anchored" data-anchor-id="autoevaluación">Autoevaluación</h2>
+<p>Responde con sí, parcialmente o todavía no:</p>
+<ul>
+<li>¿Sé distinguir una afirmación sobre mi entorno de la evidencia que la sostiene?</li>
+<li>¿Puedo conectarme al servidor y situarme sin ayuda?</li>
+<li>¿Coincide el árbol real de mi proyecto con el que declaro, y sé explicar cada diferencia?</li>
+<li>¿Puedo demostrar —no afirmar— que mis datos originales no han cambiado?</li>
+<li>¿Sé justificar por qué cada archivo tiene los permisos que tiene?</li>
+<li>¿Alguien más siguió mi protocolo y llegó al mismo sitio?</li>
+<li>¿Sé decir qué no podré comprobar cuando los datos no sean míos?</li>
+</ul>
+<p>Si respondes «todavía no» a la cuarta o a la sexta, revísalas antes de empezar la Unidad 3: son las dos que U3 da por adquiridas.</p>
+</section>
+<section id="distribución-estimada-de-las-dos-horas" class="level2">
+<h2 class="anchored" data-anchor-id="distribución-estimada-de-las-dos-horas">Distribución estimada de las dos horas</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 30%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Bloque</th>
+<th>Actividad</th>
+<th style="text-align: right;">Tiempo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Apertura</td>
+<td>Contraste de las tablas de la Práctica 1 en grupo</td>
+<td style="text-align: right;">10 min</td>
+</tr>
+<tr class="even">
+<td>Bloque 1</td>
+<td>§2–§3 con Prácticas 2 y 3: acceso y estructura</td>
+<td style="text-align: right;">30 min</td>
+</tr>
+<tr class="odd">
+<td>Bloque 2</td>
+<td>§4 con Práctica 4: integridad y archivo de sumas</td>
+<td style="text-align: right;">25 min</td>
+</tr>
+<tr class="even">
+<td>Bloque 3</td>
+<td>§5 con Práctica 5: permisos</td>
+<td style="text-align: right;">20 min</td>
+</tr>
+<tr class="odd">
+<td>Bloque 4</td>
+<td>§6 con Práctica 6: revisión por pares</td>
+<td style="text-align: right;">20 min</td>
+</tr>
+<tr class="even">
+<td>Cierre</td>
+<td>§7 con Práctica 7 y preguntas abiertas para U3</td>
+<td style="text-align: right;">15 min</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="anexo-a.-correspondencia-resultadoactividadevidenciacriterio" class="level2">
+<h2 class="anchored" data-anchor-id="anexo-a.-correspondencia-resultadoactividadevidenciacriterio">Anexo A. Correspondencia resultado–actividad–evidencia–criterio</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Resultado</th>
+<th>Actividad</th>
+<th>Evidencia</th>
+<th>Criterio</th>
+<th>Momento</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1. Distinguir afirmación de evidencia</td>
+<td>Práctica 1</td>
+<td>Tabla contrastada</td>
+<td>Propone comprobación para cada afirmación</td>
+<td>Antes / taller</td>
+</tr>
+<tr class="even">
+<td>2. Restablecer el acceso</td>
+<td>Práctica 2</td>
+<td>Salidas de <code>hostname</code>, <code>whoami</code>, <code>pwd</code></td>
+<td>Se conecta y se sitúa sin ayuda</td>
+<td>Taller</td>
+</tr>
+<tr class="odd">
+<td>3. Comparar estructura real y declarada</td>
+<td>Práctica 3</td>
+<td>Salida de <code>ls -R</code> y decisiones escritas</td>
+<td>Explica cada diferencia</td>
+<td>Taller</td>
+</tr>
+<tr class="even">
+<td>4. Demostrar integridad</td>
+<td>Práctica 4</td>
+<td><code>checksums-u2.txt</code> y salida de <code>-c</code></td>
+<td>La comprobación es repetible por terceros</td>
+<td>Taller</td>
+</tr>
+<tr class="odd">
+<td>5. Justificar permisos</td>
+<td>Práctica 5</td>
+<td>Salidas de <code>ls -l</code> y argumentos</td>
+<td>Aplica el criterio de permiso mínimo</td>
+<td>Taller</td>
+</tr>
+<tr class="even">
+<td>6. Comprobar repetibilidad</td>
+<td>Práctica 6</td>
+<td>Observaciones recibidas y correcciones</td>
+<td>Corrige a partir de la lectura ajena</td>
+<td>Taller</td>
+</tr>
+<tr class="odd">
+<td>7. Preparar para datos externos</td>
+<td>Práctica 7</td>
+<td><code>README.md</code> y preguntas abiertas</td>
+<td>Identifica qué información le faltará</td>
+<td>Taller / después</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="anexo-b.-alineación-transversal" class="level2">
+<h2 class="anchored" data-anchor-id="anexo-b.-alineación-transversal">Anexo B. Alineación transversal</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Práctica</th>
+<th>Reproducibilidad</th>
+<th>Verificación</th>
+<th>Validación</th>
+<th>Robustez</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>P2 Acceso</td>
+<td>Procedimiento repetible sin ayuda</td>
+<td><code>hostname</code> confirma la máquina</td>
+<td>—</td>
+<td>Detecta el error de máquina equivocada</td>
+</tr>
+<tr class="even">
+<td>P3 Estructura</td>
+<td>Árbol declarado y real coinciden</td>
+<td><code>ls -R</code> como prueba</td>
+<td>Contraste con la estructura de U1</td>
+<td>Decisión explícita sobre lo no declarado</td>
+</tr>
+<tr class="odd">
+<td>P4 Integridad</td>
+<td>Archivo de sumas reutilizable</td>
+<td><code>sha256sum -c</code></td>
+<td>Contraste con el registro de S3</td>
+<td>Diagnóstico de causas de un <code>FAILED</code></td>
+</tr>
+<tr class="even">
+<td>P5 Permisos</td>
+<td>Cambios registrados</td>
+<td><code>ls -l</code> antes y después</td>
+<td>Criterio de permiso mínimo</td>
+<td>Cambio acotado a un archivo</td>
+</tr>
+<tr class="odd">
+<td>P6 Revisión</td>
+<td>Protocolo ejecutable por terceros</td>
+<td>Otra persona lo intenta</td>
+<td>Evidencia externa e independiente</td>
+<td>Corrección a partir del fallo ajeno</td>
+</tr>
+<tr class="even">
+<td>P7 Preparación</td>
+<td>Estructura lista para U3</td>
+<td><code>ls -R</code> final</td>
+<td>—</td>
+<td>Anticipa límites del entorno</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="glosario" class="level2">
+<h2 class="anchored" data-anchor-id="glosario">Glosario</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Español</th>
+<th>Inglés</th>
+<th>Nota</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>suma de verificación</td>
+<td><em>checksum</em></td>
+<td>Cadena que resume el contenido de un archivo</td>
+</tr>
+<tr class="even">
+<td>integridad</td>
+<td><em>integrity</em></td>
+<td>Que el contenido no ha cambiado</td>
+</tr>
+<tr class="odd">
+<td>ruta absoluta</td>
+<td><em>absolute path</em></td>
+<td>Empieza en la raíz <code>/</code></td>
+</tr>
+<tr class="even">
+<td>permiso mínimo</td>
+<td><em>least privilege</em></td>
+<td>Conceder solo lo que la tarea requiere</td>
+</tr>
+<tr class="odd">
+<td>recursivo</td>
+<td><em>recursive</em></td>
+<td>Que recorre también los subdirectorios</td>
+</tr>
+<tr class="even">
+<td>revisión por pares</td>
+<td><em>peer review</em></td>
+<td>Lectura crítica por otra persona</td>
+</tr>
+<tr class="odd">
+<td>dato sintético</td>
+<td><em>synthetic data</em></td>
+<td>Generado para practicar, no observado</td>
+</tr>
+<tr class="even">
+<td>procedencia</td>
+<td><em>provenance</em></td>
+<td>Origen, versión y fecha de un dato</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="referencias" class="level2">
+<h2 class="anchored" data-anchor-id="referencias">Referencias</h2>
+<ul>
+<li>Buffalo, V. (2015). <em>Bioinformatics Data Skills</em>, cap. 2 y 3. O’Reilly Media.</li>
+<li>Noble, W. S. (2009). A quick guide to organizing computational biology projects. <em>PLoS Computational Biology</em>, 5(7), e1000424. <a href="https://doi.org/10.1371/journal.pcbi.1000424" class="uri">https://doi.org/10.1371/journal.pcbi.1000424</a></li>
+<li>Sandve, G. K., Nekrutenko, A., Taylor, J., &amp; Hovig, E. (2013). Ten simple rules for reproducible computational research. <em>PLoS Computational Biology</em>, 9(10), e1003285. <a href="https://doi.org/10.1371/journal.pcbi.1003285" class="uri">https://doi.org/10.1371/journal.pcbi.1003285</a></li>
+<li>Shotts, W. E. (2019). <em>The Linux Command Line</em> (2.ª ed.), caps. 9 y 10. No Starch Press.</li>
+<li>Wilson, G., et al.&nbsp;(2017). Good enough practices in scientific computing. <em>PLoS Computational Biology</em>, 13(6), e1005510. <a href="https://doi.org/10.1371/journal.pcbi.1005510" class="uri">https://doi.org/10.1371/journal.pcbi.1005510</a></li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/helysalgado\.github\.io\/introbioinfo-unix\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./u2-s5-archivos-permisos-procesos.html" class="pagination-link" aria-label="S5 — Archivos y procesos">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">S5 — Archivos y procesos</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./u3-datos-bases-datos.html" class="pagination-link" aria-label="Portada">
+        <span class="nav-page-text">Portada</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://hits.sh/helysalgado.github.io/introbioinfo-unix/"><img src="https://hits.sh/helysalgado.github.io/introbioinfo-unix/.svg?style=flat-square&amp;label=Visitas&amp;color=4a7c9e" class="img-fluid figure-img"></a></p>
+<figcaption>Visitas</figcaption>
+</figure>
+</div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Helysalgado/introbioinfo-unix/edit/main/u2-s6-consolidacion-entorno-unix.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/Helysalgado/introbioinfo-unix/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

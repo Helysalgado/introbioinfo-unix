@@ -1,0 +1,2945 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>u5-s24-del-protocolo-al-script – Introducción a la Bioinformática</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./u5-s25-separar-procedimiento-datos.html" rel="next">
+<link href="./u5-automatizacion-scripting.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fe29f166eb879f148ae4045f3c41549b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXNMZZP0K9"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-QXNMZZP0K9', { 'anonymize_ip': true});
+</script>
+<meta name="mermaid-theme" content="default">
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-md-bootstrap.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Introducción a la Bioinformática</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Inicio</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-programa" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Programa</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-programa">    
+        <li>
+    <a class="dropdown-item" href="./programa.html">
+ <span class="dropdown-text">Ruta de sesiones</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./programa-detallado.html">
+ <span class="dropdown-text">Programa detallado</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-unidades" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Unidades</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-unidades">    
+        <li>
+    <a class="dropdown-item" href="./u1-trabajo-reproducible.html">
+ <span class="dropdown-text">U1 — Trabajo reproducible</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u2-entorno-unix.html">
+ <span class="dropdown-text">U2 — Entorno Unix</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u3-datos-bases-datos.html">
+ <span class="dropdown-text">U3 — Datos y bases</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u4-procesamiento-exploracion.html">
+ <span class="dropdown-text">U4 — Procesamiento genómico</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u5-automatizacion-scripting.html">
+ <span class="dropdown-text">U5 — Automatización</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u6-comparacion-homologia.html">
+ <span class="dropdown-text">U6 — Comparar / hipótesis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./s14-s15-mini-proyecto-investigacion-I.html">
+ <span class="dropdown-text">Transversal S14–S17</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="./recursos.html" aria-current="page"> 
+<span class="menu-text">Recursos</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./acerca.html"> 
+<span class="menu-text">Acerca</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./contribuir.html"> 
+<span class="menu-text">Contribuir</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Alternar modo lector">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./u5-automatizacion-scripting.html">Unidad 5</a></li><li class="breadcrumb-item"><a href="./u5-s24-del-protocolo-al-script.html">S24 — Del protocolo al script</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 1</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-trabajo-reproducible.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-s1-documentar-markdown-fases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S1 — Documentar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-s2-organizar-fair-ia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S2 — Organizar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 2</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-entorno-unix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s3-shell-acceso-remoto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S3 — Conectar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s4-sistema-archivos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S4 — Navegar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s5-archivos-permisos-procesos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S5 — Archivos y procesos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s6-consolidacion-entorno-unix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S6 — Consolidar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 3</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-datos-bases-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s7-secuencias-formatos-genbank.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S7 — Formatos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s8-bases-datos-descarga-integridad.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S8 — Descargar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s9-inspeccion-transferencia-verificable.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S9 — Transferir</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 4</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-procesamiento-exploracion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s10-anatomia-flujos-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S10 — Anatomía y flujos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s11-estructura-tabular-anotacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S11 — Anotación tabular</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s12-filtrado-conteos-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S12 — Filtrar y contar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s13-inventario-resumen-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S13 — Inventario</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s18-precision-patrones-expresiones-regulares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S18 — Patrones</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s19-extraccion-identificadores-correspondencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S19 — Identificadores</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s20-normalizar-datos-comparables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S20 — Normalizar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s21-confrontar-fuente-independiente.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S21 — Confrontar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s22-condicionar-calcular-columnas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S22 — Condicionar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s23-protocolo-ejecutable-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S23 — Protocolo ejecutable</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Transversal</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s14-s15-mini-proyecto-investigacion-I.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S14–S15 — Mini-proyecto I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s16-mini-proyecto-revision-pares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S16 — Revisión por pares</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s17-evaluacion-individual-demostrativa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S17 — Evaluación demostrativa</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mini-proyecto-dictamen-cientifico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dictamen científico</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Unidad 5</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-automatizacion-scripting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s24-del-protocolo-al-script.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">S24 — Del protocolo al script</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s25-separar-procedimiento-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S25 — Separar datos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s26-procesamiento-por-lotes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S26 — Por lotes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s27-herramienta-cientifica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S27 — Herramienta científica</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s28-proyecto-integrador.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S28 — Proyecto integrador</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s29-cluster-hpc-sge.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S29 — Cluster SGE</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 6</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-comparacion-homologia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s30-comparar-alinear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S30 — Comparar / alinear</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s31-buscar-blast.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S31 — Buscar (BLAST)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s32-interpretar-inferir.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S32 — Interpretar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s33-defender-hipotesis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S33 — Inferir</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s34-integrar-hipotesis-casos-ciegos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S34 — Integrar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./programa-detallado.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programa detallado</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./recursos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recursos</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#s24-guardar-del-protocolo-ejecutable-al-script" id="toc-s24-guardar-del-protocolo-ejecutable-al-script" class="nav-link active" data-scroll-target="#s24-guardar-del-protocolo-ejecutable-al-script">S24 — Guardar: del protocolo ejecutable al script</a>
+  <ul class="collapse">
+  <li><a href="#ficha-del-módulo" id="toc-ficha-del-módulo" class="nav-link" data-scroll-target="#ficha-del-módulo">Ficha del módulo</a></li>
+  <li><a href="#relación-con-lo-que-ya-sabes" id="toc-relación-con-lo-que-ya-sabes" class="nav-link" data-scroll-target="#relación-con-lo-que-ya-sabes">Relación con lo que ya sabes</a></li>
+  <li><a href="#dónde-estás-en-la-unidad-5" id="toc-dónde-estás-en-la-unidad-5" class="nav-link" data-scroll-target="#dónde-estás-en-la-unidad-5">Dónde estás en la Unidad 5</a></li>
+  <li><a href="#resultados-de-aprendizaje" id="toc-resultados-de-aprendizaje" class="nav-link" data-scroll-target="#resultados-de-aprendizaje">Resultados de aprendizaje</a></li>
+  <li><a href="#lista-de-verificación-previa" id="toc-lista-de-verificación-previa" class="nav-link" data-scroll-target="#lista-de-verificación-previa">Lista de verificación previa</a></li>
+  <li><a href="#ruta-de-s24" id="toc-ruta-de-s24" class="nav-link" data-scroll-target="#ruta-de-s24">Ruta de S24</a></li>
+  <li><a href="#copiar-treinta-comandos-no-es-reproducir-indispensable" id="toc-copiar-treinta-comandos-no-es-reproducir-indispensable" class="nav-link" data-scroll-target="#copiar-treinta-comandos-no-es-reproducir-indispensable">1. Copiar treinta comandos no es reproducir [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#lo-que-sigue-viviendo-fuera-del-documento" id="toc-lo-que-sigue-viviendo-fuera-del-documento" class="nav-link" data-scroll-target="#lo-que-sigue-viviendo-fuera-del-documento">1.1 Lo que sigue viviendo fuera del documento</a></li>
+  <li><a href="#la-pregunta-científica-de-hoy" id="toc-la-pregunta-científica-de-hoy" class="nav-link" data-scroll-target="#la-pregunta-científica-de-hoy">1.2 La pregunta científica de hoy</a></li>
+  <li><a href="#qué-se-gana-exactamente" id="toc-qué-se-gana-exactamente" class="nav-link" data-scroll-target="#qué-se-gana-exactamente">1.3 Qué se gana exactamente</a></li>
+  </ul></li>
+  <li><a href="#qué-es-un-script-y-qué-todavía-no-es-indispensable" id="toc-qué-es-un-script-y-qué-todavía-no-es-indispensable" class="nav-link" data-scroll-target="#qué-es-un-script-y-qué-todavía-no-es-indispensable">2. Qué es un script (y qué todavía no es) [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#el-script-como-registro-del-análisis" id="toc-el-script-como-registro-del-análisis" class="nav-link" data-scroll-target="#el-script-como-registro-del-análisis">2.1 El script como registro del análisis</a></li>
+  <li><a href="#práctica-1-elegir-qué-merece-convertirse-en-script-antes-de-clase-primer-intento" id="toc-práctica-1-elegir-qué-merece-convertirse-en-script-antes-de-clase-primer-intento" class="nav-link" data-scroll-target="#práctica-1-elegir-qué-merece-convertirse-en-script-antes-de-clase-primer-intento">Práctica 1 — Elegir qué merece convertirse en script <em>(antes de clase, primer intento)</em></a></li>
+  </ul></li>
+  <li><a href="#qué-necesita-el-sistema-para-ejecutar-tu-análisis-indispensable" id="toc-qué-necesita-el-sistema-para-ejecutar-tu-análisis-indispensable" class="nav-link" data-scroll-target="#qué-necesita-el-sistema-para-ejecutar-tu-análisis-indispensable">3. Qué necesita el sistema para ejecutar tu análisis [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#primera-pregunta-quién-interpretará-el-procedimiento" id="toc-primera-pregunta-quién-interpretará-el-procedimiento" class="nav-link" data-scroll-target="#primera-pregunta-quién-interpretará-el-procedimiento">3.1 Primera pregunta: ¿quién interpretará el procedimiento?</a></li>
+  <li><a href="#segunda-pregunta-quién-tiene-permiso-para-ejecutarlo" id="toc-segunda-pregunta-quién-tiene-permiso-para-ejecutarlo" class="nav-link" data-scroll-target="#segunda-pregunta-quién-tiene-permiso-para-ejecutarlo">3.2 Segunda pregunta: ¿quién tiene permiso para ejecutarlo?</a></li>
+  <li><a href="#tercera-pregunta-dónde-está-el-procedimiento" id="toc-tercera-pregunta-dónde-está-el-procedimiento" class="nav-link" data-scroll-target="#tercera-pregunta-dónde-está-el-procedimiento">3.3 Tercera pregunta: ¿dónde está el procedimiento?</a></li>
+  <li><a href="#un-atajo-que-sirve-para-diagnosticar-bash-script.sh" id="toc-un-atajo-que-sirve-para-diagnosticar-bash-script.sh" class="nav-link" data-scroll-target="#un-atajo-que-sirve-para-diagnosticar-bash-script.sh">3.4 Un atajo que sirve para diagnosticar: <code>bash script.sh</code></a></li>
+  <li><a href="#práctica-2-predecir-los-tres-fracasos-antes-de-clase-primer-intento" id="toc-práctica-2-predecir-los-tres-fracasos-antes-de-clase-primer-intento" class="nav-link" data-scroll-target="#práctica-2-predecir-los-tres-fracasos-antes-de-clase-primer-intento">Práctica 2 — Predecir los tres fracasos <em>(antes de clase, primer intento)</em></a></li>
+  </ul></li>
+  <li><a href="#un-script-que-se-explica-solo-indispensable" id="toc-un-script-que-se-explica-solo-indispensable" class="nav-link" data-scroll-target="#un-script-que-se-explica-solo-indispensable">4. Un script que se explica solo [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#el-encabezado" id="toc-el-encabezado" class="nav-link" data-scroll-target="#el-encabezado">4.1 El encabezado</a></li>
+  <li><a href="#los-comentarios-dentro-del-script" id="toc-los-comentarios-dentro-del-script" class="nav-link" data-scroll-target="#los-comentarios-dentro-del-script">4.2 Los comentarios dentro del script</a></li>
+  <li><a href="#los-comentarios-de-bloque" id="toc-los-comentarios-de-bloque" class="nav-link" data-scroll-target="#los-comentarios-de-bloque">4.3 Los comentarios de bloque</a></li>
+  </ul></li>
+  <li><a href="#el-script-como-objeto-del-proyecto-indispensable" id="toc-el-script-como-objeto-del-proyecto-indispensable" class="nav-link" data-scroll-target="#el-script-como-objeto-del-proyecto-indispensable">5. El script como objeto del proyecto [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#dónde-vive" id="toc-dónde-vive" class="nav-link" data-scroll-target="#dónde-vive">5.1 Dónde vive</a></li>
+  <li><a href="#el-protocolo-cambia-de-estatus" id="toc-el-protocolo-cambia-de-estatus" class="nav-link" data-scroll-target="#el-protocolo-cambia-de-estatus">5.2 El protocolo cambia de estatus</a></li>
+  <li><a href="#la-regla-no-negociable" id="toc-la-regla-no-negociable" class="nav-link" data-scroll-target="#la-regla-no-negociable">5.3 La regla no negociable</a></li>
+  <li><a href="#práctica-3-construir-y-ejecutar-el-primer-script-durante-el-taller" id="toc-práctica-3-construir-y-ejecutar-el-primer-script-durante-el-taller" class="nav-link" data-scroll-target="#práctica-3-construir-y-ejecutar-el-primer-script-durante-el-taller">Práctica 3 — Construir y ejecutar el primer script <em>(durante el taller)</em></a></li>
+  </ul></li>
+  <li><a href="#el-error-que-ya-no-vas-a-ver-indispensable" id="toc-el-error-que-ya-no-vas-a-ver-indispensable" class="nav-link" data-scroll-target="#el-error-que-ya-no-vas-a-ver-indispensable">6. El error que ya no vas a ver [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#un-script-puede-terminar-bien-y-no-haber-hecho-nada" id="toc-un-script-puede-terminar-bien-y-no-haber-hecho-nada" class="nav-link" data-scroll-target="#un-script-puede-terminar-bien-y-no-haber-hecho-nada">6.1 Un script puede terminar bien y no haber hecho nada</a></li>
+  <li><a href="#la-primera-defensa-decir-en-voz-alta-qué-se-está-haciendo" id="toc-la-primera-defensa-decir-en-voz-alta-qué-se-está-haciendo" class="nav-link" data-scroll-target="#la-primera-defensa-decir-en-voz-alta-qué-se-está-haciendo">6.2 La primera defensa: decir en voz alta qué se está haciendo</a></li>
+  <li><a href="#práctica-4-provocar-los-fallos-y-leer-sus-mensajes-durante-el-taller" id="toc-práctica-4-provocar-los-fallos-y-leer-sus-mensajes-durante-el-taller" class="nav-link" data-scroll-target="#práctica-4-provocar-los-fallos-y-leer-sus-mensajes-durante-el-taller">Práctica 4 — Provocar los fallos y leer sus mensajes <em>(durante el taller)</em></a></li>
+  <li><a href="#práctica-5-ampliar-a-la-ruta-crítica-y-validar-después-del-taller" id="toc-práctica-5-ampliar-a-la-ruta-crítica-y-validar-después-del-taller" class="nav-link" data-scroll-target="#práctica-5-ampliar-a-la-ruta-crítica-y-validar-después-del-taller">Práctica 5 — Ampliar a la ruta crítica y validar <em>(después del taller)</em></a></li>
+  </ul></li>
+  <li><a href="#ejecutable-todavía-no-es-reutilizable-consulta" id="toc-ejecutable-todavía-no-es-reutilizable-consulta" class="nav-link" data-scroll-target="#ejecutable-todavía-no-es-reutilizable-consulta">7. Ejecutable todavía no es reutilizable [Consulta]</a></li>
+  <li><a href="#documentar-la-sección-del-protocolo-indispensable" id="toc-documentar-la-sección-del-protocolo-indispensable" class="nav-link" data-scroll-target="#documentar-la-sección-del-protocolo-indispensable">8. Documentar: la sección del protocolo [Indispensable]</a></li>
+  <li><a href="#evidencia-de-la-sesión" id="toc-evidencia-de-la-sesión" class="nav-link" data-scroll-target="#evidencia-de-la-sesión">Evidencia de la sesión</a></li>
+  <li><a href="#errores-frecuentes-y-estrategias-de-diagnóstico" id="toc-errores-frecuentes-y-estrategias-de-diagnóstico" class="nav-link" data-scroll-target="#errores-frecuentes-y-estrategias-de-diagnóstico">Errores frecuentes y estrategias de diagnóstico</a></li>
+  <li><a href="#rúbricas" id="toc-rúbricas" class="nav-link" data-scroll-target="#rúbricas">Rúbricas</a></li>
+  <li><a href="#autoevaluación" id="toc-autoevaluación" class="nav-link" data-scroll-target="#autoevaluación">Autoevaluación</a>
+  <ul class="collapse">
+  <li><a href="#comprobación-rápida-formativa-al-final-del-taller" id="toc-comprobación-rápida-formativa-al-final-del-taller" class="nav-link" data-scroll-target="#comprobación-rápida-formativa-al-final-del-taller">Comprobación rápida — formativa, al final del taller</a></li>
+  <li><a href="#semáforo" id="toc-semáforo" class="nav-link" data-scroll-target="#semáforo">Semáforo</a></li>
+  </ul></li>
+  <li><a href="#cierre-con-ia-clásico-vs.-asistido" id="toc-cierre-con-ia-clásico-vs.-asistido" class="nav-link" data-scroll-target="#cierre-con-ia-clásico-vs.-asistido">Cierre con IA: clásico vs.&nbsp;asistido</a></li>
+  <li><a href="#lo-que-realmente-aprendiste-hoy" id="toc-lo-que-realmente-aprendiste-hoy" class="nav-link" data-scroll-target="#lo-que-realmente-aprendiste-hoy">Lo que realmente aprendiste hoy</a></li>
+  <li><a href="#lo-que-todavía-falta" id="toc-lo-que-todavía-falta" class="nav-link" data-scroll-target="#lo-que-todavía-falta">Lo que todavía falta</a></li>
+  <li><a href="#puente-hacia-s25" id="toc-puente-hacia-s25" class="nav-link" data-scroll-target="#puente-hacia-s25">Puente hacia S25</a></li>
+  <li><a href="#en-una-frase" id="toc-en-una-frase" class="nav-link" data-scroll-target="#en-una-frase">En una frase</a></li>
+  <li><a href="#anexo-a.-correspondencia-resultadoactividadevidenciacriterio" id="toc-anexo-a.-correspondencia-resultadoactividadevidenciacriterio" class="nav-link" data-scroll-target="#anexo-a.-correspondencia-resultadoactividadevidenciacriterio">Anexo A. Correspondencia resultado–actividad–evidencia–criterio</a></li>
+  <li><a href="#anexo-b.-alineación-transversal" id="toc-anexo-b.-alineación-transversal" class="nav-link" data-scroll-target="#anexo-b.-alineación-transversal">Anexo B. Alineación transversal</a></li>
+  <li><a href="#glosario" id="toc-glosario" class="nav-link" data-scroll-target="#glosario">Glosario</a></li>
+  <li><a href="#referencias" id="toc-referencias" class="nav-link" data-scroll-target="#referencias">Referencias</a></li>
+  <li><a href="#distribución-estimada-de-las-dos-horas" id="toc-distribución-estimada-de-las-dos-horas" class="nav-link" data-scroll-target="#distribución-estimada-de-las-dos-horas">Distribución estimada de las dos horas</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/Helysalgado/introbioinfo-unix/edit/main/u5-s24-del-protocolo-al-script.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/Helysalgado/introbioinfo-unix/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./u5-automatizacion-scripting.html">Unidad 5</a></li><li class="breadcrumb-item"><a href="./u5-s24-del-protocolo-al-script.html">S24 — Del protocolo al script</a></li></ol></nav></header>
+
+
+
+
+<section id="s24-guardar-del-protocolo-ejecutable-al-script" class="level1">
+<h1>S24 — Guardar: del protocolo ejecutable al script</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="Aula invertida">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Aula invertida
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Antes de clase harás un primer intento sin ejecutar nada: elegir qué fragmento de tu protocolo de S23 merece convertirse en el primer script, y predecir por escrito qué ocurrirá cuando el sistema intente ejecutarlo. Durante el taller construirás ese script, lo ejecutarás y provocarás a propósito los tres fracasos que todo el mundo comete la primera vez. Después ampliarás el script a la ruta crítica completa y comprobarás que produce <strong>exactamente</strong> lo mismo que produjiste a mano.</p>
+<p>El primer intento es formativo: importa que hagas predicciones, no que acierten.</p>
+</div>
+</div>
+<section id="ficha-del-módulo" class="level2">
+<h2 class="anchored" data-anchor-id="ficha-del-módulo">Ficha del módulo</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Elemento</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Sesión</strong></td>
+<td>S24, 2 horas</td>
+</tr>
+<tr class="even">
+<td><strong>Unidad</strong></td>
+<td><a href="./u5-automatizacion-scripting.html">U5. Automatización de análisis bioinformáticos con Shell</a> — <strong>sesión de apertura</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>Competencia principal</strong></td>
+<td>E. Automatización y scripting</td>
+</tr>
+<tr class="even">
+<td><strong>Competencias integradas</strong></td>
+<td>A. Documentación reproducible; B. Entorno Unix; D. Análisis de datos genómicos</td>
+</tr>
+<tr class="odd">
+<td><strong>Propósito</strong></td>
+<td>Convertir un procedimiento que una persona ejecuta a mano en un archivo que el sistema ejecuta de principio a fin, sin perder el orden ni las verificaciones</td>
+</tr>
+<tr class="even">
+<td><strong>Consulta previa del Plan</strong></td>
+<td>S23 y el protocolo ejecutable de la Unidad 4; este módulo es la lectura autocontenida de la sesión</td>
+</tr>
+<tr class="odd">
+<td><strong>Continuidad</strong></td>
+<td>S23 dejó un protocolo ejecutable cuya ejecución depende de una persona; S24 se la quita de encima</td>
+</tr>
+<tr class="even">
+<td><strong>Lectura indispensable</strong></td>
+<td>Secciones 1–6 de este módulo (~50 min)</td>
+</tr>
+<tr class="odd">
+<td><strong>Lectura base de la unidad</strong></td>
+<td>Buffalo (2015), Cap. 12, secciones iniciales sobre <em>shell scripting</em> (~40 min; la evidencia se entrega en S26)</td>
+</tr>
+<tr class="even">
+<td><strong>Lectura de consulta</strong></td>
+<td>Sección 7; tu propia sección S23 de <code>doc/protocolo.md</code></td>
+</tr>
+<tr class="odd">
+<td><strong>Primer intento</strong></td>
+<td>Prácticas 1 y 2: elección del fragmento y predicción de fallos, 40 min, sin ejecutar nada</td>
+</tr>
+<tr class="even">
+<td><strong>Evidencia</strong></td>
+<td>Primer script que reproduce un bloque validado del protocolo: <code>src/analizar-genoma.sh</code>, ejecutable y documentado, con su comparación frente a los resultados de S23</td>
+</tr>
+<tr class="odd">
+<td><strong>Tarea numerada</strong></td>
+<td>Ninguna. La evidencia integradora de la unidad se entrega en S28</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-important callout-titled" title="qué NO trae esta sesión">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>qué NO trae esta sesión
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Ni una sola herramienta de análisis nueva. No hay <code>grep</code> nuevo, ni <code>awk</code> nuevo, ni una forma mejor de contar genes. Todos los comandos que vas a escribir hoy los escribiste tú en la Unidad 4 y están en tu protocolo. Lo único que cambia es <strong>dónde viven y quién los ejecuta</strong>. Si al terminar la sesión sabes más sobre tu genoma que al empezar, algo salió mal: hoy no se aprende sobre el genoma, se aprende a no tener que volver a preguntárselo a mano.</p>
+</div>
+</div>
+</section>
+<section id="relación-con-lo-que-ya-sabes" class="level2">
+<h2 class="anchored" data-anchor-id="relación-con-lo-que-ya-sabes">Relación con lo que ya sabes</h2>
+<pre class="text"><code>S23                                      S24
+Puedo rehacerlo todo, en orden        →  No tengo que rehacerlo: se rehace solo
+"copio treinta comandos y funciona"      "escribo una orden y funciona"</code></pre>
+<p>Con esta sesión empieza una etapa nueva del curso. Hasta la Unidad 4 el objetivo era <strong>responder preguntas biológicas de forma reproducible</strong>. A partir de aquí el objetivo será <strong>reutilizar ese mismo análisis tantas veces como haga falta, sin volver a construirlo desde cero</strong>.</p>
+<p>Al cerrar la Unidad 4 tenías un protocolo con sus dependencias resueltas, sus bloques ordenados y sus puntos de control declarados. Lo probaste en la Práctica 6: apartaste los derivados, ejecutaste desde las fuentes y comprobaste que todo volvía a salir. Funcionó.</p>
+<p>Y funcionó <strong>porque tú estabas ahí</strong>: copiando cada comando, esperando cada salida, leyendo cada control y decidiendo si seguir.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Habilidad que ya tienes</th>
+<th>Dónde la aprendiste</th>
+<th>Qué cambia en S24</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Permisos de archivo y <code>chmod</code></td>
+<td>U2, S5</td>
+<td>Aparece el permiso que entonces no te hacía falta: el de <strong>ejecución</strong></td>
+</tr>
+<tr class="even">
+<td>Rutas relativas y absolutas</td>
+<td>U2, S4</td>
+<td>Ahora deciden desde <strong>dónde</strong> puede lanzarse tu análisis</td>
+</tr>
+<tr class="odd">
+<td>La estructura <code>data/</code>, <code>src/</code>, <code>results/</code>, <code>doc/</code></td>
+<td>U1</td>
+<td><code>src/</code> deja de estar vacía por primera vez en el curso</td>
+</tr>
+<tr class="even">
+<td>Redirecciones y tuberías</td>
+<td>U4, S10</td>
+<td>Se ejecutan sin que nadie mire la pantalla</td>
+</tr>
+<tr class="odd">
+<td>Puntos de control y bloques</td>
+<td>U4, S23</td>
+<td>Entran dentro del archivo, y ahí se vuelven insuficientes: nadie los lee</td>
+</tr>
+<tr class="even">
+<td>Documentar el comando exacto</td>
+<td>Toda la U4</td>
+<td>El comando exacto deja de estar en el documento y pasa a estar en el script; el documento lo <strong>cita</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Lo nuevo de hoy no es una operación sobre datos: es que tu procedimiento deja de ser un texto que se lee y pasa a ser <strong>un objeto que se ejecuta</strong>.</p>
+</section>
+<section id="dónde-estás-en-la-unidad-5" class="level2">
+<h2 class="anchored" data-anchor-id="dónde-estás-en-la-unidad-5">Dónde estás en la Unidad 5</h2>
+<p>La unidad recorre tres movimientos y hoy haces el primero. Cada uno resuelve la limitación que dejó abierta el anterior.</p>
+<pre class="text"><code>▶ S24  GUARDAR    el procedimiento    ¿cómo lo ejecuto sin copiarlo?      ← estás aquí
+  S25  SEPARARLO  de sus datos        ¿cómo sirve para otro genoma?
+  S26  REPETIRLO  sin repetirte       ¿cómo lo aplico a muchos?</code></pre>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Pregunta de la unidad</th>
+<th>En S24</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>¿Cómo ejecuto otra vez todo el análisis sin copiar treinta comandos?</td>
+<td>✔ <strong>Se resuelve hoy</strong></td>
+</tr>
+<tr class="even">
+<td>¿Cómo garantizo que el orden es exactamente el mismo cada vez?</td>
+<td>✔ <strong>Se resuelve hoy</strong></td>
+</tr>
+<tr class="odd">
+<td>¿Cómo sé qué hizo el script, si no estuve mirando?</td>
+<td>◐ <strong>Se plantea hoy</strong>; se resuelve en S25</td>
+</tr>
+<tr class="even">
+<td>¿Cómo aplico el mismo análisis a otro genoma sin editar el archivo?</td>
+<td>☐ S25</td>
+</tr>
+<tr class="odd">
+<td>¿Cómo lo aplico a doscientos casos?</td>
+<td>☐ S26</td>
+</tr>
+</tbody>
+</table>
+<blockquote class="blockquote">
+<p><strong>IDEA CLAVE de toda la unidad, y conviene oírla desde el primer día.</strong> Un script no se juzga por lo que hace cuando todo va bien, sino por <strong>lo que hace cuando algo falta</strong>.</p>
+</blockquote>
+</section>
+<section id="resultados-de-aprendizaje" class="level2">
+<h2 class="anchored" data-anchor-id="resultados-de-aprendizaje">Resultados de aprendizaje</h2>
+<p>Al finalizar la sesión podrás:</p>
+<ol type="1">
+<li><strong>Explicar</strong> en qué se diferencia un archivo con comandos de un procedimiento documentado.</li>
+<li><strong>Escribir</strong> un script que reproduzca un bloque completo de tu protocolo de S23.</li>
+<li><strong>Explicar</strong> las tres cosas que un procedimiento debe declarar para ejecutarse sin ti: quién lo interpreta, quién puede ejecutarlo y dónde está.</li>
+<li><strong>Conceder</strong> el permiso de ejecución con el alcance mínimo necesario, y justificar por qué no se usa <code>chmod 777</code>.</li>
+<li><strong>Documentar</strong> un script con un encabezado que declare propósito, entradas, salidas y modo de uso.</li>
+<li><strong>Situar</strong> el script en la estructura del proyecto y <strong>actualizar</strong> el protocolo para que lo cite.</li>
+<li><strong>Provocar y diagnosticar</strong> los tres fallos frecuentes de la primera ejecución a partir de su mensaje de error.</li>
+<li><strong>Comprobar</strong> que la salida del script coincide con la que obtuviste a mano en la Unidad 4.</li>
+<li><strong>Reconocer</strong> que un script puede terminar sin error y no haber hecho nada, y explicar por qué eso es más peligroso que un error visible.</li>
+<li><strong>Explicar</strong> por qué un script con las rutas escritas dentro todavía no es una herramienta reutilizable.</li>
+</ol>
+</section>
+<section id="lista-de-verificación-previa" class="level2">
+<h2 class="anchored" data-anchor-id="lista-de-verificación-previa">Lista de verificación previa</h2>
+<p>Antes del taller comprueba que tienes:</p>
+<ul class="task-list">
+<li><label><input type="checkbox"><code>doc/protocolo.md</code> con la sección S23 completa: la secuencia ejecutable, la tabla de puntos de control y la tabla de archivos canónicos;</label></li>
+<li><label><input type="checkbox">los archivos originales en <code>data/source/</code>, verificados y <strong>sin tocar</strong>;</label></li>
+<li><label><input type="checkbox">el respaldo de la Práctica 6 de S23 (<code>respaldo-antes-de-s23/</code>) o, en su defecto, los resultados de S18–S23 que conserves: son tu línea de comparación de hoy;</label></li>
+<li><label><input type="checkbox">el directorio <code>src/</code> creado —está previsto desde U1 y probablemente sigue vacío—;</label></li>
+<li><label><input type="checkbox"><code>doc/s24-primer-intento.md</code> con las Prácticas 1 y 2 resueltas;</label></li>
+<li><label><input type="checkbox">acceso al servidor del curso o a tu terminal habitual, donde ya trabajaste en U2.</label></li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si perdiste el respaldo de S23, <strong>no lo repongas ejecutando comandos a mano</strong>. Anótalo como limitación y usa como referencia los números que sí quedaron escritos en tu protocolo: el conteo de genes, el de CDS, el número de replicones. Para lo de hoy basta con eso.</p>
+</div>
+</div>
+</section>
+<section id="ruta-de-s24" class="level2">
+<h2 class="anchored" data-anchor-id="ruta-de-s24">Ruta de S24</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 30%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Momento</th>
+<th>Qué hacer</th>
+<th style="text-align: right;">Tiempo estimado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Antes de clase</strong></td>
+<td>Leer las secciones 1–6. Elegir el fragmento a automatizar y predecir los fallos (Prácticas 1 y 2)</td>
+<td style="text-align: right;">50 + 40 min</td>
+</tr>
+<tr class="even">
+<td><strong>Taller (1.ª hora)</strong></td>
+<td>Escribir el script, darle permiso y ejecutarlo; comparar con el resultado de S23 (Práctica 3)</td>
+<td style="text-align: right;">60 min</td>
+</tr>
+<tr class="odd">
+<td><strong>Taller (2.ª hora)</strong></td>
+<td>Encabezado, mensajes de avance y los tres fracasos provocados (Práctica 4)</td>
+<td style="text-align: right;">60 min</td>
+</tr>
+<tr class="even">
+<td><strong>Después del taller</strong></td>
+<td>Ampliar a la ruta crítica, validar contra el respaldo y actualizar el protocolo (Práctica 5)</td>
+<td style="text-align: right;">90 min</td>
+</tr>
+</tbody>
+</table>
+<p>Las secciones 1–6 son <strong>indispensables</strong>; la sección 7 es de consulta y sostiene el puente a S25.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="cómo están marcadas las ideas dentro de cada sección">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>cómo están marcadas las ideas dentro de cada sección
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Para que puedas repartir tu tiempo, los apartados llevan una de estas tres etiquetas:</p>
+<ul>
+<li><strong>Concepto esencial</strong> — sin esto no puedes hacer la práctica del taller. Léelo con calma.</li>
+<li><strong>Concepto de apoyo</strong> — te ahorra tiempo y te ayuda a diagnosticar, pero puedes volver a él después.</li>
+<li><strong>Consulta</strong> — amplía o matiza; se lee cuando lo necesites.</li>
+</ul>
+<p>Si vas justo de tiempo antes de clase, lee todo lo marcado como <strong>esencial</strong> y deja lo demás para después del taller.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled" title="qué cabe realmente en dos horas">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>qué cabe realmente en dos horas
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>En el taller se construye y se ejecuta un script que cubre <strong>un bloque</strong> del protocolo, no el protocolo entero. La ampliación se termina después. El núcleo que no debe recortarse es:</p>
+<pre class="text"><code>escribir → dar permiso → ejecutar → comparar con el resultado manual</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="copiar-treinta-comandos-no-es-reproducir-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="copiar-treinta-comandos-no-es-reproducir-indispensable">1. Copiar treinta comandos no es reproducir [Indispensable]</h2>
+<p>En la Práctica 6 de S23 hiciste algo que casi nadie hace: probar el propio protocolo desde cero. Apartaste los derivados, volviste a las fuentes y lo ejecutaste entero. Salió bien. Ahora cuenta cuántas veces, durante esa prueba, hiciste una de estas cosas:</p>
+<ul>
+<li>volver a buscar en el documento cuál era el comando siguiente;</li>
+<li>copiar una línea partida en dos y pegarla incompleta;</li>
+<li>pegar un comando y darte cuenta a mitad de que faltaba ejecutar el anterior;</li>
+<li>ejecutar un bloque desde un directorio que no era el del proyecto;</li>
+<li>perder el hilo de en qué paso ibas.</li>
+</ul>
+<p>Ninguna de esas cosas es un fallo de comprensión. Son fallos <strong>de copiado</strong>, y tienen una propiedad que los vuelve especialmente peligrosos en ciencia:</p>
+<blockquote class="blockquote">
+<p><strong>Un error de copiado no avisa.</strong> El comando se ejecuta, produce un archivo, el archivo tiene el aspecto correcto, y el número que sale de él es simplemente otro.</p>
+</blockquote>
+<p>Compáralo con el error que encontraste en S12, cuando <code>grep -c gene</code> contaba también los <code>pseudogene</code>. Aquel era un error <strong>conceptual</strong> y lo detectaste razonando. Un error de copiado no se detecta razonando: no hay nada que razonar. Solo se detecta comparando contra un resultado anterior, y solo si te acuerdas de compararlo.</p>
+<section id="lo-que-sigue-viviendo-fuera-del-documento" class="level3">
+<h3 class="anchored" data-anchor-id="lo-que-sigue-viviendo-fuera-del-documento">1.1 Lo que sigue viviendo fuera del documento</h3>
+<p>Al terminar S23 escribiste el orden, las dependencias y los controles. Pero mira dónde quedaron: en prosa, en tablas, en un documento pensado para que <strong>una persona lo lea</strong>. El sistema no lee tu protocolo. Cada vez que quieres reproducir el análisis, alguien tiene que traducir ese documento a órdenes, una por una.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u5-s24-apunte-vs-script.png" class="img-fluid figure-img"></p>
+<figcaption>A la izquierda, un apunte ejecutable: un documento con comandos correctos en su orden, que una persona lee, selecciona, copia y pega en la terminal uno por uno, con tres puntos de fuga señalados —el orden lo sostiene quien lee, un comando pegado a medias no avisa, y el directorio desde el que se ejecuta depende de dónde estuviera la terminal—. A la derecha, el mismo contenido convertido en un archivo del proyecto que vive en la carpeta src: una primera línea que declara el intérprete, un encabezado que dice qué hace y qué necesita, los mismos comandos en el mismo orden, y una sola invocación que lo ejecuta entero. Una franja inferior precisa que ningún comando cambió: lo que cambió es quién los ejecuta y cuántas veces puede hacerlo sin equivocarse.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 24.1.</strong> Un apunte ejecutable y un script contienen los mismos comandos. La diferencia no está en el contenido, está en quién los ejecuta. Elaboración propia.</p>
+</section>
+<section id="la-pregunta-científica-de-hoy" class="level3">
+<h3 class="anchored" data-anchor-id="la-pregunta-científica-de-hoy">1.2 La pregunta científica de hoy</h3>
+<p>No es una pregunta sobre el genoma. Es una pregunta sobre el método, y es tan legítima como las otras:</p>
+<blockquote class="blockquote">
+<p><strong>¿Cómo consigo que este análisis vuelva a ejecutarse exactamente igual, sin que dependa de que yo copie bien treinta líneas?</strong></p>
+</blockquote>
+<p>La respuesta cabe en una frase: dejando de copiarlas. Si los comandos ya están escritos en orden en un documento, lo que falta no es escribirlos otra vez, sino <strong>pedirle al sistema que los ejecute él</strong>.</p>
+</section>
+<section id="qué-se-gana-exactamente" class="level3">
+<h3 class="anchored" data-anchor-id="qué-se-gana-exactamente">1.3 Qué se gana exactamente</h3>
+<p>Conviene ver el cambio antes de aprender a hacerlo, porque decide cuánta atención merece el resto de la sesión.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u5-s24-manual-a-una-orden.png" class="img-fluid figure-img"></p>
+<figcaption>A la izquierda, la ejecución manual del protocolo: una cadena de acciones repetidas —localizar el comando en el documento, copiarlo, pegarlo en la terminal, esperar y leer la salida, y volver a empezar— que se repite treinta veces, con una nota que advierte que cada repetición es una oportunidad nueva de equivocarse en algo ya resuelto, y que un error de copiado no avisa. A la derecha, el mismo análisis lanzado con una sola orden en la terminal, que desencadena las mismas treinta acciones ejecutadas automáticamente: los mismos comandos, en el mismo orden, sin pasos olvidados ni líneas a medias, y otra vez igual mañana y dentro de un año. Una franja inferior resume la idea central: no cambió el análisis, cambió quién lo ejecuta.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 24.2.</strong> Del trabajo manual a una sola orden. El tiempo ahorrado es lo de menos: lo que se gana es que el resultado deje de depender de tu atención. Elaboración propia.</p>
+<p>Fíjate en lo que <strong>no</strong> aparece en la mitad derecha: ni un comando nuevo, ni una respuesta nueva sobre el genoma, ni una técnica de análisis distinta. Es la misma investigación de la Unidad 4, con las mismas preguntas y los mismos resultados. Lo único que cambió es quién la pone en marcha.</p>
+<blockquote class="blockquote">
+<p><strong>IDEA CLAVE.</strong> El orden de tu análisis es información científica tan valiosa como los números que produce. Mientras solo esté en un documento en prosa, se pierde en cada ejecución y hay que reconstruirlo. Un script es el sitio donde ese orden <strong>queda</strong>.</p>
+</blockquote>
+</section>
+</section>
+<section id="qué-es-un-script-y-qué-todavía-no-es-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="qué-es-un-script-y-qué-todavía-no-es-indispensable">2. Qué es un script (y qué todavía no es) [Indispensable]</h2>
+<p><strong>Concepto esencial</strong></p>
+<p>Un <strong>script de shell</strong> es un archivo de texto que contiene comandos, uno por línea, y que el sistema ejecuta de principio a fin en ese orden. Eso es todo. No hay un lenguaje nuevo que aprender ni una sintaxis distinta: lo que escribes en el archivo es exactamente lo que escribirías en la terminal.</p>
+<p>Conviene ser preciso desde el principio, porque la palabra «script» suele usarse para dos cosas muy distintas:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Un apunte ejecutable <em>(lo de hoy, al empezar)</em></th>
+<th>Una herramienta reutilizable <em>(S25 y S26)</em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Los comandos, en orden, dentro de un archivo</td>
+<td>El procedimiento separado de los datos que procesa</td>
+</tr>
+<tr class="even">
+<td>Las rutas están escritas dentro</td>
+<td>Las rutas entran desde fuera al invocarlo</td>
+</tr>
+<tr class="odd">
+<td>Sirve para <strong>este</strong> genoma</td>
+<td>Sirve para <strong>cualquier</strong> genoma</td>
+</tr>
+<tr class="even">
+<td>Se ejecuta con una orden</td>
+<td>Se ejecuta con una orden <strong>y un argumento</strong></td>
+</tr>
+<tr class="odd">
+<td>Si falta una entrada, sigue adelante</td>
+<td>Comprueba lo que necesita y avisa</td>
+</tr>
+</tbody>
+</table>
+<p>Hoy construyes la columna izquierda. Y conviene decirlo sin adornos: <strong>la columna izquierda ya es una mejora enorme</strong> —el orden queda fijado, el copiado desaparece, la ejecución es una sola orden— y aun así no es todavía lo que el Programa llama una herramienta. Lo que falta se resuelve en las dos sesiones siguientes, y falta por una razón concreta que verás al final de la sección 7.</p>
+<section id="el-script-como-registro-del-análisis" class="level3">
+<h3 class="anchored" data-anchor-id="el-script-como-registro-del-análisis">2.1 El script como registro del análisis</h3>
+<p><strong>Concepto de apoyo</strong></p>
+<p>Hay una consecuencia que suele pasar desapercibida y que es, en realidad, el mejor argumento científico a favor de escribirlo:</p>
+<blockquote class="blockquote">
+<p>Un protocolo dice <strong>lo que dijiste que hiciste</strong>. Un script dice <strong>lo que efectivamente se ejecutó</strong>.</p>
+</blockquote>
+<p>Cuando copias comandos a mano, siempre existe una distancia posible entre el documento y la ejecución: una opción que añadiste sobre la marcha, un archivo que redirigiste a otro sitio, un paso que te saltaste porque «ya lo tenías». Cuando el análisis lo ejecuta un archivo, esa distancia desaparece: el archivo <strong>es</strong> el registro. Por eso el software de investigación se considera hoy un producto de la investigación con los mismos requisitos de trazabilidad que los datos, y se le aplican principios FAIR propios (Barker et al., 2022).</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="¿Sabías que?">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>¿Sabías que?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La comunidad científica formalizó en 2022 unos principios FAIR específicos para <em>software</em> de investigación —FAIR4RS—, precisamente porque los principios pensados para datos (Wilkinson et al., 2016) no cubren bien un objeto que, además de encontrarse y accederse, tiene que poder <strong>ejecutarse</strong> (Barker et al., 2022). Tu script de hoy es, en pequeño, uno de esos objetos.</p>
+</div>
+</div>
+</section>
+<section id="práctica-1-elegir-qué-merece-convertirse-en-script-antes-de-clase-primer-intento" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-1-elegir-qué-merece-convertirse-en-script-antes-de-clase-primer-intento">Práctica 1 — Elegir qué merece convertirse en script <em>(antes de clase, primer intento)</em></h3>
+<p><strong>Pregunta metodológica.</strong> De todo mi protocolo, ¿qué fragmento gano más en automatizar, y qué necesita ese fragmento para funcionar sin mí?</p>
+<p><strong>Objetivo.</strong> Decidir el alcance del primer script antes de escribir una sola línea.</p>
+<p><strong>Antes de clase.</strong> En <code>doc/s24-primer-intento.md</code>, <strong>sin ejecutar ningún comando</strong>:</p>
+<ol type="1">
+<li><strong>Localiza</strong> la sección 7 de tu protocolo de S23, la secuencia manual ejecutable, y cuenta cuántos comandos tiene en total.</li>
+<li><strong>Elige un bloque completo</strong>, no comandos sueltos. Recomendación: el <strong>bloque A</strong> —preparar el cuerpo del GFF3— más el inventario de tipos de <em>feature</em>. Es corto, tiene dependencias reales y tiene control propio.</li>
+<li><strong>Justifica la elección</strong> en dos líneas: por qué ese bloque y no otro. Un criterio válido es «es el que más veces he tenido que repetir»; otro, «es del que dependen todos los demás».</li>
+<li><strong>Copia los comandos exactos</strong> de ese bloque desde tu protocolo, en orden. <strong>No los escribas de memoria</strong> —es el error frecuente número uno de S23 y sigue siéndolo hoy—.</li>
+<li><strong>Subraya todas las rutas</strong> que aparecen escritas dentro de esos comandos y cuéntalas. Guarda ese número: en S25 vas a comprobar cuántas de ellas tenían que estar ahí.</li>
+<li><strong>Anota sus puntos de control</strong> con su expectativa exacta, tomados de la tabla de S23.</li>
+<li><strong>Escribe el encabezado</strong> del script en papel: propósito, entradas, salidas y línea de uso. Sin comandos.</li>
+</ol>
+<p><strong>Producto esperado.</strong> La ficha del script que vas a construir: alcance, comandos en orden, rutas detectadas, controles y encabezado.</p>
+<p><strong>Criterio de logro:</strong> los comandos están copiados, no recordados; el bloque elegido está justificado; y tienes contadas las rutas escritas dentro.</p>
+<hr>
+</section>
+</section>
+<section id="qué-necesita-el-sistema-para-ejecutar-tu-análisis-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="qué-necesita-el-sistema-para-ejecutar-tu-análisis-indispensable">3. Qué necesita el sistema para ejecutar tu análisis [Indispensable]</h2>
+<p>Ya tienes el procedimiento escrito y ya sabes qué ganas con automatizarlo. Falta una cosa: <strong>pedirle al sistema que lo ejecute</strong>. Y ahí aparece un obstáculo que conviene entender antes de resolverlo.</p>
+<p>Escribir los comandos en un archivo no basta. Un archivo de texto con comandos dentro es, para el sistema, exactamente eso: un archivo de texto. No tiene ninguna razón para suponer que quieres ejecutarlo, ni para adivinar quién debería leerlo. Toda esta sección responde a una sola pregunta:</p>
+<blockquote class="blockquote">
+<p><strong>¿Qué necesita saber el sistema para ejecutar automáticamente mi análisis?</strong></p>
+</blockquote>
+<p>Y la respuesta son tres cosas que tú dabas por supuestas mientras trabajabas en la terminal, porque ahí las aportabas tú sin darte cuenta:</p>
+<pre class="text"><code>1. ¿QUIÉN interpretará el procedimiento?   →  tú elegías el shell al abrir la terminal
+2. ¿QUIÉN tiene permiso para ejecutarlo?   →  tú, al pulsar Enter sobre tus propios comandos
+3. ¿DÓNDE está el procedimiento?           →  lo tenías delante, en el documento</code></pre>
+<p>Al delegar la ejecución, esas tres respuestas dejan de estar disponibles y hay que <strong>declararlas en el proyecto</strong>. Las tres secciones que siguen son, una por una, la respuesta a cada pregunta. No son tres reglas de shell que memorizar: son las tres cosas que un procedimiento tiene que declarar sobre sí mismo para poder ejecutarse sin ti.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u5-s24-que-hace-el-sistema.png" class="img-fluid figure-img"></p>
+<figcaption>Un archivo de texto con comandos dentro atraviesa tres comprobaciones antes de ejecutarse. Primero, la invocación: si se escribe solo el nombre del archivo el sistema lo busca en los directorios de programas y no lo encuentra, porque el directorio actual no está entre ellos; con punto barra delante se le indica que está aquí mismo. Segundo, el permiso: si el archivo no tiene marca de ejecución, el sistema se niega con permiso denegado. Tercero, el intérprete: la primera línea del archivo, que empieza por almohadilla y admiración, le dice al sistema qué programa debe leer las órdenes; si esa línea falta o está mal escrita el sistema responde que no encuentra el intérprete. Superadas las tres, los comandos se ejecutan en orden, de arriba abajo, sin que nadie mire.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 24.3.</strong> Las tres comprobaciones que hay entre tu archivo y su ejecución. Cada una tiene su mensaje de error característico, y aprender a leerlos ahorra media hora en la primera clase. Elaboración propia.</p>
+<section id="primera-pregunta-quién-interpretará-el-procedimiento" class="level3">
+<h3 class="anchored" data-anchor-id="primera-pregunta-quién-interpretará-el-procedimiento">3.1 Primera pregunta: ¿quién interpretará el procedimiento?</h3>
+<p><strong>Concepto esencial</strong></p>
+<p>En la terminal, el intérprete lo elegiste al conectarte: todo lo que escribías lo leía un shell que ya estaba en marcha. Un archivo que se ejecuta solo no tiene esa suerte —nadie ha decidido quién lo lee—, así que <strong>el propio archivo debe decirlo</strong>, en su primera línea.</p>
+<p><strong>Sintaxis mínima</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>¿Qué hace?</strong> Declara, en la primera línea del archivo y en la primera columna, qué programa debe leer e interpretar el resto. Se lee «<em>sha-bang</em>» o «<em>hash-bang</em>».</p>
+<p><strong>¿Por qué aparece en esta sesión?</strong> Porque en la terminal el intérprete ya estaba decidido: eras tú quien escribía dentro de un shell. En un archivo que se ejecuta solo, nadie lo ha decidido, y el sistema no adivina.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="el `#!` no es un comentario, aunque lo parezca">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>el <code>#!</code> no es un comentario, aunque lo parezca
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Empieza por <code>#</code>, que en shell abre un comentario, y eso es deliberado: así el propio intérprete lo ignora. Pero el sistema lo lee <strong>antes</strong> de arrancar ningún intérprete, y solo si está en la <strong>primera línea</strong> y en la <strong>primera columna</strong>. Una línea en blanco por delante lo invalida.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="`#!/bin/bash` y `#!/usr/bin/env bash`">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span><code>#!/bin/bash</code> y <code>#!/usr/bin/env bash</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Verás las dos formas. La segunda busca el intérprete allí donde esté instalado, lo que ayuda cuando se comparte el script entre sistemas distintos. Para el servidor del curso, donde <code>bash</code> está en <code>/bin/bash</code>, las dos funcionan; usa la primera y quédate con que la diferencia existe.</p>
+</div>
+</div>
+<p>🤖 <strong>Prompt para <a href="https://chatgpt.com/g/g-6893cf2451d88191b11cd0c87de045ab-profeunix-bioinfo">ProfeUnix Bioinfo</a>:</strong> &gt; Explícame, con un ejemplo mínimo, qué ocurre exactamente cuando ejecuto un archivo cuya primera &gt; línea es <code>#!/bin/bash</code>, y qué pasa si esa línea no está. No me des un script largo: quiero entender &gt; el mecanismo.</p>
+</section>
+<section id="segunda-pregunta-quién-tiene-permiso-para-ejecutarlo" class="level3">
+<h3 class="anchored" data-anchor-id="segunda-pregunta-quién-tiene-permiso-para-ejecutarlo">3.2 Segunda pregunta: ¿quién tiene permiso para ejecutarlo?</h3>
+<p><strong>Concepto esencial</strong></p>
+<p>En la terminal el permiso lo dabas tú, implícitamente, cada vez que pulsabas Enter sobre tus propios comandos. Un archivo que se ejecuta sin ti necesita esa autorización <strong>escrita en el archivo mismo</strong>, y el sistema no la concede por defecto: distinguir un archivo de datos de uno ejecutable es precisamente lo que evita que cualquier texto que llegue a tu disco pueda ponerse en marcha.</p>
+<p>En U2 aprendiste que cada archivo tiene permisos de lectura, escritura y ejecución para su dueño, su grupo y el resto. Entonces trabajabas con datos, y el permiso de ejecución no te hacía falta. Hoy sí.</p>
+<p><strong>Sintaxis mínima</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> +x src/analizar-genoma.sh</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> src/analizar-genoma.sh</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>¿Qué hace?</strong> Añade el permiso de ejecución. <code>ls -l</code> te lo confirma: donde antes había <code>-rw-r--r--</code> ahora hay <code>-rwxr-xr-x</code>, con las <code>x</code> visibles.</p>
+<p><strong>¿Por qué aparece en esta sesión?</strong> Porque un archivo que el sistema puede ejecutar es una cosa distinta de un archivo de datos, y el sistema exige que lo declares explícitamente.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="`chmod 777` nunca">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Advertencia</span><code>chmod 777</code> nunca
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Es la receta que más circula por internet y la que más daño hace. <code>777</code> concede a <strong>cualquier usuario del servidor</strong> permiso para leer, modificar y ejecutar tu archivo: cualquiera puede reescribir tu análisis y tú lo ejecutarás sin enterarte. En un servidor compartido como el del curso eso no es una hipótesis remota, es una mala práctica documentada. Usa <code>chmod +x</code>, que añade lo mínimo necesario y no toca el resto (Taschuk &amp; Wilson, 2017).</p>
+</div>
+</div>
+</section>
+<section id="tercera-pregunta-dónde-está-el-procedimiento" class="level3">
+<h3 class="anchored" data-anchor-id="tercera-pregunta-dónde-está-el-procedimiento">3.3 Tercera pregunta: ¿dónde está el procedimiento?</h3>
+<p><strong>Concepto esencial</strong></p>
+<p>Mientras trabajabas a mano, el procedimiento estaba delante de tus ojos: lo tenías abierto. El sistema no lo tiene. Cuando le pides que ejecute algo por su nombre, lo busca donde guarda los programas instalados —y tu análisis no está ahí, ni debe estarlo—.</p>
+<p><strong>Sintaxis mínima</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./src/analizar-genoma.sh</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>¿Qué hace?</strong> Ejecuta el archivo indicando explícitamente <strong>dónde está</strong>.</p>
+<p><strong>¿Por qué aparece en esta sesión?</strong> Porque cuando escribes <code>grep</code> o <code>sort</code>, el sistema busca ese programa en una lista de directorios de sistema. El directorio en el que estás <strong>no</strong> forma parte de esa lista, y es una decisión de seguridad deliberada: si lo estuviera, bastaría con dejar un archivo llamado <code>ls</code> en un directorio compartido para que otra persona ejecutara algo distinto de lo que cree. El <code>./</code> significa «este que está aquí, el que yo digo».</p>
+<p>Por eso el error de olvidarlo es tan desconcertante —el archivo está delante de tus ojos y el sistema dice que no existe— y por eso lo vas a provocar a propósito en la Práctica 4.</p>
+</section>
+<section id="un-atajo-que-sirve-para-diagnosticar-bash-script.sh" class="level3">
+<h3 class="anchored" data-anchor-id="un-atajo-que-sirve-para-diagnosticar-bash-script.sh">3.4 Un atajo que sirve para diagnosticar: <code>bash script.sh</code></h3>
+<p><strong>Concepto de apoyo</strong></p>
+<p>También puedes pedirle al intérprete que lea el archivo, en vez de pedirle al sistema que lo ejecute:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> src/analizar-genoma.sh</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Así <strong>no hace falta permiso de ejecución ni línea <code>#!</code></strong>, porque estás nombrando tú al intérprete. Es útil para probar deprisa y para diagnosticar: si <code>bash script.sh</code> funciona y <code>./script.sh</code> no, el problema está en el permiso o en el <code>#!</code>, no en tus comandos. Ese es un diagnóstico que vale su peso en oro y lo usarás en la Práctica 4.</p>
+<blockquote class="blockquote">
+<p><strong>IDEA CLAVE.</strong> Las tres preguntas tienen su respuesta, y cuando falta alguna el sistema lo dice con un mensaje propio: <code>command not found</code> es <em>dónde está</em>; <code>Permission denied</code> es <em>quién puede</em>; <code>bad interpreter</code> es <em>quién lo lee</em>. <strong>Ninguno de los tres habla de si tus comandos son correctos</strong> — y esa distinción te ahorrará la mitad de los apuros del taller.</p>
+</blockquote>
+</section>
+<section id="práctica-2-predecir-los-tres-fracasos-antes-de-clase-primer-intento" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-2-predecir-los-tres-fracasos-antes-de-clase-primer-intento">Práctica 2 — Predecir los tres fracasos <em>(antes de clase, primer intento)</em></h3>
+<p><strong>Pregunta metodológica.</strong> ¿Qué le falta a un archivo de texto para que el sistema acepte ejecutarlo?</p>
+<p><strong>Objetivo.</strong> Llegar al taller con predicciones escritas, para poder comprobarlas en vez de descubrirlas.</p>
+<p><strong>Antes de clase.</strong> En el mismo documento, y <strong>sin probar nada todavía</strong>:</p>
+<ol type="1">
+<li><p><strong>Predice</strong> qué responderá el sistema en cada uno de estos cuatro casos. Escribe tu predicción completa, con el mensaje que esperas ver:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Situación</th>
+<th>Mi predicción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>El archivo existe y tiene <code>#!</code>, pero no tiene permiso de ejecución</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>El archivo tiene permiso y <code>#!</code>, pero lo invoco como <code>analizar-genoma.sh</code>, sin <code>./</code></td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>El archivo tiene permiso, pero su primera línea es <code>#!/bin/basj</code></td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Todo está bien, pero lo ejecuto desde mi directorio personal, no desde la raíz del proyecto</td>
+<td>…</td>
+</tr>
+</tbody>
+</table></li>
+<li><p><strong>Ordena los cuatro</strong> de más a menos fácil de diagnosticar, y explica tu criterio en una línea.</p></li>
+<li><p><strong>Anticipa el caso 4 con detalle:</strong> ¿fallará el script entero, o fallará solo el primer comando y los demás continuarán? ¿Qué archivos habrán quedado creados cuando termine?</p></li>
+<li><p><strong>Responde por escrito:</strong> si un script termina e imprime «Análisis terminado», ¿demuestra eso que el análisis se hizo? Justifica.</p></li>
+</ol>
+<p><strong>Producto esperado.</strong> Cuatro predicciones escritas y la respuesta razonada al punto 4.</p>
+<p><strong>Criterio de logro:</strong> las cuatro predicciones están escritas antes del taller. Que acierten es irrelevante; lo que se evalúa es haberlas formulado.</p>
+<details>
+<summary>
+Ver retroalimentación
+</summary>
+<p><strong>Ábrelo solo después de haber escrito tus cuatro predicciones.</strong> Estas respuestas no dependen de tu genoma ni de tu proyecto: son el comportamiento del sistema, y es el mismo para todo el mundo.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 30%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Qué responde el sistema</th>
+<th style="text-align: right;">Código de salida</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><code>bash: ./analizar-genoma.sh: Permission denied</code></td>
+<td style="text-align: right;">126</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><code>bash: analizar-genoma.sh: command not found</code></td>
+<td style="text-align: right;">127</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><code>bash: ./analizar-genoma.sh: /bin/basj: bad interpreter: No such file or directory</code></td>
+<td style="text-align: right;">126</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Arranca sin problema; fallan los comandos de dentro, uno a uno</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Caso 2 — por qué «no encontrado» y no «permiso denegado».</strong> El shell solo busca ejecutables en los directorios de <code>PATH</code>, y el directorio actual <strong>no</strong> está en <code>PATH</code>. Al escribir el nombre a secas, no busca en la carpeta donde estás: busca en <code>/usr/bin</code>, <code>/bin</code> y compañía. El <code>./</code> no es decorativo; es la ruta.</p>
+<p><strong>Caso 3 — el mensaje nombra al culpable.</strong> <code>bad interpreter</code> señala que la ruta del <code>#!</code> no existe. Es el error más fácil de diagnosticar de los cuatro, porque el sistema te dice exactamente qué archivo no encontró.</p>
+<p><strong>Caso 4 — el importante, y el del punto 3.</strong> El script <strong>no falla como script</strong>: el sistema lo ejecuta perfectamente. Lo que falla es cada comando de dentro que usa rutas relativas, porque el punto de partida cambió. Y como Bash <strong>no se detiene ante un comando que falla</strong>, el script sigue adelante hasta el final y termina con código 0.</p>
+<p>Lo que casi nadie predice: <strong>los archivos de salida sí se crean, y vacíos.</strong> La redirección <code>&gt;</code> crea el archivo <em>antes</em> de ejecutar el comando. Al terminar tendrás resultados de cero bytes con nombre correcto, que es la peor forma de fallo: la que parece éxito.</p>
+<p><strong>Punto 4 — ¿demuestra algo el mensaje «Análisis terminado»?</strong> No.&nbsp;Ese <code>echo</code> se ejecuta pase lo que pase, porque está en la última línea y nada comprueba lo anterior. Un script sin comprobaciones demuestra que <strong>terminó</strong>, no que <strong>funcionó</strong>. Por eso los puntos de control de S23 se trasladan al script en la Práctica 5: sin ellos, «terminado» es una afirmación sin evidencia.</p>
+</details>
+<hr>
+</section>
+</section>
+<section id="un-script-que-se-explica-solo-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="un-script-que-se-explica-solo-indispensable">4. Un script que se explica solo [Indispensable]</h2>
+<section id="el-encabezado" class="level3">
+<h3 class="anchored" data-anchor-id="el-encabezado">4.1 El encabezado</h3>
+<p><strong>Concepto esencial</strong></p>
+<p>Haz este ejercicio antes de leer nada más. Imagina dos situaciones:</p>
+<blockquote class="blockquote">
+<p><strong>Vuelves a abrir este proyecto dentro de seis meses</strong>, después del examen extraordinario, para retomar el análisis. Encuentras en <code>src/</code> un archivo llamado <code>analizar-genoma.sh</code>.</p>
+<p><strong>Otra persona recibe tu repositorio</strong> —un compañero de equipo, alguien que revisa tu trabajo, tú mismo en otra computadora— y encuentra ese mismo archivo.</p>
+</blockquote>
+<p>En los dos casos, quien abre el archivo se hace exactamente las mismas cinco preguntas, y ninguna tiene respuesta en el código:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Lo que quien lo abre necesita saber</th>
+<th>Por qué el código no lo dice</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>¿Para qué sirve esto?</td>
+<td>Los comandos dicen <em>qué</em> hacen, no <em>qué pregunta</em> responden</td>
+</tr>
+<tr class="even">
+<td>¿Qué archivos espera encontrar?</td>
+<td>Aparecen dispersos en las rutas, mezclados con las salidas</td>
+</tr>
+<tr class="odd">
+<td>¿Qué produce, y dónde?</td>
+<td>Hay que rastrear todas las redirecciones para saberlo</td>
+</tr>
+<tr class="even">
+<td>¿Cómo se llama a esto?</td>
+<td>No está en ninguna parte del archivo</td>
+</tr>
+<tr class="odd">
+<td>¿Quién lo escribió y cuándo?</td>
+<td>En ningún sitio</td>
+</tr>
+</tbody>
+</table>
+<p>Esas cinco preguntas son las mismas que respondes desde la Unidad 3 en la <strong>ficha de procedencia</strong> de cada archivo de datos. Un script es un producto de la investigación igual que un archivo de datos (Barker et al., 2022): si exiges procedencia a tus datos, exígesela también a lo que los procesa. El encabezado no es un formato: <strong>es información científica</strong>.</p>
+<p>Por eso todo script del curso empieza con un bloque de comentarios que responde esas preguntas antes de que nadie las haga. Se escribe una vez, ocupa diez líneas y es lo que convierte un archivo suelto en un producto documentado (Wilson et al., 2017; Taschuk &amp; Wilson, 2017):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================================</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># analizar-genoma.sh</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Propósito : Reproduce el bloque A del protocolo de la Unidad 4:</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">#             prepara el cuerpo del GFF3 sin directivas y obtiene</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#             el inventario de tipos de feature del genoma.</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Autor     : &lt;tu nombre&gt;</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Fecha     : 2026-XX-XX</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Entradas  : data/source/anotacion.gff3</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Salidas   : data/processed/anotaciones-sin-directivas.gff3</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">#             results/s24/inventario-features.tsv</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Uso       : ./src/analizar-genoma.sh</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co">#             (ejecutar SIEMPRE desde la raíz del proyecto)</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Nota      : No escribe nada en data/source/.</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================================</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>De las diez líneas, la de <strong>uso</strong> es la que más veces se agradece: es la única que permite ejecutar el archivo sin leerlo entero. Y la de <strong>fecha</strong> es la que más se olvida, aunque es la que sitúa el resultado en el tiempo cuando los datos cambian de versión.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Escribe el encabezado <strong>antes</strong> que los comandos, no después. Si al redactarlo no puedes decir en una línea qué pregunta responde el script, todavía no sabes qué estás automatizando —y ese es un hallazgo, no un retraso—.</p>
+</div>
+</div>
+</section>
+<section id="los-comentarios-dentro-del-script" class="level3">
+<h3 class="anchored" data-anchor-id="los-comentarios-dentro-del-script">4.2 Los comentarios dentro del script</h3>
+<p><strong>Concepto esencial</strong></p>
+<p><strong>Sintaxis mínima</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Todo lo que sigue a una almohadilla, hasta el fin de la línea, se ignora.</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-Ev</span> <span class="st">'^#'</span> data/source/anotacion.gff3 <span class="op">&gt;</span> data/processed/anotaciones-sin-directivas.gff3   <span class="co"># cuerpo del GFF3</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>¿Qué hace?</strong> El intérprete ignora el texto que sigue a <code>#</code>.</p>
+<p><strong>¿Por qué aparece en esta sesión?</strong> Porque en el protocolo el razonamiento iba en prosa alrededor del comando. Dentro del script no hay prosa alrededor: el comentario es el único sitio donde cabe.</p>
+<p>Regla práctica, y vale para todo el curso:</p>
+<blockquote class="blockquote">
+<p><strong>El comando ya dice <em>qué</em> hace. El comentario debe decir <em>por qué</em>.</strong></p>
+</blockquote>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✗ Ruido: repite lo que se lee en el comando</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-Ev</span> <span class="st">'^#'</span> <span class="st">"</span><span class="va">$GFF</span><span class="st">"</span> <span class="op">&gt;</span> cuerpo.gff3   <span class="co"># quita las líneas que empiezan por #</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ✓ Útil: dice por qué, y de dónde viene la decisión</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Las directivas ## del GFF3 no son registros de anotación y falsearían</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># todos los conteos posteriores (decidido en S12, verificado en S23).</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-Ev</span> <span class="st">'^#'</span> <span class="st">"</span><span class="va">$GFF</span><span class="st">"</span> <span class="op">&gt;</span> cuerpo.gff3</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="los-comentarios-de-bloque" class="level3">
+<h3 class="anchored" data-anchor-id="los-comentarios-de-bloque">4.3 Los comentarios de bloque</h3>
+<p><strong>Concepto de apoyo</strong></p>
+<p>Tu protocolo de S23 estaba dividido en cinco bloques con nombre. Esa división se conserva dentro del script y se marca con comentarios, porque el archivo se lee de arriba abajo y necesita señales:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------- Bloque A · Preparar la evidencia ----------</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Así, el script y el protocolo tienen <strong>la misma estructura</strong>, y quien lea uno puede seguir el otro. Esa correspondencia no es estética: es lo que permite auditar el análisis.</p>
+</section>
+</section>
+<section id="el-script-como-objeto-del-proyecto-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="el-script-como-objeto-del-proyecto-indispensable">5. El script como objeto del proyecto [Indispensable]</h2>
+<section id="dónde-vive" class="level3">
+<h3 class="anchored" data-anchor-id="dónde-vive">5.1 Dónde vive</h3>
+<p><strong>Concepto esencial</strong></p>
+<p>Desde la Unidad 1 tu proyecto tiene esta estructura, tomada de la propuesta de Noble (2009):</p>
+<pre class="text"><code>proyecto/
+├── data/
+│   ├── source/      ← originales, intocables
+│   └── processed/   ← derivados reutilizables
+├── src/             ← ¡hoy deja de estar vacía!
+├── results/         ← resultados que responden preguntas
+└── doc/             ← protocolo, metadatos, bitácora</code></pre>
+<p><code>src/</code> lleva veintitrés sesiones esperando. Es el sitio del <strong>código</strong>, y hoy tienes el primero. La ubicación no es un capricho de orden: el día que compartas el proyecto, quien lo reciba sabrá sin preguntar dónde está lo que se ejecuta.</p>
+</section>
+<section id="el-protocolo-cambia-de-estatus" class="level3">
+<h3 class="anchored" data-anchor-id="el-protocolo-cambia-de-estatus">5.2 El protocolo cambia de estatus</h3>
+<p><strong>Concepto esencial</strong></p>
+<p>Este es el cambio conceptual de la sesión y conviene hacerlo consciente, porque si no el protocolo se convierte en un documento a medias.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Hasta S23</th>
+<th>Desde S24</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Los comandos exactos viven en…</td>
+<td><code>doc/protocolo.md</code></td>
+<td><code>src/analizar-genoma.sh</code></td>
+</tr>
+<tr class="even">
+<td>El protocolo contiene…</td>
+<td>el comando y su razonamiento</td>
+<td>el <strong>razonamiento</strong>, y una <strong>cita</strong> del script</td>
+</tr>
+<tr class="odd">
+<td>Para reproducir hay que…</td>
+<td>leer el protocolo y copiar</td>
+<td>ejecutar el script</td>
+</tr>
+<tr class="even">
+<td>Para entender <strong>por qué</strong> hay que…</td>
+<td>leer el protocolo</td>
+<td>leer el protocolo</td>
+</tr>
+</tbody>
+</table>
+<p>El protocolo no se vacía ni se sustituye: <strong>pierde una función y conserva la más importante</strong>. Los comandos migran; las decisiones metodológicas —la definición de gen de S18, la política de normalización de S20, el universo comparable de S21— siguen exactamente donde estaban, porque un script no las contiene ni las puede contener.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="el error frecuente número uno de esta unidad">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Advertencia</span>el error frecuente número uno de esta unidad
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Al ver que los comandos se han mudado al script, mucha gente concluye lo siguiente:</p>
+<pre class="text"><code>tengo un script
+      ↓
+ya no necesito el protocolo</code></pre>
+<p>Y lo que ocurre en realidad es esto:</p>
+<pre class="text"><code>el script      →  EJECUTA        →  qué se hace, en qué orden
+      +
+el protocolo   →  EXPLICA Y      →  por qué se hace así y no de otro modo,
+                  JUSTIFICA          qué se descartó, qué limitaciones tiene</code></pre>
+<p>Los dos documentos responden preguntas distintas y <strong>ninguno sustituye al otro</strong>. Un script sin protocolo produce números que nadie puede defender; un protocolo sin script produce razonamientos que nadie puede reproducir. La ciencia necesita las dos cosas.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled" title="sigue haciendo falta lo que aprendiste en S23">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>sigue haciendo falta lo que aprendiste en S23
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Recuerda las dos clases de entrada: los datos y las decisiones. Un script automatiza la ejecución de los comandos; <strong>no</strong> automatiza el razonamiento que los justifica. Si alguien te pregunta por qué cuentas los genes así y no de otra forma, la respuesta no está en <code>src/</code>: está en <code>doc/protocolo.md</code>.</p>
+</div>
+</div>
+</section>
+<section id="la-regla-no-negociable" class="level3">
+<h3 class="anchored" data-anchor-id="la-regla-no-negociable">5.3 La regla no negociable</h3>
+<p><strong>Concepto esencial</strong></p>
+<pre class="text"><code>Ningún script escribe, mueve ni modifica nada dentro de data/source/.</code></pre>
+<p>Es la misma regla de siempre, pero hoy cambia de categoría. Hasta ahora, si escribías un comando peligroso, lo veías antes de pulsar Enter y podías arrepentirte. A partir de hoy el archivo se ejecuta entero, sin pausas y sin preguntar. Una redirección mal escrita sobre un original <strong>lo sustituye por completo</strong>, y no hay papelera: el archivo no se borra, se vacía y se reescribe.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Advertencia
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Antes de ejecutar por primera vez un script que escribe archivos, lee todas sus redirecciones (<code>&gt;</code> y <code>&gt;&gt;</code>) y comprueba una por una que ninguna apunta a <code>data/source/</code>. Es una revisión de treinta segundos que evita una pérdida irreversible. Si tienes permiso para hacerlo, quitar el permiso de escritura a los originales es una segunda red de seguridad barata.</p>
+</div>
+</div>
+</section>
+<section id="práctica-3-construir-y-ejecutar-el-primer-script-durante-el-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-3-construir-y-ejecutar-el-primer-script-durante-el-taller">Práctica 3 — Construir y ejecutar el primer script <em>(durante el taller)</em></h3>
+<p><strong>Pregunta biológica de fondo.</strong> ¿Qué tipos de <em>feature</em> contiene la anotación de mi genoma y en qué proporciones? — la misma de S13, respondida hoy <strong>sin intervención humana</strong>.</p>
+<p><strong>Objetivo.</strong> Convertir el bloque elegido en un archivo ejecutable y comprobar que da lo mismo que a mano.</p>
+<p><strong>Parte A — Escribir</strong></p>
+<ol type="1">
+<li><p><strong>Crea el archivo</strong> en su sitio y ábrelo con el editor que usas desde U2:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> src</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> src/analizar-genoma.sh</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p><strong>Escribe la línea <code>#!</code></strong> en la primera línea y en la primera columna, sin nada por delante.</p></li>
+<li><p><strong>Pega el encabezado</strong> que redactaste en la Práctica 1.</p></li>
+<li><p><strong>Pega los comandos</strong> del bloque, en orden, tal como los copiaste. Sin reescribirlos.</p></li>
+<li><p><strong>Añade el comentario de bloque</strong> (<code># ---------- Bloque A · Preparar la evidencia ----------</code>) y, debajo de cada comando, un comentario que diga <strong>por qué</strong>, no qué.</p>
+<p>Como referencia, el esqueleto mínimo al que deberías llegar:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (encabezado de la Práctica 1)</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># El script crea los directorios que necesita: así puede ejecutarse</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># sobre un proyecto recién clonado, sin preparativos manuales.</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> data/processed results/s24</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------- Bloque A · Preparar la evidencia ----------</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Las directivas ## no son registros de anotación (decidido en S12).</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-Ev</span> <span class="st">'^#'</span> data/source/anotacion.gff3 <span class="op">&gt;</span> data/processed/anotaciones-sin-directivas.gff3</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------- Bloque B · Inventario de tipos de feature ----------</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="co"># El archivo declara su propio vocabulario: no hay que saberlo de antemano (S13).</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f3</span> data/processed/anotaciones-sin-directivas.gff3 <span class="dt">\</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-nr</span> <span class="op">&gt;</span> results/s24/inventario-features.tsv</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ol>
+<p><strong>Parte B — Ejecutar</strong></p>
+<ol start="6" type="1">
+<li><strong>Intenta ejecutarlo sin permiso</strong> y anota el mensaje exacto. Compáralo con tu predicción 1.</li>
+<li><strong>Concede el permiso</strong> con <code>chmod +x</code>, comprueba el cambio con <code>ls -l</code> y ejecútalo con <code>./</code>.</li>
+<li><strong>Anota cuánto tardó</strong> y qué imprimió.</li>
+</ol>
+<p><strong>Parte C — Comparar con lo que ya sabías</strong></p>
+<ol start="9" type="1">
+<li><p><strong>Contrasta el inventario</strong> con el que produjiste en S13 y conservas en tu protocolo. La comparación adecuada para un archivo determinista es la de S23: <strong>checksum de ambos</strong>. Si el respaldo no lo tienes, compara al menos el número de tipos distintos y el conteo del tipo más frecuente.</p></li>
+<li><p><strong>Registra el resultado</strong> con la tabla de equivalencias de S23:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Producto</th>
+<th>Equivalencia esperada</th>
+<th>Estrategia aplicada</th>
+<th>Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>inventario-features.tsv</code></td>
+<td>byte a byte</td>
+<td>checksum</td>
+<td>coincide / difiere</td>
+</tr>
+</tbody>
+</table></li>
+<li><p><strong>Si difiere, no lo arregles todavía: averigua por qué.</strong> Las causas posibles son las tres de S23 —el comando registrado no era el que ejecutaste, faltaba un paso intermedio, o había una decisión manual sin documentar— y las tres son hallazgos.</p></li>
+</ol>
+<p><strong>Producto esperado.</strong> <code>src/analizar-genoma.sh</code> ejecutable, sus salidas en <code>data/processed/</code> y <code>results/s24/</code>, y la comparación registrada.</p>
+<p><strong>Criterio de logro:</strong> el script se ejecuta con una sola orden y su salida coincide con la de S13, o la diferencia tiene una causa identificada.</p>
+<hr>
+</section>
+</section>
+<section id="el-error-que-ya-no-vas-a-ver-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="el-error-que-ya-no-vas-a-ver-indispensable">6. El error que ya no vas a ver [Indispensable]</h2>
+<p>Aquí está la contrapartida de todo lo anterior, y es el motivo por el que la Unidad 5 dedica tanto espacio a las comprobaciones.</p>
+<p>Cuando ejecutabas a mano, veías cada salida. Si un <code>wc -l</code> devolvía <code>0</code>, te extrañabas. Si un comando protestaba, lo leías. <strong>Tu atención era el sistema de control.</strong> Un script se ejecuta sin nadie delante: los mensajes pasan, la última línea se imprime y el resultado parece bueno.</p>
+<section id="un-script-puede-terminar-bien-y-no-haber-hecho-nada" class="level3">
+<h3 class="anchored" data-anchor-id="un-script-puede-terminar-bien-y-no-haber-hecho-nada">6.1 Un script puede terminar bien y no haber hecho nada</h3>
+<p><strong>Concepto esencial</strong></p>
+<p>Esto no es una advertencia teórica. Es lo que pasa, y lo vas a comprobar en la Práctica 4. Supón un script con un solo bloque, en el que el nombre del archivo de entrada está mal escrito:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-Ev</span> <span class="st">'^#'</span> data/source/anotacion.gff <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f3</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span> <span class="op">&gt;</span> results/s24/inventario.tsv</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Análisis terminado."</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Al ejecutarlo obtienes esto:</p>
+<pre class="text"><code>grep: data/source/anotacion.gff: No such file or directory
+Análisis terminado.</code></pre>
+<p>Y ahora lo importante:</p>
+<ul>
+<li>el script <strong>terminó</strong>;</li>
+<li>imprimió su mensaje de éxito;</li>
+<li>creó <code>results/s24/inventario.tsv</code>, con <strong>cero bytes</strong>;</li>
+<li>y su código de salida fue <strong>0</strong>, que significa «todo bien».</li>
+</ul>
+<p>El aviso de <code>grep</code> estaba ahí, en medio, y se lo llevó por delante el mensaje final. Si eso ocurre dentro de un flujo de veinte comandos, o si se repite sobre doscientos archivos como en S26, nadie lo verá nunca.</p>
+<blockquote class="blockquote">
+<p><strong>IDEA CLAVE.</strong> En la Unidad 4 un error era <strong>puntual y visible</strong>: un número salía raro y tú lo notabas. En la Unidad 5 el mismo error es <strong>sistemático y silencioso</strong>: se multiplica por cada ejecución y no hay nadie mirando. Por eso comprobar las entradas no es un refinamiento elegante de la unidad: es su contenido.</p>
+</blockquote>
+</section>
+<section id="la-primera-defensa-decir-en-voz-alta-qué-se-está-haciendo" class="level3">
+<h3 class="anchored" data-anchor-id="la-primera-defensa-decir-en-voz-alta-qué-se-está-haciendo">6.2 La primera defensa: decir en voz alta qué se está haciendo</h3>
+<p><strong>Concepto esencial</strong></p>
+<p>Hoy todavía no sabes comprobar entradas —eso es S25—, pero sí puedes hacer que el script cuente lo que hace, para que sus mensajes sean legibles cuando algo salga mal.</p>
+<p><strong>Sintaxis mínima</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"[1/3] Preparando el cuerpo del GFF3..."</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>¿Qué hace?</strong> Escribe una línea de texto en la salida estándar.</p>
+<p><strong>¿Por qué aparece en esta sesión?</strong> Porque un script que no dice nada obliga a adivinar en qué paso falló. Con una línea por bloque, el mensaje de error queda <strong>inmediatamente después</strong> del bloque que lo produjo, y localizarlo es trivial.</p>
+<p>Y hay un uso más, que enlaza directamente con S23: <strong>imprimir el resultado de cada punto de control</strong> junto a su expectativa.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"[Control 1] Líneas con '#' en el derivado (se esperan 0):"</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-c</span> <span class="st">'^#'</span> data/processed/anotaciones-sin-directivas.gff3</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Fíjate en lo que esto es y en lo que no es. <strong>Es</strong> un control que se imprime; <strong>no</strong> es un control que detenga nada. El script seguirá adelante aunque el número sea 4.000. Que la detención sea automática es exactamente lo que falta, y es lo primero que construirás en S25.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="de dónde salen estos controles">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>de dónde salen estos controles
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No los inventes: son los de la tabla de puntos de control que escribiste en la Práctica 4 de S23, con su expectativa exacta. Hoy los trasladas al script tal cual. Que ya los tuvieras hechos es exactamente el motivo por el que S23 iba antes que S24.</p>
+</div>
+</div>
+</section>
+<section id="práctica-4-provocar-los-fallos-y-leer-sus-mensajes-durante-el-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-4-provocar-los-fallos-y-leer-sus-mensajes-durante-el-taller">Práctica 4 — Provocar los fallos y leer sus mensajes <em>(durante el taller)</em></h3>
+<p><strong>Pregunta metodológica.</strong> Cuando un script no arranca, ¿qué me está diciendo exactamente el sistema?</p>
+<p><strong>Objetivo.</strong> Convertir tres mensajes crípticos en tres diagnósticos inmediatos, provocándolos en condiciones controladas.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Trabaja sobre una <strong>copia</strong>: <code>cp src/analizar-genoma.sh /tmp/prueba.sh</code>. Estos experimentos rompen el archivo a propósito.</p>
+</div>
+</div>
+<p><strong>Pasos.</strong></p>
+<ol type="1">
+<li><p><strong>Quita el permiso</strong> (<code>chmod -x</code>), ejecuta e <strong>infórmate del mensaje</strong>. Devuelve el permiso.</p></li>
+<li><p><strong>Ejecuta sin <code>./</code></strong> desde el mismo directorio. Anota el mensaje y explica en una línea por qué el sistema dice que no encuentra un archivo que está ahí.</p></li>
+<li><p><strong>Rompe la línea <code>#!</code></strong>: cambia <code>bash</code> por <code>basj</code>. Ejecuta con <code>./</code> y después con <code>bash</code>. Anota los dos resultados. <strong>Que uno funcione y el otro no es el diagnóstico</strong>: te dice que el problema está en la primera línea, no en tus comandos.</p></li>
+<li><p><strong>Ejecuta desde otro directorio</strong> (<code>cd ~</code> y luego la ruta completa al script). Anota qué comandos fallaron, cuáles no, y <strong>qué archivos quedaron creados</strong>. Contrasta con tu predicción 3 de la Práctica 2.</p></li>
+<li><p><strong>Provoca el fallo silencioso.</strong> En tu copia, cambia el nombre del archivo de entrada por uno inexistente y añade al final <code>echo "Análisis terminado."</code>. Ejecuta y responde:</p>
+<ul>
+<li>¿Qué imprimió el script?</li>
+<li>¿Se creó el archivo de salida? ¿Qué tamaño tiene?</li>
+<li>¿Cuál fue el código de salida? Compruébalo con <code>echo $?</code> inmediatamente después.</li>
+<li>Si esto ocurriera dentro de un flujo de veinte comandos, ¿lo habrías notado?</li>
+</ul></li>
+<li><p><strong>Añade los mensajes de avance</strong> al script real: un <code>echo</code> al principio de cada bloque y un <code>echo</code> con cada punto de control junto a su expectativa exacta.</p></li>
+<li><p><strong>Vuelve a ejecutarlo</strong> y comprueba que ahora la salida se lee como un informe de lo que hizo.</p></li>
+</ol>
+<p><strong>Producto esperado.</strong> La tabla de los cuatro fallos con su mensaje real, la comparación con tus predicciones, y el script con sus mensajes de avance y controles impresos.</p>
+<p><strong>Criterio de logro:</strong> ante cada uno de los tres mensajes sabes decir, sin probar nada, cuál de las tres comprobaciones del sistema falló. Y puedes explicar por qué el caso 5 es el más peligroso de los cinco, aunque sea el único que no dio ningún error.</p>
+<hr>
+</section>
+<section id="práctica-5-ampliar-a-la-ruta-crítica-y-validar-después-del-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-5-ampliar-a-la-ruta-crítica-y-validar-después-del-taller">Práctica 5 — Ampliar a la ruta crítica y validar <em>(después del taller)</em></h3>
+<p><strong>Pregunta biológica.</strong> ¿Puedo obtener otra vez todas las respuestas centrales sobre mi genoma — replicones, genes, CDS, distribución por cadena— con una sola orden?</p>
+<p><strong>Objetivo.</strong> Llevar el script del bloque de prueba a la ruta crítica del protocolo, y demostrar que lo que produce es lo mismo que produjiste a mano.</p>
+<p><strong>Parte A — Ampliar</strong></p>
+<ol type="1">
+<li><strong>Añade los bloques restantes</strong> de la ruta crítica de S23, uno cada vez, respetando su orden de dependencias. Después de añadir cada bloque, <strong>ejecuta el script entero</strong>: si algo se rompe, sabes exactamente qué lo rompió.</li>
+<li><strong>Traslada sus puntos de control</strong> con su expectativa exacta, impresos con <code>echo</code>.</li>
+<li><strong>Actualiza el encabezado</strong>: entradas, salidas y propósito ya no son los de la Práctica 3.</li>
+<li><strong>Revisa todas las redirecciones</strong> y comprueba, una por una, que ninguna escribe en <code>data/source/</code>.</li>
+</ol>
+<p><strong>Parte B — Validar contra lo que hiciste a mano</strong></p>
+<ol start="5" type="1">
+<li><strong>Aparta los derivados y resultados</strong> como en la Práctica 6 de S23 —copiando primero, sin borrar nada— y ejecuta el script sobre un proyecto limpio.</li>
+<li><strong>Compara producto por producto</strong> con el respaldo, usando para cada uno la estrategia que corresponde a su tipo (conjunto, byte a byte, conteo u orden). Es exactamente la tabla de la Sección 6.2 de S23.</li>
+<li><strong>Explica cada diferencia.</strong> Y una advertencia: si tu script produce algo <strong>distinto</strong> de lo que produjiste a mano, la hipótesis más probable no es que el script esté mal, sino que el protocolo registraba un comando que no era el que ejecutaste. Los dos casos son hallazgos y los dos se corrigen.</li>
+</ol>
+<p><strong>Parte C — Documentar</strong></p>
+<ol start="8" type="1">
+<li><strong>Actualiza <code>doc/protocolo.md</code></strong> con la sección de S24 (plantilla en la Sección 8).</li>
+<li><strong>Declara las limitaciones</strong> del script tal como está hoy: para qué genoma sirve, qué pasaría con otro, qué ocurre si falta una entrada, y qué controles imprime pero no impone.</li>
+</ol>
+<p><strong>Producto esperado.</strong> <code>src/analizar-genoma.sh</code> cubriendo la ruta crítica, el registro de validación frente al trabajo manual, y la sección S24 del protocolo.</p>
+<p><strong>Criterio de logro:</strong> el script reproduce los resultados centrales de la Unidad 4 desde <code>data/source/</code>, cada diferencia está explicada, y las limitaciones están escritas antes de que nadie te las señale.</p>
+<hr>
+</section>
+</section>
+<section id="ejecutable-todavía-no-es-reutilizable-consulta" class="level2">
+<h2 class="anchored" data-anchor-id="ejecutable-todavía-no-es-reutilizable-consulta">7. Ejecutable todavía no es reutilizable [Consulta]</h2>
+<p>Al terminar tendrás un script que funciona. Mira ahora la primera línea de comandos que escribiste:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-Ev</span> <span class="st">'^#'</span> data/source/anotacion.gff3 <span class="op">&gt;</span> data/processed/anotaciones-sin-directivas.gff3</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>El nombre del archivo está <strong>dentro</strong>. Y con él, el del genoma, el de la anotación, el de cada salida y el del directorio de resultados. Lo que has escrito sirve para un genoma: el tuyo.</p>
+<p>Piensa en la evaluación individual demostrativa, cuando te tocó un genoma que no era el tuyo. O en el mini proyecto, con doce. Con el script de hoy, cada caso nuevo exige:</p>
+<pre class="text"><code>abrir el archivo
+buscar todas las apariciones de la ruta
+cambiarlas una por una
+esperar no haberte dejado ninguna
+y guardar una copia distinta del script por cada genoma</code></pre>
+<p>Que es, con otro disfraz, el problema con el que empezó esta sesión: editar treinta líneas a mano en vez de copiarlas. Sustituir copiado por edición no es automatizar.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Script con las rutas dentro <em>(hoy)</em></th>
+<th>Herramienta parametrizada <em>(S25)</em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Sirve para <strong>este</strong> caso</td>
+<td>Sirve para una <strong>clase</strong> de casos</td>
+</tr>
+<tr class="even">
+<td>Los datos están dentro del procedimiento</td>
+<td>Los datos entran desde fuera</td>
+</tr>
+<tr class="odd">
+<td>Otro genoma = otra copia del archivo</td>
+<td>Otro genoma = el mismo archivo, otro argumento</td>
+</tr>
+<tr class="even">
+<td>Si falta una entrada, produce basura convincente</td>
+<td>Comprueba, avisa y se detiene</td>
+</tr>
+</tbody>
+</table>
+<blockquote class="blockquote">
+<p><strong>IDEA CLAVE.</strong> Automatizar no es guardar comandos: es <strong>separar el procedimiento de sus datos</strong>. Hoy guardaste el procedimiento, que era el paso imprescindible y no trivial. Lo que queda es trazar la frontera entre lo que permanece y lo que cambia, y esa frontera es una decisión de diseño, no una construcción de shell.</p>
+</blockquote>
+<hr>
+</section>
+<section id="documentar-la-sección-del-protocolo-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="documentar-la-sección-del-protocolo-indispensable">8. Documentar: la sección del protocolo [Indispensable]</h2>
+<p>Agrega a <code>doc/protocolo.md</code>, después de la sección de S23. <strong>No sustituye a ninguna de las anteriores</strong> y <strong>no borra los comandos que ya estaban ahí</strong>: la historia del razonamiento sigue siendo la evidencia más valiosa del documento. Lo que cambia es que, a partir de aquí, los comandos que se ejecutan viven en <code>src/</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## S24 — Automatización del protocolo: primer script</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">### 1. Qué se automatiza y qué no</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>Qué bloques del protocolo cubre el script, cuáles siguen siendo manuales y por qué.</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2. Ficha del script</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Elemento <span class="pp">|</span> Contenido <span class="pp">|</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">|</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Archivo <span class="pp">|</span> <span class="in">`src/analizar-genoma.sh`</span> <span class="pp">|</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Propósito <span class="pp">|</span> … <span class="pp">|</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Entradas de datos <span class="pp">|</span> <span class="in">`data/source/anotacion.gff3`</span>, <span class="in">`data/source/genoma.fna`</span> <span class="pp">|</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Entradas metodológicas <span class="pp">|</span> Definición de gen (S18); política de normalización (S20); … <span class="pp">|</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Salidas <span class="pp">|</span> <span class="in">`data/processed/…`</span>, <span class="in">`results/s24/…`</span> <span class="pp">|</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Invocación <span class="pp">|</span> <span class="in">`./src/analizar-genoma.sh`</span>, desde la raíz del proyecto <span class="pp">|</span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Requisitos <span class="pp">|</span> Permiso de ejecución; <span class="in">`bash`</span> disponible en <span class="in">`/bin/bash`</span> <span class="pp">|</span></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Fecha de la última ejecución <span class="pp">|</span> … <span class="pp">|</span></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a><span class="fu">### 3. Correspondencia entre el protocolo y el script</span></span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Bloque del protocolo (S23) <span class="pp">|</span> Líneas del script <span class="pp">|</span> Punto de control <span class="pp">|</span> ¿Se imprime? <span class="pp">|</span></span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">|</span></span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> A · Preparar la evidencia <span class="pp">|</span> … <span class="pp">|</span> Líneas con <span class="in">`#`</span> en el derivado: 0 <span class="pp">|</span> sí <span class="pp">|</span></span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span></span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a><span class="fu">### 4. Validación frente al trabajo manual</span></span>
+<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Producto <span class="pp">|</span> Equivalencia esperada <span class="pp">|</span> Estrategia aplicada <span class="pp">|</span> Resultado <span class="pp">|</span></span>
+<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">|</span></span>
+<span id="cb25-30"><a href="#cb25-30" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> … <span class="pp">|</span> conjunto / byte a byte / conteo / orden <span class="pp">|</span> <span class="in">`comm`</span> / checksum / numérica <span class="pp">|</span> coincide / difiere y por qué <span class="pp">|</span></span>
+<span id="cb25-31"><a href="#cb25-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-32"><a href="#cb25-32" aria-hidden="true" tabindex="-1"></a><span class="fu">### 5. Limitaciones del script en su estado actual</span></span>
+<span id="cb25-33"><a href="#cb25-33" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Las rutas están escritas dentro: sirve para este genoma y no para otro.</span>
+<span id="cb25-34"><a href="#cb25-34" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Debe ejecutarse desde la raíz del proyecto; desde otro directorio falla parcialmente.</span>
+<span id="cb25-35"><a href="#cb25-35" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Imprime sus controles pero **no se detiene** si uno no se cumple: la decisión sigue siendo humana.</span>
+<span id="cb25-36"><a href="#cb25-36" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>No comprueba que sus entradas existan antes de trabajar.</span>
+<span id="cb25-37"><a href="#cb25-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-38"><a href="#cb25-38" aria-hidden="true" tabindex="-1"></a><span class="fu">### 6. Nuevas preguntas que abre</span></span>
+<span id="cb25-39"><a href="#cb25-39" aria-hidden="true" tabindex="-1"></a>Las que esta sesión deja planteadas y no puede resolver.</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-important callout-titled" title="el punto 5 no es una confesión de trabajo incompleto">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>el punto 5 no es una confesión de trabajo incompleto
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Es el apartado que hace científico al documento. Un script cuyas limitaciones están escritas es utilizable; uno presentado como infalible es una trampa para quien lo herede. La lista de arriba es, además, el índice exacto de las dos sesiones siguientes.</p>
+</div>
+</div>
+</section>
+<section id="evidencia-de-la-sesión" class="level2">
+<h2 class="anchored" data-anchor-id="evidencia-de-la-sesión">Evidencia de la sesión</h2>
+<p>Entrega o conserva, según indique el docente:</p>
+<ol type="1">
+<li><code>doc/s24-primer-intento.md</code> con la ficha del script y las cuatro predicciones (Prácticas 1 y 2);</li>
+<li><code>src/analizar-genoma.sh</code>, ejecutable, con encabezado completo y comentarios que expliquen el <em>por qué</em>;</li>
+<li>la tabla de los cuatro fallos provocados con su mensaje real y su diagnóstico (Práctica 4);</li>
+<li>la respuesta razonada al fallo silencioso: qué imprimió, qué creó y con qué código terminó;</li>
+<li>las salidas del script en <code>data/processed/</code> y <code>results/s24/</code>;</li>
+<li>el registro de validación frente a los resultados manuales de la Unidad 4;</li>
+<li><code>doc/bitacora-ia.md</code> actualizada;</li>
+<li>la sección S24 de <code>doc/protocolo.md</code>, con <strong>todas</strong> las anteriores intactas.</li>
+</ol>
+</section>
+<section id="errores-frecuentes-y-estrategias-de-diagnóstico" class="level2">
+<h2 class="anchored" data-anchor-id="errores-frecuentes-y-estrategias-de-diagnóstico">Errores frecuentes y estrategias de diagnóstico</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Error</th>
+<th>Por qué ocurre</th>
+<th>Estrategia de diagnóstico</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Permission denied</code> al ejecutar</td>
+<td>El archivo no tiene permiso de ejecución</td>
+<td><code>ls -l</code>: si no hay <code>x</code>, <code>chmod +x</code></td>
+</tr>
+<tr class="even">
+<td><code>command not found</code> con el archivo delante</td>
+<td>Falta el <code>./</code>: el directorio actual no está en la ruta de búsqueda</td>
+<td>Invocar con <code>./nombre.sh</code></td>
+</tr>
+<tr class="odd">
+<td><code>bad interpreter: No such file or directory</code></td>
+<td>La línea <code>#!</code> está mal escrita, o el archivo se editó en Windows y trae retornos de carro</td>
+<td>Probar con <code>bash script.sh</code>: si así funciona, el problema está en la primera línea</td>
+</tr>
+<tr class="even">
+<td>El <code>#!</code> no surte efecto</td>
+<td>No está en la primera línea, o tiene un espacio o una línea en blanco delante</td>
+<td>Mirar la primera línea con <code>head -1</code></td>
+</tr>
+<tr class="odd">
+<td>El script funciona en tu casa y no en el servidor</td>
+<td>Se ejecutó desde directorios distintos y las rutas son relativas</td>
+<td>Ejecutar siempre desde la raíz del proyecto; declararlo en la línea de uso</td>
+</tr>
+<tr class="even">
+<td>Se creó el archivo de salida pero está vacío</td>
+<td>Un comando anterior falló y la redirección creó el archivo igual</td>
+<td>Comprobar el tamaño con <code>ls -l</code> o <code>wc -c</code> antes de darlo por bueno</td>
+</tr>
+<tr class="odd">
+<td>«Terminó sin error» tomado como «funcionó»</td>
+<td>El mensaje final se imprime pase lo que pase</td>
+<td>Comprobar <code>echo $?</code> y el tamaño de cada salida; comparar con el resultado manual</td>
+</tr>
+<tr class="even">
+<td>Escribir los comandos de memoria en vez de copiarlos</td>
+<td>Parece más rápido que buscarlos en el protocolo</td>
+<td>Comparar la salida con la registrada en su sesión: si difiere, el de memoria estaba mal</td>
+</tr>
+<tr class="odd">
+<td>Usar <code>chmod 777</code></td>
+<td>Es lo que aparece en el primer resultado de búsqueda</td>
+<td><code>chmod +x</code> concede lo mínimo; <code>777</code> deja tu análisis escribible por cualquiera</td>
+</tr>
+<tr class="even">
+<td>Un script que escribe en <code>data/source/</code></td>
+<td>Una redirección apunta al original en vez de al derivado</td>
+<td>Revisar todas las <code>&gt;</code> y <code>&gt;&gt;</code> antes de la primera ejecución; el daño es irreversible</td>
+</tr>
+<tr class="odd">
+<td>Borrar del protocolo lo que ya está en el script</td>
+<td>Parece duplicado</td>
+<td>Los comandos migran; el <strong>razonamiento</strong> que los justifica no está en el script y no puede estarlo</td>
+</tr>
+<tr class="even">
+<td>Vaciar <code>doc/protocolo.md</code> porque «ahora está automatizado»</td>
+<td>Se confunde el registro con el ejecutor</td>
+<td>Un script dice qué se ejecuta; el protocolo dice por qué, y sin él los números no se pueden defender</td>
+</tr>
+<tr class="odd">
+<td>Automatizar un bloque que aún no se entiende</td>
+<td>Se quiere avanzar rápido</td>
+<td>Automatizar un flujo no comprendido produce errores más rápido, no menos</td>
+</tr>
+<tr class="even">
+<td>Poner todos los <code>echo</code> al final</td>
+<td>Se agrupan por comodidad</td>
+<td>Un mensaje al final no localiza nada: va al principio del bloque que anuncia</td>
+</tr>
+<tr class="odd">
+<td>Ampliar el script de golpe con diez bloques</td>
+<td>Parece más eficiente</td>
+<td>Añadir de uno en uno y ejecutar: si se rompe, sabes exactamente qué lo rompió</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="rúbricas" class="level2">
+<h2 class="anchored" data-anchor-id="rúbricas">Rúbricas</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterio</th>
+<th>Logrado</th>
+<th>Parcialmente logrado</th>
+<th>Aún no logrado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Elección del alcance</td>
+<td>Elige un bloque completo con dependencias reales y justifica por qué</td>
+<td>Elige comandos sueltos</td>
+<td>No hay criterio de elección</td>
+</tr>
+<tr class="even">
+<td>Fidelidad al protocolo</td>
+<td>Los comandos se recuperan del protocolo, sin reescribirlos</td>
+<td>Algunos se reescriben y coinciden</td>
+<td>Se escriben de memoria</td>
+</tr>
+<tr class="odd">
+<td>Estructura del script</td>
+<td><code>#!</code>, encabezado completo, bloques marcados, comentarios que dicen <em>por qué</em></td>
+<td>Tiene encabezado pero los comentarios repiten el comando</td>
+<td>Es un bloque continuo de comandos sin contexto</td>
+</tr>
+<tr class="even">
+<td>Ejecución</td>
+<td>Concede el permiso mínimo y ejecuta con una sola orden</td>
+<td>Ejecuta con <code>bash</code> sin resolver el permiso ni el <code>#!</code></td>
+<td>No consigue ejecutarlo ni diagnosticar por qué</td>
+</tr>
+<tr class="odd">
+<td>Diagnóstico de fallos</td>
+<td>Asocia cada uno de los tres mensajes con la comprobación que falló</td>
+<td>Reconoce los mensajes sin explicarlos</td>
+<td>Prueba al azar hasta que funciona</td>
+</tr>
+<tr class="even">
+<td>Fallo silencioso</td>
+<td>Explica por qué un script puede terminar con éxito sin haber hecho nada, con su evidencia</td>
+<td>Lo reconoce sin comprobarlo</td>
+<td>No lo distingue de un error visible</td>
+</tr>
+<tr class="odd">
+<td>Validación</td>
+<td>Compara cada producto con el manual usando la estrategia adecuada a su tipo</td>
+<td>Compara a ojo</td>
+<td>No compara</td>
+</tr>
+<tr class="even">
+<td>Lugar en el proyecto</td>
+<td>El script vive en <code>src/</code>, no escribe en <code>data/source/</code> y el protocolo lo cita</td>
+<td>Está en <code>src/</code> pero el protocolo no cambió</td>
+<td>Está suelto en la raíz o escribe sobre originales</td>
+</tr>
+<tr class="odd">
+<td>Limitaciones declaradas</td>
+<td>Escribe las cuatro limitaciones antes de que se las señalen</td>
+<td>Menciona alguna</td>
+<td>Presenta el script como terminado</td>
+</tr>
+<tr class="even">
+<td>Uso crítico de IA</td>
+<td>Detecta al menos un error concreto en una propuesta y lo demuestra con una prueba</td>
+<td>Compara sin probar</td>
+<td>Acepta el código sin verificar</td>
+</tr>
+</tbody>
+</table>
+<p>La rúbrica es formativa. La evidencia integradora de la unidad se cierra al final de S26.</p>
+</section>
+<section id="autoevaluación" class="level2">
+<h2 class="anchored" data-anchor-id="autoevaluación">Autoevaluación</h2>
+<section id="comprobación-rápida-formativa-al-final-del-taller" class="level3">
+<h3 class="anchored" data-anchor-id="comprobación-rápida-formativa-al-final-del-taller">Comprobación rápida — formativa, al final del taller</h3>
+<ol type="1">
+<li>¿Qué diferencia hay entre un documento con comandos y un script?</li>
+<li>¿Para qué sirve la primera línea de un script y qué pasa si falta?</li>
+<li>¿Por qué <code>./script.sh</code> funciona y <code>script.sh</code> no, estando el archivo delante?</li>
+<li>¿Qué te dice que <code>bash script.sh</code> funcione y <code>./script.sh</code> no?</li>
+<li>¿Por qué <code>chmod +x</code> y no <code>chmod 777</code>?</li>
+<li>¿En qué carpeta vive el script y por qué esa y no otra?</li>
+<li>¿Qué información del protocolo <strong>no</strong> puede migrar al script?</li>
+<li>Un script imprime «Análisis terminado» y su código de salida es 0. ¿Demuestra eso que el análisis se hizo? ¿Cómo lo comprobarías?</li>
+<li>¿Por qué un error dentro de un script es más peligroso que el mismo error escrito en la terminal?</li>
+<li>¿Qué habría que cambiar en tu script para aplicarlo al genoma de otro equipo?</li>
+</ol>
+</section>
+<section id="semáforo" class="level3">
+<h3 class="anchored" data-anchor-id="semáforo">Semáforo</h3>
+<ul>
+<li>🟢 <strong>Verde:</strong> escribo un script con su encabezado, le doy el permiso mínimo, lo ejecuto, diagnostico sus fallos por el mensaje y compruebo que su salida coincide con la que obtuve a mano.</li>
+<li>🟡 <strong>Amarillo:</strong> consigo ejecutarlo, pero no sé decir cuál de las tres comprobaciones falla cuando no arranca, o no he comparado la salida con el resultado manual.</li>
+<li>🔴 <strong>Rojo:</strong> reescribo los comandos de memoria, ejecuto probando al azar hasta que funciona, o doy por bueno el resultado porque el script terminó.</li>
+</ul>
+<p>Si estás en amarillo o rojo, vuelve a la Práctica 4: lo central de hoy no es que el script funcione, es <strong>saber qué está fallando cuando no funciona y qué está pasando cuando sí</strong>.</p>
+</section>
+</section>
+<section id="cierre-con-ia-clásico-vs.-asistido" class="level2">
+<h2 class="anchored" data-anchor-id="cierre-con-ia-clásico-vs.-asistido">Cierre con IA: clásico vs.&nbsp;asistido</h2>
+<p>Trabaja <strong>primero a mano</strong>. Esta es la unidad donde la regla más importa, por un motivo muy concreto: pedir un script es lo que mejor hace un asistente, y por eso es donde resulta más fácil aceptar código que no entiendes. Un comando mal copiado se nota; un script mal entendido, no.</p>
+<ol type="1">
+<li><p><strong>Entrégale tu lista de pasos</strong> —solo la lista, sin los comandos— y pídele que la convierta en un script. Compara con el tuyo:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Aspecto</th>
+<th>Mi script</th>
+<th>Propuesta de IA</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Línea <code>#!</code></td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>Encabezado y línea de uso</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>Orden de los bloques</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>Rutas: ¿dentro o fuera?</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>Construcciones que usa</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>¿Puedo explicar cada línea?</td>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table></li>
+<li><p><strong>Cuenta las construcciones que no hemos visto.</strong> Es el hallazgo más probable: los asistentes proponen casi siempre <code>set -euo pipefail</code>, funciones, <code>while</code>, <code>getopts</code> o <code>$((...))</code>. Ninguna pertenece a esta unidad. Por cada una, responde: ¿qué problema resuelve?, ¿tengo yo ese problema hoy?, ¿sabría explicarla?</p></li>
+<li><p><strong>Busca la salida silenciosa.</strong> Pregúntale qué haría su script si el archivo de entrada no existiera. Después <strong>compruébalo</strong>: ejecútalo con un nombre inexistente en una copia de prueba y contrasta lo que dijo con lo que pasó.</p></li>
+<li><p><strong>Revisa las rutas una por una.</strong> Es el error con consecuencias irreversibles: comprueba que ninguna redirección apunta a <code>data/source/</code>. Un asistente no sabe cuáles de tus archivos son originales.</p></li>
+<li><p><strong>Prueba antes de adoptar.</strong> Si vas a incorporar alguna línea suya, ejecútala primero sobre un archivo pequeño de prueba y compara con tu resultado conocido.</p></li>
+<li><p><strong>Registra en <code>doc/bitacora-ia.md</code></strong>: objetivo, herramienta, prompt, respuesta resumida, error o construcción fuera de alcance detectada, prueba controlada y decisión final.</p></li>
+</ol>
+<p>🤖 <strong>Prompt para <a href="https://chatgpt.com/g/g-6893cf2451d88191b11cd0c87de045ab-profeunix-bioinfo">ProfeUnix Bioinfo</a>:</strong> &gt; Soy estudiante de primer semestre y estoy escribiendo mi primer script de shell. Estas son las &gt; operaciones, en orden: [pegar la lista de pasos, sin comandos]. Conviértelas en un script usando &gt; <strong>solo</strong> <code>#!</code>, comentarios, <code>echo</code> y los comandos que ya escribí. <strong>No uses</strong> variables, parámetros, &gt; <code>if</code>, ciclos, funciones ni <code>set -e</code>: quiero la versión más simple posible. Después explícame línea &gt; por línea qué hace, y dime qué ocurriría si el archivo de entrada no existiera.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Advertencia
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Un asistente tiende a devolver la versión «profesional» del script, con validación, variables y opciones. Esa es la solución de las dos sesiones siguientes, y aceptarla hoy te dejará con un archivo que funciona y que no puedes defender. Si no puedes explicar una línea, no entra en tu <code>src/</code>.</p>
+</div>
+</div>
+</section>
+<section id="lo-que-realmente-aprendiste-hoy" class="level2">
+<h2 class="anchored" data-anchor-id="lo-que-realmente-aprendiste-hoy">Lo que realmente aprendiste hoy</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Antes</th>
+<th>Ahora</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mi análisis se ejecutaba si yo copiaba bien treinta comandos</td>
+<td>Mi análisis se ejecuta con una orden</td>
+</tr>
+<tr class="even">
+<td>El orden de los pasos vivía en un documento en prosa</td>
+<td>El orden vive en un archivo que el sistema ejecuta</td>
+</tr>
+<tr class="odd">
+<td><code>src/</code> estaba vacía desde la Unidad 1</td>
+<td>Mi proyecto tiene código, y está donde debe estar</td>
+</tr>
+<tr class="even">
+<td>Un error se veía en la pantalla</td>
+<td>Un error puede pasar sin que nadie lo vea, y sé por qué</td>
+</tr>
+<tr class="odd">
+<td>El protocolo contenía los comandos</td>
+<td>El protocolo contiene el razonamiento y <strong>cita</strong> el script</td>
+</tr>
+<tr class="even">
+<td>Reproducir era una promesa del documento</td>
+<td>Reproducir es una orden que puedo demostrar</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="lo-que-todavía-falta" class="level2">
+<h2 class="anchored" data-anchor-id="lo-que-todavía-falta">Lo que todavía falta</h2>
+<p>Hoy resolviste un problema real: tu análisis ya no depende de que copies bien treinta comandos. Se ejecuta con una orden, siempre en el mismo orden, y el archivo que lo ejecuta es también el registro de lo que se ejecutó.</p>
+<p>Y sin embargo, tu análisis <strong>sigue dependiendo del genoma para el que fue escrito</strong>.</p>
+<p>Imagina que mañana llega un FASTA y un GFF3 distintos: otro organismo, otra cepa, o simplemente el genoma que le tocó al equipo de al lado.</p>
+<blockquote class="blockquote">
+<p>¿Tendrías que modificar el script?</p>
+<p>¿Cuántas líneas exactamente?</p>
+<p>¿Y qué pasaría si te dejaras una sin cambiar?</p>
+<p>¿Existe una forma de escribir <strong>un único procedimiento</strong> que funcione para cualquier genoma, sin tocarlo?</p>
+</blockquote>
+<p>Esa es la pregunta central de la sesión siguiente. Y fíjate en que no es una pregunta sobre shell: es una pregunta sobre <strong>qué parte de un análisis es el método y qué parte son los datos</strong>. Confundir las dos es lo que obliga a reescribir un procedimiento cada vez que cambian los archivos.</p>
+</section>
+<section id="puente-hacia-s25" class="level2">
+<h2 class="anchored" data-anchor-id="puente-hacia-s25">Puente hacia S25</h2>
+<p>El script funciona. Ábrelo y cuenta cuántas veces aparece el nombre de tu archivo de anotación. Cuenta también cuántas veces aparece la carpeta de resultados. Ese número es el problema de la próxima sesión:</p>
+<pre class="text"><code>un genoma nuevo  →  abrir el script
+                 →  buscar todas las rutas
+                 →  cambiarlas sin dejarse ninguna
+                 →  guardar otra copia del archivo
+                 →  y ahora tienes dos scripts que mantener</code></pre>
+<p>Y hay una segunda grieta, que provocaste tú mismo en la Práctica 4: tu script imprime sus controles, pero <strong>no hace nada con ellos</strong>. Si el archivo de entrada no existe, sigue adelante; si un conteo sale en cero, sigue adelante; si el derivado queda vacío, sigue adelante y anuncia que terminó.</p>
+<blockquote class="blockquote">
+<p><strong>Un procedimiento guardado todavía lleva sus datos dentro y todavía confía en que todo esté en su sitio.</strong></p>
+</blockquote>
+<p>La sesión siguiente resuelve las dos cosas a la vez, y no por casualidad: son la misma. Cuando los datos entran desde fuera, el script deja de poder suponer que existen —y tiene que preguntarlo.</p>
+<pre class="text"><code>¿cómo hago que el mismo archivo sirva para cualquier genoma?
+¿cómo le digo cuál quiero analizar, sin editarlo?
+¿cómo compruebo que lo que me dieron existe y es lo que espero?
+¿cómo consigo que se detenga en vez de producir basura convincente?</code></pre>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Guarda tu script tal como quedó hoy, con su fecha. En S25 no lo tirarás para escribir otro: lo transformarás, y comparar las dos versiones es la mejor prueba de que entendiste qué es parametrizar.</p>
+</div>
+</div>
+</section>
+<section id="en-una-frase" class="level2">
+<h2 class="anchored" data-anchor-id="en-una-frase">En una frase</h2>
+<ul>
+<li>Un script no añade análisis: añade <strong>quién lo ejecuta y cuántas veces</strong>.</li>
+<li>El sistema comprueba tres cosas antes de ejecutar: <strong>dónde está, si puede, y quién lo interpreta</strong>.</li>
+<li>Un script que termina sin error <strong>no demuestra</strong> que haya hecho algo.</li>
+</ul>
+</section>
+<section id="anexo-a.-correspondencia-resultadoactividadevidenciacriterio" class="level2">
+<h2 class="anchored" data-anchor-id="anexo-a.-correspondencia-resultadoactividadevidenciacriterio">Anexo A. Correspondencia resultado–actividad–evidencia–criterio</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Resultado</th>
+<th>Actividad</th>
+<th>Evidencia</th>
+<th>Criterio</th>
+<th>Momento</th>
+<th>Nivel en U5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RA1 Distinguir documento y script</td>
+<td>Secciones 1–2, Práctica 1</td>
+<td>Justificación del alcance elegido</td>
+<td>Explica qué gana el archivo frente al documento</td>
+<td>Antes</td>
+<td>Comprensión demostrada</td>
+</tr>
+<tr class="even">
+<td>RA2 Escribir un script del protocolo</td>
+<td>Práctica 3</td>
+<td><code>src/analizar-genoma.sh</code></td>
+<td>Los comandos se recuperan, no se reescriben</td>
+<td>Taller</td>
+<td>Aplicación guiada</td>
+</tr>
+<tr class="odd">
+<td>RA3 Explicar lo que un procedimiento debe declarar</td>
+<td>Sección 3, Práctica 2</td>
+<td>Las cuatro predicciones escritas</td>
+<td>Distingue las tres preguntas: quién interpreta, quién puede, dónde está</td>
+<td>Antes</td>
+<td>Comprensión demostrada</td>
+</tr>
+<tr class="even">
+<td>RA4 Conceder el permiso mínimo</td>
+<td>Sección 3.2, Práctica 3</td>
+<td>Salida de <code>ls -l</code></td>
+<td>Usa <code>chmod +x</code> y justifica por qué no <code>777</code></td>
+<td>Taller</td>
+<td>Aplicación autónoma</td>
+</tr>
+<tr class="odd">
+<td>RA5 Documentar el script</td>
+<td>Sección 4, Prácticas 1 y 3</td>
+<td>Encabezado y comentarios</td>
+<td>Incluye línea de uso; los comentarios dicen <em>por qué</em></td>
+<td>Antes/taller</td>
+<td>Aplicación autónoma</td>
+</tr>
+<tr class="even">
+<td>RA6 Situar el script en el proyecto</td>
+<td>Sección 5, Práctica 5</td>
+<td>Sección S24 del protocolo</td>
+<td>El protocolo cita el script y conserva el razonamiento</td>
+<td>Después</td>
+<td>Aplicación autónoma</td>
+</tr>
+<tr class="odd">
+<td>RA7 Diagnosticar los fallos frecuentes</td>
+<td>Práctica 4</td>
+<td>Tabla de fallos con mensajes reales</td>
+<td>Asocia cada mensaje con la comprobación que falló</td>
+<td>Taller</td>
+<td>Aplicación autónoma</td>
+</tr>
+<tr class="even">
+<td>RA8 Comprobar contra el resultado manual</td>
+<td>Prácticas 3 y 5</td>
+<td>Registro de validación</td>
+<td>Usa la estrategia adecuada al tipo de producto</td>
+<td>Taller/después</td>
+<td>Aplicación autónoma</td>
+</tr>
+<tr class="odd">
+<td>RA9 Reconocer el fallo silencioso</td>
+<td>Sección 6, Práctica 4 (paso 5)</td>
+<td>Respuesta razonada con su evidencia</td>
+<td>Muestra código de salida 0 y salida vacía</td>
+<td>Taller</td>
+<td>Comprensión demostrada</td>
+</tr>
+<tr class="even">
+<td>RA10 Explicar el límite del script</td>
+<td>Sección 7, Práctica 5</td>
+<td>Apartado de limitaciones</td>
+<td>Distingue ejecutable de reutilizable</td>
+<td>Después</td>
+<td>Comprensión demostrada</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="anexo-b.-alineación-transversal" class="level2">
+<h2 class="anchored" data-anchor-id="anexo-b.-alineación-transversal">Anexo B. Alineación transversal</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Actividad</th>
+<th>Reproducibilidad</th>
+<th>Verificación</th>
+<th>Validación</th>
+<th>Robustez</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Elegir el alcance</td>
+<td>El bloque elegido queda declarado</td>
+<td>Se comprueba que los comandos existen en el protocolo</td>
+<td>Se contrasta el fragmento con su sección de origen</td>
+<td>Se identifica de qué depende el bloque</td>
+</tr>
+<tr class="even">
+<td>Escribir el script</td>
+<td>El orden queda fijado en un archivo</td>
+<td>El encabezado declara entradas y salidas</td>
+<td>La estructura del script sigue la del protocolo</td>
+<td>Se marca desde qué directorio debe ejecutarse</td>
+</tr>
+<tr class="odd">
+<td>Ejecutar con permiso mínimo</td>
+<td>La invocación queda documentada</td>
+<td><code>ls -l</code> confirma el permiso concedido</td>
+<td>Se compara <code>./</code> con <code>bash</code> como diagnóstico</td>
+<td>Se evita <code>777</code> y la escritura sobre originales</td>
+</tr>
+<tr class="even">
+<td>Provocar los fallos</td>
+<td>Cada fallo se registra con su mensaje</td>
+<td>Se contrasta el mensaje con la predicción</td>
+<td>Las predicciones se validan contra el comportamiento real</td>
+<td>Se conoce el comportamiento del script cuando algo falta</td>
+</tr>
+<tr class="odd">
+<td>Comparar con el resultado manual</td>
+<td>Ambos productos conservan su origen</td>
+<td>Checksum o conteo según el tipo</td>
+<td>El trabajo manual de U4 es la línea base</td>
+<td>Toda diferencia se explica, no se ajusta</td>
+</tr>
+<tr class="even">
+<td>Documentar limitaciones</td>
+<td>El protocolo cita el script y su fecha</td>
+<td>Las limitaciones se comprueban, no se suponen</td>
+<td>Se declara qué no se ha probado</td>
+<td>Se anticipa qué rompería el script</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="glosario" class="level2">
+<h2 class="anchored" data-anchor-id="glosario">Glosario</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Español</th>
+<th>Inglés</th>
+<th>Definición breve</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Script</td>
+<td>Script</td>
+<td>Archivo de texto con comandos que el sistema ejecuta en orden</td>
+</tr>
+<tr class="even">
+<td>Intérprete</td>
+<td>Interpreter</td>
+<td>Programa que lee las órdenes del archivo y las ejecuta</td>
+</tr>
+<tr class="odd">
+<td>Línea de intérprete</td>
+<td>Shebang</td>
+<td>Primera línea <code>#!</code> que declara qué programa interpreta el archivo</td>
+</tr>
+<tr class="even">
+<td>Permiso de ejecución</td>
+<td>Execute permission</td>
+<td>Atributo que autoriza al sistema a ejecutar un archivo</td>
+</tr>
+<tr class="odd">
+<td>Comentario</td>
+<td>Comment</td>
+<td>Texto precedido de <code>#</code> que el intérprete ignora</td>
+</tr>
+<tr class="even">
+<td>Encabezado del script</td>
+<td>Script header</td>
+<td>Bloque inicial de comentarios con propósito, entradas, salidas y uso</td>
+</tr>
+<tr class="odd">
+<td>Código de salida</td>
+<td>Exit status</td>
+<td>Número que devuelve un programa al terminar; <code>0</code> significa «sin error»</td>
+</tr>
+<tr class="even">
+<td>Ruta de búsqueda</td>
+<td>Search path (<code>PATH</code>)</td>
+<td>Lista de directorios donde el sistema busca los programas por su nombre</td>
+</tr>
+<tr class="odd">
+<td>Fallo silencioso</td>
+<td>Silent failure</td>
+<td>Ejecución que termina sin error aparente y no produce el resultado esperado</td>
+</tr>
+<tr class="even">
+<td>Automatización</td>
+<td>Automation</td>
+<td>Convertir un procedimiento manual en algo que se ejecuta sin intervención</td>
+</tr>
+<tr class="odd">
+<td>Software de investigación</td>
+<td>Research software</td>
+<td>Código escrito para producir o analizar resultados científicos</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="referencias" class="level2">
+<h2 class="anchored" data-anchor-id="referencias">Referencias</h2>
+<ul>
+<li>Barker, M., Chue Hong, N. P., Katz, D. S., Lamprecht, A.-L., Martinez-Ortiz, C., Psomopoulos, F., et al.&nbsp;(2022). Introducing the FAIR Principles for research software. <em>Scientific Data</em>, 9, 622. <a href="https://doi.org/10.1038/s41597-022-01710-x" class="uri">https://doi.org/10.1038/s41597-022-01710-x</a></li>
+<li>Buffalo, V. (2015). <em>Bioinformatics Data Skills</em>. O’Reilly Media. — Cap. 12, <em>Bioinformatics Shell Scripting, Writing Pipelines, and Parallelizing Tasks</em>.</li>
+<li>Free Software Foundation. (2024). <em>GNU Bash Reference Manual</em>. <a href="https://www.gnu.org/software/bash/manual/bash.html" class="uri">https://www.gnu.org/software/bash/manual/bash.html</a></li>
+<li>Noble, W. S. (2009). A quick guide to organizing computational biology projects. <em>PLoS Computational Biology</em>, 5(7), e1000424. <a href="https://doi.org/10.1371/journal.pcbi.1000424" class="uri">https://doi.org/10.1371/journal.pcbi.1000424</a></li>
+<li>Sandve, G. K., Nekrutenko, A., Taylor, J., &amp; Hovig, E. (2013). Ten simple rules for reproducible computational research. <em>PLoS Computational Biology</em>, 9(10), e1003285. <a href="https://doi.org/10.1371/journal.pcbi.1003285" class="uri">https://doi.org/10.1371/journal.pcbi.1003285</a></li>
+<li>Taschuk, M., &amp; Wilson, G. (2017). Ten simple rules for making research software more robust. <em>PLoS Computational Biology</em>, 13(4), e1005412. <a href="https://doi.org/10.1371/journal.pcbi.1005412" class="uri">https://doi.org/10.1371/journal.pcbi.1005412</a></li>
+<li>Wilkinson, M. D., Dumontier, M., Aalbersberg, I. J., et al.&nbsp;(2016). The FAIR Guiding Principles for scientific data management and stewardship. <em>Scientific Data</em>, 3, 160018. <a href="https://doi.org/10.1038/sdata.2016.18" class="uri">https://doi.org/10.1038/sdata.2016.18</a></li>
+<li>Wilson, G., Bryan, J., Cranston, K., Kitzes, J., Nederbragt, L., &amp; Teal, T. K. (2017). Good enough practices in scientific computing. <em>PLoS Computational Biology</em>, 13(6), e1005510. <a href="https://doi.org/10.1371/journal.pcbi.1005510" class="uri">https://doi.org/10.1371/journal.pcbi.1005510</a></li>
+</ul>
+</section>
+<section id="distribución-estimada-de-las-dos-horas" class="level2">
+<h2 class="anchored" data-anchor-id="distribución-estimada-de-las-dos-horas">Distribución estimada de las dos horas</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 40%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Bloque</th>
+<th style="text-align: right;">Tiempo</th>
+<th>Contenido</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Puesta en común del alcance y de las predicciones</td>
+<td style="text-align: right;">15 min</td>
+<td>Prácticas 1 y 2, resueltas antes de clase</td>
+</tr>
+<tr class="even">
+<td>Escribir el script y darle permiso</td>
+<td style="text-align: right;">25 min</td>
+<td>Práctica 3, partes A y B</td>
+</tr>
+<tr class="odd">
+<td>Ejecutar y comparar con el resultado de S13</td>
+<td style="text-align: right;">20 min</td>
+<td>Práctica 3, parte C</td>
+</tr>
+<tr class="even">
+<td>Provocar los tres fallos y leer sus mensajes</td>
+<td style="text-align: right;">25 min</td>
+<td>Práctica 4, pasos 1–4</td>
+</tr>
+<tr class="odd">
+<td>El fallo silencioso y los mensajes de avance</td>
+<td style="text-align: right;">25 min</td>
+<td>Práctica 4, pasos 5–7</td>
+</tr>
+<tr class="even">
+<td>Cierre y planteamiento de la ampliación</td>
+<td style="text-align: right;">10 min</td>
+<td>Semáforo y puente hacia S25</td>
+</tr>
+</tbody>
+</table>
+<p>Los tiempos son estimaciones. La ampliación a la ruta crítica completa y la validación frente al respaldo se terminan después del taller, con la Práctica 5. El núcleo que no debe recortarse es:</p>
+<pre class="text"><code>escribir → dar permiso → ejecutar → comparar con el resultado manual</code></pre>
+<hr>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/helysalgado\.github\.io\/introbioinfo-unix\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./u5-automatizacion-scripting.html" class="pagination-link" aria-label="Portada">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Portada</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./u5-s25-separar-procedimiento-datos.html" class="pagination-link" aria-label="S25 — Separar datos">
+        <span class="nav-page-text">S25 — Separar datos</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://hits.sh/helysalgado.github.io/introbioinfo-unix/"><img src="https://hits.sh/helysalgado.github.io/introbioinfo-unix/.svg?style=flat-square&amp;label=Visitas&amp;color=4a7c9e" class="img-fluid figure-img"></a></p>
+<figcaption>Visitas</figcaption>
+</figure>
+</div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Helysalgado/introbioinfo-unix/edit/main/u5-s24-del-protocolo-al-script.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/Helysalgado/introbioinfo-unix/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

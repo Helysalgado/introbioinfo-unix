@@ -1,0 +1,1680 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocol Builder — S1 Práctica 2 | LCG UNAM</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#075985',
+                            800: '#0c4a6e',
+                            900: '#082f49',
+                        },
+                        unam: {
+                            blue: '#002B49',
+                            gold: '#C89211',
+                            goldLight: '#F3E5AB'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+
+        .code-editor {
+            font-family: 'JetBrains Mono', monospace;
+            tab-size: 4;
+        }
+
+        /* Focus rings for accessibility */
+        a:focus-visible, button:focus-visible, textarea:focus-visible, input:focus-visible, select:focus-visible {
+            outline: 2px solid #0284c7;
+            outline-offset: 2px;
+        }
+
+        .tab-btn[aria-selected="true"] {
+            border-bottom: 3px solid #0284c7;
+            color: #0369a1;
+            font-weight: 600;
+            background-color: #f0f7ff;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased">
+
+    <!-- Header banner -->
+    <header class="bg-unam-blue text-white shadow-md border-b-4 border-unam-gold">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                    <div class="flex items-center space-x-3">
+                        <span class="bg-unam-gold text-unam-blue text-xs font-bold px-2.5 py-1 rounded uppercase tracking-wider">LCG UNAM 2026</span>
+                        <span class="text-xs text-slate-300 font-medium">Introducción a la Bioinformática • Sesión 1 · Práctica 2</span>
+                    </div>
+                    <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight mt-1 text-white flex items-center gap-2">
+                        <span>Protocol Builder</span>
+                    </h1>
+                    <p class="text-slate-300 text-sm mt-0.5">De una estrategia científica a un documento reproducible en Markdown</p>
+                </div>
+                <div class="bg-slate-800/80 backdrop-blur rounded-lg p-3 border border-slate-700 text-xs text-slate-300 max-w-md">
+                    <p><strong>Meta de la sesión:</strong> Construir la base de tu <code>protocolo.md</code> utilizando Markdown estructurado y diagramas Mermaid.</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm" aria-label="Navegación por Misiones">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex space-x-2 overflow-x-auto custom-scrollbar" role="tablist" id="main-tabs">
+                <button role="tab" aria-selected="true" aria-controls="panel-m1" id="tab-m1" onclick="switchTab('m1')"
+                    class="tab-btn py-3 px-4 text-sm font-medium text-slate-600 hover:text-slate-900 border-b-2 border-transparent whitespace-nowrap transition-colors flex items-center gap-2">
+                    <span class="w-5 h-5 rounded-full bg-slate-200 text-slate-700 text-xs flex items-center justify-center font-bold">1</span>
+                    1 Markdown
+                </button>
+                <button role="tab" aria-selected="false" aria-controls="panel-m2" id="tab-m2" onclick="switchTab('m2')"
+                    class="tab-btn py-3 px-4 text-sm font-medium text-slate-600 hover:text-slate-900 border-b-2 border-transparent whitespace-nowrap transition-colors flex items-center gap-2">
+                    <span class="w-5 h-5 rounded-full bg-slate-200 text-slate-700 text-xs flex items-center justify-center font-bold">2</span>
+                    2 Protocolo
+                </button>
+                <button role="tab" aria-selected="false" aria-controls="panel-m3" id="tab-m3" onclick="switchTab('m3')"
+                    class="tab-btn py-3 px-4 text-sm font-medium text-slate-600 hover:text-slate-900 border-b-2 border-transparent whitespace-nowrap transition-colors flex items-center gap-2">
+                    <span class="w-5 h-5 rounded-full bg-slate-200 text-slate-700 text-xs flex items-center justify-center font-bold">3</span>
+                    3 Mermaid
+                </button>
+                <button role="tab" aria-selected="false" aria-controls="panel-m4" id="tab-m4" onclick="switchTab('m4')"
+                    class="tab-btn py-3 px-4 text-sm font-medium text-slate-600 hover:text-slate-900 border-b-2 border-transparent whitespace-nowrap transition-colors flex items-center gap-2">
+                    <span class="w-5 h-5 rounded-full bg-slate-200 text-slate-700 text-xs flex items-center justify-center font-bold">4</span>
+                    4 Mi protocolo
+                </button>
+                <button role="tab" aria-selected="false" aria-controls="panel-resumen" id="tab-resumen" onclick="switchTab('resumen')"
+                    class="tab-btn py-3 px-4 text-sm font-medium text-slate-600 hover:text-slate-900 border-b-2 border-transparent whitespace-nowrap transition-colors flex items-center gap-2 ml-auto">
+                    <span class="w-5 h-5 rounded-full bg-brand-500 text-white text-xs flex items-center justify-center font-bold">✓</span>
+                    Resumen
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
+        
+        <!-- Global Context Intro Banner -->
+        <div class="mb-6 bg-blue-50 border-l-4 border-brand-500 p-4 rounded-r-lg text-slate-700 text-sm shadow-sm flex flex-col sm:flex-row gap-3 items-start sm:items-center justify-between">
+            <div>
+                <p class="font-medium text-slate-900">Ya tienes una pregunta y una estrategia.</p>
+                <p>Ahora convierte ese razonamiento en un documento reproducible en formato Markdown. Usa la sintaxis estructural mínima y diagramas Mermaid para darle claridad visual a tu protocolo.</p>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- MISIÓN 1: Dale estructura al documento -->
+        <!-- ========================================== -->
+        <section id="panel-m1" role="tabpanel" aria-labelledby="tab-m1" class="space-y-6">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
+                    <div>
+                        <span class="text-xs font-semibold text-brand-600 uppercase tracking-wider">Misión 1</span>
+                        <h2 class="text-xl font-bold text-slate-900">Dale estructura al documento con Markdown</h2>
+                    </div>
+                    <span class="bg-amber-100 text-amber-800 text-xs px-2.5 py-1 rounded-full font-medium">Paso 1 de 4</span>
+                </div>
+
+                <div class="prose max-w-none text-slate-600 text-sm space-y-2">
+                    <p>A continuación tienes un texto científico en plano. Aplica la sintaxis de Markdown en el editor interactivo para transformar el texto sin formato en un documento claro con jerarquía visual.</p>
+                </div>
+
+                <!-- Guidance Box -->
+                <div class="mt-4 p-3.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-700 font-mono flex flex-wrap gap-x-4 gap-y-2 items-center">
+                    <span class="font-sans font-bold text-slate-900">Guía rápida Markdown:</span>
+                    <span><code class="text-brand-600 bg-white px-1.5 py-0.5 border rounded"># Título</code> (H1)</span>
+                    <span><code class="text-brand-600 bg-white px-1.5 py-0.5 border rounded">## Sección</code> (H2)</span>
+                    <span><code class="text-brand-600 bg-white px-1.5 py-0.5 border rounded">### Subsección</code> (H3)</span>
+                    <span><code class="text-brand-600 bg-white px-1.5 py-0.5 border rounded">- Ítem</code> (Lista)</span>
+                    <span><code class="text-brand-600 bg-white px-1.5 py-0.5 border rounded">**texto**</code> (Negrita)</span>
+                    <span><code class="text-brand-600 bg-white px-1.5 py-0.5 border rounded">`archivo`</code> (Código inline)</span>
+                </div>
+            </div>
+
+            <!-- Interactive Markdown Editor & Micro-challenges -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Retos Column -->
+                <div class="lg:col-span-5 space-y-4">
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+                        <div class="flex items-center justify-between mb-3 border-b pb-2">
+                            <h3 class="font-bold text-slate-900 text-base">Microretos de Markdown</h3>
+                            <button onclick="cargarTextoRaw()" class="text-xs text-brand-600 hover:text-brand-800 font-medium">Restablecer texto</button>
+                        </div>
+                        <p class="text-xs text-slate-500 mb-4">Aplica la sintaxis requerida en el editor contiguo y comprueba tus avances:</p>
+
+                        <div class="space-y-3" id="microretos-container">
+                            <!-- Reto A -->
+                            <div class="p-3 border border-slate-200 rounded-lg bg-slate-50 text-xs transition-colors" id="reto-card-a">
+                                <div class="flex justify-between items-start">
+                                    <span class="font-semibold text-slate-800">Reto A: Título principal</span>
+                                    <span id="reto-status-a" class="text-slate-400 font-medium">Pendiente</span>
+                                </div>
+                                <p class="text-slate-600 mt-1">Convierte <code class="text-slate-800 bg-slate-200 px-1 rounded">Protocolo de análisis</code> en título principal agregando <code class="text-brand-600"># </code>.</p>
+                                <button onclick="evaluarReto('a')" class="mt-2 text-xs bg-brand-600 text-white px-3 py-1 rounded hover:bg-brand-700 transition font-medium">Comprobar Reto A</button>
+                                <div id="reto-feedback-a" class="mt-2 hidden text-xs p-2 rounded"></div>
+                            </div>
+
+                            <!-- Reto B -->
+                            <div class="p-3 border border-slate-200 rounded-lg bg-slate-50 text-xs transition-colors" id="reto-card-b">
+                                <div class="flex justify-between items-start">
+                                    <span class="font-semibold text-slate-800">Reto B: Secciones principales</span>
+                                    <span id="reto-status-b" class="text-slate-400 font-medium">Pendiente</span>
+                                </div>
+                                <p class="text-slate-600 mt-1">Agrega <code class="text-brand-600">## </code> a <code class="text-slate-800 bg-slate-200 px-1 rounded">Introducción</code>, <code class="text-slate-800 bg-slate-200 px-1 rounded">Datos</code> y <code class="text-slate-800 bg-slate-200 px-1 rounded">Estrategia</code>.</p>
+                                <button onclick="evaluarReto('b')" class="mt-2 text-xs bg-brand-600 text-white px-3 py-1 rounded hover:bg-brand-700 transition font-medium">Comprobar Reto B</button>
+                                <div id="reto-feedback-b" class="mt-2 hidden text-xs p-2 rounded"></div>
+                            </div>
+
+                            <!-- Reto C -->
+                            <div class="p-3 border border-slate-200 rounded-lg bg-slate-50 text-xs transition-colors" id="reto-card-c">
+                                <div class="flex justify-between items-start">
+                                    <span class="font-semibold text-slate-800">Reto C: Listas viñeteadas</span>
+                                    <span id="reto-status-c" class="text-slate-400 font-medium">Pendiente</span>
+                                </div>
+                                <p class="text-slate-600 mt-1">Convierte las subpreguntas en lista agregando <code class="text-brand-600">- </code> al inicio de cada una.</p>
+                                <button onclick="evaluarReto('c')" class="mt-2 text-xs bg-brand-600 text-white px-3 py-1 rounded hover:bg-brand-700 transition font-medium">Comprobar Reto C</button>
+                                <div id="reto-feedback-c" class="mt-2 hidden text-xs p-2 rounded"></div>
+                            </div>
+
+                            <!-- Reto D -->
+                            <div class="p-3 border border-slate-200 rounded-lg bg-slate-50 text-xs transition-colors" id="reto-card-d">
+                                <div class="flex justify-between items-start">
+                                    <span class="font-semibold text-slate-800">Reto D: Nombre de archivo</span>
+                                    <span id="reto-status-d" class="text-slate-400 font-medium">Pendiente</span>
+                                </div>
+                                <p class="text-slate-600 mt-1">Marca <code class="text-slate-800 bg-slate-200 px-1 rounded">pacientes.md</code> con comillas invertidas simples: <code class="text-brand-600">`pacientes.md`</code>.</p>
+                                <button onclick="evaluarReto('d')" class="mt-2 text-xs bg-brand-600 text-white px-3 py-1 rounded hover:bg-brand-700 transition font-medium">Comprobar Reto D</button>
+                                <div id="reto-feedback-d" class="mt-2 hidden text-xs p-2 rounded"></div>
+                            </div>
+
+                            <!-- Reto E -->
+                            <div class="p-3 border border-slate-200 rounded-lg bg-slate-50 text-xs transition-colors" id="reto-card-e">
+                                <div class="flex justify-between items-start">
+                                    <span class="font-semibold text-slate-800">Reto E: Énfasis importante</span>
+                                    <span id="reto-status-e" class="text-slate-400 font-medium">Pendiente</span>
+                                </div>
+                                <p class="text-slate-600 mt-1">Resalta algún término clave usando negritas dobles: <code class="text-brand-600">**texto**</code>.</p>
+                                <button onclick="evaluarReto('e')" class="mt-2 text-xs bg-brand-600 text-white px-3 py-1 rounded hover:bg-brand-700 transition font-medium">Comprobar Reto E</button>
+                                <div id="reto-feedback-e" class="mt-2 hidden text-xs p-2 rounded"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Editor + Live Preview Column -->
+                <div class="lg:col-span-7 space-y-4">
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col h-full">
+                        <div class="flex items-center justify-between mb-2">
+                            <label for="m1-editor" class="text-xs font-bold text-slate-700 uppercase tracking-wider">Editor Markdown (Escribe aquí)</label>
+                            <span class="text-xs text-slate-400 font-mono">Edición en vivo</span>
+                        </div>
+                        <textarea id="m1-editor" oninput="actualizarPreviewM1()" 
+                            class="code-editor w-full h-64 p-3 border border-slate-300 rounded-lg bg-slate-900 text-slate-100 text-xs focus:ring-2 focus:ring-brand-500 focus:border-transparent leading-relaxed resize-y"
+                            aria-label="Editor de texto Markdown"></textarea>
+
+                        <!-- Rendered Preview -->
+                        <div class="mt-4 border-t border-slate-200 pt-3">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs font-bold text-slate-700 uppercase tracking-wider">Vista previa renderizada</span>
+                                <span class="text-xs text-emerald-600 font-semibold flex items-center gap-1">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Renderizado local
+                                </span>
+                            </div>
+                            <div id="m1-preview" class="p-4 bg-slate-50 border border-slate-200 rounded-lg min-h-[180px] max-h-72 text-xs text-slate-800 overflow-y-auto custom-scrollbar">
+                                <!-- Rendered Markdown will appear here -->
+                            </div>
+                        </div>
+
+                        <div class="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-900 flex items-start gap-2">
+                            <span class="text-base">💡</span>
+                            <p><strong>Nota de aplicación:</strong> En clase practicarás esta misma sintaxis directamente en <strong>StackEdit</strong> o VSCode. Aquí verificamos tu comprensión de las marcas de estructura.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Button -->
+            <div class="flex justify-end pt-4">
+                <button onclick="switchTab('m2')" class="bg-brand-600 hover:bg-brand-700 text-white font-medium text-sm px-6 py-2.5 rounded-lg shadow-sm transition flex items-center gap-2">
+                    Continuar a Misión 2: Anatomía del protocolo →
+                </button>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- MISIÓN 2: ¿Dónde va cada cosa? -->
+        <!-- ========================================== -->
+        <section id="panel-m2" role="tabpanel" aria-labelledby="tab-m2" class="space-y-6 hidden">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
+                    <div>
+                        <span class="text-xs font-semibold text-brand-600 uppercase tracking-wider">Misión 2</span>
+                        <h2 class="text-xl font-bold text-slate-900">Anatomía de un protocolo científico</h2>
+                    </div>
+                    <span class="bg-amber-100 text-amber-800 text-xs px-2.5 py-1 rounded-full font-medium">Paso 2 de 4</span>
+                </div>
+                <p class="text-slate-600 text-sm">
+                    Un protocolo de análisis no es un simple listado de comandos; es la estructura lógica de tu investigación. Relaciona los componentes del protocolo con las secciones formales de la escritura científica.
+                </p>
+            </div>
+
+            <!-- Association Activity -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <h3 class="font-bold text-slate-900 text-base mb-2">1. Correspondencia: Componente ↔ Sección Científica</h3>
+                <p class="text-xs text-slate-500 mb-6">Selecciona para cada componente la sección del artículo o reporte formal que le corresponde:</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="asociaciones-grid">
+                    <!-- Item 1 -->
+                    <div class="p-4 bg-slate-50 border border-slate-200 rounded-lg flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-bold text-slate-500 uppercase">Componente del Protocolo</span>
+                            <p class="font-medium text-slate-900 text-sm mt-1">Pregunta y contexto de investigación</p>
+                        </div>
+                        <div class="mt-3">
+                            <label for="assoc-0" class="sr-only">Sección para Pregunta y contexto</label>
+                            <select id="assoc-0" onchange="evaluarAsociacion(0)" class="w-full text-xs p-2 border border-slate-300 rounded bg-white text-slate-800 focus:ring-2 focus:ring-brand-500">
+                                <option value="">-- Selecciona sección --</option>
+                                <option value="Introducción">Introducción</option>
+                                <option value="Metodología">Metodología</option>
+                                <option value="Resultados">Resultados</option>
+                                <option value="Discusión">Discusión</option>
+                                <option value="Conclusiones">Conclusiones</option>
+                            </select>
+                        </div>
+                        <div id="assoc-feedback-0" class="mt-2 text-xs hidden"></div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="p-4 bg-slate-50 border border-slate-200 rounded-lg flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-bold text-slate-500 uppercase">Componente del Protocolo</span>
+                            <p class="font-medium text-slate-900 text-sm mt-1">Datos y exploración de insumos</p>
+                        </div>
+                        <div class="mt-3">
+                            <label for="assoc-1" class="sr-only">Sección para Datos y exploración</label>
+                            <select id="assoc-1" onchange="evaluarAsociacion(1)" class="w-full text-xs p-2 border border-slate-300 rounded bg-white text-slate-800 focus:ring-2 focus:ring-brand-500">
+                                <option value="">-- Selecciona sección --</option>
+                                <option value="Introducción">Introducción</option>
+                                <option value="Metodología">Metodología</option>
+                                <option value="Resultados">Resultados</option>
+                                <option value="Discusión">Discusión</option>
+                                <option value="Conclusiones">Conclusiones</option>
+                            </select>
+                        </div>
+                        <div id="assoc-feedback-1" class="mt-2 text-xs hidden"></div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="p-4 bg-slate-50 border border-slate-200 rounded-lg flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-bold text-slate-500 uppercase">Componente del Protocolo</span>
+                            <p class="font-medium text-slate-900 text-sm mt-1">Estrategia y procedimientos analíticos</p>
+                        </div>
+                        <div class="mt-3">
+                            <label for="assoc-2" class="sr-only">Sección para Estrategia y procedimientos</label>
+                            <select id="assoc-2" onchange="evaluarAsociacion(2)" class="w-full text-xs p-2 border border-slate-300 rounded bg-white text-slate-800 focus:ring-2 focus:ring-brand-500">
+                                <option value="">-- Selecciona sección --</option>
+                                <option value="Introducción">Introducción</option>
+                                <option value="Metodología">Metodología</option>
+                                <option value="Resultados">Resultados</option>
+                                <option value="Discusión">Discusión</option>
+                                <option value="Conclusiones">Conclusiones</option>
+                            </select>
+                        </div>
+                        <div id="assoc-feedback-2" class="mt-2 text-xs hidden"></div>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="p-4 bg-slate-50 border border-slate-200 rounded-lg flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-bold text-slate-500 uppercase">Componente del Protocolo</span>
+                            <p class="font-medium text-slate-900 text-sm mt-1">Evidencias obtenidas (datos resultantes)</p>
+                        </div>
+                        <div class="mt-3">
+                            <label for="assoc-3" class="sr-only">Sección para Evidencias obtenidas</label>
+                            <select id="assoc-3" onchange="evaluarAsociacion(3)" class="w-full text-xs p-2 border border-slate-300 rounded bg-white text-slate-800 focus:ring-2 focus:ring-brand-500">
+                                <option value="">-- Selecciona sección --</option>
+                                <option value="Introducción">Introducción</option>
+                                <option value="Metodología">Metodología</option>
+                                <option value="Resultados">Resultados</option>
+                                <option value="Discusión">Discusión</option>
+                                <option value="Conclusiones">Conclusiones</option>
+                            </select>
+                        </div>
+                        <div id="assoc-feedback-3" class="mt-2 text-xs hidden"></div>
+                    </div>
+
+                    <!-- Item 5 -->
+                    <div class="p-4 bg-slate-50 border border-slate-200 rounded-lg flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-bold text-slate-500 uppercase">Componente del Protocolo</span>
+                            <p class="font-medium text-slate-900 text-sm mt-1">Significado biológico y limitaciones</p>
+                        </div>
+                        <div class="mt-3">
+                            <label for="assoc-4" class="sr-only">Sección para Significado biológico y limitaciones</label>
+                            <select id="assoc-4" onchange="evaluarAsociacion(4)" class="w-full text-xs p-2 border border-slate-300 rounded bg-white text-slate-800 focus:ring-2 focus:ring-brand-500">
+                                <option value="">-- Selecciona sección --</option>
+                                <option value="Introducción">Introducción</option>
+                                <option value="Metodología">Metodología</option>
+                                <option value="Resultados">Resultados</option>
+                                <option value="Discusión">Discusión</option>
+                                <option value="Conclusiones">Conclusiones</option>
+                            </select>
+                        </div>
+                        <div id="assoc-feedback-4" class="mt-2 text-xs hidden"></div>
+                    </div>
+
+                    <!-- Item 6 -->
+                    <div class="p-4 bg-slate-50 border border-slate-200 rounded-lg flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-bold text-slate-500 uppercase">Componente del Protocolo</span>
+                            <p class="font-medium text-slate-900 text-sm mt-1">Respuesta integrada a la pregunta</p>
+                        </div>
+                        <div class="mt-3">
+                            <label for="assoc-5" class="sr-only">Sección para Respuesta integrada</label>
+                            <select id="assoc-5" onchange="evaluarAsociacion(5)" class="w-full text-xs p-2 border border-slate-300 rounded bg-white text-slate-800 focus:ring-2 focus:ring-brand-500">
+                                <option value="">-- Selecciona sección --</option>
+                                <option value="Introducción">Introducción</option>
+                                <option value="Metodología">Metodología</option>
+                                <option value="Resultados">Resultados</option>
+                                <option value="Discusión">Discusión</option>
+                                <option value="Conclusiones">Conclusiones</option>
+                            </select>
+                        </div>
+                        <div id="assoc-feedback-5" class="mt-2 text-xs hidden"></div>
+                    </div>
+                </div>
+
+                <!-- Transversal Card -->
+                <div class="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                    <div class="flex items-start gap-3">
+                        <span class="text-xl">📌</span>
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wide">Documentación y Metadatos</h4>
+                            <p class="text-xs text-slate-600 mt-1">
+                                La documentación y los metadatos (fechas, versiones de datos, bitácoras) <strong>atraviesan todo el proceso</strong>. No pertenecen a una sola sección aislada, sino que garantizan la reproducibilidad científica continua.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Practical Situations Activity -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <h3 class="font-bold text-slate-900 text-base mb-2">2. Situaciones prácticas: ¿Metodología, Resultados o Discusión?</h3>
+                <p class="text-xs text-slate-500 mb-4">Clasifica las siguientes afirmaciones observadas en un protocolo:</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Caso A -->
+                    <div class="p-4 border border-slate-200 rounded-lg bg-slate-50 space-y-2">
+                        <span class="text-xs font-bold text-slate-500">Caso A</span>
+                        <p class="text-xs font-medium text-slate-800">"Calculé una variable derivada (IMC) a partir del peso y la talla."</p>
+                        <div class="flex gap-2">
+                            <button onclick="responderCaso('a', 'Metodología')" class="text-xs bg-white border border-slate-300 hover:bg-slate-100 text-slate-800 font-medium px-2.5 py-1 rounded transition">Metodología</button>
+                            <button onclick="responderCaso('a', 'Resultados')" class="text-xs bg-white border border-slate-300 hover:bg-slate-100 text-slate-800 font-medium px-2.5 py-1 rounded transition">Resultados</button>
+                            <button onclick="responderCaso('a', 'Discusión')" class="text-xs bg-white border border-slate-300 hover:bg-slate-100 text-slate-800 font-medium px-2.5 py-1 rounded transition">Discusión</button>
+                        </div>
+                        <div id="caso-feedback-a" class="hidden text-xs p-2 rounded mt-2"></div>
+                    </div>
+
+                    <!-- Caso B -->
+                    <div class="p-4 border border-slate-200 rounded-lg bg-slate-50 space-y-2">
+                        <span class="text-xs font-bold text-slate-500">Caso B</span>
+                        <p class="text-xs font-medium text-slate-800">"Obtuvimos tres registros con valores nulos en la columna `dx`."</p>
+                        <div class="flex gap-2">
+                            <button onclick="responderCaso('b', 'Metodología')" class="text-xs bg-white border border-slate-300 hover:bg-slate-100 text-slate-800 font-medium px-2.5 py-1 rounded transition">Metodología</button>
+                            <button onclick="responderCaso('b', 'Resultados')" class="text-xs bg-white border border-slate-300 hover:bg-slate-100 text-slate-800 font-medium px-2.5 py-1 rounded transition">Resultados</button>
+                            <button onclick="responderCaso('b', 'Discusión')" class="text-xs bg-white border border-slate-300 hover:bg-slate-100 text-slate-800 font-medium px-2.5 py-1 rounded transition">Discusión</button>
+                        </div>
+                        <div id="caso-feedback-b" class="hidden text-xs p-2 rounded mt-2"></div>
+                    </div>
+
+                    <!-- Caso C -->
+                    <div class="p-4 border border-slate-200 rounded-lg bg-slate-50 space-y-2">
+                        <span class="text-xs font-bold text-slate-500">Caso C</span>
+                        <p class="text-xs font-medium text-slate-800">"Las diferencias observadas no son suficientes para establecer una relación causal."</p>
+                        <div class="flex gap-2">
+                            <button onclick="responderCaso('c', 'Metodología')" class="text-xs bg-white border border-slate-300 hover:bg-slate-100 text-slate-800 font-medium px-2.5 py-1 rounded transition">Metodología</button>
+                            <button onclick="responderCaso('c', 'Resultados')" class="text-xs bg-white border border-slate-300 hover:bg-slate-100 text-slate-800 font-medium px-2.5 py-1 rounded transition">Resultados</button>
+                            <button onclick="responderCaso('c', 'Discusión')" class="text-xs bg-white border border-slate-300 hover:bg-slate-100 text-slate-800 font-medium px-2.5 py-1 rounded transition">Discusión</button>
+                        </div>
+                        <div id="caso-feedback-c" class="hidden text-xs p-2 rounded mt-2"></div>
+                    </div>
+
+                    <!-- Caso D -->
+                    <div class="p-4 border border-slate-200 rounded-lg bg-slate-50 space-y-2">
+                        <span class="text-xs font-bold text-slate-500">Caso D</span>
+                        <p class="text-xs font-medium text-slate-800">"Se utilizó la versión v1.0 del archivo `pacientes.md`."</p>
+                        <div class="flex gap-2">
+                            <button onclick="responderCaso('d', 'Metodología')" class="text-xs bg-white border border-slate-300 hover:bg-slate-100 text-slate-800 font-medium px-2.5 py-1 rounded transition">Metodología / Datos</button>
+                            <button onclick="responderCaso('d', 'Resultados')" class="text-xs bg-white border border-slate-300 hover:bg-slate-100 text-slate-800 font-medium px-2.5 py-1 rounded transition">Resultados</button>
+                            <button onclick="responderCaso('d', 'Discusión')" class="text-xs bg-white border border-slate-300 hover:bg-slate-100 text-slate-800 font-medium px-2.5 py-1 rounded transition">Discusión</button>
+                        </div>
+                        <div id="caso-feedback-d" class="hidden text-xs p-2 rounded mt-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actividad: Progresión del protocolo -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <h3 class="font-bold text-slate-900 text-base mb-2">3. Progresión: ¿Qué secciones debes iniciar en esta Unidad 1?</h3>
+                <p class="text-xs text-slate-500 mb-4">Haz clic para seleccionar únicamente las 5 secciones iniciales que corresponden redactar en esta Unidad 1:</p>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3" id="secciones-u1-grid">
+                    <button onclick="toggleSeccionU1('Introducción')" id="sec-Introducción" class="sec-badge p-3 border rounded-lg text-xs text-center font-medium transition border-slate-200 bg-slate-50 hover:bg-slate-100">Introducción</button>
+                    <button onclick="toggleSeccionU1('Pregunta central')" id="sec-Pregunta central" class="sec-badge p-3 border rounded-lg text-xs text-center font-medium transition border-slate-200 bg-slate-50 hover:bg-slate-100">Pregunta central</button>
+                    <button onclick="toggleSeccionU1('Subpreguntas')" id="sec-Subpreguntas" class="sec-badge p-3 border rounded-lg text-xs text-center font-medium transition border-slate-200 bg-slate-50 hover:bg-slate-100">Subpreguntas</button>
+                    <button onclick="toggleSeccionU1('Datos')" id="sec-Datos" class="sec-badge p-3 border rounded-lg text-xs text-center font-medium transition border-slate-200 bg-slate-50 hover:bg-slate-100">Datos</button>
+                    <button onclick="toggleSeccionU1('Estrategia')" id="sec-Estrategia" class="sec-badge p-3 border rounded-lg text-xs text-center font-medium transition border-slate-200 bg-slate-50 hover:bg-slate-100">Estrategia</button>
+                    <button onclick="toggleSeccionU1('Comandos')" id="sec-Comandos" class="sec-badge p-3 border rounded-lg text-xs text-center font-medium transition border-slate-200 bg-slate-50 hover:bg-slate-100">Comandos</button>
+                    <button onclick="toggleSeccionU1('Resultados')" id="sec-Resultados" class="sec-badge p-3 border rounded-lg text-xs text-center font-medium transition border-slate-200 bg-slate-50 hover:bg-slate-100">Resultados</button>
+                    <button onclick="toggleSeccionU1('Validación')" id="sec-Validación" class="sec-badge p-3 border rounded-lg text-xs text-center font-medium transition border-slate-200 bg-slate-50 hover:bg-slate-100">Validación</button>
+                    <button onclick="toggleSeccionU1('Discusión')" id="sec-Discusión" class="sec-badge p-3 border rounded-lg text-xs text-center font-medium transition border-slate-200 bg-slate-50 hover:bg-slate-100">Discusión</button>
+                    <button onclick="toggleSeccionU1('Conclusiones')" id="sec-Conclusiones" class="sec-badge p-3 border rounded-lg text-xs text-center font-medium transition border-slate-200 bg-slate-50 hover:bg-slate-100">Conclusiones</button>
+                </div>
+
+                <div class="mt-4 flex items-center justify-between">
+                    <button onclick="evaluarSeccionesU1()" class="text-xs bg-brand-600 hover:bg-brand-700 text-white font-medium px-4 py-2 rounded transition">
+                        Verificar selección
+                    </button>
+                    <div id="secciones-feedback" class="text-xs font-medium"></div>
+                </div>
+
+                <div class="mt-4 p-3 bg-slate-100 rounded-lg text-xs text-slate-700 border border-slate-200">
+                    ℹ️ <strong>Principio de trabajo:</strong> El protocolo se plantea antes de la ejecución. Planear las preguntas y los datos requeridos evita sesgos y análisis a ciegas.
+                </div>
+            </div>
+
+            <!-- Navigation Button -->
+            <div class="flex justify-between pt-4">
+                <button onclick="switchTab('m1')" class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-medium text-sm px-5 py-2.5 rounded-lg transition">
+                    ← Volver a Misión 1
+                </button>
+                <button onclick="switchTab('m3')" class="bg-brand-600 hover:bg-brand-700 text-white font-medium text-sm px-6 py-2.5 rounded-lg shadow-sm transition flex items-center gap-2">
+                    Continuar a Misión 3: Mermaid →
+                </button>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- MISIÓN 3: Representa una estrategia con Mermaid -->
+        <!-- ========================================== -->
+        <section id="panel-m3" role="tabpanel" aria-labelledby="tab-m3" class="space-y-6 hidden">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
+                    <div>
+                        <span class="text-xs font-semibold text-brand-600 uppercase tracking-wider">Misión 3</span>
+                        <h2 class="text-xl font-bold text-slate-900">Del texto al diagrama: Mermaid en Markdown</h2>
+                    </div>
+                    <span class="bg-amber-100 text-amber-800 text-xs px-2.5 py-1 rounded-full font-medium">Paso 3 de 4</span>
+                </div>
+                <p class="text-slate-600 text-sm">
+                    Markdown estructura el texto; <strong>Mermaid</strong> genera diagramas de flujo directamente desde bloques de código dentro del propio documento.
+                </p>
+
+                <!-- Syntax Explanation -->
+                <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="p-4 bg-slate-900 text-slate-100 rounded-lg text-xs font-mono border border-slate-800">
+                        <span class="text-slate-400">// Sintaxis Mermaid en Markdown:</span><br>
+                        <span class="text-amber-400">```mermaid</span><br>
+                        flowchart LR<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;A[Pregunta] --&gt; B[Evidencia]<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;B --&gt; C[Datos]<br>
+                        <span class="text-amber-400">```</span>
+                    </div>
+                    <div class="p-4 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-700 space-y-1">
+                        <strong class="text-slate-900 block font-semibold mb-1">Elementos del diagrama:</strong>
+                        <p>• <code>flowchart LR</code>: Diagrama de flujo de izquierda a derecha (Left → Right).</p>
+                        <p>• <code>A</code>, <code>B</code>, <code>C</code>: Identificadores únicos de nodo.</p>
+                        <p>• <code>[Texto visible]</code>: Etiqueta dentro del nodo.</p>
+                        <p>• <code>--&gt;</code>: Conector con flecha orientada.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reto 1: Ordena el razonamiento -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <h3 class="font-bold text-slate-900 text-base mb-2">1. Reto: Ordena la cadena de razonamiento científico</h3>
+                <p class="text-xs text-slate-500 mb-4">Haz clic en los bloques en la secuencia lógica correcta:</p>
+
+                <div class="space-y-3">
+                    <div class="flex flex-wrap gap-2" id="bloques-desordenados">
+                        <button onclick="seleccionarBloque('Evidencia necesaria')" class="btn-bloque px-3 py-1.5 bg-slate-100 hover:bg-slate-200 border border-slate-300 text-xs font-medium rounded text-slate-800 transition">Evidencia necesaria</button>
+                        <button onclick="seleccionarBloque('Pregunta')" class="btn-bloque px-3 py-1.5 bg-slate-100 hover:bg-slate-200 border border-slate-300 text-xs font-medium rounded text-slate-800 transition">Pregunta</button>
+                        <button onclick="seleccionarBloque('Operación')" class="btn-bloque px-3 py-1.5 bg-slate-100 hover:bg-slate-200 border border-slate-300 text-xs font-medium rounded text-slate-800 transition">Operación</button>
+                        <button onclick="seleccionarBloque('Datos')" class="btn-bloque px-3 py-1.5 bg-slate-100 hover:bg-slate-200 border border-slate-300 text-xs font-medium rounded text-slate-800 transition">Datos</button>
+                        <button onclick="seleccionarBloque('Interpretación')" class="btn-bloque px-3 py-1.5 bg-slate-100 hover:bg-slate-200 border border-slate-300 text-xs font-medium rounded text-slate-800 transition">Interpretación</button>
+                        <button onclick="seleccionarBloque('Validación')" class="btn-bloque px-3 py-1.5 bg-slate-100 hover:bg-slate-200 border border-slate-300 text-xs font-medium rounded text-slate-800 transition">Validación</button>
+                    </div>
+
+                    <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg min-h-[50px]">
+                        <span class="text-xs text-slate-400 block mb-1">Tu secuencia seleccionada:</span>
+                        <div id="orden-seleccionado" class="flex flex-wrap items-center gap-2 text-xs font-semibold text-brand-700">
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <button onclick="verificarOrden()" class="text-xs bg-brand-600 hover:bg-brand-700 text-white font-medium px-4 py-2 rounded transition">Comprobar orden</button>
+                        <button onclick="reiniciarOrden()" class="text-xs bg-slate-200 hover:bg-slate-300 text-slate-700 font-medium px-3 py-2 rounded transition">Reiniciar</button>
+                        <div id="orden-feedback" class="text-xs font-medium"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reto 2: Detecta el problema -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <h3 class="font-bold text-slate-900 text-base mb-2">2. Reto: Detecta la falla metodológica</h3>
+                <p class="text-xs text-slate-500 mb-3">Observa el siguiente flujo planteado por un estudiante:</p>
+
+                <div class="p-3 bg-slate-900 text-slate-200 rounded-lg text-xs font-mono mb-4">
+                    flowchart LR<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;A[Pregunta] --&gt; B[Herramienta]<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;B --&gt; C[Resultado]
+                </div>
+
+                <p class="text-xs font-semibold text-slate-800 mb-2">¿Cuál es el problema conceptual de este diagrama?</p>
+                
+                <div class="space-y-2 text-xs" id="opciones-flaw">
+                    <label class="flex items-start gap-2 p-2.5 border rounded-lg hover:bg-slate-50 cursor-pointer">
+                        <input type="radio" name="flaw" value="opt1" class="mt-0.5 text-brand-600">
+                        <span>Sintaxis incorrecta: Mermaid requiere escribir todo en una sola línea.</span>
+                    </label>
+                    <label class="flex items-start gap-2 p-2.5 border rounded-lg hover:bg-slate-50 cursor-pointer">
+                        <input type="radio" name="flaw" value="opt2" class="mt-0.5 text-brand-600">
+                        <span class="font-medium text-slate-900">Salta de la pregunta a la herramienta sin definir primero qué datos y evidencia son necesarios.</span>
+                    </label>
+                    <label class="flex items-start gap-2 p-2.5 border rounded-lg hover:bg-slate-50 cursor-pointer">
+                        <input type="radio" name="flaw" value="opt3" class="mt-0.5 text-brand-600">
+                        <span>Los nombres de los nodos deben llevar números obligatoriamente.</span>
+                    </label>
+                </div>
+
+                <div class="mt-4 flex items-center gap-3">
+                    <button onclick="evaluarProblemaFlujo()" class="text-xs bg-brand-600 hover:bg-brand-700 text-white font-medium px-4 py-2 rounded transition">
+                        Verificar respuesta
+                    </button>
+                    <div id="flaw-feedback" class="text-xs font-medium"></div>
+                </div>
+            </div>
+
+            <!-- Mermaid Live Visualizer Editor -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                    <div>
+                        <h3 class="font-bold text-slate-900 text-base">3. Editor e Intérprete de Código Mermaid</h3>
+                        <p class="text-xs text-slate-500">Modifica o personaliza el código Mermaid para ver la representación visual en tiempo real:</p>
+                    </div>
+                    <button onclick="copiarMermaid()" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium px-3 py-1.5 rounded border border-slate-300 flex items-center gap-1">
+                        📋 Copiar Código Mermaid
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-6">
+                        <label for="mermaid-code-input" class="text-xs font-bold text-slate-700 uppercase block mb-1">Código Mermaid (Texto Plano)</label>
+                        <textarea id="mermaid-code-input" oninput="renderizarMermaidConceptual()" 
+                            class="code-editor w-full h-56 p-3 border border-slate-300 rounded-lg bg-slate-900 text-green-400 text-xs focus:ring-2 focus:ring-brand-500 focus:border-transparent leading-relaxed"
+                            aria-label="Código Mermaid">flowchart LR
+    A[Pregunta] --> B[Evidencia necesaria]
+    B --> C[Datos]
+    C --> D[Operación]
+    D --> E[Validación]
+    E --> F[Interpretación]</textarea>
+                    </div>
+
+                    <div class="lg:col-span-6">
+                        <span class="text-xs font-bold text-slate-700 uppercase block mb-1">Estructura del Diagrama Interpretada</span>
+                        <div id="mermaid-conceptual-view" class="p-4 bg-slate-50 border border-slate-200 rounded-lg h-56 overflow-auto flex flex-col justify-center items-center">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Button -->
+            <div class="flex justify-between pt-4">
+                <button onclick="switchTab('m2')" class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-medium text-sm px-5 py-2.5 rounded-lg transition">
+                    ← Volver a Misión 2
+                </button>
+                <button onclick="switchTab('m4')" class="bg-brand-600 hover:bg-brand-700 text-white font-medium text-sm px-6 py-2.5 rounded-lg shadow-sm transition flex items-center gap-2">
+                    Continuar a Misión 4: Mi protocolo →
+                </button>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- MISIÓN 4: Construye tu primer protocolo -->
+        <!-- ========================================== -->
+        <section id="panel-m4" role="tabpanel" aria-labelledby="tab-m4" class="space-y-6 hidden">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
+                    <div>
+                        <span class="text-xs font-semibold text-brand-600 uppercase tracking-wider">Misión 4</span>
+                        <h2 class="text-xl font-bold text-slate-900">Construcción de tu <code>protocolo.md</code></h2>
+                    </div>
+                    <span class="bg-amber-100 text-amber-800 text-xs px-2.5 py-1 rounded-full font-medium">Paso 4 de 4</span>
+                </div>
+                <p class="text-slate-600 text-sm">
+                    Integra la estructura en Markdown, tus secciones científicas iniciales y el diagrama Mermaid. Las secciones avanzadas quedan declaradas como plantilla conservada para unidades posteriores.
+                </p>
+            </div>
+
+            <!-- Guided Form for Protocol Building -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Inputs column -->
+                <div class="lg:col-span-6 space-y-4">
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 space-y-4">
+                        <h3 class="font-bold text-slate-900 text-sm border-b pb-2">Secciones Iniciales — Unidad 1</h3>
+
+                        <!-- 1. Contexto / Introducción -->
+                        <div>
+                            <label for="proto-intro" class="block text-xs font-bold text-slate-700 mb-1">1. Introducción (Contexto breve)</label>
+                            <textarea id="proto-intro" oninput="actualizarProtocoloFinal()" rows="2" 
+                                class="w-full p-2.5 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-brand-500" 
+                                placeholder="Escribe el contexto del análisis..."></textarea>
+                        </div>
+
+                        <!-- 2. Pregunta central -->
+                        <div>
+                            <label for="proto-preg-central" class="block text-xs font-bold text-slate-700 mb-1">2. Pregunta Central</label>
+                            <input type="text" id="proto-preg-central" oninput="actualizarProtocoloFinal()" 
+                                class="w-full p-2.5 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-brand-500" 
+                                value="¿Los datos de pacientes.md son suficientes para evaluar si el IMC está relacionado con el diagnóstico registrado en dx?">
+                        </div>
+
+                        <!-- 3. Subpreguntas -->
+                        <div>
+                            <label for="proto-subpregs" class="block text-xs font-bold text-slate-700 mb-1">3. Subpreguntas (Usa viñetas con `-`)</label>
+                            <textarea id="proto-subpregs" oninput="actualizarProtocoloFinal()" rows="3" 
+                                class="w-full p-2.5 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-brand-500" 
+                                placeholder="- ¿Puedo calcular un IMC interpretable con las variables disponibles?&#10;- ¿Qué significa exactamente la variable dx?"></textarea>
+                        </div>
+
+                        <!-- 4. Datos -->
+                        <div>
+                            <label for="proto-datos" class="block text-xs font-bold text-slate-700 mb-1">4. Datos</label>
+                            <textarea id="proto-datos" oninput="actualizarProtocoloFinal()" rows="2" 
+                                class="w-full p-2.5 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-brand-500" 
+                                placeholder="Archivo de trabajo: `pacientes.md`. Documenta las variables y observaciones iniciales..."></textarea>
+                        </div>
+
+                        <!-- 5. Estrategia explicada -->
+                        <div>
+                            <label for="proto-estrategia" class="block text-xs font-bold text-slate-700 mb-1">5. Explicación de la Estrategia</label>
+                            <textarea id="proto-estrategia" oninput="actualizarProtocoloFinal()" rows="2" 
+                                class="w-full p-2.5 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-brand-500" 
+                                placeholder="Describe la secuencia analítica propuesta antes de ejecutar código..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Open Reflection Questions -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 space-y-4">
+                        <h3 class="font-bold text-slate-900 text-sm border-b pb-2">Reflexiones del Estudiante</h3>
+
+                        <div>
+                            <label for="ref-markdown" class="block text-xs font-semibold text-slate-800 mb-1">
+                                ¿Qué aporta Markdown a la estructura del protocolo que no aporta el texto sin formato?
+                            </label>
+                            <textarea id="ref-markdown" oninput="guardarReflexiones()" rows="2" 
+                                class="w-full p-2.5 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-brand-500"
+                                placeholder="Escribe tu reflexión..."></textarea>
+                        </div>
+
+                        <div>
+                            <label for="ref-mermaid" class="block text-xs font-semibold text-slate-800 mb-1">
+                                ¿Qué ventaja ofrece el diagrama Mermaid frente a un párrafo descriptivo?
+                            </label>
+                            <textarea id="ref-mermaid" oninput="guardarReflexiones()" rows="2" 
+                                class="w-full p-2.5 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-brand-500"
+                                placeholder="Escribe tu reflexión..."></textarea>
+                        </div>
+
+                        <div>
+                            <label for="ref-progresivo" class="block text-xs font-semibold text-slate-800 mb-1">
+                                ¿Por qué la planificación del protocolo debe ser previa a la ejecución de comandos?
+                            </label>
+                            <textarea id="ref-progresivo" oninput="guardarReflexiones()" rows="2" 
+                                class="w-full p-2.5 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-brand-500"
+                                placeholder="Escribe tu reflexión..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Preview and Structural Review column -->
+                <div class="lg:col-span-6 space-y-4">
+                    <!-- Complete Document Editor Preview -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col h-full">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold text-slate-700 uppercase">Vista previa de <code>protocolo.md</code></span>
+                            <button onclick="copiarProtocoloMarkdown()" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium px-3 py-1 rounded border border-slate-300">
+                                📋 Copiar Markdown
+                            </button>
+                        </div>
+
+                        <textarea id="proto-full-output" readonly 
+                            class="code-editor w-full h-96 p-3 border border-slate-300 rounded-lg bg-slate-900 text-slate-100 text-xs focus:outline-none resize-y leading-relaxed"
+                            aria-label="Documento protocolo.md completo"></textarea>
+
+                        <!-- Structural Checklist -->
+                        <div class="mt-4 border-t border-slate-200 pt-3">
+                            <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider mb-2">Revisión de elementos en Markdown</h4>
+                            <div class="grid grid-cols-2 gap-2 text-xs" id="revision-checklist">
+                                <div class="flex items-center justify-between p-1.5 bg-slate-50 rounded">
+                                    <span>Título principal (#)</span>
+                                    <span id="chk-titulo" class="font-bold text-emerald-600">✓ Listo</span>
+                                </div>
+                                <div class="flex items-center justify-between p-1.5 bg-slate-50 rounded">
+                                    <span>Introducción (##)</span>
+                                    <span id="chk-intro" class="font-bold text-slate-400">Pendiente</span>
+                                </div>
+                                <div class="flex items-center justify-between p-1.5 bg-slate-50 rounded">
+                                    <span>Pregunta central (###)</span>
+                                    <span id="chk-preg" class="font-bold text-slate-400">Pendiente</span>
+                                </div>
+                                <div class="flex items-center justify-between p-1.5 bg-slate-50 rounded">
+                                    <span>Lista subpreguntas (-)</span>
+                                    <span id="chk-subpreg" class="font-bold text-slate-400">Pendiente</span>
+                                </div>
+                                <div class="flex items-center justify-between p-1.5 bg-slate-50 rounded">
+                                    <span>Sección Datos (##)</span>
+                                    <span id="chk-datos" class="font-bold text-slate-400">Pendiente</span>
+                                </div>
+                                <div class="flex items-center justify-between p-1.5 bg-slate-50 rounded">
+                                    <span>Sección Estrategia (##)</span>
+                                    <span id="chk-estrategia" class="font-bold text-slate-400">Pendiente</span>
+                                </div>
+                                <div class="flex items-center justify-between p-1.5 bg-slate-50 rounded">
+                                    <span>Bloque Mermaid (```)</span>
+                                    <span id="chk-mermaid" class="font-bold text-slate-400">Pendiente</span>
+                                </div>
+                                <div class="flex items-center justify-between p-1.5 bg-slate-50 rounded">
+                                    <span>Secciones futuras</span>
+                                    <span id="chk-futuras" class="font-bold text-emerald-600">✓ Conservadas</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Button -->
+            <div class="flex justify-between pt-4">
+                <button onclick="switchTab('m3')" class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-medium text-sm px-5 py-2.5 rounded-lg transition">
+                    ← Volver a Misión 3
+                </button>
+                <button onclick="switchTab('resumen')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-sm px-6 py-2.5 rounded-lg shadow-sm transition flex items-center gap-2">
+                    Ver Resumen Final y Descargas →
+                </button>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PESTAÑA FINAL: RESUMEN -->
+        <!-- ========================================== -->
+        <section id="panel-resumen" role="tabpanel" aria-labelledby="tab-resumen" class="space-y-6 hidden">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-4 mb-4">
+                    <div>
+                        <span class="text-xs font-semibold text-emerald-600 uppercase tracking-wider">Cierre y Documentación</span>
+                        <h2 class="text-2xl font-bold text-slate-900">Resumen General de la Práctica</h2>
+                        <p class="text-xs text-slate-500 mt-0.5">Consolidado final de tu trabajo reproducible.</p>
+                    </div>
+
+                    <!-- Download Action Buttons -->
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="descargarProtocolo()" class="bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold px-4 py-2.5 rounded-lg shadow transition flex items-center gap-1.5">
+                            <span>⬇</span> Descargar protocolo.md
+                        </button>
+                        <button onclick="descargarResultados()" class="bg-slate-800 hover:bg-slate-900 text-white text-xs font-semibold px-4 py-2.5 rounded-lg shadow transition flex items-center gap-1.5">
+                            <span>⬇</span> Descargar resultados (.md)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 1. Markdown Practicado -->
+                <div class="space-y-4">
+                    <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-brand-500"></span>
+                        1. Sintaxis Markdown Practicada
+                    </h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 text-xs" id="resumen-markdown-tags">
+                        <div class="p-2.5 bg-slate-50 border rounded text-center font-mono"><code>#</code> Título H1</div>
+                        <div class="p-2.5 bg-slate-50 border rounded text-center font-mono"><code>##</code> Sección H2</div>
+                        <div class="p-2.5 bg-slate-50 border rounded text-center font-mono"><code>###</code> Subsección H3</div>
+                        <div class="p-2.5 bg-slate-50 border rounded text-center font-mono"><code>-</code> Lista</div>
+                        <div class="p-2.5 bg-slate-50 border rounded text-center font-mono"><code>** **</code> Negrita</div>
+                        <div class="p-2.5 bg-slate-50 border rounded text-center font-mono"><code>` `</code> Código inline</div>
+                    </div>
+                </div>
+
+                <!-- 2. Anatomía del protocolo -->
+                <div class="mt-6 space-y-4">
+                    <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-brand-500"></span>
+                        2. Estructura Científica del Protocolo
+                    </h3>
+                    <div class="p-4 bg-slate-50 border border-slate-200 rounded-lg text-xs space-y-2 font-mono">
+                        <p class="text-slate-800 font-bold font-sans">Esquema funcional:</p>
+                        <p>Introducción ➔ Pregunta + Contexto</p>
+                        <p>Metodología ➔ Datos + Estrategia / Procedimientos</p>
+                        <p>Resultados ➔ Evidencia empírica obtenida</p>
+                        <p>Discusión ➔ Interpretación + Limitaciones</p>
+                        <p>Conclusiones ➔ Respuesta integrada</p>
+                    </div>
+                </div>
+
+                <!-- 3. Mi Mermaid -->
+                <div class="mt-6 space-y-4">
+                    <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-brand-500"></span>
+                        3. Diagrama Mermaid de la Estrategia
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-3 bg-slate-900 text-slate-100 rounded-lg text-xs font-mono overflow-x-auto">
+                            <span class="text-slate-400 block mb-1 font-sans">// Código Mermaid Final:</span>
+                            <pre id="resumen-mermaid-code"></pre>
+                        </div>
+                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg text-xs flex flex-col justify-center items-center" id="resumen-mermaid-vis">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Contenido Real de protocolo.md -->
+                <div class="mt-6 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-brand-500"></span>
+                            4. Documento <code>protocolo.md</code> Generado
+                        </h3>
+                        <button onclick="copiarProtocoloMarkdown()" class="text-xs text-brand-600 hover:text-brand-800 font-medium">Copiar al portapapeles</button>
+                    </div>
+                    <div class="p-4 bg-slate-900 text-slate-200 rounded-lg text-xs font-mono overflow-x-auto max-h-64 leading-relaxed">
+                        <pre id="resumen-protocolo-text"></pre>
+                    </div>
+                </div>
+
+                <!-- 5. Reflexiones del Estudiante -->
+                <div class="mt-6 space-y-4">
+                    <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-brand-500"></span>
+                        5. Reflexiones Guardadas
+                    </h3>
+                    <div class="space-y-3 text-xs">
+                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+                            <span class="font-bold text-slate-800 block">Aporte de Markdown:</span>
+                            <p id="resumen-ref-md" class="text-slate-600 mt-1 italic">(Sin respuesta registrada)</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+                            <span class="font-bold text-slate-800 block">Aporte de Mermaid:</span>
+                            <p id="resumen-ref-mermaid" class="text-slate-600 mt-1 italic">(Sin respuesta registrada)</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+                            <span class="font-bold text-slate-800 block">Construcción previa y progresiva:</span>
+                            <p id="resumen-ref-progresivo" class="text-slate-600 mt-1 italic">(Sin respuesta registrada)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Summary -->
+                <div class="mt-8 border-t border-slate-200 pt-4">
+                    <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider mb-3">Registro de actividad local</h4>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+                        <div class="p-3 bg-blue-50 border border-blue-100 rounded-lg">
+                            <span class="text-slate-500 block">Markdown Practicado:</span>
+                            <span class="font-bold text-blue-900 text-sm" id="stat-md">Sí</span>
+                        </div>
+                        <div class="p-3 bg-blue-50 border border-blue-100 rounded-lg">
+                            <span class="text-slate-500 block">Estructura Revisada:</span>
+                            <span class="font-bold text-blue-900 text-sm" id="stat-proto">Sí</span>
+                        </div>
+                        <div class="p-3 bg-blue-50 border border-blue-100 rounded-lg">
+                            <span class="text-slate-500 block">Mermaid Construido:</span>
+                            <span class="font-bold text-blue-900 text-sm" id="stat-mermaid">Sí</span>
+                        </div>
+                        <div class="p-3 bg-blue-50 border border-blue-100 rounded-lg">
+                            <span class="text-slate-500 block">Interacciones:</span>
+                            <span class="font-bold text-blue-900 text-sm" id="stat-intentos">0 registradas</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-4 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500">
+            Introducción a la Bioinformática — Licenciatura en Ciencias Genómicas (LCG) UNAM 2026.
+        </div>
+    </footer>
+
+    <!-- Global Toast Notification -->
+    <div id="toast-msg" class="fixed bottom-4 right-4 bg-slate-900 text-white text-xs px-4 py-2.5 rounded-lg shadow-lg hidden transition-opacity duration-300 z-50">
+        Mensaje
+    </div>
+
+    <script>
+        // Raw starter text for Misión 1 (unformatted)
+        const RAW_TEXT_M1 = `Protocolo de análisis
+
+Introducción
+
+Pregunta central
+¿Los datos de pacientes.md son suficientes para evaluar si el IMC está relacionado con el diagnóstico?
+
+Subpreguntas
+¿Puedo calcular el IMC?
+¿Qué significa dx?
+
+Datos
+pacientes.md
+
+Estrategia
+Primero revisar los datos. Después determinar qué información falta. Finalmente decidir qué análisis sería apropiado. Observación importante.`;
+
+        // Global Application State
+        const state = {
+            m1: {
+                retos: { a: false, b: false, c: false, d: false, e: false },
+                text: RAW_TEXT_M1
+            },
+            m2: {
+                asociaciones: {},
+                casos: {},
+                seccionesU1: new Set()
+            },
+            m3: {
+                bloquesOrdenados: [],
+                flawSolved: false,
+                initialFlow: "A[Pregunta] --> B[Herramienta] --> C[Resultado]",
+                code: `flowchart LR\n    A[Pregunta] --> B[Evidencia necesaria]\n    B --> C[Datos]\n    C --> D[Operación]\n    D --> E[Validación]\n    E --> F[Interpretación]`
+            },
+            m4: {
+                intro: "Análisis preliminar de la relación entre índice de masa corporal y diagnósticos registrados en pacientes.",
+                pregCentral: "¿Los datos de pacientes.md son suficientes para evaluar si el IMC está relacionado con el diagnóstico registrado en dx?",
+                subpregs: "- ¿Puedo calcular un IMC interpretable con las variables disponibles?\n- ¿Qué significa exactamente la variable dx?",
+                datos: "`pacientes.md` — Archivo de datos clínicos preliminares.",
+                estrategia: "Primero se verificará la consistencia de peso y talla antes de proponer cualquier modelo estadístico."
+            },
+            reflections: {
+                markdown: "",
+                mermaid: "",
+                progresivo: ""
+            },
+            tracking: {
+                intentos: 0
+            }
+        };
+
+        function switchTab(tabId) {
+            const tabs = ['m1', 'm2', 'm3', 'm4', 'resumen'];
+            tabs.forEach(id => {
+                const panel = document.getElementById(`panel-${id}`);
+                const tabBtn = document.getElementById(`tab-${id}`);
+                if (id === tabId) {
+                    panel.classList.remove('hidden');
+                    tabBtn.setAttribute('aria-selected', 'true');
+                } else {
+                    panel.classList.add('hidden');
+                    tabBtn.setAttribute('aria-selected', 'false');
+                }
+            });
+
+            if (tabId === 'm1') actualizarPreviewM1();
+            if (tabId === 'm3') renderizarMermaidConceptual();
+            if (tabId === 'm4') actualizarProtocoloFinal();
+            if (tabId === 'resumen') renderizarResumenFinal();
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Inline Markdown Tokenizer & Renderer
+        function parseInlineToDOM(text, parentElement) {
+            if (!text) return;
+
+            // Regex matching **bold**, `code` and *italic*
+            const regex = /(\*\*[^*]+\*\*|`[^`]+`|\*[^*]+\*)/g;
+            const tokens = text.split(regex);
+
+            tokens.forEach(token => {
+                if (!token) return;
+
+                if (token.startsWith('**') && token.endsWith('**') && token.length >= 4) {
+                    const strong = document.createElement('strong');
+                    strong.className = 'font-bold text-slate-900';
+                    strong.textContent = token.slice(2, -2);
+                    parentElement.appendChild(strong);
+                } else if (token.startsWith('`') && token.endsWith('`') && token.length >= 2) {
+                    const code = document.createElement('code');
+                    code.className = 'bg-slate-200 text-brand-800 px-1 py-0.5 rounded font-mono text-xs';
+                    code.textContent = token.slice(1, -1);
+                    parentElement.appendChild(code);
+                } else if (token.startsWith('*') && token.endsWith('*') && token.length >= 2) {
+                    const em = document.createElement('em');
+                    em.className = 'italic text-slate-800';
+                    em.textContent = token.slice(1, -1);
+                    parentElement.appendChild(em);
+                } else {
+                    parentElement.appendChild(document.createTextNode(token));
+                }
+            });
+        }
+
+        // Complete Block-Level Markdown Renderer
+        function renderMarkdownToDOM(text, container) {
+            container.textContent = '';
+            if (!text) return;
+
+            const lines = text.split(/\r?\n/);
+            let currentList = null;
+            let currentParagraph = null;
+
+            lines.forEach(line => {
+                const trimmed = line.trim();
+
+                if (trimmed === '') {
+                    currentList = null;
+                    currentParagraph = null;
+                    return;
+                }
+
+                // Headings (#, ##, ###, ####)
+                if (trimmed.startsWith('#')) {
+                    currentList = null;
+                    currentParagraph = null;
+
+                    if (trimmed.startsWith('#### ')) {
+                        const h4 = document.createElement('h4');
+                        h4.className = 'text-xs font-bold text-slate-800 mt-2 mb-1 uppercase tracking-wider';
+                        parseInlineToDOM(trimmed.slice(5), h4);
+                        container.appendChild(h4);
+                    } else if (trimmed.startsWith('### ')) {
+                        const h3 = document.createElement('h3');
+                        h3.className = 'text-xs font-bold text-slate-800 mt-2.5 mb-1';
+                        parseInlineToDOM(trimmed.slice(4), h3);
+                        container.appendChild(h3);
+                    } else if (trimmed.startsWith('## ')) {
+                        const h2 = document.createElement('h2');
+                        h2.className = 'text-sm font-bold text-slate-900 mt-3 mb-1 border-b pb-1 border-slate-200';
+                        parseInlineToDOM(trimmed.slice(3), h2);
+                        container.appendChild(h2);
+                    } else if (trimmed.startsWith('# ')) {
+                        const h1 = document.createElement('h1');
+                        h1.className = 'text-base font-extrabold text-brand-800 mt-2 mb-2 border-b-2 pb-1 border-brand-500';
+                        parseInlineToDOM(trimmed.slice(2), h1);
+                        container.appendChild(h1);
+                    } else {
+                        const p = document.createElement('p');
+                        p.className = 'text-xs text-slate-700 my-1 leading-relaxed';
+                        parseInlineToDOM(line, p);
+                        container.appendChild(p);
+                    }
+                    return;
+                }
+
+                // Blockquotes
+                if (trimmed.startsWith('>')) {
+                    currentList = null;
+                    currentParagraph = null;
+                    const quote = document.createElement('blockquote');
+                    quote.className = 'border-l-2 border-brand-500 pl-3 my-2 text-xs italic text-slate-600 bg-slate-100 py-1 rounded-r';
+                    parseInlineToDOM(trimmed.replace(/^>\s*/, ''), quote);
+                    container.appendChild(quote);
+                    return;
+                }
+
+                // Unordered Lists (- or *)
+                if (/^[\-\*]\s+/.test(trimmed)) {
+                    currentParagraph = null;
+                    if (!currentList) {
+                        currentList = document.createElement('ul');
+                        currentList.className = 'list-disc ml-5 my-1.5 space-y-0.5 text-slate-700';
+                        container.appendChild(currentList);
+                    }
+                    const li = document.createElement('li');
+                    li.className = 'text-xs text-slate-700';
+                    const content = trimmed.replace(/^[\-\*]\s+/, '');
+                    parseInlineToDOM(content, li);
+                    currentList.appendChild(li);
+                    return;
+                }
+
+                // Standard Paragraph
+                currentList = null;
+                if (!currentParagraph) {
+                    currentParagraph = document.createElement('p');
+                    currentParagraph.className = 'text-xs text-slate-700 my-1 leading-relaxed';
+                    container.appendChild(currentParagraph);
+                    parseInlineToDOM(line, currentParagraph);
+                } else {
+                    currentParagraph.appendChild(document.createElement('br'));
+                    parseInlineToDOM(line, currentParagraph);
+                }
+            });
+        }
+
+        function cargarTextoRaw() {
+            const textarea = document.getElementById('m1-editor');
+            textarea.value = RAW_TEXT_M1;
+            state.m1.text = RAW_TEXT_M1;
+            actualizarPreviewM1();
+            showToast("Texto borrador restablecido");
+        }
+
+        function actualizarPreviewM1() {
+            const textarea = document.getElementById('m1-editor');
+            if (!textarea.value) {
+                textarea.value = state.m1.text || RAW_TEXT_M1;
+            }
+            state.m1.text = textarea.value;
+            const preview = document.getElementById('m1-preview');
+            renderMarkdownToDOM(textarea.value, preview);
+        }
+
+        function evaluarReto(retoKey) {
+            state.tracking.intentos++;
+            const text = document.getElementById('m1-editor').value;
+            const feedbackEl = document.getElementById(`reto-feedback-${retoKey}`);
+            const statusEl = document.getElementById(`reto-status-${retoKey}`);
+            const cardEl = document.getElementById(`reto-card-${retoKey}`);
+
+            let exito = false;
+            let msg = "";
+
+            if (retoKey === 'a') {
+                exito = /^#\s+Protocolo de análisis/m.test(text);
+                msg = exito ? "✓ Excelente. Has creado el título principal con `#`." : "✗ Recuerda: debe comenzar con `# Protocolo de análisis` con un espacio después del `#`.";
+            } else if (retoKey === 'b') {
+                const tieneIntro = /^##\s+Introducción/m.test(text);
+                const tieneDatos = /^##\s+Datos/m.test(text);
+                const tieneEstrategia = /^##\s+Estrategia/m.test(text);
+                exito = tieneIntro && tieneDatos && tieneEstrategia;
+                msg = exito ? "✓ Muy bien. Has configurado las tres secciones principales con `##`." : "✗ Asegúrate de poner `## ` antes de Introducción, Datos y Estrategia.";
+            } else if (retoKey === 'c') {
+                const lineas = text.split('\n');
+                const listCount = lineas.filter(l => /^\s*-\s+/.test(l)).length;
+                exito = listCount >= 2;
+                msg = exito ? "✓ Correcto. Has formateado las subpreguntas como elementos de lista (`- `)." : "✗ Agrega `- ` al inicio de cada subpregunta para formar la lista.";
+            } else if (retoKey === 'd') {
+                exito = /`pacientes\.md`/.test(text);
+                msg = exito ? "✓ Correcto. Has encerrado `pacientes.md` en comillas invertidas simples." : "✗ Encierra el nombre del archivo entre comillas invertidas: `pacientes.md`.";
+            } else if (retoKey === 'e') {
+                exito = /\*\*[^*]+\*\*/.test(text);
+                msg = exito ? "✓ Correcto. Has resaltado texto con negritas dobles `**`." : "✗ Encierra una frase o palabra entre comillas dobles asterisco: `**palabra**`.";
+            }
+
+            feedbackEl.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-800', 'bg-rose-100', 'text-rose-800');
+            if (exito) {
+                feedbackEl.classList.add('bg-emerald-100', 'text-emerald-800');
+                feedbackEl.textContent = msg;
+                statusEl.textContent = "✓ Resuelto";
+                statusEl.className = "text-emerald-600 font-bold";
+                cardEl.classList.add('border-emerald-300', 'bg-emerald-50/50');
+                state.m1.retos[retoKey] = true;
+            } else {
+                feedbackEl.classList.add('bg-rose-100', 'text-rose-800');
+                feedbackEl.textContent = msg;
+                statusEl.textContent = "Revisar";
+                statusEl.className = "text-rose-600 font-bold";
+            }
+        }
+
+        const asociacionesCorrectas = {
+            0: "Introducción",
+            1: "Metodología",
+            2: "Metodología",
+            3: "Resultados",
+            4: "Discusión",
+            5: "Conclusiones"
+        };
+
+        function evaluarAsociacion(idx) {
+            state.tracking.intentos++;
+            const sel = document.getElementById(`assoc-${idx}`);
+            const feedback = document.getElementById(`assoc-feedback-${idx}`);
+            const val = sel.value;
+            state.m2.asociaciones[idx] = val;
+
+            feedback.classList.remove('hidden', 'text-emerald-700', 'text-rose-700');
+            if (val === asociacionesCorrectas[idx]) {
+                feedback.classList.add('text-emerald-700', 'font-medium');
+                feedback.textContent = "✓ Correcto";
+            } else {
+                feedback.classList.add('text-rose-700', 'font-medium');
+                feedback.textContent = "✗ Revisa la sección formal correspondiente.";
+            }
+        }
+
+        function responderCaso(casoId, resp) {
+            state.tracking.intentos++;
+            state.m2.casos[casoId] = resp;
+            const fb = document.getElementById(`caso-feedback-${casoId}`);
+            fb.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-800', 'bg-amber-100', 'text-amber-800', 'bg-rose-100', 'text-rose-800');
+
+            if (casoId === 'a') {
+                if (resp === 'Metodología') {
+                    fb.classList.add('bg-emerald-100', 'text-emerald-800');
+                    fb.textContent = "✓ Correcto: Los procedimientos de cálculo corresponden a Metodología.";
+                } else {
+                    fb.classList.add('bg-rose-100', 'text-rose-800');
+                    fb.textContent = "✗ El procedimiento analítico de cálculo pertenece a Metodología.";
+                }
+            } else if (casoId === 'b') {
+                if (resp === 'Resultados') {
+                    fb.classList.add('bg-emerald-100', 'text-emerald-800');
+                    fb.textContent = "✓ Correcto: Reportar observaciones de los datos es parte de los Resultados.";
+                } else {
+                    fb.classList.add('bg-rose-100', 'text-rose-800');
+                    fb.textContent = "✗ La evidencia o hallazgo directo pertenece a Resultados.";
+                }
+            } else if (casoId === 'c') {
+                if (resp === 'Discusión') {
+                    fb.classList.add('bg-emerald-100', 'text-emerald-800');
+                    fb.textContent = "✓ Correcto: Interpretar el alcance y limitaciones pertenece a Discusión.";
+                } else {
+                    fb.classList.add('bg-rose-100', 'text-rose-800');
+                    fb.textContent = "✗ La interpretación crítica de la evidencia pertenece a Discusión.";
+                }
+            } else if (casoId === 'd') {
+                if (resp === 'Metodología') {
+                    fb.classList.add('bg-emerald-100', 'text-emerald-800');
+                    fb.textContent = "✓ Correcto: Documentar las versiones de archivos insumo pertenece a Metodología/Datos.";
+                } else {
+                    fb.classList.add('bg-amber-100', 'text-amber-800');
+                    fb.textContent = "💡 La especificación de archivos y versiones se ubica en Metodología.";
+                }
+            }
+        }
+
+        // Section Toggle U1
+        const seccionesCorrectasU1 = new Set(['Introducción', 'Pregunta central', 'Subpreguntas', 'Datos', 'Estrategia']);
+
+        function toggleSeccionU1(secName) {
+            const btn = document.getElementById(`sec-${secName}`);
+            if (state.m2.seccionesU1.has(secName)) {
+                state.m2.seccionesU1.delete(secName);
+                btn.className = "sec-badge p-3 border rounded-lg text-xs text-center font-medium transition border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-800";
+            } else {
+                state.m2.seccionesU1.add(secName);
+                btn.className = "sec-badge p-3 border-2 rounded-lg text-xs text-center font-bold transition border-brand-500 bg-brand-50 text-brand-800";
+            }
+        }
+
+        function evaluarSeccionesU1() {
+            state.tracking.intentos++;
+            const fb = document.getElementById('secciones-feedback');
+            const seleccion = Array.from(state.m2.seccionesU1);
+            
+            const faltantes = Array.from(seccionesCorrectasU1).filter(x => !state.m2.seccionesU1.has(x));
+            const sobrantes = seleccion.filter(x => !seccionesCorrectasU1.has(x));
+
+            if (faltantes.length === 0 && sobrantes.length === 0) {
+                fb.className = "text-xs font-bold text-emerald-700";
+                fb.textContent = "✓ ¡Correcto! Esas son las 5 secciones iniciales de la Unidad 1.";
+            } else {
+                fb.className = "text-xs font-bold text-amber-700";
+                fb.textContent = `Revisa: En U1 iniciamos Introducción, Pregunta central, Subpreguntas, Datos y Estrategia.`;
+            }
+        }
+
+        const ordenCorrectoEsperado = ['Pregunta', 'Evidencia necesaria', 'Datos', 'Operación', 'Validación', 'Interpretación'];
+
+        function seleccionarBloque(bloque) {
+            if (!state.m3.bloquesOrdenados.includes(bloque)) {
+                state.m3.bloquesOrdenados.push(bloque);
+                actualizarVistaBloques();
+            }
+        }
+
+        function reiniciarOrden() {
+            state.m3.bloquesOrdenados = [];
+            actualizarVistaBloques();
+            document.getElementById('orden-feedback').textContent = '';
+        }
+
+        function actualizarVistaBloques() {
+            const container = document.getElementById('orden-seleccionado');
+            if (state.m3.bloquesOrdenados.length === 0) {
+                container.innerHTML = '<span class="text-slate-400 font-normal italic">Haz clic en los bloques en orden...</span>';
+                return;
+            }
+            container.innerHTML = state.m3.bloquesOrdenados.map((b, i) => 
+                `<span class="bg-brand-100 text-brand-900 border border-brand-300 px-2.5 py-1 rounded shadow-sm flex items-center gap-1.5">
+                    <span class="text-[10px] text-brand-600 font-bold">${i+1}.</span> ${b}
+                 </span>`
+            ).join(' <span class="text-slate-400 font-bold">→</span> ');
+        }
+
+        function verificarOrden() {
+            state.tracking.intentos++;
+            const fb = document.getElementById('orden-feedback');
+            const esCorrecto = JSON.stringify(state.m3.bloquesOrdenados) === JSON.stringify(ordenCorrectoEsperado);
+
+            if (esCorrecto) {
+                fb.className = "text-xs font-bold text-emerald-700";
+                fb.textContent = "✓ ¡Excelente! Esa es la cadena lógica de investigación.";
+            } else {
+                fb.className = "text-xs font-bold text-rose-700";
+                fb.textContent = "✗ Revisa el orden: Pregunta ➔ Evidencia ➔ Datos ➔ Operación ➔ Validación ➔ Interpretación.";
+            }
+        }
+
+        function evaluarProblemaFlujo() {
+            state.tracking.intentos++;
+            const selected = document.querySelector('input[name="flaw"]:checked');
+            const fb = document.getElementById('flaw-feedback');
+
+            if (!selected) {
+                fb.className = "text-xs font-bold text-amber-700";
+                fb.textContent = "Selecciona una opción.";
+                return;
+            }
+
+            if (selected.value === 'opt2') {
+                fb.className = "text-xs font-bold text-emerald-700";
+                fb.textContent = "✓ ¡Correcto! Debe definirse la necesidad de evidencia y datos antes de elegir la herramienta.";
+                state.m3.flawSolved = true;
+            } else {
+                fb.className = "text-xs font-bold text-rose-700";
+                fb.textContent = "✗ Analiza qué paso lógico falta entre definir la pregunta y correr una herramienta.";
+            }
+        }
+
+        // Mermaid Visualizer Renderer
+        function renderizarMermaidConceptual() {
+            const input = document.getElementById('mermaid-code-input').value;
+            state.m3.code = input;
+            const container = document.getElementById('mermaid-conceptual-view');
+
+            const lines = input.split('\n');
+            const nodes = [];
+            const regex = /([A-Za-z0-9_]+)\[([^\]]+)\]/g;
+
+            lines.forEach(line => {
+                let match;
+                while ((match = regex.exec(line)) !== null) {
+                    if (!nodes.some(n => n.id === match[1])) {
+                        nodes.push({ id: match[1], label: match[2] });
+                    }
+                }
+            });
+
+            if (nodes.length === 0) {
+                container.innerHTML = '<span class="text-xs text-slate-400">Edita la sintaxis Mermaid para ver el diagrama conceptual.</span>';
+                return;
+            }
+
+            let flowHTML = '<div class="flex flex-wrap items-center justify-center gap-2 p-2">';
+            nodes.forEach((node, idx) => {
+                flowHTML += `
+                    <div class="bg-slate-900 text-slate-100 border border-slate-700 rounded-lg px-3 py-2 text-xs font-mono shadow-sm text-center">
+                        <span class="text-[10px] text-amber-400 block font-bold">${node.id}</span>
+                        <span>${node.label}</span>
+                    </div>
+                `;
+                if (idx < nodes.length - 1) {
+                    flowHTML += `<span class="text-brand-600 font-bold text-base">➔</span>`;
+                }
+            });
+            flowHTML += '</div>';
+
+            container.innerHTML = flowHTML;
+        }
+
+        function actualizarProtocoloFinal() {
+            state.m4.intro = document.getElementById('proto-intro').value || "Análisis preliminar de datos de pacientes.";
+            state.m4.pregCentral = document.getElementById('proto-preg-central').value || "¿Los datos de pacientes.md son suficientes?";
+            state.m4.subpregs = document.getElementById('proto-subpregs').value || "- ¿Puedo calcular un IMC interpretable?\n- ¿Qué significa dx?";
+            state.m4.datos = document.getElementById('proto-datos').value || "`pacientes.md`";
+            state.m4.estrategia = document.getElementById('proto-estrategia').value || "Revisión preliminar antes de cómputo.";
+
+            const fullDoc = `# Protocolo de análisis
+
+## Introducción
+${state.m4.intro}
+
+### Pregunta central
+${state.m4.pregCentral}
+
+### Subpreguntas
+${state.m4.subpregs}
+
+## Datos
+${state.m4.datos}
+
+## Estrategia
+${state.m4.estrategia}
+
+\`\`\`mermaid
+${state.m3.code}
+\`\`\`
+
+## Comandos
+> Se completará más adelante en el curso.
+
+## Resultados
+> Se completará más adelante en el curso.
+
+## Validación
+> Se completará más adelante en el curso.
+
+## Discusión
+> Se completará más adelante en el curso.
+
+## Conclusiones
+> Se completará más adelante en el curso.`;
+
+            document.getElementById('proto-full-output').value = fullDoc;
+            actualizarChecklistEstructura();
+        }
+
+        function actualizarChecklistEstructura() {
+            const setChk = (id, val) => {
+                const el = document.getElementById(id);
+                if (val) {
+                    el.textContent = "✓ Listo";
+                    el.className = "font-bold text-emerald-600";
+                } else {
+                    el.textContent = "Pendiente";
+                    el.className = "font-bold text-slate-400";
+                }
+            };
+
+            setChk('chk-titulo', true);
+            setChk('chk-intro', state.m4.intro && state.m4.intro.length > 5);
+            setChk('chk-preg', state.m4.pregCentral && state.m4.pregCentral.length > 5);
+            setChk('chk-subpreg', state.m4.subpregs && state.m4.subpregs.includes('-'));
+            setChk('chk-datos', state.m4.datos && state.m4.datos.length > 3);
+            setChk('chk-estrategia', state.m4.estrategia && state.m4.estrategia.length > 5);
+            setChk('chk-mermaid', state.m3.code && state.m3.code.includes('flowchart'));
+        }
+
+        function guardarReflexiones() {
+            state.reflections.markdown = document.getElementById('ref-markdown').value;
+            state.reflections.mermaid = document.getElementById('ref-mermaid').value;
+            state.reflections.progresivo = document.getElementById('ref-progresivo').value;
+        }
+
+        function renderizarResumenFinal() {
+            document.getElementById('resumen-mermaid-code').textContent = state.m3.code;
+            renderizarMermaidConceptual();
+            document.getElementById('resumen-mermaid-vis').innerHTML = document.getElementById('mermaid-conceptual-view').innerHTML;
+
+            actualizarProtocoloFinal();
+            document.getElementById('resumen-protocolo-text').textContent = document.getElementById('proto-full-output').value;
+
+            document.getElementById('resumen-ref-md').textContent = state.reflections.markdown || "(Sin respuesta registrada)";
+            document.getElementById('resumen-ref-mermaid').textContent = state.reflections.mermaid || "(Sin respuesta registrada)";
+            document.getElementById('resumen-ref-progresivo').textContent = state.reflections.progresivo || "(Sin respuesta registrada)";
+
+            document.getElementById('stat-intentos').textContent = `${state.tracking.intentos} interacción(es)`;
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast-msg');
+            toast.textContent = msg;
+            toast.classList.remove('hidden');
+            setTimeout(() => toast.classList.add('hidden'), 2500);
+        }
+
+        function copiarTexto(texto) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(texto).then(() => showToast("Copiado al portapapeles"));
+            } else {
+                const textarea = document.createElement('textarea');
+                textarea.value = texto;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                showToast("Copiado al portapapeles");
+            }
+        }
+
+        function copiarMermaid() {
+            copiarTexto(state.m3.code);
+        }
+
+        function copiarProtocoloMarkdown() {
+            actualizarProtocoloFinal();
+            copiarTexto(document.getElementById('proto-full-output').value);
+        }
+
+        function descargarArchivo(nombre, contenido) {
+            const blob = new Blob([contenido], { type: 'text/markdown;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = nombre;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+
+        function descargarProtocolo() {
+            actualizarProtocoloFinal();
+            const contenido = document.getElementById('proto-full-output').value;
+            descargarArchivo('protocolo.md', contenido);
+        }
+
+        function descargarResultados() {
+            actualizarProtocoloFinal();
+            const fecha = new Date().toLocaleString('es-MX');
+
+            const contenidoResultados = `# Protocol Builder — Reporte de Resultados
+
+**Curso:** Introducción a la Bioinformática  
+**Unidad:** Sesión 1 — Práctica 2: Mi primer protocolo científico  
+**Fecha:** ${fecha}  
+
+---
+
+## 1. Sintaxis Markdown Practicada
+
+- \`#\` Título principal
+- \`##\` Sección
+- \`###\` Subsección
+- \`-\` Elemento de lista
+- \`**\` Negrita de énfasis
+- \` \` Código inline / nombre de archivo
+
+---
+
+## 2. Anatomía del Protocolo Científico
+
+Secciones consolidadas y correspondencia metodológica:
+- Pregunta y contexto ➔ Introducción
+- Datos y exploración ➔ Metodología
+- Estrategia y procedimientos ➔ Metodología
+- Evidencia obtenida ➔ Resultados
+- Significado biológico y limitaciones ➔ Discusión
+- Respuesta integrada ➔ Conclusiones
+
+---
+
+## 3. Diagrama de Estrategia (Mermaid)
+
+\`\`\`mermaid
+${state.m3.code}
+\`\`\`
+
+---
+
+## 4. Documento Generado (protocolo.md)
+
+\`\`\`markdown
+${document.getElementById('proto-full-output').value}
+\`\`\`
+
+---
+
+## 5. Reflexiones del Estudiante
+
+### Aporte de Markdown
+${state.reflections.markdown || "Sin respuesta registrada."}
+
+### Aporte de Mermaid
+${state.reflections.mermaid || "Sin respuesta registrada."}
+
+### Planificación previa y progresiva
+${state.reflections.progresivo || "Sin respuesta registrada."}
+
+---
+*Reporte generado automáticamente desde Protocol Builder — LCG UNAM.*
+`;
+
+            descargarArchivo('protocol-builder-resultados.md', contenidoResultados);
+        }
+
+        window.onload = function() {
+            actualizarPreviewM1();
+            renderizarMermaidConceptual();
+            actualizarProtocoloFinal();
+            actualizarVistaBloques();
+        };
+    </script>
+</body>
+</html>

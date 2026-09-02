@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IA bajo la lupa | LCG UNAM 2026</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'Menlo', 'Monaco', 'Consolas', 'monospace']
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            600: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#0f172a',
+                            gold: '#d97706',
+                            goldLight: '#fef3c7'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        .tab-btn[aria-selected="true"] {
+            border-bottom: 3px solid #2563eb;
+            color: #1d4ed8;
+            font-weight: 600;
+            background-color: #ffffff;
+        }
+        .tab-btn[aria-selected="false"] {
+            color: #64748b;
+            border-bottom: 3px solid transparent;
+        }
+        .tab-btn[aria-selected="false"]:hover {
+            color: #1e293b;
+            background-color: #f1f5f9;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased">
+
+    <!-- Header Principal -->
+    <header class="bg-slate-900 text-slate-100 border-b border-slate-800 sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+                <div class="flex items-center space-x-3">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-semibold bg-amber-100 text-amber-900 border border-amber-300">
+                        LCG UNAM 2026
+                    </span>
+                    <span class="text-xs sm:text-sm text-slate-300 font-mono">
+                        Introducción a la Bioinformática • Sesión 2 • Práctica 2
+                    </span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <button id="btn-reset" onclick="confirmReset()" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white px-3 py-1.5 rounded transition border border-slate-700">
+                        🔄 Reiniciar práctica
+                    </button>
+                </div>
+            </div>
+            <div class="mt-2">
+                <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
+                    <span>🔬</span> IA bajo la lupa
+                </h1>
+                <p class="text-xs sm:text-sm text-slate-300 italic">
+                    "Pregunta, compara, valida y decide qué puedes confiar"
+                </p>
+            </div>
+        </div>
+
+        <!-- Tab Navigation Bar -->
+        <nav class="bg-slate-100 border-t border-slate-200 mt-2 px-2 sm:px-8 overflow-x-auto">
+            <div role="tablist" aria-label="Secciones de la práctica" class="flex space-x-1 sm:space-x-2 min-w-max">
+                <button role="tab" id="tab-entender" aria-selected="true" aria-controls="panel-entender" onclick="activateTab('entender')" class="tab-btn py-2.5 px-3 sm:px-4 text-xs sm:text-sm font-medium transition-colors duration-150 rounded-t-lg focus:outline-none">
+                    ① Entender
+                </button>
+                <button role="tab" id="tab-prompt" aria-selected="false" aria-controls="panel-prompt" onclick="activateTab('prompt')" class="tab-btn py-2.5 px-3 sm:px-4 text-xs sm:text-sm font-medium transition-colors duration-150 rounded-t-lg focus:outline-none">
+                    ② Construir prompt
+                </button>
+                <button role="tab" id="tab-metadatos" aria-selected="false" aria-controls="panel-metadatos" onclick="activateTab('metadatos')" class="tab-btn py-2.5 px-3 sm:px-4 text-xs sm:text-sm font-medium transition-colors duration-150 rounded-t-lg focus:outline-none">
+                    ③ Metadatos + IA
+                </button>
+                <button role="tab" id="tab-estrategia" aria-selected="false" aria-controls="panel-estrategia" onclick="activateTab('estrategia')" class="tab-btn py-2.5 px-3 sm:px-4 text-xs sm:text-sm font-medium transition-colors duration-150 rounded-t-lg focus:outline-none">
+                    ④ Estrategia + IA
+                </button>
+                <button role="tab" id="tab-validar" aria-selected="false" aria-controls="panel-validar" onclick="activateTab('validar')" class="tab-btn py-2.5 px-3 sm:px-4 text-xs sm:text-sm font-medium transition-colors duration-150 rounded-t-lg focus:outline-none">
+                    ⑤ Validar
+                </button>
+                <button role="tab" id="tab-bitacora" aria-selected="false" aria-controls="panel-bitacora" onclick="activateTab('bitacora')" class="tab-btn py-2.5 px-3 sm:px-4 text-xs sm:text-sm font-medium transition-colors duration-150 rounded-t-lg focus:outline-none">
+                    ⑥ Bitácora
+                </button>
+                <button role="tab" id="tab-resumen" aria-selected="false" aria-controls="panel-resumen" onclick="activateTab('resumen')" class="tab-btn py-2.5 px-3 sm:px-4 text-xs sm:text-sm font-medium transition-colors duration-150 rounded-t-lg focus:outline-none">
+                    ✓ Resumen
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-grow w-full">
+
+        <!-- Context Banner Case Info -->
+        <div class="mb-6 bg-blue-900/5 border border-blue-200 rounded-xl p-4 text-slate-800 text-sm shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="space-y-1">
+                <div class="flex items-center gap-2 font-semibold text-blue-900">
+                    <span class="bg-blue-100 text-blue-800 text-xs font-mono px-2 py-0.5 rounded border border-blue-200">CASO CONDUCTOR</span>
+                    <span>Dataset sintético: <code class="font-mono text-xs bg-slate-200 px-1 py-0.5 rounded">pacientes.md</code></span>
+                </div>
+                <p class="text-xs text-slate-600">
+                    Pregunta central: <strong>¿Los datos de <code class="font-mono">pacientes.md</code> son suficientes para evaluar si el IMC está relacionado con el diagnóstico registrado en <code class="font-mono">dx</code>?</strong>
+                </p>
+            </div>
+            <div class="flex flex-wrap items-center gap-2 text-xs font-mono text-slate-600 bg-white/80 p-2 rounded-lg border border-slate-200">
+                <span class="bg-slate-100 px-1.5 py-0.5 rounded">n = 3</span>
+                <span class="bg-slate-100 px-1.5 py-0.5 rounded">Columnas: id, peso, altura, sexo, edad, dx</span>
+                <span class="bg-slate-100 px-1.5 py-0.5 rounded">Unidades: no documentadas</span>
+            </div>
+        </div>
+
+        <!-- AI Policy Card -->
+        <div class="mb-6 bg-amber-50 border border-amber-200 rounded-xl p-4 text-amber-900 text-xs sm:text-sm shadow-sm">
+            <div class="font-bold flex items-center gap-2 text-amber-900 mb-1">
+                <span>📜</span> Política de uso responsable de IA en el curso
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-2 text-xs">
+                <ul class="space-y-1 text-emerald-800">
+                    <li>✓ <strong>Permitido:</strong> Apoyarte para entender conceptos, explicar, sugerir ideas y revisar análisis.</li>
+                    <li>✓ <strong>Obligatorio:</strong> Declarar y registrar todo prompt y respuesta en tu bitácora.</li>
+                    <li>✓ <strong>Obligatorio:</strong> Validar independientemente cada afirmación o código sugerido.</li>
+                </ul>
+                <ul class="space-y-1 text-rose-800">
+                    <li>✗ <strong>Prohibido:</strong> Entregar contenido generado por IA que no comprendas cabalmente.</li>
+                    <li>✗ <strong>Prohibido:</strong> Aceptar una respuesta solo porque está redactada de forma convincente.</li>
+                    <li>✗ <strong>Responsabilidad:</strong> El juicio final, la validación y la autoría son 100% tuyos.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- PANEL 1: ENTENDER -->
+        <!-- ========================================== -->
+        <section id="panel-entender" role="tabpanel" aria-labelledby="tab-entender" class="space-y-6">
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+                <h2 class="text-xl font-bold text-slate-900 mb-3 flex items-center gap-2">
+                    <span>💡</span> 1. ¿Qué hace realmente un Modelo de Lenguaje (LLM)?
+                </h2>
+                <div class="prose prose-slate max-w-none text-sm text-slate-700 leading-relaxed space-y-3">
+                    <p>
+                        Un Modelo de Lenguaje de Gran Escala (LLM) es un sistema estadístico que calcula la probabilidad de qué palabra o token sigue a otro a partir del contexto recibido.
+                    </p>
+                    <p class="p-3 bg-slate-50 border-l-4 border-indigo-600 font-medium text-slate-800 rounded-r">
+                        <strong>Principio clave:</strong> Un LLM genera continuaciones <em>plausibles</em>, no necesariamente verdaderas. La fluidez gramatical y un tono seguro NO son garantía de corrección científica.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Actividad Plausible no significa correcto -->
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+                <h3 class="text-lg font-bold text-slate-900 mb-2">
+                    🧪 Actividad A — Plausible no significa correcto
+                </h3>
+                <p class="text-sm text-slate-600 mb-4">
+                    Lee la siguiente respuesta generada por una IA imaginaria ante la duda de cómo contar genes en un archivo bioinformático:
+                </p>
+
+                <div class="bg-slate-900 text-slate-100 p-4 rounded-lg font-mono text-xs sm:text-sm mb-4 border border-slate-700 leading-relaxed">
+                    “Para obtener el número exacto de genes, utiliza el comando <code class="text-amber-300">countgenes archivo.gff</code>, el cual analiza automáticamente la estructura genómica. Este método estándar fue descrito por Smith et al. (2019) en la revista <em>Journal of Genome Counting</em>.”
+                </div>
+
+                <p class="text-sm font-medium text-slate-800 mb-3">
+                    ¿Qué elementos de este texto deberían hacerte sospechar o requerir verificación independiente antes de aceptarlo? (Selecciona todas las opciones que apliquen):
+                </p>
+
+                <div id="suspicious-options" class="space-y-2 mb-4 text-sm">
+                    <label class="flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition">
+                        <input type="checkbox" value="cmd" class="mt-1 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" onchange="toggleSuspicious('cmd')">
+                        <span>Menciona un comando especial (<code class="font-mono text-xs bg-slate-100 px-1 py-0.5 rounded">countgenes</code>) cuya existencia no me consta y debe ser verificado.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition">
+                        <input type="checkbox" value="cite" class="mt-1 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" onchange="toggleSuspicious('cite')">
+                        <span>Cita un artículo y revista científica (<code class="font-mono text-xs">Smith et al., Journal of Genome Counting</code>) que podrían ser inexistentes o inventados ("alucinación").</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition">
+                        <input type="checkbox" value="tone" class="mt-1 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" onchange="toggleSuspicious('tone')">
+                        <span>Está redactado con tono imperativo y total seguridad sintáctica.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition">
+                        <input type="checkbox" value="result" class="mt-1 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" onchange="toggleSuspicious('result')">
+                        <span>Promete devolver el "número exacto" sin explicar la lógica conceptual o la definición de lo que está contando.</span>
+                    </label>
+                </div>
+
+                <button onclick="checkSuspiciousActivity()" class="bg-indigo-700 hover:bg-indigo-800 text-white font-medium text-sm px-4 py-2 rounded-lg transition shadow-sm">
+                    Revisar mi análisis
+                </button>
+
+                <div id="suspicious-feedback" class="mt-4 hidden p-4 rounded-lg text-sm border"></div>
+            </div>
+
+            <!-- Semáforo Epistemológico -->
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+                <h3 class="text-lg font-bold text-slate-900 mb-2">
+                    🚥 Actividad B — Semáforo Epistemológico
+                </h3>
+                <p class="text-sm text-slate-600 mb-4">
+                    Clasifica las siguientes afirmaciones según la postura científica con la que debes tratarlas:
+                </p>
+
+                <div class="space-y-4 text-sm" id="semaphore-container">
+                    <!-- Statements rendered dynamically -->
+                </div>
+
+                <button onclick="checkSemaphore()" class="mt-4 bg-indigo-700 hover:bg-indigo-800 text-white font-medium text-sm px-4 py-2 rounded-lg transition shadow-sm">
+                    Comprobar clasificaciones
+                </button>
+
+                <div id="semaphore-feedback" class="mt-4 hidden p-4 rounded-lg text-sm border"></div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PANEL 2: CONSTRUIR PROMPT -->
+        <!-- ========================================== -->
+        <section id="panel-prompt" role="tabpanel" aria-labelledby="tab-prompt" class="space-y-6 hidden">
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+                <h2 class="text-xl font-bold text-slate-900 mb-3 flex items-center gap-2">
+                    <span>🏗️</span> 2. Anatomía de un Prompt Científico Verificable
+                </h2>
+                <p class="text-sm text-slate-600 mb-4">
+                    Un prompt científico no es una pregunta vaga. Es una instrucción estructurada que acota el problema, establece restricciones explícitas y exige transparencia en el razonamiento.
+                </p>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 text-xs text-center font-semibold text-slate-700 mb-6">
+                    <div class="bg-slate-100 p-2 rounded border border-slate-200">1. Contexto</div>
+                    <div class="bg-slate-100 p-2 rounded border border-slate-200">2. Objetivo</div>
+                    <div class="bg-slate-100 p-2 rounded border border-slate-200">3. Datos</div>
+                    <div class="bg-slate-100 p-2 rounded border border-slate-200">4. Restricciones</div>
+                    <div class="bg-slate-100 p-2 rounded border border-slate-200">5. Salida & Verificación</div>
+                </div>
+
+                <h3 class="text-md font-bold text-slate-900 mb-2">
+                    🛠️ Prompt Builder — Selecciona y ensambla los bloques adecuados para evaluar <code class="font-mono text-xs">pacientes.md</code>
+                </h3>
+                <p class="text-xs text-slate-500 mb-4">
+                    Haz clic en los bloques rigurosos para incluirlos en tu prompt. Evita seleccionar los bloques de sesgo o distracción.
+                </p>
+
+                <div id="prompt-blocks-selector" class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                    <!-- Dynamic Blocks -->
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <button onclick="evaluatePromptBuilder()" class="bg-indigo-700 hover:bg-indigo-800 text-white font-medium text-sm px-4 py-2 rounded-lg transition shadow-sm">
+                        Revisar mi prompt
+                    </button>
+                </div>
+
+                <div id="prompt-builder-feedback" class="mt-4 hidden p-4 rounded-lg text-sm border"></div>
+            </div>
+
+            <!-- Prompt Final Editable -->
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+                <h3 class="text-lg font-bold text-slate-900 mb-2 flex items-center justify-between">
+                    <span>📝 Prompt Resultante (Editable)</span>
+                    <button onclick="copyPromptText('prompt-editor')" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded font-mono border border-slate-300 transition flex items-center gap-1">
+                        📋 Copiar prompt
+                    </button>
+                </h3>
+                <p class="text-xs text-slate-600 mb-3">
+                    Puedes refinar o ajustar este texto manualmente antes de llevarlo a tu asistente de IA habitual.
+                </p>
+                <textarea id="prompt-editor" rows="8" oninput="updatePromptText(this.value)" class="w-full font-mono text-xs sm:text-sm p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-slate-800 bg-slate-50 leading-relaxed"></textarea>
+                
+                <div class="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg text-xs text-blue-900">
+                    💡 <strong>Siguiente paso:</strong> Copia este prompt con el botón superior y pégalo en el asistente de IA autorizado que utilices para la clase (ej. ChatGPT, Claude, Copilot). Luego avanza a la siguiente pestaña.
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PANEL 3: METADATOS + IA -->
+        <!-- ========================================== -->
+        <section id="panel-metadatos" role="tabpanel" aria-labelledby="tab-metadatos" class="space-y-6 hidden">
+            <!-- Header Banner -->
+            <div class="bg-slate-900 text-white p-5 rounded-xl shadow-sm">
+                <div class="text-amber-400 font-mono text-xs uppercase tracking-wider font-semibold mb-1">Regla Metodológica Centración</div>
+                <h2 class="text-xl font-bold">Primero a mano, después con IA</h2>
+                <p class="text-xs sm:text-sm text-slate-300 mt-1">
+                    Ya construiste la ficha manual de <code class="font-mono bg-slate-800 px-1 py-0.5 rounded text-amber-300">pacientes.md</code> en la Práctica 1. Ahora generarás una propuesta alternativa con IA para auditarla críticamente contra tu línea base.
+                </p>
+            </div>
+
+            <!-- Prompt Base Editable para Metadatos -->
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+                <div class="flex items-center justify-between mb-2">
+                    <h3 class="text-md font-bold text-slate-900">1. Prompt base para generar Ficha de Metadatos</h3>
+                    <button onclick="copyPromptText('metadata-prompt-base')" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded font-mono border border-slate-300 transition">
+                        📋 Copiar prompt
+                    </button>
+                </div>
+                <textarea id="metadata-prompt-base" rows="7" oninput="saveMetadataState()" class="w-full font-mono text-xs p-3 border border-slate-300 rounded-lg bg-slate-50 text-slate-800 leading-relaxed">
+Tengo un archivo llamado pacientes.md cuyo contenido está separado por comas.
+Sus columnas son: id, peso, altura, sexo, edad y dx.
+
+Necesito una ficha de metadatos en Markdown con origen, formato interno, fecha de acceso, responsable, licencia y un diccionario de variables que incluya descripción, tipo de dato, unidades y valores permitidos.
+
+No inventes información. Marca como “no documentado” o “pendiente de confirmar” todo lo que no pueda determinarse a partir de la información proporcionada.
+
+Explica qué información adicional sería necesario conseguir.
+</textarea>
+            </div>
+
+            <!-- Registro de la Respuesta Real -->
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 space-y-4">
+                <h3 class="text-md font-bold text-slate-900">2. Registrar respuesta REAL de la IA</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Asistente / Modelo utilizado:</label>
+                        <input type="text" id="meta-model-name" placeholder="Ej. ChatGPT (GPT-4o), Claude 3.5 Sonnet, Ollama Llama3..." oninput="saveMetadataState()" class="w-full text-xs p-2.5 border border-slate-300 rounded-lg">
+                    </div>
+                    <div class="flex items-end">
+                        <label class="inline-flex items-center text-xs text-slate-600 cursor-pointer">
+                            <input type="checkbox" id="meta-unknown-version" onchange="toggleUnknownModel('meta')" class="rounded border-slate-300 text-indigo-600">
+                            <span class="ml-2">No conozco la versión exacta del modelo</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Pega aquí la respuesta COMPLETA que obtuviste:</label>
+                    <textarea id="meta-ai-response" rows="8" placeholder="Pega aquí el texto exacto generado por el asistente..." oninput="saveMetadataState()" class="w-full text-xs font-mono p-3 border border-slate-300 rounded-lg bg-slate-50"></textarea>
+                </div>
+            </div>
+
+            <!-- Auditoria interactiva -->
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+                <h3 class="text-md font-bold text-slate-900 mb-3">3. Auditoría de la Respuesta de Metadatos</h3>
+                <p class="text-xs text-slate-600 mb-4">Evalúa de forma independiente cada criterio en la propuesta generada por la IA:</p>
+
+                <div id="meta-audit-checklist" class="space-y-4">
+                    <!-- Dynamic Checklist items for Metadata -->
+                </div>
+            </div>
+
+            <!-- Comparacion con trabajo previo -->
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+                <h3 class="text-md font-bold text-slate-900 mb-2">4. Comparación: Mi trabajo previo vs. Propuesta de IA</h3>
+                <div class="p-3 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-900 mb-4">
+                    📌 <strong>Nota científica:</strong> Tu trabajo manual tampoco es una autoridad infalible. Si existe discrepancia, valida con el archivo original, los datos crudos o fuentes externas autorizadas.
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                    <div>
+                        <label class="block font-semibold text-slate-800 mb-1">Coincidencias (lo que ambos identificaron correctamente):</label>
+                        <textarea id="meta-cmp-coincidencias" rows="3" oninput="saveMetadataState()" class="w-full p-2.5 border border-slate-300 rounded-lg"></textarea>
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-800 mb-1">Aportes útiles de la IA (ideas estructuradas que tú no tenías):</label>
+                        <textarea id="meta-cmp-aportes" rows="3" oninput="saveMetadataState()" class="w-full p-2.5 border border-slate-300 rounded-lg"></textarea>
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-800 mb-1">Omisiones de la IA (cosas que la IA ignoró u olvidó señalar):</label>
+                        <textarea id="meta-cmp-omisiones" rows="3" oninput="saveMetadataState()" class="w-full p-2.5 border border-slate-300 rounded-lg"></textarea>
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-800 mb-1">Suposiciones o invenciones (datos/unidades inventadas por la IA):</label>
+                        <textarea id="meta-cmp-suposiciones" rows="3" oninput="saveMetadataState()" class="w-full p-2.5 border border-slate-300 rounded-lg"></textarea>
+                    </div>
+                </div>
+
+                <div class="mt-4 text-xs">
+                    <label class="block font-semibold text-slate-800 mb-1">Correcciones realizadas a tu línea base o a la propuesta:</label>
+                    <textarea id="meta-cmp-correcciones" rows="2" oninput="saveMetadataState()" placeholder="¿Qué ajustaste finalmente tras esta comparación?" class="w-full p-2.5 border border-slate-300 rounded-lg"></textarea>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PANEL 4: ESTRATEGIA + IA -->
+        <!-- ========================================== -->
+        <section id="panel-estrategia" role="tabpanel" aria-labelledby="tab-estrategia" class="space-y-6 hidden">
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+                <h2 class="text-xl font-bold text-slate-900 mb-2 flex items-center gap-2">
+                    <span>🧩</span> 4. Estrategia Científica + IA
+                </h2>
+                <p class="text-xs sm:text-sm text-slate-600 mb-4">
+                    Revisemos la pregunta: <em>"¿Los datos de <code class="font-mono">pacientes.md</code> son suficientes para evaluar si el IMC está relacionado con el diagnóstico registrado en <code class="font-mono">dx</code>?"</em>
+                </p>
+
+                <!-- Prompt base editable estrategia -->
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3 mb-6">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold text-slate-800 uppercase tracking-wide">Prompt base para descomponer estrategia</span>
+                        <button onclick="copyPromptText('strat-prompt-base')" class="text-xs bg-white hover:bg-slate-100 text-slate-700 px-3 py-1.5 rounded font-mono border border-slate-300 transition">
+                            📋 Copiar prompt
+                        </button>
+                    </div>
+                    <textarea id="strat-prompt-base" rows="8" oninput="saveStrategyState()" class="w-full font-mono text-xs p-3 border border-slate-300 rounded-lg bg-white text-slate-800 leading-relaxed">
+Quiero evaluar si los datos de pacientes.md son suficientes para investigar una posible relación entre el índice de masa corporal (IMC) y el diagnóstico registrado en dx.
+
+Ayúdame a descomponer la pregunta en subpreguntas y, para cada una, indica qué evidencia necesitaría, en qué variables estarían los datos, qué operación conceptual realizaría y cómo validaría el resultado.
+
+No me des comandos de terminal.
+
+No supongas las unidades de peso y altura ni el significado de dx.
+
+Considera que el archivo contiene únicamente tres pacientes (n=3) y que cada código de diagnóstico aparece una sola vez.
+
+Señala las limitaciones y los datos adicionales necesarios.
+</textarea>
+                </div>
+
+                <!-- Registro Respuesta IA Estrategia -->
+                <div class="space-y-4">
+                    <h3 class="text-md font-bold text-slate-900">Registrar propuesta de Estrategia generada por IA</h3>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Pega aquí la respuesta del asistente:</label>
+                        <textarea id="strat-ai-response" rows="8" placeholder="Pega la descomposición estratégica propuesta por la IA..." oninput="saveStrategyState()" class="w-full text-xs font-mono p-3 border border-slate-300 rounded-lg bg-slate-50"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Auditoria de estrategia -->
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+                <h3 class="text-md font-bold text-slate-900 mb-3">Auditoría de la Estrategia Descompuesta</h3>
+                <p class="text-xs text-slate-600 mb-4">Verifica si la IA mantuvo el rigor metodológico o cayó en trampas conceptuales:</p>
+
+                <div id="strat-audit-checklist" class="space-y-4">
+                    <!-- Dynamic Checklist items for Strategy -->
+                </div>
+            </div>
+
+            <!-- Evaluacion de hallazgos nuevos -->
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 space-y-4">
+                <h3 class="text-md font-bold text-slate-900">Evaluación de Hallazgos y Aportes Nuevos</h3>
+                <div class="text-xs space-y-3">
+                    <div>
+                        <label class="block font-semibold text-slate-800 mb-1">¿Qué subpregunta útil o perspectiva relevante propuso la IA que no habías considerado previamente?</label>
+                        <textarea id="strat-finding-subq" rows="2" oninput="saveStrategyState()" class="w-full p-2.5 border border-slate-300 rounded-lg"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block font-semibold text-slate-800 mb-2">¿Es realmente pertinente esta propuesta para el problema?</label>
+                        <div class="flex gap-4">
+                            <label class="inline-flex items-center"><input type="radio" name="strat-pertinent" value="si" onchange="saveStrategyState()" class="text-indigo-600"> <span class="ml-1.5">Sí</span></label>
+                            <label class="inline-flex items-center"><input type="radio" name="strat-pertinent" value="parcial" onchange="saveStrategyState()" class="text-indigo-600"> <span class="ml-1.5">Parcialmente</span></label>
+                            <label class="inline-flex items-center"><input type="radio" name="strat-pertinent" value="no" onchange="saveStrategyState()" class="text-indigo-600"> <span class="ml-1.5">No</span></label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block font-semibold text-slate-800 mb-1">Justificación científica de la pertinencia o falta de ella:</label>
+                        <textarea id="strat-finding-why" rows="2" oninput="saveStrategyState()" class="w-full p-2.5 border border-slate-300 rounded-lg"></textarea>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PANEL 5: VALIDAR -->
+        <!-- ========================================== -->
+        <section id="panel-validar" role="tabpanel" aria-labelledby="tab-validar" class="space-y-6 hidden">
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+                <h2 class="text-xl font-bold text-slate-900 mb-3 flex items-center gap-2">
+                    <span>🔁</span> 5. Ciclo de Validación Independiente
+                </h2>
+
+                <!-- Diagrama del ciclo -->
+                <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 text-center text-xs font-semibold text-slate-800 my-4">
+                    <div class="bg-indigo-50 border border-indigo-200 p-2.5 rounded-lg">1. Entender</div>
+                    <div class="bg-indigo-50 border border-indigo-200 p-2.5 rounded-lg">2. Probar</div>
+                    <div class="bg-indigo-50 border border-indigo-200 p-2.5 rounded-lg">3. Contrastar</div>
+                    <div class="bg-indigo-50 border border-indigo-200 p-2.5 rounded-lg">4. Decidir</div>
+                    <div class="bg-indigo-50 border border-indigo-200 p-2.5 rounded-lg">5. Corregir</div>
+                </div>
+
+                <p class="text-xs text-slate-600 leading-relaxed">
+                    Validar independientemente significa que NO confías en lo que la IA sostiene sin buscar una evidencia externa o realizar una prueba lógica contrastable.
+                </p>
+            </div>
+
+            <!-- Formulario Diseña tu validacion Metadatos -->
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 space-y-4">
+                <h3 class="text-md font-bold text-slate-900 border-b pb-2">A. Diseño de Validación para METADATOS</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                    <div>
+                        <label class="block font-semibold text-slate-800 mb-1">Afirmación o propuesta de la IA a validar:</label>
+                        <textarea id="val-meta-claim" rows="2" oninput="saveValidationState()" placeholder="Ej. 'La IA afirmó que peso está expresado en kilogramos'" class="w-full p-2.5 border border-slate-300 rounded-lg"></textarea>
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-800 mb-1">Evidencia independiente o fuente de contraste utilizada:</label>
+                        <textarea id="val-meta-evidence" rows="2" oninput="saveValidationState()" placeholder="Ej. Inspección directa del archivo pacientes.md o estándar de metadatos" class="w-full p-2.5 border border-slate-300 rounded-lg"></textarea>
+                    </div>
+                </div>
+                <div class="text-xs space-y-3">
+                    <div>
+                        <label class="block font-semibold text-slate-800 mb-1">Resultado de la prueba / hallazgo obtenido:</label>
+                        <textarea id="val-meta-result" rows="2" oninput="saveValidationState()" placeholder="¿Qué verificaste al revisar la evidencia?" class="w-full p-2.5 border border-slate-300 rounded-lg"></textarea>
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-800 mb-1">Corrección aplicada tras la validación:</label>
+                        <textarea id="val-meta-correction" rows="2" oninput="saveValidationState()" placeholder="¿Cómo corregiste el dato o la interpretación final?" class="w-full p-2.5 border border-slate-300 rounded-lg"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formulario Diseña tu validacion Estrategia -->
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 space-y-4">
+                <h3 class="text-md font-bold text-slate-900 border-b pb-2">B. Diseño de Validación para ESTRATEGIA</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                    <div>
+                        <label class="block font-semibold text-slate-800 mb-1">Paso o subpregunta propuesta a validar:</label>
+                        <textarea id="val-strat-claim" rows="2" oninput="saveValidationState()" placeholder="Ej. 'La IA sugirió calcular correlación estadística de Pearson'" class="w-full p-2.5 border border-slate-300 rounded-lg"></textarea>
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-800 mb-1">Razonamiento lógico / prueba pequeña realizada:</label>
+                        <textarea id="val-strat-evidence" rows="2" oninput="saveValidationState()" placeholder="Ej. Evaluación del tamaño muestral n=3 y falta de unidades" class="w-full p-2.5 border border-slate-300 rounded-lg"></textarea>
+                    </div>
+                </div>
+                <div class="text-xs space-y-3">
+                    <div>
+                        <label class="block font-semibold text-slate-800 mb-1">Resultado y límites identificados:</label>
+                        <textarea id="val-strat-result" rows="2" oninput="saveValidationState()" placeholder="¿Por qué la sugerencia es válida o inviable con n=3?" class="w-full p-2.5 border border-slate-300 rounded-lg"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Escalera de confiabilidad -->
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 space-y-4">
+                <h3 class="text-md font-bold text-slate-900">📶 Escalera de Confiabilidad Epistémica</h3>
+                <p class="text-xs text-slate-600">
+                    Solo DESPUÉS de ejecutar la validación independiente, emite un dictamen de confiabilidad:
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
+                    <!-- Clasificacion Metadatos -->
+                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
+                        <div class="font-bold text-slate-900">Dictamen final para METADATOS:</div>
+                        <div class="space-y-2">
+                            <label class="flex items-center gap-2"><input type="radio" name="rel-meta" value="confiable" onchange="saveValidationState()"> <span class="font-medium text-emerald-800">🟢 Confiable</span></label>
+                            <label class="flex items-center gap-2"><input type="radio" name="rel-meta" value="parcial" onchange="saveValidationState()"> <span class="font-medium text-amber-800">🟡 Parcialmente confiable</span></label>
+                            <label class="flex items-center gap-2"><input type="radio" name="rel-meta" value="noconfiable" onchange="saveValidationState()"> <span class="font-medium text-rose-800">🔴 No confiable</span></label>
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-800 mb-1">Justificación sustentada en evidencia:</label>
+                            <textarea id="rel-meta-just" rows="3" oninput="saveValidationState()" class="w-full p-2 border border-slate-300 rounded-lg" placeholder="Explica por qué asignas esta categoría sin decir únicamente 'porque sonaba bien'"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Clasificacion Estrategia -->
+                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
+                        <div class="font-bold text-slate-900">Dictamen final para ESTRATEGIA:</div>
+                        <div class="space-y-2">
+                            <label class="flex items-center gap-2"><input type="radio" name="rel-strat" value="confiable" onchange="saveValidationState()"> <span class="font-medium text-emerald-800">🟢 Confiable</span></label>
+                            <label class="flex items-center gap-2"><input type="radio" name="rel-strat" value="parcial" onchange="saveValidationState()"> <span class="font-medium text-amber-800">🟡 Parcialmente confiable</span></label>
+                            <label class="flex items-center gap-2"><input type="radio" name="rel-strat" value="noconfiable" onchange="saveValidationState()"> <span class="font-medium text-rose-800">🔴 No confiable</span></label>
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-800 mb-1">Justificación sustentada en evidencia:</label>
+                            <textarea id="rel-strat-just" rows="3" oninput="saveValidationState()" class="w-full p-2 border border-slate-300 rounded-lg" placeholder="Explica por qué asignas esta categoría sin decir únicamente 'porque coincidió conmigo'"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="validation-warning-box" class="hidden p-3 bg-rose-50 border border-rose-200 text-rose-900 text-xs rounded-lg">
+                    ⚠️ <strong>Atención pedagógica:</strong> Recuerda que justificaciones basadas en "sonaba convencido", "es la IA" o "coincidió a la primera" no son lógicamente suficientes. Debes mencionar evidencia del archivo o reglas conceptuales.
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PANEL 6: BITÁCORA -->
+        <!-- ========================================== -->
+        <section id="panel-bitacora" role="tabpanel" aria-labelledby="tab-bitacora" class="space-y-6 hidden">
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+                <h2 class="text-xl font-bold text-slate-900 mb-2 flex items-center gap-2">
+                    <span>📖</span> 6. Registro en <code class="font-mono text-indigo-700">bitacora-ia.md</code>
+                </h2>
+                <p class="text-xs sm:text-sm text-slate-600 mb-4">
+                    La siguiente vista preliminar se construye dinámicamente con tus respuestas y auditorías reales ingresadas en la app.
+                </p>
+
+                <!-- Preview Bitacora -->
+                <div class="bg-slate-900 text-slate-100 p-4 rounded-xl font-mono text-xs overflow-x-auto max-h-96 leading-relaxed border border-slate-800">
+                    <pre id="bitacora-live-preview">Cargando bitácora...</pre>
+                </div>
+            </div>
+
+            <!-- Preguntas de Reflexion Metacognitiva -->
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 space-y-4">
+                <h3 class="text-md font-bold text-slate-900">Reflexión Metacognitiva Final</h3>
+
+                <div class="space-y-3 text-xs">
+                    <div>
+                        <label class="block font-semibold text-slate-800 mb-1">1. ¿En qué aspecto concreto mejoró la IA tu trabajo inicial de metadatos o estrategia?</label>
+                        <textarea id="ref-q1" rows="2" oninput="saveReflectionState()" class="w-full p-2.5 border border-slate-300 rounded-lg"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block font-semibold text-slate-800 mb-1">2. ¿Qué información omitió, supuso erróneamente o inventó el modelo?</label>
+                        <textarea id="ref-q2" rows="2" oninput="saveReflectionState()" class="w-full p-2.5 border border-slate-300 rounded-lg"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block font-semibold text-slate-800 mb-1">3. ¿Qué error o suposición habrías aceptado pasivamente si no hubieras realizado previamente el trabajo manual?</label>
+                        <textarea id="ref-q3" rows="2" oninput="saveReflectionState()" class="w-full p-2.5 border border-slate-300 rounded-lg"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block font-semibold text-slate-800 mb-1">4. ¿Qué partes fundamentales del razonamiento científico consideras que NUNCA conviene delegar a una IA?</label>
+                        <textarea id="ref-q4" rows="2" oninput="saveReflectionState()" class="w-full p-2.5 border border-slate-300 rounded-lg"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block font-semibold text-slate-800 mb-1">5. ¿Qué concepto o limitación comprendiste mejor al comparar ambos enfoques?</label>
+                        <textarea id="ref-q5" rows="2" oninput="saveReflectionState()" class="w-full p-2.5 border border-slate-300 rounded-lg"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block font-semibold text-slate-800 mb-1">6. ¿La IA fue más útil para generar ideas, revisar estructura, explicar o detectar alternativas? Justifica tu respuesta:</label>
+                        <textarea id="ref-q6" rows="2" oninput="saveReflectionState()" class="w-full p-2.5 border border-slate-300 rounded-lg"></textarea>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PANEL 7: RESUMEN -->
+        <!-- ========================================== -->
+        <section id="panel-resumen" role="tabpanel" aria-labelledby="tab-resumen" class="space-y-6 hidden">
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+                <h2 class="text-xl font-bold text-slate-900 mb-2 flex items-center gap-2">
+                    <span>📊</span> Resumen Global de la Práctica
+                </h2>
+                <p class="text-xs text-slate-600 mb-4">
+                    Este resumen consolida tu proceso científico completo, auditorías, validaciones y reflexiones. Siempre está disponible independientemente de tu avance.
+                </p>
+
+                <!-- Botones de Descarga -->
+                <div class="flex flex-wrap gap-3 my-4">
+                    <button onclick="downloadBitacoraFile()" class="bg-indigo-700 hover:bg-indigo-800 text-white text-xs font-semibold px-4 py-2.5 rounded-lg shadow-sm flex items-center gap-2 transition">
+                        <span>⬇️</span> Descargar bitacora-ia.md
+                    </button>
+                    <button onclick="downloadFullReportFile()" class="bg-slate-800 hover:bg-slate-900 text-white text-xs font-semibold px-4 py-2.5 rounded-lg shadow-sm flex items-center gap-2 transition">
+                        <span>⬇️</span> Descargar s2-practica2-ia-resultados.md
+                    </button>
+                </div>
+            </div>
+
+            <!-- Resumen de Contenidos -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
+                <!-- Status Audit Metadatos -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-3">
+                    <h3 class="font-bold text-slate-900 text-sm border-b pb-2">Dictamen Metadatos + IA</h3>
+                    <div>
+                        <span class="font-semibold text-slate-700">Modelo:</span>
+                        <span id="summary-meta-model" class="font-mono text-slate-800">No especificado</span>
+                    </div>
+                    <div>
+                        <span class="font-semibold text-slate-700">Clasificación Confiabilidad:</span>
+                        <span id="summary-meta-rel" class="font-bold px-2 py-0.5 rounded bg-slate-100">Pendiente</span>
+                    </div>
+                    <div>
+                        <span class="font-semibold text-slate-700">Justificación:</span>
+                        <p id="summary-meta-just" class="text-slate-600 italic mt-1 bg-slate-50 p-2 rounded">Sin justificación registrada.</p>
+                    </div>
+                </div>
+
+                <!-- Status Audit Estrategia -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-3">
+                    <h3 class="font-bold text-slate-900 text-sm border-b pb-2">Dictamen Estrategia + IA</h3>
+                    <div>
+                        <span class="font-semibold text-slate-700">Clasificación Confiabilidad:</span>
+                        <span id="summary-strat-rel" class="font-bold px-2 py-0.5 rounded bg-slate-100">Pendiente</span>
+                    </div>
+                    <div>
+                        <span class="font-semibold text-slate-700">Justificación:</span>
+                        <p id="summary-strat-just" class="text-slate-600 italic mt-1 bg-slate-50 p-2 rounded">Sin justificación registrada.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Previews de Prompts -->
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-4 text-xs">
+                <h3 class="font-bold text-slate-900 text-sm">Prompts Diseñados en la Práctica</h3>
+                <div>
+                    <span class="font-semibold text-slate-700">Prompt Científico General:</span>
+                    <pre id="summary-prompt-general" class="bg-slate-50 p-3 rounded font-mono text-slate-800 mt-1 whitespace-pre-wrap border border-slate-200">Sin prompt construido.</pre>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 text-xs py-6 border-t border-slate-800 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-2">
+            <p>Introducción a la Bioinformática • Licenciatura en Ciencias Genómicas (LCG UNAM 2026)</p>
+            <p class="text-slate-300 italic">"La habilidad importante no es obtener una respuesta de IA, sino saber formular la pregunta, detectar supuestos, comprobar independientemente y decidir qué confiar."</p>
+        </div>
+    </footer>
+
+    <script>
+        // APP STATE OBJECT
+        const DEFAULT_STATE = {
+            activeTab: 'entender',
+            suspiciousSelected: [],
+            suspiciousChecked: false,
+            semaphoreAnswers: {}, // id -> 'accept' | 'verify' | 'reject'
+            promptBlocksSelected: ['ctx', 'obj', 'dat', 'r_unit', 'r_dx', 'out', 'ver'],
+            promptEditorText: '',
+            metadata: {
+                promptBase: `Tengo un archivo llamado pacientes.md cuyo contenido está separado por comas.\nSus columnas son: id, peso, altura, sexo, edad y dx.\n\nNecesito una ficha de metadatos en Markdown con origen, formato interno, fecha de acceso, responsable, licencia y un diccionario de variables que incluya descripción, tipo de dato, unidades y valores permitidos.\n\nNo inventes información. Marca como “no documentado” o “pendiente de confirmar” todo lo que no pueda determinarse a partir de la información proporcionada.\n\nExplica qué información adicional sería necesario conseguir.`,
+                modelName: '',
+                unknownModel: false,
+                response: '',
+                audit: {}, // criterionId -> { status: '', note: '' }
+                cmpCoincidencias: '',
+                cmpAportes: '',
+                cmpOmisiones: '',
+                cmpSuposiciones: '',
+                cmpCorrecciones: ''
+            },
+            strategy: {
+                promptBase: `Quiero evaluar si los datos de pacientes.md son suficientes para investigar una posible relación entre el índice de masa corporal (IMC) y el diagnóstico registrado en dx.\n\nAyúdame a descomponer la pregunta en subpreguntas y, para cada una, indica qué evidencia necesitaría, en qué variables estarían los datos, qué operación conceptual realizaría y cómo validaría el resultado.\n\nNo me des comandos de terminal.\n\nNo supongas las unidades de peso y altura ni el significado de dx.\n\nConsidera que el archivo contiene únicamente tres pacientes (n=3) y que cada código de diagnóstico aparece una sola vez.\n\nSeñala las limitaciones y los datos adicionales necesarios.`,
+                response: '',
+                audit: {},
+                findingSubq: '',
+                pertinent: '',
+                findingWhy: ''
+            },
+            validation: {
+                metaClaim: '',
+                metaEvidence: '',
+                metaResult: '',
+                metaCorrection: '',
+                stratClaim: '',
+                stratEvidence: '',
+                stratResult: '',
+                metaReliability: '',
+                metaReliabilityJust: '',
+                stratReliability: '',
+                stratReliabilityJust: ''
+            },
+            reflections: {
+                q1: '', q2: '', q3: '', q4: '', q5: '', q6: ''
+            }
+        };
+
+        let state = JSON.parse(JSON.stringify(DEFAULT_STATE));
+
+        // CRITERIA DEFINITIONS
+        const SEMAPHORE_ITEMS = [
+            { id: 's1', text: '“La respuesta está sintácticamente muy bien redactada y ordenada.”', correct: 'verify', hint: 'La fluidez gramatical es una característica del modelo de lenguaje, no evidencia de veracidad.' },
+            { id: 's2', text: '“Por estar redactada con seguridad y términos técnicos, debe ser correcta.”', correct: 'reject', hint: 'El tono seguro no constituye evidencia científica.' },
+            { id: 's3', text: '“La cita bibliográfica o referencia incluida existe realmente.”', correct: 'verify', hint: 'Los LLM pueden generar citas sintácticamente plausibles pero inexistentes (alucinación).' },
+            { id: 's4', text: '“Un comando o función mencionada existe y realiza exactamente lo afirmado.”', correct: 'verify', hint: 'Debe probarse o verificarse en la documentación oficial.' },
+            { id: 's5', text: '“La IA puede sugerirme una descomposición en subpreguntas útil.”', correct: 'accept', hint: 'Es un uso válido para exploración y lluvia de ideas.' },
+            { id: 's6', text: '“La responsabilidad última de la validez científica sigue siendo 100% mía.”', correct: 'accept', hint: 'La autoría y el juicio crítico pertenecen al científico, no a la herramienta.' }
+        ];
+
+        const PROMPT_BLOCKS = [
+            { id: 'ctx', type: 'good', tag: 'CONTEXTO', text: 'Tengo un dataset sintético de tres registros (n=3).' },
+            { id: 'obj', type: 'good', tag: 'OBJETIVO', text: 'Quiero evaluar si los datos son suficientes para investigar una posible relación entre IMC y dx.' },
+            { id: 'dat', type: 'good', tag: 'DATOS', text: 'Las columnas son id, peso, altura, sexo, edad y dx.' },
+            { id: 'r_unit', type: 'good', tag: 'RESTRICCIÓN', text: 'No supongas las unidades de peso y altura.' },
+            { id: 'r_dx', type: 'good', tag: 'RESTRICCIÓN', text: 'No inventes el significado médico de dx.' },
+            { id: 'out', type: 'good', tag: 'SALIDA', text: 'Descompón la pregunta en subpreguntas, evidencia, variables, operación conceptual y validación (sin comandos).' },
+            { id: 'ver', type: 'good', tag: 'VERIFICACIÓN', text: 'Señala explícitamente qué afirmaciones o supuestos requieren confirmación independiente.' },
+            // Distractors
+            { id: 'd_cmd', type: 'bad', tag: 'DISTRACTOR', text: 'Dame directamente la respuesta y la solución en una sola frase sin explicar.' },
+            { id: 'd_unit', type: 'bad', tag: 'DISTRACTOR', text: 'Supón que el peso está en kg y la altura en metros.' },
+            { id: 'd_dx', type: 'bad', tag: 'DISTRACTOR', text: 'Decide arbitrariamente qué significa la columna dx.' },
+            { id: 'd_nolim', type: 'bad', tag: 'DISTRACTOR', text: 'No menciones ninguna limitación metodológica ni el tamaño de muestra.' }
+        ];
+
+        const METADATA_AUDIT_CRITERIA = [
+            { id: 'm1', label: '¿Identificó el formato interno (valores separados por comas) y lo distinguió de la extensión .md?' },
+            { id: 'm2', label: '¿Evitó suponer las unidades de peso o altura (kg, m, cm, lbs)?' },
+            { id: 'm3', label: '¿Evitó inventar o asumir el significado médico del código dx?' },
+            { id: 'm4', label: '¿Evitó inventar origen, fecha, responsable o licencia no documentados?' },
+            { id: 'm5', label: '¿Identificó tipos de datos plausibles para cada columna?' },
+            { id: 'm6', label: '¿Distinguió explícitamente información conocida vs. pendiente de confirmar?' },
+            { id: 'm7', label: '¿Indicó qué metadatos adicionales son necesarios conseguir?' }
+        ];
+
+        const STRATEGY_AUDIT_CRITERIA = [
+            { id: 'e1', label: '1. ¿Comenzó descomponiendo la pregunta científica antes de buscar soluciones?' },
+            { id: 'e2', label: '2. ¿Propuso subpreguntas lógicas y metodológicamente relevantes?' },
+            { id: 'e3', label: '3. ¿Relacionó cada subpregunta con evidencia, variables, operación conceptual y validación?' },
+            { id: 'e4', label: '4. ¿Diferenció operaciones conceptuales de comandos de software o terminal?' },
+            { id: 'e5', label: '5. ¿Reconoció que las unidades deben confirmarse antes de calcular formalmente el IMC?' },
+            { id: 'e6', label: '6. ¿Evitó inventar el significado de los códigos de diagnóstico dx?' },
+            { id: 'e7', label: '7. ¿Reconoció las limitaciones de tener únicamente n=3 pacientes?' },
+            { id: 'e8', label: '8. ¿Notó que cada código de diagnóstico aparece solo una vez en la muestra?' },
+            { id: 'e9', label: '9. ¿Evitó afirmar una asociación estadística que los datos no permiten probar?' },
+            { id: 'e10', label: '10. ¿Indicó metadatos, datos adicionales o controles necesarios?' }
+        ];
+
+        // LOCALSTORAGE PERSISTENCE
+        function saveState() {
+            try {
+                localStorage.setItem('lcg_s2p2_ia_state', JSON.stringify(state));
+            } catch (e) {
+                console.warn('LocalStorage error:', e);
+            }
+            updateBitacoraPreview();
+            updateSummaryView();
+        }
+
+        function loadState() {
+            try {
+                const saved = localStorage.getItem('lcg_s2p2_ia_state');
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    state = { ...DEFAULT_STATE, ...parsed };
+                }
+            } catch (e) {
+                console.warn('Error loading state:', e);
+            }
+        }
+
+        function confirmReset() {
+            if (confirm('¿Deseas reiniciar toda la práctica? Se borrarán tus respuestas y registros de esta sesión.')) {
+                localStorage.removeItem('lcg_s2p2_ia_state');
+                state = JSON.parse(JSON.stringify(DEFAULT_STATE));
+                location.reload();
+            }
+        }
+
+        // TAB NAVIGATION
+        function activateTab(tabName) {
+            state.activeTab = tabName;
+
+            // Update tab button states
+            const tabButtons = document.querySelectorAll('[role="tab"]');
+            tabButtons.forEach(btn => {
+                const id = btn.id.replace('tab-', '');
+                if (id === tabName) {
+                    btn.setAttribute('aria-selected', 'true');
+                } else {
+                    btn.setAttribute('aria-selected', 'false');
+                }
+            });
+
+            // Update tabpanel visibility
+            const panels = document.querySelectorAll('[role="tabpanel"]');
+            panels.forEach(panel => {
+                const id = panel.id.replace('panel-', '');
+                if (id === tabName) {
+                    panel.classList.remove('hidden');
+                } else {
+                    panel.classList.add('hidden');
+                }
+            });
+
+            saveState();
+        }
+
+        // TAB 1 HANDLERS
+        function toggleSuspicious(val) {
+            const idx = state.suspiciousSelected.indexOf(val);
+            if (idx > -1) {
+                state.suspiciousSelected.splice(idx, 1);
+            } else {
+                state.suspiciousSelected.push(val);
+            }
+            saveState();
+        }
+
+        function checkSuspiciousActivity() {
+            state.suspiciousChecked = true;
+            const fb = document.getElementById('suspicious-feedback');
+            fb.classList.remove('hidden');
+
+            const hasAll = ['cmd', 'cite', 'tone', 'result'].every(k => state.suspiciousSelected.includes(k));
+
+            if (hasAll) {
+                fb.className = "mt-4 p-4 rounded-lg text-sm border bg-emerald-50 border-emerald-200 text-emerald-900";
+                fb.innerHTML = `
+                    <div class="font-bold flex items-center gap-2 mb-1">
+                        <span>✓</span> ¡Excelente análisis crítico!
+                    </div>
+                    <p>Identificaste las 4 señaes de alerta clave:</p>
+                    <ul class="list-disc pl-5 mt-1 text-xs space-y-1">
+                        <li><strong>Comando no verificado:</strong> Un nombre plausible (<code class="font-mono">countgenes</code>) puede ser inventado por el modelo.</li>
+                        <li><strong>Cita bibliográfica:</strong> Smith et al. (2019) en <em>Journal of Genome Counting</em> suena convincente pero es totalmente inventada ("alucinación").</li>
+                        <li><strong>Tono de seguridad:</strong> El modelo gramaticalmente no duda, aun cuando inventa.</li>
+                        <li><strong>Resultado sin evidencia:</strong> Asegurar un "resultado exacto" no reemplaza la evidencia del procedimiento.</li>
+                    </ul>
+                `;
+            } else {
+                fb.className = "mt-4 p-4 rounded-lg text-sm border bg-amber-50 border-amber-200 text-amber-900";
+                fb.innerHTML = `
+                    <div class="font-bold mb-1">💡 Comentario formativo:</div>
+                    <p>En bioinformática y ciencia de datos con IA, <strong>todas las opciones mostradas representan motivos reales de sospecha</strong>. Un comando, una cita académica o un tono seguro NUNCA deben aceptarse sin comprobación independiente.</p>
+                `;
+            }
+            saveState();
+        }
+
+        function renderSemaphore() {
+            const container = document.getElementById('semaphore-container');
+            container.innerHTML = '';
+
+            SEMAPHORE_ITEMS.forEach(item => {
+                const currentVal = state.semaphoreAnswers[item.id] || '';
+                const div = document.createElement('div');
+                div.className = "p-4 bg-slate-50 border border-slate-200 rounded-lg space-y-2";
+                div.innerHTML = `
+                    <div class="font-medium text-slate-800">${item.text}</div>
+                    <div class="flex flex-wrap items-center gap-3 text-xs">
+                        <label class="inline-flex items-center cursor-pointer">
+                            <input type="radio" name="sem_${item.id}" value="accept" ${currentVal === 'accept' ? 'checked' : ''} onchange="setSemaphore('${item.id}', 'accept')" class="text-indigo-600">
+                            <span class="ml-1.5 text-emerald-800 font-medium">✓ Puedo aceptarlo con evidencia</span>
+                        </label>
+                        <label class="inline-flex items-center cursor-pointer">
+                            <input type="radio" name="sem_${item.id}" value="verify" ${currentVal === 'verify' ? 'checked' : ''} onchange="setSemaphore('${item.id}', 'verify')" class="text-indigo-600">
+                            <span class="ml-1.5 text-amber-800 font-medium">? Necesito verificarlo</span>
+                        </label>
+                        <label class="inline-flex items-center cursor-pointer">
+                            <input type="radio" name="sem_${item.id}" value="reject" ${currentVal === 'reject' ? 'checked' : ''} onchange="setSemaphore('${item.id}', 'reject')" class="text-indigo-600">
+                            <span class="ml-1.5 text-rose-800 font-medium">! No aceptarlo sin evidencia</span>
+                        </label>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function setSemaphore(id, value) {
+            state.semaphoreAnswers[id] = value;
+            saveState();
+        }
+
+        function checkSemaphore() {
+            const fb = document.getElementById('semaphore-feedback');
+            fb.classList.remove('hidden');
+
+            let total = SEMAPHORE_ITEMS.length;
+            let answered = Object.keys(state.semaphoreAnswers).length;
+
+            if (answered < total) {
+                fb.className = "mt-4 p-4 rounded-lg text-sm border bg-amber-50 border-amber-200 text-amber-900";
+                fb.innerHTML = `⚠️ Has clasificado ${answered} de ${total} afirmaciones. Por favor clasifica todas para continuar.`;
+                return;
+            }
+
+            let html = '<div class="font-bold text-slate-900 mb-2">Resultados de la clasificación epistemológica:</div><ul class="space-y-2 text-xs">';
+            
+            SEMAPHORE_ITEMS.forEach(item => {
+                const userVal = state.semaphoreAnswers[item.id];
+                const isCorrect = userVal === item.correct;
+                const icon = isCorrect ? '✓' : 'ℹ️';
+                const color = isCorrect ? 'text-emerald-800 bg-emerald-50 border-emerald-200' : 'text-slate-800 bg-slate-50 border-slate-200';
+                
+                html += `
+                    <li class="p-2.5 rounded border ${color}">
+                        <span class="font-bold">${icon} ${item.text}</span><br>
+                        <span class="text-slate-600 mt-0.5 block">${item.hint}</span>
+                    </li>
+                `;
+            });
+
+            html += '</ul>';
+            fb.className = "mt-4 p-4 rounded-lg text-sm border bg-white border-slate-300";
+            fb.innerHTML = html;
+        }
+
+        // TAB 2 HANDLERS
+        function renderPromptBlocks() {
+            const container = document.getElementById('prompt-blocks-selector');
+            container.innerHTML = '';
+
+            PROMPT_BLOCKS.forEach(block => {
+                const isSelected = state.promptBlocksSelected.includes(block.id);
+                const div = document.createElement('div');
+                
+                let borderClass = isSelected ? 'border-indigo-600 bg-indigo-50/50 shadow-sm' : 'border-slate-200 bg-white hover:border-slate-300';
+                let tagClass = block.type === 'good' ? 'bg-indigo-100 text-indigo-800' : 'bg-rose-100 text-rose-800';
+
+                div.className = `p-3 rounded-lg border cursor-pointer transition flex items-start gap-3 ${borderClass}`;
+                div.onclick = () => togglePromptBlock(block.id);
+
+                div.innerHTML = `
+                    <input type="checkbox" ${isSelected ? 'checked' : ''} class="mt-1 rounded border-slate-300 text-indigo-600" readonly>
+                    <div class="text-xs">
+                        <span class="inline-block text-[10px] font-bold px-1.5 py-0.5 rounded ${tagClass} mb-1">${block.tag}</span>
+                        <p class="text-slate-800 font-medium">${block.text}</p>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+
+            updateGeneratedPromptText();
+        }
+
+        function togglePromptBlock(id) {
+            const idx = state.promptBlocksSelected.indexOf(id);
+            if (idx > -1) {
+                state.promptBlocksSelected.splice(idx, 1);
+            } else {
+                state.promptBlocksSelected.push(id);
+            }
+            saveState();
+            renderPromptBlocks();
+        }
+
+        function updateGeneratedPromptText() {
+            // Build text from selected good blocks
+            const selectedGood = PROMPT_BLOCKS
+                .filter(b => state.promptBlocksSelected.includes(b.id) && b.type === 'good')
+                .map(b => `${b.tag}: ${b.text}`)
+                .join('\n\n');
+
+            if (!state.promptEditorText || state.promptEditorText === DEFAULT_STATE.promptEditorText) {
+                state.promptEditorText = selectedGood;
+            }
+            document.getElementById('prompt-editor').value = state.promptEditorText;
+        }
+
+        function updatePromptText(text) {
+            state.promptEditorText = text;
+            saveState();
+        }
+
+        function evaluatePromptBuilder() {
+            const fb = document.getElementById('prompt-builder-feedback');
+            fb.classList.remove('hidden');
+
+            const hasDistractors = PROMPT_BLOCKS.some(b => b.type === 'bad' && state.promptBlocksSelected.includes(b.id));
+            const selectedGoodCount = PROMPT_BLOCKS.filter(b => b.type === 'good' && state.promptBlocksSelected.includes(b.id)).length;
+
+            let items = [];
+
+            if (state.promptBlocksSelected.includes('ctx')) items.push('✓ Incluiste el contexto del dataset (n=3).');
+            if (state.promptBlocksSelected.includes('obj')) items.push('✓ Incluiste el objetivo científico.');
+            if (state.promptBlocksSelected.includes('r_unit')) items.push('✓ Restringiste explícitamente no asumir unidades.');
+            if (state.promptBlocksSelected.includes('r_dx')) items.push('✓ Restringiste explícitamente no inventar dx.');
+            if (state.promptBlocksSelected.includes('ver')) items.push('✓ Solicitaste un plan de verificación transparente.');
+
+            if (hasDistractors) {
+                items.push('! <strong>Atención:</strong> Incluiste bloques distractores (por ejemplo, autorizar suposiciones o pedir respuestas directas sin razonamiento). Desmárcalos.');
+            }
+
+            fb.className = hasDistractors ? "mt-4 p-4 rounded-lg text-sm border bg-amber-50 border-amber-200 text-amber-900" : "mt-4 p-4 rounded-lg text-sm border bg-emerald-50 border-emerald-200 text-emerald-900";
+            
+            fb.innerHTML = `
+                <div class="font-bold mb-1">${hasDistractors ? '⚠️ Evaluación del prompt (requiere ajustes):' : '✓ Prompt científico sólido:'}</div>
+                <ul class="list-disc pl-5 text-xs space-y-1">
+                    ${items.map(i => `<li>${i}</li>`).join('')}
+                </ul>
+            `;
+        }
+
+        function copyPromptText(elementId) {
+            const textarea = document.getElementById(elementId);
+            if (!textarea) return;
+
+            textarea.select();
+            document.execCommand('copy');
+
+            // Feedback Toast or Button visual
+            alert(' Prompt copiado al portapapeles. Ahora puedes pegarlo en tu asistente de IA.');
+        }
+
+        // TAB 3 HANDLERS
+        function renderMetadataAudit() {
+            const container = document.getElementById('meta-audit-checklist');
+            container.innerHTML = '';
+
+            METADATA_AUDIT_CRITERIA.forEach(crit => {
+                const auditData = state.metadata.audit[crit.id] || { status: '', note: '' };
+                
+                const div = document.createElement('div');
+                div.className = "p-4 bg-slate-50 border border-slate-200 rounded-lg space-y-2 text-xs";
+                
+                div.innerHTML = `
+                    <div class="font-semibold text-slate-800">${crit.label}</div>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <button onclick="setAuditStatus('metadata', '${crit.id}', 'sustentado')" class="px-2.5 py-1 rounded font-medium border ${auditData.status === 'sustentado' ? 'bg-emerald-600 text-white border-emerald-600' : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'}">✓ Sustentado</button>
+                        <button onclick="setAuditStatus('metadata', '${crit.id}', 'dudoso')" class="px-2.5 py-1 rounded font-medium border ${auditData.status === 'dudoso' ? 'bg-amber-500 text-white border-amber-500' : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'}">? Dudoso / Verificar</button>
+                        <button onclick="setAuditStatus('metadata', '${crit.id}', 'error')" class="px-2.5 py-1 rounded font-medium border ${auditData.status === 'error' ? 'bg-rose-600 text-white border-rose-600' : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'}">! Error / Invención</button>
+                        <button onclick="setAuditStatus('metadata', '${crit.id}', 'na')" class="px-2.5 py-1 rounded font-medium border ${auditData.status === 'na' ? 'bg-slate-600 text-white border-slate-600' : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'}">○ No aplica</button>
+                    </div>
+                    <input type="text" placeholder="Evidencia o justificación..." value="${auditData.note || ''}" oninput="setAuditNote('metadata', '${crit.id}', this.value)" class="w-full p-2 border border-slate-300 rounded bg-white text-xs">
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function setAuditStatus(section, critId, status) {
+            if (!state[section].audit[critId]) state[section].audit[critId] = { status: '', note: '' };
+            state[section].audit[critId].status = status;
+            saveState();
+            if (section === 'metadata') renderMetadataAudit();
+            if (section === 'strategy') renderStrategyAudit();
+        }
+
+        function setAuditNote(section, critId, note) {
+            if (!state[section].audit[critId]) state[section].audit[critId] = { status: '', note: '' };
+            state[section].audit[critId].note = note;
+            saveState();
+        }
+
+        function saveMetadataState() {
+            state.metadata.promptBase = document.getElementById('metadata-prompt-base').value;
+            state.metadata.modelName = document.getElementById('meta-model-name').value;
+            state.metadata.unknownModel = document.getElementById('meta-unknown-version').checked;
+            state.metadata.response = document.getElementById('meta-ai-response').value;
+
+            state.metadata.cmpCoincidencias = document.getElementById('meta-cmp-coincidencias').value;
+            state.metadata.cmpAportes = document.getElementById('meta-cmp-aportes').value;
+            state.metadata.cmpOmisiones = document.getElementById('meta-cmp-omisiones').value;
+            state.metadata.cmpSuposiciones = document.getElementById('meta-cmp-suposiciones').value;
+            state.metadata.cmpCorrecciones = document.getElementById('meta-cmp-correcciones').value;
+
+            saveState();
+        }
+
+        function toggleUnknownModel(section) {
+            if (section === 'meta') {
+                const checked = document.getElementById('meta-unknown-version').checked;
+                state.metadata.unknownModel = checked;
+                if (checked) {
+                    document.getElementById('meta-model-name').value = 'Versión no especificada por el usuario';
+                    state.metadata.modelName = 'Versión no especificada';
+                }
+            }
+            saveState();
+        }
+
+        // TAB 4 HANDLERS
+        function renderStrategyAudit() {
+            const container = document.getElementById('strat-audit-checklist');
+            container.innerHTML = '';
+
+            STRATEGY_AUDIT_CRITERIA.forEach(crit => {
+                const auditData = state.strategy.audit[crit.id] || { status: '', note: '' };
+                
+                const div = document.createElement('div');
+                div.className = "p-4 bg-slate-50 border border-slate-200 rounded-lg space-y-2 text-xs";
+                
+                div.innerHTML = `
+                    <div class="font-semibold text-slate-800">${crit.label}</div>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <button onclick="setAuditStatus('strategy', '${crit.id}', 'sustentado')" class="px-2.5 py-1 rounded font-medium border ${auditData.status === 'sustentado' ? 'bg-emerald-600 text-white border-emerald-600' : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'}">✓ Sustentado</button>
+                        <button onclick="setAuditStatus('strategy', '${crit.id}', 'dudoso')" class="px-2.5 py-1 rounded font-medium border ${auditData.status === 'dudoso' ? 'bg-amber-500 text-white border-amber-500' : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'}">? Dudoso / Verificar</button>
+                        <button onclick="setAuditStatus('strategy', '${crit.id}', 'error')" class="px-2.5 py-1 rounded font-medium border ${auditData.status === 'error' ? 'bg-rose-600 text-white border-rose-600' : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'}">! Error / Invención</button>
+                        <button onclick="setAuditStatus('strategy', '${crit.id}', 'na')" class="px-2.5 py-1 rounded font-medium border ${auditData.status === 'na' ? 'bg-slate-600 text-white border-slate-600' : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'}">○ No aplica</button>
+                    </div>
+                    <input type="text" placeholder="Evidencia o explicación..." value="${auditData.note || ''}" oninput="setAuditNote('strategy', '${crit.id}', this.value)" class="w-full p-2 border border-slate-300 rounded bg-white text-xs">
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function saveStrategyState() {
+            state.strategy.promptBase = document.getElementById('strat-prompt-base').value;
+            state.strategy.response = document.getElementById('strat-ai-response').value;
+            state.strategy.findingSubq = document.getElementById('strat-finding-subq').value;
+            
+            const pertinentRadio = document.querySelector('input[name="strat-pertinent"]:checked');
+            state.strategy.pertinent = pertinentRadio ? pertinentRadio.value : '';
+
+            state.strategy.findingWhy = document.getElementById('strat-finding-why').value;
+
+            saveState();
+        }
+
+        // TAB 5 HANDLERS
+        function saveValidationState() {
+            state.validation.metaClaim = document.getElementById('val-meta-claim').value;
+            state.validation.metaEvidence = document.getElementById('val-meta-evidence').value;
+            state.validation.metaResult = document.getElementById('val-meta-result').value;
+            state.validation.metaCorrection = document.getElementById('val-meta-correction').value;
+
+            state.validation.stratClaim = document.getElementById('val-strat-claim').value;
+            state.validation.stratEvidence = document.getElementById('val-strat-evidence').value;
+            state.validation.stratResult = document.getElementById('val-strat-result').value;
+
+            const metaRelRadio = document.querySelector('input[name="rel-meta"]:checked');
+            state.validation.metaReliability = metaRelRadio ? metaRelRadio.value : '';
+            state.validation.metaReliabilityJust = document.getElementById('rel-meta-just').value;
+
+            const stratRelRadio = document.querySelector('input[name="rel-strat"]:checked');
+            state.validation.stratReliability = stratRelRadio ? stratRelRadio.value : '';
+            state.validation.stratReliabilityJust = document.getElementById('rel-strat-just').value;
+
+            // Check justifications for trivial phrases
+            const warningBox = document.getElementById('validation-warning-box');
+            const badPhrases = ['suena bien', 'sonaba bien', 'lo dijo la ia', 'porque si', 'coincidio con migo', 'coincidió conmigo'];
+            const currentJusts = (state.validation.metaReliabilityJust + ' ' + state.validation.stratReliabilityJust).toLowerCase();
+            
+            const hasBad = badPhrases.some(p => currentJusts.includes(p));
+            if (hasBad) {
+                warningBox.classList.remove('hidden');
+            } else {
+                warningBox.classList.add('hidden');
+            }
+
+            saveState();
+        }
+
+        // TAB 6 & BITACORA GENERATION
+        function saveReflectionState() {
+            state.reflections.q1 = document.getElementById('ref-q1').value;
+            state.reflections.q2 = document.getElementById('ref-q2').value;
+            state.reflections.q3 = document.getElementById('ref-q3').value;
+            state.reflections.q4 = document.getElementById('ref-q4').value;
+            state.reflections.q5 = document.getElementById('ref-q5').value;
+            state.reflections.q6 = document.getElementById('ref-q6').value;
+
+            saveState();
+        }
+
+        function generateBitacoraMarkdown() {
+            const today = new Date().toISOString().split('T')[0];
+            const metaModel = state.metadata.modelName || 'Sin especificar';
+            const metaPrompt = state.metadata.promptBase || 'Sin prompt';
+            const metaResp = state.metadata.response || 'Sin respuesta registrada';
+
+            const stratPrompt = state.strategy.promptBase || 'Sin prompt';
+            const stratResp = state.strategy.response || 'Sin respuesta registrada';
+
+            return `<!-- BITACORA DE USO DE IA - INTRODUCCION A LA BIOINFORMATICA LCG UNAM 2026 -->
+
+## [${today}] — S2 Práctica 2 — Actividad A: Metadatos con IA
+
+- **Objetivo:** Generar y auditar propuesta de metadatos para \`pacientes.md\`.
+- **Herramienta / Modelo:** ${metaModel}
+- **Prompt utilizado:**
+\`\`\`text
+${metaPrompt}
+\`\`\`
+- **Respuesta obtenida de la IA:**
+\`\`\`text
+${metaResp}
+\`\`\`
+- **Comparación con trabajo manual:**
+  - Coincidencias: ${state.metadata.cmpCoincidencias || 'Sin respuesta'}
+  - Aportes útiles: ${state.metadata.cmpAportes || 'Sin respuesta'}
+  - Omisiones: ${state.metadata.cmpOmisiones || 'Sin respuesta'}
+  - Suposiciones / Invenciones: ${state.metadata.cmpSuposiciones || 'Sin respuesta'}
+  - Correcciones realizadas: ${state.metadata.cmpCorrecciones || 'Sin respuesta'}
+- **Validación independiente:**
+  - Afirmación a validar: ${state.validation.metaClaim || 'Sin especificar'}
+  - Evidencia / Fuente independiente: ${state.validation.metaEvidence || 'Sin especificar'}
+  - Hallazgo: ${state.validation.metaResult || 'Sin especificar'}
+  - Corrección aplicada: ${state.validation.metaCorrection || 'Sin especificar'}
+- **Conclusión de confiabilidad:** ${state.validation.metaReliability || 'Pendiente'}
+- **Justificación epistémica:** ${state.validation.metaReliabilityJust || 'Sin respuesta'}
+
+---
+
+## [${today}] — S2 Práctica 2 — Actividad B: Estrategia Científica con IA
+
+- **Objetivo:** Descomponer la pregunta sobre IMC vs dx en \`pacientes.md\` (n=3).
+- **Herramienta / Modelo:** ${metaModel}
+- **Prompt utilizado:**
+\`\`\`text
+${stratPrompt}
+\`\`\`
+- **Respuesta obtenida de la IA:**
+\`\`\`text
+${stratResp}
+\`\`\`
+- **Evaluación de hallazgos nuevos:**
+  - Subpregunta o perspectiva propuesta: ${state.strategy.findingSubq || 'Sin respuesta'}
+  - Pertinencia: ${state.strategy.pertinent || 'Sin respuesta'}
+  - Justificación de pertinencia: ${state.strategy.findingWhy || 'Sin respuesta'}
+- **Validación independiente:**
+  - Propuesta a validar: ${state.validation.stratClaim || 'Sin especificar'}
+  - Razonamiento / Evidencia: ${state.validation.stratEvidence || 'Sin especificar'}
+  - Límites e implicaciones: ${state.validation.stratResult || 'Sin especificar'}
+- **Conclusión de confiabilidad:** ${state.validation.stratReliability || 'Pendiente'}
+- **Justificación epistémica:** ${state.validation.stratReliabilityJust || 'Sin respuesta'}
+`;
+        }
+
+        function updateBitacoraPreview() {
+            const preview = document.getElementById('bitacora-live-preview');
+            if (preview) {
+                preview.textContent = generateBitacoraMarkdown();
+            }
+        }
+
+        // TAB 7 & SUMMARY UPDATES
+        function updateSummaryView() {
+            // Models
+            const metaModel = document.getElementById('summary-meta-model');
+            if (metaModel) metaModel.textContent = state.metadata.modelName || 'No especificado';
+
+            // Meta Rel
+            const metaRel = document.getElementById('summary-meta-rel');
+            if (metaRel) {
+                metaRel.textContent = state.validation.metaReliability || 'Pendiente';
+            }
+            const metaJust = document.getElementById('summary-meta-just');
+            if (metaJust) metaJust.textContent = state.validation.metaReliabilityJust || 'Sin justificación registrada.';
+
+            // Strat Rel
+            const stratRel = document.getElementById('summary-strat-rel');
+            if (stratRel) {
+                stratRel.textContent = state.validation.stratReliability || 'Pendiente';
+            }
+            const stratJust = document.getElementById('summary-strat-just');
+            if (stratJust) stratJust.textContent = state.validation.stratReliabilityJust || 'Sin justificación registrada.';
+
+            // General Prompt
+            const promptGen = document.getElementById('summary-prompt-general');
+            if (promptGen) promptGen.textContent = state.promptEditorText || 'Sin prompt construido.';
+        }
+
+        function generateFullReportMarkdown() {
+            const today = new Date().toISOString().split('T')[0];
+            return `# S2 — Práctica 2 — IA bajo la lupa
+**Curso:** Introducción a la Bioinformática · LCG UNAM 2026
+**Fecha:** ${today}
+
+---
+
+## 1. Prompt Científico Construido
+\`\`\`text
+${state.promptEditorText || 'Sin prompt'}
+\`\`\`
+
+---
+
+## 2. Actividad A — Metadatos con IA
+
+### Modelo / Herramienta
+${state.metadata.modelName || 'No especificado'}
+
+### Prompt Base
+\`\`\`text
+${state.metadata.promptBase}
+\`\`\`
+
+### Respuesta de IA
+\`\`\`text
+${state.metadata.response || 'Sin respuesta'}
+\`\`\`
+
+### Comparación con Trabajo Manual
+- **Coincidencias:** ${state.metadata.cmpCoincidencias}
+- **Aportes Útiles:** ${state.metadata.cmpAportes}
+- **Omisiones:** ${state.metadata.cmpOmisiones}
+- **Suposiciones / Invenciones:** ${state.metadata.cmpSuposiciones}
+- **Correcciones:** ${state.metadata.cmpCorrecciones}
+
+### Validación Independiente
+- **Afirmación:** ${state.validation.metaClaim}
+- **Evidencia:** ${state.validation.metaEvidence}
+- **Resultado:** ${state.validation.metaResult}
+- **Dictamen:** ${state.validation.metaReliability}
+- **Justificación:** ${state.validation.metaReliabilityJust}
+
+---
+
+## 3. Actividad B — Estrategia Científica con IA
+
+### Prompt Base
+\`\`\`text
+${state.strategy.promptBase}
+\`\`\`
+
+### Respuesta de IA
+\`\`\`text
+${state.strategy.response || 'Sin respuesta'}
+\`\`\`
+
+### Hallazgos y Pertinencia
+- **Subpregunta propuesta:** ${state.strategy.findingSubq}
+- **Pertinencia:** ${state.strategy.pertinent}
+- **Justificación:** ${state.strategy.findingWhy}
+
+### Validación Independiente
+- **Paso a validar:** ${state.validation.stratClaim}
+- **Evidencia / Razonamiento:** ${state.validation.stratEvidence}
+- **Límites:** ${state.validation.stratResult}
+- **Dictamen:** ${state.validation.stratReliability}
+- **Justificación:** ${state.validation.stratReliabilityJust}
+
+---
+
+## 4. Reflexión Metacognitiva Final
+
+1. **Mejora concreta por IA:** ${state.reflections.q1}
+2. **Omisiones o errores detectados:** ${state.reflections.q2}
+3. **Error que se habría aceptado sin trabajo previo:** ${state.reflections.q3}
+4. **Razonamiento que NUNCA debe delegarse:** ${state.reflections.q4}
+5. **Concepto comprendido tras la comparación:** ${state.reflections.q5}
+6. **Utilidad principal de la IA:** ${state.reflections.q6}
+`;
+        }
+
+        function downloadFile(filename, content) {
+            const blob = new Blob([content], { type: 'text/markdown;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function downloadBitacoraFile() {
+            downloadFile('bitacora-ia.md', generateBitacoraMarkdown());
+        }
+
+        function downloadFullReportFile() {
+            downloadFile('s2-practica2-ia-resultados.md', generateFullReportMarkdown());
+        }
+
+        // INITIALIZATION
+        document.addEventListener("DOMContentLoaded", () => {
+            loadState();
+
+            // Populate textareas / inputs from state
+            document.getElementById('prompt-editor').value = state.promptEditorText;
+            document.getElementById('metadata-prompt-base').value = state.metadata.promptBase;
+            document.getElementById('meta-model-name').value = state.metadata.modelName;
+            document.getElementById('meta-unknown-version').checked = state.metadata.unknownModel;
+            document.getElementById('meta-ai-response').value = state.metadata.response;
+
+            document.getElementById('meta-cmp-coincidencias').value = state.metadata.cmpCoincidencias;
+            document.getElementById('meta-cmp-aportes').value = state.metadata.cmpAportes;
+            document.getElementById('meta-cmp-omisiones').value = state.metadata.cmpOmisiones;
+            document.getElementById('meta-cmp-suposiciones').value = state.metadata.cmpSuposiciones;
+            document.getElementById('meta-cmp-correcciones').value = state.metadata.cmpCorrecciones;
+
+            document.getElementById('strat-prompt-base').value = state.strategy.promptBase;
+            document.getElementById('strat-ai-response').value = state.strategy.response;
+            document.getElementById('strat-finding-subq').value = state.strategy.findingSubq;
+            document.getElementById('strat-finding-why').value = state.strategy.findingWhy;
+
+            if (state.strategy.pertinent) {
+                const radio = document.querySelector(`input[name="strat-pertinent"][value="${state.strategy.pertinent}"]`);
+                if (radio) radio.checked = true;
+            }
+
+            document.getElementById('val-meta-claim').value = state.validation.metaClaim;
+            document.getElementById('val-meta-evidence').value = state.validation.metaEvidence;
+            document.getElementById('val-meta-result').value = state.validation.metaResult;
+            document.getElementById('val-meta-correction').value = state.validation.metaCorrection;
+
+            document.getElementById('val-strat-claim').value = state.validation.stratClaim;
+            document.getElementById('val-strat-evidence').value = state.validation.stratEvidence;
+            document.getElementById('val-strat-result').value = state.validation.stratResult;
+
+            if (state.validation.metaReliability) {
+                const radio = document.querySelector(`input[name="rel-meta"][value="${state.validation.metaReliability}"]`);
+                if (radio) radio.checked = true;
+            }
+            document.getElementById('rel-meta-just').value = state.validation.metaReliabilityJust;
+
+            if (state.validation.stratReliability) {
+                const radio = document.querySelector(`input[name="rel-strat"][value="${state.validation.stratReliability}"]`);
+                if (radio) radio.checked = true;
+            }
+            document.getElementById('rel-strat-just').value = state.validation.stratReliabilityJust;
+
+            document.getElementById('ref-q1').value = state.reflections.q1;
+            document.getElementById('ref-q2').value = state.reflections.q2;
+            document.getElementById('ref-q3').value = state.reflections.q3;
+            document.getElementById('ref-q4').value = state.reflections.q4;
+            document.getElementById('ref-q5').value = state.reflections.q5;
+            document.getElementById('ref-q6').value = state.reflections.q6;
+
+            // Render sub-components
+            renderSemaphore();
+            renderPromptBlocks();
+            renderMetadataAudit();
+            renderStrategyAudit();
+
+            // Restore active tab
+            activateTab(state.activeTab || 'entender');
+        });
+    </script>
+</body>
+</html>

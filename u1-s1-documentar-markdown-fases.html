@@ -1,0 +1,2192 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>u1-s1-documentar-markdown-fases – Introducción a la Bioinformática</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./u1-s2-organizar-fair-ia.html" rel="next">
+<link href="./u1-trabajo-reproducible.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fe29f166eb879f148ae4045f3c41549b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXNMZZP0K9"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-QXNMZZP0K9', { 'anonymize_ip': true});
+</script>
+<meta name="mermaid-theme" content="default">
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-md-bootstrap.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Introducción a la Bioinformática</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Inicio</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-programa" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Programa</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-programa">    
+        <li>
+    <a class="dropdown-item" href="./programa.html">
+ <span class="dropdown-text">Ruta de sesiones</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./programa-detallado.html">
+ <span class="dropdown-text">Programa detallado</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-unidades" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Unidades</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-unidades">    
+        <li>
+    <a class="dropdown-item" href="./u1-trabajo-reproducible.html">
+ <span class="dropdown-text">U1 — Trabajo reproducible</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u2-entorno-unix.html">
+ <span class="dropdown-text">U2 — Entorno Unix</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u3-datos-bases-datos.html">
+ <span class="dropdown-text">U3 — Datos y bases</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u4-procesamiento-exploracion.html">
+ <span class="dropdown-text">U4 — Procesamiento genómico</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u5-automatizacion-scripting.html">
+ <span class="dropdown-text">U5 — Automatización</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u6-comparacion-homologia.html">
+ <span class="dropdown-text">U6 — Comparar / hipótesis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./s14-s15-mini-proyecto-investigacion-I.html">
+ <span class="dropdown-text">Transversal S14–S17</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="./recursos.html" aria-current="page"> 
+<span class="menu-text">Recursos</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./acerca.html"> 
+<span class="menu-text">Acerca</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./contribuir.html"> 
+<span class="menu-text">Contribuir</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Alternar modo lector">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./u1-trabajo-reproducible.html">Unidad 1</a></li><li class="breadcrumb-item"><a href="./u1-s1-documentar-markdown-fases.html">S1 — Documentar</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Unidad 1</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-trabajo-reproducible.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-s1-documentar-markdown-fases.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">S1 — Documentar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-s2-organizar-fair-ia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S2 — Organizar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 2</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-entorno-unix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s3-shell-acceso-remoto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S3 — Conectar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s4-sistema-archivos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S4 — Navegar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s5-archivos-permisos-procesos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S5 — Archivos y procesos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s6-consolidacion-entorno-unix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S6 — Consolidar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 3</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-datos-bases-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s7-secuencias-formatos-genbank.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S7 — Formatos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s8-bases-datos-descarga-integridad.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S8 — Descargar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s9-inspeccion-transferencia-verificable.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S9 — Transferir</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 4</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-procesamiento-exploracion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s10-anatomia-flujos-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S10 — Anatomía y flujos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s11-estructura-tabular-anotacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S11 — Anotación tabular</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s12-filtrado-conteos-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S12 — Filtrar y contar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s13-inventario-resumen-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S13 — Inventario</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s18-precision-patrones-expresiones-regulares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S18 — Patrones</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s19-extraccion-identificadores-correspondencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S19 — Identificadores</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s20-normalizar-datos-comparables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S20 — Normalizar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s21-confrontar-fuente-independiente.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S21 — Confrontar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s22-condicionar-calcular-columnas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S22 — Condicionar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s23-protocolo-ejecutable-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S23 — Protocolo ejecutable</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Transversal</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s14-s15-mini-proyecto-investigacion-I.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S14–S15 — Mini-proyecto I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s16-mini-proyecto-revision-pares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S16 — Revisión por pares</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s17-evaluacion-individual-demostrativa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S17 — Evaluación demostrativa</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mini-proyecto-dictamen-cientifico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dictamen científico</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 5</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-automatizacion-scripting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s24-del-protocolo-al-script.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S24 — Del protocolo al script</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s25-separar-procedimiento-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S25 — Separar datos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s26-procesamiento-por-lotes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S26 — Por lotes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s27-herramienta-cientifica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S27 — Herramienta científica</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s28-proyecto-integrador.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S28 — Proyecto integrador</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s29-cluster-hpc-sge.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S29 — Cluster SGE</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 6</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-comparacion-homologia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s30-comparar-alinear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S30 — Comparar / alinear</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s31-buscar-blast.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S31 — Buscar (BLAST)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s32-interpretar-inferir.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S32 — Interpretar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s33-defender-hipotesis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S33 — Inferir</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s34-integrar-hipotesis-casos-ciegos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S34 — Integrar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./programa-detallado.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programa detallado</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./recursos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recursos</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#s1-documentar-markdown-y-las-fases-del-análisis-de-datos" id="toc-s1-documentar-markdown-y-las-fases-del-análisis-de-datos" class="nav-link active" data-scroll-target="#s1-documentar-markdown-y-las-fases-del-análisis-de-datos">S1 — Documentar: Markdown y las fases del análisis de datos</a>
+  <ul class="collapse">
+  <li><a href="#ficha-del-módulo" id="toc-ficha-del-módulo" class="nav-link" data-scroll-target="#ficha-del-módulo">Ficha del módulo</a></li>
+  <li><a href="#relación-con-lo-anterior" id="toc-relación-con-lo-anterior" class="nav-link" data-scroll-target="#relación-con-lo-anterior">Relación con lo anterior</a></li>
+  <li><a href="#resultados-de-aprendizaje" id="toc-resultados-de-aprendizaje" class="nav-link" data-scroll-target="#resultados-de-aprendizaje">Resultados de aprendizaje</a></li>
+  <li><a href="#ruta-de-s1" id="toc-ruta-de-s1" class="nav-link" data-scroll-target="#ruta-de-s1">Ruta de S1</a></li>
+  <li><a href="#antes-de-empezar-de-dónde-viene-la-bioinformática" id="toc-antes-de-empezar-de-dónde-viene-la-bioinformática" class="nav-link" data-scroll-target="#antes-de-empezar-de-dónde-viene-la-bioinformática">Antes de empezar: ¿de dónde viene la bioinformática?</a>
+  <ul class="collapse">
+  <li><a href="#la-bioinformática-no-empieza-con-una-herramienta" id="toc-la-bioinformática-no-empieza-con-una-herramienta" class="nav-link" data-scroll-target="#la-bioinformática-no-empieza-con-una-herramienta">La bioinformática no empieza con una herramienta</a></li>
+  </ul></li>
+  <li><a href="#la-bioinformática-las-habilidades-con-datos-y-la-reproducibilidad" id="toc-la-bioinformática-las-habilidades-con-datos-y-la-reproducibilidad" class="nav-link" data-scroll-target="#la-bioinformática-las-habilidades-con-datos-y-la-reproducibilidad">1. La bioinformática, las habilidades con datos y la reproducibilidad</a>
+  <ul class="collapse">
+  <li><a href="#qué-es-la-bioinformática-y-por-qué-necesitas-habilidades-con-datos" id="toc-qué-es-la-bioinformática-y-por-qué-necesitas-habilidades-con-datos" class="nav-link" data-scroll-target="#qué-es-la-bioinformática-y-por-qué-necesitas-habilidades-con-datos">1.1 ¿Qué es la bioinformática y por qué necesitas habilidades con datos?</a></li>
+  <li><a href="#no-se-trata-de-memorizar-programas" id="toc-no-se-trata-de-memorizar-programas" class="nav-link" data-scroll-target="#no-se-trata-de-memorizar-programas">No se trata de memorizar programas</a></li>
+  <li><a href="#trabajar-con-datos-también-significa-trabajar-de-forma-confiable" id="toc-trabajar-con-datos-también-significa-trabajar-de-forma-confiable" class="nav-link" data-scroll-target="#trabajar-con-datos-también-significa-trabajar-de-forma-confiable">Trabajar con datos también significa trabajar de forma confiable</a></li>
+  <li><a href="#cuando-descuidamos-el-trabajo-dos-casos-reales" id="toc-cuando-descuidamos-el-trabajo-dos-casos-reales" class="nav-link" data-scroll-target="#cuando-descuidamos-el-trabajo-dos-casos-reales">1.2 Cuando descuidamos el trabajo: dos casos reales</a></li>
+  <li><a href="#cómo-se-ve-el-trabajo-bien-hecho" id="toc-cómo-se-ve-el-trabajo-bien-hecho" class="nav-link" data-scroll-target="#cómo-se-ve-el-trabajo-bien-hecho">1.3 Cómo se ve el trabajo bien hecho</a></li>
+  <li><a href="#por-qué-la-reproducibilidad" id="toc-por-qué-la-reproducibilidad" class="nav-link" data-scroll-target="#por-qué-la-reproducibilidad">1.4 ¿Por qué la reproducibilidad?</a></li>
+  <li><a href="#cuatro-conceptos-que-usaremos-con-precisión" id="toc-cuatro-conceptos-que-usaremos-con-precisión" class="nav-link" data-scroll-target="#cuatro-conceptos-que-usaremos-con-precisión">1.5 Cuatro conceptos que usaremos con precisión</a></li>
+  </ul></li>
+  <li><a href="#dos-procesos-complementarios" id="toc-dos-procesos-complementarios" class="nav-link" data-scroll-target="#dos-procesos-complementarios">2. Dos procesos complementarios</a>
+  <ul class="collapse">
+  <li><a href="#a.-fases-del-manejo-y-análisis-de-datos" id="toc-a.-fases-del-manejo-y-análisis-de-datos" class="nav-link" data-scroll-target="#a.-fases-del-manejo-y-análisis-de-datos">A. Fases del manejo y análisis de datos</a></li>
+  <li><a href="#b.-fases-de-resolución-de-un-problema-bioinformático" id="toc-b.-fases-de-resolución-de-un-problema-bioinformático" class="nav-link" data-scroll-target="#b.-fases-de-resolución-de-un-problema-bioinformático">B. Fases de resolución de un problema bioinformático</a></li>
+  <li><a href="#cómo-se-complementan" id="toc-cómo-se-complementan" class="nav-link" data-scroll-target="#cómo-se-complementan">Cómo se complementan</a></li>
+  </ul></li>
+  <li><a href="#de-la-pregunta-biológica-a-una-solución-computacional" id="toc-de-la-pregunta-biológica-a-una-solución-computacional" class="nav-link" data-scroll-target="#de-la-pregunta-biológica-a-una-solución-computacional">3. De la pregunta biológica a una solución computacional</a>
+  <ul class="collapse">
+  <li><a href="#el-proceso-b-aplicado-a-un-ejemplo" id="toc-el-proceso-b-aplicado-a-un-ejemplo" class="nav-link" data-scroll-target="#el-proceso-b-aplicado-a-un-ejemplo">El proceso B aplicado a un ejemplo</a></li>
+  <li><a href="#práctica-1-de-la-pregunta-biológica-a-la-estrategia-en-la-sesión-y-después" id="toc-práctica-1-de-la-pregunta-biológica-a-la-estrategia-en-la-sesión-y-después" class="nav-link" data-scroll-target="#práctica-1-de-la-pregunta-biológica-a-la-estrategia-en-la-sesión-y-después">Práctica 1 — De la pregunta biológica a la estrategia <em>(en la sesión y después)</em></a></li>
+  </ul></li>
+  <li><a href="#el-protocolo-de-resolución-de-un-problema-bioinformático" id="toc-el-protocolo-de-resolución-de-un-problema-bioinformático" class="nav-link" data-scroll-target="#el-protocolo-de-resolución-de-un-problema-bioinformático">4. El protocolo de resolución de un problema bioinformático</a>
+  <ul class="collapse">
+  <li><a href="#el-protocolo-y-la-escritura-científica" id="toc-el-protocolo-y-la-escritura-científica" class="nav-link" data-scroll-target="#el-protocolo-y-la-escritura-científica">4.1 El protocolo y la escritura científica</a></li>
+  <li><a href="#práctica-2-protocolo-y-reporte-de-lectura-en-markdown-después-de-la-sesión" id="toc-práctica-2-protocolo-y-reporte-de-lectura-en-markdown-después-de-la-sesión" class="nav-link" data-scroll-target="#práctica-2-protocolo-y-reporte-de-lectura-en-markdown-después-de-la-sesión">Práctica 2 — Protocolo y reporte de lectura en Markdown <em>(después de la sesión)</em></a></li>
+  </ul></li>
+  <li><a href="#comunicar-con-markdown" id="toc-comunicar-con-markdown" class="nav-link" data-scroll-target="#comunicar-con-markdown">5. Comunicar con Markdown</a>
+  <ul class="collapse">
+  <li><a href="#la-herramienta-que-usaremos-stackedit" id="toc-la-herramienta-que-usaremos-stackedit" class="nav-link" data-scroll-target="#la-herramienta-que-usaremos-stackedit">5.1 La herramienta que usaremos: StackEdit</a></li>
+  <li><a href="#elementos-de-markdown" id="toc-elementos-de-markdown" class="nav-link" data-scroll-target="#elementos-de-markdown">5.2 Elementos de Markdown</a></li>
+  <li><a href="#diagramas-con-mermaid-ampliación-opcional" id="toc-diagramas-con-mermaid-ampliación-opcional" class="nav-link" data-scroll-target="#diagramas-con-mermaid-ampliación-opcional">5.3 Diagramas con Mermaid (ampliación, opcional)</a></li>
+  </ul></li>
+  <li><a href="#rúbricas" id="toc-rúbricas" class="nav-link" data-scroll-target="#rúbricas">6. Rúbricas</a>
+  <ul class="collapse">
+  <li><a href="#primer-intento-formativa-puntos-por-preparación" id="toc-primer-intento-formativa-puntos-por-preparación" class="nav-link" data-scroll-target="#primer-intento-formativa-puntos-por-preparación">6.1 Primer intento (formativa · puntos por preparación)</a></li>
+  <li><a href="#participación-en-clase-formativa" id="toc-participación-en-clase-formativa" class="nav-link" data-scroll-target="#participación-en-clase-formativa">6.2 Participación en clase (formativa)</a></li>
+  <li><a href="#tarea-1-protocolo-iniciado-reporte-de-lectura" id="toc-tarea-1-protocolo-iniciado-reporte-de-lectura" class="nav-link" data-scroll-target="#tarea-1-protocolo-iniciado-reporte-de-lectura">6.3 Tarea 1 — protocolo iniciado + reporte de lectura</a></li>
+  </ul></li>
+  <li><a href="#glosario" id="toc-glosario" class="nav-link" data-scroll-target="#glosario">Glosario</a></li>
+  <li><a href="#referencias" id="toc-referencias" class="nav-link" data-scroll-target="#referencias">Referencias</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/Helysalgado/introbioinfo-unix/edit/main/u1-s1-documentar-markdown-fases.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/Helysalgado/introbioinfo-unix/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./u1-trabajo-reproducible.html">Unidad 1</a></li><li class="breadcrumb-item"><a href="./u1-s1-documentar-markdown-fases.html">S1 — Documentar</a></li></ol></nav></header>
+
+
+
+
+<section id="s1-documentar-markdown-y-las-fases-del-análisis-de-datos" class="level1">
+<h1>S1 — Documentar: Markdown y las fases del análisis de datos</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="Aula invertida">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Aula invertida
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Esta es la primera sesión del curso, así que aquí no hay lectura previa que traer hecha: el material se lee <strong>junto con la sesión</strong> y las dos prácticas se completan después. A partir de S2 el orden será el habitual —leer antes, practicar en el taller, corregir después—.</p>
+</div>
+</div>
+<p>Primer módulo de la <a href="./u1-trabajo-reproducible.html">Unidad 1</a>. Antes de tocar un solo dato biológico hay que responder algo más básico: <strong>qué distingue un análisis del que uno puede fiarse de otro que simplemente produjo un número</strong>. Hoy defines esa diferencia, aprendes a escribir de modo que otra persona pueda seguirte, y abres el documento que crecerá durante todo el semestre.</p>
+<section id="ficha-del-módulo" class="level2">
+<h2 class="anchored" data-anchor-id="ficha-del-módulo">Ficha del módulo</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Elemento</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Sesión</strong></td>
+<td>S1 (2 h)</td>
+</tr>
+<tr class="even">
+<td><strong>Tema</strong></td>
+<td>Documentar: Markdown y las fases del análisis de datos</td>
+</tr>
+<tr class="odd">
+<td><strong>Competencia</strong></td>
+<td>A — Trabajo reproducible y comunicación científica</td>
+</tr>
+<tr class="even">
+<td><strong>Resultado (plan)</strong></td>
+<td>Documenta reportes y protocolos con Markdown; comprende las fases del análisis de datos</td>
+</tr>
+<tr class="odd">
+<td><strong>Lectura base</strong></td>
+<td>Este módulo + Buffalo (2015), cap. 1</td>
+</tr>
+<tr class="even">
+<td><strong>Caso conductor</strong></td>
+<td>Convertir una pregunta biológica en una estrategia escrita y comunicable</td>
+</tr>
+<tr class="odd">
+<td><strong>Evidencia</strong></td>
+<td><strong>Tarea 1</strong>: <code>protocolo.md</code> iniciado (pregunta, subpreguntas, estrategia) + reporte de lectura del cap. 1. Bitácora de IA abierta</td>
+</tr>
+<tr class="even">
+<td><strong>Ajuste integrado</strong></td>
+<td><strong>[Nuevo]</strong> inicio del eje de reproducibilidad del curso</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled" title="dónde guardar">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>dónde guardar
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Crea tu carpeta de trabajo en tu computadora local antes de empezar las prácticas. La estructura completa del proyecto se construye en <strong>S2</strong>; hoy basta con crear una carpeta llamada <code>introbionfo</code> y dentro una carpeta llamada <code>doc/</code>.</p>
+</div>
+</div>
+</section>
+<section id="relación-con-lo-anterior" class="level2">
+<h2 class="anchored" data-anchor-id="relación-con-lo-anterior">Relación con lo anterior</h2>
+<p>Es la primera sesión: no hay nada anterior que recuperar. Lo que sí hay es una idea que conviene desmontar de entrada —que la bioinformática consiste en ejecutar programas—. El resto del curso se apoya en lo contrario: <strong>las preguntas biológicas permanecen; las estrategias de análisis evolucionan</strong>.</p>
+</section>
+<section id="resultados-de-aprendizaje" class="level2">
+<h2 class="anchored" data-anchor-id="resultados-de-aprendizaje">Resultados de aprendizaje</h2>
+<p>Al terminar S1, el estudiante es capaz de:</p>
+<ol type="1">
+<li><strong>Explicar</strong> qué es la bioinformática y por qué exige habilidades con datos.</li>
+<li><strong>Distinguir</strong> reproducibilidad, replicabilidad, verificación y validación, y usar cada término con precisión.</li>
+<li><strong>Describir</strong> las fases del manejo y análisis de datos, y las de resolución de un problema bioinformático, y <strong>explicar</strong> cómo se complementan.</li>
+<li><strong>Convertir</strong> una pregunta biológica en subpreguntas y en una estrategia escrita, sin empezar por la herramienta.</li>
+<li><strong>Escribir</strong> en Markdown un documento legible y funcional, con encabezados, listas, tablas, código y enlaces.</li>
+<li><strong>Iniciar</strong> <code>protocolo.md</code> como documento vivo y <strong>abrir</strong> la bitácora de IA.</li>
+</ol>
+</section>
+<section id="ruta-de-s1" class="level2">
+<h2 class="anchored" data-anchor-id="ruta-de-s1">Ruta de S1</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 30%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Momento</th>
+<th>Qué hacer</th>
+<th style="text-align: right;">Tiempo estimado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>En la sesión</strong></td>
+<td>Presentación del curso; leer §1–§3; primeras decisiones sobre tu pregunta</td>
+<td style="text-align: right;">120 min</td>
+</tr>
+<tr class="even">
+<td><strong>Después</strong></td>
+<td>§4 y §5: redactar el protocolo inicial y el reporte de lectura (Prácticas 1 y 2)</td>
+<td style="text-align: right;">100–120 min</td>
+</tr>
+<tr class="odd">
+<td><strong>Antes de S2</strong></td>
+<td>Leer S2 completa y traer el primer intento de su Práctica 1</td>
+<td style="text-align: right;">45–60 min</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="antes-de-empezar-de-dónde-viene-la-bioinformática" class="level2">
+<h2 class="anchored" data-anchor-id="antes-de-empezar-de-dónde-viene-la-bioinformática">Antes de empezar: ¿de dónde viene la bioinformática?</h2>
+<p>Hoy es fácil asociar la bioinformática con genomas, secuenciación masiva, grandes bases de datos o inteligencia artificial. Sin embargo, <strong>la bioinformática comenzó mucho antes de la era genómica</strong>.</p>
+<p>Sus raíces se remontan a principios de la década de 1960, cuando todavía no era posible secuenciar DNA y las computadoras personales ni siquiera existían. Algunos de los primeros problemas abordados computacionalmente fueron el análisis de <strong>secuencias de proteínas</strong>: cómo reconstruirlas, compararlas, almacenarlas y estudiar sus relaciones (Gauthier et al., 2019).</p>
+<p>La disciplina fue creciendo gracias a dos desarrollos que avanzaron en paralelo:</p>
+<ul>
+<li><strong>La biología molecular</strong>, que hizo posible manipular y posteriormente secuenciar DNA.</li>
+<li><strong>La computación</strong>, con computadoras cada vez más potentes y software capaz de procesar información biológica.</li>
+</ul>
+<p>Conforme fue posible obtener más secuencias, surgió otra necesidad fundamental: <strong>almacenar y organizar los datos</strong>. Aparecieron las primeras bases de datos biológicas y, con ellas, nuevas formas de almacenar, buscar y compartir información.</p>
+<p>En las décadas de 1990 y 2000, los avances en las tecnologías de secuenciación y la disminución de sus costos produjeron un crecimiento extraordinario de los datos biológicos. La bioinformática tuvo entonces que enfrentar un problema cada vez mayor:</p>
+<blockquote class="blockquote">
+<p><strong>¿Cómo almacenar, encontrar, procesar, analizar y compartir cantidades cada vez mayores de datos?</strong></p>
+</blockquote>
+<p>Pero el crecimiento de los datos trajo consigo otro reto. Cada vez había más archivos, programas, parámetros y pasos involucrados en un análisis. Ya no bastaba con obtener un resultado: también era necesario saber <strong>cómo se obtuvo</strong> y poder <strong>reproducirlo</strong>.</p>
+<p>Esta historia nos lleva directamente al punto de partida de este curso.</p>
+<section id="la-bioinformática-no-empieza-con-una-herramienta" class="level3">
+<h3 class="anchored" data-anchor-id="la-bioinformática-no-empieza-con-una-herramienta">La bioinformática no empieza con una herramienta</h3>
+<p>Antes de usar BLAST, descargar genomas o escribir programas, necesitamos aprender a trabajar de manera organizada con la computadora y con nuestros datos.</p>
+<p>Durante el curso iremos construyendo progresivamente este camino:</p>
+<p><strong>pregunta biológica → datos → archivos → herramientas → análisis → resultados → evidencia</strong></p>
+<p>Y hay algo que debe acompañar todo el proceso:</p>
+<blockquote class="blockquote">
+<p><strong>documentar qué hicimos, con qué datos, cómo lo hicimos y qué obtuvimos.</strong></p>
+</blockquote>
+<p>Por eso nuestra primera sesión comienza con una habilidad que puede parecer sencilla, pero que será fundamental durante todo el curso: <strong>documentar nuestro trabajo para que pueda entenderse, revisarse y reproducirse</strong>.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Para pensar">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Para pensar
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Imagina que realizas hoy un análisis bioinformático y obtienes un resultado interesante.</p>
+<p>Seis meses después quieres repetirlo.</p>
+<p><strong>¿Qué necesitarías haber guardado y documentado para poder hacerlo?</strong></p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="la-bioinformática-las-habilidades-con-datos-y-la-reproducibilidad" class="level2">
+<h2 class="anchored" data-anchor-id="la-bioinformática-las-habilidades-con-datos-y-la-reproducibilidad">1. La bioinformática, las habilidades con datos y la reproducibilidad</h2>
+<section id="qué-es-la-bioinformática-y-por-qué-necesitas-habilidades-con-datos" class="level3">
+<h3 class="anchored" data-anchor-id="qué-es-la-bioinformática-y-por-qué-necesitas-habilidades-con-datos">1.1 ¿Qué es la bioinformática y por qué necesitas habilidades con datos?</h3>
+<p>La historia que acabamos de recorrer explica por qué la computadora se volvió una herramienta indispensable para estudiar la biología.</p>
+<p>Hoy podemos obtener enormes cantidades de información: <strong>secuencias de DNA, genes, proteínas y mediciones provenientes de miles de experimentos</strong>.</p>
+<p>Pero hay una diferencia importante entre <strong>tener datos</strong> y <strong>poder obtener conocimiento a partir de ellos</strong>.</p>
+<p>Imagina, por ejemplo, que quieres responder una pregunta aparentemente sencilla:</p>
+<blockquote class="blockquote">
+<p><strong>¿Qué información contiene una secuencia de DNA que descargamos de una base de datos?</strong></p>
+</blockquote>
+<p>Antes de llegar a una respuesta tendrás que encontrar los datos, descargarlos, reconocer cómo están organizados, explorar su contenido y utilizar distintas herramientas para analizarlos.</p>
+<p>Y si quieres que otra persona pueda revisar tu trabajo —o que tú puedas repetirlo meses después— también tendrás que <strong>documentar lo que hiciste</strong>.</p>
+<p>Ahí entra la <strong>bioinformática</strong>:</p>
+<blockquote class="blockquote">
+<p>La bioinformática utiliza métodos y herramientas computacionales para <strong>almacenar, acceder, organizar, explorar y analizar datos biológicos</strong> con el propósito de responder preguntas sobre los sistemas vivos.</p>
+</blockquote>
+<p>En otras palabras, la computadora no sustituye la pregunta biológica. Nos ayuda a recorrer el camino entre <strong>los datos y la evidencia</strong> necesaria para responderla.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u1-s01-introduccion-bioinformatica.png" class="img-fluid figure-img"></p>
+<figcaption>La bioinformática en cinco pasos: (1) una pregunta biológica, (2) experimentos y repositorios que generan datos, (3) datos biológicos —secuencias, anotaciones, tablas, imágenes—, (4) la bioinformática que almacena, accede, explora y analiza a escala, y (5) evidencia e interpretación; el trabajo científico confiable —automatización, documentación, verificación y reproducibilidad— atraviesa todo el proceso.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 1.</strong> La bioinformática transforma preguntas y datos biológicos en evidencia que podemos interpretar. La organización, documentación, verificación y reproducibilidad acompañan todo el proceso.</p>
+</section>
+<section id="no-se-trata-de-memorizar-programas" class="level3">
+<h3 class="anchored" data-anchor-id="no-se-trata-de-memorizar-programas">No se trata de memorizar programas</h3>
+<p>Durante el curso conocerás diferentes comandos, programas y recursos bioinformáticos. Pero aprender bioinformática <strong>no consiste en memorizar una lista de herramientas</strong>.</p>
+<p>Las herramientas cambian.</p>
+<p>Lo importante es desarrollar <strong>habilidades para trabajar con datos</strong>: aprender a explorarlos, reconocer cómo están organizados, transformarlos y combinar distintas herramientas para resolver un problema.</p>
+<p>Buffalo (2015) describe estas habilidades con datos (<em>data skills</em>) como la capacidad de encontrar rápidamente una manera de explorar conjuntos de datos complejos utilizando un conjunto conocido de herramientas.</p>
+<p>Estas habilidades no se desarrollan solamente leyendo cómo funciona un comando. Se desarrollan <strong>trabajando con datos reales en la computadora</strong>:</p>
+<p><strong>observar → probar → comprobar → interpretar → corregir → documentar</strong></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Una idea importante para este curso
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No esperamos que memorices todos los comandos.</p>
+<p>Esperamos que aprendas a <strong>pensar frente a los datos</strong>:</p>
+<ul>
+<li>¿Qué tengo?</li>
+<li>¿Cómo está organizado?</li>
+<li>¿Qué quiero averiguar?</li>
+<li>¿Qué herramienta podría ayudarme?</li>
+<li>¿Cómo compruebo que el resultado tiene sentido?</li>
+<li>¿Qué debo registrar para poder repetirlo?</li>
+</ul>
+<p>Estas preguntas aparecerán una y otra vez durante el curso.</p>
+</div>
+</div>
+</section>
+<section id="trabajar-con-datos-también-significa-trabajar-de-forma-confiable" class="level3">
+<h3 class="anchored" data-anchor-id="trabajar-con-datos-también-significa-trabajar-de-forma-confiable">Trabajar con datos también significa trabajar de forma confiable</h3>
+<p>Cuando un análisis tiene pocos pasos, puede parecer fácil recordar qué hicimos.</p>
+<p>Pero muy pronto nuestros análisis tendrán varios archivos, comandos, programas, parámetros y resultados intermedios.</p>
+<p>Entonces depender solamente de nuestra memoria deja de funcionar.</p>
+<p>Un análisis bioinformático confiable debe permitirnos reconstruir el camino:</p>
+<p><strong>¿qué datos usamos? → ¿qué hicimos con ellos? → ¿qué obtuvimos? → ¿cómo llegamos a esa conclusión?</strong></p>
+<p>Esto nos lleva a otro concepto central del curso: la <strong>reproducibilidad</strong>.</p>
+<p>Un trabajo reproducible conserva suficiente información para que el análisis pueda volver a realizarse y sus resultados puedan ser revisados.</p>
+<p>Y eso no es solamente una buena costumbre de programación.</p>
+<p>Es parte del <strong>trabajo científico</strong>.</p>
+<p>La pregunta entonces es:</p>
+<blockquote class="blockquote">
+<p><strong>¿Qué puede ocurrir cuando no documentamos, verificamos o conservamos adecuadamente nuestro proceso de análisis?</strong></p>
+</blockquote>
+<p>Veamos dos casos reales.</p>
+</section>
+<section id="cuando-descuidamos-el-trabajo-dos-casos-reales" class="level3">
+<h3 class="anchored" data-anchor-id="cuando-descuidamos-el-trabajo-dos-casos-reales">1.2 Cuando descuidamos el trabajo: dos casos reales</h3>
+<p>Tener habilidades técnicas <strong>no basta</strong>: hay que trabajar con cuidado, de forma verificable y reproducible. Dos casos famosos muestran qué ocurre cuando esto falla.</p>
+<ul>
+<li><p><strong>Un problema de descuido.</strong> El caso de las células <strong>STAP</strong> (2014): un resultado presentado como un descubrimiento histórico resultó <strong>no reproducible</strong>, en medio de descuido y falta de rigor. El episodio terminó en retractaciones y en un enorme costo humano y científico (<a href="https://www.theguardian.com/science/2015/feb/18/haruko-obokata-stap-cells-controversy-scientists-lie">The Guardian, 2015</a>; <a href="https://www.japantimes.co.jp/news/2024/04/09/japan/science-health/10-years-since-stap/">Japan Times, 2024</a>).</p></li>
+<li><p><strong>Un problema de software.</strong> Un grupo tuvo que <strong>retractar cinco artículos</strong> cuando se descubrió que un <strong>error en su programa</strong> invertía el signo de dos columnas de datos, produciendo estructuras de proteínas equivocadas. No hubo mala fe: fue un <strong>error de software no detectado</strong> (Miller, 2006, <em>Science</em>).</p></li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><em>“Non-reproducible single occurrences are of no significance to science”</em> (Karl Popper, <em>The Logic of Scientific Discovery</em>, 1959). Un resultado que ocurre una sola vez y no puede regenerarse no aporta a la ciencia. Por eso el trabajo reproducible y verificado es parte del método, no un trámite.</p>
+</div>
+</div>
+</section>
+<section id="cómo-se-ve-el-trabajo-bien-hecho" class="level3">
+<h3 class="anchored" data-anchor-id="cómo-se-ve-el-trabajo-bien-hecho">1.3 Cómo se ve el trabajo bien hecho</h3>
+<p>Frente a esos ejemplos de lo que <strong>no</strong> hay que hacer, conviene ver uno de lo que <strong>sí</strong>. Un buen proyecto bioinformático se reconoce porque:</p>
+<ul>
+<li>Registra el <strong>origen, versión e integridad</strong> de cada dato (metadatos).</li>
+<li>Conserva los <strong>datos originales intactos</strong> y genera los derivados aparte.</li>
+<li>Documenta <strong>cada comando</strong> y lo asocia a la subpregunta que responde.</li>
+<li><strong>Verifica</strong> los resultados intermedios y <strong>valida</strong> que respondan la pregunta.</li>
+<li><strong>Interpreta</strong> biológicamente los resultados y cierra con una <strong>conclusión</strong> sustentada.</li>
+<li>Permite que <strong>otra persona regenere</strong> todo el análisis.</li>
+</ul>
+<p>Un ejemplo <strong>publicado</strong> de estas buenas prácticas es el trabajo <em>Reproducible RNA-seq analysis using recount2</em> (Collado-Torres et al., 2017, <em>Nature Biotechnology</em>). Sus autores no se limitaron a publicar resultados: pusieron a disposición de la comunidad los <strong>datos ya procesados</strong> de más de 70 000 muestras de RNA-seq provenientes del repositorio público <strong>SRA</strong>, junto con un <strong>paquete de software documentado</strong> (<code>recount</code>) para consultarlos, descargarlos y analizarlos, y <strong>material reproducible</strong> que permite rehacer los análisis paso a paso. En otras palabras, cualquier persona puede <strong>regenerar y reutilizar</strong> su trabajo: justo lo contrario de los dos casos anteriores.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="¿Sabías que?">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>¿Sabías que?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Leonardo Collado-Torres, uno de los autores de recount2, imparte el módulo de transcriptómica en <em>Bioinformática y Estadística II</em>, más adelante en tu formación. El estilo de trabajo reproducible que empiezas a aprender aquí es el mismo que verás en la investigación real.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Un modelo para construir en el curso">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Un modelo para construir en el curso
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A menor escala, el reporte <code>ejemplos/ReporteGenomeEcoli_Formato_v2.md</code> muestra ese mismo cuidado aplicado al genoma de <em>E. coli</em>: plantea preguntas, registra la procedencia de los datos, documenta los comandos, muestra los resultados y los interpreta. Tenlo como referencia de la calidad que construiremos durante el semestre.</p>
+</div>
+</div>
+</section>
+<section id="por-qué-la-reproducibilidad" class="level3">
+<h3 class="anchored" data-anchor-id="por-qué-la-reproducibilidad">1.4 ¿Por qué la reproducibilidad?</h3>
+<p>Imagina que dentro de un año un revisor te pide rehacer el análisis de tu tesis, o que un compañero quiere partir de tu trabajo. Si no puedes <strong>regenerar los mismos resultados</strong> a partir de los mismos datos y procedimientos, tu trabajo no es verificable. En ciencia, un resultado que no puede regenerarse tiene poco valor.</p>
+</section>
+<section id="cuatro-conceptos-que-usaremos-con-precisión" class="level3">
+<h3 class="anchored" data-anchor-id="cuatro-conceptos-que-usaremos-con-precisión">1.5 Cuatro conceptos que usaremos con precisión</h3>
+<p>La terminología varía entre disciplinas; estas son las definiciones que <strong>este curso</strong> utilizará de forma consistente. Evitamos la palabra ambigua “repetir”.</p>
+<ul>
+<li><strong>Reproducibilidad.</strong> Otra persona puede <strong>regenerar los resultados</strong> usando los <strong>mismos datos, procedimientos, comandos y herramientas</strong> documentados. <em>Ejemplo:</em> entregas tu genoma, tu protocolo y tus comandos, y tu compañera obtiene el mismo conteo.</li>
+<li><strong>Replicabilidad.</strong> Se obtiene <strong>evidencia compatible</strong> mediante un <strong>estudio o conjunto de datos independiente</strong>. <em>Ejemplo:</em> otro grupo analiza una cepa distinta de <em>E. coli</em> y llega a una conclusión similar.</li>
+<li><strong>Verificación.</strong> Se comprueba que <strong>archivos, comandos, operaciones y resultados intermedios</strong> funcionan como se esperaba. <em>Ejemplo:</em> confirmas que un archivo se descargó completo comparando su checksum (una “huella digital” del archivo: un código que cambia si el archivo se altera).</li>
+<li><strong>Validación.</strong> Se demuestra que el procedimiento y la evidencia <strong>realmente permiten responder</strong> la pregunta biológica. <em>Ejemplo:</em> verificas que contar líneas de tipo “gene” en el GFF sí corresponde a “número de genes”.</li>
+<li><strong>Robustez.</strong> Se comprueba que la conclusión <strong>no depende de decisiones frágiles</strong>, errores silenciosos ni de una única comprobación insuficiente. <em>Ejemplo:</em> obtienes el mismo conteo por dos caminos distintos.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u1-s01-reproducible-vs-robusta.png" class="img-fluid figure-img"></p>
+<figcaption>Comparación entre investigación reproducible (regenerar los mismos resultados con los mismos datos, código y documentación) e investigación robusta (que el resultado sea correcto y resista cambios); ambas juntas dan una investigación confiable.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 2.</strong> Reproducible no es lo mismo que robusto: un análisis puede regenerarse exactamente y aun así estar equivocado. La investigación confiable es a la vez reproducible y robusta.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="La Regla de Oro de la Bioinformática">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>La Regla de Oro de la Bioinformática
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>(Buffalo, 2015, Cap. 1): <em>nunca confíes ciegamente en tus herramientas ni en tus datos</em>. Verifica todo —supuestos, formatos, resultados intermedios—, porque los conjuntos de datos son enormes y un error silencioso puede propagarse sin que lo notes. Verificación, validación y robustez son la Regla de Oro convertida en acciones.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Estos cuatro principios no son solo teoría: aparecerán como <strong>acciones observables</strong> dentro de cada práctica, y se retomarán progresivamente en las siguientes unidades y en el proyecto integrador.</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="dos-procesos-complementarios" class="level2">
+<h2 class="anchored" data-anchor-id="dos-procesos-complementarios">2. Dos procesos complementarios</h2>
+<p>Trabajar con datos implica <strong>dos procesos que se relacionan pero no son equivalentes</strong>. Distinguirlos evita confundir “mover datos de un lado a otro” con “responder una pregunta”.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u1-s01-ciclo-analisis.png" class="img-fluid figure-img"></p>
+<figcaption>Ciclo del análisis de datos en bioinformática en seis fases: Pregunta, Datos, Exploración, Análisis, Interpretación y Comunicación, sobre una banda que indica documentación y metadatos en todas las fases.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 3.</strong> El ciclo del análisis de datos. Cada fase responde una pregunta distinta, pero la documentación y los metadatos acompañan a todas.</p>
+<section id="a.-fases-del-manejo-y-análisis-de-datos" class="level3">
+<h3 class="anchored" data-anchor-id="a.-fases-del-manejo-y-análisis-de-datos">A. Fases del manejo y análisis de datos</h3>
+<p>Describen el <strong>ciclo de vida de los datos</strong>:</p>
+<ol type="1">
+<li><strong>Obtención.</strong> Descargar los datos de una fuente confiable.</li>
+<li><strong>Registro de procedencia.</strong> Anotar de dónde vienen, su versión y su integridad (metadatos).</li>
+<li><strong>Exploración.</strong> Revisar formato, tamaño, campos y posibles problemas.</li>
+<li><strong>Limpieza o transformación.</strong> Preparar los datos generando <strong>archivos nuevos</strong> (no sobre el original).</li>
+<li><strong>Análisis.</strong> Filtrar, contar, comparar para producir evidencia.</li>
+<li><strong>Conservación.</strong> Resguardar los datos originales intactos y los derivados por separado.</li>
+<li><strong>Documentación y comunicación.</strong> Registrar y reportar todo de forma reproducible.</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El <strong>cómo</strong> hacer bien estas fases se reparte en el resto de la unidad: los <strong>principios FAIR</strong> que las guían se ven enseguida; la <strong>ficha de metadatos</strong> de cada dato, en la sección 4; y la <strong>organización del proyecto</strong>, en la sección 6.</p>
+</div>
+</div>
+</section>
+<section id="b.-fases-de-resolución-de-un-problema-bioinformático" class="level3">
+<h3 class="anchored" data-anchor-id="b.-fases-de-resolución-de-un-problema-bioinformático">B. Fases de resolución de un problema bioinformático</h3>
+<p>Describen <strong>cómo se razona</strong> para responder una pregunta:</p>
+<ol type="1">
+<li><strong>Delimitar</strong> la pregunta biológica.</li>
+<li><strong>Descomponerla</strong> en subpreguntas.</li>
+<li><strong>Definir la evidencia</strong> necesaria para cada subpregunta.</li>
+<li><strong>Identificar los datos</strong> requeridos.</li>
+<li><strong>Examinar el formato</strong> y los campos disponibles.</li>
+<li><strong>Diseñar la estrategia</strong> <em>antes</em> de elegir comandos.</li>
+<li><strong>Traducir la estrategia</strong> en operaciones computacionales.</li>
+<li><strong>Seleccionar y ejecutar</strong> comandos.</li>
+<li><strong>Probar primero con un caso pequeño.</strong></li>
+<li><strong>Verificar</strong> los resultados.</li>
+<li><strong>Interpretar</strong> cada respuesta.</li>
+<li><strong>Integrar</strong> una conclusión.</li>
+</ol>
+</section>
+<section id="cómo-se-complementan" class="level3">
+<h3 class="anchored" data-anchor-id="cómo-se-complementan">Cómo se complementan</h3>
+<p>El proceso <strong>B</strong> es el <strong>mapa del razonamiento</strong>: decide <em>qué</em> preguntar, <em>qué</em> evidencia buscar y <em>cómo</em> interpretarla. El proceso <strong>A</strong> es el <strong>manejo cuidadoso de los datos</strong>: ocurre <strong>dentro</strong> de B, sobre todo cuando B llega a la parte de conseguir y trabajar los datos. Dicho de otro modo, B te dice <em>qué</em> datos necesitas y <em>para qué</em>; A te dice <em>cómo</em> obtenerlos, resguardarlos y transformarlos de forma confiable.</p>
+<p>La siguiente tabla muestra <strong>dónde cae cada fase del manejo de datos (A) dentro de la resolución del problema (B)</strong>:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Fase del manejo de datos (A)</th>
+<th>¿Dónde ocurre dentro de la resolución (B)?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Obtención</td>
+<td>Paso B4 (identificar los datos) → se descargan los datos elegidos</td>
+</tr>
+<tr class="even">
+<td>Registro de procedencia</td>
+<td>Pasos B4–B5 (al identificar y examinar los datos)</td>
+</tr>
+<tr class="odd">
+<td>Exploración</td>
+<td>Paso B5 (examinar el formato y los campos disponibles)</td>
+</tr>
+<tr class="even">
+<td>Limpieza o transformación</td>
+<td>Pasos B6–B7 (diseñar la estrategia y traducirla en operaciones)</td>
+</tr>
+<tr class="odd">
+<td>Análisis</td>
+<td>Pasos B8–B10 (ejecutar, probar en pequeño y verificar)</td>
+</tr>
+<tr class="even">
+<td>Conservación</td>
+<td>Atraviesa B: resguardar el original y guardar los derivados aparte</td>
+</tr>
+<tr class="odd">
+<td>Documentación y comunicación</td>
+<td>Atraviesa todo B: se registra en cada paso y culmina en B12 (conclusión)</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El proceso <strong>B</strong> organiza el <em>razonamiento</em> y el proceso <strong>A</strong> cuida los <em>datos</em>: A no es un proceso paralelo, sino el <strong>manejo de datos que se ejecuta dentro de B</strong>. Primero razonas qué necesitas (B); en el momento de tocar los datos, lo haces con cuidado (A). No son lo mismo, pero se encajan uno dentro del otro.</p>
+</div>
+</div>
+<p>Estas dos secciones que siguen <strong>desarrollan lo que acabamos de ver</strong>: la <strong>sección 3</strong> pone en práctica el proceso B con un ejemplo concreto, y la <strong>sección 4</strong> muestra cómo todo ese razonamiento se registra en un documento —el <strong>protocolo</strong>—. Son las dos caras de una misma moneda: <em>razonar</em> el problema (sección 3) y <em>documentarlo</em> de forma reproducible (sección 4).</p>
+<hr>
+</section>
+</section>
+<section id="de-la-pregunta-biológica-a-una-solución-computacional" class="level2">
+<h2 class="anchored" data-anchor-id="de-la-pregunta-biológica-a-una-solución-computacional">3. De la pregunta biológica a una solución computacional</h2>
+<p>Esta sección <strong>aplica el proceso B</strong> de la sección 2 (cómo se razona un problema), recorriendo sus pasos sobre un ejemplo. La idea central es la misma: <strong>no se empieza eligiendo comandos</strong>. Se empieza por la pregunta, luego se define qué evidencia la responde, qué datos la contienen y, <strong>al final</strong>, qué herramienta la obtiene.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El orden correcto es <strong>pregunta → evidencia → datos → operación → herramienta</strong>. Empezar por el comando es la causa más común de análisis que “corren” pero no responden nada.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A lo largo del curso trabajarás con <strong>varios conjuntos de datos</strong> —el genoma de <em>E. coli</em>, sRNAs, datos de ratón y una red de regulación, entre otros—. Aquí ilustramos el proceso con <strong>uno</strong> de ellos, pero <strong>el mismo razonamiento (pasos B1–B12 de la sección 2) se aplica a todos</strong>.</p>
+</div>
+</div>
+<p>El siguiente diagrama resume los pasos que recorreremos:</p>
+<pre class="mermaid"><code>flowchart TD
+  P["B1-B2: Pregunta y subpreguntas"] --&gt; E["B3: Evidencia necesaria"]
+  E --&gt; D["B4-B5: Datos y su formato"]
+  D --&gt; S67["B6-B7: Estrategia y operaciones"]
+  S67 --&gt; H["B8-B9: Herramienta y prueba pequeña"]
+  H --&gt; V["B10: Verificación"]
+  V --&gt; I["B11: Interpretación"]
+  I --&gt; C["B12: Conclusión integrada"]</code></pre>
+<section id="el-proceso-b-aplicado-a-un-ejemplo" class="level3">
+<h3 class="anchored" data-anchor-id="el-proceso-b-aplicado-a-un-ejemplo">El proceso B aplicado a un ejemplo</h3>
+<p>Para ilustrarlo usamos el genoma de la bacteria <em>E. coli</em> K-12 y su archivo de anotación en formato <strong>GFF</strong> (una tabla donde cada renglón es un elemento del genoma —un <em>feature</em>—, como un gen o una región).</p>
+<p><strong>B1–B2. Delimitar y descomponer la pregunta.</strong> <em>Pregunta central:</em> ¿cuántos genes tiene el genoma de <em>E. coli</em> K-12 y cómo se distribuyen en el cromosoma? La dividimos en tres <strong>subpreguntas</strong> manejables: (a) ¿de qué tamaño es el genoma?, (b) ¿cuántos genes hay?, (c) ¿cómo se distribuyen por cadena?</p>
+<p><strong>B3–B5. Definir la evidencia, identificar los datos y examinar su formato.</strong> Cada subpregunta se responde con una <strong>evidencia</strong> concreta que vive en un <strong>dato</strong> concreto. Antes de operar hay que <strong>examinar el formato</strong>: el GFF es tabular; su <strong>columna 3</strong> indica el tipo de feature (p.&nbsp;ej. <code>gene</code>) y su <strong>columna 7</strong> la cadena (<code>+</code> o <code>-</code>); el tamaño del genoma aparece en el encabezado del archivo. Conocer las columnas es lo que permite diseñar la estrategia.</p>
+<p><strong>B6–B7. Diseñar la estrategia, antes de elegir comandos.</strong> Con lo anterior se arma la <strong>tabla de estrategia</strong>: para cada subpregunta, qué evidencia se necesita, en qué dato está, qué operación conceptual la obtiene, con qué herramienta podría hacerse, cómo se valida y cómo se interpreta.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Subpregunta</th>
+<th>Evidencia necesaria</th>
+<th>Datos</th>
+<th>Operación (conceptual)</th>
+<th>Herramienta posible</th>
+<th>Validación</th>
+<th>Interpretación</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>¿De qué tamaño es el genoma?</td>
+<td>Longitud total en pares de bases</td>
+<td>Encabezado del GFF / FASTA</td>
+<td>Leer la región declarada</td>
+<td>Visualización de texto</td>
+<td>Contrastar el valor del GFF con el del registro en NCBI</td>
+<td>Tamaño típico de una bacteria (~4.6 Mb)</td>
+</tr>
+<tr class="even">
+<td>¿Cuántos genes hay?</td>
+<td>Número de renglones de tipo “gene”</td>
+<td>Columna 3 del GFF</td>
+<td>Filtrar por “gene” y contar</td>
+<td>Filtro + conteo</td>
+<td>Comparar con el número reportado por NCBI</td>
+<td>Densidad génica del genoma</td>
+</tr>
+<tr class="odd">
+<td>¿Cómo se distribuyen por cadena?</td>
+<td>Conteo de genes en cadena <code>+</code> y <code>-</code></td>
+<td>Columna 7 del GFF</td>
+<td>Agrupar por cadena y contar</td>
+<td>Filtro + conteo</td>
+<td>La suma <code>+</code> y <code>-</code> debe igualar el total de genes</td>
+<td>Organización del genoma en ambas hebras</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Esta tabla es el <strong>artefacto central</strong> de la sección: es lo que construirás en la Práctica 3 y lo que registrarás en el protocolo (sección 4).</p>
+</div>
+</div>
+<p><strong>B8–B9. Elegir la herramienta y probar en pequeño.</strong> Las herramientas de la tabla son “posibles”: las aprenderás a ejecutar en las unidades siguientes. Cuando llegue el momento, <strong>pruébalas primero con un caso pequeño</strong> (unos pocos renglones del GFF, de resultado conocido) antes de aplicarlas al genoma completo.</p>
+<p><strong>B10–B11. Verificar e interpretar.</strong> Cada resultado se <strong>verifica</strong> —por ejemplo, la suma de genes en <code>+</code> y <code>-</code> debe igualar el total— y se <strong>interpreta</strong> biológicamente: un genoma de ~4.6 Mb con alta densidad génica es típico de una bacteria.</p>
+<p><strong>B12. Integrar la conclusión.</strong> Con las respuestas validadas se <strong>integra una conclusión</strong> que responde la pregunta central: <em>“El genoma de</em> E. coli <em>K-12 mide ~4.6 Mb y contiene N genes distribuidos en ambas cadenas, lo que indica una alta densidad génica característica de las bacterias.”</em></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="¿Sabías que?">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>¿Sabías que?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Casi cualquier análisis bioinformático, por complejo que parezca, se resuelve así: una pregunta grande se parte en subpreguntas pequeñas y verificables. Dominar esta descomposición es más importante que memorizar comandos.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="práctica-1-de-la-pregunta-biológica-a-la-estrategia-en-la-sesión-y-después" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-1-de-la-pregunta-biológica-a-la-estrategia-en-la-sesión-y-después">Práctica 1 — De la pregunta biológica a la estrategia <em>(en la sesión y después)</em></h3>
+<p><a href="html/u1-s1-p1-bioinformatics_strategy_lab.html">Abrir en ventana completa — Bioinformatics Strategy Lab (HTML)</a></p>
+<iframe src="html/u1-s1-p1-bioinformatics_strategy_lab.html" title="Práctica 1 — Bioinformatics Strategy Lab: de la pregunta a la estrategia" style="width:100%;min-height:860px;border:1px solid #d7cdc7;border-radius:12px;background:#fff;" loading="lazy">
+</iframe>
+<hr>
+</section>
+</section>
+<section id="el-protocolo-de-resolución-de-un-problema-bioinformático" class="level2">
+<h2 class="anchored" data-anchor-id="el-protocolo-de-resolución-de-un-problema-bioinformático">4. El protocolo de resolución de un problema bioinformático</h2>
+<p>El razonamiento que acabas de ver en la sección 3 —la pregunta, las subpreguntas, la evidencia, los datos y la estrategia— <strong>no vive en tu cabeza ni en notas sueltas: se registra en el protocolo</strong>. La tabla que armaste en la sección 3 es, de hecho, el punto de partida de este documento.</p>
+<p>En este curso, el <strong>protocolo</strong> no es una simple propuesta previa ni una lista de comandos: es un <strong>documento vivo</strong> donde se registra y organiza toda la resolución del problema.</p>
+<p>Características del protocolo:</p>
+<ul>
+<li>Es un <strong>documento vivo</strong>: se completa progresivamente durante varias unidades.</li>
+<li><strong>Organiza el razonamiento</strong>, no solo los comandos.</li>
+<li><strong>Relaciona cada comando con una subpregunta.</strong></li>
+<li>Registra <strong>entradas, operaciones, salidas y validaciones</strong>.</li>
+<li>Incluye <strong>resultados e interpretación</strong>.</li>
+<li>Termina con una <strong>conclusión</strong> que responde la pregunta central.</li>
+<li>Permite <strong>reproducir y evaluar</strong> el análisis.</li>
+</ul>
+<p>Sus secciones y la función de cada una:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Sección</th>
+<th>Función</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Introducción</td>
+<td>Presentar contexto y problema</td>
+</tr>
+<tr class="even">
+<td>Pregunta central</td>
+<td>Delimitar qué se quiere responder</td>
+</tr>
+<tr class="odd">
+<td>Subpreguntas</td>
+<td>Dividir el problema</td>
+</tr>
+<tr class="even">
+<td>Datos</td>
+<td>Registrar origen, versión, formato e integridad</td>
+</tr>
+<tr class="odd">
+<td>Estrategia</td>
+<td>Explicar cómo se resolverá cada subpregunta</td>
+</tr>
+<tr class="even">
+<td>Comandos</td>
+<td>Documentar la ejecución</td>
+</tr>
+<tr class="odd">
+<td>Resultados</td>
+<td>Presentar la evidencia obtenida</td>
+</tr>
+<tr class="even">
+<td>Validación</td>
+<td>Comprobar los resultados</td>
+</tr>
+<tr class="odd">
+<td>Discusión</td>
+<td>Interpretar su significado biológico</td>
+</tr>
+<tr class="even">
+<td>Conclusiones</td>
+<td>Integrar las respuestas</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>En la Unidad 1 iniciarás las secciones <strong>Introducción, Pregunta central, Subpreguntas, Datos y Estrategia</strong>. Las secciones <strong>Comandos, Resultados, Validación, Discusión y Conclusiones</strong> se completarán en las unidades posteriores, conforme aprendas a ejecutar y verificar los análisis. Consérvalas en tu plantilla aunque todavía estén vacías.</p>
+</div>
+</div>
+<section id="el-protocolo-y-la-escritura-científica" class="level3">
+<h3 class="anchored" data-anchor-id="el-protocolo-y-la-escritura-científica">4.1 El protocolo y la escritura científica</h3>
+<p>Cuando el protocolo se comunica como reporte, sus partes corresponden a las de un artículo científico. Usa esta correspondencia:</p>
+<ul>
+<li><strong>Pregunta y contexto → Introducción.</strong></li>
+<li><strong>Datos y exploración → Metodología.</strong></li>
+<li><strong>Estrategia y procedimientos analíticos → Metodología.</strong></li>
+<li><strong>Evidencias obtenidas → Resultados.</strong></li>
+<li><strong>Significado biológico y limitaciones → Discusión.</strong></li>
+<li><strong>Respuesta integrada → Conclusiones.</strong></li>
+<li><strong>Documentación y metadatos → atraviesan todo el proceso.</strong></li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Los <strong>procedimientos analíticos</strong> (cómo obtuviste la evidencia) pertenecen a la <strong>Metodología</strong>, no a Resultados. En Resultados va la <strong>evidencia</strong>; en Discusión, su <strong>interpretación</strong>.</p>
+</div>
+</div>
+<p>Puedes consultar la plantilla en blanco <a href="ejemplos/formato_protocolo_v1.0.md"><code>formato_protocolo_v1.0.md</code></a> y un ejemplo ya trabajado en <a href="ejemplos/ReporteGenomeEcoli_Formato_v2.md"><code>ReporteGenomeEcoli_Formato_v2.md</code></a>.</p>
+</section>
+<section id="práctica-2-protocolo-y-reporte-de-lectura-en-markdown-después-de-la-sesión" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-2-protocolo-y-reporte-de-lectura-en-markdown-después-de-la-sesión">Práctica 2 — Protocolo y reporte de lectura en Markdown <em>(después de la sesión)</em></h3>
+<p><a href="html/u1-s1-p2-protocol_builder.html">Abrir en ventana completa — Protocol Builder (HTML)</a></p>
+<iframe src="html/u1-s1-p2-protocol_builder.html" title="Práctica 2 — Protocol Builder: de la estrategia al protocolo en Markdown" style="width:100%;min-height:860px;border:1px solid #d7cdc7;border-radius:12px;background:#fff;" loading="lazy">
+</iframe>
+<hr>
+</section>
+</section>
+<section id="comunicar-con-markdown" class="level2">
+<h2 class="anchored" data-anchor-id="comunicar-con-markdown">5. Comunicar con Markdown</h2>
+<p>Comunicar con claridad es parte del método científico. <strong>Markdown</strong> es un lenguaje de marcado ligero: se escribe texto plano con marcas simples (<code>#</code>, <code>*</code>, <code>-</code>) que luego se convierte a HTML, PDF u otros formatos. Fue creado por John Gruber para que el texto fuente sea <strong>legible tal cual</strong> (Buffalo, 2015, Cap. 2). Es el formato de los README de GitHub, de la documentación técnica y de gran parte del material científico en línea.</p>
+<p>Página oficial: <a href="https://daringfireball.net/projects/markdown/" class="uri">https://daringfireball.net/projects/markdown/</a>. Guía de referencia: <a href="https://www.markdownguide.org/" class="uri">https://www.markdownguide.org/</a>.</p>
+<section id="la-herramienta-que-usaremos-stackedit" class="level3">
+<h3 class="anchored" data-anchor-id="la-herramienta-que-usaremos-stackedit">5.1 La herramienta que usaremos: StackEdit</h3>
+<p>Practicaremos con <strong>StackEdit</strong>, un editor de Markdown <strong>gratuito que funciona en el navegador</strong>, sin instalar nada (<a href="https://stackedit.io" class="uri">https://stackedit.io</a>). Muestra, lado a lado, <strong>lo que escribes</strong> (panel izquierdo) y <strong>cómo se verá</strong> (panel derecho, vista previa sincronizada). Tiene, además, una barra de herramientas que inserta las marcas por ti, un explorador de documentos y opciones para <strong>exportar</strong> a <code>.md</code>, HTML o PDF.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u1-s01-interfaz-stackedit.png" class="img-fluid figure-img"></p>
+<figcaption>Interfaz de StackEdit con cinco componentes señalados: (1) panel de edición a la izquierda donde se escribe el texto fuente, (2) vista previa a la derecha con el resultado renderizado, (3) barra de herramientas superior, (4) menú lateral y (5) explorador de documentos.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 6.</strong> Componentes principales de StackEdit: (1) panel de edición, (2) vista previa, (3) barra de herramientas, (4) menú lateral y (5) explorador de documentos. Captura propia de StackEdit (stackedit.io).</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Advertencia
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>StackEdit guarda tus documentos en el <strong>navegador</strong>. Para conservar tu trabajo, <strong>exporta el archivo <code>.md</code></strong> (menú ☰ → Export) y guárdalo en tu carpeta de proyecto. El <code>.md</code> exportado es lo que entregas.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Sin conexión">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Sin conexión
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Como Markdown es texto plano, si no tienes internet puedes escribir tu <code>.md</code> en <strong>cualquier editor de texto</strong> (por ejemplo, el Bloc de notas, TextEdit en modo texto o VS Code) y ver la vista previa más tarde. No dependes de una herramienta específica.</p>
+</div>
+</div>
+</section>
+<section id="elementos-de-markdown" class="level3">
+<h3 class="anchored" data-anchor-id="elementos-de-markdown">5.2 Elementos de Markdown</h3>
+<p>Cada elemento cumple una <strong>función comunicativa</strong>; úsalo cuando aporte claridad, no por obligación.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Título de nivel 1</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">## Título de nivel 2</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>Un párrafo normal, con **negrita** para lo importante, *cursiva* para matizar</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>y <span class="in">`código en línea`</span> para nombres de archivos o comandos, como <span class="in">`genoma.gff`</span>.</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Lista con viñetas (para enumerar sin orden)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Lista numerada (para pasos con orden)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Texto de un enlace</span><span class="co">](https://www.ncbi.nlm.nih.gov)</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li><strong>Encabezados</strong> (<code>#</code>): estructuran el documento en secciones.</li>
+<li><strong>Párrafos y énfasis</strong> (<code>**</code>, <code>*</code>): resaltan ideas clave sin abusar.</li>
+<li><strong>Listas</strong>: enumeran pasos u opciones.</li>
+<li><strong>Enlaces</strong>: citan fuentes y datos.</li>
+<li><strong>Código en línea y bloques</strong> (<code>```</code>): distinguen comandos y datos del texto.</li>
+</ul>
+<p>Las <strong>tablas</strong> y los <strong>bloques de código</strong> son útiles cuando hay datos tabulares o comandos que mostrar. El siguiente bloque muestra una tabla:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Archivo        <span class="pp">|</span> Formato <span class="pp">|</span> Descripción           <span class="pp">|</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="pp">| --------------</span> <span class="pp">| -------</span> <span class="pp">| ---------------------</span> <span class="pp">|</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> genoma.fasta   <span class="pp">|</span> FASTA   <span class="pp">|</span> Secuencia del genoma  <span class="pp">|</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> anotacion.gff3 <span class="pp">|</span> GFF3    <span class="pp">|</span> Anotación de features <span class="pp">|</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Ejemplos correcto e incorrecto">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Ejemplos correcto e incorrecto
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Un buen documento usa cada elemento con propósito. <em>Incorrecto:</em> poner todo en negrita (nada resalta) o meter una tabla de una sola celda. <em>Correcto:</em> un título por sección, listas para pasos y una tabla solo cuando hay varias columnas de datos que comparar.</p>
+</div>
+</div>
+</section>
+<section id="diagramas-con-mermaid-ampliación-opcional" class="level3">
+<h3 class="anchored" data-anchor-id="diagramas-con-mermaid-ampliación-opcional">5.3 Diagramas con Mermaid (ampliación, opcional)</h3>
+<p><strong>mermaid</strong> permite crear diagramas <strong>escribiéndolos como texto</strong>, en lugar de dibujarlos a mano. Se escribe dentro de un bloque de código etiquetado como <code>mermaid</code> y la herramienta lo convierte en una figura. Es útil para representar flujos de trabajo, pasos de un análisis o decisiones. La primera palabra del bloque indica el <strong>tipo de diagrama</strong>.</p>
+<p>Documentación oficial: <a href="https://mermaid.js.org/" class="uri">https://mermaid.js.org/</a>. Editor en vivo para probar diagramas: <a href="https://mermaid.live" class="uri">https://mermaid.live</a>.</p>
+<p><strong>a) Diagrama de flujo (<code>flowchart</code>) — el más frecuente.</strong> El siguiente bloque genera un flujo de izquierda a derecha:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="in">```mermaid</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>flowchart LR</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  A[Descarga] --&gt; B[Exploración] --&gt; C[Análisis] --&gt; D[Reporte]</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Elementos que se usan casi siempre:</p>
+<ul>
+<li><strong>Dirección:</strong> <code>LR</code> (izquierda→derecha), <code>TD</code> o <code>TB</code> (arriba→abajo).</li>
+<li><strong>Nodos según su forma:</strong> <code>A[texto]</code> rectángulo, <code>A(texto)</code> bordes redondeados, <code>A{texto}</code> rombo (se usa para <strong>decisiones</strong>), <code>A([texto])</code> tipo píldora.</li>
+<li><strong>Conexiones:</strong> <code>--&gt;</code> flecha, <code>---</code> línea sin punta, <code>--&gt;|etiqueta|</code> flecha con texto.</li>
+</ul>
+<p><strong>b) Diagrama de flujo con decisión.</strong> El rombo <code>{}</code> y las flechas etiquetadas permiten representar una bifurcación (sí/no):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="in">```mermaid</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>flowchart TD</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  A{¿La descarga está íntegra?} --&gt;|sí| B[Continuar el análisis]</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  A --&gt;|<span class="fu">no</span>| C[Volver a descargar]</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>c) Otros tipos frecuentes</strong> (para consulta; no son necesarios en esta unidad):</p>
+<ul>
+<li><code>sequenceDiagram</code>: mensajes o interacciones entre participantes a lo largo del tiempo.</li>
+<li><code>mindmap</code>: mapas mentales para organizar ideas.</li>
+<li><code>gantt</code>: cronogramas de tareas con fechas.</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Para este curso, el <code>flowchart</code> cubre prácticamente todo lo que necesitarás (representar las fases de un análisis o un flujo de comandos).</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="rúbricas" class="level2">
+<h2 class="anchored" data-anchor-id="rúbricas">6. Rúbricas</h2>
+<blockquote class="blockquote">
+<p><strong>Cómo se evalúa cada momento.</strong> El <strong>primer intento</strong> tiene valor <strong>formativo</strong>: da puntos por <strong>preparación</strong>, no por acierto. La <strong>participación en clase</strong> también es formativa. Las <strong>Tareas 1 y 2</strong> (entrega posterior al taller) llevan la <strong>calificación principal</strong>. Cada criterio se evalúa en tres niveles: <strong>Logrado</strong>, <strong>Parcialmente logrado</strong> y <strong>Aún no logrado</strong>.</p>
+<p>Recuerda el alcance de U1: el protocolo se construye <strong>hasta la estrategia</strong>; la ejecución de comandos, los resultados y la validación ejecutada llegan en unidades posteriores. Aquí la validación y la conclusión se evalúan <strong>como diseño anticipado</strong>, no como ejecución.</p>
+</blockquote>
+<section id="primer-intento-formativa-puntos-por-preparación" class="level3">
+<h3 class="anchored" data-anchor-id="primer-intento-formativa-puntos-por-preparación">6.1 Primer intento (formativa · puntos por preparación)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterio</th>
+<th>Logrado</th>
+<th>Parcialmente logrado</th>
+<th>Aún no logrado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Evidencia de lectura</td>
+<td>Aplica ideas de las secciones y de Buffalo Cap. 1</td>
+<td>Menciona la lectura sin aplicarla</td>
+<td>Sin evidencia de lectura</td>
+</tr>
+<tr class="even">
+<td>Esfuerzo auténtico</td>
+<td>Intenta todas las prácticas asignadas</td>
+<td>Intenta algunas</td>
+<td>No presenta intento</td>
+</tr>
+<tr class="odd">
+<td>Identificación de dudas</td>
+<td>Registra ≥1 duda concreta y accionable</td>
+<td>Duda vaga</td>
+<td>No registra dudas</td>
+</tr>
+<tr class="even">
+<td>Registro de dificultades y errores</td>
+<td>Señala la parte más difícil y los errores encontrados</td>
+<td>Menciona dificultad sin detalle</td>
+<td>No registra</td>
+</tr>
+</tbody>
+</table>
+<blockquote class="blockquote">
+<p>Los <strong>errores razonables no se penalizan</strong>: este momento premia preparar y llegar con preguntas.</p>
+</blockquote>
+</section>
+<section id="participación-en-clase-formativa" class="level3">
+<h3 class="anchored" data-anchor-id="participación-en-clase-formativa">6.2 Participación en clase (formativa)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterio</th>
+<th>Logrado</th>
+<th>Parcialmente logrado</th>
+<th>Aún no logrado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Revisión del propio intento</td>
+<td>Revisa y detecta sus errores</td>
+<td>Revisa superficialmente</td>
+<td>No revisa</td>
+</tr>
+<tr class="even">
+<td>Formulación de preguntas</td>
+<td>Pregunta con precisión</td>
+<td>Pregunta de forma vaga</td>
+<td>No participa</td>
+</tr>
+<tr class="odd">
+<td>Corrección argumentada</td>
+<td>Corrige y explica por qué</td>
+<td>Corrige sin justificar</td>
+<td>No corrige</td>
+</tr>
+<tr class="even">
+<td>Comparación de estrategias</td>
+<td>Compara con compañeros y aprende</td>
+<td>Compara sin analizar</td>
+<td>No compara</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tarea-1-protocolo-iniciado-reporte-de-lectura" class="level3">
+<h3 class="anchored" data-anchor-id="tarea-1-protocolo-iniciado-reporte-de-lectura">6.3 Tarea 1 — protocolo iniciado + reporte de lectura</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterio</th>
+<th>Logrado</th>
+<th>Parcialmente logrado</th>
+<th>Aún no logrado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Pregunta y subpreguntas</td>
+<td>Pregunta clara; subpreguntas abordables y coherentes</td>
+<td>Pregunta o subpreguntas imprecisas</td>
+<td>Ausentes o inconexas</td>
+</tr>
+<tr class="even">
+<td>Estrategia</td>
+<td>Relaciona subpregunta–evidencia–datos–operación–validación–interpretación</td>
+<td>Relación parcial</td>
+<td>Sin relación clara</td>
+</tr>
+<tr class="odd">
+<td>Protocolo (documento)</td>
+<td>Estructura hasta <em>Estrategia</em>; secciones posteriores rotuladas y vacías</td>
+<td>Estructura incompleta</td>
+<td>Sin estructura</td>
+</tr>
+<tr class="even">
+<td>Reporte de lectura (Buffalo Cap. 1)</td>
+<td>Referencia, resumen, aportación y crítica claras</td>
+<td>Falta algún apartado</td>
+<td>Ausente o superficial</td>
+</tr>
+<tr class="odd">
+<td>Markdown funcional</td>
+<td>Cada elemento cumple una función comunicativa</td>
+<td>Uso decorativo o inconsistente</td>
+<td>Sin formato o ilegible</td>
+</tr>
+<tr class="even">
+<td>Conclusión provisional y limitaciones</td>
+<td>Conclusión que <strong>no excede</strong> la evidencia + limitaciones explícitas</td>
+<td>Conclusión sin limitaciones</td>
+<td>Conclusión que excede la evidencia</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="glosario" class="level2">
+<h2 class="anchored" data-anchor-id="glosario">Glosario</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Español</th>
+<th>Inglés</th>
+<th>Definición breve</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Reproducibilidad</td>
+<td>Reproducibility</td>
+<td>Regenerar resultados con los mismos datos y procedimientos</td>
+</tr>
+<tr class="even">
+<td>Replicabilidad</td>
+<td>Replicability</td>
+<td>Evidencia compatible con datos o estudios independientes</td>
+</tr>
+<tr class="odd">
+<td>Verificación</td>
+<td>Verification</td>
+<td>Comprobar que archivos, comandos y resultados funcionan como se espera</td>
+</tr>
+<tr class="even">
+<td>Validación</td>
+<td>Validation</td>
+<td>Demostrar que el procedimiento responde la pregunta</td>
+</tr>
+<tr class="odd">
+<td>Robustez</td>
+<td>Robustness</td>
+<td>Que la conclusión no dependa de decisiones frágiles</td>
+</tr>
+<tr class="even">
+<td>Metadatos</td>
+<td>Metadata</td>
+<td>Datos que describen un dato</td>
+</tr>
+<tr class="odd">
+<td>Checksum / suma de verificación</td>
+<td>Checksum</td>
+<td>Huella digital para comprobar integridad de un archivo</td>
+</tr>
+<tr class="even">
+<td>Procedencia</td>
+<td>Provenance</td>
+<td>Origen e historia de un dato</td>
+</tr>
+<tr class="odd">
+<td>Feature (elemento)</td>
+<td>Feature</td>
+<td>Elemento anotado del genoma (gen, región, etc.)</td>
+</tr>
+<tr class="even">
+<td>Cadena / hebra</td>
+<td>Strand</td>
+<td>Hebra del ADN donde se ubica un feature (<code>+</code> o <code>-</code>)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="referencias" class="level2">
+<h2 class="anchored" data-anchor-id="referencias">Referencias</h2>
+<ul>
+<li>Gauthier, J., Vincent, A. T., Charette, S. J., &amp; Derome, N. (2019).<br>
+<em>A brief history of bioinformatics</em>. <strong>Briefings in Bioinformatics, 20</strong>(6), 1981–1996.<br>
+https://doi.org/10.1093/bib/bby063</li>
+<li>Buffalo, V. (2015). <em>Bioinformatics Data Skills: Reproducible and Robust Research with Open Source Tools</em>. O’Reilly Media. — Cap. 1 (reproducibilidad, robustez, Regla de Oro) y Cap. 2 (organización de proyectos, documentación, Markdown). Disponible en <code>referencias/bioinformatics-data-skills.pdf</code>.</li>
+<li>Wilkinson, M. D., et al.&nbsp;(2016). The FAIR Guiding Principles for scientific data management and stewardship. <em>Scientific Data</em>, 3, 160018. doi:10.1038/sdata.2016.18.</li>
+<li>Miller, G. (2006). A Scientist’s Nightmare: Software Problem Leads to Five Retractions. <em>Science</em>, 314(5807), 1856–1857. doi:10.1126/science.314.5807.1856.</li>
+<li>Cyranoski, D. (2015, 18 de febrero). <em>Haruko Obokata: the STAP cells controversy</em>. The Guardian. <a href="https://www.theguardian.com/science/2015/feb/18/haruko-obokata-stap-cells-controversy-scientists-lie" class="uri">https://www.theguardian.com/science/2015/feb/18/haruko-obokata-stap-cells-controversy-scientists-lie</a></li>
+<li>The Japan Times (2024, 9 de abril). <em>10 years since STAP</em>. <a href="https://www.japantimes.co.jp/news/2024/04/09/japan/science-health/10-years-since-stap/" class="uri">https://www.japantimes.co.jp/news/2024/04/09/japan/science-health/10-years-since-stap/</a></li>
+<li>Popper, K. (1959). <em>The Logic of Scientific Discovery</em>. Hutchinson &amp; Co.</li>
+<li>Collado-Torres, L., Nellore, A., Kammers, K., Ellis, S. E., Taub, M. A., Hansen, K. D., Jaffe, A. E., Langmead, B., &amp; Leek, J. T. (2017). Reproducible RNA-seq analysis using recount2. <em>Nature Biotechnology</em>, 35(4), 319–321. doi:10.1038/nbt.3838.</li>
+<li>Barker, M., Chue Hong, N. P., Katz, D. S., et al.&nbsp;(2022). Introducing the FAIR Principles for research software (FAIR4RS). <em>Scientific Data</em>, 9, 622. doi:10.1038/s41597-022-01710-x.</li>
+<li>Noble, W. S. (2009). A Quick Guide to Organizing Computational Biology Projects. <em>PLoS Computational Biology</em>, 5(7), e1000424. doi:10.1371/journal.pcbi.1000424. (organización de directorios: <code>data/</code>, <code>results/</code>, <code>src/</code>, <code>doc/</code>).</li>
+<li>GO-FAIR. FAIR Principles. <a href="https://www.go-fair.org/fair-principles/" class="uri">https://www.go-fair.org/fair-principles/</a></li>
+<li>Markdown — página oficial (John Gruber). <a href="https://daringfireball.net/projects/markdown/" class="uri">https://daringfireball.net/projects/markdown/</a></li>
+<li>Markdown Guide. <a href="https://www.markdownguide.org/" class="uri">https://www.markdownguide.org/</a></li>
+<li>StackEdit — editor de Markdown en línea. <a href="https://stackedit.io" class="uri">https://stackedit.io</a></li>
+<li>Mermaid — documentación oficial. <a href="https://mermaid.js.org/" class="uri">https://mermaid.js.org/</a></li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/helysalgado\.github\.io\/introbioinfo-unix\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./u1-trabajo-reproducible.html" class="pagination-link" aria-label="Portada">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Portada</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./u1-s2-organizar-fair-ia.html" class="pagination-link" aria-label="S2 — Organizar">
+        <span class="nav-page-text">S2 — Organizar</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://hits.sh/helysalgado.github.io/introbioinfo-unix/"><img src="https://hits.sh/helysalgado.github.io/introbioinfo-unix/.svg?style=flat-square&amp;label=Visitas&amp;color=4a7c9e" class="img-fluid figure-img"></a></p>
+<figcaption>Visitas</figcaption>
+</figure>
+</div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Helysalgado/introbioinfo-unix/edit/main/u1-s1-documentar-markdown-fases.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/Helysalgado/introbioinfo-unix/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

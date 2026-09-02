@@ -1,0 +1,88 @@
+/* Ajustes mínimos sobre el tema cosmo — sitio del curso */
+
+.content-block,
+main.content {
+  max-width: 52rem;
+}
+
+/* Lectura cómoda en el cuerpo */
+main.content p,
+main.content li {
+  line-height: 1.65;
+}
+
+/* Código: que no desborde en móvil */
+pre {
+  font-size: 0.9em;
+}
+
+/*
+ * Tablas: Pandoc a veces asigna anchos absurdos vía <colgroup>
+ * (p. ej. columna "Tiempo" al 57% + text-align:right → texto flotando).
+ * Anulamos esos anchos y dejamos que el contenido reparta el espacio.
+ */
+main.content table {
+  width: 100%;
+  max-width: 100%;
+  margin-left: 0;
+  margin-right: auto;
+  table-layout: auto;
+}
+
+main.content table colgroup col {
+  width: auto !important;
+}
+
+main.content table th,
+main.content table td {
+  vertical-align: top;
+  text-align: left;
+}
+
+/*
+ * Agenda (Tiempo | Actividad): marcar en Markdown con
+ *   {.tabla-agenda} antes de la tabla, o envolver en ::: {.tabla-agenda}
+ * Primera columna compacta; el resto de tablas (Recurso|Uso, fichas) no se tocan.
+ */
+main.content table.tabla-agenda th:first-child,
+main.content table.tabla-agenda td:first-child,
+main.content .tabla-agenda table th:first-child,
+main.content .tabla-agenda table td:first-child {
+  width: 1%;
+  white-space: nowrap;
+}
+
+/* Blockquotes tip (fallback) */
+blockquote {
+  border-left: 4px solid #2c7fb8;
+  background: #f7fafc;
+  padding: 0.6rem 1rem;
+  border-radius: 0 0.25rem 0.25rem 0;
+}
+
+/* Retroalimentación colapsable */
+details {
+  margin: 1rem 0;
+  padding: 0.75rem 1rem;
+  border: 1px solid #dee2e6;
+  border-radius: 0.35rem;
+  background: #fafbfc;
+}
+
+details > summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: #1a5276;
+}
+
+details[open] {
+  background: #fff;
+}
+
+/* Pies de figura */
+main.content p > img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1rem auto 0.35rem;
+}

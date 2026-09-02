@@ -1,0 +1,2427 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Programa completo del curso: descripción, propósito, enfoque formativo, ejes de contenido, contenido por unidad, competencias, metodología, evaluación y perfil de egreso.">
+
+<title>Programa detallado – Introducción a la Bioinformática</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./recursos.html" rel="next">
+<link href="./u6-s34-integrar-hipotesis-casos-ciegos.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fe29f166eb879f148ae4045f3c41549b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXNMZZP0K9"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-QXNMZZP0K9', { 'anonymize_ip': true});
+</script>
+<meta name="mermaid-theme" content="default">
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-md-bootstrap.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Introducción a la Bioinformática</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Inicio</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-programa" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Programa</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-programa">    
+        <li>
+    <a class="dropdown-item" href="./programa.html">
+ <span class="dropdown-text">Ruta de sesiones</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./programa-detallado.html">
+ <span class="dropdown-text">Programa detallado</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-unidades" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Unidades</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-unidades">    
+        <li>
+    <a class="dropdown-item" href="./u1-trabajo-reproducible.html">
+ <span class="dropdown-text">U1 — Trabajo reproducible</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u2-entorno-unix.html">
+ <span class="dropdown-text">U2 — Entorno Unix</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u3-datos-bases-datos.html">
+ <span class="dropdown-text">U3 — Datos y bases</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u4-procesamiento-exploracion.html">
+ <span class="dropdown-text">U4 — Procesamiento genómico</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u5-automatizacion-scripting.html">
+ <span class="dropdown-text">U5 — Automatización</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u6-comparacion-homologia.html">
+ <span class="dropdown-text">U6 — Comparar / hipótesis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./s14-s15-mini-proyecto-investigacion-I.html">
+ <span class="dropdown-text">Transversal S14–S17</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="./recursos.html" aria-current="page"> 
+<span class="menu-text">Recursos</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./acerca.html"> 
+<span class="menu-text">Acerca</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./contribuir.html"> 
+<span class="menu-text">Contribuir</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Alternar modo lector">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./programa-detallado.html">Programa detallado</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 1</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-trabajo-reproducible.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-s1-documentar-markdown-fases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S1 — Documentar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-s2-organizar-fair-ia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S2 — Organizar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 2</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-entorno-unix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s3-shell-acceso-remoto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S3 — Conectar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s4-sistema-archivos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S4 — Navegar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s5-archivos-permisos-procesos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S5 — Archivos y procesos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s6-consolidacion-entorno-unix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S6 — Consolidar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 3</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-datos-bases-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s7-secuencias-formatos-genbank.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S7 — Formatos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s8-bases-datos-descarga-integridad.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S8 — Descargar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s9-inspeccion-transferencia-verificable.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S9 — Transferir</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 4</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-procesamiento-exploracion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s10-anatomia-flujos-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S10 — Anatomía y flujos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s11-estructura-tabular-anotacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S11 — Anotación tabular</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s12-filtrado-conteos-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S12 — Filtrar y contar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s13-inventario-resumen-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S13 — Inventario</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s18-precision-patrones-expresiones-regulares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S18 — Patrones</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s19-extraccion-identificadores-correspondencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S19 — Identificadores</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s20-normalizar-datos-comparables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S20 — Normalizar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s21-confrontar-fuente-independiente.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S21 — Confrontar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s22-condicionar-calcular-columnas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S22 — Condicionar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s23-protocolo-ejecutable-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S23 — Protocolo ejecutable</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Transversal</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s14-s15-mini-proyecto-investigacion-I.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S14–S15 — Mini-proyecto I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s16-mini-proyecto-revision-pares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S16 — Revisión por pares</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s17-evaluacion-individual-demostrativa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S17 — Evaluación demostrativa</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mini-proyecto-dictamen-cientifico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dictamen científico</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 5</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-automatizacion-scripting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s24-del-protocolo-al-script.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S24 — Del protocolo al script</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s25-separar-procedimiento-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S25 — Separar datos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s26-procesamiento-por-lotes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S26 — Por lotes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s27-herramienta-cientifica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S27 — Herramienta científica</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s28-proyecto-integrador.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S28 — Proyecto integrador</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s29-cluster-hpc-sge.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S29 — Cluster SGE</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 6</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-comparacion-homologia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s30-comparar-alinear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S30 — Comparar / alinear</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s31-buscar-blast.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S31 — Buscar (BLAST)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s32-interpretar-inferir.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S32 — Interpretar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s33-defender-hipotesis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S33 — Inferir</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s34-integrar-hipotesis-casos-ciegos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S34 — Integrar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./programa-detallado.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Programa detallado</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./recursos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recursos</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="2">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#descripción-del-curso" id="toc-descripción-del-curso" class="nav-link active" data-scroll-target="#descripción-del-curso">1. Descripción del curso</a></li>
+  <li><a href="#propósito-general" id="toc-propósito-general" class="nav-link" data-scroll-target="#propósito-general">2. Propósito general</a></li>
+  <li><a href="#enfoque-formativo" id="toc-enfoque-formativo" class="nav-link" data-scroll-target="#enfoque-formativo">3. Enfoque formativo</a></li>
+  <li><a href="#resultados-generales-de-aprendizaje" id="toc-resultados-generales-de-aprendizaje" class="nav-link" data-scroll-target="#resultados-generales-de-aprendizaje">4. Resultados generales de aprendizaje</a></li>
+  <li><a href="#ejes-de-contenido" id="toc-ejes-de-contenido" class="nav-link" data-scroll-target="#ejes-de-contenido">5. Ejes de contenido</a>
+  <ul class="collapse">
+  <li><a href="#biología-y-datos-biológicos" id="toc-biología-y-datos-biológicos" class="nav-link" data-scroll-target="#biología-y-datos-biológicos">5.1 Biología y datos biológicos</a></li>
+  <li><a href="#cómputo-y-herramientas-bioinformáticas" id="toc-cómputo-y-herramientas-bioinformáticas" class="nav-link" data-scroll-target="#cómputo-y-herramientas-bioinformáticas">5.2 Cómputo y herramientas bioinformáticas</a></li>
+  <li><a href="#reproducibilidad-y-buenas-prácticas" id="toc-reproducibilidad-y-buenas-prácticas" class="nav-link" data-scroll-target="#reproducibilidad-y-buenas-prácticas">5.3 Reproducibilidad y buenas prácticas</a></li>
+  <li><a href="#razonamiento-científico-e-interpretación" id="toc-razonamiento-científico-e-interpretación" class="nav-link" data-scroll-target="#razonamiento-científico-e-interpretación">5.4 Razonamiento científico e interpretación</a></li>
+  <li><a href="#uso-crítico-y-responsable-de-inteligencia-artificial" id="toc-uso-crítico-y-responsable-de-inteligencia-artificial" class="nav-link" data-scroll-target="#uso-crítico-y-responsable-de-inteligencia-artificial">5.5 Uso crítico y responsable de inteligencia artificial</a></li>
+  </ul></li>
+  <li><a href="#contenido-por-unidades" id="toc-contenido-por-unidades" class="nav-link" data-scroll-target="#contenido-por-unidades">6. Contenido por unidades</a>
+  <ul class="collapse">
+  <li><a href="#unidad-1.-trabajo-reproducible-y-comunicación-científica" id="toc-unidad-1.-trabajo-reproducible-y-comunicación-científica" class="nav-link" data-scroll-target="#unidad-1.-trabajo-reproducible-y-comunicación-científica">Unidad 1. Trabajo reproducible y comunicación científica</a></li>
+  <li><a href="#unidad-2.-entorno-unixlinux-y-cómputo-científico" id="toc-unidad-2.-entorno-unixlinux-y-cómputo-científico" class="nav-link" data-scroll-target="#unidad-2.-entorno-unixlinux-y-cómputo-científico">Unidad 2. Entorno Unix/Linux y cómputo científico</a></li>
+  <li><a href="#unidad-3.-datos-y-bases-de-datos-biológicas" id="toc-unidad-3.-datos-y-bases-de-datos-biológicas" class="nav-link" data-scroll-target="#unidad-3.-datos-y-bases-de-datos-biológicas">Unidad 3. Datos y bases de datos biológicas</a></li>
+  <li><a href="#unidad-4.-procesamiento-y-exploración-de-datos-genómicos" id="toc-unidad-4.-procesamiento-y-exploración-de-datos-genómicos" class="nav-link" data-scroll-target="#unidad-4.-procesamiento-y-exploración-de-datos-genómicos">Unidad 4. Procesamiento y exploración de datos genómicos</a></li>
+  <li><a href="#unidad-5.-automatización-de-análisis-bioinformáticos-con-shell" id="toc-unidad-5.-automatización-de-análisis-bioinformáticos-con-shell" class="nav-link" data-scroll-target="#unidad-5.-automatización-de-análisis-bioinformáticos-con-shell">Unidad 5. Automatización de análisis bioinformáticos con Shell</a></li>
+  <li><a href="#unidad-6.-comparación-de-secuencias-y-construcción-de-hipótesis-biológicas" id="toc-unidad-6.-comparación-de-secuencias-y-construcción-de-hipótesis-biológicas" class="nav-link" data-scroll-target="#unidad-6.-comparación-de-secuencias-y-construcción-de-hipótesis-biológicas">Unidad 6. Comparación de secuencias y construcción de hipótesis biológicas</a></li>
+  </ul></li>
+  <li><a href="#mapa-integrado-de-contenidos" id="toc-mapa-integrado-de-contenidos" class="nav-link" data-scroll-target="#mapa-integrado-de-contenidos">7. Mapa integrado de contenidos</a></li>
+  <li><a href="#competencias" id="toc-competencias" class="nav-link" data-scroll-target="#competencias">8. Competencias</a>
+  <ul class="collapse">
+  <li><a href="#a.-trabajo-reproducible-y-comunicación-científica" id="toc-a.-trabajo-reproducible-y-comunicación-científica" class="nav-link" data-scroll-target="#a.-trabajo-reproducible-y-comunicación-científica">A. Trabajo reproducible y comunicación científica</a></li>
+  <li><a href="#b.-entorno-unix-y-cómputo-científico" id="toc-b.-entorno-unix-y-cómputo-científico" class="nav-link" data-scroll-target="#b.-entorno-unix-y-cómputo-científico">B. Entorno Unix y cómputo científico</a></li>
+  <li><a href="#c.-datos-y-bases-de-datos-biológicas" id="toc-c.-datos-y-bases-de-datos-biológicas" class="nav-link" data-scroll-target="#c.-datos-y-bases-de-datos-biológicas">C. Datos y bases de datos biológicas</a></li>
+  <li><a href="#d.-análisis-y-exploración-de-datos-genómicos" id="toc-d.-análisis-y-exploración-de-datos-genómicos" class="nav-link" data-scroll-target="#d.-análisis-y-exploración-de-datos-genómicos">D. Análisis y exploración de datos genómicos</a></li>
+  <li><a href="#e.-automatización-y-programación-en-shell" id="toc-e.-automatización-y-programación-en-shell" class="nav-link" data-scroll-target="#e.-automatización-y-programación-en-shell">E. Automatización y programación en Shell</a></li>
+  <li><a href="#f.-comparación-de-secuencias-y-homología" id="toc-f.-comparación-de-secuencias-y-homología" class="nav-link" data-scroll-target="#f.-comparación-de-secuencias-y-homología">F. Comparación de secuencias y homología</a></li>
+  <li><a href="#g.-uso-responsable-de-inteligencia-artificial" id="toc-g.-uso-responsable-de-inteligencia-artificial" class="nav-link" data-scroll-target="#g.-uso-responsable-de-inteligencia-artificial">G. Uso responsable de inteligencia artificial</a></li>
+  </ul></li>
+  <li><a href="#metodología-de-enseñanza" id="toc-metodología-de-enseñanza" class="nav-link" data-scroll-target="#metodología-de-enseñanza">9. Metodología de enseñanza</a></li>
+  <li><a href="#evidencias-y-evaluación" id="toc-evidencias-y-evaluación" class="nav-link" data-scroll-target="#evidencias-y-evaluación">10. Evidencias y evaluación</a></li>
+  <li><a href="#productos-acumulativos-del-curso" id="toc-productos-acumulativos-del-curso" class="nav-link" data-scroll-target="#productos-acumulativos-del-curso">11. Productos acumulativos del curso</a>
+  <ul class="collapse">
+  <li><a href="#protocolo.md" id="toc-protocolo.md" class="nav-link" data-scroll-target="#protocolo.md"><code>protocolo.md</code></a></li>
+  <li><a href="#docbitacora-ia.md" id="toc-docbitacora-ia.md" class="nav-link" data-scroll-target="#docbitacora-ia.md"><code>doc/bitacora-ia.md</code></a></li>
+  <li><a href="#datasource" id="toc-datasource" class="nav-link" data-scroll-target="#datasource"><code>data/source/</code></a></li>
+  <li><a href="#dataprocessed" id="toc-dataprocessed" class="nav-link" data-scroll-target="#dataprocessed"><code>data/processed/</code></a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"><code>results/</code></a></li>
+  <li><a href="#src" id="toc-src" class="nav-link" data-scroll-target="#src"><code>src/</code></a></li>
+  </ul></li>
+  <li><a href="#uso-de-inteligencia-artificial" id="toc-uso-de-inteligencia-artificial" class="nav-link" data-scroll-target="#uso-de-inteligencia-artificial">12. Uso de inteligencia artificial</a></li>
+  <li><a href="#perfil-de-egreso-del-curso" id="toc-perfil-de-egreso-del-curso" class="nav-link" data-scroll-target="#perfil-de-egreso-del-curso">13. Perfil de egreso del curso</a></li>
+  <li><a href="#continuidad-curricular" id="toc-continuidad-curricular" class="nav-link" data-scroll-target="#continuidad-curricular">14. Continuidad curricular</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/Helysalgado/introbioinfo-unix/edit/main/programa-detallado.qmd" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/Helysalgado/introbioinfo-unix/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Programa detallado</h1>
+<p class="subtitle lead">Introducción a la Bioinformática · LCG · UNAM · 2026</p>
+</div>
+
+<div>
+  <div class="description">
+    Programa completo del curso: descripción, propósito, enfoque formativo, ejes de contenido, contenido por unidad, competencias, metodología, evaluación y perfil de egreso.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Esta es la versión completa del programa. Para la <strong>ruta de sesiones</strong> y el acceso directo a cada módulo, ve a <a href="./programa.html">Programa</a>. Para empezar a estudiar, <a href="./u1-trabajo-reproducible.html">Unidad 1</a>.</p>
+</div>
+</div>
+</div>
+<p><strong>Plan operativo:</strong> 34 sesiones de 2 horas · <strong>Organización:</strong> 6 unidades más los ejes transversales de reproducibilidad, buenas prácticas y uso crítico de inteligencia artificial.</p>
+<section id="descripción-del-curso" class="level2">
+<h2 class="anchored" data-anchor-id="descripción-del-curso">1. Descripción del curso</h2>
+<p><strong>Introducción a la Bioinformática</strong> es el curso de entrada a la formación bioinformática de la Licenciatura en Ciencias Genómicas. Integra fundamentos biológicos, manejo de datos, cómputo científico, herramientas Unix/Linux, automatización, comparación de secuencias, reproducibilidad y razonamiento científico.</p>
+<p>El curso no está organizado como un catálogo de programas o comandos. Las herramientas se introducen en el contexto de <strong>preguntas biológicas concretas</strong> y conforme el estudiante necesita nuevas estrategias para obtener, transformar, verificar e interpretar evidencia.</p>
+<p>La progresión general es:</p>
+<pre class="text"><code>pregunta biológica
+→ evidencia necesaria
+→ datos
+→ operación
+→ herramienta
+→ resultado
+→ verificación / validación
+→ interpretación
+→ conclusión y límites</code></pre>
+<p>De esta manera, el estudiante aprende desde el inicio que ejecutar correctamente una herramienta no equivale a resolver un problema bioinformático. Una respuesta científica requiere comprender qué representan los datos, justificar la estrategia, comprobar los resultados y distinguir entre lo que la evidencia muestra y lo que permite inferir.</p>
+<hr>
+</section>
+<section id="propósito-general" class="level2">
+<h2 class="anchored" data-anchor-id="propósito-general">2. Propósito general</h2>
+<p>Desarrollar en el estudiante las bases conceptuales, computacionales y metodológicas necesarias para resolver problemas bioinformáticos introductorios mediante el uso reproducible de datos biológicos y herramientas computacionales, con énfasis en la comprensión de los datos, la automatización de procedimientos, la interpretación crítica de resultados y la construcción de conclusiones sustentadas en evidencia.</p>
+<hr>
+</section>
+<section id="enfoque-formativo" class="level2">
+<h2 class="anchored" data-anchor-id="enfoque-formativo">3. Enfoque formativo</h2>
+<p>El curso articula cinco dimensiones que evolucionan simultáneamente:</p>
+<pre class="text"><code>BIOLOGÍA
+¿Qué representa el dato?
+        │
+        ▼
+DATOS
+¿De dónde provienen y cómo están representados?
+        │
+        ▼
+CÓMPUTO
+¿Qué operación y herramienta necesito?
+        │
+        ▼
+REPRODUCIBILIDAD
+¿Cómo documento, verifico y repito el análisis?
+        │
+        ▼
+INTERPRETACIÓN
+¿Qué puedo concluir y cuáles son los límites?</code></pre>
+<p>Estas dimensiones no se imparten como bloques independientes. Se integran progresivamente en las actividades y problemas del curso.</p>
+<hr>
+</section>
+<section id="resultados-generales-de-aprendizaje" class="level2">
+<h2 class="anchored" data-anchor-id="resultados-generales-de-aprendizaje">4. Resultados generales de aprendizaje</h2>
+<p>Al finalizar el curso, el estudiante será capaz de:</p>
+<ol type="1">
+<li>formular preguntas bioinformáticas básicas e identificar la evidencia necesaria para responderlas;</li>
+<li>documentar procedimientos y resultados mediante protocolos reproducibles;</li>
+<li>organizar proyectos computacionales preservando datos originales y metadatos;</li>
+<li>trabajar en un entorno Unix/Linux local y remoto;</li>
+<li>recuperar datos de recursos biológicos públicos y documentar su procedencia;</li>
+<li>reconocer e interpretar archivos FASTA, GenBank y GFF/GFF3;</li>
+<li>inspeccionar, filtrar, transformar, ordenar, resumir y contrastar archivos biológicos;</li>
+<li>interpretar conteos, coordenadas, longitudes, distribuciones y otras medidas derivadas;</li>
+<li>construir tuberías transparentes mediante herramientas Unix;</li>
+<li>transformar un procedimiento validado en un script reutilizable;</li>
+<li>parametrizar scripts y procesar múltiples archivos;</li>
+<li>documentar, probar y validar herramientas computacionales sencillas;</li>
+<li>ejecutar trabajos bioinformáticos en infraestructura de cómputo remoto y sistemas de colas;</li>
+<li>interpretar alineamientos de secuencias;</li>
+<li>diseñar y ejecutar búsquedas BLAST reproducibles;</li>
+<li>integrar identidad, similitud, cobertura, E-value, bit score y HSP en la evaluación de resultados;</li>
+<li>distinguir similitud de homología;</li>
+<li>razonar sobre ortología, paralogía y xenología con base en evidencia;</li>
+<li>construir hipótesis biológicas indicando alternativas, incertidumbre y evidencia faltante;</li>
+<li>utilizar herramientas de inteligencia artificial de manera crítica, ética y verificable.</li>
+</ol>
+<hr>
+</section>
+<section id="ejes-de-contenido" class="level2">
+<h2 class="anchored" data-anchor-id="ejes-de-contenido">5. Ejes de contenido</h2>
+<section id="biología-y-datos-biológicos" class="level3">
+<h3 class="anchored" data-anchor-id="biología-y-datos-biológicos">5.1 Biología y datos biológicos</h3>
+<section id="fundamentos-biológicos" class="level4">
+<h4 class="anchored" data-anchor-id="fundamentos-biológicos">Fundamentos biológicos</h4>
+<ul>
+<li>DNA, RNA y proteínas.</li>
+<li>Flujo de información genética.</li>
+<li>Gen y producto génico.</li>
+<li>Secuencias de nucleótidos y aminoácidos.</li>
+<li>Genoma y replicón.</li>
+<li>Coordenadas genómicas.</li>
+<li>Cadenas positiva y negativa.</li>
+<li>Regiones codificantes.</li>
+<li>Anotación biológica.</li>
+<li>Features genómicos.</li>
+<li>Relación entre secuencia, registro y anotación.</li>
+</ul>
+</section>
+<section id="representación-de-información-biológica" class="level4">
+<h4 class="anchored" data-anchor-id="representación-de-información-biológica">Representación de información biológica</h4>
+<ul>
+<li>Secuencias y metadatos.</li>
+<li>FASTA.</li>
+<li>GenBank.</li>
+<li>GFF/GFF3.</li>
+<li>Tablas derivadas de bases de datos.</li>
+<li>Identificadores.</li>
+<li>Versiones.</li>
+<li>Registros.</li>
+<li>Campos y atributos.</li>
+<li>Delimitadores.</li>
+<li>Encabezados.</li>
+<li>Valores faltantes.</li>
+</ul>
+</section>
+<section id="bases-de-datos-biológicas" class="level4">
+<h4 class="anchored" data-anchor-id="bases-de-datos-biológicas">Bases de datos biológicas</h4>
+<ul>
+<li>Recursos de NCBI.</li>
+<li>Genomes.</li>
+<li>Nucleotide.</li>
+<li>PubMed.</li>
+<li>UniProt como fuente independiente para el contraste de inventarios.</li>
+<li>Registro e identificador.</li>
+<li>Versionado.</li>
+<li>Procedencia.</li>
+<li>Descarga de secuencias y genomas.</li>
+<li>Integridad de los archivos recuperados.</li>
+<li>Comparación entre fuentes independientes.</li>
+</ul>
+</section>
+<section id="exploración-de-genomas" class="level4">
+<h4 class="anchored" data-anchor-id="exploración-de-genomas">Exploración de genomas</h4>
+<ul>
+<li>Inventario de features.</li>
+<li>Genes y CDS.</li>
+<li>Conteos.</li>
+<li>Distribución por replicón.</li>
+<li>Distribución por cadena.</li>
+<li>Longitud de genes.</li>
+<li>Mínimo, máximo, media y mediana.</li>
+<li>Densidad génica.</li>
+<li>Tamaño del genoma.</li>
+<li>Comparación de resultados con metadatos y fuentes independientes.</li>
+</ul>
+</section>
+<section id="comparación-de-secuencias" class="level4">
+<h4 class="anchored" data-anchor-id="comparación-de-secuencias">Comparación de secuencias</h4>
+<ul>
+<li>Correspondencia entre posiciones.</li>
+<li>Coincidencia.</li>
+<li>Sustitución.</li>
+<li>Inserción/deleción.</li>
+<li>Brecha (<em>gap</em>).</li>
+<li>Identidad.</li>
+<li>Similitud.</li>
+<li>Cobertura.</li>
+<li>Alineamientos de pares.</li>
+<li>Alineamientos múltiples.</li>
+<li>Comparación de secuencias de nucleótidos y proteínas.</li>
+</ul>
+</section>
+<section id="búsqueda-de-similitud" class="level4">
+<h4 class="anchored" data-anchor-id="búsqueda-de-similitud">Búsqueda de similitud</h4>
+<ul>
+<li>Pregunta de búsqueda.</li>
+<li>Secuencia consulta.</li>
+<li>Base de datos.</li>
+<li>Búsqueda heurística.</li>
+<li>Semillas.</li>
+<li>Tamaño de palabra.</li>
+<li>Extensión.</li>
+<li>HSP.</li>
+<li>Sensibilidad y velocidad.</li>
+<li>BLASTN.</li>
+<li>BLASTP.</li>
+</ul>
+</section>
+<section id="interpretación-biológica-y-evolución" class="level4">
+<h4 class="anchored" data-anchor-id="interpretación-biológica-y-evolución">Interpretación biológica y evolución</h4>
+<ul>
+<li>Identidad y cobertura como medidas diferentes.</li>
+<li>E-value.</li>
+<li>Bit score.</li>
+<li>Alineamientos parciales.</li>
+<li>Múltiples HSP.</li>
+<li>Ranking de candidatos.</li>
+<li>Similitud observada.</li>
+<li>Homología inferida.</li>
+<li>Especiación.</li>
+<li>Duplicación génica.</li>
+<li>Ortólogos.</li>
+<li>Parálogos.</li>
+<li>Xenólogos.</li>
+<li>Transferencia de función.</li>
+<li>Limitaciones de las búsquedas de similitud.</li>
+<li>Evidencia suficiente e insuficiente.</li>
+<li>Hipótesis biológica y explicaciones alternativas.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="cómputo-y-herramientas-bioinformáticas" class="level3">
+<h3 class="anchored" data-anchor-id="cómputo-y-herramientas-bioinformáticas">5.2 Cómputo y herramientas bioinformáticas</h3>
+<section id="entorno-unixlinux" class="level4">
+<h4 class="anchored" data-anchor-id="entorno-unixlinux">Entorno Unix/Linux</h4>
+<ul>
+<li>Unix y Linux.</li>
+<li>Shell.</li>
+<li>Terminal.</li>
+<li>Línea de comandos.</li>
+<li>Sintaxis básica de comandos.</li>
+<li>Manuales y sistemas de ayuda.</li>
+<li>Sistema de archivos.</li>
+<li>Rutas absolutas y relativas.</li>
+<li>Directorio de trabajo.</li>
+<li>Archivos y directorios.</li>
+<li>Creación, copia, movimiento y eliminación.</li>
+<li>Edición de archivos de texto.</li>
+<li>Tipos de archivo.</li>
+<li>Compresión y descompresión.</li>
+<li>Permisos.</li>
+<li>Procesos.</li>
+</ul>
+</section>
+<section id="cómputo-remoto" class="level4">
+<h4 class="anchored" data-anchor-id="cómputo-remoto">Cómputo remoto</h4>
+<ul>
+<li>Servidores.</li>
+<li>SSH.</li>
+<li>Transferencia de archivos.</li>
+<li>SFTP.</li>
+<li>SCP.</li>
+<li><code>rsync</code>.</li>
+<li>Verificación de transferencias.</li>
+<li>Sumas de comprobación e integridad.</li>
+</ul>
+</section>
+<section id="entrada-salida-y-composición-de-herramientas" class="level4">
+<h4 class="anchored" data-anchor-id="entrada-salida-y-composición-de-herramientas">Entrada, salida y composición de herramientas</h4>
+<ul>
+<li>Entrada estándar.</li>
+<li>Salida estándar.</li>
+<li>Salida de error.</li>
+<li>Redirecciones.</li>
+<li>Tuberías.</li>
+<li>Encadenamiento de operaciones.</li>
+<li>Flujos de datos.</li>
+</ul>
+</section>
+<section id="inspección-selección-y-resumen" class="level4">
+<h4 class="anchored" data-anchor-id="inspección-selección-y-resumen">Inspección, selección y resumen</h4>
+<ul>
+<li><code>cat</code>.</li>
+<li><code>less</code>.</li>
+<li><code>head</code>.</li>
+<li><code>tail</code>.</li>
+<li><code>wc</code>.</li>
+<li><code>cut</code>.</li>
+<li><code>sort</code>.</li>
+<li><code>uniq</code>.</li>
+<li>Herramientas afines de inspección y resumen.</li>
+</ul>
+</section>
+<section id="búsqueda-y-patrones" class="level4">
+<h4 class="anchored" data-anchor-id="búsqueda-y-patrones">Búsqueda y patrones</h4>
+<ul>
+<li><code>grep</code>.</li>
+<li>Búsqueda literal.</li>
+<li>Patrones.</li>
+<li>Expresiones regulares.</li>
+<li>Falsos positivos.</li>
+<li>Falsos negativos.</li>
+<li>Validación de patrones.</li>
+</ul>
+</section>
+<section id="transformación-de-texto" class="level4">
+<h4 class="anchored" data-anchor-id="transformación-de-texto">Transformación de texto</h4>
+<ul>
+<li><code>tr</code>.</li>
+<li><code>sed</code>.</li>
+<li>Normalización.</li>
+<li>Sustitución.</li>
+<li>Limpieza controlada.</li>
+<li>Conversión de delimitadores.</li>
+<li>Extracción de identificadores y campos.</li>
+</ul>
+</section>
+<section id="procesamiento-estructurado-con-awk" class="level4">
+<h4 class="anchored" data-anchor-id="procesamiento-estructurado-con-awk">Procesamiento estructurado con <code>awk</code></h4>
+<ul>
+<li>Delimitadores.</li>
+<li>Campos <code>$1 … $NF</code>.</li>
+<li><code>NR</code>.</li>
+<li><code>NF</code>.</li>
+<li>Patrones.</li>
+<li>Acciones.</li>
+<li>Condiciones lógicas.</li>
+<li><code>&amp;&amp;</code>.</li>
+<li><code>||</code>.</li>
+<li>Aritmética sobre campos.</li>
+<li>Formateo de salida.</li>
+<li>Cálculos sobre coordenadas.</li>
+<li>Condiciones multicolumna.</li>
+</ul>
+</section>
+<section id="scripting-en-shell" class="level4">
+<h4 class="anchored" data-anchor-id="scripting-en-shell">Scripting en Shell</h4>
+<ul>
+<li>Script.</li>
+<li>Intérprete.</li>
+<li><em>Shebang</em>.</li>
+<li>Comentarios.</li>
+<li>Permisos de ejecución.</li>
+<li>Variables.</li>
+<li>Expansión.</li>
+<li>Sustitución de comandos.</li>
+<li>Parámetros de entrada.</li>
+<li>Validación de argumentos.</li>
+<li>Validación de archivos.</li>
+<li>Mensajes de uso.</li>
+<li>Códigos y mensajes de error.</li>
+<li>Ciclos <code>for</code>.</li>
+<li>Procesamiento por lotes.</li>
+<li>Organización de salidas.</li>
+<li>Reportes.</li>
+<li>Pruebas con datos nuevos.</li>
+<li>Documentación de herramientas.</li>
+<li>README de software.</li>
+</ul>
+</section>
+<section id="cómputo-de-alto-rendimiento" class="level4">
+<h4 class="anchored" data-anchor-id="cómputo-de-alto-rendimiento">Cómputo de alto rendimiento</h4>
+<ul>
+<li>Nodo de acceso.</li>
+<li>Nodo de cómputo.</li>
+<li>Trabajo (<em>job</em>).</li>
+<li>Sistema de colas.</li>
+<li>SGE.</li>
+<li>Script de trabajo.</li>
+<li><code>qsub</code>.</li>
+<li><code>qstat</code>.</li>
+<li><code>qdel</code>.</li>
+<li>Salida estándar y salida de error del trabajo.</li>
+<li>Criterios para decidir cuándo utilizar un cluster.</li>
+<li>Reproducibilidad entre infraestructuras.</li>
+</ul>
+</section>
+<section id="herramientas-de-comparación-y-búsqueda" class="level4">
+<h4 class="anchored" data-anchor-id="herramientas-de-comparación-y-búsqueda">Herramientas de comparación y búsqueda</h4>
+<ul>
+<li>Herramientas de alineamiento utilizadas en las prácticas.</li>
+<li>BLAST.</li>
+<li><code>makeblastdb</code>.</li>
+<li><code>blastn</code>.</li>
+<li><code>blastp</code>.</li>
+<li>Bases de datos locales.</li>
+<li>Formatos de salida.</li>
+<li>Salida tabular.</li>
+<li>Parámetros de búsqueda.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="reproducibilidad-y-buenas-prácticas" class="level3">
+<h3 class="anchored" data-anchor-id="reproducibilidad-y-buenas-prácticas">5.3 Reproducibilidad y buenas prácticas</h3>
+<section id="documentación-científica" class="level4">
+<h4 class="anchored" data-anchor-id="documentación-científica">Documentación científica</h4>
+<ul>
+<li>Markdown.</li>
+<li>Protocolo computacional.</li>
+<li>Pregunta y subpreguntas.</li>
+<li>Estrategia.</li>
+<li>Metodología.</li>
+<li>Resultados.</li>
+<li>Discusión.</li>
+<li>Conclusiones.</li>
+<li>Registro de decisiones.</li>
+</ul>
+</section>
+<section id="organización-reproducible-de-proyectos" class="level4">
+<h4 class="anchored" data-anchor-id="organización-reproducible-de-proyectos">Organización reproducible de proyectos</h4>
+<p>Estructura de referencia:</p>
+<pre class="text"><code>proyecto/
+├── data/
+│   ├── source/
+│   └── processed/
+├── src/
+├── results/
+└── doc/</code></pre>
+<p>Principios:</p>
+<ul>
+<li>preservar datos originales;</li>
+<li>no editar <code>data/source/</code>;</li>
+<li>separar datos originales de derivados;</li>
+<li>separar código de datos;</li>
+<li>conservar resultados trazables;</li>
+<li>documentar procedencia;</li>
+<li>utilizar nombres comprensibles;</li>
+<li>conservar parámetros y comandos;</li>
+<li>permitir que otra persona reconstruya el análisis.</li>
+</ul>
+</section>
+<section id="fair" class="level4">
+<h4 class="anchored" data-anchor-id="fair">FAIR</h4>
+<ul>
+<li>Encontrable (<em>Findable</em>).</li>
+<li>Accesible (<em>Accessible</em>).</li>
+<li>Interoperable (<em>Interoperable</em>).</li>
+<li>Reutilizable (<em>Reusable</em>).</li>
+<li>Metadatos.</li>
+<li>Diccionario de variables.</li>
+<li>Procedencia.</li>
+<li>Versiones.</li>
+<li>Identificadores.</li>
+</ul>
+</section>
+<section id="integridad-y-trazabilidad" class="level4">
+<h4 class="anchored" data-anchor-id="integridad-y-trazabilidad">Integridad y trazabilidad</h4>
+<ul>
+<li>Verificación de descargas.</li>
+<li>Verificación de transferencias.</li>
+<li>Conservación de archivos originales.</li>
+<li>Registro de transformaciones.</li>
+<li>Correspondencia entre entradas y salidas.</li>
+<li>Identificación de archivos intermedios.</li>
+<li>Registro de parámetros.</li>
+</ul>
+</section>
+<section id="verificación-validación-y-robustez" class="level4">
+<h4 class="anchored" data-anchor-id="verificación-validación-y-robustez">Verificación, validación y robustez</h4>
+<ul>
+<li>Verificar que una operación produjo la salida esperada.</li>
+<li>Comparar conteos antes y después de una transformación.</li>
+<li>Utilizar ejemplos pequeños y controlados.</li>
+<li>Contrastar con documentación.</li>
+<li>Contrastar con otra herramienta o estrategia cuando sea pertinente.</li>
+<li>Comparar resultados con una fuente independiente.</li>
+<li>Reconocer discrepancias legítimas entre fuentes.</li>
+<li>No confundir reproducibilidad con validez biológica.</li>
+</ul>
+</section>
+<section id="buenas-prácticas-de-scripting" class="level4">
+<h4 class="anchored" data-anchor-id="buenas-prácticas-de-scripting">Buenas prácticas de scripting</h4>
+<ul>
+<li>partir de un procedimiento previamente validado;</li>
+<li>separar lógica y datos;</li>
+<li>parametrizar;</li>
+<li>validar entradas;</li>
+<li>generar mensajes comprensibles;</li>
+<li>evitar sobrescribir datos originales;</li>
+<li>utilizar nombres de salida trazables;</li>
+<li>probar con datos diferentes;</li>
+<li>documentar requisitos, entradas, salidas y uso;</li>
+<li>conservar evidencia de ejecución.</li>
+</ul>
+</section>
+<section id="comunicación-y-revisión-científica" class="level4">
+<h4 class="anchored" data-anchor-id="comunicación-y-revisión-científica">Comunicación y revisión científica</h4>
+<ul>
+<li>Revisión por pares.</li>
+<li>Dictamen sobre evidencia.</li>
+<li>Corrección a partir de crítica.</li>
+<li>Defensa de decisiones.</li>
+<li>Separación entre observación e interpretación.</li>
+<li>Declaración de limitaciones.</li>
+<li>Evidencia faltante.</li>
+<li>Revisión de hipótesis alternativas.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="razonamiento-científico-e-interpretación" class="level3">
+<h3 class="anchored" data-anchor-id="razonamiento-científico-e-interpretación">5.4 Razonamiento científico e interpretación</h3>
+<p>Este eje articula todo el curso.</p>
+<section id="formulación-de-preguntas" class="level4">
+<h4 class="anchored" data-anchor-id="formulación-de-preguntas">Formulación de preguntas</h4>
+<ul>
+<li>¿Qué quiero saber?</li>
+<li>¿Qué evidencia permitiría responderlo?</li>
+<li>¿Qué archivo contiene esa evidencia?</li>
+<li>¿Qué campo o región debo observar?</li>
+<li>¿Qué operación necesito realizar?</li>
+</ul>
+</section>
+<section id="lectura-de-resultados" class="level4">
+<h4 class="anchored" data-anchor-id="lectura-de-resultados">Lectura de resultados</h4>
+<ul>
+<li>Diferenciar salida de herramienta y resultado científico.</li>
+<li>Identificar qué parte de una salida responde la pregunta.</li>
+<li>Comprobar consistencia.</li>
+<li>Detectar resultados inesperados.</li>
+<li>Reconocer artefactos del procedimiento.</li>
+</ul>
+</section>
+<section id="interpretación" class="level4">
+<h4 class="anchored" data-anchor-id="interpretación">Interpretación</h4>
+<ul>
+<li>Relacionar una medida computacional con su significado biológico.</li>
+<li>Comparar explicaciones.</li>
+<li>Reconocer incertidumbre.</li>
+<li>No afirmar más de lo que los datos permiten.</li>
+<li>Distinguir evidencia directa de inferencia.</li>
+</ul>
+</section>
+<section id="construcción-de-hipótesis" class="level4">
+<h4 class="anchored" data-anchor-id="construcción-de-hipótesis">Construcción de hipótesis</h4>
+<pre class="text"><code>observación
+→ evidencia
+→ interpretación
+→ inferencia
+→ hipótesis
+→ alternativas
+→ límites
+→ evidencia adicional necesaria</code></pre>
+<hr>
+</section>
+</section>
+<section id="uso-crítico-y-responsable-de-inteligencia-artificial" class="level3">
+<h3 class="anchored" data-anchor-id="uso-crítico-y-responsable-de-inteligencia-artificial">5.5 Uso crítico y responsable de inteligencia artificial</h3>
+<section id="fundamentos" class="level4">
+<h4 class="anchored" data-anchor-id="fundamentos">Fundamentos</h4>
+<ul>
+<li>Modelos generativos como asistentes.</li>
+<li>Prompt.</li>
+<li>Instrucciones.</li>
+<li>Contexto.</li>
+<li>Formato esperado.</li>
+<li>Limitaciones.</li>
+<li>Alucinaciones.</li>
+</ul>
+</section>
+<section id="prompting-científico" class="level4">
+<h4 class="anchored" data-anchor-id="prompting-científico">Prompting científico</h4>
+<ul>
+<li>Formular una tarea explícita.</li>
+<li>Proporcionar contexto suficiente.</li>
+<li>Definir restricciones.</li>
+<li>Solicitar explicación o justificación cuando corresponda.</li>
+<li>Pedir formatos verificables.</li>
+<li>Refinar instrucciones.</li>
+</ul>
+</section>
+<section id="regla-metodológica" class="level4">
+<h4 class="anchored" data-anchor-id="regla-metodológica">Regla metodológica</h4>
+<blockquote class="blockquote">
+<p><strong>Primero a mano; después con IA.</strong></p>
+</blockquote>
+<p>Flujo:</p>
+<pre class="text"><code>resolución propia
+→ línea base
+→ consulta a IA
+→ contraste
+→ verificación independiente
+→ corrección
+→ decisión
+→ registro</code></pre>
+</section>
+<section id="validación-de-respuestas-de-ia" class="level4">
+<h4 class="anchored" data-anchor-id="validación-de-respuestas-de-ia">Validación de respuestas de IA</h4>
+<ul>
+<li><code>man</code>.</li>
+<li><code>--help</code>.</li>
+<li>Documentación oficial.</li>
+<li>Pruebas pequeñas.</li>
+<li>Archivos controlados.</li>
+<li>Comparación con resultados manuales.</li>
+<li>Fuentes biológicas independientes.</li>
+</ul>
+</section>
+<section id="errores-que-se-busca-aprender-a-detectar" class="level4">
+<h4 class="anchored" data-anchor-id="errores-que-se-busca-aprender-a-detectar">Errores que se busca aprender a detectar</h4>
+<ul>
+<li>opciones inexistentes;</li>
+<li>sintaxis plausible pero incorrecta;</li>
+<li>confusión entre variantes de expresiones regulares;</li>
+<li>comandos que ignoran encabezados o comentarios;</li>
+<li>conteos incorrectos;</li>
+<li>modificaciones no solicitadas de los datos;</li>
+<li>interpretación excesiva de resultados;</li>
+<li>confusión entre similitud y homología;</li>
+<li>transferencia injustificada de función.</li>
+</ul>
+</section>
+<section id="bitácora-de-ia" class="level4">
+<h4 class="anchored" data-anchor-id="bitácora-de-ia">Bitácora de IA</h4>
+<p><code>doc/bitacora-ia.md</code> registra:</p>
+<ul>
+<li>objetivo de la consulta;</li>
+<li>prompt;</li>
+<li>respuesta relevante;</li>
+<li>estrategia de verificación;</li>
+<li>discrepancias;</li>
+<li>correcciones;</li>
+<li>decisión final.</li>
+</ul>
+<hr>
+</section>
+</section>
+</section>
+<section id="contenido-por-unidades" class="level2">
+<h2 class="anchored" data-anchor-id="contenido-por-unidades">6. Contenido por unidades</h2>
+<section id="unidad-1.-trabajo-reproducible-y-comunicación-científica" class="level3">
+<h3 class="anchored" data-anchor-id="unidad-1.-trabajo-reproducible-y-comunicación-científica">Unidad 1. Trabajo reproducible y comunicación científica</h3>
+<p><a href="./u1-trabajo-reproducible.html">Abrir la unidad →</a></p>
+<p><strong>Sesiones:</strong> S1–S2</p>
+<section id="propósito" class="level4">
+<h4 class="anchored" data-anchor-id="propósito">Propósito</h4>
+<p>Establecer desde el inicio hábitos de documentación, organización y razonamiento reproducible e introducir criterios para utilizar inteligencia artificial de manera crítica.</p>
+</section>
+<section id="biología-y-razonamiento-científico" class="level4">
+<h4 class="anchored" data-anchor-id="biología-y-razonamiento-científico">Biología y razonamiento científico</h4>
+<ul>
+<li>Problema científico.</li>
+<li>Pregunta.</li>
+<li>Subpreguntas.</li>
+<li>Evidencia.</li>
+<li>Datos.</li>
+<li>Resultado.</li>
+<li>Interpretación.</li>
+<li>Conclusión.</li>
+</ul>
+</section>
+<section id="cómputo" class="level4">
+<h4 class="anchored" data-anchor-id="cómputo">Cómputo</h4>
+<ul>
+<li>Markdown.</li>
+<li>Archivos de texto.</li>
+<li>Organización inicial del proyecto.</li>
+<li>Herramientas de IA como asistentes.</li>
+</ul>
+</section>
+<section id="reproducibilidad-y-buenas-prácticas-1" class="level4">
+<h4 class="anchored" data-anchor-id="reproducibilidad-y-buenas-prácticas-1">Reproducibilidad y buenas prácticas</h4>
+<ul>
+<li>Protocolo computacional.</li>
+<li>Estructura del proyecto.</li>
+<li>FAIR.</li>
+<li>Metadatos.</li>
+<li>Diccionario de variables.</li>
+<li>Preservación de datos originales.</li>
+<li>Introducción a <code>bitacora-ia.md</code>.</li>
+</ul>
+</section>
+<section id="sesiones" class="level4">
+<h4 class="anchored" data-anchor-id="sesiones">Sesiones</h4>
+<ul>
+<li><strong>S1 — Documentar:</strong> Markdown y fases del análisis de datos.</li>
+<li><strong>S2 — Organizar:</strong> buenas prácticas FAIR e introducción al prompting científico.</li>
+</ul>
+</section>
+<section id="evidencia-integradora" class="level4">
+<h4 class="anchored" data-anchor-id="evidencia-integradora">Evidencia integradora</h4>
+<p>Inicio del proyecto reproducible: <code>protocolo.md</code>, estructura de directorios, metadatos y primera entrada de la bitácora de IA.</p>
+<hr>
+</section>
+</section>
+<section id="unidad-2.-entorno-unixlinux-y-cómputo-científico" class="level3">
+<h3 class="anchored" data-anchor-id="unidad-2.-entorno-unixlinux-y-cómputo-científico">Unidad 2. Entorno Unix/Linux y cómputo científico</h3>
+<p><a href="./u2-entorno-unix.html">Abrir la unidad →</a></p>
+<p><strong>Sesiones:</strong> S3–S6</p>
+<section id="propósito-1" class="level4">
+<h4 class="anchored" data-anchor-id="propósito-1">Propósito</h4>
+<p>Construir el entorno computacional que se utilizará durante el resto del curso y desarrollar autonomía básica para trabajar local y remotamente.</p>
+</section>
+<section id="biología" class="level4">
+<h4 class="anchored" data-anchor-id="biología">Biología</h4>
+<p>Los datos biológicos aparecen todavía como contexto de trabajo; el énfasis de la unidad está en preparar el entorno que permitirá analizarlos posteriormente.</p>
+</section>
+<section id="cómputo-1" class="level4">
+<h4 class="anchored" data-anchor-id="cómputo-1">Cómputo</h4>
+<ul>
+<li>Unix/Linux.</li>
+<li>Shell.</li>
+<li>Terminal.</li>
+<li>Ayuda.</li>
+<li>Sistema de archivos.</li>
+<li>Rutas.</li>
+<li>Archivos y directorios.</li>
+<li>Edición.</li>
+<li>Compresión.</li>
+<li>Permisos.</li>
+<li>Procesos.</li>
+<li>SSH.</li>
+<li>SFTP.</li>
+<li>SCP.</li>
+<li><code>rsync</code>.</li>
+</ul>
+</section>
+<section id="reproducibilidad-y-buenas-prácticas-2" class="level4">
+<h4 class="anchored" data-anchor-id="reproducibilidad-y-buenas-prácticas-2">Reproducibilidad y buenas prácticas</h4>
+<ul>
+<li>Estructura estable del proyecto.</li>
+<li>Registro de comandos.</li>
+<li>Transferencias verificables.</li>
+<li>Integridad.</li>
+<li>Separación entre trabajo local y remoto.</li>
+<li>Preparación del proyecto para datos biológicos.</li>
+</ul>
+</section>
+<section id="sesiones-1" class="level4">
+<h4 class="anchored" data-anchor-id="sesiones-1">Sesiones</h4>
+<ul>
+<li><strong>S3 — Conectar:</strong> shell, acceso remoto y transferencia de archivos.</li>
+<li><strong>S4 — Navegar:</strong> sistema de archivos, organización y edición.</li>
+<li><strong>S5 — Gestionar:</strong> archivos, compresión, permisos y procesos.</li>
+<li><strong>S6 — Consolidar:</strong> entorno Unix listo para trabajar con datos biológicos.</li>
+</ul>
+</section>
+<section id="evidencia-integradora-1" class="level4">
+<h4 class="anchored" data-anchor-id="evidencia-integradora-1">Evidencia integradora</h4>
+<p>Proyecto organizado y accesible en el servidor, con procedimientos de conexión, transferencia, permisos y manejo de archivos documentados.</p>
+<hr>
+</section>
+</section>
+<section id="unidad-3.-datos-y-bases-de-datos-biológicas" class="level3">
+<h3 class="anchored" data-anchor-id="unidad-3.-datos-y-bases-de-datos-biológicas">Unidad 3. Datos y bases de datos biológicas</h3>
+<p><a href="./u3-datos-bases-datos.html">Abrir la unidad →</a></p>
+<p><strong>Sesiones:</strong> S7–S9</p>
+<section id="propósito-2" class="level4">
+<h4 class="anchored" data-anchor-id="propósito-2">Propósito</h4>
+<p>Comprender qué representan los datos biológicos, cómo se codifican en archivos, cómo se recuperan de bases de datos y cómo se verifica su procedencia e integridad.</p>
+</section>
+<section id="biología-1" class="level4">
+<h4 class="anchored" data-anchor-id="biología-1">Biología</h4>
+<ul>
+<li>DNA.</li>
+<li>RNA.</li>
+<li>Proteínas.</li>
+<li>Genes.</li>
+<li>Productos génicos.</li>
+<li>Genoma.</li>
+<li>Secuencias.</li>
+<li>Anotación.</li>
+<li>Features.</li>
+<li>Coordenadas.</li>
+<li>FASTA.</li>
+<li>GenBank.</li>
+<li>GFF/GFF3.</li>
+<li>Registro.</li>
+<li>Identificador.</li>
+<li>Versión.</li>
+<li>Bases de datos biológicas.</li>
+</ul>
+</section>
+<section id="cómputo-2" class="level4">
+<h4 class="anchored" data-anchor-id="cómputo-2">Cómputo</h4>
+<ul>
+<li>Navegación de recursos de NCBI.</li>
+<li>Descarga de archivos.</li>
+<li>Inspección de texto.</li>
+<li>Edición.</li>
+<li>SCP.</li>
+<li>SFTP.</li>
+<li><code>rsync</code>.</li>
+<li>Verificación de integridad.</li>
+</ul>
+</section>
+<section id="reproducibilidad-y-buenas-prácticas-3" class="level4">
+<h4 class="anchored" data-anchor-id="reproducibilidad-y-buenas-prácticas-3">Reproducibilidad y buenas prácticas</h4>
+<ul>
+<li>Procedencia.</li>
+<li>Metadatos.</li>
+<li>Versiones.</li>
+<li>Integridad.</li>
+<li>Registro de descarga.</li>
+<li>Preservación de datos fuente.</li>
+<li>Selección razonada de archivos.</li>
+</ul>
+</section>
+<section id="sesiones-2" class="level4">
+<h4 class="anchored" data-anchor-id="sesiones-2">Sesiones</h4>
+<ul>
+<li><strong>S7 — Representar:</strong> de los objetos biológicos a FASTA, GFF3 y GenBank.</li>
+<li><strong>S8 — Recuperar:</strong> bases de datos, descarga y verificación de integridad.</li>
+<li><strong>S9 — Verificar:</strong> inspección y transferencia de datos biológicos.</li>
+</ul>
+</section>
+<section id="evidencia-integradora-2" class="level4">
+<h4 class="anchored" data-anchor-id="evidencia-integradora-2">Evidencia integradora</h4>
+<p>Conjunto de datos biológicos documentado, íntegro y organizado en <code>data/source/</code>, listo para ser analizado.</p>
+<hr>
+</section>
+</section>
+<section id="unidad-4.-procesamiento-y-exploración-de-datos-genómicos" class="level3">
+<h3 class="anchored" data-anchor-id="unidad-4.-procesamiento-y-exploración-de-datos-genómicos">Unidad 4. Procesamiento y exploración de datos genómicos</h3>
+<p><a href="./u4-procesamiento-exploracion.html">Abrir la unidad →</a></p>
+<p><strong>Sesiones:</strong> S10–S23<br>
+<strong>Bloque de integración y evaluación:</strong> S14–S17</p>
+<section id="propósito-3" class="level4">
+<h4 class="anchored" data-anchor-id="propósito-3">Propósito</h4>
+<p>Construir flujos transparentes para inspeccionar, filtrar, transformar, resumir, calcular y contrastar datos genómicos hasta producir un protocolo ejecutable.</p>
+</section>
+<section id="biología-2" class="level4">
+<h4 class="anchored" data-anchor-id="biología-2">Biología</h4>
+<ul>
+<li>Genoma.</li>
+<li>Replicones.</li>
+<li>Genes.</li>
+<li>CDS.</li>
+<li>Features.</li>
+<li>Coordenadas.</li>
+<li>Cadenas <code>+</code> y <code>−</code>.</li>
+<li>Identificadores.</li>
+<li>Anotación.</li>
+<li>Longitudes.</li>
+<li>Densidad génica.</li>
+<li>Tamaño del genoma.</li>
+<li>Distribuciones.</li>
+<li>Discrepancias entre fuentes.</li>
+</ul>
+</section>
+<section id="cómputo-3" class="level4">
+<h4 class="anchored" data-anchor-id="cómputo-3">Cómputo</h4>
+<ul>
+<li>stdin, stdout y stderr.</li>
+<li>Redirecciones.</li>
+<li>Tuberías.</li>
+<li><code>head</code>.</li>
+<li><code>tail</code>.</li>
+<li><code>wc</code>.</li>
+<li><code>cut</code>.</li>
+<li><code>sort</code>.</li>
+<li><code>uniq</code>.</li>
+<li><code>grep</code>.</li>
+<li>Expresiones regulares.</li>
+<li><code>tr</code>.</li>
+<li><code>sed</code>.</li>
+<li><code>awk</code>.</li>
+<li>Condiciones multicolumna.</li>
+<li>Aritmética sobre coordenadas.</li>
+<li>Formateo de salidas.</li>
+</ul>
+</section>
+<section id="reproducibilidad-y-buenas-prácticas-4" class="level4">
+<h4 class="anchored" data-anchor-id="reproducibilidad-y-buenas-prácticas-4">Reproducibilidad y buenas prácticas</h4>
+<ul>
+<li>Protocolo acumulativo.</li>
+<li>Inspección antes de transformar.</li>
+<li>Conteos de control.</li>
+<li>Validación de patrones.</li>
+<li>Trazabilidad de identificadores.</li>
+<li>Normalización documentada.</li>
+<li>Comparación con fuentes independientes.</li>
+<li>Revisión por pares.</li>
+<li>Evaluación individual.</li>
+<li>Integración del procedimiento completo.</li>
+</ul>
+</section>
+<section id="secuencia-de-sesiones" class="level4">
+<h4 class="anchored" data-anchor-id="secuencia-de-sesiones">Secuencia de sesiones</h4>
+<ul>
+<li><strong>S10 — Reconocer:</strong> anatomía de un archivo biológico y flujos de datos.</li>
+<li><strong>S11 — Localizar:</strong> estructura tabular de la anotación.</li>
+<li><strong>S12 — Filtrar y contar:</strong> primeras preguntas sobre el genoma.</li>
+<li><strong>S13 — Resumir y cuantificar:</strong> inventario del genoma.</li>
+<li><strong>S14–S15 — Investigar:</strong> del assembly al Estado 1 del genoma.</li>
+<li><strong>S16 — Revisar:</strong> evaluación por pares y cierre del mini-proyecto.</li>
+<li><strong>S17 — Demostrar:</strong> evaluación individual con datos nuevos.</li>
+<li><strong>S18 — Precisar:</strong> patrones y expresiones regulares.</li>
+<li><strong>S19 — Extraer:</strong> identificadores, encabezados y campos.</li>
+<li><strong>S20 — Normalizar:</strong> preparar los datos para compararlos.</li>
+<li><strong>S21 — Confrontar:</strong> validar con una fuente independiente (UniProt).</li>
+<li><strong>S22 — Condicionar y calcular:</strong> preguntas complejas sobre columnas.</li>
+<li><strong>S23 — Integrar:</strong> protocolo como cuaderno de laboratorio ejecutable.</li>
+</ul>
+</section>
+<section id="evidencia-integradora-3" class="level4">
+<h4 class="anchored" data-anchor-id="evidencia-integradora-3">Evidencia integradora</h4>
+<p>Protocolo ejecutable que reconstruye el análisis del genoma y genera resultados trazables a partir de los archivos fuente.</p>
+<hr>
+</section>
+</section>
+<section id="unidad-5.-automatización-de-análisis-bioinformáticos-con-shell" class="level3">
+<h3 class="anchored" data-anchor-id="unidad-5.-automatización-de-análisis-bioinformáticos-con-shell">Unidad 5. Automatización de análisis bioinformáticos con Shell</h3>
+<p><a href="./u5-automatizacion-scripting.html">Abrir la unidad →</a></p>
+<p><strong>Sesiones:</strong> S24–S29</p>
+<section id="propósito-4" class="level4">
+<h4 class="anchored" data-anchor-id="propósito-4">Propósito</h4>
+<p>Transformar un procedimiento ya validado en una herramienta reutilizable, verificable y capaz de procesar múltiples archivos y ejecutarse en infraestructura de cómputo científico.</p>
+</section>
+<section id="biología-3" class="level4">
+<h4 class="anchored" data-anchor-id="biología-3">Biología</h4>
+<p>Los análisis de genomas desarrollados en U4 se convierten en el caso de uso para automatización. La pregunta biológica permanece mientras cambia la forma de ejecutar el análisis.</p>
+</section>
+<section id="cómputo-4" class="level4">
+<h4 class="anchored" data-anchor-id="cómputo-4">Cómputo</h4>
+<ul>
+<li>Scripts.</li>
+<li><em>Shebang</em>.</li>
+<li>Permisos.</li>
+<li>Variables.</li>
+<li>Expansión.</li>
+<li>Parámetros.</li>
+<li>Validación.</li>
+<li>Ciclos <code>for</code>.</li>
+<li>Procesamiento por lotes.</li>
+<li>Nombres de salida.</li>
+<li>Reportes.</li>
+<li>Mensajes de error.</li>
+<li>README.</li>
+<li>Pruebas.</li>
+<li>Cluster.</li>
+<li>SGE.</li>
+<li><code>qsub</code>.</li>
+<li><code>qstat</code>.</li>
+<li><code>qdel</code>.</li>
+</ul>
+</section>
+<section id="reproducibilidad-y-buenas-prácticas-5" class="level4">
+<h4 class="anchored" data-anchor-id="reproducibilidad-y-buenas-prácticas-5">Reproducibilidad y buenas prácticas</h4>
+<ul>
+<li>Automatizar únicamente procedimientos previamente validados.</li>
+<li>Separar datos y lógica.</li>
+<li>Parametrizar.</li>
+<li>Validar entradas.</li>
+<li>No sobrescribir datos fuente.</li>
+<li>Documentar el contrato de uso.</li>
+<li>Probar con datos nuevos.</li>
+<li>Revisión por pares.</li>
+<li>Defensa de decisiones.</li>
+<li>Verificar equivalencia entre ejecución local y remota.</li>
+</ul>
+</section>
+<section id="sesiones-3" class="level4">
+<h4 class="anchored" data-anchor-id="sesiones-3">Sesiones</h4>
+<ul>
+<li><strong>S24 — Guardar:</strong> del protocolo ejecutable al script.</li>
+<li><strong>S25 — Parametrizar:</strong> separar el procedimiento de sus datos.</li>
+<li><strong>S26 — Iterar:</strong> de un genoma a una colección.</li>
+<li><strong>S27 — Entregar:</strong> de script funcional a herramienta científica.</li>
+<li><strong>S28 — Defender:</strong> demostrar que la herramienta es reproducible.</li>
+<li><strong>S29 — Escalar:</strong> la misma herramienta en otra infraestructura.</li>
+</ul>
+</section>
+<section id="evidencia-integradora-4" class="level4">
+<h4 class="anchored" data-anchor-id="evidencia-integradora-4">Evidencia integradora</h4>
+<p>Herramienta bioinformática reutilizable con parámetros, validaciones, documentación, pruebas, reporte y evidencia de ejecución reproducible.</p>
+<hr>
+</section>
+</section>
+<section id="unidad-6.-comparación-de-secuencias-y-construcción-de-hipótesis-biológicas" class="level3">
+<h3 class="anchored" data-anchor-id="unidad-6.-comparación-de-secuencias-y-construcción-de-hipótesis-biológicas">Unidad 6. Comparación de secuencias y construcción de hipótesis biológicas</h3>
+<p><a href="./u6-comparacion-homologia.html">Abrir la unidad →</a></p>
+<p><strong>Sesiones:</strong> S30–S34</p>
+<section id="propósito-5" class="level4">
+<h4 class="anchored" data-anchor-id="propósito-5">Propósito</h4>
+<p>Interpretar comparaciones y búsquedas de similitud para construir hipótesis biológicas defendibles, distinguiendo con precisión observaciones computacionales de inferencias evolutivas.</p>
+</section>
+<section id="biología-4" class="level4">
+<h4 class="anchored" data-anchor-id="biología-4">Biología</h4>
+<ul>
+<li>Secuencias de nucleótidos.</li>
+<li>Secuencias de proteínas.</li>
+<li>Correspondencia entre posiciones.</li>
+<li>Identidad.</li>
+<li>Similitud.</li>
+<li>Cobertura.</li>
+<li>Sustituciones.</li>
+<li>Inserciones/deleciones.</li>
+<li>Homología.</li>
+<li>Especiación.</li>
+<li>Duplicación.</li>
+<li>Ortología.</li>
+<li>Paralogía.</li>
+<li>Xenología.</li>
+<li>Función.</li>
+<li>Hipótesis biológica.</li>
+</ul>
+</section>
+<section id="cómputo-5" class="level4">
+<h4 class="anchored" data-anchor-id="cómputo-5">Cómputo</h4>
+<ul>
+<li>Alineamientos.</li>
+<li>Herramientas de comparación.</li>
+<li>BLAST.</li>
+<li><code>makeblastdb</code>.</li>
+<li><code>blastn</code>.</li>
+<li><code>blastp</code>.</li>
+<li>Bases locales.</li>
+<li>Parámetros.</li>
+<li>Salida tabular.</li>
+<li>E-value.</li>
+<li>Bit score.</li>
+<li>HSP.</li>
+<li>Ranking de candidatos.</li>
+</ul>
+</section>
+<section id="reproducibilidad-y-buenas-prácticas-6" class="level4">
+<h4 class="anchored" data-anchor-id="reproducibilidad-y-buenas-prácticas-6">Reproducibilidad y buenas prácticas</h4>
+<ul>
+<li>Documentar consulta, base y parámetros.</li>
+<li>Conservar resultados.</li>
+<li>No elegir candidatos con una sola métrica.</li>
+<li>Separar observación de inferencia.</li>
+<li>Explicitar alternativas.</li>
+<li>Declarar límites.</li>
+<li>Indicar evidencia adicional necesaria.</li>
+<li>Contrastar interpretaciones generadas por IA.</li>
+</ul>
+</section>
+<section id="secuencia-conceptual" class="level4">
+<h4 class="anchored" data-anchor-id="secuencia-conceptual">Secuencia conceptual</h4>
+<pre class="text"><code>S30 Comparar
+→ S31 Buscar
+→ S32 Interpretar
+→ S33 Inferir
+→ S34 Integrar</code></pre>
+</section>
+<section id="sesiones-4" class="level4">
+<h4 class="anchored" data-anchor-id="sesiones-4">Sesiones</h4>
+<ul>
+<li><strong>S30 — Comparar:</strong> una secuencia adquiere significado en contexto.</li>
+<li><strong>S31 — Buscar:</strong> comparar una secuencia contra una colección.</li>
+<li><strong>S32 — Interpretar:</strong> una lista de hits no es una conclusión.</li>
+<li><strong>S33 — Inferir:</strong> cuando la similitud no basta.</li>
+<li><strong>S34 — Integrar:</strong> de la evidencia a la hipótesis biológica.</li>
+</ul>
+</section>
+<section id="evidencia-integradora-5" class="level4">
+<h4 class="anchored" data-anchor-id="evidencia-integradora-5">Evidencia integradora</h4>
+<p>Informe de investigación sobre una secuencia desconocida que documenta estrategia, búsqueda, evidencia, interpretación, hipótesis, alternativas, limitaciones y validación crítica.</p>
+<hr>
+</section>
+</section>
+</section>
+<section id="mapa-integrado-de-contenidos" class="level2">
+<h2 class="anchored" data-anchor-id="mapa-integrado-de-contenidos">7. Mapa integrado de contenidos</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 20%">
+<col style="width: 18%">
+<col style="width: 22%">
+<col style="width: 18%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Unidad</th>
+<th style="text-align: left;">Biología</th>
+<th style="text-align: left;">Cómputo</th>
+<th style="text-align: left;">Reproducibilidad y buenas prácticas</th>
+<th style="text-align: left;">Capacidad central</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>U1</strong></td>
+<td style="text-align: left;">Pregunta, evidencia, datos e interpretación</td>
+<td style="text-align: left;">Markdown; organización digital; IA</td>
+<td style="text-align: left;">FAIR, metadatos, protocolo, bitácora</td>
+<td style="text-align: left;"><strong>Documentar y organizar</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>U2</strong></td>
+<td style="text-align: left;">Datos biológicos como objetos de trabajo</td>
+<td style="text-align: left;">Unix, shell, archivos, SSH, transferencia</td>
+<td style="text-align: left;">Estructura del proyecto, integridad, registro</td>
+<td style="text-align: left;"><strong>Operar el entorno</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>U3</strong></td>
+<td style="text-align: left;">DNA, RNA, proteínas, genes, genomas, anotación, FASTA, GFF3, GenBank</td>
+<td style="text-align: left;">Bases de datos, descarga, inspección y transferencia</td>
+<td style="text-align: left;">Procedencia, versiones, integridad, <code>data/source/</code></td>
+<td style="text-align: left;"><strong>Comprender y recuperar datos</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>U4</strong></td>
+<td style="text-align: left;">Features, genes, CDS, coordenadas, cadenas, replicones, longitudes, densidad</td>
+<td style="text-align: left;">Pipes, grep, regex, cut, sort, uniq, tr, sed, awk</td>
+<td style="text-align: left;">Controles, normalización, contraste, revisión, protocolo ejecutable</td>
+<td style="text-align: left;"><strong>Analizar y confrontar</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>U5</strong></td>
+<td style="text-align: left;">Análisis genómico como caso de automatización</td>
+<td style="text-align: left;">Shell scripting, variables, parámetros, ciclos, HPC/SGE</td>
+<td style="text-align: left;">Validación, pruebas, documentación, reutilización</td>
+<td style="text-align: left;"><strong>Automatizar y escalar</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>U6</strong></td>
+<td style="text-align: left;">Alineamiento, similitud, homología, ortología, paralogía, xenología</td>
+<td style="text-align: left;">BLAST, métricas, bases, salida tabular</td>
+<td style="text-align: left;">Parámetros, ranking de evidencia, límites, validación</td>
+<td style="text-align: left;"><strong>Interpretar e inferir</strong></td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="competencias" class="level2">
+<h2 class="anchored" data-anchor-id="competencias">8. Competencias</h2>
+<section id="a.-trabajo-reproducible-y-comunicación-científica" class="level3">
+<h3 class="anchored" data-anchor-id="a.-trabajo-reproducible-y-comunicación-científica">A. Trabajo reproducible y comunicación científica</h3>
+<ul>
+<li>Documentar reportes y protocolos en Markdown.</li>
+<li>Aplicar principios FAIR.</li>
+<li>Crear y utilizar metadatos.</li>
+<li>Organizar proyectos bioinformáticos reproducibles.</li>
+<li>Comunicar decisiones, resultados y limitaciones.</li>
+</ul>
+</section>
+<section id="b.-entorno-unix-y-cómputo-científico" class="level3">
+<h3 class="anchored" data-anchor-id="b.-entorno-unix-y-cómputo-científico">B. Entorno Unix y cómputo científico</h3>
+<ul>
+<li>Operar la línea de comandos.</li>
+<li>Gestionar archivos, directorios, permisos y procesos.</li>
+<li>Trabajar en servidores remotos.</li>
+<li>Transferir datos verificando integridad.</li>
+<li>Utilizar un cluster a nivel usuario.</li>
+</ul>
+</section>
+<section id="c.-datos-y-bases-de-datos-biológicas" class="level3">
+<h3 class="anchored" data-anchor-id="c.-datos-y-bases-de-datos-biológicas">C. Datos y bases de datos biológicas</h3>
+<ul>
+<li>Recuperar secuencias y genomas.</li>
+<li>Interpretar formatos biológicos.</li>
+<li>Comprender registros, identificadores, versiones y anotaciones.</li>
+<li>Documentar procedencia.</li>
+</ul>
+</section>
+<section id="d.-análisis-y-exploración-de-datos-genómicos" class="level3">
+<h3 class="anchored" data-anchor-id="d.-análisis-y-exploración-de-datos-genómicos">D. Análisis y exploración de datos genómicos</h3>
+<ul>
+<li>Procesar archivos mediante tuberías y herramientas Unix.</li>
+<li>Buscar y filtrar mediante patrones.</li>
+<li>Transformar representaciones.</li>
+<li>Realizar cálculos y resúmenes.</li>
+<li>Interpretar resultados en contexto biológico.</li>
+</ul>
+</section>
+<section id="e.-automatización-y-programación-en-shell" class="level3">
+<h3 class="anchored" data-anchor-id="e.-automatización-y-programación-en-shell">E. Automatización y programación en Shell</h3>
+<ul>
+<li>Escribir scripts reutilizables.</li>
+<li>Parametrizar.</li>
+<li>Validar entradas.</li>
+<li>Procesar colecciones.</li>
+<li>Generar reportes.</li>
+<li>Probar y documentar herramientas.</li>
+</ul>
+</section>
+<section id="f.-comparación-de-secuencias-y-homología" class="level3">
+<h3 class="anchored" data-anchor-id="f.-comparación-de-secuencias-y-homología">F. Comparación de secuencias y homología</h3>
+<ul>
+<li>Interpretar alineamientos.</li>
+<li>Ejecutar e interpretar BLAST.</li>
+<li>Integrar métricas de similitud.</li>
+<li>Distinguir similitud de homología.</li>
+<li>Razonar sobre relaciones evolutivas.</li>
+</ul>
+</section>
+<section id="g.-uso-responsable-de-inteligencia-artificial" class="level3">
+<h3 class="anchored" data-anchor-id="g.-uso-responsable-de-inteligencia-artificial">G. Uso responsable de inteligencia artificial</h3>
+<ul>
+<li>Formular prompts científicos.</li>
+<li>Verificar respuestas.</li>
+<li>Detectar alucinaciones.</li>
+<li>Documentar uso relevante.</li>
+<li>Utilizar IA sin sustituir el razonamiento científico.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="metodología-de-enseñanza" class="level2">
+<h2 class="anchored" data-anchor-id="metodología-de-enseñanza">9. Metodología de enseñanza</h2>
+<p>El curso utiliza un modelo de <strong>aula invertida con aprendizaje basado en problemas</strong>.</p>
+<p>Antes de la clase, el estudiante revisa el material indispensable y realiza un primer intento de las actividades previstas.</p>
+<p>Durante el taller:</p>
+<ul>
+<li>predice;</li>
+<li>ejecuta;</li>
+<li>observa;</li>
+<li>compara;</li>
+<li>diagnostica;</li>
+<li>corrige;</li>
+<li>discute;</li>
+<li>interpreta;</li>
+<li>documenta.</li>
+</ul>
+<p>Después del taller, consolida la evidencia y actualiza los productos acumulativos.</p>
+<p>Las prácticas se intercalan con los conceptos que las hacen posibles. Las herramientas nuevas se introducen cuando la estrategia anterior alcanza una limitación reconocible.</p>
+<hr>
+</section>
+<section id="evidencias-y-evaluación" class="level2">
+<h2 class="anchored" data-anchor-id="evidencias-y-evaluación">10. Evidencias y evaluación</h2>
+<p>La evaluación se basa en <strong>desempeños demostrables</strong>.</p>
+<p>Entre las evidencias se incluyen:</p>
+<ul>
+<li>protocolo reproducible;</li>
+<li>reportes en Markdown;</li>
+<li>metadatos;</li>
+<li>diccionario de variables;</li>
+<li>bitácora de IA;</li>
+<li>estructura del proyecto;</li>
+<li>transferencia verificable;</li>
+<li>análisis de archivos biológicos;</li>
+<li>inventarios y resúmenes genómicos;</li>
+<li>mini-proyecto;</li>
+<li>revisión por pares;</li>
+<li>evaluación individual demostrativa;</li>
+<li>protocolo ejecutable;</li>
+<li>scripts;</li>
+<li>documentación de software;</li>
+<li>procesamiento por lotes;</li>
+<li>proyecto integrador de automatización;</li>
+<li>trabajo en cluster;</li>
+<li>interpretación de alineamientos;</li>
+<li>búsqueda BLAST documentada;</li>
+<li>ranking argumentado de candidatos;</li>
+<li>hipótesis de homología;</li>
+<li>informe final sobre una secuencia desconocida.</li>
+</ul>
+<p>La evaluación debe comprobar no solo que el estudiante obtiene una salida, sino que puede explicar:</p>
+<pre class="text"><code>qué hizo
++ por qué lo hizo
++ qué obtuvo
++ cómo lo verificó
++ qué significa
++ qué límites tiene</code></pre>
+<hr>
+</section>
+<section id="productos-acumulativos-del-curso" class="level2">
+<h2 class="anchored" data-anchor-id="productos-acumulativos-del-curso">11. Productos acumulativos del curso</h2>
+<section id="protocolo.md" class="level3">
+<h3 class="anchored" data-anchor-id="protocolo.md"><code>protocolo.md</code></h3>
+<p>Cuaderno de laboratorio computacional que registra la investigación.</p>
+</section>
+<section id="docbitacora-ia.md" class="level3">
+<h3 class="anchored" data-anchor-id="docbitacora-ia.md"><code>doc/bitacora-ia.md</code></h3>
+<p>Registro de consultas relevantes a asistentes de IA y de su validación.</p>
+</section>
+<section id="datasource" class="level3">
+<h3 class="anchored" data-anchor-id="datasource"><code>data/source/</code></h3>
+<p>Datos originales y metadatos.</p>
+</section>
+<section id="dataprocessed" class="level3">
+<h3 class="anchored" data-anchor-id="dataprocessed"><code>data/processed/</code></h3>
+<p>Datos transformados de manera trazable.</p>
+</section>
+<section id="results" class="level3">
+<h3 class="anchored" data-anchor-id="results"><code>results/</code></h3>
+<p>Resultados derivados.</p>
+</section>
+<section id="src" class="level3">
+<h3 class="anchored" data-anchor-id="src"><code>src/</code></h3>
+<p>Scripts y herramientas desarrolladas durante la automatización.</p>
+<p>La cadena completa debe permitir reconstruir:</p>
+<pre class="text"><code>fuente
+→ dato original
+→ transformación
+→ análisis
+→ resultado
+→ verificación
+→ interpretación
+→ conclusión</code></pre>
+<hr>
+</section>
+</section>
+<section id="uso-de-inteligencia-artificial" class="level2">
+<h2 class="anchored" data-anchor-id="uso-de-inteligencia-artificial">12. Uso de inteligencia artificial</h2>
+<p>La IA se integra de manera transversal y progresiva.</p>
+<section id="inicio" class="level4">
+<h4 class="anchored" data-anchor-id="inicio">Inicio</h4>
+<ul>
+<li>qué es un asistente generativo;</li>
+<li>cómo formular un prompt;</li>
+<li>qué es una alucinación;</li>
+<li>por qué verificar;</li>
+<li>pautas de uso ético.</li>
+</ul>
+</section>
+<section id="durante-el-curso" class="level4">
+<h4 class="anchored" data-anchor-id="durante-el-curso">Durante el curso</h4>
+<p>La IA puede utilizarse para:</p>
+<ul>
+<li>explicar un concepto;</li>
+<li>proponer una alternativa;</li>
+<li>revisar un comando;</li>
+<li>diagnosticar un error;</li>
+<li>comentar un script;</li>
+<li>comparar estrategias;</li>
+<li>cuestionar una interpretación.</li>
+</ul>
+<p>Siempre después de que el estudiante disponga de una línea base propia cuando la actividad evalúe una competencia que debe desarrollar.</p>
+</section>
+<section id="cierre" class="level4">
+<h4 class="anchored" data-anchor-id="cierre">Cierre</h4>
+<p>El estudiante debe ser capaz de evaluar críticamente una interpretación asistida por IA y distinguir entre:</p>
+<ul>
+<li>una respuesta plausible;</li>
+<li>una respuesta técnicamente correcta;</li>
+<li>una respuesta reproducible;</li>
+<li>una conclusión biológicamente sustentada.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="perfil-de-egreso-del-curso" class="level2">
+<h2 class="anchored" data-anchor-id="perfil-de-egreso-del-curso">13. Perfil de egreso del curso</h2>
+<p>Al finalizar, el estudiante podrá abordar un problema bioinformático introductorio siguiendo un procedimiento como:</p>
+<pre class="text"><code>1. Formular la pregunta.
+2. Identificar la evidencia necesaria.
+3. Localizar y recuperar los datos.
+4. Documentar su procedencia.
+5. Verificar su integridad.
+6. Inspeccionar su estructura.
+7. Diseñar el análisis.
+8. Ejecutarlo mediante herramientas Unix.
+9. Verificar los resultados.
+10. Contrastar cuando sea posible.
+11. Automatizar procedimientos repetitivos.
+12. Documentar y probar la herramienta.
+13. Interpretar resultados computacionales.
+14. Construir una conclusión biológica.
+15. Declarar incertidumbre y limitaciones.
+16. Registrar el procedimiento para que pueda repetirse.</code></pre>
+<p>El estudiante habrá desarrollado una base para utilizar herramientas computacionales sin perder de vista que el objetivo de la bioinformática es <strong>convertir datos biológicos en evidencia interpretable</strong>.</p>
+<hr>
+</section>
+<section id="continuidad-curricular" class="level2">
+<h2 class="anchored" data-anchor-id="continuidad-curricular">14. Continuidad curricular</h2>
+<p>El curso prepara al estudiante para asignaturas posteriores de programación, algoritmos, bioinformática, estadística y análisis de datos.</p>
+<p>La progresión curricular buscada es:</p>
+<pre class="text"><code>Introducción a la Bioinformática
+        │
+        ├── datos biológicos
+        ├── Unix/Linux
+        ├── reproducibilidad
+        ├── scripting
+        ├── comparación de secuencias
+        └── razonamiento crítico
+                ↓
+Programación y algoritmos
+                ↓
+Análisis bioinformáticos más complejos
+                ↓
+Investigación reproducible</code></pre>
+<p>El propósito de este primer curso es que el estudiante no llegue a las materias posteriores únicamente con experiencia de sintaxis, sino con una <strong>forma de trabajo científico-computacional</strong>: preguntar, obtener evidencia, analizar, verificar, interpretar, documentar y reconocer los límites de sus conclusiones.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/helysalgado\.github\.io\/introbioinfo-unix\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./u6-s34-integrar-hipotesis-casos-ciegos.html" class="pagination-link" aria-label="S34 — Integrar">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">S34 — Integrar</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./recursos.html" class="pagination-link" aria-label="Recursos">
+        <span class="nav-page-text">Recursos</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://hits.sh/helysalgado.github.io/introbioinfo-unix/"><img src="https://hits.sh/helysalgado.github.io/introbioinfo-unix/.svg?style=flat-square&amp;label=Visitas&amp;color=4a7c9e" class="img-fluid figure-img"></a></p>
+<figcaption>Visitas</figcaption>
+</figure>
+</div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Helysalgado/introbioinfo-unix/edit/main/programa-detallado.qmd" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/Helysalgado/introbioinfo-unix/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

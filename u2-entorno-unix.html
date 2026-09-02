@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>u2-entorno-unix – Introducción a la Bioinformática</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./u2-s3-shell-acceso-remoto.html" rel="next">
+<link href="./u1-s2-organizar-fair-ia.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fe29f166eb879f148ae4045f3c41549b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXNMZZP0K9"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-QXNMZZP0K9', { 'anonymize_ip': true});
+</script>
+<meta name="mermaid-theme" content="default">
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-md-bootstrap.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Introducción a la Bioinformática</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Inicio</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-programa" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Programa</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-programa">    
+        <li>
+    <a class="dropdown-item" href="./programa.html">
+ <span class="dropdown-text">Ruta de sesiones</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./programa-detallado.html">
+ <span class="dropdown-text">Programa detallado</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-unidades" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Unidades</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-unidades">    
+        <li>
+    <a class="dropdown-item" href="./u1-trabajo-reproducible.html">
+ <span class="dropdown-text">U1 — Trabajo reproducible</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u2-entorno-unix.html">
+ <span class="dropdown-text">U2 — Entorno Unix</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u3-datos-bases-datos.html">
+ <span class="dropdown-text">U3 — Datos y bases</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u4-procesamiento-exploracion.html">
+ <span class="dropdown-text">U4 — Procesamiento genómico</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u5-automatizacion-scripting.html">
+ <span class="dropdown-text">U5 — Automatización</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u6-comparacion-homologia.html">
+ <span class="dropdown-text">U6 — Comparar / hipótesis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./s14-s15-mini-proyecto-investigacion-I.html">
+ <span class="dropdown-text">Transversal S14–S17</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="./recursos.html" aria-current="page"> 
+<span class="menu-text">Recursos</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./acerca.html"> 
+<span class="menu-text">Acerca</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./contribuir.html"> 
+<span class="menu-text">Contribuir</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Alternar modo lector">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./u2-entorno-unix.html">Unidad 2</a></li><li class="breadcrumb-item"><a href="./u2-entorno-unix.html">Portada</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 1</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-trabajo-reproducible.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-s1-documentar-markdown-fases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S1 — Documentar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-s2-organizar-fair-ia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S2 — Organizar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Unidad 2</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-entorno-unix.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s3-shell-acceso-remoto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S3 — Conectar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s4-sistema-archivos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S4 — Navegar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s5-archivos-permisos-procesos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S5 — Archivos y procesos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s6-consolidacion-entorno-unix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S6 — Consolidar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 3</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-datos-bases-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s7-secuencias-formatos-genbank.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S7 — Formatos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s8-bases-datos-descarga-integridad.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S8 — Descargar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s9-inspeccion-transferencia-verificable.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S9 — Transferir</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 4</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-procesamiento-exploracion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s10-anatomia-flujos-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S10 — Anatomía y flujos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s11-estructura-tabular-anotacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S11 — Anotación tabular</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s12-filtrado-conteos-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S12 — Filtrar y contar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s13-inventario-resumen-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S13 — Inventario</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s18-precision-patrones-expresiones-regulares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S18 — Patrones</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s19-extraccion-identificadores-correspondencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S19 — Identificadores</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s20-normalizar-datos-comparables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S20 — Normalizar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s21-confrontar-fuente-independiente.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S21 — Confrontar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s22-condicionar-calcular-columnas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S22 — Condicionar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s23-protocolo-ejecutable-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S23 — Protocolo ejecutable</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Transversal</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s14-s15-mini-proyecto-investigacion-I.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S14–S15 — Mini-proyecto I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s16-mini-proyecto-revision-pares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S16 — Revisión por pares</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s17-evaluacion-individual-demostrativa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S17 — Evaluación demostrativa</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mini-proyecto-dictamen-cientifico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dictamen científico</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 5</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-automatizacion-scripting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s24-del-protocolo-al-script.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S24 — Del protocolo al script</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s25-separar-procedimiento-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S25 — Separar datos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s26-procesamiento-por-lotes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S26 — Por lotes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s27-herramienta-cientifica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S27 — Herramienta científica</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s28-proyecto-integrador.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S28 — Proyecto integrador</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s29-cluster-hpc-sge.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S29 — Cluster SGE</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 6</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-comparacion-homologia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s30-comparar-alinear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S30 — Comparar / alinear</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s31-buscar-blast.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S31 — Buscar (BLAST)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s32-interpretar-inferir.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S32 — Interpretar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s33-defender-hipotesis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S33 — Inferir</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s34-integrar-hipotesis-casos-ciegos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S34 — Integrar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./programa-detallado.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programa detallado</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./recursos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recursos</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#unidad-2-entorno-unixlinux-y-cómputo-científico" id="toc-unidad-2-entorno-unixlinux-y-cómputo-científico" class="nav-link active" data-scroll-target="#unidad-2-entorno-unixlinux-y-cómputo-científico">Unidad 2 — Entorno Unix/Linux y cómputo científico</a>
+  <ul class="collapse">
+  <li><a href="#ficha-de-la-unidad" id="toc-ficha-de-la-unidad" class="nav-link" data-scroll-target="#ficha-de-la-unidad">Ficha de la unidad</a></li>
+  <li><a href="#punto-de-partida-y-continuidad" id="toc-punto-de-partida-y-continuidad" class="nav-link" data-scroll-target="#punto-de-partida-y-continuidad">Punto de partida y continuidad</a></li>
+  <li><a href="#resultados-de-aprendizaje-de-la-unidad" id="toc-resultados-de-aprendizaje-de-la-unidad" class="nav-link" data-scroll-target="#resultados-de-aprendizaje-de-la-unidad">Resultados de aprendizaje de la unidad</a></li>
+  <li><a href="#ruta-de-aprendizaje" id="toc-ruta-de-aprendizaje" class="nav-link" data-scroll-target="#ruta-de-aprendizaje">Ruta de aprendizaje</a></li>
+  <li><a href="#módulos-de-la-unidad" id="toc-módulos-de-la-unidad" class="nav-link" data-scroll-target="#módulos-de-la-unidad">Módulos de la unidad</a>
+  <ul class="collapse">
+  <li><a href="#s3-conectar-el-shell-el-acceso-remoto-y-la-transferencia-de-archivos" id="toc-s3-conectar-el-shell-el-acceso-remoto-y-la-transferencia-de-archivos" class="nav-link" data-scroll-target="#s3-conectar-el-shell-el-acceso-remoto-y-la-transferencia-de-archivos">S3 — Conectar: el shell, el acceso remoto y la transferencia de archivos</a></li>
+  <li><a href="#s4-navegar-el-sistema-de-archivos-su-organización-y-su-edición" id="toc-s4-navegar-el-sistema-de-archivos-su-organización-y-su-edición" class="nav-link" data-scroll-target="#s4-navegar-el-sistema-de-archivos-su-organización-y-su-edición">S4 — Navegar: el sistema de archivos, su organización y su edición</a></li>
+  <li><a href="#s5-gestionar-archivos-compresión-permisos-y-procesos" id="toc-s5-gestionar-archivos-compresión-permisos-y-procesos" class="nav-link" data-scroll-target="#s5-gestionar-archivos-compresión-permisos-y-procesos">S5 — Gestionar: archivos, compresión, permisos y procesos</a></li>
+  <li><a href="#s6-consolidar-el-entorno-unix-listo-para-datos-biológicos" id="toc-s6-consolidar-el-entorno-unix-listo-para-datos-biológicos" class="nav-link" data-scroll-target="#s6-consolidar-el-entorno-unix-listo-para-datos-biológicos">S6 — Consolidar: el entorno Unix listo para datos biológicos</a></li>
+  </ul></li>
+  <li><a href="#producto-acumulativo-el-proyecto-en-el-servidor" id="toc-producto-acumulativo-el-proyecto-en-el-servidor" class="nav-link" data-scroll-target="#producto-acumulativo-el-proyecto-en-el-servidor">Producto acumulativo: el proyecto en el servidor</a></li>
+  <li><a href="#evidencias-y-evaluación" id="toc-evidencias-y-evaluación" class="nav-link" data-scroll-target="#evidencias-y-evaluación">Evidencias y evaluación</a></li>
+  <li><a href="#cierre-de-la-unidad-2" id="toc-cierre-de-la-unidad-2" class="nav-link" data-scroll-target="#cierre-de-la-unidad-2">Cierre de la Unidad 2</a></li>
+  <li><a href="#referencias-generales" id="toc-referencias-generales" class="nav-link" data-scroll-target="#referencias-generales">Referencias generales</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/Helysalgado/introbioinfo-unix/edit/main/u2-entorno-unix.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/Helysalgado/introbioinfo-unix/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./u2-entorno-unix.html">Unidad 2</a></li><li class="breadcrumb-item"><a href="./u2-entorno-unix.html">Portada</a></li></ol></nav></header>
+
+
+
+
+<section id="unidad-2-entorno-unixlinux-y-cómputo-científico" class="level1">
+<h1>Unidad 2 — Entorno Unix/Linux y cómputo científico</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="Aula invertida">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Aula invertida
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Esta unidad se estudia en cuatro sesiones. Antes de cada una leerás las secciones indispensables del módulo y harás un primer intento breve. Durante el taller ejecutarás en vivo sobre el servidor del curso, compararás decisiones y corregirás con evidencia. Después integrarás las correcciones en <code>doc/protocolo.md</code> y, cuando corresponda, en <code>doc/bitacora-ia.md</code>. Los primeros intentos son formativos: se evalúa que llegues preparado y puedas explicar tus decisiones. La entrega calificada de la unidad es la <strong>Tarea 3</strong>.</p>
+</div>
+</div>
+<section id="ficha-de-la-unidad" class="level2">
+<h2 class="anchored" data-anchor-id="ficha-de-la-unidad">Ficha de la unidad</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Elemento</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Sesiones</strong></td>
+<td>S3–S6, cuatro sesiones de 2 horas</td>
+</tr>
+<tr class="even">
+<td><strong>Competencia principal</strong></td>
+<td>B. Dominio del entorno Unix y del cómputo científico</td>
+</tr>
+<tr class="odd">
+<td><strong>Competencias integradas</strong></td>
+<td>A. Trabajo reproducible y comunicación científica; G. Uso responsable de IA</td>
+</tr>
+<tr class="even">
+<td><strong>Propósito</strong></td>
+<td>Trabajar con soltura en un servidor remoto: conectarse, navegar, organizar, inspeccionar y proteger los archivos de un proyecto sin alterar los datos originales</td>
+</tr>
+<tr class="odd">
+<td><strong>Contribución al curso</strong></td>
+<td>Convierte el proyecto que en la Unidad 1 existía en papel en un espacio de trabajo real sobre el servidor del curso, listo para recibir datos biológicos en la Unidad 3</td>
+</tr>
+<tr class="even">
+<td><strong>Ajustes integrados</strong></td>
+<td><strong>[Reubicado]</strong> el trabajo con cluster y SGE ya no se imparte aquí: se desarrolla en <strong>S29</strong>, después de scripting, cuando un análisis lo justifica</td>
+</tr>
+<tr class="odd">
+<td><strong>Lectura base</strong></td>
+<td>Material de cada módulo y Buffalo (2015), cap. 3 (filosofía Unix y shell)</td>
+</tr>
+<tr class="even">
+<td><strong>Lecturas de consulta</strong></td>
+<td>Shotts (2019), capítulos sobre permisos, procesos y control de trabajos; documentación de OpenSSH</td>
+</tr>
+<tr class="odd">
+<td><strong>Producto acumulativo</strong></td>
+<td><code>~/proyecto/</code> construido y verificado en el servidor + actualización de <code>doc/protocolo.md</code></td>
+</tr>
+<tr class="even">
+<td><strong>Tareas del Plan</strong></td>
+<td>Tarea 3: estructura de directorios del proyecto en el servidor (S4)</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled" title="dónde queda el cluster">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>dónde queda el cluster
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Esta unidad trabaja en tu <em>home</em> del servidor, con archivos pequeños. No necesitas el planificador de trabajos ni el espacio institucional <code>/export/space3/users/$USER</code>. El cómputo en cluster con SGE se retoma en <strong>S29</strong>, cuando ya tengas una herramienta propia que valga la pena ejecutar ahí.</p>
+</div>
+</div>
+</section>
+<section id="punto-de-partida-y-continuidad" class="level2">
+<h2 class="anchored" data-anchor-id="punto-de-partida-y-continuidad">Punto de partida y continuidad</h2>
+<p>En la Unidad 1 definiste una pregunta, iniciaste <code>protocolo.md</code> como documento vivo, elaboraste los metadatos de <code>pacientes.md</code> y <strong>diseñaste en papel</strong> la organización del proyecto. Esta unidad materializa ese diseño: al terminar, la estructura existirá de verdad, en un servidor, con tus archivos dentro y con la evidencia de que llegaron intactos.</p>
+<p>La estructura a la que se llega es:</p>
+<pre class="text"><code>proyecto/
+├── README.md
+├── data/
+│   ├── source/
+│   │   ├── pacientes.md
+│   │   └── pacientes-metadatos.md
+│   └── processed/
+├── src/
+├── results/
+└── doc/
+    ├── protocolo.md
+    └── bitacora-ia.md</code></pre>
+<p>La política de datos empieza aquí y no cambia en todo el curso: los archivos de <code>data/source/</code> se <strong>leen y se copian, nunca se editan</strong>. Toda transformación genera un archivo nuevo fuera de esa carpeta (Noble, 2009; Wilson et al., 2017).</p>
+</section>
+<section id="resultados-de-aprendizaje-de-la-unidad" class="level2">
+<h2 class="anchored" data-anchor-id="resultados-de-aprendizaje-de-la-unidad">Resultados de aprendizaje de la unidad</h2>
+<p>Al finalizar, podrás:</p>
+<ol type="1">
+<li><strong>Explicar</strong> por qué la bioinformática trabaja en Unix y en la línea de comandos, en términos de reproducibilidad.</li>
+<li><strong>Identificar</strong> las partes de un comando y <strong>consultar</strong> su ayuda con autonomía.</li>
+<li><strong>Conectarte</strong> a un servidor remoto por SSH, reconocer el entorno y salir correctamente.</li>
+<li><strong>Transferir</strong> archivos entre tu equipo y el servidor <strong>comprobando su integridad</strong> con <em>checksums</em>.</li>
+<li><strong>Navegar</strong> el sistema de archivos con rutas absolutas y relativas, y <strong>construir</strong> la estructura del proyecto con operaciones seguras.</li>
+<li><strong>Editar</strong> archivos en el servidor con un editor de terminal.</li>
+<li><strong>Inspeccionar</strong> archivos sin modificar los originales y <strong>comprimir y restaurar</strong> una copia.</li>
+<li><strong>Conceder</strong> a un archivo el permiso mínimo que necesita y <strong>explicar</strong> qué habilita cada uno.</li>
+<li><strong>Ejecutar y controlar</strong> un proceso propio, y <strong>diagnosticar</strong> cómo terminó.</li>
+<li><strong>Documentar</strong> el procedimiento en <code>doc/protocolo.md</code> de modo que otra persona pueda repetirlo.</li>
+</ol>
+</section>
+<section id="ruta-de-aprendizaje" class="level2">
+<h2 class="anchored" data-anchor-id="ruta-de-aprendizaje">Ruta de aprendizaje</h2>
+<p>Los tiempos son estimaciones; varían según la experiencia previa y la conectividad.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 23%">
+<col style="width: 23%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Momento</th>
+<th>Trabajo</th>
+<th>Producto</th>
+<th style="text-align: right;">Tiempo estimado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Antes de S3</td>
+<td>Leer S3 y preparar los archivos a transferir; instalar FileZilla si falta</td>
+<td>Archivos listos y entorno preparado</td>
+<td style="text-align: right;">60–75 min</td>
+</tr>
+<tr class="even">
+<td>S3</td>
+<td>Conectarse por SSH, transferir y verificar integridad</td>
+<td><code>protocolo.md</code> transferido y verificado</td>
+<td style="text-align: right;">120 min</td>
+</tr>
+<tr class="odd">
+<td>Entre S3 y S4</td>
+<td>Leer S4 y hacer el primer intento de la estructura</td>
+<td>Borrador de la estructura</td>
+<td style="text-align: right;">30–45 min</td>
+</tr>
+<tr class="even">
+<td>S4</td>
+<td>Construir <code>~/proyecto/</code> y colocar cada archivo en su lugar</td>
+<td><strong>Tarea 3</strong> iniciada</td>
+<td style="text-align: right;">120 min</td>
+</tr>
+<tr class="odd">
+<td>Entre S4 y S5</td>
+<td>Leer S5 y predecir resultados dentro de <code>~/proyecto/</code></td>
+<td>Predicciones escritas</td>
+<td style="text-align: right;">40–50 min</td>
+</tr>
+<tr class="even">
+<td>S5</td>
+<td>Inspeccionar, comprimir, ajustar permisos y controlar un proceso</td>
+<td>Registro en <code>protocolo.md</code></td>
+<td style="text-align: right;">120 min</td>
+</tr>
+<tr class="odd">
+<td>Entre S5 y S6</td>
+<td>Repasar S3–S5 y reunir las evidencias</td>
+<td>Evidencias localizadas</td>
+<td style="text-align: right;">20–30 min</td>
+</tr>
+<tr class="even">
+<td>S6</td>
+<td>Verificar el entorno completo y dejar el proyecto listo para datos reales</td>
+<td>Evidencia de cierre de U2</td>
+<td style="text-align: right;">120 min</td>
+</tr>
+<tr class="odd">
+<td>Después de S6</td>
+<td>Corregir el protocolo y entregar</td>
+<td><code>protocolo.md</code> y <code>bitacora-ia.md</code></td>
+<td style="text-align: right;">30–45 min</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="módulos-de-la-unidad" class="level2">
+<h2 class="anchored" data-anchor-id="módulos-de-la-unidad">Módulos de la unidad</h2>
+<section id="s3-conectar-el-shell-el-acceso-remoto-y-la-transferencia-de-archivos" class="level3">
+<h3 class="anchored" data-anchor-id="s3-conectar-el-shell-el-acceso-remoto-y-la-transferencia-de-archivos"><a href="./u2-s3-shell-acceso-remoto.html">S3 — Conectar: el shell, el acceso remoto y la transferencia de archivos</a></h3>
+<p>Partiendo de un problema real —trasladar un archivo de datos y sus metadatos al servidor, comprobar que llegaron intactos y documentar el procedimiento—, abrirás una terminal, entenderás qué es un comando, te conectarás por SSH y transferirás verificando integridad.</p>
+</section>
+<section id="s4-navegar-el-sistema-de-archivos-su-organización-y-su-edición" class="level3">
+<h3 class="anchored" data-anchor-id="s4-navegar-el-sistema-de-archivos-su-organización-y-su-edición"><a href="./u2-s4-sistema-archivos.html">S4 — Navegar: el sistema de archivos, su organización y su edición</a></h3>
+<p>Te moverás por el sistema de archivos con rutas absolutas y relativas, y crearás por primera vez la estructura real del proyecto en tu espacio del servidor, colocando dentro los archivos ya transferidos. Esta sesión desarrolla la <strong>Tarea 3</strong>.</p>
+</section>
+<section id="s5-gestionar-archivos-compresión-permisos-y-procesos" class="level3">
+<h3 class="anchored" data-anchor-id="s5-gestionar-archivos-compresión-permisos-y-procesos"><a href="./u2-s5-archivos-permisos-procesos.html">S5 — Gestionar: archivos, compresión, permisos y procesos</a></h3>
+<p>Sin reiniciar el proyecto ni traer datos nuevos, inspeccionarás sus archivos sin modificar los originales, comprimirás y restaurarás una copia, concederás a un script solo el permiso que necesita y controlarás un proceso ligero creado por ti.</p>
+</section>
+<section id="s6-consolidar-el-entorno-unix-listo-para-datos-biológicos" class="level3">
+<h3 class="anchored" data-anchor-id="s6-consolidar-el-entorno-unix-listo-para-datos-biológicos"><a href="./u2-s6-consolidacion-entorno-unix.html">S6 — Consolidar: el entorno Unix listo para datos biológicos</a></h3>
+<p>No construirás nada nuevo: demostrarás que lo construido está bien. Comprobarás el acceso, la estructura, la integridad de los originales y los permisos; someterás tu protocolo a la lectura de otra persona; y dejarás el proyecto listo para recibir datos que no inventaste tú. <strong>No introduce herramientas nuevas</strong> y <strong>no cubre cluster ni SGE</strong>, que se desarrollan en S29. Esta sesión produce la <strong>evidencia de cierre de la Unidad 2</strong>.</p>
+</section>
+</section>
+<section id="producto-acumulativo-el-proyecto-en-el-servidor" class="level2">
+<h2 class="anchored" data-anchor-id="producto-acumulativo-el-proyecto-en-el-servidor">Producto acumulativo: el proyecto en el servidor</h2>
+<p>El proyecto se transfiere en S3, se estructura en S4, se protege e inspecciona en S5 y se verifica en S6. Al cerrar la unidad debe cumplir:</p>
+<ul>
+<li>la estructura completa existe en el servidor y cada archivo está en la carpeta que le corresponde;</li>
+<li><code>data/source/</code> conserva los originales <strong>sin modificaciones</strong>, y puedes demostrarlo con un <em>checksum</em> comparable con el de tu equipo;</li>
+<li><code>doc/protocolo.md</code> registra el procedimiento de transferencia, la construcción de la estructura y las decisiones de permisos, con comandos suficientes para repetirlo;</li>
+<li><code>doc/bitacora-ia.md</code> está en el servidor y recoge los usos de IA declarados;</li>
+<li><code>README.md</code> describe qué contiene el proyecto y cómo está organizado.</li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si algo no se pudo comprobar, escríbelo como “pendiente de confirmar” en el protocolo. Una limitación declarada vale más que una afirmación no verificada.</p>
+</div>
+</div>
+</section>
+<section id="evidencias-y-evaluación" class="level2">
+<h2 class="anchored" data-anchor-id="evidencias-y-evaluación">Evidencias y evaluación</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Evidencia</th>
+<th>Momento</th>
+<th>Tipo</th>
+<th>Qué demuestra</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Transferencia verificada con <em>checksum</em></td>
+<td>S3</td>
+<td>Formativa</td>
+<td>Acceso remoto y control de integridad</td>
+</tr>
+<tr class="even">
+<td><strong>Tarea 3</strong> — estructura del proyecto en el servidor</td>
+<td>Después de S4</td>
+<td>Calificada</td>
+<td>Navegación, operaciones seguras y organización reproducible</td>
+</tr>
+<tr class="odd">
+<td>Ejercicios de permisos y procesos</td>
+<td>S5</td>
+<td>Formativa</td>
+<td>Inspección sin alterar originales, permiso mínimo y control de procesos</td>
+</tr>
+<tr class="even">
+<td>Evidencia de cierre de U2</td>
+<td>S6</td>
+<td>Calificada</td>
+<td>Entorno completo y verificable, listo para datos reales</td>
+</tr>
+<tr class="odd">
+<td><code>doc/protocolo.md</code></td>
+<td>S3–S6</td>
+<td>Acumulativa</td>
+<td>Decisiones, comandos, verificaciones y limitaciones</td>
+</tr>
+<tr class="even">
+<td><code>doc/bitacora-ia.md</code></td>
+<td>S3–S6</td>
+<td>Formativa</td>
+<td>Uso declarado de IA, comparación y validación independiente</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="cierre-de-la-unidad-2" class="level2">
+<h2 class="anchored" data-anchor-id="cierre-de-la-unidad-2">Cierre de la Unidad 2</h2>
+<p>Al terminar verifica que puedes responder:</p>
+<ul>
+<li>¿Por qué la bioinformática trabaja en Unix y no en una interfaz gráfica?</li>
+<li>¿Qué diferencia hay entre tu equipo y el servidor, y cómo sabes en cuál de los dos estás?</li>
+<li>¿Qué evidencia demuestra que un archivo llegó íntegro al servidor?</li>
+<li>¿Cuándo conviene una ruta absoluta y cuándo una relativa?</li>
+<li>¿Dónde viven los datos originales y por qué no se editan nunca ahí?</li>
+<li>¿Qué habilita cada permiso y cuál es el mínimo que un script necesita?</li>
+<li>¿Cómo compruebas que un proceso terminó bien y no solo que terminó?</li>
+<li>¿Podría otra persona repetir tu procedimiento leyendo solo tu <code>protocolo.md</code>?</li>
+</ul>
+<p>Confirma además que conservas las evidencias de S3, S4 y S5, y que tu proyecto en el servidor cumple las condiciones del producto acumulativo.</p>
+<p>En este momento <strong>no</strong> necesitas el cluster ni el espacio institucional: el planificador de trabajos se retomará en <strong>S29</strong>, después de practicar procesamiento de datos y scripting, cuando un análisis bioinformático justifique ejecutarlo en otra infraestructura.</p>
+<p>El entorno que dejas listo aquí es donde la <strong>Unidad 3</strong> colocará los primeros datos biológicos reales, con su procedencia y su verificación de integridad.</p>
+</section>
+<section id="referencias-generales" class="level2">
+<h2 class="anchored" data-anchor-id="referencias-generales">Referencias generales</h2>
+<ul>
+<li>Buffalo, V. (2015). <em>Bioinformatics Data Skills</em>. O’Reilly Media.</li>
+<li>Noble, W. S. (2009). A quick guide to organizing computational biology projects. <em>PLoS Computational Biology</em>, 5(7), e1000424. <a href="https://doi.org/10.1371/journal.pcbi.1000424" class="uri">https://doi.org/10.1371/journal.pcbi.1000424</a></li>
+<li>Shotts, W. E. (2019). <em>The Linux Command Line</em> (2.ª ed.). No Starch Press.</li>
+<li>Wilson, G., et al.&nbsp;(2017). Good enough practices in scientific computing. <em>PLoS Computational Biology</em>, 13(6), e1005510. <a href="https://doi.org/10.1371/journal.pcbi.1005510" class="uri">https://doi.org/10.1371/journal.pcbi.1005510</a></li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/helysalgado\.github\.io\/introbioinfo-unix\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./u1-s2-organizar-fair-ia.html" class="pagination-link" aria-label="S2 — Organizar">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">S2 — Organizar</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./u2-s3-shell-acceso-remoto.html" class="pagination-link" aria-label="S3 — Conectar">
+        <span class="nav-page-text">S3 — Conectar</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://hits.sh/helysalgado.github.io/introbioinfo-unix/"><img src="https://hits.sh/helysalgado.github.io/introbioinfo-unix/.svg?style=flat-square&amp;label=Visitas&amp;color=4a7c9e" class="img-fluid figure-img"></a></p>
+<figcaption>Visitas</figcaption>
+</figure>
+</div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Helysalgado/introbioinfo-unix/edit/main/u2-entorno-unix.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/Helysalgado/introbioinfo-unix/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

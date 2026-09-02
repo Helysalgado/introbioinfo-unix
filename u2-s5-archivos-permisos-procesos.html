@@ -1,0 +1,3072 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>u2-s5-archivos-permisos-procesos – Introducción a la Bioinformática</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./u2-s6-consolidacion-entorno-unix.html" rel="next">
+<link href="./u2-s4-sistema-archivos.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fe29f166eb879f148ae4045f3c41549b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXNMZZP0K9"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-QXNMZZP0K9', { 'anonymize_ip': true});
+</script>
+<meta name="mermaid-theme" content="default">
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-md-bootstrap.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Introducción a la Bioinformática</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Inicio</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-programa" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Programa</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-programa">    
+        <li>
+    <a class="dropdown-item" href="./programa.html">
+ <span class="dropdown-text">Ruta de sesiones</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./programa-detallado.html">
+ <span class="dropdown-text">Programa detallado</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-unidades" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Unidades</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-unidades">    
+        <li>
+    <a class="dropdown-item" href="./u1-trabajo-reproducible.html">
+ <span class="dropdown-text">U1 — Trabajo reproducible</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u2-entorno-unix.html">
+ <span class="dropdown-text">U2 — Entorno Unix</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u3-datos-bases-datos.html">
+ <span class="dropdown-text">U3 — Datos y bases</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u4-procesamiento-exploracion.html">
+ <span class="dropdown-text">U4 — Procesamiento genómico</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u5-automatizacion-scripting.html">
+ <span class="dropdown-text">U5 — Automatización</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u6-comparacion-homologia.html">
+ <span class="dropdown-text">U6 — Comparar / hipótesis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./s14-s15-mini-proyecto-investigacion-I.html">
+ <span class="dropdown-text">Transversal S14–S17</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="./recursos.html" aria-current="page"> 
+<span class="menu-text">Recursos</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./acerca.html"> 
+<span class="menu-text">Acerca</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./contribuir.html"> 
+<span class="menu-text">Contribuir</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Alternar modo lector">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./u2-entorno-unix.html">Unidad 2</a></li><li class="breadcrumb-item"><a href="./u2-s5-archivos-permisos-procesos.html">S5 — Archivos y procesos</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 1</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-trabajo-reproducible.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-s1-documentar-markdown-fases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S1 — Documentar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-s2-organizar-fair-ia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S2 — Organizar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Unidad 2</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-entorno-unix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s3-shell-acceso-remoto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S3 — Conectar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s4-sistema-archivos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S4 — Navegar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s5-archivos-permisos-procesos.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">S5 — Archivos y procesos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s6-consolidacion-entorno-unix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S6 — Consolidar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 3</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-datos-bases-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s7-secuencias-formatos-genbank.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S7 — Formatos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s8-bases-datos-descarga-integridad.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S8 — Descargar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s9-inspeccion-transferencia-verificable.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S9 — Transferir</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 4</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-procesamiento-exploracion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s10-anatomia-flujos-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S10 — Anatomía y flujos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s11-estructura-tabular-anotacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S11 — Anotación tabular</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s12-filtrado-conteos-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S12 — Filtrar y contar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s13-inventario-resumen-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S13 — Inventario</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s18-precision-patrones-expresiones-regulares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S18 — Patrones</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s19-extraccion-identificadores-correspondencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S19 — Identificadores</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s20-normalizar-datos-comparables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S20 — Normalizar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s21-confrontar-fuente-independiente.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S21 — Confrontar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s22-condicionar-calcular-columnas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S22 — Condicionar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s23-protocolo-ejecutable-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S23 — Protocolo ejecutable</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Transversal</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s14-s15-mini-proyecto-investigacion-I.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S14–S15 — Mini-proyecto I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s16-mini-proyecto-revision-pares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S16 — Revisión por pares</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s17-evaluacion-individual-demostrativa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S17 — Evaluación demostrativa</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mini-proyecto-dictamen-cientifico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dictamen científico</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 5</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-automatizacion-scripting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s24-del-protocolo-al-script.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S24 — Del protocolo al script</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s25-separar-procedimiento-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S25 — Separar datos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s26-procesamiento-por-lotes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S26 — Por lotes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s27-herramienta-cientifica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S27 — Herramienta científica</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s28-proyecto-integrador.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S28 — Proyecto integrador</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s29-cluster-hpc-sge.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S29 — Cluster SGE</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 6</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-comparacion-homologia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s30-comparar-alinear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S30 — Comparar / alinear</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s31-buscar-blast.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S31 — Buscar (BLAST)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s32-interpretar-inferir.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S32 — Interpretar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s33-defender-hipotesis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S33 — Inferir</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s34-integrar-hipotesis-casos-ciegos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S34 — Integrar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./programa-detallado.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programa detallado</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./recursos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recursos</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#s5-gestionar-archivos-compresión-permisos-y-procesos" id="toc-s5-gestionar-archivos-compresión-permisos-y-procesos" class="nav-link active" data-scroll-target="#s5-gestionar-archivos-compresión-permisos-y-procesos">S5 — Gestionar: archivos, compresión, permisos y procesos</a>
+  <ul class="collapse">
+  <li><a href="#ficha-del-módulo" id="toc-ficha-del-módulo" class="nav-link" data-scroll-target="#ficha-del-módulo">Ficha del módulo</a></li>
+  <li><a href="#relación-con-la-unidad-1-y-con-s3s4" id="toc-relación-con-la-unidad-1-y-con-s3s4" class="nav-link" data-scroll-target="#relación-con-la-unidad-1-y-con-s3s4">Relación con la Unidad 1 y con S3–S4</a></li>
+  <li><a href="#resultados-de-aprendizaje" id="toc-resultados-de-aprendizaje" class="nav-link" data-scroll-target="#resultados-de-aprendizaje">Resultados de aprendizaje</a></li>
+  <li><a href="#ruta-de-aprendizaje" id="toc-ruta-de-aprendizaje" class="nav-link" data-scroll-target="#ruta-de-aprendizaje">Ruta de aprendizaje</a></li>
+  <li><a href="#antes-de-la-sesión-preflight" id="toc-antes-de-la-sesión-preflight" class="nav-link" data-scroll-target="#antes-de-la-sesión-preflight">Antes de la sesión — preflight</a>
+  <ul class="collapse">
+  <li><a href="#archivos-que-generará-la-sesión" id="toc-archivos-que-generará-la-sesión" class="nav-link" data-scroll-target="#archivos-que-generará-la-sesión">Archivos que generará la sesión</a></li>
+  </ul></li>
+  <li><a href="#del-archivo-al-proceso-el-recorrido-de-s5" id="toc-del-archivo-al-proceso-el-recorrido-de-s5" class="nav-link" data-scroll-target="#del-archivo-al-proceso-el-recorrido-de-s5">Del archivo al proceso: el recorrido de S5</a></li>
+  <li><a href="#dos-significados-de-tipo-de-archivo" id="toc-dos-significados-de-tipo-de-archivo" class="nav-link" data-scroll-target="#dos-significados-de-tipo-de-archivo">1. Dos significados de “tipo de archivo”</a>
+  <ul class="collapse">
+  <li><a href="#pausa-de-predicción-1" id="toc-pausa-de-predicción-1" class="nav-link" data-scroll-target="#pausa-de-predicción-1">Pausa de predicción 1</a></li>
+  </ul></li>
+  <li><a href="#inspeccionar-contenido-sin-editar" id="toc-inspeccionar-contenido-sin-editar" class="nav-link" data-scroll-target="#inspeccionar-contenido-sin-editar">2. Inspeccionar contenido sin editar</a>
+  <ul class="collapse">
+  <li><a href="#pausa-de-predicción-2" id="toc-pausa-de-predicción-2" class="nav-link" data-scroll-target="#pausa-de-predicción-2">Pausa de predicción 2</a></li>
+  </ul></li>
+  <li><a href="#comprimir-no-es-lo-mismo-que-empaquetar" id="toc-comprimir-no-es-lo-mismo-que-empaquetar" class="nav-link" data-scroll-target="#comprimir-no-es-lo-mismo-que-empaquetar">3. Comprimir no es lo mismo que empaquetar</a>
+  <ul class="collapse">
+  <li><a href="#cuándo-se-usa-en-bioinformática" id="toc-cuándo-se-usa-en-bioinformática" class="nav-link" data-scroll-target="#cuándo-se-usa-en-bioinformática">¿Cuándo se usa en bioinformática?</a></li>
+  <li><a href="#gzip-y-gunzip-un-archivo" id="toc-gzip-y-gunzip-un-archivo" class="nav-link" data-scroll-target="#gzip-y-gunzip-un-archivo">3.1 <code>gzip</code> y <code>gunzip</code>: un archivo</a></li>
+  <li><a href="#consulta-tar-varios-archivos-o-un-directorio" id="toc-consulta-tar-varios-archivos-o-un-directorio" class="nav-link" data-scroll-target="#consulta-tar-varios-archivos-o-un-directorio">3.2 Consulta — <code>tar</code>: varios archivos o un directorio</a></li>
+  <li><a href="#pausa-de-predicción-3" id="toc-pausa-de-predicción-3" class="nav-link" data-scroll-target="#pausa-de-predicción-3">Pausa de predicción 3</a></li>
+  <li><a href="#micropráctica-previa-genera-prueba.sh" id="toc-micropráctica-previa-genera-prueba.sh" class="nav-link" data-scroll-target="#micropráctica-previa-genera-prueba.sh">3.3 Micropráctica previa — genera <code>prueba.sh</code></a></li>
+  </ul></li>
+  <li><a href="#leer-permisos-con-ls--l" id="toc-leer-permisos-con-ls--l" class="nav-link" data-scroll-target="#leer-permisos-con-ls--l">4. Leer permisos con <code>ls -l</code></a>
+  <ul class="collapse">
+  <li><a href="#los-permisos-no-significan-lo-mismo-en-archivos-y-directorios" id="toc-los-permisos-no-significan-lo-mismo-en-archivos-y-directorios" class="nav-link" data-scroll-target="#los-permisos-no-significan-lo-mismo-en-archivos-y-directorios">4.1 Los permisos no significan lo mismo en archivos y directorios</a></li>
+  <li><a href="#cambiar-solo-lo-necesario-con-chmod" id="toc-cambiar-solo-lo-necesario-con-chmod" class="nav-link" data-scroll-target="#cambiar-solo-lo-necesario-con-chmod">4.2 Cambiar solo lo necesario con <code>chmod</code></a></li>
+  <li><a href="#pausa-de-predicción-4" id="toc-pausa-de-predicción-4" class="nav-link" data-scroll-target="#pausa-de-predicción-4">Pausa de predicción 4</a></li>
+  </ul></li>
+  <li><a href="#proceso-pid-y-estado" id="toc-proceso-pid-y-estado" class="nav-link" data-scroll-target="#proceso-pid-y-estado">5. Proceso, PID y estado</a>
+  <ul class="collapse">
+  <li><a href="#observar-procesos-propios-con-ps" id="toc-observar-procesos-propios-con-ps" class="nav-link" data-scroll-target="#observar-procesos-propios-con-ps">5.1 Observar procesos propios con <code>ps</code></a></li>
+  <li><a href="#consulta-top" id="toc-consulta-top" class="nav-link" data-scroll-target="#consulta-top">5.2 Consulta — <code>top</code></a></li>
+  <li><a href="#pausa-de-predicción-5" id="toc-pausa-de-predicción-5" class="nav-link" data-scroll-target="#pausa-de-predicción-5">Pausa de predicción 5</a></li>
+  </ul></li>
+  <li><a href="#trabajos-del-shell-planos-y-señales" id="toc-trabajos-del-shell-planos-y-señales" class="nav-link" data-scroll-target="#trabajos-del-shell-planos-y-señales">6. Trabajos del shell, planos y señales</a>
+  <ul class="collapse">
+  <li><a href="#primer-plano-y-segundo-plano" id="toc-primer-plano-y-segundo-plano" class="nav-link" data-scroll-target="#primer-plano-y-segundo-plano">6.1 Primer plano y segundo plano</a></li>
+  <li><a href="#ctrl-c-y-ctrl-z-no-hacen-lo-mismo" id="toc-ctrl-c-y-ctrl-z-no-hacen-lo-mismo" class="nav-link" data-scroll-target="#ctrl-c-y-ctrl-z-no-hacen-lo-mismo">6.2 <code>Ctrl-C</code> y <code>Ctrl-Z</code> no hacen lo mismo</a></li>
+  <li><a href="#kill-envía-señales" id="toc-kill-envía-señales" class="nav-link" data-scroll-target="#kill-envía-señales">6.3 <code>kill</code> envía señales</a></li>
+  <li><a href="#consulta-qué-continúa-si-se-cierra-la-conexión" id="toc-consulta-qué-continúa-si-se-cierra-la-conexión" class="nav-link" data-scroll-target="#consulta-qué-continúa-si-se-cierra-la-conexión">6.4 Consulta — ¿qué continúa si se cierra la conexión?</a></li>
+  <li><a href="#pausa-de-predicción-6" id="toc-pausa-de-predicción-6" class="nav-link" data-scroll-target="#pausa-de-predicción-6">Pausa de predicción 6</a></li>
+  </ul></li>
+  <li><a href="#práctica-s5-inspeccionar-proteger-y-controlar" id="toc-práctica-s5-inspeccionar-proteger-y-controlar" class="nav-link" data-scroll-target="#práctica-s5-inspeccionar-proteger-y-controlar">7. Práctica S5 — inspeccionar, proteger y controlar</a>
+  <ul class="collapse">
+  <li><a href="#antes-de-clase-primer-intento-formativo" id="toc-antes-de-clase-primer-intento-formativo" class="nav-link" data-scroll-target="#antes-de-clase-primer-intento-formativo">Antes de clase — primer intento formativo</a></li>
+  <li><a href="#durante-el-taller-comparación-diagnóstico-y-corrección" id="toc-durante-el-taller-comparación-diagnóstico-y-corrección" class="nav-link" data-scroll-target="#durante-el-taller-comparación-diagnóstico-y-corrección">Durante el taller — comparación, diagnóstico y corrección</a></li>
+  <li><a href="#después-del-taller-entrega-final" id="toc-después-del-taller-entrega-final" class="nav-link" data-scroll-target="#después-del-taller-entrega-final">Después del taller — entrega final</a></li>
+  </ul></li>
+  <li><a href="#actividad-formativa-de-ia-revisar-una-solución-ya-ejecutada" id="toc-actividad-formativa-de-ia-revisar-una-solución-ya-ejecutada" class="nav-link" data-scroll-target="#actividad-formativa-de-ia-revisar-una-solución-ya-ejecutada">8. Actividad formativa de IA — revisar una solución ya ejecutada</a></li>
+  <li><a href="#errores-frecuentes-y-diagnóstico" id="toc-errores-frecuentes-y-diagnóstico" class="nav-link" data-scroll-target="#errores-frecuentes-y-diagnóstico">9. Errores frecuentes y diagnóstico</a></li>
+  <li><a href="#los-cuatro-principios-hechos-observables-en-s5" id="toc-los-cuatro-principios-hechos-observables-en-s5" class="nav-link" data-scroll-target="#los-cuatro-principios-hechos-observables-en-s5">10. Los cuatro principios hechos observables en S5</a></li>
+  <li><a href="#evidencia-de-aprendizaje" id="toc-evidencia-de-aprendizaje" class="nav-link" data-scroll-target="#evidencia-de-aprendizaje">11. Evidencia de aprendizaje</a></li>
+  <li><a href="#rúbricas" id="toc-rúbricas" class="nav-link" data-scroll-target="#rúbricas">12. Rúbricas</a>
+  <ul class="collapse">
+  <li><a href="#primer-intento-formativo-puntos-por-preparación" id="toc-primer-intento-formativo-puntos-por-preparación" class="nav-link" data-scroll-target="#primer-intento-formativo-puntos-por-preparación">12.1 Primer intento — formativo, puntos por preparación</a></li>
+  <li><a href="#participación-y-corrección-durante-el-taller-formativa" id="toc-participación-y-corrección-durante-el-taller-formativa" class="nav-link" data-scroll-target="#participación-y-corrección-durante-el-taller-formativa">12.2 Participación y corrección durante el taller — formativa</a></li>
+  <li><a href="#evidencia-s5-entrega-final" id="toc-evidencia-s5-entrega-final" class="nav-link" data-scroll-target="#evidencia-s5-entrega-final">12.3 Evidencia S5 — entrega final</a></li>
+  <li><a href="#actividad-formativa-de-ia" id="toc-actividad-formativa-de-ia" class="nav-link" data-scroll-target="#actividad-formativa-de-ia">12.4 Actividad formativa de IA</a></li>
+  </ul></li>
+  <li><a href="#autoevaluación-semáforo-de-salida" id="toc-autoevaluación-semáforo-de-salida" class="nav-link" data-scroll-target="#autoevaluación-semáforo-de-salida">13. Autoevaluación — semáforo de salida</a></li>
+  <li><a href="#distribución-orientativa-de-los-120-minutos" id="toc-distribución-orientativa-de-los-120-minutos" class="nav-link" data-scroll-target="#distribución-orientativa-de-los-120-minutos">14. Distribución orientativa de los 120 minutos</a></li>
+  <li><a href="#cierre-de-la-unidad-2-y-preparación-para-la-unidad-3" id="toc-cierre-de-la-unidad-2-y-preparación-para-la-unidad-3" class="nav-link" data-scroll-target="#cierre-de-la-unidad-2-y-preparación-para-la-unidad-3">15. Cierre de la Unidad 2 y preparación para la Unidad 3</a></li>
+  <li><a href="#anexo-a.-correspondencia-resultadoactividadevidenciacriterio" id="toc-anexo-a.-correspondencia-resultadoactividadevidenciacriterio" class="nav-link" data-scroll-target="#anexo-a.-correspondencia-resultadoactividadevidenciacriterio">Anexo A. Correspondencia resultado–actividad–evidencia–criterio</a></li>
+  <li><a href="#anexo-b.-alineación-transversal" id="toc-anexo-b.-alineación-transversal" class="nav-link" data-scroll-target="#anexo-b.-alineación-transversal">Anexo B. Alineación transversal</a></li>
+  <li><a href="#glosario" id="toc-glosario" class="nav-link" data-scroll-target="#glosario">Glosario</a></li>
+  <li><a href="#referencias" id="toc-referencias" class="nav-link" data-scroll-target="#referencias">Referencias</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/Helysalgado/introbioinfo-unix/edit/main/u2-s5-archivos-permisos-procesos.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/Helysalgado/introbioinfo-unix/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./u2-entorno-unix.html">Unidad 2</a></li><li class="breadcrumb-item"><a href="./u2-s5-archivos-permisos-procesos.html">S5 — Archivos y procesos</a></li></ol></nav></header>
+
+
+
+
+<section id="s5-gestionar-archivos-compresión-permisos-y-procesos" class="level1">
+<h1>S5 — Gestionar: archivos, compresión, permisos y procesos</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="Aula invertida">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Aula invertida
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Este documento se estudia <strong>antes de la sesión S5</strong>. Antes del taller leerás los conceptos esenciales, harás predicciones y realizarás un primer intento seguro dentro de <code>~/proyecto/</code>. Durante la sesión compararás resultados, diagnosticarás errores, corregirás tus decisiones y practicarás con archivos y procesos controlados. Después de la sesión entregarás una evidencia corregida en <code>doc/protocolo.md</code> y registrarás, cuando corresponda, la revisión crítica con IA en <code>doc/bitacora-ia.md</code>.</p>
+</div>
+</div>
+<p>Tercer módulo de la <a href="./u2-entorno-unix.html">Unidad 2</a>. En S3 transferiste al servidor <code>pacientes.md</code>, <code>pacientes-metadatos.md</code> y <code>protocolo.md</code>. En S4 construiste por primera vez la estructura real <code>~/proyecto/</code>, colocaste los datos y metadatos en <code>data/source/</code>, organizaste la documentación en <code>doc/</code>, verificaste <code>pacientes.md</code> mediante un <em>checksum</em> y completaste <code>README.md</code> con <code>nano</code>.</p>
+<p>En S5 <strong>no reiniciaremos el proyecto ni transferiremos datos nuevos</strong>. Aprenderás a inspeccionar sus archivos sin modificar los originales, comprimir y restaurar una copia, conceder a un script solo el permiso que necesita y controlar un proceso ligero creado por ti. Estas habilidades preparan el paso de los procesos interactivos al procesamiento reproducible de datos. Más adelante, después de trabajar con tuberías y scripts, también servirán para comprender el sistema de colas del cluster.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="espacio de trabajo">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>espacio de trabajo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Todas las prácticas de S5 se realizan en el <strong><em>home</em></strong>, dentro de <code>~/proyecto/</code>, con archivos pequeños. No uses <code>/export/space3/users/$USER</code>: ese espacio se reservará para descargas de genomas, BLAST, análisis pesados y resultados voluminosos cuando corresponda.</p>
+</div>
+</div>
+<section id="ficha-del-módulo" class="level2">
+<h2 class="anchored" data-anchor-id="ficha-del-módulo">Ficha del módulo</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Elemento</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Sesión</strong></td>
+<td>S5 (2 h)</td>
+</tr>
+<tr class="even">
+<td><strong>Tema</strong></td>
+<td>Tipos de archivo, visualización, compresión, permisos y procesos</td>
+</tr>
+<tr class="odd">
+<td><strong>Competencia</strong></td>
+<td>B — Dominio del entorno Unix y del cómputo científico</td>
+</tr>
+<tr class="even">
+<td><strong>Resultado del plan</strong></td>
+<td>Gestiona tipos de archivo, compresión, permisos y procesos</td>
+</tr>
+<tr class="odd">
+<td><strong>Consulta previa del plan</strong></td>
+<td>L3, diapositivas 61–final; lectura sobre procesos</td>
+</tr>
+<tr class="even">
+<td><strong>Lectura base</strong></td>
+<td>Buffalo (2015), cap. 3; Shotts (2019), capítulos sobre permisos, procesos y control de trabajos</td>
+</tr>
+<tr class="odd">
+<td><strong>Caso conductor</strong></td>
+<td>Inspeccionar archivos del proyecto sin alterar los originales, ejecutar un script con el permiso mínimo y controlar un proceso propio</td>
+</tr>
+<tr class="even">
+<td><strong>Evidencia</strong></td>
+<td>Registro en <code>doc/protocolo.md</code> con predicciones, resultados, verificaciones y explicación de decisiones</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="relación-con-la-unidad-1-y-con-s3s4" class="level2">
+<h2 class="anchored" data-anchor-id="relación-con-la-unidad-1-y-con-s3s4">Relación con la Unidad 1 y con S3–S4</h2>
+<p>La reproducibilidad no consiste solo en conservar comandos: también requiere proteger los datos originales, registrar los cambios de permisos, comprobar los resultados y poder explicar qué proceso se ejecutó y cómo terminó. En esta sesión retomarás cuatro productos previos:</p>
+<ul>
+<li><code>data/source/pacientes.md</code> y <code>data/source/pacientes-metadatos.md</code>: se <strong>inspeccionan</strong>, pero no se editan, comprimen ni cambian sus permisos;</li>
+<li><code>README.md</code>: se inspecciona y se <strong>copia</strong> al área de práctica antes de comprimir;</li>
+<li><code>src/</code>: recibe el script pequeño de S5;</li>
+<li><code>doc/protocolo.md</code> y <code>doc/bitacora-ia.md</code>: reciben la evidencia y la reflexión posterior.</li>
+</ul>
+<p>La política continúa siendo la misma: los originales de <code>data/source/</code> son inmutables. Las operaciones que cambian contenido, nombre o permisos se realizan únicamente sobre copias o archivos creados expresamente para practicar.</p>
+</section>
+<section id="resultados-de-aprendizaje" class="level2">
+<h2 class="anchored" data-anchor-id="resultados-de-aprendizaje">Resultados de aprendizaje</h2>
+<p>Al terminar S5, el estudiante es capaz de:</p>
+<ol type="1">
+<li><strong>Distinguir</strong> el tipo de objeto mostrado por <code>ls -l</code> del tipo de contenido estimado por <code>file</code>, y <strong>seleccionar</strong> <code>head</code>, <code>tail</code> o <code>less</code> para inspeccionar un archivo sin modificarlo.</li>
+<li><strong>Comprimir y restaurar</strong> una copia con <code>gzip</code>/<code>gunzip</code>, <strong>predecir</strong> los cambios de nombre y <strong>verificar</strong> mediante SHA-256 que el contenido restaurado coincide con el inicial.</li>
+<li><strong>Interpretar</strong> permisos de archivos y directorios en <code>ls -l</code> y <strong>conceder o retirar</strong> únicamente el permiso necesario mediante <code>chmod</code> simbólico.</li>
+<li><strong>Distinguir</strong> proceso, PID y trabajo del shell; <strong>observar</strong> un proceso propio con <code>ps</code> y <code>jobs -l</code>; y <strong>controlarlo</strong> con <code>Ctrl-C</code>, <code>Ctrl-Z</code>, <code>bg</code>, <code>fg</code> y una señal de terminación ordenada.</li>
+<li><strong>Documentar</strong> predicciones, comandos, observaciones, explicaciones y verificaciones, preservando los datos originales y sin exponer información sensible.</li>
+</ol>
+</section>
+<section id="ruta-de-aprendizaje" class="level2">
+<h2 class="anchored" data-anchor-id="ruta-de-aprendizaje">Ruta de aprendizaje</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Momento</th>
+<th>Qué haces</th>
+<th>Producto</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Antes de clase</strong></td>
+<td>Lees las secciones 1–6, respondes las pausas de predicción y realizas el primer intento</td>
+<td>Tabla inicial con predicciones, salidas y al menos una duda</td>
+</tr>
+<tr class="even">
+<td><strong>Durante el taller</strong></td>
+<td>Comparas intentos, comprimes una copia, practicas permisos y controlas un <code>sleep</code> propio</td>
+<td>Registro corregido y resultados verificados</td>
+</tr>
+<tr class="odd">
+<td><strong>Después del taller</strong></td>
+<td>Actualizas <code>doc/protocolo.md</code>, confirmas que los originales siguen intactos y revisas críticamente una propuesta de IA</td>
+<td>Evidencia S5 + entrada en <code>doc/bitacora-ia.md</code></td>
+</tr>
+</tbody>
+</table>
+<p>Para administrar la carga previa, distingue lo esencial de la consulta:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Estudia y practica antes del taller</th>
+<th>Consulta si necesitas ampliar</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>file</code>, <code>head</code>, <code>tail</code>, <code>less</code>, <code>gzip</code>, <code>gunzip</code>, <code>ls -l</code>, <code>chmod</code> simbólico, proceso, PID, <code>ps</code>, <code>jobs</code>, <code>fg</code>, <code>bg</code>, <code>Ctrl-C</code>, <code>Ctrl-Z</code> y SIGTERM</td>
+<td><code>tar</code>, notación numérica, <code>top</code>, estado <code>Z</code>, <code>nohup</code>, <code>screen</code> y <code>tmux</code></td>
+</tr>
+</tbody>
+</table>
+<p>Tiempo previo estimado: lectura esencial 40–50 min · microprácticas y predicciones 30–40 min · consulta opcional 15–20 min. La práctica presencial dura 120 min y la corrección posterior, 30–45 min.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="cómo leer las salidas orientativas">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>cómo leer las salidas orientativas
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>En algunos puntos se muestra una salida de ejemplo para que reconozcas la <strong>forma</strong> del resultado y puedas detectar diferencias importantes. No tiene que coincidir carácter por carácter con la tuya: pueden variar usuario, grupo, PID, tamaño, fecha, idioma, permisos iniciales y descripción de <code>file</code>. Tu evidencia debe contener la salida que obtuviste realmente, no una copia del ejemplo.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="un comando exitoso puede no imprimir nada">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>un comando exitoso puede no imprimir nada
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>mkdir</code>, <code>cp</code>, <code>gzip</code>, <code>gunzip</code>, <code>chmod</code> y <code>kill</code> suelen permanecer en silencio cuando terminan correctamente. La ausencia de un error es una primera señal, pero no demuestra por sí sola que obtuviste el resultado deseado. Por eso las prácticas añaden una comprobación posterior con <code>ls</code>, <code>file</code>, <code>sha256sum</code>, <code>jobs</code> o <code>ps</code>, según la operación.</p>
+</div>
+</div>
+</section>
+<section id="antes-de-la-sesión-preflight" class="level2">
+<h2 class="anchored" data-anchor-id="antes-de-la-sesión-preflight">Antes de la sesión — preflight</h2>
+<p>Comprueba lo siguiente antes de practicar:</p>
+<ul class="task-list">
+<li><label><input type="checkbox">Puedes conectarte al servidor por SSH.</label></li>
+<li><label><input type="checkbox">Existe <code>~/proyecto/</code> con <code>README.md</code>, <code>data/source/</code>, <code>data/processed/</code>, <code>src/</code>, <code>results/</code> y <code>doc/</code>.</label></li>
+<li><label><input type="checkbox"><code>data/source/</code> contiene <code>pacientes.md</code> y <code>pacientes-metadatos.md</code>.</label></li>
+<li><label><input type="checkbox">Conservas el <em>checksum</em> de <code>pacientes.md</code> registrado en S3/S4.</label></li>
+<li><label><input type="checkbox">Sabes guardar y salir de <code>nano</code> (<code>Ctrl-O</code>, Enter, <code>Ctrl-X</code>).</label></li>
+<li><label><input type="checkbox">Ejecutaste <code>echo "$SHELL"</code> y <code>ps -p "$$" -o comm=</code>; anotaste el shell configurado en tu cuenta y el que ejecuta la sesión actual.</label></li>
+<li><label><input type="checkbox">No usarás <code>/export/space3/users/$USER</code> para esta sesión.</label></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled" title="shell interactivo">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>shell interactivo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>echo "$SHELL"</code> suele indicar el shell configurado para la cuenta; <code>ps -p "$$" -o comm=</code> ayuda a identificar el proceso que ejecuta la sesión actual. El script declara Bash mediante <code>#!/bin/bash</code>, y las instrucciones de control de trabajos y los comandos <code>help</code> están redactados para Bash. Si observas otro shell, no cambies tu configuración: informa a la docente y usa las indicaciones correspondientes al entorno común del curso.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Advertencia
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No cambies permisos, no edites y no comprimas directamente ningún archivo de <code>data/source/</code>. No ejecutes <code>chmod</code> sobre <code>~/proyecto/</code> completo. No uses <code>chmod 777</code>. No envíes señales a procesos que no hayas iniciado tú para esta práctica.</p>
+</div>
+</div>
+<section id="archivos-que-generará-la-sesión" class="level3">
+<h3 class="anchored" data-anchor-id="archivos-que-generará-la-sesión">Archivos que generará la sesión</h3>
+<p>No necesitas descargar ni inventar datos nuevos. A partir de los productos de S4 generarás:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Archivo o directorio</th>
+<th>Cómo se genera</th>
+<th>Función en S5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>results/s5-pruebas/</code></td>
+<td><code>mkdir -p</code></td>
+<td>Zona aislada para operaciones que cambian archivos</td>
+</tr>
+<tr class="even">
+<td><code>results/s5-pruebas/README-copia.md</code></td>
+<td><code>cp -i</code> desde <code>README.md</code></td>
+<td>Copia que se comprime y restaura</td>
+</tr>
+<tr class="odd">
+<td><code>results/s5-pruebas/README-copia.md.gz</code></td>
+<td><code>gzip</code> sobre la copia</td>
+<td>Archivo comprimido temporal</td>
+</tr>
+<tr class="even">
+<td><code>src/practica-s5/prueba.sh</code></td>
+<td>Se escribe con <code>nano</code> en la sección 3.3</td>
+<td>Script para practicar permisos y ejecución</td>
+</tr>
+<tr class="odd">
+<td><code>results/s5-pruebas/directorio-permisos/archivo.txt</code></td>
+<td><code>mkdir -p</code> y <code>touch</code></td>
+<td>Objetos desechables para comparar permisos</td>
+</tr>
+</tbody>
+</table>
+<p><code>doc/protocolo.md</code> y <code>doc/bitacora-ia.md</code> <strong>no se crean de nuevo</strong>: ya existen como productos de sesiones anteriores y se actualizan después del taller. Ningún paso genera o modifica archivos en <code>data/source/</code>.</p>
+<hr>
+</section>
+</section>
+<section id="del-archivo-al-proceso-el-recorrido-de-s5" class="level2">
+<h2 class="anchored" data-anchor-id="del-archivo-al-proceso-el-recorrido-de-s5">Del archivo al proceso: el recorrido de S5</h2>
+<p>En S4 organizaste los componentes de <code>~/proyecto/</code>: datos, documentación, scripts y resultados. Sin embargo, organizar los archivos no basta para trabajar con ellos de manera segura. Antes de ejecutar un análisis necesitamos responder una secuencia de preguntas:</p>
+<ol type="1">
+<li><strong>¿Qué objeto y qué tipo de contenido tenemos?</strong></li>
+<li><strong>¿Cómo podemos inspeccionarlo sin modificarlo?</strong></li>
+<li><strong>¿Conviene conservarlo comprimido o reunirlo con otros archivos?</strong></li>
+<li><strong>¿Quién puede leerlo, modificarlo o ejecutarlo?</strong></li>
+<li><strong>¿Qué ocurre cuando un script comienza a ejecutarse y se convierte en un proceso?</strong></li>
+<li><strong>¿Cómo comprobamos que ese proceso es nuestro, qué está haciendo y cómo podemos detenerlo de forma segura?</strong></li>
+</ol>
+<p>Estas preguntas forman un solo recorrido:</p>
+<pre class="text"><code>reconocer → inspeccionar → almacenar → autorizar → ejecutar → observar y controlar</code></pre>
+<p>Seguiremos ese recorrido con elementos pequeños de <code>~/proyecto/</code>. Primero reconoceremos e inspeccionaremos archivos existentes sin alterar <code>data/source/</code>. Después comprimiremos y restauraremos una copia. A continuación prepararemos un script, le concederemos únicamente el permiso necesario y lo ejecutaremos. Finalmente observaremos y controlaremos un proceso ligero iniciado por nosotros.</p>
+<p>El objetivo no es memorizar comandos aislados. Es aprender a conservar el control sobre un análisis desde que identificamos sus archivos hasta que termina su ejecución.</p>
+<hr>
+</section>
+<section id="dos-significados-de-tipo-de-archivo" class="level2">
+<h2 class="anchored" data-anchor-id="dos-significados-de-tipo-de-archivo">1. Dos significados de “tipo de archivo”</h2>
+<p>En esta sesión aparecerán dos preguntas diferentes:</p>
+<ol type="1">
+<li><strong>¿Qué tipo de objeto representa esta entrada dentro del sistema de archivos?</strong> <code>ls -l</code> lo indica con el primer carácter: <code>-</code> para un archivo regular, <code>d</code> para un directorio y <code>l</code> para un enlace simbólico, entre otros tipos menos frecuentes.</li>
+<li><strong>¿Qué clase de contenido parece contener?</strong> <code>file</code> examina características y firmas del contenido y produce una descripción como “texto”, “datos comprimidos con gzip” o “imagen PNG”. No depende únicamente de la extensión, pero su resultado es una identificación basada en reglas y puede variar entre sistemas.</li>
+</ol>
+<p><strong>[REMOTO] Ejemplos sobre archivos que ya existen:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hostname</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">whoami</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/proyecto</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-ld</span> README.md data data/source/pacientes.md</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">file</span> README.md data/source/pacientes.md</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<details>
+<summary>
+Ver una salida orientativa de ls y file
+</summary>
+<p>Una salida podría parecerse a esta:</p>
+<pre class="text"><code>-rw-r--r-- 1 alumna grupo 310 ago 20 10:15 README.md
+drwxr-xr-x 4 alumna grupo 128 ago 20 10:10 data
+-rw-r--r-- 1 alumna grupo 156 ago 19 18:42 data/source/pacientes.md
+README.md:                         Unicode text, UTF-8 text
+data/source/pacientes.md:          CSV text</code></pre>
+<p>Los nombres y tipos de objeto deberían ser coherentes con la estructura del proyecto, pero usuario, grupo, tamaños, fechas, permisos y descripción de contenido pueden ser distintos. Una descripción como <code>ASCII text</code>, <code>Unicode text</code> o simplemente <code>text</code> no constituye por sí sola un error.</p>
+</details>
+<p><code>ls -ld</code> permite inspeccionar el objeto indicado sin listar el contenido de un directorio. En la salida de <code>ls -l</code>, el primer carácter no forma parte de los nueve permisos: primero aparece el tipo de objeto y después tres bloques de permisos para dueño, grupo y otros.</p>
+<section id="pausa-de-predicción-1" class="level3">
+<h3 class="anchored" data-anchor-id="pausa-de-predicción-1">Pausa de predicción 1</h3>
+<p>Antes de abrir la respuesta, predice:</p>
+<ol type="1">
+<li>¿Qué primer carácter esperas para <code>README.md</code> y cuál para <code>data/</code>?</li>
+<li>Si una copia de <code>README.md</code> se llama <code>README.sin-extension</code>, ¿dejará <code>file</code> de reconocerla como texto?</li>
+<li>¿<code>file</code> modifica el archivo que inspecciona?</li>
+</ol>
+<details>
+<summary>
+Ver retroalimentación
+</summary>
+<ol type="1">
+<li>Se espera <code>-</code> para el archivo regular <code>README.md</code> y <code>d</code> para el directorio <code>data/</code>.</li>
+<li>Normalmente <code>file</code> seguirá describiendo la copia como texto porque examina su contenido y no solo el nombre. La redacción exacta depende de la implementación y de los caracteres presentes.</li>
+<li>No.&nbsp;<code>file</code> inspecciona el archivo; no modifica su contenido. Podemos comprobarlo comparando su <em>checksum</em> antes y después si necesitamos evidencia adicional.</li>
+</ol>
+</details>
+</section>
+</section>
+<section id="inspeccionar-contenido-sin-editar" class="level2">
+<h2 class="anchored" data-anchor-id="inspeccionar-contenido-sin-editar">2. Inspeccionar contenido sin editar</h2>
+<p>Inspeccionar significa observar sin cambiar. Estas herramientas responden preguntas distintas:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Herramienta</th>
+<th>Pregunta que responde</th>
+<th>Salida</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>head archivo</code></td>
+<td>¿Cómo comienza?</td>
+<td>Primeras 10 líneas</td>
+</tr>
+<tr class="even">
+<td><code>head -n 3 archivo</code></td>
+<td>¿Cuáles son las primeras 3 líneas?</td>
+<td>Cantidad indicada</td>
+</tr>
+<tr class="odd">
+<td><code>tail archivo</code></td>
+<td>¿Cómo termina?</td>
+<td>Últimas 10 líneas</td>
+</tr>
+<tr class="even">
+<td><code>less archivo</code></td>
+<td>¿Cómo navego por el contenido sin cargarlo todo en pantalla?</td>
+<td>Visor paginado; salir con <code>q</code></td>
+</tr>
+<tr class="odd">
+<td><code>cat archivo</code></td>
+<td>¿Quiero mostrar completo un archivo pequeño?</td>
+<td>Todo el contenido de una vez</td>
+</tr>
+</tbody>
+</table>
+<p><strong>[REMOTO] Inspección segura:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/proyecto</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 3 README.md</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 3 data/source/pacientes.md</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span> data/source/pacientes-metadatos.md</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">less</span> data/source/pacientes.md</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>head</code>, <code>tail</code>, <code>less</code> y <code>cat</code> no editan el archivo. Aun así, evita <code>cat</code> con archivos grandes porque puede llenar la pantalla. Más adelante trabajarás con genomas y elegir el visor adecuado será importante.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="archivos comprimidos">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>archivos comprimidos
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>zcat archivo.gz</code> muestra todo el contenido descomprimido en la terminal y puede inundar la pantalla, igual que <code>cat</code>. Si <code>zless</code> está disponible, permite navegar por un <code>.gz</code> sin restaurarlo. En S5 usaremos un archivo pequeño y verificaremos la herramienta disponible antes de depender de ella.</p>
+</div>
+</div>
+<section id="pausa-de-predicción-2" class="level3">
+<h3 class="anchored" data-anchor-id="pausa-de-predicción-2">Pausa de predicción 2</h3>
+<p>Quieres comprobar si la última parte de un archivo de metadatos contiene un diccionario de variables sin abrir un editor. ¿Qué herramienta elegirías y por qué?</p>
+<details>
+<summary>
+Ver retroalimentación
+</summary>
+<p><code>tail</code> es un primer acercamiento razonable porque muestra las líneas finales. Si el archivo es más largo o necesitamos navegar, <code>less</code> permite recorrerlo y buscar visualmente sin modificarlo. La elección depende de la pregunta, no de memorizar un único comando “correcto”.</p>
+</details>
+<hr>
+</section>
+</section>
+<section id="comprimir-no-es-lo-mismo-que-empaquetar" class="level2">
+<h2 class="anchored" data-anchor-id="comprimir-no-es-lo-mismo-que-empaquetar">3. Comprimir no es lo mismo que empaquetar</h2>
+<p>Una vez identificado e inspeccionado un archivo, la siguiente decisión es <strong>cómo conviene almacenarlo o transferirlo</strong>. Para tomarla necesitamos distinguir entre reducir el tamaño de un archivo y reunir varios elementos en un solo paquete.</p>
+<p>La compresión reduce la cantidad de bytes cuando el contenido es compresible. Esto puede ahorrar espacio y reducir lo que se transfiere por la red, aunque no todos los formatos se comprimen igual y algunos ya están comprimidos.</p>
+<section id="cuándo-se-usa-en-bioinformática" class="level3">
+<h3 class="anchored" data-anchor-id="cuándo-se-usa-en-bioinformática">¿Cuándo se usa en bioinformática?</h3>
+<p>Los archivos de secuencias y anotaciones pueden contener millones de líneas de texto. Por eso es habitual encontrar archivos como <code>muestra.fastq.gz</code>, <code>genoma.fasta.gz</code> o <code>anotacion.gff.gz</code>. En esos casos, <code>gzip</code> comprime <strong>cada archivo por separado</strong> y conserva una convención que muchas herramientas bioinformáticas pueden leer directamente. Sin embargo, no todas las herramientas aceptan <code>.gz</code>: hay que comprobar su documentación antes de diseñar el flujo.</p>
+<p><code>tar</code> resuelve otra necesidad. Se utiliza cuando queremos <strong>reunir varios archivos y conservar su organización</strong>, por ejemplo para transferir o archivar juntos un conjunto de scripts, archivos de configuración, metadatos y resultados. <code>tar</code> crea un paquete; la opción <code>z</code> añade compresión gzip y produce habitualmente un <code>.tar.gz</code>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Situación bioinformática</th>
+<th>Elección habitual</th>
+<th>Razón</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Guardar o transferir un FASTA, FASTQ, GFF o archivo tabular de texto</td>
+<td><code>gzip</code> → <code>.gz</code></td>
+<td>Reduce el tamaño sin mezclarlo con otros archivos</td>
+</tr>
+<tr class="even">
+<td>Analizar un <code>FASTQ.gz</code> con una herramienta que acepta gzip</td>
+<td>Conservar <code>.gz</code></td>
+<td>Evita una copia descomprimida grande e innecesaria</td>
+</tr>
+<tr class="odd">
+<td>Entregar juntos scripts, metadatos y varios resultados</td>
+<td><code>tar</code> o <code>tar.gz</code></td>
+<td>Mantiene el conjunto y su estructura en un solo paquete</td>
+</tr>
+<tr class="even">
+<td>Inspeccionar un archivo <code>.gz</code> pequeño o navegar por él</td>
+<td><code>zcat</code> o <code>zless</code>, según disponibilidad</td>
+<td>Permite observar sin crear una copia restaurada</td>
+</tr>
+<tr class="odd">
+<td>Archivo ya comprimido, como BAM/CRAM, ZIP o una imagen PNG</td>
+<td>No aplicar <code>gzip</code> automáticamente</td>
+<td>Puede ahorrar muy poco y dificultar el uso por otras herramientas</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Comprimir no demuestra que el archivo sea correcto, no sustituye un <em>checksum</em> y no constituye por sí solo un respaldo. Además, descomprimir no es siempre un paso necesario: si un dato biológico llega como <code>.gz</code> y la herramienta de análisis lo admite, puede conservarse en ese formato. La decisión debe responder al flujo de trabajo, no a la idea de que “descomprimido es mejor”.</p>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>CONEXIÓN CON EL PROYECTO:</strong> En S5 no descargaremos archivos biológicos grandes. Usaremos una copia pequeña de <code>README.md</code> para aprender el comportamiento de <code>gzip</code> sin poner en riesgo los originales. Cuando trabajes posteriormente con FASTA, FASTQ o GFF, aplicarás la misma decisión después de revisar el formato de entrada aceptado por la herramienta correspondiente.</p>
+</blockquote>
+</section>
+<section id="gzip-y-gunzip-un-archivo" class="level3">
+<h3 class="anchored" data-anchor-id="gzip-y-gunzip-un-archivo">3.1 <code>gzip</code> y <code>gunzip</code>: un archivo</h3>
+<p>Por defecto, <code>gzip archivo</code> crea <code>archivo.gz</code> y <strong>sustituye</strong> el archivo sin comprimir. <code>gunzip</code> realiza la operación inversa. Por eso nunca los aplicaremos directamente a un original de <code>data/source/</code> (GNU Project, <em>Gzip Manual</em>).</p>
+<pre class="text"><code>README-copia.md  --gzip--&gt;  README-copia.md.gz  --gunzip--&gt;  README-copia.md</code></pre>
+<p><code>zcat</code> o <code>zless</code> permiten inspeccionar el contenido comprimido sin crear una copia restaurada, pero no sustituyen la verificación de integridad.</p>
+</section>
+<section id="consulta-tar-varios-archivos-o-un-directorio" class="level3">
+<h3 class="anchored" data-anchor-id="consulta-tar-varios-archivos-o-un-directorio">3.2 Consulta — <code>tar</code>: varios archivos o un directorio</h3>
+<p><code>tar</code> reúne varios elementos en un archivo contenedor. Con la opción <code>z</code> también usa gzip (GNU Project, <em>GNU Tar Manual</em>):</p>
+<div class="callout callout-style-default callout-note callout-titled" title="sintaxis de consulta, no ejecutar">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>sintaxis de consulta, no ejecutar
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>carpeta/</code>, <code>paquete.tar.gz</code> y <code>directorio-vacio/</code> son nombres ilustrativos y no corresponden a artefactos de la práctica. Este bloque muestra la forma general del comando; la actividad evaluada utiliza <code>gzip</code>/<code>gunzip</code>.</p>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-czf</span> paquete.tar.gz carpeta/</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-tzf</span> paquete.tar.gz</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-xzf</span> paquete.tar.gz <span class="at">-C</span> directorio-vacio/</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<details>
+<summary>
+Ver una salida orientativa de tar
+</summary>
+<p>Una salida ficticia de <code>tar -tzf paquete.tar.gz</code> podría ser:</p>
+<pre class="text"><code>carpeta/
+carpeta/script.sh
+carpeta/metadatos.md
+carpeta/resultados/
+carpeta/resultados/resumen.txt</code></pre>
+<p>Esta salida es la <strong>lista de elementos contenidos en el paquete</strong>. El comando con <code>t</code> no los extrae ni crea esas rutas en el directorio actual; permite revisar qué se restauraría antes de usar <code>x</code>.</p>
+</details>
+<ul>
+<li><code>c</code>: crear el paquete;</li>
+<li><code>t</code>: listar su contenido sin extraer;</li>
+<li><code>x</code>: extraer;</li>
+<li><code>z</code>: comprimir o descomprimir con gzip;</li>
+<li><code>f</code>: el siguiente argumento es el nombre del archivo;</li>
+<li><code>-C</code>: extraer dentro del directorio indicado.</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled" title="alcance">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>alcance
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La práctica evaluada utiliza <code>gzip</code>/<code>gunzip</code>. <code>tar</code> queda como consulta o como demostración guiada si el tiempo lo permite. Antes de extraer un paquete, conviene listar su contenido y utilizar un directorio vacío para evitar colisiones con archivos existentes.</p>
+</div>
+</div>
+</section>
+<section id="pausa-de-predicción-3" class="level3">
+<h3 class="anchored" data-anchor-id="pausa-de-predicción-3">Pausa de predicción 3</h3>
+<p>Predice qué nombres existirán después de cada operación sobre una <strong>copia</strong> llamada <code>README-copia.md</code>:</p>
+<ol type="1">
+<li>antes de <code>gzip README-copia.md</code>;</li>
+<li>inmediatamente después de <code>gzip</code>;</li>
+<li>después de <code>gunzip README-copia.md.gz</code>.</li>
+<li>Recibes <code>muestra.fastq.gz</code> y el programa de análisis acepta ese formato: ¿necesitas restaurarlo antes de analizar?</li>
+<li>Quieres entregar juntos tres scripts, sus metadatos y dos resultados: ¿conviene <code>gzip</code> por separado o crear un paquete con <code>tar</code>?</li>
+</ol>
+<details>
+<summary>
+Ver retroalimentación
+</summary>
+<ol type="1">
+<li>Existe <code>README-copia.md</code>.</li>
+<li>Existe <code>README-copia.md.gz</code> y, con el comportamiento normal de <code>gzip</code>, ya no existe la copia sin comprimir.</li>
+<li>Vuelve a existir <code>README-copia.md</code> y desaparece <code>.gz</code>. El contenido restaurado debe comprobarse comparando su SHA-256 con el calculado antes de comprimir.</li>
+<li>No necesariamente. Si la herramienta acepta <code>FASTQ.gz</code>, conservarlo comprimido puede evitar una copia grande y ahorrar espacio. Hay que verificar la documentación de esa herramienta.</li>
+<li><code>tar</code> permite reunir los archivos y conservar la organización; con la opción <code>z</code> puede crear un <code>.tar.gz</code>. Comprimir cada archivo por separado no produce un único paquete ni conserva por sí solo la relación entre ellos.</li>
+</ol>
+</details>
+</section>
+<section id="micropráctica-previa-genera-prueba.sh" class="level3">
+<h3 class="anchored" data-anchor-id="micropráctica-previa-genera-prueba.sh">3.3 Micropráctica previa — genera <code>prueba.sh</code></h3>
+<p>Hasta ahora trabajamos con archivos destinados a leerse o almacenarse. Para estudiar el siguiente paso —<strong>autorizar la ejecución</strong>— necesitamos un archivo creado con ese propósito. Generaremos ahora un script pequeño que utilizaremos durante el resto de S5.</p>
+<p>Esta micropráctica forma parte del <strong>primer intento antes de clase</strong>. Debe quedar terminada antes del taller para que el tiempo presencial se dedique a interpretar y comprobar permisos.</p>
+<p><strong>[REMOTO] Crea su directorio y abre el archivo con <code>nano</code>:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/proyecto/src/practica-s5</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/proyecto/src/practica-s5</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> prueba.sh</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Si <code>prueba.sh</code> no existía, <code>nano</code> lo generará cuando lo guardes. Escribe exactamente este contenido:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Prueba de ejecución S5"</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Guarda el archivo y comprueba que se generó con el nombre, la ruta y el contenido esperados:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> prueba.sh</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> prueba.sh</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>La salida de <code>head</code> debe mostrar las dos líneas que acabas de guardar. Si el archivo ya existía de un intento anterior, verifica primero su contenido y no crees otro con un nombre diferente.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="recuperación de S4">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>recuperación de S4
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>nano</code> no es un contenido nuevo: ya aprendiste a abrir, guardar, salir y verificar un archivo en S4. Aquí lo utilizas para generar el objeto sobre el que estudiarás permisos.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="contenido del script">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>contenido del script
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Por ahora no necesitas analizar ni modificar la sintaxis. La primera línea indica qué intérprete debe leer el archivo y la segunda imprime un mensaje. En las lecciones posteriores de automatización y <em>scripting</em> estudiarás con detalle el <em>shebang</em>, los comandos, las variables, los parámetros y la construcción de scripts reutilizables. En S5 la pregunta es más acotada: ¿qué permiso necesita este archivo para ejecutarse directamente?</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No ejecutes todavía <code>prueba.sh</code> y no le añadas permiso <code>x</code>. Primero aprenderás a interpretar su estado inicial en <code>ls -l</code>; después predecirás y comprobarás qué ocurre antes y después de conceder el permiso mínimo.</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="leer-permisos-con-ls--l" class="level2">
+<h2 class="anchored" data-anchor-id="leer-permisos-con-ls--l">4. Leer permisos con <code>ls -l</code></h2>
+<p>Tener un archivo correctamente identificado, inspeccionado y almacenado no determina quién puede usarlo. La siguiente pregunta del recorrido es <strong>quién puede leerlo, modificarlo o ejecutarlo</strong>. Unix representa esas decisiones mediante permisos asociados a cada archivo y directorio (Shotts, 2019).</p>
+<p>Unix utiliza tres permisos básicos para tres categorías de personas:</p>
+<ul>
+<li><code>r</code> (<em>read</em>): lectura;</li>
+<li><code>w</code> (<em>write</em>): escritura;</li>
+<li><code>x</code> (<em>execute</em>): ejecución o recorrido;</li>
+<li><code>u</code> (<em>user</em>): dueño del objeto;</li>
+<li><code>g</code> (<em>group</em>): grupo asociado;</li>
+<li><code>o</code> (<em>others</em>): demás usuarios.</li>
+</ul>
+<p>Una línea como esta contiene más información que los permisos:</p>
+<pre class="text"><code>-rwxr-xr--  1 usuario grupo  1024 ago 20 10:00 prueba.sh
+│└─u┘└g┘└o┘     │       │     │        │          └─ nombre
+│                │       │     │        └─ fecha/hora
+│                │       │     └─ tamaño
+│                │       └─ grupo
+│                └─ dueño
+└─ tipo de objeto</code></pre>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u2-s05-permisos-unix.png" class="img-fluid figure-img"></p>
+<figcaption>Desglose de una cadena de permisos de ls -l en sus bloques (tipo, dueño, grupo y otros) con su equivalencia numérica.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 1.</strong> Lectura de permisos en <code>ls -l</code>. La forma <code>754</code> ilustra cómo se decodifica una cadena; no es una recomendación general ni el permiso que necesita el script personal de esta sesión.</p>
+<section id="los-permisos-no-significan-lo-mismo-en-archivos-y-directorios" class="level3">
+<h3 class="anchored" data-anchor-id="los-permisos-no-significan-lo-mismo-en-archivos-y-directorios">4.1 Los permisos no significan lo mismo en archivos y directorios</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Permiso</th>
+<th>En un archivo regular</th>
+<th>En un directorio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>r</code></td>
+<td>Leer el contenido</td>
+<td>Listar los nombres de sus entradas</td>
+</tr>
+<tr class="even">
+<td><code>w</code></td>
+<td>Modificar el contenido</td>
+<td>Crear, eliminar o renombrar entradas, normalmente junto con <code>x</code></td>
+</tr>
+<tr class="odd">
+<td><code>x</code></td>
+<td>Solicitar su ejecución como programa</td>
+<td>Atravesarlo y acceder a entradas conocidas</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Poder eliminar un archivo depende principalmente de los permisos del directorio que lo contiene, no solo del permiso <code>w</code> del archivo. Tampoco basta siempre con añadir <code>x</code> para ejecutar un script: debe tener un intérprete válido, contenido legible para ese intérprete y estar en un sistema de archivos que permita ejecución.</p>
+</div>
+</div>
+</section>
+<section id="cambiar-solo-lo-necesario-con-chmod" class="level3">
+<h3 class="anchored" data-anchor-id="cambiar-solo-lo-necesario-con-chmod">4.2 Cambiar solo lo necesario con <code>chmod</code></h3>
+<p>La notación simbólica expresa de forma legible quién cambia, qué operación se realiza y qué permiso se afecta:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> u+x prueba.sh    <span class="co"># añade ejecución al dueño</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> u-x prueba.sh    <span class="co"># retira ejecución al dueño</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> g-w prueba.sh    <span class="co"># retira escritura al grupo</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="consulta-notación-numérica" class="level4">
+<h4 class="anchored" data-anchor-id="consulta-notación-numérica">Consulta — notación numérica</h4>
+<p>La notación numérica representa cada bloque con la suma <code>r=4</code>, <code>w=2</code>, <code>x=1</code>:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Valor</th>
+<th>Permisos</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td><code>rwx</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td><code>rw-</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td><code>r-x</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td><code>r--</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td><code>---</code></td>
+</tr>
+</tbody>
+</table>
+<p>En <code>754</code>, por ejemplo, el dueño recibe <code>rwx</code>, el grupo <code>r-x</code> y los demás <code>r--</code>. Esta forma <strong>sustituye los tres bloques completos</strong>; por eso puede conceder o retirar permisos que no pretendías cambiar. En S5 la forma numérica se interpreta como ejercicio de lectura, pero la práctica utiliza <code>chmod u+x</code>, que expresa el cambio mínimo necesario.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="`chmod 777`">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Advertencia</span><code>chmod 777</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Concede lectura, escritura y ejecución a dueño, grupo y demás usuarios. No es una solución apropiada a <code>Permission denied</code>: oculta la causa y concede permisos excesivos. Primero inspecciona el objeto, el directorio, el intérprete y el permiso realmente necesario.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="pausa-de-predicción-4" class="level3">
+<h3 class="anchored" data-anchor-id="pausa-de-predicción-4">Pausa de predicción 4</h3>
+<p>Un script muestra <code>-rw-r-----</code> y solo su dueño necesita ejecutarlo.</p>
+<ol type="1">
+<li>¿Qué comando realiza el cambio mínimo?</li>
+<li>¿Cómo debería verse el bloque del dueño después?</li>
+<li>¿Por qué <code>chmod 777</code> sería excesivo?</li>
+</ol>
+<details>
+<summary>
+Ver retroalimentación
+</summary>
+<ol type="1">
+<li><code>chmod u+x script.sh</code>.</li>
+<li>El bloque del dueño cambia de <code>rw-</code> a <code>rwx</code>; grupo y otros deben conservarse como estaban.</li>
+<li><code>777</code> también concedería escritura y ejecución al grupo y a los demás, aunque la tarea solo exige ejecución para el dueño. Además sustituiría todos los permisos en vez de añadir uno con propósito.</li>
+</ol>
+</details>
+<hr>
+</section>
+</section>
+<section id="proceso-pid-y-estado" class="level2">
+<h2 class="anchored" data-anchor-id="proceso-pid-y-estado">5. Proceso, PID y estado</h2>
+<p>Hasta este punto hemos tratado los scripts como archivos almacenados: podemos reconocerlos, leerlos y decidir si tienen permiso de ejecución. Cuando ejecutamos un script o cualquier otro programa, aparece una entidad nueva que existe mientras el trabajo se realiza: un <strong>proceso</strong>. Por eso el recorrido pasa ahora del archivo ejecutable a la actividad que produce al ejecutarse.</p>
+<p>Un <strong>programa</strong> es un conjunto de instrucciones almacenado; un <strong>proceso</strong> es una instancia de ese programa en ejecución. El sistema asigna a cada proceso un <strong>PID</strong> (<em>Process ID</em>).</p>
+<p>Los procesos pueden encontrarse en diferentes estados. Las letras exactas de <code>ps</code> dependen del sistema, pero en el servidor Linux verás con frecuencia:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Estado</th>
+<th>Significado básico</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>R</code></td>
+<td>ejecutándose o listo para usar CPU</td>
+</tr>
+<tr class="even">
+<td><code>S</code></td>
+<td>esperando de manera interrumpible; <code>sleep</code> suele aparecer así</td>
+</tr>
+<tr class="odd">
+<td><code>T</code></td>
+<td>detenido, por ejemplo después de <code>Ctrl-Z</code></td>
+</tr>
+<tr class="even">
+<td><code>Z</code> <strong>(consulta)</strong></td>
+<td>terminado, pero aún no recolectado por su proceso padre (<em>zombie</em>)</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>“En segundo plano” no es un estado de CPU. Describe la relación del trabajo con la terminal. Un <code>sleep</code> puede estar en segundo plano y mostrar estado <code>S</code> porque está esperando.</p>
+</div>
+</div>
+<section id="observar-procesos-propios-con-ps" class="level3">
+<h3 class="anchored" data-anchor-id="observar-procesos-propios-con-ps">5.1 Observar procesos propios con <code>ps</code></h3>
+<p><strong>[REMOTO] Herramientas esenciales:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ps</span> <span class="at">-f</span> <span class="at">-u</span> <span class="st">"</span><span class="va">$USER</span><span class="st">"</span>                 <span class="co"># procesos de tu usuario, con detalle</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ps</span> <span class="at">-o</span> pid,stat,cmd <span class="at">-p</span> 12345      <span class="co"># sustituye 12345 por un PID que hayas comprobado</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<details>
+<summary>
+Ver una salida orientativa de ps
+</summary>
+<p>Una salida ficticia de <code>ps -f -u "$USER"</code> podría verse así:</p>
+<pre class="text"><code>UID         PID   PPID  C STIME TTY          TIME CMD
+alumna    18421  18420  0 10:02 pts/3    00:00:00 -bash
+alumna    18507  18421  0 10:15 pts/3    00:00:00 sleep 300
+alumna    18512  18421  0 10:15 pts/3    00:00:00 ps -f -u alumna</code></pre>
+<p>En este ejemplo:</p>
+<ul>
+<li><code>UID</code> identifica al usuario propietario;</li>
+<li><code>PID</code> identifica cada proceso;</li>
+<li><code>PPID</code> es el PID del proceso padre;</li>
+<li><code>C</code> es un indicador entero del uso reciente de CPU; en un <code>sleep</code> suele ser <code>0</code>;</li>
+<li><code>STIME</code> indica cuándo comenzó el proceso;</li>
+<li><code>TTY</code> indica la terminal asociada;</li>
+<li><code>TIME</code> muestra tiempo de CPU acumulado, no el tiempo transcurrido desde que inició;</li>
+<li><code>CMD</code> muestra el comando.</li>
+</ul>
+<p>La línea de <code>ps</code> puede aparecer porque el propio comando estaba ejecutándose cuando tomó la fotografía. Usuario, PID, hora, terminal, cantidad de procesos y comandos serán distintos en tu sesión. El <code>sleep 300</code> solo aparecerá si ya existe un proceso de ese tipo bajo tu cuenta.</p>
+</details>
+<p><code>ps</code> produce una fotografía del momento. Si el proceso termina antes de ejecutar el segundo comando, ya no aparecerá.</p>
+</section>
+<section id="consulta-top" class="level3">
+<h3 class="anchored" data-anchor-id="consulta-top">5.2 Consulta — <code>top</code></h3>
+<p><code>top</code> actualiza la información continuamente y se cierra con <code>q</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">top</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>La pantalla completa cambia continuamente y contiene información del sistema.</p>
+<details>
+<summary>
+Ver un extracto orientativo de top
+</summary>
+<p>Un extracto simplificado de la fila correspondiente a tu proceso podría parecerse a este:</p>
+<pre class="text"><code>    PID USER     S  %CPU  %MEM     TIME+ COMMAND
+  18507 alumna   S   0.0   0.0   0:00.00 sleep</code></pre>
+</details>
+<p>Aquí reconocemos el PID, el usuario, el estado <code>S</code>, el consumo de CPU y memoria y el comando. Para <code>sleep</code> es esperable observar un consumo cercano a cero. No intentes comparar toda la pantalla de <code>top</code> línea por línea: los procesos y valores cambian incluso mientras la estás mirando.</p>
+<p>Las opciones y teclas de <code>top</code> varían entre implementaciones. Si decides consultar esta herramienta, basta con reconocer que muestra procesos y salir con <code>q</code>. <code>htop</code> puede ser más amigable, pero no se presupone que esté instalado.</p>
+</section>
+<section id="pausa-de-predicción-5" class="level3">
+<h3 class="anchored" data-anchor-id="pausa-de-predicción-5">Pausa de predicción 5</h3>
+<p>Si ejecutas <code>sleep 300</code>, ¿esperas que consuma CPU continuamente? ¿Qué estado es razonable observar?</p>
+<details>
+<summary>
+Ver retroalimentación
+</summary>
+<p>No.&nbsp;<code>sleep</code> espera durante el tiempo indicado y normalmente aparece con estado <code>S</code>. Es útil para practicar porque permanece activo sin realizar un análisis pesado. Si <code>jobs</code> dice <code>Running</code>, eso significa que el trabajo no está detenido por el shell; no implica que esté usando CPU continuamente.</p>
+</details>
+<hr>
+</section>
+</section>
+<section id="trabajos-del-shell-planos-y-señales" class="level2">
+<h2 class="anchored" data-anchor-id="trabajos-del-shell-planos-y-señales">6. Trabajos del shell, planos y señales</h2>
+<p>Reconocer un proceso y su PID es solo el primer paso. También necesitamos comprender <strong>cómo se relaciona con la terminal desde la que lo iniciamos</strong>: si ocupa el primer plano, si continúa en segundo plano, si está detenido o si recibió una señal. El control de trabajos conecta la observación del proceso con las decisiones que tomamos durante su ejecución.</p>
+<p>Un <strong>trabajo</strong> (<em>job</em>) es la forma en que el shell agrupa y controla uno o más procesos iniciados desde esa terminal (GNU Project, <em>Bash Reference Manual</em>). El número de trabajo y el PID no son lo mismo:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Identificador</th>
+<th>Ejemplo</th>
+<th>Alcance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Número de trabajo</td>
+<td><code>%1</code></td>
+<td>Solo el shell actual; lo usan <code>fg</code> y <code>bg</code></td>
+</tr>
+<tr class="even">
+<td>PID</td>
+<td><code>12345</code></td>
+<td>Identificador del proceso en el sistema; lo muestran <code>ps</code> y <code>jobs -l</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>jobs</code> solo conoce los trabajos iniciados y controlados por <strong>esa misma sesión del shell</strong>. Si abres otra terminal, su tabla de trabajos será diferente, aunque <code>ps</code> pueda observar el proceso.</p>
+<section id="primer-plano-y-segundo-plano" class="level3">
+<h3 class="anchored" data-anchor-id="primer-plano-y-segundo-plano">6.1 Primer plano y segundo plano</h3>
+<ul>
+<li><strong>Primer plano:</strong> el trabajo recibe la entrada de la terminal; el shell espera y no muestra un nuevo <em>prompt</em> mientras el proceso continúa.</li>
+<li><strong>Segundo plano:</strong> el shell devuelve el <em>prompt</em>; el trabajo puede continuar sin controlar la entrada de la terminal.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sleep</span> 300 <span class="kw">&amp;</span>    <span class="co"># inicia un trabajo en segundo plano</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">jobs</span> <span class="at">-l</span>        <span class="co"># muestra número de trabajo, PID y estado del trabajo</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="bu">fg</span> %1          <span class="co"># trae el trabajo 1 al primer plano; usa el número real</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="bu">bg</span> %1          <span class="co"># reanuda en segundo plano un trabajo detenido; usa el número real</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>El número puede no ser <code>%1</code> si tu shell ya tiene otros trabajos. Lee la salida real de <code>jobs -l</code> y no copies un número de ejemplo sin verificarlo.</p>
+</section>
+<section id="ctrl-c-y-ctrl-z-no-hacen-lo-mismo" class="level3">
+<h3 class="anchored" data-anchor-id="ctrl-c-y-ctrl-z-no-hacen-lo-mismo">6.2 <code>Ctrl-C</code> y <code>Ctrl-Z</code> no hacen lo mismo</h3>
+<ul>
+<li><code>Ctrl-C</code> solicita interrumpir el proceso en primer plano mediante <code>SIGINT</code>. Muchos programas terminan, aunque un programa puede gestionar la señal de otra manera.</li>
+<li><code>Ctrl-Z</code> solicita detener temporalmente el trabajo mediante <code>SIGTSTP</code>. No lo termina: después puede reanudarse con <code>bg</code> o <code>fg</code>.</li>
+</ul>
+<pre class="text"><code>primer plano --Ctrl-Z--&gt; detenido --bg--&gt; segundo plano
+      ^                                      |
+      └---------------- fg ------------------┘</code></pre>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u2-s05-procesos-primer-segundo-plano.png" class="img-fluid figure-img"></p>
+<figcaption>Tres formas de iniciar un proceso, en columnas, según cómo se relaciona con la terminal. Primer plano, ejecutando solo el comando: la terminal queda ocupada, Ctrl-C lo cancela y hay que esperar a que termine. Segundo plano, añadiendo un ampersand al final: la terminal queda disponible, jobs muestra el trabajo, pero puede terminar al cerrar la sesión. Persistente, anteponiendo nohup: continúa tras desconectarse y su salida va a nohup.out, útil para tareas largas. Una franja inferior reúne las herramientas para observar y controlar —ps y top muestran procesos, kill con el PID termina uno, fg y bg cambian el plano, screen y tmux conservan sesiones— y advierte que en un cluster los análisis pesados deben enviarse al planificador.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 2.</strong> Las tres formas de iniciar un proceso y su relación con la terminal. <code>nohup</code>, <code>screen</code> y <code>tmux</code> aparecen como referencia [Consulta]: se usarán cuando un análisis lo justifique, no en esta sesión.</p>
+</section>
+<section id="kill-envía-señales" class="level3">
+<h3 class="anchored" data-anchor-id="kill-envía-señales">6.3 <code>kill</code> envía señales</h3>
+<p>Pese a su nombre, <code>kill</code> es una herramienta para <strong>enviar una señal</strong>. La señal predeterminada suele ser <code>SIGTERM</code>, una solicitud de terminación ordenada (Kerrisk, <code>kill(1)</code>):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="bu">kill</span> <span class="at">-TERM</span> 12345    <span class="co"># sustituye 12345 por el PID de tu propio sleep</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Antes de enviar una señal:</p>
+<ol type="1">
+<li>confirma el PID con <code>jobs -l</code> y <code>ps</code>;</li>
+<li>confirma que el comando es el <code>sleep</code> creado por ti;</li>
+<li>usa <code>SIGTERM</code> primero;</li>
+<li>verifica después que el proceso terminó.</li>
+</ol>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Advertencia
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No pruebes con PIDs ajenos ni con procesos del sistema. No uses <code>kill -9</code> o <code>SIGKILL</code> como primera opción: fuerza la terminación sin permitir limpieza. En S5 no es necesario practicarla.</p>
+</div>
+</div>
+</section>
+<section id="consulta-qué-continúa-si-se-cierra-la-conexión" class="level3">
+<h3 class="anchored" data-anchor-id="consulta-qué-continúa-si-se-cierra-la-conexión">6.4 Consulta — ¿qué continúa si se cierra la conexión?</h3>
+<p>Un trabajo en segundo plano y un trabajo preparado para tolerar el cierre de sesión no son sinónimos. Al terminar una conexión, el shell o el sistema pueden enviar <code>SIGHUP</code> a sus trabajos.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nohup</span> comando <span class="kw">&amp;</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>nohup</code> inicia el comando ignorando <code>SIGHUP</code>; <code>&amp;</code> lo coloca en segundo plano (Shotts, 2019). Si la salida sigue conectada a la terminal, normalmente se guarda en <code>nohup.out</code>. Esto no protege frente a otros errores, reinicios, límites del sistema o señales distintas.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="preparación para trabajo futuro">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>preparación para trabajo futuro
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>nohup</code>, <code>screen</code> y <code>tmux</code> no autorizan ejecutar análisis pesados en un nodo de acceso. Los trabajos prolongados o intensivos del <em>cluster</em> se envían al planificador institucional. Ese tema se estudiará más adelante, cuando ya hayas practicado procesamiento de datos y scripts. En S5 <code>nohup</code>, <code>screen</code> y <code>tmux</code> son conceptos de consulta; la práctica utiliza únicamente <code>sleep</code> y termina el proceso antes de cerrar la sesión.</p>
+</div>
+</div>
+</section>
+<section id="pausa-de-predicción-6" class="level3">
+<h3 class="anchored" data-anchor-id="pausa-de-predicción-6">Pausa de predicción 6</h3>
+<p>Indica qué herramienta corresponde a cada propósito:</p>
+<ol type="1">
+<li>ver los trabajos del shell actual y sus PID;</li>
+<li>llevar un trabajo detenido al segundo plano;</li>
+<li>traer un trabajo al primer plano;</li>
+<li>detener temporalmente el trabajo en primer plano;</li>
+<li>solicitar la terminación ordenada de un proceso propio.</li>
+</ol>
+<details>
+<summary>
+Ver retroalimentación
+</summary>
+<ol type="1">
+<li><code>jobs -l</code>.</li>
+<li><code>bg</code> seguido del número de trabajo correspondiente, por ejemplo <code>bg %1</code>.</li>
+<li><code>fg</code> seguido del número de trabajo, por ejemplo <code>fg %1</code>.</li>
+<li><code>Ctrl-Z</code>; después debe comprobarse que el trabajo aparece como detenido.</li>
+<li><code>kill -TERM PID</code>, después de verificar que el PID y el comando corresponden al proceso propio.</li>
+</ol>
+</details>
+<hr>
+</section>
+</section>
+<section id="práctica-s5-inspeccionar-proteger-y-controlar" class="level2">
+<h2 class="anchored" data-anchor-id="práctica-s5-inspeccionar-proteger-y-controlar">7. Práctica S5 — inspeccionar, proteger y controlar</h2>
+<blockquote class="blockquote">
+<p><strong>Regla de trabajo:</strong> en cada actividad sigue el ciclo <strong>predecir → ejecutar → observar → explicar → verificar</strong>. No copies una salida esperada como si fuera tu resultado: registra lo que ocurrió realmente en tu cuenta y explica cualquier diferencia.</p>
+</blockquote>
+<section id="antes-de-clase-primer-intento-formativo" class="level3">
+<h3 class="anchored" data-anchor-id="antes-de-clase-primer-intento-formativo">Antes de clase — primer intento formativo</h3>
+<p><strong>[REMOTO] 1. Confirma el entorno y los productos previos:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hostname</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">whoami</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/proyecto</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-ld</span> README.md data/source src results doc</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> data/source/pacientes.md data/source/pacientes-metadatos.md</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> doc/protocolo.md doc/bitacora-ia.md</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Si falta alguno de los productos de S4, detente y revisa su ubicación antes de crear los archivos de S5. No generes un protocolo o una bitácora nuevos con el mismo nombre, porque podrías fragmentar la documentación acumulativa del curso.</p>
+<p><strong>[REMOTO] 2. Inspecciona sin modificar:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file</span> README.md data/source/pacientes.md data/source/pacientes-metadatos.md</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 3 README.md</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 3 data/source/pacientes.md</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span> data/source/pacientes-metadatos.md</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">less</span> data/source/pacientes.md    <span class="co"># presiona q para salir</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>[REMOTO] 3. Crea el espacio aislado y una copia:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/proyecto/results/s5-pruebas</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> ~/proyecto/results/s5-pruebas</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-i</span> ~/proyecto/README.md ~/proyecto/results/s5-pruebas/README-copia.md</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> ~/proyecto/README.md ~/proyecto/results/s5-pruebas/README-copia.md</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Antes de ejecutar <code>cp</code>, revisa la salida del directorio. La tabla siguiente evita sobrescribir o mezclar intentos anteriores:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Estado observado</th>
+<th>Acción segura</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>No existe <code>README-copia.md</code> ni <code>README-copia.md.gz</code></td>
+<td>Ejecuta <code>cp -i</code> como se indica.</td>
+</tr>
+<tr class="even">
+<td>Ya existe <code>README-copia.md</code></td>
+<td>No la sobrescribas. Conserva el archivo y lleva el caso al taller para comprobar su origen e integridad.</td>
+</tr>
+<tr class="odd">
+<td>Solo existe <code>README-copia.md.gz</code></td>
+<td>No ejecutes <code>gunzip</code> todavía; registra el estado y diagnostícalo durante el taller.</td>
+</tr>
+<tr class="even">
+<td>Existen ambos nombres</td>
+<td>No comprimas, restaures ni elimines nada; registra el estado y consulta antes de continuar.</td>
+</tr>
+</tbody>
+</table>
+<p>Si repites la práctica después de concluir S5, crea un subdirectorio nuevo, por ejemplo <code>results/s5-pruebas/repeticion-01/</code>, y adapta <strong>todas</strong> las rutas de la repetición de forma consistente. No borres evidencia previa solo para obtener el estado esperado.</p>
+<p><strong>[REMOTO] 4. Realiza un primer intento con un proceso ligero:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sleep</span> 30 <span class="kw">&amp;</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="bu">jobs</span> <span class="at">-l</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Espera a que termine por sí solo y vuelve a ejecutar <code>jobs -l</code>; si el aviso no aparece de inmediato, presiona <code>Enter</code> una vez. Los 30 segundos permiten observar un trabajo sin dejarlo activo. En el taller se usarán 300 segundos para disponer de tiempo suficiente para detenerlo, reanudarlo y terminarlo de manera controlada.</p>
+<p>Lleva al taller:</p>
+<ul>
+<li>tus predicciones sobre los tipos de archivo;</li>
+<li>las salidas reales de <code>file</code>, <code>ls -l</code>, <code>head prueba.sh</code> y <code>jobs -l</code>;</li>
+<li><code>src/practica-s5/prueba.sh</code> generado con el contenido proporcionado;</li>
+<li>una explicación provisional de la diferencia entre número de trabajo y PID;</li>
+<li>al menos una duda o un resultado inesperado.</li>
+</ul>
+<details>
+<summary>
+Ver retroalimentación
+</summary>
+<p>El primer intento se considera preparado si se comprobó el contexto, se inspeccionaron los archivos sin modificarlos, se creó una copia dentro de <code>results/s5-pruebas/</code>, se generó <code>prueba.sh</code> con el contenido proporcionado, se inició un <code>sleep</code> propio y se registraron las salidas y dudas. Los errores razonables no se penalizan; ocultarlos o copiar resultados ajenos impide utilizarlos para aprender durante el taller.</p>
+</details>
+</section>
+<section id="durante-el-taller-comparación-diagnóstico-y-corrección" class="level3">
+<h3 class="anchored" data-anchor-id="durante-el-taller-comparación-diagnóstico-y-corrección">Durante el taller — comparación, diagnóstico y corrección</h3>
+<section id="actividad-1.-verificar-que-inspeccionar-no-alteró-el-original" class="level4">
+<h4 class="anchored" data-anchor-id="actividad-1.-verificar-que-inspeccionar-no-alteró-el-original">Actividad 1. Verificar que inspeccionar no alteró el original</h4>
+<ol type="1">
+<li><p>Compara tu selección de herramientas y tus salidas con otra persona.</p></li>
+<li><p>Recupera de S3/S4 el SHA-256 de <code>pacientes.md</code>.</p></li>
+<li><p>Calcula de nuevo el checksum del original:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># [REMOTO]</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sha256sum</span> ~/proyecto/data/source/pacientes.md</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Confirma que coincide. Si no coincide, <strong>detente</strong>: no continúes con ese archivo ni intentes “arreglarlo”. Conserva la evidencia y consulta a la docente.</p></li>
+</ol>
+<details>
+<summary>
+Ver resultado esperado de la Actividad 1
+</summary>
+<p>El SHA-256 debe coincidir exactamente con el registrado en S3/S4. <code>file</code>, <code>head</code>, <code>tail</code> y <code>less</code> no modifican el contenido. Una diferencia indica que el archivo cambió en otro momento o que se comparó una ruta distinta; debe diagnosticarse antes de seguir.</p>
+</details>
+</section>
+<section id="actividad-2.-comprimir-y-restaurar-una-copia" class="level4">
+<h4 class="anchored" data-anchor-id="actividad-2.-comprimir-y-restaurar-una-copia">Actividad 2. Comprimir y restaurar una copia</h4>
+<p>Trabaja exclusivamente dentro de <code>results/s5-pruebas/</code>:</p>
+<ol type="1">
+<li><p>Confirma la ruta y calcula el checksum inicial de la copia:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># [REMOTO]</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/proyecto/results/s5-pruebas</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> README-copia.md</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sha256sum</span> README-copia.md</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p><strong>Predice</strong> qué nombre existirá después de <code>gzip</code> y registra tu respuesta.</p></li>
+<li><p>Comprime y verifica:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># [REMOTO]</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gzip</span> README-copia.md</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> README-copia.md.gz</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="fu">file</span> README-copia.md.gz</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Salida orientativa:</p>
+<pre class="text"><code>-rw-r--r-- 1 alumna grupo 245 ago 20 10:35 README-copia.md.gz
+README-copia.md.gz: gzip compressed data, was "README-copia.md", ...</code></pre>
+<p>Lo esencial es que aparezca el nombre terminado en <code>.gz</code> y que <code>file</code> reconozca el formato gzip; tamaño, fecha y texto adicional pueden variar.</p></li>
+<li><p>Si <code>zless</code> está disponible, úsalo y sal con <code>q</code>. Si no está disponible, registra esa diferencia; no es un fallo de la práctica.</p></li>
+<li><p><strong>Predice</strong> qué ocurrirá al restaurar y ejecuta:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># [REMOTO]</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gunzip</span> README-copia.md.gz</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> README-copia.md</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sha256sum</span> README-copia.md</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>La salida del checksum tiene 64 caracteres hexadecimales seguidos del nombre, por ejemplo:</p>
+<pre class="text"><code>6f1ed002ab5595859014ebf0951522d9f4982e747a39c933732347545d4f4260  README-copia.md</code></pre>
+<p>La huella mostrada es ficticia y solo ilustra el formato. Compara las dos cadenas <strong>completas</strong> de tu propia salida; no compares tu resultado con la huella del ejemplo.</p></li>
+<li><p>Compara el SHA-256 final con el inicial y confirma que el original <code>~/proyecto/README.md</code> sigue existiendo.</p></li>
+</ol>
+<details>
+<summary>
+Ver resultado esperado de la Actividad 2
+</summary>
+<p><code>gzip</code> sustituye la copia sin comprimir por <code>README-copia.md.gz</code>; <code>file</code> debe reconocer alguna forma de datos comprimidos con gzip. <code>gunzip</code> restaura el nombre <code>README-copia.md</code>. Los SHA-256 inicial y final deben coincidir. El archivo original <code>~/proyecto/README.md</code> no debe cambiar ni desaparecer.</p>
+</details>
+</section>
+<section id="actividad-3.-comprobar-el-script-y-conceder-el-permiso-mínimo" class="level4">
+<h4 class="anchored" data-anchor-id="actividad-3.-comprobar-el-script-y-conceder-el-permiso-mínimo">Actividad 3. Comprobar el script y conceder el permiso mínimo</h4>
+<ol type="1">
+<li><p>Entra al directorio creado antes de clase y comprueba que el script existe y conserva el contenido proporcionado:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># [REMOTO]</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/proyecto/src/practica-s5</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> prueba.sh</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> prueba.sh</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Si falta el archivo o su contenido está incompleto, vuelve al paso 4 del primer intento y genéralo con <code>nano</code>. No continúes con otro nombre ni inventes contenido diferente.</p></li>
+<li><p>Controla el estado inicial retirando el permiso de ejecución del dueño y vuelve a inspeccionarlo:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># [REMOTO]</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> u-x prueba.sh</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> prueba.sh</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Salida orientativa antes de intentar la ejecución:</p>
+<pre class="text"><code>-rw-r--r-- 1 alumna grupo 49 ago 20 10:48 prueba.sh</code></pre>
+<p>Lo importante es que el bloque del dueño comience con <code>rw-</code>; los permisos de grupo y otros pueden diferir según la configuración inicial.</p></li>
+<li><p><strong>Predice</strong> qué ocurrirá y prueba la ejecución directa:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># [REMOTO]</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./prueba.sh</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>El mensaje puede parecerse a uno de estos, según el shell y el idioma:</p>
+<pre class="text"><code>bash: ./prueba.sh: Permission denied</code></pre></li>
+<li><p>Registra el mensaje real. Después añade solo el permiso necesario y vuelve a probar:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># [REMOTO]</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> u+x prueba.sh</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> prueba.sh</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="ex">./prueba.sh</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Salida orientativa después del cambio:</p>
+<pre class="text"><code>-rwxr--r-- 1 alumna grupo 49 ago 20 10:48 prueba.sh
+Prueba de ejecución S5</code></pre>
+<p>Compara exclusivamente el cambio <code>rw-</code> → <code>rwx</code> en el bloque del dueño y el mensaje producido por tu script; no esperes que todos los demás campos coincidan.</p></li>
+<li><p>Explica qué carácter cambió, para quién y por qué no se modificaron los permisos de grupo u otros.</p></li>
+</ol>
+<details>
+<summary>
+Ver resultado esperado de la Actividad 3
+</summary>
+<p>Tras <code>chmod u-x</code>, el bloque del dueño no contiene <code>x</code> y la ejecución directa normalmente produce <code>Permission denied</code> o su equivalente. Tras <code>chmod u+x</code>, <code>ls -l</code> muestra <code>x</code> para el dueño y el script imprime <code>Prueba de ejecución S5</code>. Si aún falla, hay que revisar la ruta, el <em>shebang</em>, el contenido y las políticas del sistema de archivos; añadir permisos más amplios no es el siguiente paso automático.</p>
+</details>
+</section>
+<section id="actividad-4.-comparar-el-permiso-x-en-un-archivo-y-un-directorio" class="level4">
+<h4 class="anchored" data-anchor-id="actividad-4.-comparar-el-permiso-x-en-un-archivo-y-un-directorio">Actividad 4. Comparar el permiso <code>x</code> en un archivo y un directorio</h4>
+<p>Usa solo un directorio desechable:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># [REMOTO]</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/proyecto/results/s5-pruebas</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> directorio-permisos</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="fu">touch</span> directorio-permisos/archivo.txt</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-ld</span> directorio-permisos</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> u-x directorio-permisos</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-ld</span> directorio-permisos</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> directorio-permisos</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>El error esperado puede verse así:</p>
+<pre class="text"><code>bash: cd: directorio-permisos: Permission denied</code></pre>
+<p>El prefijo y el idioma pueden variar. Registra tu mensaje real. Desde el directorio padre, restaura inmediatamente el permiso y comprueba el acceso:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># [REMOTO]</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/proyecto/results/s5-pruebas</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> u+x directorio-permisos</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-ld</span> directorio-permisos</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> directorio-permisos</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ..</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<details>
+<summary>
+Ver resultado esperado de la Actividad 4
+</summary>
+<p>Sin <code>x</code> para el dueño, no debería ser posible atravesar el directorio mediante <code>cd</code>, aunque pueda seguir teniendo <code>r</code>. Al restaurar <code>u+x</code>, el acceso vuelve a ser posible. La prueba no autoriza retirar <code>x</code> de <code>~/proyecto/</code>, <code>data/</code> ni otros directorios reales.</p>
+</details>
+</section>
+<section id="actividad-5.-controlar-un-proceso-propio-de-principio-a-fin" class="level4">
+<h4 class="anchored" data-anchor-id="actividad-5.-controlar-un-proceso-propio-de-principio-a-fin">Actividad 5. Controlar un proceso propio de principio a fin</h4>
+<p>Antes de empezar, comprueba que no exista un <code>sleep</code> anterior de la práctica en <code>jobs -l</code>. Después:</p>
+<ol type="1">
+<li><p>Practica primero una interrupción en primer plano:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># [REMOTO]</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sleep</span> 30</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Antes de que termine, presiona <code>Ctrl-C</code> y ejecuta <code>jobs -l</code>. El <code>sleep</code> debe terminar, por lo que no debe quedar como trabajo activo. Esta prueba distingue <strong>interrumpir</strong> con <code>Ctrl-C</code> de <strong>detener temporalmente</strong> con <code>Ctrl-Z</code>, que practicarás más adelante.</p></li>
+<li><p>Inicia un proceso ligero en segundo plano:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># [REMOTO]</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sleep</span> 300 <span class="kw">&amp;</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="bu">jobs</span> <span class="at">-l</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Salida orientativa:</p>
+<pre class="text"><code>[1] 24680
+[1]+ 24680 Running                 sleep 300 &amp;</code></pre>
+<p>Aquí <code>%1</code> sería el trabajo y <code>24680</code> el PID. Ambos son ficticios: utiliza los que muestre tu shell.</p></li>
+<li><p>Registra el número de trabajo y el PID mostrados. Sustituye <code>12345</code> por el PID real:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># [REMOTO]</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ps</span> <span class="at">-o</span> pid,stat,cmd <span class="at">-p</span> 12345</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Si <code>12345</code> se hubiera sustituido por el PID correcto, la forma esperada sería semejante a:</p>
+<pre class="text"><code>    PID STAT CMD
+  24680 S    sleep 300</code></pre>
+<p><code>S</code> es razonable para <code>sleep</code>; no significa que el proceso haya terminado.</p></li>
+<li><p><strong>Predice</strong> qué ocurrirá al llevarlo al primer plano. Sustituye <code>%1</code> por el número real del trabajo:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb46"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># [REMOTO]</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="bu">fg</span> %1</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Presiona <code>Ctrl-Z</code>. Comprueba con <code>jobs -l</code> y <code>ps</code> que está detenido; es razonable observar estado <code>T</code>.</p>
+<p>Salida orientativa después de <code>Ctrl-Z</code> y de volver a consultar:</p>
+<pre class="text"><code>^Z
+[1]+  Stopped                 sleep 300
+    PID STAT CMD
+  24680 T    sleep 300</code></pre>
+<p>El orden y el texto pueden variar, pero deben aportar evidencia de que el trabajo quedó detenido, no terminado.</p></li>
+<li><p>Reanúdalo en segundo plano y verifica:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb48"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># [REMOTO]</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="bu">bg</span> %1</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="bu">jobs</span> <span class="at">-l</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ps</span> <span class="at">-o</span> pid,stat,cmd <span class="at">-p</span> 12345</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Salida orientativa de <code>jobs -l</code> tras <code>bg</code>:</p>
+<pre class="text"><code>[1]+ 24680 Running                 sleep 300 &amp;</code></pre></li>
+<li><p>Confirma una última vez que PID y comando corresponden a tu <code>sleep</code>. Solicita la terminación ordenada y verifica:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb50"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># [REMOTO]</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="bu">kill</span> <span class="at">-TERM</span> 12345</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="bu">jobs</span> <span class="at">-l</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ps</span> <span class="at">-o</span> pid,stat,cmd <span class="at">-p</span> 12345</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Después de <code>SIGTERM</code>, el shell puede informar <code>Terminated</code> inmediatamente o al mostrar el siguiente <em>prompt</em>. La verificación decisiva es que <code>ps</code> ya no produzca una fila para ese PID:</p>
+<pre class="text"><code>    PID STAT CMD</code></pre>
+<p>Ver solo el encabezado —o ninguna salida, según la variante de <code>ps</code>— indica que ese PID ya no está activo. No uses como criterio que el mensaje coincida literalmente con el ejemplo.</p></li>
+<li><p>Explica la diferencia entre <code>%1</code>, el PID, <code>Ctrl-C</code>, <code>Ctrl-Z</code>, <code>bg</code> y <code>SIGTERM</code>.</p></li>
+</ol>
+<details>
+<summary>
+Ver resultado esperado de la Actividad 5
+</summary>
+<p><code>Ctrl-C</code> interrumpe el primer <code>sleep</code>, que no debe permanecer en <code>jobs</code>. <code>jobs -l</code> relaciona el número de trabajo con el PID del segundo proceso. Antes de detenerlo, <code>sleep</code> suele aparecer en estado <code>S</code>; <code>Ctrl-Z</code> lo deja detenido y puede verse <code>T</code>. <code>bg</code> lo reanuda sin darle el primer plano. <code>kill -TERM</code> envía una solicitud de terminación al PID comprobado. Al final, <code>ps -p PID</code> ya no debe mostrar ese proceso y <code>jobs</code> puede mostrarlo temporalmente como terminado antes de retirarlo de la tabla.</p>
+</details>
+</section>
+</section>
+<section id="después-del-taller-entrega-final" class="level3">
+<h3 class="anchored" data-anchor-id="después-del-taller-entrega-final">Después del taller — entrega final</h3>
+<p>Actualiza <code>~/proyecto/doc/protocolo.md</code> con una sección como esta, completada con tus resultados reales:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb52"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Archivos, permisos y procesos (S5)</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="fu">### Entorno y zona de práctica</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Servidor: <span class="co">[</span><span class="ot">SERVIDOR</span><span class="co">]</span></span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Directorio de trabajo: ~/proyecto/</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Zona aislada: results/s5-pruebas/</span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Script: src/practica-s5/prueba.sh</span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a><span class="fu">### Inspección de archivos</span></span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Archivo <span class="pp">|</span> Predicción <span class="pp">|</span> Resultado de file <span class="pp">|</span> Herramienta de inspección <span class="pp">|</span> ¿Se modificó? <span class="pp">|</span></span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">|</span></span>
+<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> README.md <span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span></span>
+<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> data/source/pacientes.md <span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span></span>
+<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-17"><a href="#cb52-17" aria-hidden="true" tabindex="-1"></a><span class="fu">### Compresión y restauración</span></span>
+<span id="cb52-18"><a href="#cb52-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-19"><a href="#cb52-19" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Momento <span class="pp">|</span> Nombre presente <span class="pp">|</span> SHA-256 <span class="pp">|</span> Interpretación <span class="pp">|</span></span>
+<span id="cb52-20"><a href="#cb52-20" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">|</span></span>
+<span id="cb52-21"><a href="#cb52-21" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Antes de gzip <span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span></span>
+<span id="cb52-22"><a href="#cb52-22" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Después de gzip <span class="pp">|</span> <span class="pp">|</span> No aplica al archivo restaurado <span class="pp">|</span> <span class="pp">|</span></span>
+<span id="cb52-23"><a href="#cb52-23" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Después de gunzip <span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span></span>
+<span id="cb52-24"><a href="#cb52-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-25"><a href="#cb52-25" aria-hidden="true" tabindex="-1"></a><span class="fu">### Permisos del script</span></span>
+<span id="cb52-26"><a href="#cb52-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-27"><a href="#cb52-27" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Momento <span class="pp">|</span> Salida relevante de ls -l <span class="pp">|</span> Predicción/resultado <span class="pp">|</span> Explicación <span class="pp">|</span></span>
+<span id="cb52-28"><a href="#cb52-28" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">|</span></span>
+<span id="cb52-29"><a href="#cb52-29" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Sin u+x <span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span></span>
+<span id="cb52-30"><a href="#cb52-30" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Con u+x <span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span></span>
+<span id="cb52-31"><a href="#cb52-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-32"><a href="#cb52-32" aria-hidden="true" tabindex="-1"></a><span class="fu">### Control del proceso</span></span>
+<span id="cb52-33"><a href="#cb52-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-34"><a href="#cb52-34" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Momento <span class="pp">|</span> Trabajo <span class="pp">|</span> PID <span class="pp">|</span> Estado observado <span class="pp">|</span> Acción o señal <span class="pp">|</span> Verificación <span class="pp">|</span></span>
+<span id="cb52-35"><a href="#cb52-35" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">|</span></span>
+<span id="cb52-36"><a href="#cb52-36" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Primer plano interrumpido <span class="pp">|</span> No aplica <span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span> Ctrl-C <span class="pp">|</span> <span class="pp">|</span></span>
+<span id="cb52-37"><a href="#cb52-37" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Segundo plano <span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span></span>
+<span id="cb52-38"><a href="#cb52-38" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Detenido <span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span></span>
+<span id="cb52-39"><a href="#cb52-39" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Reanudado <span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span></span>
+<span id="cb52-40"><a href="#cb52-40" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Terminado <span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span> <span class="pp">|</span></span>
+<span id="cb52-41"><a href="#cb52-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-42"><a href="#cb52-42" aria-hidden="true" tabindex="-1"></a><span class="fu">### Seguridad y reproducibilidad</span></span>
+<span id="cb52-43"><a href="#cb52-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-44"><a href="#cb52-44" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Evidencia de que data/source/pacientes.md no cambió:</span>
+<span id="cb52-45"><a href="#cb52-45" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Permiso mínimo concedido y justificación:</span>
+<span id="cb52-46"><a href="#cb52-46" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Cómo confirmé que el PID era mío:</span>
+<span id="cb52-47"><a href="#cb52-47" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Problema encontrado y cómo lo diagnostiqué:</span>
+<span id="cb52-48"><a href="#cb52-48" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Conclusión:</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Evidencia mínima calificable:</strong></p>
+<ul>
+<li>SHA-256 coincidente antes y después de restaurar la copia;</li>
+<li>SHA-256 de <code>data/source/pacientes.md</code> coincidente con S3/S4;</li>
+<li>permisos antes y después de <code>chmod u+x</code>;</li>
+<li>registro de <code>Ctrl-C</code> y, para el segundo <code>sleep</code>, número de trabajo, PID, estado, comando, señal y verificación de que terminó;</li>
+<li>explicación del permiso mínimo y de por qué no se utilizó <code>chmod 777</code>, <code>kill -9</code> ni el espacio institucional.</li>
+</ul>
+<p><strong>Registro completo recomendado:</strong></p>
+<ul>
+<li>predicciones y salidas reales, no reconstruidas;</li>
+<li>tablas del protocolo completas;</li>
+<li>al menos un error o duda diagnosticados, o la declaración explícita de que no surgieron.</li>
+</ul>
+<p>La actividad de IA de la sección 8 es <strong>formativa</strong>. Su registro en <code>doc/bitacora-ia.md</code> complementa la evidencia manual, pero no sustituye la evidencia mínima ni constituye una entrega calificable separada, salvo que la docente indique lo contrario.</p>
+<hr>
+</section>
+</section>
+<section id="actividad-formativa-de-ia-revisar-una-solución-ya-ejecutada" class="level2">
+<h2 class="anchored" data-anchor-id="actividad-formativa-de-ia-revisar-una-solución-ya-ejecutada">8. Actividad formativa de IA — revisar una solución ya ejecutada</h2>
+<blockquote class="blockquote">
+<p><strong>Regla:</strong> primero resuelves y verificas la práctica manualmente. La IA revisa tu razonamiento; no elige un PID, no opera el servidor y no sustituye la comprobación con documentación local, <code>ls</code>, <code>ps</code> y pruebas controladas.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p><strong>HERRAMIENTA INDICADA:</strong> Para esta revisión utiliza <a href="https://chatgpt.com/g/g-6893cf2451d88191b11cd0c87de045ab-profeunix-bioinfo"><strong>ProfeUnix Bioinfo</strong></a>. Si tu cuenta no permite acceder al GPT, realiza la misma actividad con otro asistente autorizado y registra el nombre de la herramienta en <code>doc/bitacora-ia.md</code>. El cambio de herramienta no modifica los criterios de privacidad, validación ni evidencia.</p>
+</blockquote>
+<ol type="1">
+<li>Trabaja con una copia de tu registro.</li>
+<li>Sustituye servidor, usuario, rutas institucionales y PID por <code>[SERVIDOR]</code>, <code>[USUARIO]</code>, <code>[RUTA]</code> y <code>[PID]</code>. No incluyas contraseñas, IP, llaves, huellas, <em>tokens</em> ni nombres de procesos ajenos.</li>
+<li>Pide a la IA que revise la seguridad y el razonamiento de tus pasos.</li>
+<li>Busca especialmente recomendaciones como <code>chmod 777</code>, <code>sudo</code>, <code>kill -9</code> inmediato, PIDs inventados, edición de <code>data/source/</code> o uso innecesario de <code>/export/space3</code>.</li>
+<li>Valida las observaciones con esta lección, <code>man chmod</code>, <code>man ps</code> y pruebas únicamente en el área aislada. Si trabajas en Bash, consulta además <code>help jobs</code>, <code>help fg</code>, <code>help bg</code> y <code>help kill</code>; si tu shell es otro, utiliza su documentación y confirma las diferencias con la docente.</li>
+<li>Registra en <code>doc/bitacora-ia.md</code> el prompt, respuesta relevante, validación, correcciones y decisión.</li>
+</ol>
+<details>
+<summary>
+Ver prompt sugerido
+</summary>
+<blockquote class="blockquote">
+<p>Estoy aprendiendo permisos y control de procesos en Unix. Ya realicé manualmente una práctica sobre un script de prueba y un proceso <code>sleep</code> creado por mí. Revisa la secuencia anonimizada que incluyo abajo. Identifica: (1) permisos excesivos, (2) riesgo de modificar datos originales, (3) confusión entre número de trabajo y PID, (4) señales demasiado agresivas y (5) verificaciones faltantes. No inventes PIDs, no propongas <code>sudo</code>, no asumas que <code>chmod 777</code> es aceptable y no reescribas la solución completa. Devuelve una tabla con “hallazgo”, “riesgo”, “cómo verificarlo” y “corrección mínima”.</p>
+</blockquote>
+</details>
+<p>Compara la respuesta con tu solución manual. Tu intento manual es una línea base, no una verdad absoluta: ambos deben contrastarse con documentación y evidencia. Explica qué sugerencias aceptaste o rechazaste y por qué.</p>
+<hr>
+</section>
+<section id="errores-frecuentes-y-diagnóstico" class="level2">
+<h2 class="anchored" data-anchor-id="errores-frecuentes-y-diagnóstico">9. Errores frecuentes y diagnóstico</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Síntoma</th>
+<th>Posibles causas</th>
+<th>Diagnóstico seguro</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Permission denied</code> al ejecutar</td>
+<td>Falta <code>x</code>, ruta incorrecta, intérprete o política del sistema</td>
+<td><code>pwd</code>, <code>ls -l</code>, <code>head</code> del script; no usar <code>777</code></td>
+</tr>
+<tr class="even">
+<td>No puedo entrar a un directorio</td>
+<td>Falta <code>x</code> en el directorio o en algún padre</td>
+<td><code>ls -ld</code> sobre el directorio de prueba; restaurar <code>u+x</code></td>
+</tr>
+<tr class="odd">
+<td><code>file</code> no dice lo esperado</td>
+<td>Contenido distinto, archivo vacío o reglas diferentes</td>
+<td>Revisar nombre, tamaño y una muestra segura; no forzar una conclusión</td>
+</tr>
+<tr class="even">
+<td><code>gzip</code> “hizo desaparecer” el archivo</td>
+<td>Lo sustituyó por el nombre terminado en <code>.gz</code></td>
+<td><code>pwd</code>, <code>ls -l</code>, <code>file</code>; trabajar siempre sobre una copia</td>
+</tr>
+<tr class="odd">
+<td>El checksum restaurado no coincide</td>
+<td>Se restauró otra copia o el contenido cambió</td>
+<td>Detenerse, revisar rutas y repetir desde una copia conocida</td>
+</tr>
+<tr class="even">
+<td><code>jobs</code> no muestra el proceso</td>
+<td>Se inició en otro shell, ya terminó o no es un trabajo de esa sesión</td>
+<td>Usar el mismo shell; comprobar el PID con <code>ps</code></td>
+</tr>
+<tr class="odd">
+<td><code>fg %1</code> falla</td>
+<td><code>%1</code> no es el número de trabajo actual</td>
+<td>Ejecutar <code>jobs -l</code> y usar el número real</td>
+</tr>
+<tr class="even">
+<td><code>ps -p PID</code> no muestra nada</td>
+<td>El proceso terminó o el PID no corresponde</td>
+<td>Revisar la salida previa de <code>jobs -l</code>; no probar PIDs al azar</td>
+</tr>
+<tr class="odd">
+<td><code>kill -TERM</code> no parece terminarlo</td>
+<td>PID incorrecto, proceso ya terminado o señal gestionada</td>
+<td>Confirmar PID/comando/propietario y volver a observar; consultar antes de escalar</td>
+</tr>
+<tr class="even">
+<td>La terminal queda ocupada</td>
+<td>El proceso está en primer plano</td>
+<td><code>Ctrl-C</code> para interrumpir o <code>Ctrl-Z</code> para detener, según el objetivo</td>
+</tr>
+<tr class="odd">
+<td><code>top</code> se queda abierto</td>
+<td>Es una interfaz interactiva</td>
+<td>Presionar <code>q</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="los-cuatro-principios-hechos-observables-en-s5" class="level2">
+<h2 class="anchored" data-anchor-id="los-cuatro-principios-hechos-observables-en-s5">10. Los cuatro principios hechos observables en S5</h2>
+<ul>
+<li><strong>Reproducibilidad:</strong> el protocolo registra rutas, comandos, permisos, PID, señal y resultados.</li>
+<li><strong>Verificación:</strong> se comparan checksums, permisos antes/después y presencia/ausencia del PID.</li>
+<li><strong>Validación:</strong> la sintaxis y el comportamiento se contrastan con la documentación y una prueba controlada.</li>
+<li><strong>Robustez:</strong> se confirma la misma conclusión mediante evidencias complementarias: <code>jobs -l</code> y <code>ps</code> para el proceso; checksum y presencia del archivo para la restauración.</li>
+</ul>
+</section>
+<section id="evidencia-de-aprendizaje" class="level2">
+<h2 class="anchored" data-anchor-id="evidencia-de-aprendizaje">11. Evidencia de aprendizaje</h2>
+<p>La evidencia principal es la sección S5 de <code>doc/protocolo.md</code>. Debe demostrar que el estudiante:</p>
+<ul>
+<li>inspeccionó archivos existentes sin alterar <code>data/source/</code>;</li>
+<li>comprimió y restauró una copia con integridad comprobada;</li>
+<li>interpretó y modificó el permiso mínimo de un script propio;</li>
+<li>distinguió número de trabajo y PID;</li>
+<li>observó al menos un estado del proceso;</li>
+<li>interrumpió un proceso en primer plano con <code>Ctrl-C</code> y comprobó que no quedó activo;</li>
+<li>movió el trabajo entre primer plano, detenido y segundo plano;</li>
+<li>envió <code>SIGTERM</code> únicamente al proceso de prueba y verificó su terminación;</li>
+<li>explicó decisiones y diagnosticó resultados inesperados.</li>
+</ul>
+<p>La entrada en <code>doc/bitacora-ia.md</code> es evidencia complementaria del uso crítico y declarado de IA. Una captura de pantalla sin explicación no sustituye estas evidencias.</p>
+</section>
+<section id="rúbricas" class="level2">
+<h2 class="anchored" data-anchor-id="rúbricas">12. Rúbricas</h2>
+<section id="primer-intento-formativo-puntos-por-preparación" class="level3">
+<h3 class="anchored" data-anchor-id="primer-intento-formativo-puntos-por-preparación">12.1 Primer intento — formativo, puntos por preparación</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterio</th>
+<th>Logrado</th>
+<th>Parcialmente logrado</th>
+<th>Aún no logrado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Contexto y seguridad</td>
+<td>Confirma <code>[REMOTO]</code>, trabaja en <code>~/proyecto/</code> y crea una copia aislada</td>
+<td>Omite una comprobación</td>
+<td>Trabaja sobre originales o en una ruta no identificada</td>
+</tr>
+<tr class="even">
+<td>Predicciones</td>
+<td>Registra predicciones sobre tipo, nombre comprimido y proceso</td>
+<td>Predicciones incompletas</td>
+<td>Solo copia comandos</td>
+</tr>
+<tr class="odd">
+<td>Primer proceso</td>
+<td>Inicia un <code>sleep</code> de 30 s, registra <code>jobs -l</code> y confirma que terminó</td>
+<td>Lo inicia sin registro o cierre claro</td>
+<td>Usa un proceso no controlado o ajeno</td>
+</tr>
+<tr class="even">
+<td>Dudas y errores</td>
+<td>Lleva al menos una duda o resultado observado</td>
+<td>Registro mínimo</td>
+<td>No lleva evidencia del intento</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="participación-y-corrección-durante-el-taller-formativa" class="level3">
+<h3 class="anchored" data-anchor-id="participación-y-corrección-durante-el-taller-formativa">12.2 Participación y corrección durante el taller — formativa</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterio</th>
+<th>Logrado</th>
+<th>Parcialmente logrado</th>
+<th>Aún no logrado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Comparación</td>
+<td>Contrasta predicción y resultado, y explica diferencias</td>
+<td>Compara sin explicar</td>
+<td>Solo repite la demostración</td>
+</tr>
+<tr class="even">
+<td>Diagnóstico</td>
+<td>Usa <code>pwd</code>, <code>ls -l</code>, <code>file</code>, <code>jobs -l</code> y <code>ps</code> según el problema</td>
+<td>Diagnóstico incompleto</td>
+<td>Cambia permisos o PIDs al azar</td>
+</tr>
+<tr class="odd">
+<td>Seguridad</td>
+<td>Opera solo copias, script y <code>sleep</code> propios</td>
+<td>Requiere recordatorios</td>
+<td>Altera originales, usa permisos excesivos o apunta a procesos ajenos</td>
+</tr>
+<tr class="even">
+<td>Corrección</td>
+<td>Corrige su registro y justifica el cambio</td>
+<td>Corrige sin justificar</td>
+<td>No incorpora retroalimentación</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="evidencia-s5-entrega-final" class="level3">
+<h3 class="anchored" data-anchor-id="evidencia-s5-entrega-final">12.3 Evidencia S5 — entrega final</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterio</th>
+<th>Logrado</th>
+<th>Parcialmente logrado</th>
+<th>Aún no logrado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Inspección con propósito</td>
+<td>Elige herramientas, explica resultados y prueba que el original no cambió</td>
+<td>Presenta comandos sin justificar alguno</td>
+<td>Edita el original o no verifica</td>
+</tr>
+<tr class="even">
+<td>Compresión e integridad</td>
+<td>Predice nombres, restaura la copia y compara SHA-256 coincidentes</td>
+<td>Restaura sin comparación completa</td>
+<td>Comprime un original o pierde la copia</td>
+</tr>
+<tr class="odd">
+<td>Permisos mínimos</td>
+<td>Documenta antes/después y añade solo <code>u+x</code> con propósito</td>
+<td>Logra ejecutar sin explicar el cambio</td>
+<td>Usa permisos excesivos o no verifica</td>
+</tr>
+<tr class="even">
+<td>Proceso y trabajo</td>
+<td>Registra <code>Ctrl-C</code>, trabajo, PID, comando y estado; usa <code>fg</code>/<code>bg</code> correctamente</td>
+<td>Confunde uno de los identificadores o controles</td>
+<td>No puede identificar su proceso</td>
+</tr>
+<tr class="odd">
+<td>Señal y cierre</td>
+<td>Usa SIGTERM sobre su proceso y verifica que terminó</td>
+<td>Envía la señal sin verificación</td>
+<td>Usa PID ajeno o señal forzada sin justificación</td>
+</tr>
+<tr class="even">
+<td>Registro reproducible</td>
+<td>Incluye predicción, observación, explicación, verificación y errores</td>
+<td>Registro incompleto</td>
+<td>Pega salidas sin contexto</td>
+</tr>
+<tr class="odd">
+<td>Seguridad del proyecto</td>
+<td>Confirma checksum del original y no usa el espacio institucional</td>
+<td>Declaración sin evidencia</td>
+<td>Modifica <code>data/source/</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="actividad-formativa-de-ia" class="level3">
+<h3 class="anchored" data-anchor-id="actividad-formativa-de-ia">12.4 Actividad formativa de IA</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterio</th>
+<th>Logrado</th>
+<th>Parcialmente logrado</th>
+<th>Aún no logrado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Privacidad</td>
+<td>Anonimiza servidor, usuario, rutas y PID</td>
+<td>Anonimización incompleta</td>
+<td>Comparte datos sensibles</td>
+</tr>
+<tr class="even">
+<td>Revisión crítica</td>
+<td>Detecta permisos, señales o rutas riesgosas</td>
+<td>Identifica riesgos sin priorizarlos</td>
+<td>Acepta la respuesta sin análisis</td>
+</tr>
+<tr class="odd">
+<td>Validación independiente</td>
+<td>Contrasta con documentación y prueba controlada</td>
+<td>Valida solo una parte</td>
+<td>No valida</td>
+</tr>
+<tr class="even">
+<td>Registro</td>
+<td>Documenta prompt, respuesta, correcciones y decisión</td>
+<td>Registro incompleto</td>
+<td>Sin entrada en la bitácora</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="autoevaluación-semáforo-de-salida" class="level2">
+<h2 class="anchored" data-anchor-id="autoevaluación-semáforo-de-salida">13. Autoevaluación — semáforo de salida</h2>
+<ul>
+<li>🟢 <strong>Verde:</strong> preservé los originales, restauré una copia con checksum coincidente, concedí solo <code>u+x</code>, distinguí trabajo y PID, y terminé mi <code>sleep</code> con verificación.</li>
+<li>🟡 <strong>Amarillo:</strong> completé la práctica, pero todavía confundo estados, número de trabajo y PID, o no puedo explicar una verificación.</li>
+<li>🔴 <strong>Rojo:</strong> modifiqué un original, utilicé permisos excesivos, perdí la pista del proceso o no sé qué PID recibiría la señal. Conservo las evidencias y pido ayuda antes de ejecutar más comandos.</li>
+</ul>
+</section>
+<section id="distribución-orientativa-de-los-120-minutos" class="level2">
+<h2 class="anchored" data-anchor-id="distribución-orientativa-de-los-120-minutos">14. Distribución orientativa de los 120 minutos</h2>
+<div class="tabla-agenda">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tiempo</th>
+<th>Actividad</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0–10 min</td>
+<td>Recuperación activa: tipo de objeto, tipo de contenido, permiso, proceso, trabajo y PID</td>
+</tr>
+<tr class="even">
+<td>10–25 min</td>
+<td>Comparación del primer intento y diagnóstico de rutas/archivos elegidos</td>
+</tr>
+<tr class="odd">
+<td>25–42 min</td>
+<td>Actividad 1 y selección razonada de herramientas de inspección</td>
+</tr>
+<tr class="even">
+<td>42–58 min</td>
+<td>Actividad 2: compresión, restauración y checksum</td>
+</tr>
+<tr class="odd">
+<td>58–78 min</td>
+<td>Actividades 3–4: <code>ls -l</code>, permiso mínimo y directorio desechable</td>
+</tr>
+<tr class="even">
+<td>78–105 min</td>
+<td>Actividad 5: <code>Ctrl-C</code>, <code>jobs -l</code>, PID, estados, <code>fg</code>, <code>Ctrl-Z</code>, <code>bg</code> y SIGTERM</td>
+</tr>
+<tr class="odd">
+<td>105–114 min</td>
+<td>Diagnóstico de errores preparados y corrección del registro</td>
+</tr>
+<tr class="even">
+<td>114–120 min</td>
+<td>Verificación de que no quedan procesos, semáforo de salida y delimitación de la entrega</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>La actividad de IA y la edición final de <code>doc/protocolo.md</code> se realizan después de la sesión.</p>
+</section>
+<section id="cierre-de-la-unidad-2-y-preparación-para-la-unidad-3" class="level2">
+<h2 class="anchored" data-anchor-id="cierre-de-la-unidad-2-y-preparación-para-la-unidad-3">15. Cierre de la Unidad 2 y preparación para la Unidad 3</h2>
+<p>El recorrido de S5 termina con un proceso ligero controlado desde tu propia terminal: reconociste sus archivos, concediste el permiso necesario, lo ejecutaste, localizaste su PID y verificaste su terminación. Con ello concluye el recorrido de la Unidad 2: ya cuentas con el entorno, la estructura del proyecto y las prácticas de seguridad necesarias para comenzar a trabajar con datos biológicos reales.</p>
+<p>Antes de continuar, revisa el <a href="./u2-entorno-unix.html#cierre-de-la-unidad-2">cierre de la Unidad 2</a> y confirma que conservas las evidencias de S3, S4 y S5. No necesitas utilizar el cluster ni trasladar el proyecto al espacio institucional en este momento. El uso del planificador se retomará más adelante, después de practicar procesamiento de datos y scripts, cuando un análisis bioinformático permita observar claramente para qué se necesita.</p>
+<p>La siguiente unidad es <strong>Unidad 3 — Datos y bases de datos biológicas</strong>. Pasarás de aprender dónde y cómo trabajar a decidir qué datos recuperar: estudiarás los formatos FASTA, GenBank y GFF3, explorarás registros y bases públicas, descargarás datos y verificarás su integridad. La estructura <code>~/proyecto/</code> continúa: los datos descargados y sus metadatos se incorporarán de manera documentada, manteniendo los originales en <code>data/source/</code>.</p>
+</section>
+<section id="anexo-a.-correspondencia-resultadoactividadevidenciacriterio" class="level2">
+<h2 class="anchored" data-anchor-id="anexo-a.-correspondencia-resultadoactividadevidenciacriterio">Anexo A. Correspondencia resultado–actividad–evidencia–criterio</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Resultado</th>
+<th>Actividad</th>
+<th>Evidencia</th>
+<th>Criterio principal</th>
+<th>Momento</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RA1 Distinguir tipos e inspeccionar</td>
+<td>Secciones 1–2; primer intento; Actividad 1</td>
+<td>Tabla de inspección + checksum</td>
+<td>Inspección con propósito</td>
+<td>Antes/taller/entrega</td>
+</tr>
+<tr class="even">
+<td>RA2 Comprimir y restaurar</td>
+<td>Sección 3; Actividad 2</td>
+<td>Nombres y SHA-256 antes/después</td>
+<td>Compresión e integridad</td>
+<td>Taller/entrega</td>
+</tr>
+<tr class="odd">
+<td>RA3 Interpretar y cambiar permisos</td>
+<td>Sección 4; Actividades 3–4</td>
+<td><code>ls -l</code> antes/después + explicación</td>
+<td>Permisos mínimos</td>
+<td>Taller/entrega</td>
+</tr>
+<tr class="even">
+<td>RA4 Observar y controlar procesos</td>
+<td>Secciones 5–6; Actividad 5</td>
+<td>Trabajo, PID, estado, señal y verificación</td>
+<td>Proceso/trabajo + señal/cierre</td>
+<td>Taller/entrega</td>
+</tr>
+<tr class="odd">
+<td>RA5 Documentar y proteger</td>
+<td>Protocolo + actividad de IA</td>
+<td><code>doc/protocolo.md</code> y <code>doc/bitacora-ia.md</code></td>
+<td>Registro y seguridad</td>
+<td>Después</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="anexo-b.-alineación-transversal" class="level2">
+<h2 class="anchored" data-anchor-id="anexo-b.-alineación-transversal">Anexo B. Alineación transversal</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Resultado</th>
+<th>Reproducibilidad</th>
+<th>Verificación</th>
+<th>Validación</th>
+<th>Robustez</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Inspección</td>
+<td>Registra ruta y herramienta</td>
+<td>Checksum del original</td>
+<td>Contrasta <code>file</code> con contenido observado</td>
+<td>Usa más de una evidencia sin editar</td>
+</tr>
+<tr class="even">
+<td>Compresión</td>
+<td>Registra nombres y secuencia</td>
+<td>SHA-256 antes/después</td>
+<td>Prueba sobre una copia conocida</td>
+<td>Confirma contenido y presencia del archivo</td>
+</tr>
+<tr class="odd">
+<td>Permisos</td>
+<td>Registra cambio exacto</td>
+<td>Compara <code>ls -l</code></td>
+<td>Prueba el script antes/después</td>
+<td>Concede solo el permiso requerido</td>
+</tr>
+<tr class="even">
+<td>Procesos</td>
+<td>Registra comando, trabajo, PID y señal</td>
+<td>Comprueba estado y terminación</td>
+<td>Contrasta <code>jobs -l</code> con <code>ps</code></td>
+<td>Dos herramientas confirman la identidad</td>
+</tr>
+<tr class="odd">
+<td>IA</td>
+<td>Conserva prompt y decisión</td>
+<td>Comprueba cada afirmación</td>
+<td>Usa manual y prueba controlada</td>
+<td>Compara propuesta manual y asistida</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="glosario" class="level2">
+<h2 class="anchored" data-anchor-id="glosario">Glosario</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Español</th>
+<th>Inglés</th>
+<th>Definición breve</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Archivo regular</td>
+<td>Regular file</td>
+<td>Objeto que contiene datos; suele comenzar con <code>-</code> en <code>ls -l</code></td>
+</tr>
+<tr class="even">
+<td>Tipo de contenido</td>
+<td>File/content type</td>
+<td>Descripción estimada por <code>file</code> a partir del contenido</td>
+</tr>
+<tr class="odd">
+<td>Permiso</td>
+<td>Permission</td>
+<td>Regla de lectura, escritura o ejecución/recorrido</td>
+</tr>
+<tr class="even">
+<td>Dueño</td>
+<td>Owner/user</td>
+<td>Usuario propietario del objeto; categoría <code>u</code> en <code>chmod</code></td>
+</tr>
+<tr class="odd">
+<td>Grupo</td>
+<td>Group</td>
+<td>Conjunto asociado al objeto; categoría <code>g</code></td>
+</tr>
+<tr class="even">
+<td>Otros</td>
+<td>Others</td>
+<td>Usuarios que no son el dueño ni pertenecen al grupo aplicable; categoría <code>o</code></td>
+</tr>
+<tr class="odd">
+<td>Comprimir</td>
+<td>Compress</td>
+<td>Reducir la representación de un archivo cuando es posible</td>
+</tr>
+<tr class="even">
+<td>Empaquetar</td>
+<td>Archive</td>
+<td>Reunir varios archivos o directorios en un contenedor</td>
+</tr>
+<tr class="odd">
+<td>Proceso</td>
+<td>Process</td>
+<td>Instancia de un programa en ejecución</td>
+</tr>
+<tr class="even">
+<td>Identificador de proceso</td>
+<td>Process ID (PID)</td>
+<td>Número asignado a un proceso por el sistema</td>
+</tr>
+<tr class="odd">
+<td>Trabajo del shell</td>
+<td>Shell job</td>
+<td>Uno o más procesos controlados como unidad por el shell actual</td>
+</tr>
+<tr class="even">
+<td>Primer plano</td>
+<td>Foreground</td>
+<td>Trabajo que recibe la entrada de la terminal</td>
+</tr>
+<tr class="odd">
+<td>Segundo plano</td>
+<td>Background</td>
+<td>Trabajo que permite al shell devolver el <em>prompt</em></td>
+</tr>
+<tr class="even">
+<td>Señal</td>
+<td>Signal</td>
+<td>Notificación enviada a un proceso, por ejemplo SIGINT o SIGTERM</td>
+</tr>
+<tr class="odd">
+<td>Detenido</td>
+<td>Stopped</td>
+<td>Trabajo suspendido que puede reanudarse</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="referencias" class="level2">
+<h2 class="anchored" data-anchor-id="referencias">Referencias</h2>
+<ul>
+<li>Buffalo, V. (2015). <em>Bioinformatics Data Skills: Reproducible and Robust Research with Open Source Tools</em>. O’Reilly Media. Cap. 3. Disponible en <a href="referencias/bioinformatics-data-skills.pdf"><code>bioinformatics-data-skills.pdf</code></a>.</li>
+<li>Shotts, W. E. (2019). <em>The Linux Command Line: A Complete Introduction</em> (2.ª ed.). No Starch Press. Edición de consulta: <a href="https://linuxcommand.org/tlcl.php" class="uri">https://linuxcommand.org/tlcl.php</a></li>
+<li>GNU Project. <em>Bash Reference Manual — Job Control Builtins</em>. <a href="https://www.gnu.org/software/bash/manual/html_node/Job-Control-Builtins.html" class="uri">https://www.gnu.org/software/bash/manual/html_node/Job-Control-Builtins.html</a></li>
+<li>GNU Project. <em>Gzip Manual</em>. <a href="https://www.gnu.org/software/gzip/manual/gzip.html" class="uri">https://www.gnu.org/software/gzip/manual/gzip.html</a></li>
+<li>GNU Project. <em>GNU Tar Manual</em>. <a href="https://www.gnu.org/software/tar/manual/" class="uri">https://www.gnu.org/software/tar/manual/</a></li>
+<li>Kerrisk, M. <em>Linux man-pages</em>: <code>ps(1)</code> y <code>kill(1)</code>. <a href="https://man7.org/linux/man-pages/man1/ps.1.html" class="uri">https://man7.org/linux/man-pages/man1/ps.1.html</a> · <a href="https://man7.org/linux/man-pages/man1/kill.1.html" class="uri">https://man7.org/linux/man-pages/man1/kill.1.html</a></li>
+<li>GNU Screen y tmux, herramientas de sesión de consulta: <a href="https://www.gnu.org/software/screen/" class="uri">https://www.gnu.org/software/screen/</a> · <a href="https://github.com/tmux/tmux/wiki" class="uri">https://github.com/tmux/tmux/wiki</a></li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/helysalgado\.github\.io\/introbioinfo-unix\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./u2-s4-sistema-archivos.html" class="pagination-link" aria-label="S4 — Navegar">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">S4 — Navegar</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./u2-s6-consolidacion-entorno-unix.html" class="pagination-link" aria-label="S6 — Consolidar">
+        <span class="nav-page-text">S6 — Consolidar</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://hits.sh/helysalgado.github.io/introbioinfo-unix/"><img src="https://hits.sh/helysalgado.github.io/introbioinfo-unix/.svg?style=flat-square&amp;label=Visitas&amp;color=4a7c9e" class="img-fluid figure-img"></a></p>
+<figcaption>Visitas</figcaption>
+</figure>
+</div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Helysalgado/introbioinfo-unix/edit/main/u2-s5-archivos-permisos-procesos.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/Helysalgado/introbioinfo-unix/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

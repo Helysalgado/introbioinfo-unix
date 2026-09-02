@@ -1,0 +1,2319 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>u3-s9-inspeccion-transferencia-verificable – Introducción a la Bioinformática</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./u4-procesamiento-exploracion.html" rel="next">
+<link href="./u3-s8-bases-datos-descarga-integridad.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fe29f166eb879f148ae4045f3c41549b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXNMZZP0K9"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-QXNMZZP0K9', { 'anonymize_ip': true});
+</script>
+<meta name="mermaid-theme" content="default">
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-md-bootstrap.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Introducción a la Bioinformática</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Inicio</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-programa" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Programa</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-programa">    
+        <li>
+    <a class="dropdown-item" href="./programa.html">
+ <span class="dropdown-text">Ruta de sesiones</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./programa-detallado.html">
+ <span class="dropdown-text">Programa detallado</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-unidades" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Unidades</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-unidades">    
+        <li>
+    <a class="dropdown-item" href="./u1-trabajo-reproducible.html">
+ <span class="dropdown-text">U1 — Trabajo reproducible</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u2-entorno-unix.html">
+ <span class="dropdown-text">U2 — Entorno Unix</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u3-datos-bases-datos.html">
+ <span class="dropdown-text">U3 — Datos y bases</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u4-procesamiento-exploracion.html">
+ <span class="dropdown-text">U4 — Procesamiento genómico</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u5-automatizacion-scripting.html">
+ <span class="dropdown-text">U5 — Automatización</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u6-comparacion-homologia.html">
+ <span class="dropdown-text">U6 — Comparar / hipótesis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./s14-s15-mini-proyecto-investigacion-I.html">
+ <span class="dropdown-text">Transversal S14–S17</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="./recursos.html" aria-current="page"> 
+<span class="menu-text">Recursos</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./acerca.html"> 
+<span class="menu-text">Acerca</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./contribuir.html"> 
+<span class="menu-text">Contribuir</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Alternar modo lector">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./u3-datos-bases-datos.html">Unidad 3</a></li><li class="breadcrumb-item"><a href="./u3-s9-inspeccion-transferencia-verificable.html">S9 — Transferir</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 1</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-trabajo-reproducible.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-s1-documentar-markdown-fases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S1 — Documentar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-s2-organizar-fair-ia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S2 — Organizar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 2</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-entorno-unix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s3-shell-acceso-remoto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S3 — Conectar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s4-sistema-archivos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S4 — Navegar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s5-archivos-permisos-procesos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S5 — Archivos y procesos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s6-consolidacion-entorno-unix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S6 — Consolidar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Unidad 3</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-datos-bases-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s7-secuencias-formatos-genbank.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S7 — Formatos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s8-bases-datos-descarga-integridad.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S8 — Descargar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s9-inspeccion-transferencia-verificable.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">S9 — Transferir</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 4</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-procesamiento-exploracion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s10-anatomia-flujos-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S10 — Anatomía y flujos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s11-estructura-tabular-anotacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S11 — Anotación tabular</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s12-filtrado-conteos-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S12 — Filtrar y contar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s13-inventario-resumen-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S13 — Inventario</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s18-precision-patrones-expresiones-regulares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S18 — Patrones</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s19-extraccion-identificadores-correspondencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S19 — Identificadores</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s20-normalizar-datos-comparables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S20 — Normalizar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s21-confrontar-fuente-independiente.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S21 — Confrontar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s22-condicionar-calcular-columnas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S22 — Condicionar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s23-protocolo-ejecutable-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S23 — Protocolo ejecutable</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Transversal</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s14-s15-mini-proyecto-investigacion-I.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S14–S15 — Mini-proyecto I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s16-mini-proyecto-revision-pares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S16 — Revisión por pares</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s17-evaluacion-individual-demostrativa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S17 — Evaluación demostrativa</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mini-proyecto-dictamen-cientifico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dictamen científico</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 5</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-automatizacion-scripting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s24-del-protocolo-al-script.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S24 — Del protocolo al script</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s25-separar-procedimiento-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S25 — Separar datos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s26-procesamiento-por-lotes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S26 — Por lotes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s27-herramienta-cientifica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S27 — Herramienta científica</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s28-proyecto-integrador.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S28 — Proyecto integrador</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s29-cluster-hpc-sge.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S29 — Cluster SGE</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 6</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-comparacion-homologia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s30-comparar-alinear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S30 — Comparar / alinear</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s31-buscar-blast.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S31 — Buscar (BLAST)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s32-interpretar-inferir.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S32 — Interpretar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s33-defender-hipotesis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S33 — Inferir</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s34-integrar-hipotesis-casos-ciegos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S34 — Integrar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./programa-detallado.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programa detallado</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./recursos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recursos</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#s9-verificar-inspección-y-transferencia-de-datos-biológicos" id="toc-s9-verificar-inspección-y-transferencia-de-datos-biológicos" class="nav-link active" data-scroll-target="#s9-verificar-inspección-y-transferencia-de-datos-biológicos">S9 — Verificar: inspección y transferencia de datos biológicos</a>
+  <ul class="collapse">
+  <li><a href="#ficha-del-módulo" id="toc-ficha-del-módulo" class="nav-link" data-scroll-target="#ficha-del-módulo">Ficha del módulo</a></li>
+  <li><a href="#relación-con-lo-que-ya-sabes" id="toc-relación-con-lo-que-ya-sabes" class="nav-link" data-scroll-target="#relación-con-lo-que-ya-sabes">Relación con lo que ya sabes</a></li>
+  <li><a href="#resultados-de-aprendizaje" id="toc-resultados-de-aprendizaje" class="nav-link" data-scroll-target="#resultados-de-aprendizaje">Resultados de aprendizaje</a></li>
+  <li><a href="#lista-de-verificación-previa" id="toc-lista-de-verificación-previa" class="nav-link" data-scroll-target="#lista-de-verificación-previa">Lista de verificación previa</a></li>
+  <li><a href="#ruta-de-s9" id="toc-ruta-de-s9" class="nav-link" data-scroll-target="#ruta-de-s9">Ruta de S9</a></li>
+  <li><a href="#de-la-ficha-pendiente-a-la-verificación-operativa-indispensable" id="toc-de-la-ficha-pendiente-a-la-verificación-operativa-indispensable" class="nav-link" data-scroll-target="#de-la-ficha-pendiente-a-la-verificación-operativa-indispensable">1. De la ficha pendiente a la verificación operativa [Indispensable]</a></li>
+  <li><a href="#inspeccionar-sin-transformar-indispensable" id="toc-inspeccionar-sin-transformar-indispensable" class="nav-link" data-scroll-target="#inspeccionar-sin-transformar-indispensable">2. Inspeccionar sin transformar [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#sintaxis-mínima-head" id="toc-sintaxis-mínima-head" class="nav-link" data-scroll-target="#sintaxis-mínima-head">Sintaxis mínima — <code>head</code></a></li>
+  <li><a href="#sintaxis-mínima-tail" id="toc-sintaxis-mínima-tail" class="nav-link" data-scroll-target="#sintaxis-mínima-tail">Sintaxis mínima — <code>tail</code></a></li>
+  <li><a href="#sintaxis-mínima-file" id="toc-sintaxis-mínima-file" class="nav-link" data-scroll-target="#sintaxis-mínima-file">Sintaxis mínima — <code>file</code></a></li>
+  <li><a href="#sintaxis-mínima-less" id="toc-sintaxis-mínima-less" class="nav-link" data-scroll-target="#sintaxis-mínima-less">Sintaxis mínima — <code>less</code></a></li>
+  </ul></li>
+  <li><a href="#calcular-y-comparar-el-checksum-local-indispensable" id="toc-calcular-y-comparar-el-checksum-local-indispensable" class="nav-link" data-scroll-target="#calcular-y-comparar-el-checksum-local-indispensable">3. Calcular y comparar el checksum local [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#micropráctica-qué-algoritmo-compararías" id="toc-micropráctica-qué-algoritmo-compararías" class="nav-link" data-scroll-target="#micropráctica-qué-algoritmo-compararías">Micropráctica — ¿Qué algoritmo compararías?</a></li>
+  <li><a href="#sintaxis-mínima-md5sum" id="toc-sintaxis-mínima-md5sum" class="nav-link" data-scroll-target="#sintaxis-mínima-md5sum">Sintaxis mínima — <code>md5sum</code></a></li>
+  </ul></li>
+  <li><a href="#recuperar-de-forma-reproducible-wget-y-curl-nuevo" id="toc-recuperar-de-forma-reproducible-wget-y-curl-nuevo" class="nav-link" data-scroll-target="#recuperar-de-forma-reproducible-wget-y-curl-nuevo">4. Recuperar de forma reproducible: <code>wget</code> y <code>curl</code> <strong>[Nuevo]</strong></a>
+  <ul class="collapse">
+  <li><a href="#sintaxis-mínima-wget" id="toc-sintaxis-mínima-wget" class="nav-link" data-scroll-target="#sintaxis-mínima-wget">Sintaxis mínima — <code>wget</code></a></li>
+  <li><a href="#sintaxis-mínima-curl--o" id="toc-sintaxis-mínima-curl--o" class="nav-link" data-scroll-target="#sintaxis-mínima-curl--o">Sintaxis mínima — <code>curl -O</code></a></li>
+  </ul></li>
+  <li><a href="#transferencia-verificable-entre-contextos-reforzado" id="toc-transferencia-verificable-entre-contextos-reforzado" class="nav-link" data-scroll-target="#transferencia-verificable-entre-contextos-reforzado">5. Transferencia verificable entre contextos <strong>[Reforzado]</strong></a>
+  <ul class="collapse">
+  <li><a href="#sintaxis-mínima-cp" id="toc-sintaxis-mínima-cp" class="nav-link" data-scroll-target="#sintaxis-mínima-cp">Sintaxis mínima — <code>cp</code></a></li>
+  </ul></li>
+  <li><a href="#cerrar-el-ciclo-documentar-la-verificación-indispensable" id="toc-cerrar-el-ciclo-documentar-la-verificación-indispensable" class="nav-link" data-scroll-target="#cerrar-el-ciclo-documentar-la-verificación-indispensable">6. Cerrar el ciclo: documentar la verificación [Indispensable]</a></li>
+  <li><a href="#práctica-1-plan-de-inspección-y-transferencia-primer-intento" id="toc-práctica-1-plan-de-inspección-y-transferencia-primer-intento" class="nav-link" data-scroll-target="#práctica-1-plan-de-inspección-y-transferencia-primer-intento">Práctica 1 — Plan de inspección y transferencia (primer intento)</a>
+  <ul class="collapse">
+  <li><a href="#antes-de-clase-primer-intento-individual" id="toc-antes-de-clase-primer-intento-individual" class="nav-link" data-scroll-target="#antes-de-clase-primer-intento-individual">Antes de clase — primer intento individual</a></li>
+  <li><a href="#durante-el-taller-comparación-y-corrección" id="toc-durante-el-taller-comparación-y-corrección" class="nav-link" data-scroll-target="#durante-el-taller-comparación-y-corrección">Durante el taller — comparación y corrección</a></li>
+  <li><a href="#después-del-taller-evidencia-final" id="toc-después-del-taller-evidencia-final" class="nav-link" data-scroll-target="#después-del-taller-evidencia-final">Después del taller — evidencia final</a></li>
+  </ul></li>
+  <li><a href="#práctica-2-inspección-de-los-archivos-de-s8" id="toc-práctica-2-inspección-de-los-archivos-de-s8" class="nav-link" data-scroll-target="#práctica-2-inspección-de-los-archivos-de-s8">Práctica 2 — Inspección de los archivos de S8</a>
+  <ul class="collapse">
+  <li><a href="#antes-de-clase" id="toc-antes-de-clase" class="nav-link" data-scroll-target="#antes-de-clase">Antes de clase</a></li>
+  <li><a href="#durante-el-taller" id="toc-durante-el-taller" class="nav-link" data-scroll-target="#durante-el-taller">Durante el taller</a></li>
+  <li><a href="#después-del-taller" id="toc-después-del-taller" class="nav-link" data-scroll-target="#después-del-taller">Después del taller</a></li>
+  </ul></li>
+  <li><a href="#práctica-3-cálculo-y-comparación-del-checksum-local" id="toc-práctica-3-cálculo-y-comparación-del-checksum-local" class="nav-link" data-scroll-target="#práctica-3-cálculo-y-comparación-del-checksum-local">Práctica 3 — Cálculo y comparación del checksum local</a>
+  <ul class="collapse">
+  <li><a href="#antes-de-clase-1" id="toc-antes-de-clase-1" class="nav-link" data-scroll-target="#antes-de-clase-1">Antes de clase</a></li>
+  <li><a href="#durante-el-taller-1" id="toc-durante-el-taller-1" class="nav-link" data-scroll-target="#durante-el-taller-1">Durante el taller</a></li>
+  <li><a href="#después-del-taller-1" id="toc-después-del-taller-1" class="nav-link" data-scroll-target="#después-del-taller-1">Después del taller</a></li>
+  </ul></li>
+  <li><a href="#práctica-4-recuperación-reproducible-con-wget-o-curl" id="toc-práctica-4-recuperación-reproducible-con-wget-o-curl" class="nav-link" data-scroll-target="#práctica-4-recuperación-reproducible-con-wget-o-curl">Práctica 4 — Recuperación reproducible con <code>wget</code> o <code>curl</code></a>
+  <ul class="collapse">
+  <li><a href="#antes-de-clase-2" id="toc-antes-de-clase-2" class="nav-link" data-scroll-target="#antes-de-clase-2">Antes de clase</a></li>
+  <li><a href="#durante-el-taller-2" id="toc-durante-el-taller-2" class="nav-link" data-scroll-target="#durante-el-taller-2">Durante el taller</a></li>
+  <li><a href="#después-del-taller-2" id="toc-después-del-taller-2" class="nav-link" data-scroll-target="#después-del-taller-2">Después del taller</a></li>
+  </ul></li>
+  <li><a href="#práctica-5-transferencia-verificable-a-la-ubicación-final" id="toc-práctica-5-transferencia-verificable-a-la-ubicación-final" class="nav-link" data-scroll-target="#práctica-5-transferencia-verificable-a-la-ubicación-final">Práctica 5 — Transferencia verificable a la ubicación final</a>
+  <ul class="collapse">
+  <li><a href="#antes-de-clase-3" id="toc-antes-de-clase-3" class="nav-link" data-scroll-target="#antes-de-clase-3">Antes de clase</a></li>
+  <li><a href="#durante-el-taller-3" id="toc-durante-el-taller-3" class="nav-link" data-scroll-target="#durante-el-taller-3">Durante el taller</a></li>
+  <li><a href="#después-del-taller-evidencia-final-1" id="toc-después-del-taller-evidencia-final-1" class="nav-link" data-scroll-target="#después-del-taller-evidencia-final-1">Después del taller — evidencia final</a></li>
+  </ul></li>
+  <li><a href="#tarea-5-transferencia-verificable-de-datos-biológicos" id="toc-tarea-5-transferencia-verificable-de-datos-biológicos" class="nav-link" data-scroll-target="#tarea-5-transferencia-verificable-de-datos-biológicos">Tarea 5 — Transferencia verificable de datos biológicos</a>
+  <ul class="collapse">
+  <li><a href="#producto-esperado" id="toc-producto-esperado" class="nav-link" data-scroll-target="#producto-esperado">Producto esperado</a></li>
+  <li><a href="#debes-documentar-en-docprotocolo.md" id="toc-debes-documentar-en-docprotocolo.md" class="nav-link" data-scroll-target="#debes-documentar-en-docprotocolo.md">Debes documentar en <code>doc/protocolo.md</code></a></li>
+  <li><a href="#lista-de-control-antes-de-entregar" id="toc-lista-de-control-antes-de-entregar" class="nav-link" data-scroll-target="#lista-de-control-antes-de-entregar">Lista de control antes de entregar</a></li>
+  </ul></li>
+  <li><a href="#evidencia-de-la-sesión" id="toc-evidencia-de-la-sesión" class="nav-link" data-scroll-target="#evidencia-de-la-sesión">Evidencia de la sesión</a></li>
+  <li><a href="#errores-frecuentes-y-estrategias-de-diagnóstico" id="toc-errores-frecuentes-y-estrategias-de-diagnóstico" class="nav-link" data-scroll-target="#errores-frecuentes-y-estrategias-de-diagnóstico">Errores frecuentes y estrategias de diagnóstico</a></li>
+  <li><a href="#rúbricas" id="toc-rúbricas" class="nav-link" data-scroll-target="#rúbricas">Rúbricas</a></li>
+  <li><a href="#autoevaluación" id="toc-autoevaluación" class="nav-link" data-scroll-target="#autoevaluación">Autoevaluación</a>
+  <ul class="collapse">
+  <li><a href="#comprobación-rápida-formativa-al-final-del-taller" id="toc-comprobación-rápida-formativa-al-final-del-taller" class="nav-link" data-scroll-target="#comprobación-rápida-formativa-al-final-del-taller">Comprobación rápida — formativa, al final del taller</a></li>
+  <li><a href="#semáforo" id="toc-semáforo" class="nav-link" data-scroll-target="#semáforo">Semáforo</a></li>
+  </ul></li>
+  <li><a href="#cierre-de-s9-y-puente-hacia-la-unidad-4" id="toc-cierre-de-s9-y-puente-hacia-la-unidad-4" class="nav-link" data-scroll-target="#cierre-de-s9-y-puente-hacia-la-unidad-4">Cierre de S9 y puente hacia la Unidad 4</a></li>
+  <li><a href="#anexo-a.-correspondencia-resultadoactividadevidenciacriterio" id="toc-anexo-a.-correspondencia-resultadoactividadevidenciacriterio" class="nav-link" data-scroll-target="#anexo-a.-correspondencia-resultadoactividadevidenciacriterio">Anexo A. Correspondencia resultado–actividad–evidencia–criterio</a></li>
+  <li><a href="#anexo-b.-alineación-transversal" id="toc-anexo-b.-alineación-transversal" class="nav-link" data-scroll-target="#anexo-b.-alineación-transversal">Anexo B. Alineación transversal</a></li>
+  <li><a href="#glosario" id="toc-glosario" class="nav-link" data-scroll-target="#glosario">Glosario</a></li>
+  <li><a href="#referencias" id="toc-referencias" class="nav-link" data-scroll-target="#referencias">Referencias</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/Helysalgado/introbioinfo-unix/edit/main/u3-s9-inspeccion-transferencia-verificable.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/Helysalgado/introbioinfo-unix/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./u3-datos-bases-datos.html">Unidad 3</a></li><li class="breadcrumb-item"><a href="./u3-s9-inspeccion-transferencia-verificable.html">S9 — Transferir</a></li></ol></nav></header>
+
+
+
+
+<section id="s9-verificar-inspección-y-transferencia-de-datos-biológicos" class="level1">
+<h1>S9 — Verificar: inspección y transferencia de datos biológicos</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="Aula invertida">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Aula invertida
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Antes de clase repasarás brevemente qué ya sabes hacer (S3–S5) y leerás las secciones marcadas como <strong>indispensables</strong>, además de completar un primer intento breve: un plan de inspección y transferencia para tus propios archivos, sin ejecutar todavía ningún comando. Durante el taller inspeccionarás, verificarás y recuperarás datos reales, cerrando los campos que quedaron pendientes en tu ficha de procedencia desde S8. Después completarás la Tarea 5. El primer intento es formativo: importa que muestre tu razonamiento, aunque contenga errores corregibles.</p>
+</div>
+</div>
+<section id="ficha-del-módulo" class="level2">
+<h2 class="anchored" data-anchor-id="ficha-del-módulo">Ficha del módulo</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Elemento</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Sesión</strong></td>
+<td>S9, 2 horas</td>
+</tr>
+<tr class="even">
+<td><strong>Unidad</strong></td>
+<td>U3. Datos y bases de datos biológicas</td>
+</tr>
+<tr class="odd">
+<td><strong>Competencia principal</strong></td>
+<td>C. Manejo de datos y bases de datos biológicas</td>
+</tr>
+<tr class="even">
+<td><strong>Competencias integradas</strong></td>
+<td>A. Documentación reproducible; B. Entorno Unix</td>
+</tr>
+<tr class="odd">
+<td><strong>Propósito</strong></td>
+<td>Demostrar la reproducibilidad operativa de un conjunto de datos biológicos: que cualquier persona puede obtener exactamente el mismo archivo y verificar que es idéntico, sin importar el mecanismo de recuperación (navegador, <code>wget</code>, <code>curl</code>) ni el de transferencia (<code>cp</code>, <code>scp</code>) que se utilice.</td>
+</tr>
+<tr class="even">
+<td><strong>Consulta previa del Plan</strong></td>
+<td>Material clásico L4–L5, diapositivas correspondientes; este módulo lo sustituye como lectura autocontenida</td>
+</tr>
+<tr class="odd">
+<td><strong>Lectura indispensable</strong></td>
+<td>Secciones 1–6 y Práctica 1 de este módulo, 20–25 min (gran parte ya la dominas desde S3–S5)</td>
+</tr>
+<tr class="even">
+<td><strong>Lectura de consulta</strong></td>
+<td>ProfeUnix Bioinfo, para ampliar opciones y ejemplos de cada comando (cajas de Sintaxis mínima); manuales oficiales en Referencias</td>
+</tr>
+<tr class="odd">
+<td><strong>Primer intento</strong></td>
+<td>Plan de inspección y transferencia para tus propios archivos, 10–15 min</td>
+</tr>
+<tr class="even">
+<td><strong>Evidencia</strong></td>
+<td>Ficha de procedencia sin campos pendientes y avance de la Tarea 5</td>
+</tr>
+<tr class="odd">
+<td><strong>Tarea numerada</strong></td>
+<td>Tarea 5 — Transferencia verificable de datos biológicos</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="relación-con-lo-que-ya-sabes" class="level2">
+<h2 class="anchored" data-anchor-id="relación-con-lo-que-ya-sabes">Relación con lo que ya sabes</h2>
+<pre class="text"><code>S7                    S8                                    S9
+Interpretar    →      Seleccionar y documentar      →       Verificar y hacer reproducible</code></pre>
+<p>En S8 seleccionaste un registro, recuperaste su familia de archivos mediante el navegador y documentaste su procedencia. Dos campos de tu ficha quedaron deliberadamente sin completar:</p>
+<pre class="text"><code>- Checksum calculado localmente: Pendiente (S9)
+- Resultado de la comparación: Pendiente (S9)</code></pre>
+<p>La mayor parte de las herramientas que necesitas ya las conoces. La única incorporación nueva consiste en recuperar directamente un archivo desde una URL mediante <code>wget</code> o <code>curl</code>; el resto reutiliza habilidades adquiridas en S3–S5:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Habilidad que necesitas</th>
+<th>Dónde la aprendiste</th>
+<th>Qué cambia en S9</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Inspeccionar un archivo sin modificarlo (<code>head</code>, <code>tail</code>, <code>less</code>, <code>file</code>)</td>
+<td>S5</td>
+<td>El objeto que inspeccionas: FASTA, GFF3 y GenBank en vez de <code>pacientes.md</code></td>
+</tr>
+<tr class="even">
+<td>Calcular un checksum y compararlo</td>
+<td>S3 (origen/destino), S4 (antes/después de copiar)</td>
+<td>El algoritmo: la fuente publicó MD5, no SHA-256</td>
+</tr>
+<tr class="odd">
+<td>Verificar un archivo antes y después de copiarlo (<code>cp</code>)</td>
+<td>S4</td>
+<td>El destino: tu propia estructura <code>data/source/</code>, no una carpeta de práctica</td>
+</tr>
+</tbody>
+</table>
+<p>Lo único que falta es una pregunta que S8 dejó abierta a propósito:</p>
+<blockquote class="blockquote">
+<p><strong>¿Puedo reconstruir la descarga de mis archivos sin depender de haber hecho clic en el lugar correcto del navegador, y demostrar que el resultado es exactamente el mismo dato?</strong></p>
+</blockquote>
+<p>Esa pregunta introduce lo único genuinamente nuevo de la sesión: <code>wget</code> y <code>curl</code>, dos programas que recuperan un archivo directamente desde una URL, de modo que el propio comando queda documentado en tu protocolo como evidencia verificable — algo que un clic en un navegador no puede ofrecer.</p>
+<p>El razonamiento sigue el modelo del curso, con sus pasos nombrados para esta sesión:</p>
+<pre class="text"><code>Pregunta → Evidencia → Inspección → Verificación → Recuperación reproducible → Transferencia → Documentación</code></pre>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Advertencia
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Esta sesión no descarga datos nuevos ni cambia de registro ni de ensamblado. Trabajas exclusivamente con el conjunto de datos que ya seleccionaste y documentaste en S8.</p>
+</div>
+</div>
+</section>
+<section id="resultados-de-aprendizaje" class="level2">
+<h2 class="anchored" data-anchor-id="resultados-de-aprendizaje">Resultados de aprendizaje</h2>
+<p>Al finalizar la sesión podrás:</p>
+<ol type="1">
+<li><strong>Inspeccionar</strong> los archivos de un conjunto de datos biológico sin modificarlos, reutilizando las herramientas de S5.</li>
+<li><strong>Distinguir</strong> inspección de transformación en el contexto de datos que no deben alterarse.</li>
+<li><strong>Calcular</strong> el checksum local de un archivo y <strong>compararlo</strong> con el publicado por la fuente, cerrando la verificación iniciada en S8.</li>
+<li><strong>Explicar</strong> la diferencia entre descargar mediante navegador y recuperar reproduciblemente desde la terminal.</li>
+<li><strong>Utilizar</strong> <code>wget</code> o <code>curl</code> para reconstruir una descarga de manera reproducible.</li>
+<li><strong>Demostrar</strong>, mediante comparación de checksums, que un archivo sigue siendo el mismo después de recuperarlo o transferirlo a su ubicación final.</li>
+<li><strong>Documentar</strong> la verificación completa en la ficha de procedencia y en <code>doc/protocolo.md</code>.</li>
+</ol>
+</section>
+<section id="lista-de-verificación-previa" class="level2">
+<h2 class="anchored" data-anchor-id="lista-de-verificación-previa">Lista de verificación previa</h2>
+<p>Antes de comenzar confirma:</p>
+<ul class="task-list">
+<li><label><input type="checkbox">Conservas intactos, en <code>data/source/</code>, los archivos que descargaste en S8.</label></li>
+<li><label><input type="checkbox">Tienes registrado el checksum publicado por la fuente y el algoritmo que lo produjo (S8, Práctica 5).</label></li>
+<li><label><input type="checkbox">Recuerdas cómo inspeccionar un archivo sin modificarlo y cómo calcular y comparar un checksum (S3–S5).</label></li>
+<li><label><input type="checkbox">Tu ficha de procedencia tiene marcados como pendientes los campos de verificación local.</label></li>
+<li><label><input type="checkbox">Identificaste el archivo que recuperarás mediante <code>wget</code> o <code>curl</code> y localizaste su URL directa.</label></li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No necesitas volver a elegir un ensamblado ni descargar de nuevo la familia completa. Trabajas con lo que ya tienes en <code>data/source/</code>.</p>
+</div>
+</div>
+</section>
+<section id="ruta-de-s9" class="level2">
+<h2 class="anchored" data-anchor-id="ruta-de-s9">Ruta de S9</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 23%">
+<col style="width: 23%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Momento</th>
+<th>Actividad</th>
+<th>Producto</th>
+<th style="text-align: right;">Tiempo estimado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Antes de clase</td>
+<td>Leer secciones 1–6</td>
+<td>Notas y dudas</td>
+<td style="text-align: right;">20–25 min</td>
+</tr>
+<tr class="even">
+<td>Antes de clase</td>
+<td>Práctica 1: plan de inspección y transferencia</td>
+<td>Plan escrito, sin ejecutar</td>
+<td style="text-align: right;">10–15 min</td>
+</tr>
+<tr class="odd">
+<td>Taller</td>
+<td>Retomar S8: confirmar material y campos pendientes</td>
+<td>Punto de partida compartido</td>
+<td style="text-align: right;">10 min</td>
+</tr>
+<tr class="even">
+<td>Taller</td>
+<td>Inspección de los archivos de S8 (Práctica 2)</td>
+<td>Evidencia de inspección</td>
+<td style="text-align: right;">20 min</td>
+</tr>
+<tr class="odd">
+<td>Taller</td>
+<td>Cálculo y comparación del checksum local (Práctica 3)</td>
+<td>Campos de la ficha completados</td>
+<td style="text-align: right;">20 min</td>
+</tr>
+<tr class="even">
+<td>Taller</td>
+<td>Recuperación reproducible con <code>wget</code>/<code>curl</code> (Práctica 4)</td>
+<td>Segundo checksum comparado</td>
+<td style="text-align: right;">30 min</td>
+</tr>
+<tr class="odd">
+<td>Taller</td>
+<td>Transferencia verificable a la ubicación final (Práctica 5)</td>
+<td>Checksum antes/después</td>
+<td style="text-align: right;">25 min</td>
+</tr>
+<tr class="even">
+<td>Taller</td>
+<td>Cierre y ficha final</td>
+<td>Ficha sin pendientes</td>
+<td style="text-align: right;">15 min</td>
+</tr>
+<tr class="odd">
+<td>Después</td>
+<td>Completar la Tarea 5 en <code>doc/protocolo.md</code></td>
+<td>Transferencia documentada</td>
+<td style="text-align: right;">40–60 min</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="de-la-ficha-pendiente-a-la-verificación-operativa-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="de-la-ficha-pendiente-a-la-verificación-operativa-indispensable">1. De la ficha pendiente a la verificación operativa [Indispensable]</h2>
+<p>S8 cerró con una advertencia explícita: conserva los archivos descargados, intactos, porque los necesitarás para S9. Ese es tu punto de partida: no hay nada que volver a descargar por el navegador, ni ningún dato nuevo que buscar en NCBI.</p>
+<p>Lo que sí falta es <strong>operar</strong> sobre esa evidencia. En S8 documentaste <em>qué</em> checksum publicó la fuente; en S9 vas a <strong>calcular</strong> el que corresponde a tu copia y a <strong>compararlo</strong>. La diferencia es la misma que ya viste entre interpretar (S7) y recuperar (S8): ahora pasas de tener el dato documentado a tener el dato verificado y recuperable de forma reproducible por cualquier persona.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u3-s09-archivo-verificado.png" class="img-fluid figure-img"></p>
+<figcaption>Cómo la verificación convierte la documentación en evidencia de identidad. A la izquierda, la etapa de documentación responde «¿de dónde proviene y qué obtuve?» con cuatro elementos: el registro seleccionado, los archivos recuperados, la procedencia documentada y el checksum publicado por la fuente; su resultado es tener el dato y saber de dónde viene. A la derecha, la etapa de verificación responde «¿es exactamente el archivo que debía ser?»: se calcula el checksum localmente, se compara con el publicado, se obtiene un archivo verificado y una recuperación reproducible con wget o curl; su resultado es tener el dato verificado y poder reconstruirlo. El pie distingue las dos: documentar dice de dónde viene el dato; verificar demuestra que el archivo que tienes es exactamente el mismo.</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El patrón es el mismo que ya conoces: calcular un checksum, compararlo con una referencia y decidir si el archivo es confiable. Lo distinto aquí es el origen de esa referencia: no la generaste tú en otra máquina, sino que la publicó una base de datos internacional.</p>
+</div>
+</div>
+<section id="qué-debes-recordar" class="level4">
+<h4 class="anchored" data-anchor-id="qué-debes-recordar">Qué debes recordar</h4>
+<ul>
+<li>S8 ya te dejó el dato y el checksum publicado; S9 no repite esa selección.</li>
+<li>Verificar operativamente significa calcular y comparar, no solo documentar.</li>
+<li>El patrón de verificación (calcular → comparar → decidir) es el mismo que ya usaste en S3 y S4.</li>
+<li>La meta no es ejecutar comandos: es demostrar que otra persona puede obtener el mismo archivo y confirmar que es idéntico.</li>
+</ul>
+</section>
+</section>
+<section id="inspeccionar-sin-transformar-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="inspeccionar-sin-transformar-indispensable">2. Inspeccionar sin transformar [Indispensable]</h2>
+<p>Antes de calcular cualquier checksum conviene mirar el archivo. No para verificar su integridad —eso lo hace el checksum, no una mirada— sino para confirmar que tienes lo que crees tener: que el archivo no está vacío, que su primera línea corresponde al formato esperado, que su tamaño es razonable.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="¿Sabías que?">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>¿Sabías que?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Un archivo FASTA truncado a la mitad puede seguir abriendo y mostrando una definición válida (S8, sección 6). Por eso una inspección visual <strong>nunca sustituye</strong> al checksum: te orienta, pero no demuestra integridad.</p>
+</div>
+</div>
+<p><code>head</code>, <code>tail</code>, <code>less</code> y <code>file</code> no modifican el archivo que leen. Aplícalas ahora a tus propios datos:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Pregunta</th>
+<th>Herramienta</th>
+<th>Qué confirma</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>¿Cómo empieza <code>genome.fna</code>?</td>
+<td><code>head</code></td>
+<td>La línea de definición FASTA que ya interpretaste en S7</td>
+</tr>
+<tr class="even">
+<td>¿Cómo termina <code>genomic.gff</code>?</td>
+<td><code>tail</code></td>
+<td>Que el archivo no se cortó antes de la última línea</td>
+</tr>
+<tr class="odd">
+<td>¿Qué tipo de contenido reporta el sistema?</td>
+<td><code>file</code></td>
+<td>Que no se trata de un archivo comprimido o binario inesperado</td>
+</tr>
+<tr class="even">
+<td>¿Necesito recorrer el archivo completo?</td>
+<td><code>less</code></td>
+<td>Navegación sin cargarlo todo en pantalla</td>
+</tr>
+</tbody>
+</table>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u3-s09-inspeccionar-verificar.png" class="img-fluid figure-img"></p>
+<figcaption>Inspeccionar y verificar responden preguntas distintas, y la figura las separa con un signo de desigualdad. A la izquierda, inspeccionar responde «¿qué archivo tengo?» mediante head, tail, less y file, y produce evidencia descriptiva sobre contenido y formato. A la derecha, verificar responde «¿es exactamente el archivo esperado?»: el archivo pasa por md5sum, se obtiene un checksum calculado y se compara con el publicado; si coinciden el archivo es idéntico, si no, es diferente o está incompleto. La idea clave es que la inspección puede detectar anomalías visibles, pero solo la verificación prueba que el archivo es exactamente el esperado.</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Inspeccionar no es transformar. <code>head</code>, <code>tail</code>, <code>less</code> y <code>file</code> leen el archivo; no lo abren para editarlo. Si en algún momento necesitas modificar un dato, el resultado va a <code>data/processed/</code>, nunca sobre el original (S8, sección 5).</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Inspeccionar responde <strong>¿qué archivo tengo?</strong> Transformar responde <strong>¿qué archivo quiero obtener?</strong> La primera pregunta nunca modifica el original.</p>
+</div>
+</div>
+<section id="sintaxis-mínima-head" class="level3">
+<h3 class="anchored" data-anchor-id="sintaxis-mínima-head">Sintaxis mínima — <code>head</code></h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> genome.fna</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>¿Qué hace?</strong> Muestra las primeras líneas del archivo sin modificarlo.</p>
+<p>🤖 <strong>Prompt para <a href="https://chatgpt.com/g/g-6893cf2451d88191b11cd0c87de045ab-profeunix-bioinfo">ProfeUnix Bioinfo</a>:</strong> &gt; Explícame el comando <code>head</code>. &gt; ¿Qué hace la opción <code>-n</code>? &gt; Muéstrame ejemplos usando archivos FASTA.</p>
+</section>
+<section id="sintaxis-mínima-tail" class="level3">
+<h3 class="anchored" data-anchor-id="sintaxis-mínima-tail">Sintaxis mínima — <code>tail</code></h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span> genomic.gff</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>¿Qué hace?</strong> Muestra las últimas líneas del archivo sin modificarlo.</p>
+<p>🤖 <strong>Prompt para <a href="https://chatgpt.com/g/g-6893cf2451d88191b11cd0c87de045ab-profeunix-bioinfo">ProfeUnix Bioinfo</a>:</strong> &gt; Explícame el comando <code>tail</code>. &gt; ¿Cómo veo solo las últimas 5 líneas?</p>
+</section>
+<section id="sintaxis-mínima-file" class="level3">
+<h3 class="anchored" data-anchor-id="sintaxis-mínima-file">Sintaxis mínima — <code>file</code></h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file</span> genome.fna</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>¿Qué hace?</strong> Identifica el tipo de contenido del archivo sin abrirlo ni modificarlo.</p>
+<p>🤖 <strong>Prompt para <a href="https://chatgpt.com/g/g-6893cf2451d88191b11cd0c87de045ab-profeunix-bioinfo">ProfeUnix Bioinfo</a>:</strong> &gt; Explícame el comando <code>file</code>. &gt; ¿Cómo distingue un archivo de texto de uno comprimido?</p>
+</section>
+<section id="sintaxis-mínima-less" class="level3">
+<h3 class="anchored" data-anchor-id="sintaxis-mínima-less">Sintaxis mínima — <code>less</code></h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">less</span> genomic.gbff</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>¿Qué hace?</strong> Permite recorrer el archivo página por página sin cargarlo completo; sal con <code>q</code>.</p>
+<p>🤖 <strong>Prompt para <a href="https://chatgpt.com/g/g-6893cf2451d88191b11cd0c87de045ab-profeunix-bioinfo">ProfeUnix Bioinfo</a>:</strong> &gt; Explícame el comando <code>less</code>. &gt; ¿Cómo busco una palabra dentro de <code>less</code>?</p>
+<blockquote class="blockquote">
+<p><strong>RECUERDA:</strong> La inspección orienta; el checksum verifica — no son intercambiables. Ninguna inspección debe alterar el archivo original.</p>
+</blockquote>
+</section>
+</section>
+<section id="calcular-y-comparar-el-checksum-local-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="calcular-y-comparar-el-checksum-local-indispensable">3. Calcular y comparar el checksum local [Indispensable]</h2>
+<p>El procedimiento —calcular, comparar, decidir— ya lo conoces de sesiones anteriores; aquí se aplica sin cambios.</p>
+<p>Lo que cambia es el <strong>algoritmo</strong>. La fuente que consultaste en S8 publicó sus checksums con MD5, no con SHA-256 (S8, sección 6). La regla es <strong>iguala el algoritmo que usó la fuente</strong>, no el que usaste antes. Por eso aquí usarás <code>md5sum</code> en vez de <code>sha256sum</code>.</p>
+<p>En esta sesión usamos MD5 porque es el algoritmo que publica NCBI. Otros repositorios pueden usar SHA-256 u otro algoritmo distinto: la regla no cambia, solo el nombre del comando.</p>
+<pre class="text"><code>Archivo verificado:                                   genome.fna (tal como lo entregó la fuente)
+Checksum publicado por la fuente:                     4c090bf78a5bf49a95b0ad293b6960a8
+Checksum que calculas sobre ese mismo archivo:        (lo obtienes con md5sum)
+                                                       ¿coinciden? → si sí, queda verificado</code></pre>
+<p>El checksum siempre corresponde a un archivo concreto, en el estado exacto en que la fuente lo publicó. Nombrarlo explícitamente evita el error más común de esta verificación: comparar, sin darte cuenta, dos versiones distintas del mismo dato —por ejemplo, una comprimida y otra descomprimida (sección 4).</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Advertencia
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si el checksum que calculas no coincide con el publicado, no uses el archivo. Vuelve a S8, revisa cómo lo descargaste y repite la recuperación —no continúes “por si acaso funciona”.</p>
+</div>
+</div>
+<section id="micropráctica-qué-algoritmo-compararías" class="level3">
+<h3 class="anchored" data-anchor-id="micropráctica-qué-algoritmo-compararías">Micropráctica — ¿Qué algoritmo compararías?</h3>
+<p>Tu compañera de equipo descargó un archivo de un repositorio distinto, que publica sus checksums con SHA-256. Ella calculó el checksum de su copia con <code>md5sum</code> y concluyó que la descarga había fallado porque los valores no coincidían. ¿Qué error cometió?</p>
+<details>
+<summary>
+Ver retroalimentación
+</summary>
+<p>Comparó valores producidos por algoritmos distintos. Un MD5 y un SHA-256 del mismo archivo nunca coinciden entre sí, aunque el archivo sea idéntico, porque son funciones matemáticas diferentes. El error no está en la descarga: está en no haber igualado el algoritmo con el que la fuente publicó su checksum.</p>
+</details>
+</section>
+<section id="sintaxis-mínima-md5sum" class="level3">
+<h3 class="anchored" data-anchor-id="sintaxis-mínima-md5sum">Sintaxis mínima — <code>md5sum</code></h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">md5sum</span> genome.fna</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>¿Qué hace?</strong> Calcula el checksum MD5 del archivo, para compararlo con el que publicó la fuente.</p>
+<p>🤖 <strong>Prompt para <a href="https://chatgpt.com/g/g-6893cf2451d88191b11cd0c87de045ab-profeunix-bioinfo">ProfeUnix Bioinfo</a>:</strong> &gt; Explícame el comando <code>md5sum</code>. &gt; ¿En qué se diferencia de <code>sha256sum</code>?</p>
+<blockquote class="blockquote">
+<p><strong>ERROR FRECUENTE:</strong> Comparar checksums calculados con algoritmos distintos, o dar por bueno un checksum que no coincide. El algoritmo debe coincidir con el que usó la fuente; si no coincide, repite la recuperación, nunca la ignores.</p>
+</blockquote>
+</section>
+</section>
+<section id="recuperar-de-forma-reproducible-wget-y-curl-nuevo" class="level2">
+<h2 class="anchored" data-anchor-id="recuperar-de-forma-reproducible-wget-y-curl-nuevo">4. Recuperar de forma reproducible: <code>wget</code> y <code>curl</code> <strong>[Nuevo]</strong></h2>
+<p>En S8 recuperaste tus archivos con el navegador. Funciona, pero tiene un límite: nadie puede reconstruir esos clics leyendo tu protocolo. Si dentro de un año necesitas repetir exactamente la misma descarga —o si alguien más necesita reproducir tu trabajo—, “entré a la página y descargué el archivo” no es una instrucción ejecutable.</p>
+<p>Lo que falta no es “un comando nuevo”: es la última pieza del razonamiento que vienes siguiendo desde S8.</p>
+<pre class="text"><code>archivo documentado (S8)
+   ↓
+archivo verificado (secciones 2–3)
+   ↓
+archivo recuperable de forma reproducible
+   ↓
+wget / curl</code></pre>
+<p><code>wget</code> y <code>curl</code> son dos programas que recuperan un archivo directamente desde una URL, dentro de la terminal, sin necesitar una cuenta en el servidor de origen — a diferencia de los mecanismos que ya conoces para tu propia cuenta remota.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Herramienta</th>
+<th>Origen del archivo</th>
+<th>Ya la conoces desde</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SFTP / FileZilla</td>
+<td>Tu propia cuenta remota, de forma interactiva</td>
+<td>S3</td>
+</tr>
+<tr class="even">
+<td>Navegador</td>
+<td>Un servidor público, mediante clics</td>
+<td>S8</td>
+</tr>
+<tr class="odd">
+<td><code>wget</code> / <code>curl</code></td>
+<td>Un servidor público, mediante una URL, por línea de comandos</td>
+<td><strong>S9</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>scp</code> no aparece en esta tabla porque no recupera desde una fuente pública: transfiere entre tu cuenta remota y tu computadora. Si tus archivos hubieran estado originalmente en tu computadora personal, <code>scp</code> (S4) habría sido el mecanismo para llevarlos al servidor.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La URL debe apuntar directamente al archivo, no a la página de NCBI que abriste en S8. Encontrar esa URL exacta —normalmente disponible en la misma página del registro— es parte de la evidencia: documenta de dónde la tomaste.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Advertencia
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Los archivos que sirve NCBI en su FTP suelen estar comprimidos (<code>.gz</code>), aunque en S8 trabajaste con los nombres simplificados (<code>genome.fna</code>). Verifica el checksum sobre el archivo <strong>exactamente como lo entregó la fuente</strong>; si lo descomprimes antes de comparar, el checksum cambiará y parecerá que la descarga falló, aunque el contenido sea correcto. Descomprimir con <code>gunzip</code> (S5) es un paso posterior a la verificación, no antes.</p>
+</div>
+</div>
+<section id="sintaxis-mínima-wget" class="level3">
+<h3 class="anchored" data-anchor-id="sintaxis-mínima-wget">Sintaxis mínima — <code>wget</code></h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/005/845/GCF_000005845.2_ASM584v2/GCF_000005845.2_ASM584v2_genomic.fna.gz</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>¿Qué hace?</strong> Descarga el archivo desde la URL y lo guarda con el nombre que trae la URL.</p>
+<p>🤖 <strong>Prompt para <a href="https://chatgpt.com/g/g-6893cf2451d88191b11cd0c87de045ab-profeunix-bioinfo">ProfeUnix Bioinfo</a>:</strong> &gt; Explícame el comando <code>wget</code>. &gt; ¿Cómo guardo el archivo con otro nombre?</p>
+</section>
+<section id="sintaxis-mínima-curl--o" class="level3">
+<h3 class="anchored" data-anchor-id="sintaxis-mínima-curl--o">Sintaxis mínima — <code>curl -O</code></h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-O</span> https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/005/845/GCF_000005845.2_ASM584v2/GCF_000005845.2_ASM584v2_genomic.fna.gz</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>¿Qué hace?</strong> Descarga el archivo desde la URL; <code>-O</code> guarda el resultado con su nombre original en vez de mostrarlo en pantalla.</p>
+<p>🤖 <strong>Prompt para <a href="https://chatgpt.com/g/g-6893cf2451d88191b11cd0c87de045ab-profeunix-bioinfo">ProfeUnix Bioinfo</a>:</strong> &gt; Explícame el comando <code>curl</code>. &gt; ¿Qué diferencia hay entre <code>curl</code> y <code>wget</code>?</p>
+<p><img src="images/figura-u3-s09-download-methods.png" class="img-fluid" alt="Tres rutas distintas para recuperar el mismo archivo publicado por NCBI —descarga por navegador, recuperación con wget o curl, y cualquier otro método válido— convergen en tres copias locales del mismo genome.fna.gz. Sobre cada copia se calcula el md5sum y el resultado coincide con el MD5 publicado por la fuente, de modo que las tres son el mismo conjunto de datos. La idea clave es que el método de recuperación no determina la identidad del archivo: lo que la determina es que su checksum coincida con el publicado."> <strong>Figura 1.</strong> Distintos mecanismos de recuperación pueden producir exactamente el mismo archivo biológico. La identidad del archivo no depende de si fue obtenido mediante un navegador, wget o curl, sino de que su contenido sea idéntico al publicado por la fuente. La comparación del checksum proporciona una evidencia objetiva para verificar esa identidad y constituye un elemento fundamental de la reproducibilidad computacional.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Un clic en el navegador puede recuperar un archivo. Un comando documentado permite que otra persona recupere exactamente el mismo archivo. Esa diferencia —no <code>wget</code> en sí mismo— es la base de la reproducibilidad computacional.</p>
+</div>
+</div>
+<section id="qué-debes-recordar-1" class="level4">
+<h4 class="anchored" data-anchor-id="qué-debes-recordar-1">Qué debes recordar</h4>
+<ul>
+<li><code>wget</code>/<code>curl</code> recuperan desde una URL pública; <code>scp</code> copia desde tu propia cuenta remota.</li>
+<li>El comando queda documentado en tu protocolo: es la trazabilidad que un clic no ofrece.</li>
+<li>Verifica el checksum sobre el archivo tal como llegó, antes de cualquier descompresión.</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="transferencia-verificable-entre-contextos-reforzado" class="level2">
+<h2 class="anchored" data-anchor-id="transferencia-verificable-entre-contextos-reforzado">5. Transferencia verificable entre contextos <strong>[Reforzado]</strong></h2>
+<p>En esta sesión conviven tres operaciones que conviene no confundir:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Operación</th>
+<th>Ejemplo</th>
+<th>Objetivo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Recuperar</td>
+<td><code>wget</code>, <code>curl</code></td>
+<td>Obtener un archivo publicado mediante una URL</td>
+</tr>
+<tr class="even">
+<td>Copiar</td>
+<td><code>cp</code></td>
+<td>Duplicar un archivo dentro del mismo sistema</td>
+</tr>
+<tr class="odd">
+<td>Transferir</td>
+<td><code>scp</code></td>
+<td>Mover archivos entre equipos mediante SSH</td>
+</tr>
+</tbody>
+</table>
+<p>En este taller ejecutarás <code>wget</code>/<code>curl</code> para recuperar el archivo y <code>cp</code> para colocarlo en su ubicación final; <code>scp</code> se incluye únicamente como comparación conceptual, no como algo que uses hoy. El objetivo no es aprender estas herramientas: es demostrar, con checksum, que la identidad del archivo se conserva sin importar el mecanismo.</p>
+<p>Ya tienes dos copias del mismo dato: la que descargaste por navegador en S8 (verificada en la sección 3) y la que acabas de recuperar con <code>wget</code>/<code>curl</code> (sección 4). Falta un último paso, que es el mismo patrón de S4: comprobar el checksum <strong>antes y después</strong> de mover un archivo a su ubicación definitiva dentro del proyecto.</p>
+<pre class="text"><code>proyecto/
+└── data/
+    └── source/
+        └── GCF_xxxxxxxxx.x/
+            ├── genome.fna              ← descarga de S8, ya verificada
+            ├── genomic.gff
+            ├── genomic.gbff
+            ├── md5checksums.txt
+            └── verificacion-S9/
+                └── genome.fna          ← recuperación independiente con wget/curl</code></pre>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No es necesario elegir una copia sobre la otra ni sobrescribir el archivo de S8. Conserva ambas como evidencia: lo que importa no es cuál “es la buena”, sino que sus checksums coincidan entre sí y con el publicado. Eso es, precisamente, la demostración de que el método de recuperación no altera el dato.</p>
+</div>
+</div>
+<p>El procedimiento es el de siempre: calculas el checksum en el origen (donde <code>wget</code>/<code>curl</code> guardó el archivo), lo mueves o copias a <code>data/source/.../verificacion-S9/</code>, y vuelves a calcularlo en el destino. Si coinciden, la transferencia fue íntegra.</p>
+<section id="sintaxis-mínima-cp" class="level3">
+<h3 class="anchored" data-anchor-id="sintaxis-mínima-cp">Sintaxis mínima — <code>cp</code></h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> genome.fna data/source/GCF_xxxxxxxxx.x/verificacion-S9/</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>¿Qué hace?</strong> Copia el archivo a su ubicación final dentro del proyecto, sin modificar el original.</p>
+<p>🤖 <strong>Prompt para <a href="https://chatgpt.com/g/g-6893cf2451d88191b11cd0c87de045ab-profeunix-bioinfo">ProfeUnix Bioinfo</a>:</strong> &gt; Explícame el comando <code>cp</code>. &gt; ¿Qué pasa si el destino ya tiene un archivo con ese nombre?</p>
+<section id="qué-debes-recordar-2" class="level4">
+<h4 class="anchored" data-anchor-id="qué-debes-recordar-2">Qué debes recordar</h4>
+<ul>
+<li>El patrón “checksum antes y después de mover un archivo” se reutiliza aquí sin cambios.</li>
+<li>Conservar ambas copias (S8 y S9) como evidencia es preferible a sobrescribir.</li>
+<li>Transferencia íntegra significa que origen y destino producen el mismo checksum, sin excepción.</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="cerrar-el-ciclo-documentar-la-verificación-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="cerrar-el-ciclo-documentar-la-verificación-indispensable">6. Cerrar el ciclo: documentar la verificación [Indispensable]</h2>
+<p>Con los pasos anteriores ya puedes completar los campos que S8 dejó pendientes:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Checksum calculado localmente: <span class="dt">&lt;</span><span class="kw">valor</span><span class="ot"> obtenido con md5sum</span><span class="dt">&gt;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Resultado de la comparación: <span class="dt">&lt;</span><span class="kw">coincide</span><span class="ot"> </span><span class="er">/</span><span class="ot"> no coincide</span><span class="er">,</span><span class="ot"> con fecha</span><span class="dt">&gt;</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Actualiza también <code>doc/protocolo.md</code> con los comandos exactos que ejecutaste (no una reconstrucción aproximada) y con el resultado de cada comparación.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si algún checksum no coincidió y tuviste que repetir la recuperación, no borres el primer intento. Documenta ambos, igual que hiciste en S8 cuando un dato quedaba sin confirmar: la trazabilidad también deja evidencia de las correcciones.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="práctica-1-plan-de-inspección-y-transferencia-primer-intento" class="level2">
+<h2 class="anchored" data-anchor-id="práctica-1-plan-de-inspección-y-transferencia-primer-intento">Práctica 1 — Plan de inspección y transferencia (primer intento)</h2>
+<section id="antes-de-clase-primer-intento-individual" class="level3">
+<h3 class="anchored" data-anchor-id="antes-de-clase-primer-intento-individual">Antes de clase — primer intento individual</h3>
+<ol type="1">
+<li>Localiza en tu proyecto los archivos que descargaste en S8 (<code>data/source/GCF_xxxxxxxxx.x/</code>).</li>
+<li>Sin ejecutar ningún comando todavía, completa esta tabla:</li>
+</ol>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Archivo</th>
+<th>¿Qué comando de inspección usarías primero y por qué?</th>
+<th>Algoritmo de checksum que debes usar (según tu <code>md5checksums.txt</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ol start="3" type="1">
+<li>Escribe la URL exacta (no la página general) desde la que podrías recuperar con <code>wget</code>/<code>curl</code> al menos uno de tus archivos. Si no la encuentras todavía, anota dónde piensas buscarla.</li>
+</ol>
+</section>
+<section id="durante-el-taller-comparación-y-corrección" class="level3">
+<h3 class="anchored" data-anchor-id="durante-el-taller-comparación-y-corrección">Durante el taller — comparación y corrección</h3>
+<ol type="1">
+<li>Intercambia tu plan con otra persona.</li>
+<li>Señalen si alguna elección de comando de inspección es innecesaria o si falta identificar el algoritmo correcto de checksum.</li>
+<li>Corrijan el plan antes de empezar a ejecutar comandos.</li>
+</ol>
+</section>
+<section id="después-del-taller-evidencia-final" class="level3">
+<h3 class="anchored" data-anchor-id="después-del-taller-evidencia-final">Después del taller — evidencia final</h3>
+<p>El plan corregido no se entrega por separado: se incorpora como evidencia de preparación dentro de tu avance de la Tarea 5.</p>
+<p><strong>Criterio de logro:</strong> el plan identifica correctamente el algoritmo de checksum a partir del archivo publicado por la fuente (no asume SHA-256 por costumbre) y distingue inspección de verificación.</p>
+<hr>
+</section>
+</section>
+<section id="práctica-2-inspección-de-los-archivos-de-s8" class="level2">
+<h2 class="anchored" data-anchor-id="práctica-2-inspección-de-los-archivos-de-s8">Práctica 2 — Inspección de los archivos de S8</h2>
+<section id="antes-de-clase" class="level3">
+<h3 class="anchored" data-anchor-id="antes-de-clase">Antes de clase</h3>
+<p>Completado dentro de la Práctica 1: ya decidiste qué comando usarías para cada archivo.</p>
+</section>
+<section id="durante-el-taller" class="level3">
+<h3 class="anchored" data-anchor-id="durante-el-taller">Durante el taller</h3>
+<ol type="1">
+<li>Ejecuta la <strong>Sintaxis mínima de <code>file</code></strong> (Sección 2) sobre los tres archivos principales de tu familia de datos.</li>
+<li>Usa la sintaxis de <code>head</code> y <code>tail</code> (Sección 2) para confirmar que cada archivo empieza y termina como esperas, según lo que aprendiste a interpretar en S7.</li>
+<li>Si algún archivo es largo, navega con la sintaxis de <code>less</code> (Sección 2) en vez de mostrarlo completo.</li>
+<li>Registra la salida real que obtuviste (no una reconstrucción) junto con la pregunta que cada comando respondió.</li>
+</ol>
+</section>
+<section id="después-del-taller" class="level3">
+<h3 class="anchored" data-anchor-id="después-del-taller">Después del taller</h3>
+<p>Incorpora la evidencia de inspección a tu avance de la Tarea 5, indicando explícitamente que ningún comando modificó los archivos originales.</p>
+<p><strong>Criterio de logro:</strong> aplica correctamente <code>head</code>, <code>tail</code>, <code>less</code> y <code>file</code> a datos biológicos reales y explica qué confirma cada uno, sin confundir inspección con verificación de integridad.</p>
+<hr>
+</section>
+</section>
+<section id="práctica-3-cálculo-y-comparación-del-checksum-local" class="level2">
+<h2 class="anchored" data-anchor-id="práctica-3-cálculo-y-comparación-del-checksum-local">Práctica 3 — Cálculo y comparación del checksum local</h2>
+<section id="antes-de-clase-1" class="level3">
+<h3 class="anchored" data-anchor-id="antes-de-clase-1">Antes de clase</h3>
+<p>Completado dentro de la Práctica 1: ya identificaste el algoritmo correcto.</p>
+</section>
+<section id="durante-el-taller-1" class="level3">
+<h3 class="anchored" data-anchor-id="durante-el-taller-1">Durante el taller</h3>
+<ol type="1">
+<li>Calcula el checksum de <code>genome.fna</code> (o el archivo que tu docente indique) con la <strong>Sintaxis mínima de <code>md5sum</code></strong> (Sección 3), usando el algoritmo que identifica tu <code>md5checksums.txt</code>.</li>
+<li>Compáralo con el valor publicado que registraste en la ficha de procedencia de S8.</li>
+<li>Registra el resultado exacto de la comparación (coincide / no coincide) y la fecha.</li>
+<li>Si no coincide, no continúes con la Práctica 4 hasta resolverlo: vuelve a la sección 3 y a S8.</li>
+</ol>
+</section>
+<section id="después-del-taller-1" class="level3">
+<h3 class="anchored" data-anchor-id="después-del-taller-1">Después del taller</h3>
+<p>Actualiza en <code>doc/protocolo.md</code> los dos campos que quedaron pendientes desde S8.</p>
+<p><strong>Criterio de logro:</strong> el checksum se calculó con el algoritmo correcto, se comparó explícitamente contra el valor publicado, y el resultado quedó documentado con evidencia real, no supuesta.</p>
+<hr>
+</section>
+</section>
+<section id="práctica-4-recuperación-reproducible-con-wget-o-curl" class="level2">
+<h2 class="anchored" data-anchor-id="práctica-4-recuperación-reproducible-con-wget-o-curl">Práctica 4 — Recuperación reproducible con <code>wget</code> o <code>curl</code></h2>
+<section id="antes-de-clase-2" class="level3">
+<h3 class="anchored" data-anchor-id="antes-de-clase-2">Antes de clase</h3>
+<p>Completado dentro de la Práctica 1: ya localizaste (o planeaste localizar) la URL directa del archivo.</p>
+</section>
+<section id="durante-el-taller-2" class="level3">
+<h3 class="anchored" data-anchor-id="durante-el-taller-2">Durante el taller</h3>
+<ol type="1">
+<li>Confirma la URL exacta del archivo que vas a recuperar (debe apuntar al archivo, no a una página).</li>
+<li>Recupera el archivo con la <strong>Sintaxis mínima de <code>wget</code> o <code>curl -O</code></strong> (Sección 4), desde el servidor.</li>
+<li>Calcula su checksum con el mismo algoritmo de la Práctica 3.</li>
+<li>Compara este nuevo checksum contra el que ya verificaste en la Práctica 3 (y, por lo tanto, contra el publicado por la fuente).</li>
+<li>Registra si el método de recuperación (navegador vs.&nbsp;terminal) produjo o no el mismo archivo.</li>
+</ol>
+</section>
+<section id="después-del-taller-2" class="level3">
+<h3 class="anchored" data-anchor-id="después-del-taller-2">Después del taller</h3>
+<p>Documenta en <code>doc/protocolo.md</code> el comando exacto utilizado (<code>wget ...</code> o <code>curl -O ...</code>) y el resultado de la comparación de checksums entre ambos métodos de recuperación.</p>
+<p><strong>Criterio de logro:</strong> recupera correctamente un archivo con <code>wget</code> o <code>curl</code>, calcula su checksum y demuestra —con evidencia, no por suposición— que coincide con la copia obtenida por navegador en S8.</p>
+<hr>
+</section>
+</section>
+<section id="práctica-5-transferencia-verificable-a-la-ubicación-final" class="level2">
+<h2 class="anchored" data-anchor-id="práctica-5-transferencia-verificable-a-la-ubicación-final">Práctica 5 — Transferencia verificable a la ubicación final</h2>
+<section id="antes-de-clase-3" class="level3">
+<h3 class="anchored" data-anchor-id="antes-de-clase-3">Antes de clase</h3>
+<p>No requiere preparación adicional a la Práctica 1.</p>
+</section>
+<section id="durante-el-taller-3" class="level3">
+<h3 class="anchored" data-anchor-id="durante-el-taller-3">Durante el taller</h3>
+<ol type="1">
+<li>Calcula el checksum del archivo recuperado con <code>wget</code>/<code>curl</code> en su ubicación de origen (por ejemplo, tu directorio de inicio).</li>
+<li>Cópialo con la <strong>Sintaxis mínima de <code>cp</code></strong> (Sección 5) a <code>data/source/GCF_xxxxxxxxx.x/verificacion-S9/</code>, conservando su nombre original.</li>
+<li>Vuelve a calcular el checksum en la ubicación final.</li>
+<li>Compara ambos valores: origen y destino deben coincidir.</li>
+</ol>
+</section>
+<section id="después-del-taller-evidencia-final-1" class="level3">
+<h3 class="anchored" data-anchor-id="después-del-taller-evidencia-final-1">Después del taller — evidencia final</h3>
+<p>Completa la ficha de procedencia sin campos pendientes y cierra la sección correspondiente de <code>doc/protocolo.md</code> con la tabla de verificación completa (checksum publicado, checksum de S8, checksum de S9, resultado de cada comparación).</p>
+<p><strong>Criterio de logro:</strong> demuestra, con checksums calculados en origen y destino, que la transferencia a la ubicación final del proyecto no alteró el archivo.</p>
+<hr>
+</section>
+</section>
+<section id="tarea-5-transferencia-verificable-de-datos-biológicos" class="level2">
+<h2 class="anchored" data-anchor-id="tarea-5-transferencia-verificable-de-datos-biológicos">Tarea 5 — Transferencia verificable de datos biológicos</h2>
+<pre class="text"><code>Al finalizar deberás entregar:
+✓ archivo y algoritmo sobre los que se calculó el checksum
+✓ checksum calculado y su comparación con el publicado
+✓ URL reconstruible utilizada
+✓ comando exacto utilizado (wget, curl o cp)
+✓ evidencia de la recuperación y de la transferencia
+✓ actualización de doc/protocolo.md</code></pre>
+<p>La Tarea 5 no consiste en repetir una descarga. Consiste en <strong>demostrar, con evidencia de checksum, que el dato con el que trabajas es exactamente el mismo sin importar cómo lo recuperaste ni a dónde lo muevas</strong>.</p>
+<section id="producto-esperado" class="level3">
+<h3 class="anchored" data-anchor-id="producto-esperado">Producto esperado</h3>
+<pre class="text"><code>proyecto/
+├── data/
+│   └── source/
+│       └── GCF_xxxxxxxxx.x/
+│           ├── genome.fna
+│           ├── genomic.gff
+│           ├── genomic.gbff
+│           ├── md5checksums.txt
+│           └── verificacion-S9/
+│               └── &lt;archivo recuperado con wget o curl&gt;
+├── doc/
+│   └── protocolo.md
+└── results/</code></pre>
+<p>No importa cuál copia usarás después. Lo importante es conservar la evidencia de que ambas son idénticas.</p>
+</section>
+<section id="debes-documentar-en-docprotocolo.md" class="level3">
+<h3 class="anchored" data-anchor-id="debes-documentar-en-docprotocolo.md">Debes documentar en <code>doc/protocolo.md</code></h3>
+<ul>
+<li>comandos exactos de inspección utilizados y qué confirmaron;</li>
+<li>algoritmo de checksum utilizado, con justificación de por qué ese y no otro;</li>
+<li>checksum publicado, checksum de la descarga de S8 y checksum de la recuperación con <code>wget</code>/<code>curl</code>, con el resultado de cada comparación;</li>
+<li>comando exacto de recuperación (<code>wget</code> o <code>curl -O</code>) y la URL utilizada;</li>
+<li>evidencia de que la transferencia a <code>data/source/.../verificacion-S9/</code> conservó el checksum.</li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si algún checksum no coincidió en algún momento del proceso, no lo omitas. Documenta el intento fallido, el diagnóstico y la corrección: es evidencia útil, no un error que ocultar.</p>
+</div>
+</div>
+</section>
+<section id="lista-de-control-antes-de-entregar" class="level3">
+<h3 class="anchored" data-anchor-id="lista-de-control-antes-de-entregar">Lista de control antes de entregar</h3>
+<ul class="task-list">
+<li><label><input type="checkbox">Evidencia de inspección de al menos dos archivos</label></li>
+<li><label><input type="checkbox">Algoritmo de checksum identificado correctamente (coincide con el de la fuente)</label></li>
+<li><label><input type="checkbox">Checksum local comparado contra el publicado (cierre de S8)</label></li>
+<li><label><input type="checkbox">Archivo recuperado con <code>wget</code> o <code>curl</code>, con el comando documentado</label></li>
+<li><label><input type="checkbox">Checksum de la recuperación por terminal comparado contra el de S8</label></li>
+<li><label><input type="checkbox">Checksum verificado antes y después de la transferencia a <code>data/source/</code></label></li>
+<li><label><input type="checkbox">Ficha de procedencia sin campos pendientes</label></li>
+</ul>
+</section>
+</section>
+<section id="evidencia-de-la-sesión" class="level2">
+<h2 class="anchored" data-anchor-id="evidencia-de-la-sesión">Evidencia de la sesión</h2>
+<p>Entrega o conserva, según indique el docente:</p>
+<ol type="1">
+<li>plan de inspección y transferencia, inicial y corregido (Práctica 1);</li>
+<li>evidencia de inspección de los archivos de S8 (Práctica 2);</li>
+<li>checksum local comparado contra el publicado (Práctica 3);</li>
+<li>archivo recuperado con <code>wget</code>/<code>curl</code> y su checksum comparado (Práctica 4);</li>
+<li>evidencia de transferencia verificable a la ubicación final (Práctica 5);</li>
+<li>ficha de procedencia completa y avance de la Tarea 5 en <code>doc/protocolo.md</code>.</li>
+</ol>
+</section>
+<section id="errores-frecuentes-y-estrategias-de-diagnóstico" class="level2">
+<h2 class="anchored" data-anchor-id="errores-frecuentes-y-estrategias-de-diagnóstico">Errores frecuentes y estrategias de diagnóstico</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Error</th>
+<th>Por qué ocurre</th>
+<th>Estrategia de diagnóstico</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Comparar un MD5 con un SHA-256</td>
+<td>Se asume que el algoritmo de S3/S4 aplica siempre</td>
+<td>Revisar <code>md5checksums.txt</code> (o el nombre del archivo de checksums) antes de calcular nada</td>
+</tr>
+<tr class="even">
+<td>Usar la URL de la página de NCBI en vez de la del archivo</td>
+<td>Se confunde el registro con el archivo descargable</td>
+<td>Verificar que la URL termine en el nombre del archivo, no en una página HTML</td>
+</tr>
+<tr class="odd">
+<td>Calcular el checksum después de descomprimir</td>
+<td>Se asume que el checksum publicado corresponde al archivo descomprimido</td>
+<td>Verificar el checksum sobre el archivo exactamente como lo entregó la fuente, antes de <code>gunzip</code></td>
+</tr>
+<tr class="even">
+<td>Sobrescribir el archivo de S8 con el de <code>wget</code>/<code>curl</code></td>
+<td>Parece innecesario conservar dos copias</td>
+<td>Recordar que ambas copias son evidencia verificable, no duplicados a eliminar</td>
+</tr>
+<tr class="odd">
+<td>Continuar con la Tarea 5 aunque un checksum no coincidió</td>
+<td>Se asume que “probablemente esté bien”</td>
+<td>Detenerse y repetir la recuperación; nunca usar un archivo no verificado</td>
+</tr>
+<tr class="even">
+<td>Confundir inspección con verificación</td>
+<td>Se asume que “se ve bien” es suficiente</td>
+<td>Recordar que solo el checksum demuestra integridad (S8, sección 6)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="rúbricas" class="level2">
+<h2 class="anchored" data-anchor-id="rúbricas">Rúbricas</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterio</th>
+<th>Logrado</th>
+<th>Parcialmente logrado</th>
+<th>Aún no logrado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Plan de inspección y transferencia</td>
+<td>Identifica correctamente comandos y algoritmo antes del taller</td>
+<td>Plan incompleto pero permite discutir decisiones</td>
+<td>No presenta evidencia previa o no puede justificarla</td>
+</tr>
+<tr class="even">
+<td>Inspección</td>
+<td>Aplica <code>head</code>/<code>tail</code>/<code>less</code>/<code>file</code> con propósito claro, sin modificar archivos</td>
+<td>Aplica los comandos pero no distingue su propósito</td>
+<td>Confunde inspección con verificación</td>
+</tr>
+<tr class="odd">
+<td>Verificación de checksum local</td>
+<td>Calcula, compara y documenta correctamente contra el publicado</td>
+<td>Calcula pero compara con el algoritmo equivocado o no documenta</td>
+<td>No calcula o no compara</td>
+</tr>
+<tr class="even">
+<td>Recuperación reproducible</td>
+<td>Usa <code>wget</code>/<code>curl</code> correctamente y verifica que coincide con S8</td>
+<td>Recupera el archivo pero no verifica o el comando es incompleto</td>
+<td>No logra recuperar el archivo o no lo intenta</td>
+</tr>
+<tr class="odd">
+<td>Transferencia verificable</td>
+<td>Verifica checksum en origen y destino, documentado</td>
+<td>Transfiere pero no verifica ambos extremos</td>
+<td>No verifica la transferencia</td>
+</tr>
+<tr class="even">
+<td>Documentación (Tarea 5)</td>
+<td>Ficha y protocolo permiten reconstruir todo el proceso, sin pendientes</td>
+<td>Documentación incompleta o con campos inferidos</td>
+<td>No documenta o completa datos por inferencia</td>
+</tr>
+</tbody>
+</table>
+<p>La rúbrica es formativa para las Prácticas 1–5; la evaluación calificada corresponde a la Tarea 5.</p>
+</section>
+<section id="autoevaluación" class="level2">
+<h2 class="anchored" data-anchor-id="autoevaluación">Autoevaluación</h2>
+<section id="comprobación-rápida-formativa-al-final-del-taller" class="level3">
+<h3 class="anchored" data-anchor-id="comprobación-rápida-formativa-al-final-del-taller">Comprobación rápida — formativa, al final del taller</h3>
+<ol type="1">
+<li>¿Qué diferencia hay entre inspeccionar un archivo y verificar su integridad?</li>
+<li>¿Por qué usaste <code>md5sum</code> en vez de <code>sha256sum</code> en esta sesión?</li>
+<li>¿Qué puede documentar un comando de <code>wget</code>/<code>curl</code> en tu protocolo que un clic en el navegador no puede?</li>
+<li>¿Qué demuestra que una transferencia fue íntegra?</li>
+<li>¿Qué harías si el checksum calculado no coincide con el publicado?</li>
+<li>¿Por qué conviene conservar la copia de S8 y la de S9 en vez de quedarte con una sola?</li>
+</ol>
+</section>
+<section id="semáforo" class="level3">
+<h3 class="anchored" data-anchor-id="semáforo">Semáforo</h3>
+<ul>
+<li>🟢 <strong>Verde:</strong> inspecciono sin modificar, calculo el checksum con el algoritmo correcto, recupero un archivo con <code>wget</code>/<code>curl</code> y demuestro con evidencia que coincide con la descarga de S8 y con la publicada.</li>
+<li>🟡 <strong>Amarillo:</strong> completo los pasos, pero dudo al elegir el algoritmo de checksum o necesito ayuda para construir la URL de recuperación.</li>
+<li>🔴 <strong>Rojo:</strong> no distingo inspección de verificación, o doy por buena una descarga sin comparar checksums.</li>
+</ul>
+<p>Si estás en amarillo o rojo, conserva tu evidencia y resuelve la duda antes de dar por cerrada la Tarea 5: es la última entrega calificada de la unidad.</p>
+</section>
+</section>
+<section id="cierre-de-s9-y-puente-hacia-la-unidad-4" class="level2">
+<h2 class="anchored" data-anchor-id="cierre-de-s9-y-puente-hacia-la-unidad-4">Cierre de S9 y puente hacia la Unidad 4</h2>
+<p>En esta sesión cerraste el ciclo que abrió S8: de tener un dato documentado pasaste a tener un dato <strong>verificado operativamente</strong>, recuperable de forma reproducible y transferido con evidencia de integridad. Con esto termina la Unidad 3.</p>
+<p>Si tuvieras que resumir la sesión en una frase, no sería “aprendí <code>wget</code>”: sería <em>“ahora sé demostrar que otra persona puede obtener exactamente el mismo archivo y verificar que es idéntico”</em>. Las herramientas —<code>wget</code>, <code>curl</code>, <code>md5sum</code>, <code>cp</code>— fueron solo la implementación de esa idea.</p>
+<p>Los archivos que verificaste aquí —con su procedencia, integridad y ubicación documentadas— son exactamente las entradas con las que trabajarás en la <strong>Unidad 4. Procesamiento y exploración de datos genómicos</strong>, donde aprenderás a inspeccionarlos con más profundidad, filtrarlos, resumirlos y transformarlos mediante herramientas Unix.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No necesitas volver a verificar estos archivos en U4. Confía en la evidencia que construiste aquí, y si alguna vez dudas de su integridad, el checksum que documentaste es tu punto de referencia.</p>
+</div>
+</div>
+</section>
+<section id="anexo-a.-correspondencia-resultadoactividadevidenciacriterio" class="level2">
+<h2 class="anchored" data-anchor-id="anexo-a.-correspondencia-resultadoactividadevidenciacriterio">Anexo A. Correspondencia resultado–actividad–evidencia–criterio</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Resultado</th>
+<th>Actividad</th>
+<th>Evidencia</th>
+<th>Criterio</th>
+<th>Momento</th>
+<th>Nivel en U3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RA1 Inspeccionar sin modificar</td>
+<td>Sección 2, Práctica 2</td>
+<td>Salidas de <code>head</code>/<code>tail</code>/<code>less</code>/<code>file</code></td>
+<td>Aplica el comando correcto sin alterar el archivo</td>
+<td>Taller</td>
+<td>Aplicación guiada</td>
+</tr>
+<tr class="even">
+<td>RA2 Distinguir inspección de transformación</td>
+<td>Sección 2</td>
+<td>Justificación en el plan (Práctica 1)</td>
+<td>No confunde ambos conceptos</td>
+<td>Antes/taller</td>
+<td>Comprensión</td>
+</tr>
+<tr class="odd">
+<td>RA3 Calcular y comparar checksum local</td>
+<td>Sección 3, Práctica 3</td>
+<td>Checksum calculado y comparado</td>
+<td>Algoritmo correcto, comparación documentada</td>
+<td>Taller</td>
+<td>Aplicación guiada</td>
+</tr>
+<tr class="even">
+<td>RA4 Explicar navegador vs.&nbsp;terminal</td>
+<td>Sección 4</td>
+<td>Respuesta de autoevaluación</td>
+<td>Explica la ventaja de reproducibilidad</td>
+<td>Taller</td>
+<td>Comprensión</td>
+</tr>
+<tr class="odd">
+<td>RA5 Usar <code>wget</code>/<code>curl</code></td>
+<td>Sección 4, Práctica 4</td>
+<td>Comando documentado + checksum comparado</td>
+<td>Recupera el archivo correcto y lo verifica</td>
+<td>Taller</td>
+<td>Aplicación inicial</td>
+</tr>
+<tr class="even">
+<td>RA6 Demostrar transferencia íntegra</td>
+<td>Sección 5, Práctica 5</td>
+<td>Checksum origen/destino</td>
+<td>Ambos coinciden, documentado</td>
+<td>Taller</td>
+<td>Aplicación guiada</td>
+</tr>
+<tr class="odd">
+<td>RA7 Documentar la verificación</td>
+<td>Sección 6 y Tarea 5</td>
+<td>Ficha y protocolo sin pendientes</td>
+<td>Registro honesto, completo y reproducible</td>
+<td>Después</td>
+<td>Aplicación inicial</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="anexo-b.-alineación-transversal" class="level2">
+<h2 class="anchored" data-anchor-id="anexo-b.-alineación-transversal">Anexo B. Alineación transversal</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Actividad</th>
+<th>Reproducibilidad</th>
+<th>Verificación</th>
+<th>Validación</th>
+<th>Robustez</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Inspección</td>
+<td>Registra los comandos exactos usados</td>
+<td>Confirma formato y tamaño esperados</td>
+<td>Contrasta con lo interpretado en S7</td>
+<td>Reconoce cuándo la inspección no basta</td>
+</tr>
+<tr class="even">
+<td>Checksum local</td>
+<td>Documenta algoritmo, valor y fecha</td>
+<td>Compara contra el publicado</td>
+<td>Contrasta con el registro de S8</td>
+<td>Detiene el proceso si no coincide</td>
+</tr>
+<tr class="odd">
+<td>Recuperación con <code>wget</code>/<code>curl</code></td>
+<td>El comando es la documentación</td>
+<td>Compara contra la descarga de S8</td>
+<td>Contrasta dos métodos independientes de recuperación</td>
+<td>Repite si el checksum no coincide</td>
+</tr>
+<tr class="even">
+<td>Transferencia verificable</td>
+<td>Registra origen y destino</td>
+<td>Checksum antes y después</td>
+<td>Contrasta con el patrón ya usado en S4</td>
+<td>Conserva ambas copias como evidencia</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="glosario" class="level2">
+<h2 class="anchored" data-anchor-id="glosario">Glosario</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Español</th>
+<th>Inglés</th>
+<th>Definición breve</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Recuperación reproducible</td>
+<td>Reproducible retrieval</td>
+<td>Obtención de un archivo mediante un comando documentable, en vez de una acción interactiva</td>
+</tr>
+<tr class="even">
+<td>Recuperar</td>
+<td>To retrieve</td>
+<td>Obtener un archivo desde su fuente original, sin alterarlo</td>
+</tr>
+<tr class="odd">
+<td>Transferencia verificable</td>
+<td>Verifiable transfer</td>
+<td>Movimiento de un archivo entre ubicaciones, confirmado mediante checksum en origen y destino</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="referencias" class="level2">
+<h2 class="anchored" data-anchor-id="referencias">Referencias</h2>
+<ul>
+<li>Buffalo, V. (2015). <em>Bioinformatics Data Skills</em>. O’Reilly Media (caps. 6–7: descarga de datos con <code>wget</code> y <code>curl</code>, <code>rsync</code> y <code>scp</code>, integridad de datos).</li>
+<li>Noble, W. S. (2009). A quick guide to organizing computational biology projects. <em>PLoS Computational Biology</em>, 5(7), e1000424. <a href="https://doi.org/10.1371/journal.pcbi.1000424" class="uri">https://doi.org/10.1371/journal.pcbi.1000424</a></li>
+<li>Rivest, R. (1992). <em>The MD5 Message-Digest Algorithm</em>. RFC 1321. Internet Engineering Task Force. <a href="https://www.rfc-editor.org/rfc/rfc1321" class="uri">https://www.rfc-editor.org/rfc/rfc1321</a></li>
+<li>Free Software Foundation. (2024). <em>GNU Wget Manual</em>. <a href="https://www.gnu.org/software/wget/manual/wget.html" class="uri">https://www.gnu.org/software/wget/manual/wget.html</a></li>
+<li>curl. (2024). <em>curl documentation</em>. <a href="https://curl.se/docs/" class="uri">https://curl.se/docs/</a></li>
+<li>National Center for Biotechnology Information (NCBI). (2024). <em>NCBI Datasets documentation</em>. <a href="https://www.ncbi.nlm.nih.gov/datasets/" class="uri">https://www.ncbi.nlm.nih.gov/datasets/</a></li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/helysalgado\.github\.io\/introbioinfo-unix\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./u3-s8-bases-datos-descarga-integridad.html" class="pagination-link" aria-label="S8 — Descargar">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">S8 — Descargar</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./u4-procesamiento-exploracion.html" class="pagination-link" aria-label="Portada">
+        <span class="nav-page-text">Portada</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://hits.sh/helysalgado.github.io/introbioinfo-unix/"><img src="https://hits.sh/helysalgado.github.io/introbioinfo-unix/.svg?style=flat-square&amp;label=Visitas&amp;color=4a7c9e" class="img-fluid figure-img"></a></p>
+<figcaption>Visitas</figcaption>
+</figure>
+</div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Helysalgado/introbioinfo-unix/edit/main/u3-s9-inspeccion-transferencia-verificable.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/Helysalgado/introbioinfo-unix/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

@@ -1,0 +1,2839 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>u4-s10-anatomia-flujos-datos – Introducción a la Bioinformática</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./u4-s11-estructura-tabular-anotacion.html" rel="next">
+<link href="./u4-procesamiento-exploracion.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fe29f166eb879f148ae4045f3c41549b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXNMZZP0K9"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-QXNMZZP0K9', { 'anonymize_ip': true});
+</script>
+<meta name="mermaid-theme" content="default">
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-md-bootstrap.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Introducción a la Bioinformática</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Inicio</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-programa" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Programa</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-programa">    
+        <li>
+    <a class="dropdown-item" href="./programa.html">
+ <span class="dropdown-text">Ruta de sesiones</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./programa-detallado.html">
+ <span class="dropdown-text">Programa detallado</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-unidades" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Unidades</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-unidades">    
+        <li>
+    <a class="dropdown-item" href="./u1-trabajo-reproducible.html">
+ <span class="dropdown-text">U1 — Trabajo reproducible</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u2-entorno-unix.html">
+ <span class="dropdown-text">U2 — Entorno Unix</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u3-datos-bases-datos.html">
+ <span class="dropdown-text">U3 — Datos y bases</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u4-procesamiento-exploracion.html">
+ <span class="dropdown-text">U4 — Procesamiento genómico</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u5-automatizacion-scripting.html">
+ <span class="dropdown-text">U5 — Automatización</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./u6-comparacion-homologia.html">
+ <span class="dropdown-text">U6 — Comparar / hipótesis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./s14-s15-mini-proyecto-investigacion-I.html">
+ <span class="dropdown-text">Transversal S14–S17</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="./recursos.html" aria-current="page"> 
+<span class="menu-text">Recursos</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./acerca.html"> 
+<span class="menu-text">Acerca</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./contribuir.html"> 
+<span class="menu-text">Contribuir</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Alternar modo lector">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./u4-procesamiento-exploracion.html">Unidad 4</a></li><li class="breadcrumb-item"><a href="./u4-s10-anatomia-flujos-datos.html">S10 — Anatomía y flujos</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 1</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-trabajo-reproducible.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-s1-documentar-markdown-fases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S1 — Documentar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u1-s2-organizar-fair-ia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S2 — Organizar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 2</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-entorno-unix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s3-shell-acceso-remoto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S3 — Conectar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s4-sistema-archivos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S4 — Navegar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s5-archivos-permisos-procesos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S5 — Archivos y procesos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u2-s6-consolidacion-entorno-unix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S6 — Consolidar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 3</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-datos-bases-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s7-secuencias-formatos-genbank.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S7 — Formatos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s8-bases-datos-descarga-integridad.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S8 — Descargar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u3-s9-inspeccion-transferencia-verificable.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S9 — Transferir</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Unidad 4</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-procesamiento-exploracion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s10-anatomia-flujos-datos.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">S10 — Anatomía y flujos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s11-estructura-tabular-anotacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S11 — Anotación tabular</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s12-filtrado-conteos-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S12 — Filtrar y contar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s13-inventario-resumen-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S13 — Inventario</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s18-precision-patrones-expresiones-regulares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S18 — Patrones</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s19-extraccion-identificadores-correspondencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S19 — Identificadores</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s20-normalizar-datos-comparables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S20 — Normalizar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s21-confrontar-fuente-independiente.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S21 — Confrontar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s22-condicionar-calcular-columnas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S22 — Condicionar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u4-s23-protocolo-ejecutable-genoma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S23 — Protocolo ejecutable</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Transversal</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s14-s15-mini-proyecto-investigacion-I.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S14–S15 — Mini-proyecto I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s16-mini-proyecto-revision-pares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S16 — Revisión por pares</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s17-evaluacion-individual-demostrativa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S17 — Evaluación demostrativa</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mini-proyecto-dictamen-cientifico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dictamen científico</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 5</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-automatizacion-scripting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s24-del-protocolo-al-script.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S24 — Del protocolo al script</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s25-separar-procedimiento-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S25 — Separar datos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s26-procesamiento-por-lotes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S26 — Por lotes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s27-herramienta-cientifica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S27 — Herramienta científica</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s28-proyecto-integrador.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S28 — Proyecto integrador</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u5-s29-cluster-hpc-sge.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S29 — Cluster SGE</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unidad 6</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-comparacion-homologia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s30-comparar-alinear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S30 — Comparar / alinear</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s31-buscar-blast.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S31 — Buscar (BLAST)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s32-interpretar-inferir.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S32 — Interpretar</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s33-defender-hipotesis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S33 — Inferir</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./u6-s34-integrar-hipotesis-casos-ciegos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">S34 — Integrar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./programa-detallado.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programa detallado</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./recursos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recursos</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#s10-reconocer-anatomía-de-un-archivo-biológico-y-flujos-de-datos" id="toc-s10-reconocer-anatomía-de-un-archivo-biológico-y-flujos-de-datos" class="nav-link active" data-scroll-target="#s10-reconocer-anatomía-de-un-archivo-biológico-y-flujos-de-datos">S10 — Reconocer: anatomía de un archivo biológico y flujos de datos</a>
+  <ul class="collapse">
+  <li><a href="#ficha-del-módulo" id="toc-ficha-del-módulo" class="nav-link" data-scroll-target="#ficha-del-módulo">Ficha del módulo</a></li>
+  <li><a href="#relación-con-lo-que-ya-sabes" id="toc-relación-con-lo-que-ya-sabes" class="nav-link" data-scroll-target="#relación-con-lo-que-ya-sabes">Relación con lo que ya sabes</a></li>
+  <li><a href="#dónde-estás-en-la-investigación" id="toc-dónde-estás-en-la-investigación" class="nav-link" data-scroll-target="#dónde-estás-en-la-investigación">Dónde estás en la investigación</a></li>
+  <li><a href="#resultados-de-aprendizaje" id="toc-resultados-de-aprendizaje" class="nav-link" data-scroll-target="#resultados-de-aprendizaje">Resultados de aprendizaje</a></li>
+  <li><a href="#lista-de-verificación-previa" id="toc-lista-de-verificación-previa" class="nav-link" data-scroll-target="#lista-de-verificación-previa">Lista de verificación previa</a></li>
+  <li><a href="#ruta-de-s10" id="toc-ruta-de-s10" class="nav-link" data-scroll-target="#ruta-de-s10">Ruta de S10</a></li>
+  <li><a href="#de-un-dato-verificado-a-un-dato-interrogado-indispensable" id="toc-de-un-dato-verificado-a-un-dato-interrogado-indispensable" class="nav-link" data-scroll-target="#de-un-dato-verificado-a-un-dato-interrogado-indispensable">1. De un dato verificado a un dato interrogado [Indispensable]</a></li>
+  <li><a href="#anatomía-de-un-archivo-de-texto-biológico-indispensable" id="toc-anatomía-de-un-archivo-de-texto-biológico-indispensable" class="nav-link" data-scroll-target="#anatomía-de-un-archivo-de-texto-biológico-indispensable">2. Anatomía de un archivo de texto biológico [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#anatomía-de-un-fasta" id="toc-anatomía-de-un-fasta" class="nav-link" data-scroll-target="#anatomía-de-un-fasta">2.1 Anatomía de un FASTA</a></li>
+  <li><a href="#anatomía-de-un-gff3" id="toc-anatomía-de-un-gff3" class="nav-link" data-scroll-target="#anatomía-de-un-gff3">2.2 Anatomía de un GFF3</a></li>
+  <li><a href="#sintaxis-mínima-head" id="toc-sintaxis-mínima-head" class="nav-link" data-scroll-target="#sintaxis-mínima-head">Sintaxis mínima — <code>head</code></a></li>
+  <li><a href="#sintaxis-mínima-cat" id="toc-sintaxis-mínima-cat" class="nav-link" data-scroll-target="#sintaxis-mínima-cat">Sintaxis mínima — <code>cat</code></a></li>
+  <li><a href="#sintaxis-mínima-nano" id="toc-sintaxis-mínima-nano" class="nav-link" data-scroll-target="#sintaxis-mínima-nano">Sintaxis mínima — <code>nano</code></a></li>
+  <li><a href="#práctica-1-predecir-y-acotar-antes-de-medir-antes-de-clase-primer-intento" id="toc-práctica-1-predecir-y-acotar-antes-de-medir-antes-de-clase-primer-intento" class="nav-link" data-scroll-target="#práctica-1-predecir-y-acotar-antes-de-medir-antes-de-clase-primer-intento">Práctica 1 — Predecir y acotar antes de medir <em>(antes de clase, primer intento)</em></a></li>
+  <li><a href="#práctica-2-la-anatomía-real-de-tus-archivos-durante-el-taller" id="toc-práctica-2-la-anatomía-real-de-tus-archivos-durante-el-taller" class="nav-link" data-scroll-target="#práctica-2-la-anatomía-real-de-tus-archivos-durante-el-taller">Práctica 2 — La anatomía real de tus archivos <em>(durante el taller)</em></a></li>
+  </ul></li>
+  <li><a href="#medir-contar-líneas-palabras-y-caracteres-indispensable" id="toc-medir-contar-líneas-palabras-y-caracteres-indispensable" class="nav-link" data-scroll-target="#medir-contar-líneas-palabras-y-caracteres-indispensable">3. Medir: contar líneas, palabras y caracteres [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#sintaxis-mínima-wc" id="toc-sintaxis-mínima-wc" class="nav-link" data-scroll-target="#sintaxis-mínima-wc">Sintaxis mínima — <code>wc</code></a></li>
+  <li><a href="#práctica-3-primeras-mediciones-y-su-crítica-durante-el-taller" id="toc-práctica-3-primeras-mediciones-y-su-crítica-durante-el-taller" class="nav-link" data-scroll-target="#práctica-3-primeras-mediciones-y-su-crítica-durante-el-taller">Práctica 3 — Primeras mediciones y su crítica <em>(durante el taller)</em></a></li>
+  </ul></li>
+  <li><a href="#los-tres-flujos-entrada-salida-y-error-indispensable" id="toc-los-tres-flujos-entrada-salida-y-error-indispensable" class="nav-link" data-scroll-target="#los-tres-flujos-entrada-salida-y-error-indispensable">4. Los tres flujos: entrada, salida y error [Indispensable]</a></li>
+  <li><a href="#capturar-el-resultado-redirecciones-indispensable" id="toc-capturar-el-resultado-redirecciones-indispensable" class="nav-link" data-scroll-target="#capturar-el-resultado-redirecciones-indispensable">5. Capturar el resultado: redirecciones [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#sintaxis-mínima-redirigir-la-salida" id="toc-sintaxis-mínima-redirigir-la-salida" class="nav-link" data-scroll-target="#sintaxis-mínima-redirigir-la-salida">Sintaxis mínima — <code>&gt;</code> (redirigir la salida)</a></li>
+  <li><a href="#sintaxis-mínima-añadir-al-final" id="toc-sintaxis-mínima-añadir-al-final" class="nav-link" data-scroll-target="#sintaxis-mínima-añadir-al-final">Sintaxis mínima — <code>&gt;&gt;</code> (añadir al final)</a></li>
+  <li><a href="#sintaxis-mínima-2-redirigir-los-errores" id="toc-sintaxis-mínima-2-redirigir-los-errores" class="nav-link" data-scroll-target="#sintaxis-mínima-2-redirigir-los-errores">Sintaxis mínima — <code>2&gt;</code> (redirigir los errores)</a></li>
+  <li><a href="#práctica-4-capturar-resultados-de-forma-reproducible-durante-el-taller" id="toc-práctica-4-capturar-resultados-de-forma-reproducible-durante-el-taller" class="nav-link" data-scroll-target="#práctica-4-capturar-resultados-de-forma-reproducible-durante-el-taller">Práctica 4 — Capturar resultados de forma reproducible <em>(durante el taller)</em></a></li>
+  </ul></li>
+  <li><a href="#encadenar-operaciones-tuberías-indispensable" id="toc-encadenar-operaciones-tuberías-indispensable" class="nav-link" data-scroll-target="#encadenar-operaciones-tuberías-indispensable">6. Encadenar operaciones: tuberías [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#sintaxis-mínima-tubería" id="toc-sintaxis-mínima-tubería" class="nav-link" data-scroll-target="#sintaxis-mínima-tubería">Sintaxis mínima — <code>|</code> (tubería)</a></li>
+  <li><a href="#lo-que-fluye-no-es-el-archivo-indispensable" id="toc-lo-que-fluye-no-es-el-archivo-indispensable" class="nav-link" data-scroll-target="#lo-que-fluye-no-es-el-archivo-indispensable">6.1 Lo que fluye no es el archivo [Indispensable]</a></li>
+  <li><a href="#práctica-5-tu-primer-flujo-de-datos-durante-el-taller" id="toc-práctica-5-tu-primer-flujo-de-datos-durante-el-taller" class="nav-link" data-scroll-target="#práctica-5-tu-primer-flujo-de-datos-durante-el-taller">Práctica 5 — Tu primer flujo de datos <em>(durante el taller)</em></a></li>
+  </ul></li>
+  <li><a href="#interpretar-y-documentar-el-protocolo-como-cuaderno-indispensable" id="toc-interpretar-y-documentar-el-protocolo-como-cuaderno-indispensable" class="nav-link" data-scroll-target="#interpretar-y-documentar-el-protocolo-como-cuaderno-indispensable">7. Interpretar y documentar: el protocolo como cuaderno [Indispensable]</a>
+  <ul class="collapse">
+  <li><a href="#un-bloque-completo-a-modo-de-ejemplo" id="toc-un-bloque-completo-a-modo-de-ejemplo" class="nav-link" data-scroll-target="#un-bloque-completo-a-modo-de-ejemplo">7.1 Un bloque completo, a modo de ejemplo</a></li>
+  </ul></li>
+  <li><a href="#tarea-6-reporte-de-lectura-y-primer-avance-del-proyecto" id="toc-tarea-6-reporte-de-lectura-y-primer-avance-del-proyecto" class="nav-link" data-scroll-target="#tarea-6-reporte-de-lectura-y-primer-avance-del-proyecto">Tarea 6 — Reporte de lectura y primer avance del proyecto</a>
+  <ul class="collapse">
+  <li><a href="#el-reporte-de-lectura" id="toc-el-reporte-de-lectura" class="nav-link" data-scroll-target="#el-reporte-de-lectura">El reporte de lectura</a></li>
+  <li><a href="#el-primer-avance-del-proyecto" id="toc-el-primer-avance-del-proyecto" class="nav-link" data-scroll-target="#el-primer-avance-del-proyecto">El primer avance del proyecto</a></li>
+  <li><a href="#lista-de-control-antes-de-entregar" id="toc-lista-de-control-antes-de-entregar" class="nav-link" data-scroll-target="#lista-de-control-antes-de-entregar">Lista de control antes de entregar</a></li>
+  </ul></li>
+  <li><a href="#evidencia-de-la-sesión" id="toc-evidencia-de-la-sesión" class="nav-link" data-scroll-target="#evidencia-de-la-sesión">Evidencia de la sesión</a></li>
+  <li><a href="#errores-frecuentes-y-estrategias-de-diagnóstico" id="toc-errores-frecuentes-y-estrategias-de-diagnóstico" class="nav-link" data-scroll-target="#errores-frecuentes-y-estrategias-de-diagnóstico">Errores frecuentes y estrategias de diagnóstico</a></li>
+  <li><a href="#rúbricas" id="toc-rúbricas" class="nav-link" data-scroll-target="#rúbricas">Rúbricas</a></li>
+  <li><a href="#autoevaluación" id="toc-autoevaluación" class="nav-link" data-scroll-target="#autoevaluación">Autoevaluación</a>
+  <ul class="collapse">
+  <li><a href="#comprobación-rápida-formativa-al-final-del-taller" id="toc-comprobación-rápida-formativa-al-final-del-taller" class="nav-link" data-scroll-target="#comprobación-rápida-formativa-al-final-del-taller">Comprobación rápida — formativa, al final del taller</a></li>
+  <li><a href="#semáforo" id="toc-semáforo" class="nav-link" data-scroll-target="#semáforo">Semáforo</a></li>
+  </ul></li>
+  <li><a href="#cierre-de-s10-y-puente-hacia-s11" id="toc-cierre-de-s10-y-puente-hacia-s11" class="nav-link" data-scroll-target="#cierre-de-s10-y-puente-hacia-s11">Cierre de S10 y puente hacia S11</a></li>
+  <li><a href="#anexo-a.-correspondencia-resultadoactividadevidenciacriterio" id="toc-anexo-a.-correspondencia-resultadoactividadevidenciacriterio" class="nav-link" data-scroll-target="#anexo-a.-correspondencia-resultadoactividadevidenciacriterio">Anexo A. Correspondencia resultado–actividad–evidencia–criterio</a></li>
+  <li><a href="#anexo-b.-alineación-transversal" id="toc-anexo-b.-alineación-transversal" class="nav-link" data-scroll-target="#anexo-b.-alineación-transversal">Anexo B. Alineación transversal</a></li>
+  <li><a href="#glosario" id="toc-glosario" class="nav-link" data-scroll-target="#glosario">Glosario</a></li>
+  <li><a href="#referencias" id="toc-referencias" class="nav-link" data-scroll-target="#referencias">Referencias</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/Helysalgado/introbioinfo-unix/edit/main/u4-s10-anatomia-flujos-datos.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/Helysalgado/introbioinfo-unix/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./u4-procesamiento-exploracion.html">Unidad 4</a></li><li class="breadcrumb-item"><a href="./u4-s10-anatomia-flujos-datos.html">S10 — Anatomía y flujos</a></li></ol></nav></header>
+
+
+
+
+<section id="s10-reconocer-anatomía-de-un-archivo-biológico-y-flujos-de-datos" class="level1">
+<h1>S10 — Reconocer: anatomía de un archivo biológico y flujos de datos</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="Aula invertida">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Aula invertida
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Antes de clase leerás las secciones marcadas como <strong>indispensables</strong> y harás un primer intento: <strong>sin ejecutar nada todavía</strong>, predecir con cifras cómo está organizado por dentro cada archivo, cómo medirías el tamaño del genoma y —esto es lo importante— en qué dirección y magnitud se equivocará tu medición. Durante el taller contrastarás cada predicción con la evidencia, aprenderás a encadenar operaciones y a guardar resultados, y comprobarás por qué tus primeras mediciones son incorrectas. Después redactarás la <strong>Tarea 6</strong>. El primer intento es formativo: importa que muestre tu razonamiento, aunque contenga errores corregibles — de hecho, esta sesión está diseñada para que los contenga.</p>
+</div>
+</div>
+<section id="ficha-del-módulo" class="level2">
+<h2 class="anchored" data-anchor-id="ficha-del-módulo">Ficha del módulo</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Elemento</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Sesión</strong></td>
+<td>S10, 2 horas</td>
+</tr>
+<tr class="even">
+<td><strong>Unidad</strong></td>
+<td>U4. Procesamiento y exploración de datos genómicos</td>
+</tr>
+<tr class="odd">
+<td><strong>Competencia principal</strong></td>
+<td>D. Análisis y exploración de datos genómicos</td>
+</tr>
+<tr class="even">
+<td><strong>Competencias integradas</strong></td>
+<td>A. Documentación reproducible; B. Entorno Unix</td>
+</tr>
+<tr class="odd">
+<td><strong>Propósito</strong></td>
+<td>Pasar de <em>describir</em> archivos biológicos a <em>interrogarlos</em>: reconocer su estructura interna y construir flujos de trabajo que encadenen operaciones y capturen resultados de forma reproducible</td>
+</tr>
+<tr class="even">
+<td><strong>Consulta previa del Plan</strong></td>
+<td>Material clásico L5-tuberías; este módulo lo sustituye como lectura autocontenida</td>
+</tr>
+<tr class="odd">
+<td><strong>Lectura indispensable</strong></td>
+<td>Secciones 1–7 de este módulo (~40 min) + Buffalo (2015), Cap. 7, apartados iniciales sobre flujos y redirecciones (~30 min)</td>
+</tr>
+<tr class="even">
+<td><strong>Lectura de consulta</strong></td>
+<td>Cajas de <em>Sintaxis mínima</em> con opciones adicionales; ProfeUnix Bioinfo; manuales oficiales en Referencias</td>
+</tr>
+<tr class="odd">
+<td><strong>Primer intento</strong></td>
+<td>Práctica 1: predicción cuantitativa y anticipación del sesgo, 25–30 min, sin ejecutar comandos</td>
+</tr>
+<tr class="even">
+<td><strong>Evidencia</strong></td>
+<td>Primeras mediciones documentadas <strong>con su advertencia de imprecisión</strong> + inicio de la sección de U4 en <code>doc/protocolo.md</code></td>
+</tr>
+<tr class="odd">
+<td><strong>Tarea numerada</strong></td>
+<td>Tarea 6 — Reporte de lectura (Buffalo, Cap. 7) + 1.er avance del proyecto</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="relación-con-lo-que-ya-sabes" class="level2">
+<h2 class="anchored" data-anchor-id="relación-con-lo-que-ya-sabes">Relación con lo que ya sabes</h2>
+<pre class="text"><code>U3 (S7–S9)                              U4 (S10 →)
+Obtener, documentar y verificar   →     Interrogar
+"este archivo es el que digo"           "¿qué me dice este archivo sobre el genoma?"</code></pre>
+<p>En S9 cerraste la Unidad 3 con una frase que vale la pena recordar: <em>ahora sé demostrar que otra persona puede obtener exactamente el mismo archivo y verificar que es idéntico</em>. Tus archivos están en <code>data/source/</code>, con su procedencia, su versión y su checksum documentados.</p>
+<p>Esta sesión hace la pregunta siguiente: <strong>¿y qué dicen esos archivos?</strong></p>
+<p>Buena parte de las herramientas que usarás hoy ya las conoces. Lo que cambia es la intención:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Habilidad que ya tienes</th>
+<th>Dónde la aprendiste</th>
+<th>Qué cambia en S10</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Ver el contenido de un archivo (<code>head</code>, <code>tail</code>, <code>less</code>, <code>cat</code>)</td>
+<td>S5, S9</td>
+<td>Ya no miras para confirmar que el archivo llegó bien, sino para <strong>reconocer su estructura interna</strong></td>
+</tr>
+<tr class="even">
+<td>Identificar el tipo de archivo (<code>file</code>)</td>
+<td>S5, S9</td>
+<td>Lo aplicas a decidir si puedes procesarlo directamente o hay que descomprimirlo</td>
+</tr>
+<tr class="odd">
+<td>Editar archivos (<code>nano</code>, <code>vi</code>)</td>
+<td>S4</td>
+<td>Aprendes <strong>cuándo NO editar</strong>: los originales no se tocan</td>
+</tr>
+<tr class="even">
+<td>Interpretar FASTA y GFF3</td>
+<td>S7</td>
+<td>Pasas de “sé qué representa” a “sé cómo está escrito, línea por línea”</td>
+</tr>
+<tr class="odd">
+<td>Navegar y usar rutas</td>
+<td>S4</td>
+<td>Diriges salidas a <code>results/</code> con rutas relativas</td>
+</tr>
+</tbody>
+</table>
+<p>Lo genuinamente nuevo de hoy son <strong>tres ideas</strong>, no tres comandos:</p>
+<ol type="1">
+<li>Un archivo de texto tiene una <strong>anatomía</strong>: unidades, separadores, marcas y ausencias.</li>
+<li>Los programas se comunican mediante <strong>flujos</strong>: lo que sale de uno puede entrar en otro.</li>
+<li>Un resultado que no se <strong>captura</strong> no existe: se pierde en cuanto cierras la terminal.</li>
+</ol>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Advertencia
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>En esta sesión no descargas datos nuevos ni vuelves a verificar nada. Trabajas con los archivos que ya tienes en <code>data/source/</code> y <strong>no los modificas</strong>. Todo lo que produzcas hoy se escribe en <code>results/</code>.</p>
+</div>
+</div>
+</section>
+<section id="dónde-estás-en-la-investigación" class="level2">
+<h2 class="anchored" data-anchor-id="dónde-estás-en-la-investigación">Dónde estás en la investigación</h2>
+<p>La Unidad 4 es una sola investigación sobre tu genoma. Estas son sus preguntas y el punto en el que las tomas hoy:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Pregunta de la investigación</th>
+<th>En S10</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>¿Cómo está organizado por dentro un archivo biológico?</td>
+<td>✔ <strong>Se resuelve aquí</strong></td>
+</tr>
+<tr class="even">
+<td>¿De qué tamaño es el genoma?</td>
+<td>✔ <strong>Se abre aquí</strong> (respuesta preliminar)</td>
+</tr>
+<tr class="odd">
+<td>¿Cuántos cromosomas o replicones tiene?</td>
+<td>✔ <strong>Se abre aquí</strong> (indicio, sin confirmar)</td>
+</tr>
+<tr class="even">
+<td>¿Qué tipos de <em>features</em> contiene la anotación?</td>
+<td>☐ S11–S13</td>
+</tr>
+<tr class="odd">
+<td>¿Cuántos genes existen?</td>
+<td>☐ S12, refinada en S18 y S22</td>
+</tr>
+<tr class="even">
+<td>¿Cuántas CDS existen?</td>
+<td>☐ S12, refinada en S18 y S22</td>
+</tr>
+<tr class="odd">
+<td>¿Cuántos genes existen por cadena?</td>
+<td>☐ S18 y S22</td>
+</tr>
+<tr class="even">
+<td>¿Cómo organizar la información para responder nuevas preguntas?</td>
+<td>☐ S20–S23</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Las preguntas marcadas con ✔ son las únicas que te ocupan hoy, y dos de las tres quedarán con una respuesta <strong>provisional</strong>: eso es lo esperado. Las marcadas con ☐ requieren herramientas que todavía no tienes. Cuando termines la sesión, vuelve a esta tabla: sabrás exactamente qué casilla avanzaste y cuál sigue.</p>
+</div>
+</div>
+</section>
+<section id="resultados-de-aprendizaje" class="level2">
+<h2 class="anchored" data-anchor-id="resultados-de-aprendizaje">Resultados de aprendizaje</h2>
+<p>Al finalizar la sesión podrás:</p>
+<ol type="1">
+<li><strong>Describir</strong> la anatomía de un archivo FASTA y de un archivo GFF3: línea, registro, delimitador, encabezado, comentario y valor faltante.</li>
+<li><strong>Distinguir</strong> las líneas que contienen datos de las que contienen metadatos o comentarios.</li>
+<li><strong>Explicar</strong> qué son la entrada estándar, la salida estándar y la salida de error, e <strong>identificar</strong> el número que corresponde a cada una.</li>
+<li><strong>Redirigir</strong> la salida de un comando a un archivo y <strong>encadenar</strong> comandos mediante <em>pipes</em>, distinguiendo el <strong>flujo en tránsito</strong> del archivo en disco.</li>
+<li><strong>Medir</strong> un archivo con <code>wc</code> y <strong>justificar por qué</strong> el número obtenido no responde todavía la pregunta biológica.</li>
+<li><strong>Interpretar</strong> biológicamente una medición preliminar y <strong>documentar</strong> su limitación.</li>
+<li><strong>Iniciar</strong> la sección de la Unidad 4 en <code>doc/protocolo.md</code> con el formato de cuaderno de laboratorio.</li>
+</ol>
+</section>
+<section id="lista-de-verificación-previa" class="level2">
+<h2 class="anchored" data-anchor-id="lista-de-verificación-previa">Lista de verificación previa</h2>
+<p>Antes de comenzar confirma:</p>
+<ul class="task-list">
+<li><label><input type="checkbox">Conservas en <code>data/source/</code> los archivos FASTA y GFF3 que verificaste en S9.</label></li>
+<li><label><input type="checkbox">Si están comprimidos (<code>.gz</code>), sabes que puedes descomprimir una <strong>copia</strong> en <code>data/processed/</code> sin tocar el original (S5).</label></li>
+<li><label><input type="checkbox">Puedes conectarte al servidor y llegar a tu proyecto con rutas relativas (S3–S4).</label></li>
+<li><label><input type="checkbox">Tienes abierto <code>doc/protocolo.md</code> y sabes dónde termina la sección de la Unidad 3.</label></li>
+<li><label><input type="checkbox">Existe el directorio <code>results/</code>; si no, créalo.</label></li>
+</ul>
+</section>
+<section id="ruta-de-s10" class="level2">
+<h2 class="anchored" data-anchor-id="ruta-de-s10">Ruta de S10</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 23%">
+<col style="width: 23%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Momento</th>
+<th>Actividad</th>
+<th>Producto</th>
+<th style="text-align: right;">Tiempo estimado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Antes de clase</td>
+<td>Leer secciones 1–7 y el Cap. 7 de Buffalo (apartados iniciales)</td>
+<td>Notas y dudas</td>
+<td style="text-align: right;">60–70 min</td>
+</tr>
+<tr class="even">
+<td>Antes de clase</td>
+<td>Práctica 1: predicciones cuantificadas, sin ejecutar</td>
+<td>Predicciones y sesgo anticipado</td>
+<td style="text-align: right;">25–30 min</td>
+</tr>
+<tr class="odd">
+<td>Taller</td>
+<td>Retomar U3 y comparar los primeros intentos</td>
+<td>Punto de partida compartido</td>
+<td style="text-align: right;">10 min</td>
+</tr>
+<tr class="even">
+<td>Taller</td>
+<td>Práctica 2: reconocer la anatomía real de tus archivos</td>
+<td>Anatomía corregida</td>
+<td style="text-align: right;">25 min</td>
+</tr>
+<tr class="odd">
+<td>Taller</td>
+<td>Práctica 3: primeras mediciones y su crítica</td>
+<td>Tres números y tres advertencias</td>
+<td style="text-align: right;">25 min</td>
+</tr>
+<tr class="even">
+<td>Taller</td>
+<td>Práctica 4: capturar resultados con redirecciones</td>
+<td>Archivos en <code>results/</code></td>
+<td style="text-align: right;">25 min</td>
+</tr>
+<tr class="odd">
+<td>Taller</td>
+<td>Práctica 5: encadenar operaciones con <em>pipes</em></td>
+<td>Primer flujo documentado</td>
+<td style="text-align: right;">25 min</td>
+</tr>
+<tr class="even">
+<td>Taller</td>
+<td>Cierre e interpretación</td>
+<td>Bloque inicial del protocolo</td>
+<td style="text-align: right;">10 min</td>
+</tr>
+<tr class="odd">
+<td>Después</td>
+<td>Tarea 6: reporte de lectura + 1.er avance del proyecto</td>
+<td>Entrega calificada</td>
+<td style="text-align: right;">60–90 min</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="de-un-dato-verificado-a-un-dato-interrogado-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="de-un-dato-verificado-a-un-dato-interrogado-indispensable">1. De un dato verificado a un dato interrogado [Indispensable]</h2>
+<p>Durante tres unidades has tratado tus archivos con cuidado casi ceremonial: no los edites, no los muevas sin verificar, conserva su nombre original. Ese cuidado sigue vigente. Pero un dato que solo se conserva no sirve de nada: hay que <strong>preguntarle cosas</strong>.</p>
+<p>El curso mantiene siempre el mismo orden de razonamiento (U1):</p>
+<pre class="text"><code>pregunta → evidencia → datos → operación → herramienta</code></pre>
+<p>Nunca al revés. Es tentador empezar por “quiero aprender <code>grep</code>”, pero eso lleva a buscar problemas para las soluciones que uno conoce. Aquí la secuencia es: <em>quiero saber de qué tamaño es este genoma</em> → <em>la evidencia está en la secuencia del FASTA</em> → <em>necesito contar sus bases</em> → <em>contar es una operación de medición</em> → <em><code>wc</code> mide</em>.</p>
+<p>En esta sesión recorrerás ese camino por primera vez con datos propios. Y descubrirás algo que será la lección más importante de toda la unidad:</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Un comando puede ejecutarse sin error, devolver un número perfectamente válido y <strong>no responder tu pregunta</strong>. En la Unidad 3 un resultado era correcto o incorrecto: el checksum coincidía o no. Aquí un resultado puede ser correcto <em>y aun así ser mala evidencia</em>. Detectarlo, explicarlo y corregirlo es lo que aprenderás durante las diez sesiones de esta unidad.</p>
+</div>
+</div>
+</section>
+<section id="anatomía-de-un-archivo-de-texto-biológico-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="anatomía-de-un-archivo-de-texto-biológico-indispensable">2. Anatomía de un archivo de texto biológico [Indispensable]</h2>
+<p>Tus archivos son <strong>texto plano</strong>: una secuencia de caracteres organizada en líneas. Nada más. No hay formato oculto, ni tipografías, ni celdas. Esa simplicidad es lo que permite que decenas de programas distintos —escritos en épocas y lenguajes distintos— puedan leerlos (Buffalo, 2015, cap. 7).</p>
+<div class="callout callout-style-default callout-note callout-titled" title="esto ya lo viste, pero con otra intención">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>esto ya lo viste, pero con otra intención
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>En <strong>S7</strong> interpretaste FASTA, GFF3 y GenBank desde la pregunta <em>¿qué objeto biológico representa cada formato?</em>. Aquí los revisas desde una pregunta distinta: <em>¿cómo está escrito este archivo, carácter por carácter, y qué consecuencias tiene eso para procesarlo?</em> Un mismo formato admite las dos lecturas: la del biólogo que sabe qué significa una anotación y la de quien tiene que contarlas sin equivocarse. Esta sección es un repaso deliberadamente <strong>operativo</strong>; si S7 te quedó claro, te llevará pocos minutos, pero no la saltes: los detalles que aquí parecen triviales —dónde termina un comentario, dónde se corta una línea— son exactamente los que producen conteos equivocados.</p>
+</div>
+</div>
+<p>Todo archivo de texto biológico se entiende con cinco preguntas:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Pregunta</th>
+<th>Qué busca</th>
+<th>En FASTA</th>
+<th>En GFF3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>¿Cuál es la <strong>unidad</strong>?</td>
+<td>Qué representa una línea</td>
+<td>Un encabezado o un fragmento de secuencia</td>
+<td>Un registro de anotación (un <em>feature</em>)</td>
+</tr>
+<tr class="even">
+<td>¿Cuál es el <strong>delimitador</strong>?</td>
+<td>Qué separa los campos dentro de una línea</td>
+<td>No aplica en la secuencia; el encabezado usa espacios</td>
+<td><strong>Tabulador</strong> entre las 9 columnas</td>
+</tr>
+<tr class="odd">
+<td>¿Hay <strong>encabezado</strong>?</td>
+<td>Una línea inicial que nombre las columnas</td>
+<td>No</td>
+<td><strong>No</strong>: las columnas no están nombradas en el archivo</td>
+</tr>
+<tr class="even">
+<td>¿Hay <strong>comentarios o metadatos</strong>?</td>
+<td>Líneas que no son datos</td>
+<td>Las líneas que empiezan con <code>&gt;</code> describen la secuencia siguiente</td>
+<td>Las líneas que empiezan con <code>#</code> (y <code>##</code> para directivas)</td>
+</tr>
+<tr class="odd">
+<td>¿Cómo se marca lo <strong>faltante</strong>?</td>
+<td>Qué se escribe cuando no hay valor</td>
+<td>—</td>
+<td>Un <strong>punto</strong> (<code>.</code>)</td>
+</tr>
+</tbody>
+</table>
+<section id="anatomía-de-un-fasta" class="level3">
+<h3 class="anchored" data-anchor-id="anatomía-de-un-fasta">2.1 Anatomía de un FASTA</h3>
+<pre class="text"><code>&gt;NC_000913.3 Escherichia coli str. K-12 substr. MG1655, complete genome
+AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC
+TTCTGAACTGGTTACCTGCCGTGAGTAAATTAAAATTTTATTGACTTAGGTCACTAAATACTTTAACCAA
+...</code></pre>
+<ul>
+<li>Una línea que empieza con <code>&gt;</code> es un <strong>encabezado</strong>: nombra e identifica la secuencia que viene después. Todo lo que sigue hasta el próximo <code>&gt;</code> es esa secuencia.</li>
+<li>Las líneas de secuencia están <strong>cortadas artificialmente</strong>, casi siempre cada 60, 70 u 80 caracteres. Ese corte es una convención de presentación: <strong>no significa nada biológico</strong>. La secuencia real es continua.</li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Ese detalle —que los saltos de línea son artificiales— es la causa de un error de conteo muy frecuente, y lo cometerás hoy a propósito en la Práctica 3.</p>
+</div>
+</div>
+</section>
+<section id="anatomía-de-un-gff3" class="level3">
+<h3 class="anchored" data-anchor-id="anatomía-de-un-gff3">2.2 Anatomía de un GFF3</h3>
+<pre class="text"><code>##gff-version 3
+##sequence-region NC_000913.3 1 4641652
+#!genome-build-accession NCBI_Assembly:GCF_000005845.2
+NC_000913.3 RefSeq  region  1   4641652 .   +   .   ID=NC_000913.3:1..4641652;Dbxref=taxon:511145
+NC_000913.3 RefSeq  gene    190 255 .   +   .   ID=gene-b0001;Name=thrL;locus_tag=b0001
+NC_000913.3 RefSeq  CDS 190 255 .   +   0   ID=cds-YP_025292.1;Parent=gene-b0001;product=thr operon leader peptide</code></pre>
+<p>Cada línea de datos es un <strong>registro</strong> con nueve columnas separadas por tabulador (Sequence Ontology, 2020):</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 23%">
+<col style="width: 23%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">#</th>
+<th>Columna</th>
+<th>Qué contiene</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td><code>seqid</code></td>
+<td>Identificador de la secuencia (replicón)</td>
+<td><code>NC_000913.3</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td><code>source</code></td>
+<td>Quién o qué generó la anotación</td>
+<td><code>RefSeq</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td><code>type</code></td>
+<td>Tipo de <em>feature</em></td>
+<td><code>gene</code>, <code>CDS</code>, <code>tRNA</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td><code>start</code></td>
+<td>Coordenada de inicio</td>
+<td><code>190</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td><code>end</code></td>
+<td>Coordenada final</td>
+<td><code>255</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td><code>score</code></td>
+<td>Puntaje del método, si existe</td>
+<td><code>.</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td><code>strand</code></td>
+<td>Cadena</td>
+<td><code>+</code>, <code>-</code> o <code>.</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td><code>phase</code></td>
+<td>Marco de lectura (solo CDS)</td>
+<td><code>0</code>, <code>1</code>, <code>2</code> o <code>.</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td><code>attributes</code></td>
+<td>Pares <code>clave=valor</code> separados por <code>;</code></td>
+<td><code>ID=gene-b0001;Name=thrL</code></td>
+</tr>
+</tbody>
+</table>
+<p>Tres cosas que conviene fijar desde ahora:</p>
+<ol type="1">
+<li><strong>Las columnas no están nombradas en el archivo.</strong> No hay línea de encabezado: el orden de las columnas <em>es</em> su significado. Si te equivocas de número de columna, obtendrás datos válidos que responden otra pregunta.</li>
+<li><strong>El punto significa “no aplica” o “no disponible”</strong>, no cero. Un <code>.</code> en <code>score</code> no es un puntaje de 0.</li>
+<li><strong>Las líneas que empiezan con <code>#</code> no son datos.</strong> Son directivas y comentarios. <code>##sequence-region</code> es especialmente útil: declara el nombre y la <strong>longitud</strong> de cada replicón. La usarás en S13 para validar tus propios conteos.</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled" title="¿Sabías que?">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>¿Sabías que?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El punto como marca de valor faltante no es universal. Otras tablas biológicas usan <code>NA</code>, <code>NULL</code>, <code>-</code>, <code>?</code> o simplemente dejan la celda vacía. Por eso, cuando en S20 generes tus propias tablas, tendrás que <strong>decidir y documentar</strong> cómo representas lo que falta. Un archivo cuyo criterio de faltantes no está documentado es un archivo que alguien va a malinterpretar.</p>
+</div>
+</div>
+</section>
+<section id="sintaxis-mínima-head" class="level3">
+<h3 class="anchored" data-anchor-id="sintaxis-mínima-head">Sintaxis mínima — <code>head</code></h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 20 data/source/genomic.gff</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>¿Qué hace?</strong> Muestra las primeras líneas de un archivo sin modificarlo.</p>
+<p><strong>¿Por qué aparece aquí?</strong> Es la forma más rápida de ver la zona de comentarios y directivas, que en un GFF3 siempre está al inicio.</p>
+<p>🤖 <strong>Prompt para <a href="https://chatgpt.com/g/g-6893cf2451d88191b11cd0c87de045ab-profeunix-bioinfo">ProfeUnix Bioinfo</a>:</strong> &gt; Muéstrame ejemplos de <code>head</code> aplicados a archivos FASTA y GFF3. &gt; ¿Cómo veo un fragmento del medio de un archivo, no del principio?</p>
+</section>
+<section id="sintaxis-mínima-cat" class="level3">
+<h3 class="anchored" data-anchor-id="sintaxis-mínima-cat">Sintaxis mínima — <code>cat</code></h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> data/source/md5checksums.txt</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>¿Qué hace?</strong> Envía el contenido completo del archivo a la salida estándar.</p>
+<p><strong>¿Por qué aparece aquí?</strong> Porque muestra la idea central de la sesión: un comando <strong>produce un flujo</strong> que puede ir a la pantalla, a un archivo o a otro comando.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Advertencia
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No uses <code>cat</code> sobre un genoma completo: son millones de caracteres que inundarán la terminal. Para archivos grandes, <code>head</code>, <code>tail</code> o <code>less</code> (S5).</p>
+</div>
+</div>
+</section>
+<section id="sintaxis-mínima-nano" class="level3">
+<h3 class="anchored" data-anchor-id="sintaxis-mínima-nano">Sintaxis mínima — <code>nano</code></h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> doc/protocolo.md</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>¿Qué hace?</strong> Abre un editor de texto dentro de la terminal.</p>
+<p><strong>¿Por qué aparece aquí?</strong> Porque hoy <strong>sí</strong> editarás un archivo de texto —tu protocolo— y <strong>no</strong> editarás otros: los de <code>data/source/</code>. Saber cuál es cuál es parte de la competencia.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Nunca abras un archivo de <code>data/source/</code> en un editor “solo para ver”. Un guardado accidental cambia el archivo y rompe el checksum que tanto trabajo costó verificar en S9. Para ver, usa <code>less</code>; sal con <code>q</code>.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="práctica-1-predecir-y-acotar-antes-de-medir-antes-de-clase-primer-intento" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-1-predecir-y-acotar-antes-de-medir-antes-de-clase-primer-intento">Práctica 1 — Predecir y acotar antes de medir <em>(antes de clase, primer intento)</em></h3>
+<p><strong>Objetivo.</strong> Formular una <strong>predicción cuantitativa razonada</strong> sobre tus archivos y anticipar el error de tu propia estrategia, antes de tener evidencia. Es exactamente lo que hace quien diseña un experimento: no se mide para descubrir qué sale, se mide para contrastar lo que se esperaba.</p>
+<p><strong>Antes de clase (primer intento).</strong> Sin ejecutar ningún comando, en <code>doc/s10-primer-intento.md</code>:</p>
+<ol type="1">
+<li><p><strong>Predicción con orden de magnitud.</strong> A partir de lo que sabes del organismo con el que trabajas (U3), estima el tamaño de su genoma en pares de bases y el número de genes que esperarías. Anota la fuente de esa expectativa —una lectura, la página del ensamblado, conocimiento previo— y un intervalo, no un número exacto: <em>“entre X y Y”</em>.</p></li>
+<li><p><strong>Derivación del tamaño del archivo.</strong> Si el genoma tiene aproximadamente ese tamaño y el archivo FASTA es texto plano donde cada base ocupa un carácter:</p>
+<ul>
+<li>¿cuántos bytes esperarías que ocupe el archivo?</li>
+<li>si las líneas de secuencia se cortan cada 60–80 caracteres, ¿cuántos saltos de línea habría, y qué <strong>porcentaje</strong> del archivo representarían?</li>
+<li>¿ese porcentaje es despreciable o no? Justifica el criterio con el que decides.</li>
+</ul></li>
+<li><p><strong>Estrategia y su sesgo.</strong> Con las herramientas que ya dominas (S5, S9), propón cómo medirías el tamaño del genoma. Después responde: tu medición, ¿sobreestimará o subestimará el valor real? ¿En qué proporción, según tu cálculo del punto 2? <strong>Predecir la dirección y la magnitud del error es más valioso que acertar el número.</strong></p></li>
+<li><p><strong>Falsabilidad.</strong> Escribe una condición concreta que, si se cumple al abrir el archivo, demuestre que tu razonamiento del punto 2 era incorrecto. Por ejemplo: <em>“si las líneas no están cortadas y cada secuencia ocupa una sola línea, mi estimación de saltos de línea no aplica”</em>.</p></li>
+<li><p><strong>Estructura esperada del GFF3.</strong> Sin abrirlo, predice: ¿cuántas columnas tiene un registro?, ¿qué proporción de las líneas del archivo crees que serán comentarios frente a datos?, ¿y qué relación numérica esperas entre registros de tipo <code>gene</code> y de tipo <code>CDS</code> en un procariota? Justifica esta última con biología, no con informática.</p></li>
+</ol>
+<p><strong>Durante el taller.</strong> Contrastarás cada predicción con la evidencia y anotarás, para cada una: <em>confirmada</em>, <em>refutada</em> o <em>indeterminada con esta evidencia</em>. Las refutadas son las interesantes: para cada una, explica si falló el supuesto biológico o el informático.</p>
+<p><strong>Después del taller.</strong> Las conclusiones se integran al protocolo (Sección 7); este documento no se entrega por separado.</p>
+<p><strong>Criterio de logro:</strong> presentas predicciones cuantificadas con su justificación y anticipas el sesgo de tu propia estrategia. <strong>No se evalúa el acierto</strong>: se evalúa que el razonamiento sea explícito y contrastable. Una predicción refutada y bien argumentada vale más que un número correcto sin fundamento.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El punto 3 es el que hace distinta a esta unidad. En bioinformática, saber que un método sesga sistemáticamente hacia arriba —y cuánto— suele ser más útil que un único número presentado sin intervalo ni supuestos.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="práctica-2-la-anatomía-real-de-tus-archivos-durante-el-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-2-la-anatomía-real-de-tus-archivos-durante-el-taller">Práctica 2 — La anatomía real de tus archivos <em>(durante el taller)</em></h3>
+<p><strong>Objetivo.</strong> Reconocer, sobre tus propios archivos, cada elemento de la Sección 2.</p>
+<p><strong>Pasos.</strong></p>
+<ol type="1">
+<li><p>Confirma dónde estás y qué tienes:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> data/source/</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Identifica el tipo de cada archivo, por si alguno sigue comprimido:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file</span> data/source/<span class="pp">*</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Si alguno es <code>gzip compressed data</code>, descomprime una <strong>copia</strong> en <code>data/processed/</code> (S5). El original de <code>data/source/</code> no se toca.</p></li>
+<li><p>Mira el inicio y el final de tu FASTA:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 3 data/source/<span class="op">&lt;</span>tu_archivo<span class="op">&gt;</span>.fna</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span> <span class="at">-n</span> 3 data/source/<span class="op">&lt;</span>tu_archivo<span class="op">&gt;</span>.fna</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Anota: ¿la primera línea empieza con <code>&gt;</code>?, ¿de cuántos caracteres son las líneas de secuencia?, ¿la última línea está completa o cortada?</p></li>
+<li><p>Mira el inicio de tu GFF3 y localiza la frontera entre comentarios y datos:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 15 data/source/<span class="op">&lt;</span>tu_archivo<span class="op">&gt;</span>.gff</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Anota: ¿cuántas líneas empiezan con <code>#</code>?, ¿qué declara <code>##sequence-region</code>?, ¿cuál es la primera línea de datos?</p></li>
+<li><p>Recorre el archivo con calma y sal sin modificarlo:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">less</span> data/source/<span class="op">&lt;</span>tu_archivo<span class="op">&gt;</span>.gff</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Dentro de <code>less</code>, <code>q</code> sale, <code>/</code> busca y <code>G</code> va al final.</p></li>
+</ol>
+<details>
+<summary>
+Ver retroalimentación
+</summary>
+<p>Lo que sigue es <strong>estructura de formato</strong>: vale para cualquier FASTA o GFF3, venga de donde venga. Las cifras concretas —cuántas líneas de comentario, qué longitud— sí dependen de tu archivo.</p>
+<p><strong>En el FASTA.</strong> La primera línea empieza por <code>&gt;</code> siempre: es el encabezado, y todo lo que va después del <code>&gt;</code> hasta el primer espacio es el identificador de la secuencia. Las líneas de secuencia suelen tener una anchura fija —60, 70 u 80 caracteres, según quién generó el archivo— salvo la última de cada secuencia, que es la que sobra. Si tu <code>tail</code> muestra una línea más corta, no está cortada: está completa.</p>
+<p><strong>En el GFF3.</strong> La primera línea es <code>##gff-version 3</code>; es obligatoria y sirve para reconocer el formato. Las líneas que empiezan por <code>##</code> son <strong>directivas</strong> —instrucciones para el programa que lee el archivo—, y <code>##sequence-region</code> declara, para cada molécula, su identificador y su longitud en pares de bases. Ojo con esa línea: es una <strong>declaración</strong>, no una medición, y en S12 volverás sobre ella para medir el genoma.</p>
+<p>Las líneas que empiezan con un solo <code>#</code> son comentarios libres. La primera línea de datos es la primera que <strong>no</strong> empieza por <code>#</code>, y tiene nueve columnas separadas por tabuladores.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Que un archivo esté comprimido no cambia nada de lo anterior; solo obliga a descomprimir una copia antes de mirarlo. <code>file</code> te lo dijo en el paso 2, y el original de <code>data/source/</code> no se toca.</p>
+</div>
+</div>
+</details>
+<p><strong>Producto.</strong> En tu primer intento, marca cada predicción como <em>confirmada</em>, <em>refutada</em> o <em>indeterminada con esta evidencia</em>, y explica en una frase, para cada refutación, si falló el supuesto biológico o el informático.</p>
+<p><strong>Criterio de logro:</strong> puedes señalar, en tus propios archivos, la unidad, el delimitador, la ausencia de encabezado, las líneas de comentario y al menos un valor faltante.</p>
+<hr>
+</section>
+</section>
+<section id="medir-contar-líneas-palabras-y-caracteres-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="medir-contar-líneas-palabras-y-caracteres-indispensable">3. Medir: contar líneas, palabras y caracteres [Indispensable]</h2>
+<p>Una vez reconocida la estructura, la primera pregunta cuantitativa es siempre la más simple: <strong>¿cuánto hay?</strong></p>
+<section id="sintaxis-mínima-wc" class="level3">
+<h3 class="anchored" data-anchor-id="sintaxis-mínima-wc">Sintaxis mínima — <code>wc</code></h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> data/source/genomic.gff</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>¿Qué hace?</strong> Cuenta líneas (<code>-l</code>), palabras (<code>-w</code>) o caracteres (<code>-c</code>) de un archivo.</p>
+<p><strong>¿Por qué aparece aquí?</strong> Porque es la primera herramienta que convierte un archivo en un <strong>número</strong>, y por tanto la primera que puede darte un número equivocado.</p>
+<p>🤖 <strong>Prompt para <a href="https://chatgpt.com/g/g-6893cf2451d88191b11cd0c87de045ab-profeunix-bioinfo">ProfeUnix Bioinfo</a>:</strong> &gt; Explícame las opciones <code>-l</code>, <code>-w</code> y <code>-c</code> de <code>wc</code> con ejemplos. &gt; Si aplico <code>wc -c</code> a un archivo FASTA, ¿qué estoy contando exactamente?</p>
+<p>Ahora viene lo interesante. Aplica <code>wc</code> a tus archivos y observa qué preguntas <strong>crees</strong> estar respondiendo y cuáles <strong>realmente</strong> respondes:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Comando</th>
+<th>Parece responder</th>
+<th>En realidad responde</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>wc -c genome.fna</code></td>
+<td>¿De qué tamaño es el genoma?</td>
+<td>Cuántos <strong>bytes</strong> ocupa el archivo: bases + encabezados + saltos de línea</td>
+</tr>
+<tr class="even">
+<td><code>wc -l genome.fna</code></td>
+<td>¿Cuántas secuencias hay?</td>
+<td>Cuántas <strong>líneas</strong> hay: una por encabezado y muchas por cada secuencia</td>
+</tr>
+<tr class="odd">
+<td><code>wc -l genomic.gff</code></td>
+<td>¿Cuántas anotaciones hay?</td>
+<td>Cuántas <strong>líneas</strong> hay: registros + comentarios + directivas</td>
+</tr>
+</tbody>
+</table>
+<p>Ninguno de los tres responde la pregunta biológica. Los tres son correctos como mediciones de archivo. <strong>La diferencia entre “medir el archivo” y “medir el genoma” es el núcleo de esta sesión.</strong></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No pasa nada por obtener un número imperfecto: pasa algo grave por <strong>anotarlo como si fuera exacto</strong>. Un resultado documentado con su limitación es evidencia útil; el mismo resultado presentado como definitivo es un error que se propagará al resto del análisis.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="práctica-3-primeras-mediciones-y-su-crítica-durante-el-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-3-primeras-mediciones-y-su-crítica-durante-el-taller">Práctica 3 — Primeras mediciones y su crítica <em>(durante el taller)</em></h3>
+<p><strong>Objetivo.</strong> Obtener tres números y explicar, para cada uno, por qué todavía no responde la pregunta.</p>
+<p><strong>Pasos.</strong></p>
+<ol type="1">
+<li><p>Mide tu FASTA en bytes y en líneas:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-c</span> data/source/<span class="op">&lt;</span>tu_archivo<span class="op">&gt;</span>.fna</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> data/source/<span class="op">&lt;</span>tu_archivo<span class="op">&gt;</span>.fna</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Mide tu GFF3 en líneas:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> data/source/<span class="op">&lt;</span>tu_archivo<span class="op">&gt;</span>.gff</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Estima <strong>cuánto sobra</strong> en cada medición. Por ejemplo: si tus líneas de secuencia son de 70 caracteres, ¿qué proporción del conteo de bytes corresponde a saltos de línea? ¿Cuántas líneas de comentario contaste como si fueran anotaciones (Práctica 2, paso 4)?</p></li>
+<li><p>Escribe, para cada número, una frase con esta forma:</p>
+<pre class="text"><code>Obtuve &lt;número&gt; al medir &lt;qué&gt;. Esto NO es &lt;la cantidad biológica&gt;, porque además incluye
+&lt;qué sobra&gt;. Para corregirlo necesitaría &lt;qué me falta poder hacer&gt;.</code></pre></li>
+</ol>
+<p><strong>Producto.</strong> Tres mediciones con su advertencia explícita.</p>
+<p><strong>Criterio de logro:</strong> puedes explicar la fuente de error de cada medición y qué operación te falta para eliminarla. El número exacto <strong>no</strong> es el criterio: la explicación sí.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Guarda estos números. En S12 los vas a corregir y la comparación entre ambos —el de hoy y el corregido— será una de las entradas más valiosas de tu protocolo.</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="los-tres-flujos-entrada-salida-y-error-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="los-tres-flujos-entrada-salida-y-error-indispensable">4. Los tres flujos: entrada, salida y error [Indispensable]</h2>
+<p>Hasta ahora, cada comando escribía su resultado en la pantalla y ahí terminaba. Para construir un análisis necesitas entender de dónde toma su información un programa y a dónde la envía.</p>
+<p>Todo programa de Unix trabaja con tres canales o <strong>flujos</strong> (Buffalo, 2015, cap. 7):</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u4-s10-flujos-estandar.png" class="img-fluid figure-img"></p>
+<figcaption>Diagrama de los tres flujos estándar de un programa de Unix: la entrada estándar (stdin) alimenta al programa, que entrega su resultado por la salida estándar (stdout) y sus mensajes de error por la salida de error (stderr); ambos canales de salida son independientes y por omisión llegan a la pantalla, pero pueden redirigirse a archivos distintos.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 1.</strong> Los tres flujos estándar de un programa. El resultado y los mensajes de error viajan por canales separados, de modo que un error nunca queda incrustado dentro de los datos. Elaboración propia.</p>
+<ul>
+<li><strong>Entrada estándar (<code>stdin</code>)</strong>: de dónde lee el programa si no le das un archivo.</li>
+<li><strong>Salida estándar (<code>stdout</code>)</strong>: dónde escribe su resultado normal.</li>
+<li><strong>Salida de error (<code>stderr</code>)</strong>: dónde escribe sus mensajes de error y advertencias.</li>
+</ul>
+<p>Cada uno de esos canales tiene además un <strong>número</strong> asignado, el mismo en cualquier sistema Unix:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 23%">
+<col style="width: 23%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Número</th>
+<th>Nombre</th>
+<th>Abreviatura</th>
+<th>Para qué sirve</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;"><strong>0</strong></td>
+<td>Entrada estándar</td>
+<td><code>stdin</code></td>
+<td>Por donde entran los datos al programa</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><strong>1</strong></td>
+<td>Salida estándar</td>
+<td><code>stdout</code></td>
+<td>Por donde sale el resultado</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><strong>2</strong></td>
+<td>Salida de error</td>
+<td><code>stderr</code></td>
+<td>Por donde salen los errores y advertencias</td>
+</tr>
+</tbody>
+</table>
+<p>Ese número no es un detalle decorativo: es lo que te permitirá <strong>nombrar</strong> cada canal cuando quieras redirigirlo. El <code>2</code> de <code>2&gt;</code> —que verás en la Sección 5— es precisamente el número de la salida de error. Y <code>&gt;</code> a secas es en realidad una abreviatura de <code>1&gt;</code>: si no dices qué canal quieres redirigir, el sistema asume el 1, la salida estándar.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="¿Sabías que?">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>¿Sabías que?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Esos números se llaman <strong>descriptores de archivo</strong> (<em>file descriptors</em>), y son la forma en que el sistema operativo identifica cualquier canal abierto por un programa. Los tres primeros —0, 1 y 2— están reservados y se abren automáticamente al arrancar cualquier proceso; los archivos que el programa abra después reciben el 3, el 4, y así sucesivamente.</p>
+</div>
+</div>
+<p>Que la salida y el error viajen por canales <strong>separados</strong> parece un detalle técnico, pero tiene una consecuencia práctica muy concreta: puedes guardar el resultado de un análisis en un archivo y seguir viendo los errores en pantalla. Si ambos fueran el mismo canal, un mensaje de error quedaría mezclado dentro de tus datos —y en un archivo de miles de líneas, no lo notarías.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="¿Sabías que?">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>¿Sabías que?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Esta separación es una decisión de diseño de los años setenta que sigue vigente porque resuelve exactamente este problema: los datos van por un canal, las quejas del programa por otro. Es también la razón por la que un programa bien hecho <strong>nunca</strong> imprime mensajes informativos en <code>stdout</code>: contaminaría el resultado de quien lo use dentro de un flujo (Buffalo, 2015, cap. 7).</p>
+</div>
+</div>
+</section>
+<section id="capturar-el-resultado-redirecciones-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="capturar-el-resultado-redirecciones-indispensable">5. Capturar el resultado: redirecciones [Indispensable]</h2>
+<p>Un resultado que solo aparece en pantalla se pierde. Y en un curso donde todo debe ser reproducible, perder resultados no es una opción: la <strong>redirección</strong> los guarda.</p>
+<section id="sintaxis-mínima-redirigir-la-salida" class="level3">
+<h3 class="anchored" data-anchor-id="sintaxis-mínima-redirigir-la-salida">Sintaxis mínima — <code>&gt;</code> (redirigir la salida)</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> data/source/genomic.gff <span class="op">&gt;</span> results/conteo-lineas-gff.txt</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>¿Qué hace?</strong> Envía la salida estándar a un archivo en vez de a la pantalla. Si el archivo existe, <strong>lo sobrescribe</strong>.</p>
+<p><strong>¿Por qué aparece aquí?</strong> Porque es lo que convierte una consulta efímera en evidencia guardada.</p>
+</section>
+<section id="sintaxis-mínima-añadir-al-final" class="level3">
+<h3 class="anchored" data-anchor-id="sintaxis-mínima-añadir-al-final">Sintaxis mínima — <code>&gt;&gt;</code> (añadir al final)</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> data/source/<span class="op">&lt;</span>otro_archivo<span class="op">&gt;</span>.gff <span class="op">&gt;&gt;</span> results/conteo-lineas-gff.txt</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>¿Qué hace?</strong> Igual que <code>&gt;</code>, pero <strong>añade</strong> al final en lugar de sobrescribir.</p>
+</section>
+<section id="sintaxis-mínima-2-redirigir-los-errores" class="level3">
+<h3 class="anchored" data-anchor-id="sintaxis-mínima-2-redirigir-los-errores">Sintaxis mínima — <code>2&gt;</code> (redirigir los errores)</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> data/source/archivo-que-no-existe.gff <span class="dv">2</span><span class="op">&gt;</span> results/errores.txt</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>¿Qué hace?</strong> Envía la salida de error a un archivo, dejando la salida normal en pantalla.</p>
+<p><strong>¿Por qué se escribe con un <code>2</code>?</strong> Porque <code>2</code> es el número de la salida de error (Sección 4). Por la misma razón, <code>&gt;</code> equivale a <code>1&gt;</code>: si no indicas el canal, se asume el 1, la salida estándar.</p>
+<p>🤖 <strong>Prompt para <a href="https://chatgpt.com/g/g-6893cf2451d88191b11cd0c87de045ab-profeunix-bioinfo">ProfeUnix Bioinfo</a>:</strong> &gt; Explícame la diferencia entre <code>&gt;</code>, <code>&gt;&gt;</code>, <code>2&gt;</code> y <code>&amp;&gt;</code> con ejemplos. &gt; ¿Qué pasa si redirijo a un archivo que ya existe?</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Advertencia
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>&gt;</code> borra sin preguntar. Si escribes <code>wc -l data/source/genomic.gff &gt; data/source/genomic.gff</code>, destruyes el archivo original. <strong>Nunca redirijas hacia <code>data/source/</code>.</strong> Todas tus salidas van a <code>results/</code> o a <code>data/processed/</code>. Esta es la forma más común de perder datos en Unix, y le ocurre a todo el mundo al menos una vez: que no sea con tus originales.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="práctica-4-capturar-resultados-de-forma-reproducible-durante-el-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-4-capturar-resultados-de-forma-reproducible-durante-el-taller">Práctica 4 — Capturar resultados de forma reproducible <em>(durante el taller)</em></h3>
+<p><strong>Objetivo.</strong> Convertir las mediciones de la Práctica 3 en archivos de resultados con nombres interpretables.</p>
+<p><strong>Pasos.</strong></p>
+<ol type="1">
+<li><p>Crea el directorio de resultados de la sesión, si hace falta:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> results/s10</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Guarda cada medición en su propio archivo, con un nombre que diga qué contiene:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-c</span> data/source/<span class="op">&lt;</span>tu_archivo<span class="op">&gt;</span>.fna <span class="op">&gt;</span> results/s10/fasta-bytes.txt</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> data/source/<span class="op">&lt;</span>tu_archivo<span class="op">&gt;</span>.fna <span class="op">&gt;&gt;</span> results/s10/fasta-bytes.txt</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> data/source/<span class="op">&lt;</span>tu_archivo<span class="op">&gt;</span>.gff <span class="op">&gt;</span> results/s10/gff-lineas.txt</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Comprueba que se guardó lo que esperabas:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> results/s10/fasta-bytes.txt</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> results/s10/gff-lineas.txt</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Provoca un error a propósito y sepáralo del resultado:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> data/source/no-existe.gff <span class="dv">2</span><span class="op">&gt;</span> results/s10/errores.txt</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> results/s10/errores.txt</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Verifica que <strong>nada</strong> de esto tocó tus originales:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> data/source/</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ol>
+<p><strong>Producto.</strong> Tres archivos en <code>results/s10/</code> y la confirmación de que <code>data/source/</code> sigue igual.</p>
+<p><strong>Criterio de logro:</strong> tus resultados están guardados con nombres que otra persona entendería sin preguntarte, y puedes explicar la diferencia entre <code>&gt;</code>, <code>&gt;&gt;</code> y <code>2&gt;</code>.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="nombres de archivo">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>nombres de archivo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Un buen nombre dice <strong>qué contiene</strong>, no cómo se produjo: <code>gff-lineas.txt</code> es útil; <code>salida1.txt</code> o <code>prueba_final_v2_bueno.txt</code> no lo son. Adopta hoy tu convención y consérvala durante toda la unidad.</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="encadenar-operaciones-tuberías-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="encadenar-operaciones-tuberías-indispensable">6. Encadenar operaciones: tuberías [Indispensable]</h2>
+<p>Aquí aparece la idea que sostiene el resto de la unidad. Si un programa escribe en la salida estándar y otro puede leer de la entrada estándar, entonces <strong>la salida de uno puede ser la entrada del siguiente</strong>, sin pasar por un archivo intermedio.</p>
+<p>Eso es una <strong>tubería</strong> o <em>pipe</em>, y se escribe con la barra vertical <code>|</code>.</p>
+<section id="sintaxis-mínima-tubería" class="level3">
+<h3 class="anchored" data-anchor-id="sintaxis-mínima-tubería">Sintaxis mínima — <code>|</code> (tubería)</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 100 data/source/genomic.gff <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n</span> 5</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>¿Qué hace?</strong> Toma las primeras 100 líneas del archivo y, de ellas, muestra las 5 últimas: es decir, las líneas 96 a 100.</p>
+<p><strong>¿Por qué aparece aquí?</strong> Porque ninguna herramienta por sí sola muestra “un fragmento del medio”. La combinación sí. Ese es el principio de todo el análisis que harás en esta unidad: <strong>herramientas pequeñas que hacen una cosa, combinadas para responder preguntas que ninguna resuelve sola</strong> (Buffalo, 2015, cap. 7).</p>
+<p>🤖 <strong>Prompt para <a href="https://chatgpt.com/g/g-6893cf2451d88191b11cd0c87de045ab-profeunix-bioinfo">ProfeUnix Bioinfo</a>:</strong> &gt; Explícame qué hace el operador <code>|</code> en Unix, con ejemplos usando <code>head</code> y <code>tail</code>. &gt; ¿Cuál es la diferencia entre <code>comando &gt; archivo</code> y <code>comando | otro_comando</code>?</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/figura-u4-s10-tuberia-flujo.png" class="img-fluid figure-img"></p>
+<figcaption>Diagrama de una tubería de tres comandos: el archivo genomic.gff alimenta a head -n 100, cuya salida estándar se convierte en la entrada estándar de tail -n 5, cuya salida pasa a wc -l; el resultado final se redirige con el operador mayor que al archivo results/conteo.txt. Entre un comando y el siguiente no se crea ningún archivo intermedio.</figcaption>
+</figure>
+</div>
+<p><strong>Figura 2.</strong> Una tubería conecta la salida estándar de un comando con la entrada estándar del siguiente. El resultado final puede redirigirse a un archivo; entre los eslabones no se crea ningún archivo intermedio. Elaboración propia.</p>
+<p>Compara las dos formas de trabajar:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sin tubería: se crea un archivo intermedio que nadie volverá a usar</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 100 data/source/genomic.gff <span class="op">&gt;</span> results/s10/temporal.txt</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span> <span class="at">-n</span> 5 results/s10/temporal.txt</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Con tubería: el resultado fluye directamente de un comando al siguiente</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 100 data/source/genomic.gff <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n</span> 5</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Ambas dan el mismo resultado. La segunda no deja basura, se lee de corrido y expresa mejor la intención. Y una tubería puede tener tantos eslabones como necesites:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 100 data/source/genomic.gff <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n</span> 5 <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Una tubería siempre puede terminar en una redirección. <code>comando | comando &gt; archivo</code> encadena las operaciones y <strong>guarda</strong> el resultado final. Es la forma que tendrán casi todos los análisis del resto de la unidad.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="construye la tubería por partes">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>construye la tubería por partes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No escribas cinco eslabones de golpe. Escribe el primero, mira su salida con <code>head</code>, añade el segundo, vuelve a mirar. Es la aplicación directa del principio de <strong>verificación</strong>: comprobar en pequeño antes de aplicar al archivo completo.</p>
+</div>
+</div>
+</section>
+<section id="lo-que-fluye-no-es-el-archivo-indispensable" class="level3">
+<h3 class="anchored" data-anchor-id="lo-que-fluye-no-es-el-archivo-indispensable">6.1 Lo que fluye no es el archivo [Indispensable]</h3>
+<p>Aquí conviene detenerse, porque este es el punto donde casi todo el mundo se equivoca la primera vez.</p>
+<p>En una tubería, <strong>el archivo se lee una sola vez: en el primer eslabón</strong>. A partir de ahí ya no circula un archivo, sino un <strong>flujo de texto</strong> que cada comando recibe, transforma y entrega modificado al siguiente. El archivo original se queda quieto en <code>data/source/</code>, intacto y <strong>fuera</strong> de la tubería.</p>
+<pre class="text"><code>genomic.gff ──▶ head -n 100 ──▶ [100 líneas] ──▶ tail -n 5 ──▶ [5 líneas] ──▶ wc -l ──▶ 5
+   archivo                        ya NO es el archivo:          ya NO son 100 líneas:
+   (9 662 líneas)                 es un flujo de 100            es un flujo de 5</code></pre>
+<p>Fíjate en que <strong>el contenido va menguando</strong> a lo largo de la tubería: <code>tail</code> no ve las 9 662 líneas del archivo, ve las 100 que le entregó <code>head</code>. Y <code>wc</code> no ve ni el archivo ni las 100 líneas: ve las 5 que le pasó <code>tail</code>. Cada comando solo conoce lo que le llega por su entrada estándar.</p>
+<p>De ahí se sigue una regla sencilla y muy útil:</p>
+<div class="callout callout-style-default callout-important callout-titled" title="la regla del archivo único">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>la regla del archivo único
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>En una tubería, <strong>solo el primer comando nombra el archivo</strong>. Los demás no llevan nombre de archivo: reciben sus datos por la entrada estándar. Si escribes el nombre del archivo en un comando posterior, ese comando <strong>ignora todo lo que la tubería le estaba entregando</strong> y vuelve a leer el archivo completo desde el principio.</p>
+</div>
+</div>
+<p>Compara las dos líneas siguientes. La primera es correcta; la segunda es el error, y es <strong>silencioso</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># CORRECTO: el archivo se nombra una sola vez, al principio</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 100 data/source/genomic.gff <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n</span> 5 <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co"># → 5</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ERROR SILENCIOSO: tail vuelve a abrir el archivo completo e ignora lo que head le mandó</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 100 data/source/genomic.gff <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n</span> 5 data/source/genomic.gff <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="co"># → 5   ... ¡el mismo número!, pero son las 5 ÚLTIMAS líneas del archivo,</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="co">#           no las líneas 96 a 100</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Los dos comandos devuelven <code>5</code> y ninguno produce un mensaje de error. Pero <strong>responden preguntas distintas</strong>, y solo uno responde la tuya. Esta es, de nuevo, la lección de la Sección 1: un resultado puede ser correcto como número y equivocado como evidencia.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="cómo detectarlo">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>cómo detectarlo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Cuando dudes de una tubería, haz esta prueba: <strong>quita el último eslabón y mira la salida real</strong>. Si en lugar del fragmento que esperabas aparece el principio o el final del archivo completo, es que algún comando volvió a leer el archivo. También ayuda contar: si el resultado no cambia al modificar el primer eslabón —por ejemplo, al pasar de <code>head -n 100</code> a <code>head -n 20</code>—, entonces el primer eslabón no está influyendo en nada y la tubería está rota.</p>
+</div>
+</div>
+<p>Hay una variante del mismo error, igual de frecuente, que consiste en <strong>volver al archivo de partida a mitad del análisis</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Se filtró algo en el primer paso y luego se vuelve al archivo original:</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co"># el trabajo del primer eslabón se pierde por completo</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 100 data/source/genomic.gff <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span> data/source/genomic.gff</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>La pregunta que conviene hacerse antes de añadir cada eslabón es siempre la misma: <strong>¿sobre qué estoy operando ahora: sobre el archivo o sobre lo que me acaba de entregar el comando anterior?</strong> En una tubería, salvo en el primer eslabón, la respuesta correcta es siempre la segunda.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Que un archivo pueda “menguar” a lo largo de la tubería no significa que se modifique. El archivo de <code>data/source/</code> sigue intacto: lo que se reduce es la <strong>copia en tránsito</strong> que viaja por el flujo. Puedes comprobarlo en cualquier momento con <code>wc -l</code> sobre el archivo original: seguirá dando el mismo número.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="práctica-5-tu-primer-flujo-de-datos-durante-el-taller" class="level3">
+<h3 class="anchored" data-anchor-id="práctica-5-tu-primer-flujo-de-datos-durante-el-taller">Práctica 5 — Tu primer flujo de datos <em>(durante el taller)</em></h3>
+<p><strong>Objetivo.</strong> Construir y documentar un flujo de varios pasos, verificándolo paso a paso.</p>
+<p><strong>Pasos.</strong></p>
+<ol type="1">
+<li><p>Localiza dónde terminan los comentarios de tu GFF3 y empiezan los datos. Empieza mirando:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 15 data/source/<span class="op">&lt;</span>tu_archivo<span class="op">&gt;</span>.gff</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Supón que los comentarios ocupan las primeras N líneas. Extrae las 5 primeras líneas <strong>de datos</strong>, construyendo la tubería por partes:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> <span class="op">&lt;</span>N+5<span class="op">&gt;</span> data/source/<span class="op">&lt;</span>tu_archivo<span class="op">&gt;</span>.gff            <span class="co"># primero mira</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> <span class="op">&lt;</span>N+5<span class="op">&gt;</span> data/source/<span class="op">&lt;</span>tu_archivo<span class="op">&gt;</span>.gff <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n</span> 5  <span class="co"># ahora encadena</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Verifica que el flujo hace lo que crees, contando lo que produce:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> <span class="op">&lt;</span>N+5<span class="op">&gt;</span> data/source/<span class="op">&lt;</span>tu_archivo<span class="op">&gt;</span>.gff <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n</span> 5 <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Debe devolver <code>5</code>. Si devuelve otra cosa, algo no está haciendo lo que supones: revisa cada eslabón por separado.</p></li>
+</ol>
+<details>
+<summary>
+Ver retroalimentación
+</summary>
+<p><strong>Si no devuelve <code>5</code></strong>, hay tres causas posibles y se distinguen mirando dónde falla la tubería:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Qué obtienes</th>
+<th>Causa</th>
+<th>Cómo confirmarlo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Menos de 5</td>
+<td>Tu <code>N</code> es mayor que el número real de líneas de comentario, o el archivo tiene menos líneas de las que pides</td>
+<td>Ejecuta solo el primer <code>head</code> y cuenta</td>
+</tr>
+<tr class="even">
+<td>5, pero con líneas que empiezan por <code>#</code></td>
+<td>Tu <code>N</code> es <strong>menor</strong> que el número real de comentarios: te llevaste directivas</td>
+<td>Mira la salida, no solo el conteo</td>
+</tr>
+<tr class="odd">
+<td>Un error</td>
+<td>Escribiste <code>&lt;N+5&gt;</code> literalmente en vez de sustituirlo por el número</td>
+<td>El mensaje nombrará el argumento</td>
+</tr>
+</tbody>
+</table>
+<p>El segundo caso es el importante: <strong><code>wc -l</code> diría <code>5</code> igualmente</strong>. Contar confirma cuántas líneas salieron, no cuáles. Que el número cuadre no demuestra que el flujo haga lo que crees; por eso el paso 4 te pide mirar el archivo, no solo contarlo.</p>
+</details>
+<ol start="4" type="1">
+<li><p>Guarda el resultado:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> <span class="op">&lt;</span>N+5<span class="op">&gt;</span> data/source/<span class="op">&lt;</span>tu_archivo<span class="op">&gt;</span>.gff <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n</span> 5 <span class="op">&gt;</span> results/s10/primeras-anotaciones.txt</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> results/s10/primeras-anotaciones.txt</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Observa el archivo resultante y responde: ¿todas las líneas tienen el mismo número de columnas?, ¿ves algún valor faltante (<code>.</code>)?, ¿qué tipos de <em>feature</em> aparecen?</p></li>
+<li><p><strong>Rompe la tubería a propósito.</strong> Ejecuta esta variante, en la que el segundo comando vuelve a nombrar el archivo:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> <span class="op">&lt;</span>N+5<span class="op">&gt;</span> data/source/<span class="op">&lt;</span>tu_archivo<span class="op">&gt;</span>.gff <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n</span> 5 data/source/<span class="op">&lt;</span>tu_archivo<span class="op">&gt;</span>.gff</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Compárala con la salida del paso 4. Responde por escrito:</p>
+<ul>
+<li>¿Apareció algún mensaje de error?</li>
+<li>¿Las líneas mostradas son las mismas que en el paso 4? ¿De qué parte del archivo provienen en cada caso?</li>
+<li>¿A qué pregunta responde cada una de las dos versiones?</li>
+</ul></li>
+<li><p><strong>Comprueba el diagnóstico.</strong> Cambia el primer eslabón de ambas versiones —usa <code>head -n 20</code> en lugar de <code>head -n &lt;N+5&gt;</code>— y vuelve a ejecutarlas. ¿Cuál de las dos cambia su resultado? ¿Por qué la otra no? Escribe la conclusión en una frase.</p></li>
+<li><p>Confirma, por último, que nada de esto alteró el original:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> data/source/<span class="op">&lt;</span>tu_archivo<span class="op">&gt;</span>.gff</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Debe seguir dando el mismo número que en la Práctica 3.</p></li>
+</ol>
+<p><strong>Producto.</strong> <code>results/s10/primeras-anotaciones.txt</code>, la respuesta escrita del paso 5 y el diagnóstico de los pasos 6–7.</p>
+<p><strong>Criterio de logro:</strong> construyes un flujo de tres eslabones, lo verificas antes de guardarlo, explicas qué hace cada eslabón y <strong>detectas un error silencioso de tubería</strong> sin depender de que el sistema te avise.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El paso 7 es el que más vale la pena recordar. Es una prueba de <strong>robustez</strong>: si modificas una parte del flujo y el resultado no cambia, esa parte no está haciendo nada. Aplicable a cualquier tubería que construyas durante el resto del curso.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="la limitación que se te va a hacer evidente">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>la limitación que se te va a hacer evidente
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Para llegar a las primeras líneas de datos tuviste que <strong>contar a mano</strong> cuántos comentarios había. Si tu archivo tuviera un número distinto de comentarios —o si mañana descargas otro genoma— tu comando dejaría de funcionar. Esa fragilidad no tiene solución con las herramientas de hoy. La tendrá en S12.</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="interpretar-y-documentar-el-protocolo-como-cuaderno-indispensable" class="level2">
+<h2 class="anchored" data-anchor-id="interpretar-y-documentar-el-protocolo-como-cuaderno-indispensable">7. Interpretar y documentar: el protocolo como cuaderno [Indispensable]</h2>
+<p>Un resultado sin interpretación no es un hallazgo, es una salida de terminal. Cierra la sesión respondiendo cuatro preguntas —siempre las mismas, durante toda la unidad—:</p>
+<ul>
+<li>¿Qué significa este resultado?</li>
+<li>¿Qué aprendimos sobre el genoma?</li>
+<li>¿La evidencia apoya nuestra expectativa inicial?</li>
+<li>¿Qué nuevas preguntas aparecen?</li>
+</ul>
+<p>No se esperan interpretaciones avanzadas. Solo aquellas que <strong>la evidencia obtenida sostiene</strong>. Hoy la evidencia es preliminar, así que la interpretación honesta también lo es: <em>“el archivo de secuencia ocupa unos X millones de bytes, lo que sugiere un genoma del orden de unos pocos millones de bases, compatible con un genoma bacteriano; todavía no puedo dar la cifra exacta porque mi medición incluye encabezados y saltos de línea”</em>. Eso es una interpretación correcta al nivel de S10.</p>
+<p>A partir de esta unidad, cada bloque que agregues a <code>doc/protocolo.md</code> tiene esta forma:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## S10 — Anatomía de los archivos y primeras mediciones</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Pregunta biológica:</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Hipótesis o expectativa previa:</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Datos necesarios y archivo utilizado:</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Estrategia de análisis (con lo que sé hacer en este momento):</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Comandos ejecutados:</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Resultados obtenidos:</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Interpretación biológica:</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Limitaciones de esta estrategia:</span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Nuevas preguntas que abre:</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="un-bloque-completo-a-modo-de-ejemplo" class="level3">
+<h3 class="anchored" data-anchor-id="un-bloque-completo-a-modo-de-ejemplo">7.1 Un bloque completo, a modo de ejemplo</h3>
+<p>Para que veas el <strong>nivel de detalle esperado</strong>, aquí está el bloque de S10 relleno con un caso concreto: <em>E. coli</em> K-12 MG1655 (ensamblado GCF_000005845.2). Tu genoma será otro y tus números también, pero la <strong>forma de argumentar</strong> debe ser esta.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## S10 — Anatomía de los archivos y primeras mediciones</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Pregunta biológica:** ¿De qué tamaño es el genoma de *E. coli* K-12 MG1655 y cuántos registros</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  de anotación describen sus elementos genómicos?</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Hipótesis o expectativa previa:** Por tratarse de una enterobacteria de vida libre, espero un</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>  genoma de entre 4 y 5 Mb en un único replicón circular, y del orden de 4 000–4 500 genes</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>  codificantes. Predije además que la medición por bytes del archivo sobreestimaría el tamaño</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>  real en torno a un 1.5 %, por los saltos de línea cada 70 caracteres (primer intento, punto 2).</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Datos necesarios y archivo utilizado:** La secuencia completa está en</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>  <span class="in">`data/source/GCF_000005845.2/GCF_000005845.2_ASM584v2_genomic.fna`</span> (FASTA) y la anotación en</span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>  <span class="in">`data/source/GCF_000005845.2/genomic.gff`</span> (GFF3). Ambos verificados por checksum en S9; no se</span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>  modifican.</span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Estrategia de análisis (con lo que sé hacer en este momento):** Medir el archivo FASTA en bytes</span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a>  como aproximación al tamaño del genoma, contar sus líneas para estimar cuántas secuencias</span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a>  contiene, y contar las líneas del GFF3 como aproximación al número de anotaciones. Sé de antemano</span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a>  que las tres mediciones son aproximaciones sesgadas hacia arriba; no dispongo todavía de ninguna</span>
+<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a>  operación que separe las líneas de datos de las demás.</span>
+<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Comandos ejecutados:**</span>
+<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a>  <span class="in">```bash</span></span>
+<span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wc</span> <span class="at">-c</span> data/source/GCF_000005845.2/GCF_000005845.2_ASM584v2_genomic.fna <span class="dt">\</span></span>
+<span id="cb38-26"><a href="#cb38-26" aria-hidden="true" tabindex="-1"></a>     <span class="op">&gt;</span> results/s10/fasta-bytes.txt</span>
+<span id="cb38-27"><a href="#cb38-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wc</span> <span class="at">-l</span> data/source/GCF_000005845.2/GCF_000005845.2_ASM584v2_genomic.fna <span class="dt">\</span></span>
+<span id="cb38-28"><a href="#cb38-28" aria-hidden="true" tabindex="-1"></a>     <span class="op">&gt;&gt;</span> results/s10/fasta-bytes.txt</span>
+<span id="cb38-29"><a href="#cb38-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wc</span> <span class="at">-l</span> data/source/GCF_000005845.2/genomic.gff <span class="op">&gt;</span> results/s10/gff-lineas.txt</span>
+<span id="cb38-30"><a href="#cb38-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span> <span class="at">-n</span> 15 data/source/GCF_000005845.2/genomic.gff</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li><p><strong>Resultados obtenidos:</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Medición</th>
+<th style="text-align: right;">Valor</th>
+<th>Archivo de evidencia</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Bytes del FASTA</td>
+<td style="text-align: right;">4 708 034</td>
+<td><code>results/s10/fasta-bytes.txt</code></td>
+</tr>
+<tr class="even">
+<td>Líneas del FASTA</td>
+<td style="text-align: right;">66 311</td>
+<td><code>results/s10/fasta-bytes.txt</code></td>
+</tr>
+<tr class="odd">
+<td>Líneas del GFF3</td>
+<td style="text-align: right;">≈ 9 600</td>
+<td><code>results/s10/gff-lineas.txt</code></td>
+</tr>
+<tr class="even">
+<td>Líneas de comentario al inicio del GFF3</td>
+<td style="text-align: right;">9</td>
+<td>inspección con <code>head</code></td>
+</tr>
+</tbody>
+</table>
+<p>El FASTA contiene un único encabezado (<code>&gt;NC_000913.3</code>), y sus líneas de secuencia tienen 70 caracteres. La directiva <code>##sequence-region NC_000913.3 1 4641652</code> declara la longitud del replicón.</p></li>
+<li><p><strong>Interpretación biológica:</strong> El archivo de secuencia ocupa unos 4.7 millones de bytes, lo que sitúa el genoma en el orden de los pocos megabases, compatible con un genoma bacteriano típico y con mi expectativa previa de 4–5 Mb. La presencia de un solo encabezado indica <strong>un único replicón</strong>, coherente con el cromosoma circular único de esta cepa, sin plásmidos en este ensamblado. El GFF3 contiene del orden de 9 600 registros: dado que un mismo gen suele aparecer descrito por varios registros (<code>gene</code>, <code>CDS</code>, y otros), esa cifra es compatible con las ~4 300 unidades génicas esperadas, pero <strong>no puede leerse como número de genes</strong>. El valor exacto depende de la versión de la anotación, así que lo registro como orden de magnitud hasta poder contarlo bien.</p></li>
+<li><p><strong>Limitaciones de esta estrategia:</strong></p>
+<ol type="1">
+<li><code>wc -c</code> cuenta también el encabezado y un salto de línea por cada 70 bases. Con 66 309 líneas de secuencia, los saltos representan ≈ 66 KB, es decir ≈ 1.4 % del total — cerca del 1.5 % que había predicho. Mi medición <strong>sobreestima</strong> el tamaño real del genoma.</li>
+<li><code>wc -l</code> sobre el FASTA no cuenta secuencias, sino líneas: las 66 310 líneas corresponden a un solo encabezado más el troceado de una única secuencia.</li>
+<li><code>wc -l</code> sobre el GFF3 incluye 9 líneas de comentario y directivas, que no son anotaciones.</li>
+<li>Aunque descontara los comentarios, el número resultante seguiría siendo de <strong>registros</strong>, no de objetos biológicos: un gen y su CDS son dos registros del mismo objeto.</li>
+<li>Ninguna de las tres cifras está validada contra una fuente independiente.</li>
+</ol></li>
+<li><p><strong>Nuevas preguntas que abre:</strong></p>
+<ul>
+<li>¿Cómo excluyo del conteo las líneas que no son secuencia y los saltos de línea, para obtener el número real de bases?</li>
+<li>¿Cómo separo, dentro del GFF3, las líneas de datos de las de comentario, sin depender de contar a mano cuántas hay?</li>
+<li>¿Qué tipos de registro contiene la anotación y cuántos hay de cada uno? Sin eso, no puedo pasar de “9 662 registros” a “N genes”.</li>
+<li>La longitud declarada en <code>##sequence-region</code> (4 641 652) es un valor independiente de mi medición: ¿coincidirá con el conteo de bases cuando sepa hacerlo bien? ```</li>
+</ul></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Fíjate en tres detalles de este ejemplo. Primero, <strong>cada número tiene su archivo de evidencia</strong>: no se cita ninguna cifra que no exista en <code>results/</code>. Segundo, la interpretación distingue con cuidado lo que la evidencia <strong>permite</strong> afirmar (un único replicón) de lo que <strong>no</strong> (el número de genes). Tercero, las limitaciones están <strong>cuantificadas</strong> —“≈ 1.4 %”—, no enunciadas de forma vaga: eso es lo que hará posible, en S12, demostrar que la corrección funcionó.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El apartado <em>Limitaciones</em> no es un trámite ni una confesión de fracaso: es el motor de la unidad. Lo que escribas ahí hoy es exactamente lo que corregirás en las sesiones siguientes, y la comparación entre ambas versiones será tu mejor evidencia de aprendizaje. Un protocolo sin limitaciones documentadas es un protocolo que no se puede mejorar.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Advertencia
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Los números del ejemplo corresponden a un ensamblado concreto y <strong>no debes copiarlos</strong>. Si tus cifras coinciden exactamente con estas sin que trabajes con el mismo ensamblado, es evidencia de que no ejecutaste los comandos.</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="tarea-6-reporte-de-lectura-y-primer-avance-del-proyecto" class="level2">
+<h2 class="anchored" data-anchor-id="tarea-6-reporte-de-lectura-y-primer-avance-del-proyecto">Tarea 6 — Reporte de lectura y primer avance del proyecto</h2>
+<pre class="text"><code>Al finalizar deberás entregar:
+✓ doc/reporte-lectura-cap7.md — reporte de lectura del Cap. 7 de Buffalo (2015)
+✓ doc/protocolo.md — sección "S10 — Anatomía de los archivos y primeras mediciones" completa
+✓ results/s10/ — archivos de resultados con nombres interpretables
+✓ 1.er avance del proyecto integrador: descripción del conjunto de datos y de la pregunta que guiará
+  tu análisis durante la Unidad 4</code></pre>
+<section id="el-reporte-de-lectura" class="level3">
+<h3 class="anchored" data-anchor-id="el-reporte-de-lectura">El reporte de lectura</h3>
+<p>Mismo formato que en U1 (referencia completa, resumen, aportación, crítica). Además, responde explícitamente: <strong>¿qué idea del capítulo explica por qué las herramientas de Unix se combinan en vez de existir como un solo programa grande?</strong></p>
+</section>
+<section id="el-primer-avance-del-proyecto" class="level3">
+<h3 class="anchored" data-anchor-id="el-primer-avance-del-proyecto">El primer avance del proyecto</h3>
+<p>Media cuartilla, en <code>doc/protocolo.md</code>, con:</p>
+<ul>
+<li>el organismo y ensamblado con el que trabajas (ya documentado en tu ficha de procedencia, U3);</li>
+<li>los archivos disponibles y qué tipo de evidencia aporta cada uno;</li>
+<li><strong>la pregunta biológica</strong> que quieres poder responder al terminar la unidad;</li>
+<li>las mediciones preliminares de hoy, con sus limitaciones.</li>
+</ul>
+</section>
+<section id="lista-de-control-antes-de-entregar" class="level3">
+<h3 class="anchored" data-anchor-id="lista-de-control-antes-de-entregar">Lista de control antes de entregar</h3>
+<ul class="task-list">
+<li><label><input type="checkbox">El reporte de lectura cita correctamente el capítulo y aporta una crítica propia, no un resumen.</label></li>
+<li><label><input type="checkbox">La sección S10 del protocolo tiene los comandos <strong>exactos</strong> que ejecutaste (copiables tal cual).</label></li>
+<li><label><input type="checkbox">Cada medición aparece acompañada de su limitación.</label></li>
+<li><label><input type="checkbox">Hay al menos una interpretación biológica, aunque sea preliminar.</label></li>
+<li><label><input type="checkbox">Los archivos de <code>results/s10/</code> tienen nombres interpretables.</label></li>
+<li><label><input type="checkbox"><code>data/source/</code> está intacto: mismos archivos, mismos tamaños.</label></li>
+</ul>
+</section>
+</section>
+<section id="evidencia-de-la-sesión" class="level2">
+<h2 class="anchored" data-anchor-id="evidencia-de-la-sesión">Evidencia de la sesión</h2>
+<p>Entrega o conserva, según indique el docente:</p>
+<ol type="1">
+<li>primer intento con predicciones cuantificadas y su contraste posterior (Práctica 1);</li>
+<li>anatomía real documentada de FASTA y GFF3 (Práctica 2);</li>
+<li>tres mediciones con su crítica explícita (Práctica 3);</li>
+<li>archivos de resultados en <code>results/s10/</code> (Práctica 4);</li>
+<li>flujo de datos de tres eslabones, verificado, y diagnóstico del error silencioso de tubería (Práctica 5, pasos 6–7);</li>
+<li>sección S10 de <code>doc/protocolo.md</code> y Tarea 6.</li>
+</ol>
+</section>
+<section id="errores-frecuentes-y-estrategias-de-diagnóstico" class="level2">
+<h2 class="anchored" data-anchor-id="errores-frecuentes-y-estrategias-de-diagnóstico">Errores frecuentes y estrategias de diagnóstico</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Error</th>
+<th>Por qué ocurre</th>
+<th>Estrategia de diagnóstico</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Presentar <code>wc -c</code> como el tamaño del genoma</td>
+<td>Se confunde el tamaño del <strong>archivo</strong> con el del <strong>genoma</strong></td>
+<td>Preguntarse siempre: ¿qué caracteres, exactamente, acabo de contar?</td>
+</tr>
+<tr class="even">
+<td>Contar las líneas del GFF3 como número de anotaciones</td>
+<td>Se olvidan las líneas de comentario <code>#</code></td>
+<td>Mirar las primeras 15 líneas antes de contar</td>
+</tr>
+<tr class="odd">
+<td>Suponer que cada línea del FASTA es una secuencia</td>
+<td>Se ignora que las secuencias se cortan a 60–80 caracteres</td>
+<td>Comparar el número de líneas con el número de encabezados esperados</td>
+</tr>
+<tr class="even">
+<td>Sobrescribir un archivo con <code>&gt;</code></td>
+<td>Se usa <code>&gt;</code> donde correspondía <code>&gt;&gt;</code>, o se redirige al archivo de entrada</td>
+<td>Redirigir <strong>siempre</strong> a <code>results/</code>; nunca a <code>data/source/</code></td>
+</tr>
+<tr class="odd">
+<td>Abrir un original en <code>nano</code> “solo para ver”</td>
+<td>El editor es lo más familiar</td>
+<td>Usar <code>less</code> para ver; <code>nano</code> solo para archivos propios de <code>doc/</code></td>
+</tr>
+<tr class="even">
+<td>Escribir una tubería de cinco eslabones de una vez</td>
+<td>Se confía en que cada paso hace lo esperado</td>
+<td>Construirla eslabón por eslabón, mirando la salida con <code>head</code></td>
+</tr>
+<tr class="odd">
+<td><strong>Repetir el nombre del archivo dentro de la tubería</strong></td>
+<td>Se cree que cada comando debe indicar sobre qué archivo trabaja</td>
+<td>Regla del archivo único: solo el primer eslabón nombra el archivo. Si el resultado no cambia al modificar el primer eslabón, la tubería está rota (Sección 6.1)</td>
+</tr>
+<tr class="even">
+<td>Volver al archivo original a mitad del flujo</td>
+<td>Se pierde de vista que el flujo ya está transformado y no es el archivo</td>
+<td>Preguntarse antes de cada eslabón: ¿opero sobre el archivo o sobre lo que me entregó el comando anterior?</td>
+</tr>
+<tr class="odd">
+<td>Creer que la tubería modifica el archivo de entrada</td>
+<td>Se confunde el flujo en tránsito con el archivo en disco</td>
+<td>Volver a medir el original con <code>wc -l</code>: seguirá igual</td>
+</tr>
+<tr class="even">
+<td>Anotar el resultado sin su limitación</td>
+<td>Se asume que un comando sin error da una respuesta válida</td>
+<td>Aplicar la plantilla: <em>“obtuve X, pero esto no es Y porque…”</em></td>
+</tr>
+<tr class="odd">
+<td>Perder el resultado al cerrar la terminal</td>
+<td>No se redirigió a un archivo</td>
+<td>Si un número va a citarse en el protocolo, debe existir en <code>results/</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="rúbricas" class="level2">
+<h2 class="anchored" data-anchor-id="rúbricas">Rúbricas</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterio</th>
+<th>Logrado</th>
+<th>Parcialmente logrado</th>
+<th>Aún no logrado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Primer intento</td>
+<td>Predicciones cuantificadas y justificadas; anticipa dirección y magnitud del sesgo de su estrategia</td>
+<td>Presenta predicciones sin justificar o sin anticipar el error</td>
+<td>No presenta evidencia previa</td>
+</tr>
+<tr class="even">
+<td>Anatomía de los archivos</td>
+<td>Identifica unidad, delimitador, comentarios y valores faltantes en sus propios archivos</td>
+<td>Identifica algunos elementos o confunde comentarios con datos</td>
+<td>No distingue datos de metadatos</td>
+</tr>
+<tr class="odd">
+<td>Mediciones</td>
+<td>Obtiene los tres conteos y explica la fuente de error de cada uno</td>
+<td>Obtiene los conteos pero no explica sus límites</td>
+<td>Presenta los conteos como respuestas definitivas</td>
+</tr>
+<tr class="even">
+<td>Redirecciones</td>
+<td>Captura resultados en <code>results/</code> con nombres interpretables y distingue <code>&gt;</code>, <code>&gt;&gt;</code> y <code>2&gt;</code></td>
+<td>Captura resultados pero con nombres poco claros o confunde operadores</td>
+<td>No captura resultados o redirige a <code>data/source/</code></td>
+</tr>
+<tr class="odd">
+<td>Tuberías</td>
+<td>Construye y verifica un flujo de tres eslabones, explica cada uno y detecta un error silencioso de tubería</td>
+<td>Construye el flujo pero no lo verifica ni distingue el flujo del archivo</td>
+<td>No logra encadenar comandos o repite el archivo en cada eslabón</td>
+</tr>
+<tr class="even">
+<td>Interpretación y protocolo</td>
+<td>Interpreta biológicamente al nivel que la evidencia permite y documenta limitaciones</td>
+<td>Documenta resultados sin interpretación o sin limitaciones</td>
+<td>No documenta o presenta resultados como definitivos</td>
+</tr>
+<tr class="odd">
+<td>Conservación de originales</td>
+<td><code>data/source/</code> intacto y comprobado</td>
+<td>No comprueba, aunque no haya daño</td>
+<td>Modificó o sobrescribió un original</td>
+</tr>
+</tbody>
+</table>
+<p>La rúbrica es formativa para las Prácticas 1–5; la evaluación calificada corresponde a la Tarea 6.</p>
+</section>
+<section id="autoevaluación" class="level2">
+<h2 class="anchored" data-anchor-id="autoevaluación">Autoevaluación</h2>
+<section id="comprobación-rápida-formativa-al-final-del-taller" class="level3">
+<h3 class="anchored" data-anchor-id="comprobación-rápida-formativa-al-final-del-taller">Comprobación rápida — formativa, al final del taller</h3>
+<ol type="1">
+<li>¿Qué separa las columnas de un GFF3 y cómo lo comprobaste?</li>
+<li>¿Por qué un archivo GFF3 no tiene línea de encabezado y qué consecuencia tiene eso?</li>
+<li>¿Qué significa un <code>.</code> en la columna <code>score</code>? ¿Es lo mismo que un cero?</li>
+<li>¿Por qué <code>wc -c</code> sobre un FASTA no da el tamaño del genoma?</li>
+<li>¿Qué diferencia hay entre <code>&gt;</code> y <code>&gt;&gt;</code>? ¿Y entre <code>&gt;</code> y <code>|</code>?</li>
+<li>¿Qué número identifica a cada flujo estándar y de dónde sale el <code>2</code> de <code>2&gt;</code>?</li>
+<li>En una tubería, ¿sobre qué opera el segundo comando: sobre el archivo o sobre otra cosa? ¿Qué ocurre si le escribes el nombre del archivo?</li>
+<li>¿Por qué conviene que la salida de error viaje por un canal distinto al de los datos?</li>
+<li>¿Qué limitación de tu estrategia de hoy quieres poder resolver en la próxima sesión?</li>
+</ol>
+</section>
+<section id="semáforo" class="level3">
+<h3 class="anchored" data-anchor-id="semáforo">Semáforo</h3>
+<ul>
+<li>🟢 <strong>Verde:</strong> reconozco la estructura de mis archivos, construyo un flujo de varios pasos, guardo el resultado y puedo explicar por qué mis mediciones todavía no responden la pregunta biológica.</li>
+<li>🟡 <strong>Amarillo:</strong> ejecuto los comandos, pero dudo al encadenarlos, repito el nombre del archivo en los eslabones o me cuesta explicar qué mide cada conteo.</li>
+<li>🔴 <strong>Rojo:</strong> confundo datos con comentarios, o presento el tamaño del archivo como el tamaño del genoma.</li>
+</ul>
+<p>Si estás en amarillo o rojo, repite las Prácticas 2 y 3 con calma antes de S11: todo lo que sigue se apoya en distinguir <strong>datos</strong> de <strong>metadatos</strong> y <strong>archivo</strong> de <strong>genoma</strong>.</p>
+</section>
+</section>
+<section id="cierre-de-s10-y-puente-hacia-s11" class="level2">
+<h2 class="anchored" data-anchor-id="cierre-de-s10-y-puente-hacia-s11">Cierre de S10 y puente hacia S11</h2>
+<p>Hoy tus archivos dejaron de ser objetos que se conservan y se convirtieron en objetos que responden preguntas. Sabes cómo están escritos por dentro, sabes encadenar operaciones y sabes guardar lo que produces.</p>
+<p>También te llevas tres números que <strong>no sirven todavía</strong> —y esa es la mejor parte—: sabes que sobreestiman, sabes qué sobra en cada uno y sabes qué te falta poder hacer.</p>
+<p>Si tuvieras que resumir la sesión en una frase, no sería “aprendí <code>wc</code> y las tuberías”: sería <em>“ahora sé que medir un archivo no es lo mismo que medir un genoma”</em>.</p>
+<p>En <strong>S11</strong> vas a mirar el GFF3 como lo que realmente es: una <strong>tabla</strong>. Cada una de sus nueve columnas responde a una pregunta biológica distinta, y aprenderás a quedarte solo con la que te interesa. Ahí descubrirás la siguiente limitación, que ya asoma en la Práctica 5: <em>puedo extraer una columna, pero sigo arrastrando líneas que no debería estar contando</em>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Llega a S11 con tus tres mediciones de hoy a la vista. Las vas a necesitar para comparar.</p>
+</div>
+</div>
+</section>
+<section id="anexo-a.-correspondencia-resultadoactividadevidenciacriterio" class="level2">
+<h2 class="anchored" data-anchor-id="anexo-a.-correspondencia-resultadoactividadevidenciacriterio">Anexo A. Correspondencia resultado–actividad–evidencia–criterio</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Resultado</th>
+<th>Actividad</th>
+<th>Evidencia</th>
+<th>Criterio</th>
+<th>Momento</th>
+<th>Nivel en U4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RA1 Describir la anatomía</td>
+<td>Sección 2, Prácticas 1–2</td>
+<td>Anatomía documentada de ambos archivos</td>
+<td>Identifica unidad, delimitador, comentarios y faltantes</td>
+<td>Antes/taller</td>
+<td>Comprensión</td>
+</tr>
+<tr class="even">
+<td>RA2 Distinguir datos de metadatos</td>
+<td>Sección 2, Práctica 2</td>
+<td>Localización de la primera línea de datos</td>
+<td>No cuenta comentarios como registros</td>
+<td>Taller</td>
+<td>Aplicación guiada</td>
+</tr>
+<tr class="odd">
+<td>RA3 Explicar los tres flujos</td>
+<td>Sección 4</td>
+<td>Respuesta de autoevaluación</td>
+<td>Explica para qué sirve separar <code>stdout</code> de <code>stderr</code></td>
+<td>Taller</td>
+<td>Comprensión</td>
+</tr>
+<tr class="even">
+<td>RA4 Redirigir y encadenar</td>
+<td>Secciones 5–6, Prácticas 4–5</td>
+<td>Archivos en <code>results/s10/</code> + flujo verificado</td>
+<td>Usa el operador correcto y verifica el resultado</td>
+<td>Taller</td>
+<td>Aplicación inicial</td>
+</tr>
+<tr class="odd">
+<td>RA5 Medir y criticar la medición</td>
+<td>Sección 3, Práctica 3</td>
+<td>Tres conteos con su advertencia</td>
+<td>Explica la fuente de error de cada uno</td>
+<td>Taller</td>
+<td>Aplicación guiada</td>
+</tr>
+<tr class="even">
+<td>RA6 Interpretar y documentar límites</td>
+<td>Sección 7</td>
+<td>Bloque S10 del protocolo</td>
+<td>Interpretación sostenida por la evidencia; limitaciones explícitas</td>
+<td>Taller/después</td>
+<td>Aplicación inicial</td>
+</tr>
+<tr class="odd">
+<td>RA7 Iniciar el cuaderno de laboratorio</td>
+<td>Sección 7 y Tarea 6</td>
+<td><code>doc/protocolo.md</code> con el formato completo</td>
+<td>Todos los apartados presentes y verificables</td>
+<td>Después</td>
+<td>Aplicación inicial</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="anexo-b.-alineación-transversal" class="level2">
+<h2 class="anchored" data-anchor-id="anexo-b.-alineación-transversal">Anexo B. Alineación transversal</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Actividad</th>
+<th>Reproducibilidad</th>
+<th>Verificación</th>
+<th>Validación</th>
+<th>Robustez</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Reconocimiento de la anatomía</td>
+<td>Registra qué comando reveló cada elemento</td>
+<td>Comprueba la estructura en el archivo real, no en el ejemplo</td>
+<td>Contrasta con lo interpretado en S7</td>
+<td>Reconoce que otro archivo puede usar otro delimitador o marca de faltante</td>
+</tr>
+<tr class="even">
+<td>Mediciones con <code>wc</code></td>
+<td>Guarda el comando exacto junto al número</td>
+<td>Comprueba el resultado en un fragmento pequeño</td>
+<td>Contrasta el orden de magnitud con lo esperado para el organismo</td>
+<td>Documenta qué incluye de más el conteo</td>
+</tr>
+<tr class="odd">
+<td>Redirecciones</td>
+<td>La salida queda en un archivo con nombre interpretable</td>
+<td><code>cat</code> confirma que se guardó lo esperado</td>
+<td>Comprueba que <code>data/source/</code> sigue intacto</td>
+<td>Evita <code>&gt;</code> sobre archivos existentes</td>
+</tr>
+<tr class="even">
+<td>Tuberías</td>
+<td>El flujo completo queda escrito en el protocolo</td>
+<td>Verifica eslabón por eslabón antes de guardar</td>
+<td>Compara el resultado con la vía sin tubería y con la versión rota</td>
+<td>Detecta errores silenciosos: modifica el primer eslabón y comprueba que el resultado cambia</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="glosario" class="level2">
+<h2 class="anchored" data-anchor-id="glosario">Glosario</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Español</th>
+<th>Inglés</th>
+<th>Definición breve</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Texto plano</td>
+<td>Plain text</td>
+<td>Archivo formado solo por caracteres, sin formato oculto</td>
+</tr>
+<tr class="even">
+<td>Registro</td>
+<td>Record</td>
+<td>Una línea de datos que representa una entidad completa</td>
+</tr>
+<tr class="odd">
+<td>Delimitador</td>
+<td>Delimiter</td>
+<td>Carácter que separa los campos de una línea</td>
+</tr>
+<tr class="even">
+<td>Encabezado (de tabla)</td>
+<td>Header</td>
+<td>Línea inicial que nombra las columnas</td>
+</tr>
+<tr class="odd">
+<td>Encabezado (de FASTA)</td>
+<td>FASTA header</td>
+<td>Línea que empieza con <code>&gt;</code> e identifica la secuencia siguiente</td>
+</tr>
+<tr class="even">
+<td>Comentario / directiva</td>
+<td>Comment / pragma</td>
+<td>Línea que no contiene datos; en GFF3 empieza con <code>#</code> o <code>##</code></td>
+</tr>
+<tr class="odd">
+<td>Valor faltante</td>
+<td>Missing value</td>
+<td>Ausencia de dato; en GFF3 se representa con <code>.</code></td>
+</tr>
+<tr class="even">
+<td>Entrada estándar</td>
+<td>Standard input (<code>stdin</code>)</td>
+<td>Canal por el que un programa recibe datos</td>
+</tr>
+<tr class="odd">
+<td>Salida estándar</td>
+<td>Standard output (<code>stdout</code>)</td>
+<td>Canal por el que un programa entrega su resultado</td>
+</tr>
+<tr class="even">
+<td>Salida de error</td>
+<td>Standard error (<code>stderr</code>)</td>
+<td>Canal por el que un programa emite errores y avisos</td>
+</tr>
+<tr class="odd">
+<td>Descriptor de archivo</td>
+<td>File descriptor</td>
+<td>Número con el que el sistema identifica un canal abierto: 0 para <code>stdin</code>, 1 para <code>stdout</code>, 2 para <code>stderr</code></td>
+</tr>
+<tr class="even">
+<td>Redirección</td>
+<td>Redirection</td>
+<td>Enviar un flujo a un archivo en vez de a la pantalla</td>
+</tr>
+<tr class="odd">
+<td>Tubería</td>
+<td>Pipe</td>
+<td>Conectar la salida de un comando con la entrada del siguiente</td>
+</tr>
+<tr class="even">
+<td>Flujo en tránsito</td>
+<td>Stream</td>
+<td>Texto que circula entre los comandos de una tubería; se transforma en cada eslabón y no es el archivo en disco</td>
+</tr>
+<tr class="odd">
+<td>Error silencioso</td>
+<td>Silent failure</td>
+<td>Resultado erróneo que no produce ningún mensaje de error y por eso pasa inadvertido</td>
+</tr>
+<tr class="even">
+<td>Flujo de trabajo</td>
+<td>Workflow / pipeline</td>
+<td>Secuencia encadenada de operaciones sobre los datos</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="referencias" class="level2">
+<h2 class="anchored" data-anchor-id="referencias">Referencias</h2>
+<ul>
+<li>Buffalo, V. (2015). <em>Bioinformatics Data Skills</em>. O’Reilly Media. — Cap. 7 (<em>Unix Data Tools</em>: filosofía de las herramientas pequeñas, flujos estándar, redirecciones y tuberías).</li>
+<li>Sequence Ontology. (2020). <em>Generic Feature Format Version 3 (GFF3) specification</em>. <a href="https://github.com/The-Sequence-Ontology/Specifications/blob/master/gff3.md" class="uri">https://github.com/The-Sequence-Ontology/Specifications/blob/master/gff3.md</a></li>
+<li>National Center for Biotechnology Information (NCBI). (2024). <em>FASTA format description</em>. <a href="https://www.ncbi.nlm.nih.gov/genbank/fastaformat/" class="uri">https://www.ncbi.nlm.nih.gov/genbank/fastaformat/</a></li>
+<li>Free Software Foundation. (2024). <em>GNU Coreutils Manual</em> — <code>wc</code>, <code>head</code>, <code>tail</code>, <code>cat</code>. <a href="https://www.gnu.org/software/coreutils/manual/coreutils.html" class="uri">https://www.gnu.org/software/coreutils/manual/coreutils.html</a></li>
+<li>Noble, W. S. (2009). A quick guide to organizing computational biology projects. <em>PLoS Computational Biology</em>, 5(7), e1000424. <a href="https://doi.org/10.1371/journal.pcbi.1000424" class="uri">https://doi.org/10.1371/journal.pcbi.1000424</a></li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/helysalgado\.github\.io\/introbioinfo-unix\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./u4-procesamiento-exploracion.html" class="pagination-link" aria-label="Portada">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Portada</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./u4-s11-estructura-tabular-anotacion.html" class="pagination-link" aria-label="S11 — Anotación tabular">
+        <span class="nav-page-text">S11 — Anotación tabular</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://hits.sh/helysalgado.github.io/introbioinfo-unix/"><img src="https://hits.sh/helysalgado.github.io/introbioinfo-unix/.svg?style=flat-square&amp;label=Visitas&amp;color=4a7c9e" class="img-fluid figure-img"></a></p>
+<figcaption>Visitas</figcaption>
+</figure>
+</div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Helysalgado/introbioinfo-unix/edit/main/u4-s10-anatomia-flujos-datos.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/Helysalgado/introbioinfo-unix/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
