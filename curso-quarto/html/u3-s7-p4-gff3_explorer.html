@@ -990,7 +990,7 @@
 
                 const questions = [
                     { id: 'q1', title: '1. ¿En qué secuencia de referencia concreta se encuentra esta anotación?', field: 'seqid', correctVal: 'NC_000913.3' },
-                    { id: 'q2', title: '2. ¿Entre qué coordenadas genómicas se localiza exactamente?', field: 'start / end', correctVal: '190-255' },
+                    { id: 'q2', title: '2. ¿Entre qué coordenadas genómicas se localiza exactamente?', field: 'start-end', correctVal: '190-255' },
                     { id: 'q3', title: '3. ¿En qué hebra (strand) se encuentra orientada la feature?', field: 'strand', correctVal: '+' },
                     { id: 'q4', title: '4. ¿Cuál es el nombre (Name) del gen anotado?', field: 'attributes', correctVal: 'thrL' },
                     { id: 'q5', title: '5. ¿Cuál es el identificador interno (ID) de la feature en el archivo?', field: 'attributes', correctVal: 'gene-b0001' }
@@ -1010,7 +1010,7 @@
                                     <option value="seqid">seqid</option>
                                     <option value="source">source</option>
                                     <option value="type">type</option>
-                                    <option value="start / end">start / end</option>
+                                    <option value="start-end">start-end</option>
                                     <option value="score">score</option>
                                     <option value="strand">strand</option>
                                     <option value="phase">phase</option>
@@ -1074,9 +1074,32 @@
                     card.innerHTML = `
                         <p class="text-xs sm:text-sm font-semibold text-slate-900">${c.claim}</p>
                         <div class="flex flex-wrap gap-2 text-xs">
-                            <button type="button" onclick="app.checkClaim('${c.id}', 'si', '${c.correct}', '${c.expl}')" class="px-3 py-1.5 rounded border border-slate-300 bg-white font-medium hover:bg-slate-100 focus:ring-2 focus:ring-brand-500">Sí</button>
-                            <button type="button" onclick="app.checkClaim('${c.id}', 'no', '${c.correct}', '${c.expl}')" class="px-3 py-1.5 rounded border border-slate-300 bg-white font-medium hover:bg-slate-100 focus:ring-2 focus:ring-brand-500">No</button>
-                            <button type="button" onclick="app.checkClaim('${c.id}', 'req', '${c.correct}', '${c.expl}')" class="px-3 py-1.5 rounded border border-slate-300 bg-white font-medium hover:bg-slate-100 focus:ring-2 focus:ring-brand-500">Requiere más información</button>
+                            //<button type="button" onclick="app.checkClaim('${c.id}', 'si', '${c.correct}', '${c.expl}')" class="px-3 py-1.5 rounded border border-slate-300 bg-white font-medium hover:bg-slate-100 focus:ring-2 focus:ring-brand-500">Sí</button>
+                            //<button type="button" onclick="app.checkClaim('${c.id}', 'no', '${c.correct}', '${c.expl}')" class="px-3 py-1.5 rounded border border-slate-300 bg-white font-medium hover:bg-slate-100 focus:ring-2 focus:ring-brand-500">No</button>
+                            //<button type="button" onclick="app.checkClaim('${c.id}', 'req', '${c.correct}', '${c.expl}')" class="px-3 py-1.5 rounded border border-slate-300 bg-white font-medium hover:bg-slate-100 focus:ring-2 focus:ring-brand-500">Requiere más información</button>
+                            <button
+    id="claim-${c.id}-si"
+    type="button"
+    onclick="app.checkClaim('${c.id}', 'si', '${c.correct}', '${c.expl}')"
+    class="claim-btn px-3 py-1.5 rounded border border-slate-300 bg-white font-medium hover:bg-slate-100 focus:ring-2 focus:ring-brand-500">
+    Sí
+</button>
+
+<button
+    id="claim-${c.id}-no"
+    type="button"
+    onclick="app.checkClaim('${c.id}', 'no', '${c.correct}', '${c.expl}')"
+    class="claim-btn px-3 py-1.5 rounded border border-slate-300 bg-white font-medium hover:bg-slate-100 focus:ring-2 focus:ring-brand-500">
+    No
+</button>
+
+<button
+    id="claim-${c.id}-req"
+    type="button"
+    onclick="app.checkClaim('${c.id}', 'req', '${c.correct}', '${c.expl}')"
+    class="claim-btn px-3 py-1.5 rounded border border-slate-300 bg-white font-medium hover:bg-slate-100 focus:ring-2 focus:ring-brand-500">
+    Requiere más información
+</button>
                         </div>
                         <div id="claim-${c.id}-fb" class="text-xs hidden"></div>
                     `;
@@ -1109,22 +1132,82 @@
                 }
             },
 
+            //checkClaim(claimId, selected, correct, explanation) {
+            //    const cObj = appState.st4.claims[claimId];
+            //    cObj.attempts++;
+            //    const fb = document.getElementById(`claim-${claimId}-fb`);
+            //    fb.classList.remove('hidden');
+
+            //    if (selected === correct) {
+            //        cObj.ans = selected;
+            //        fb.className = "p-3 rounded-lg bg-emerald-50 text-emerald-900 border border-emerald-200 text-xs font-medium flex items-center gap-2";
+            //        fb.innerHTML = `<span>✓</span> <span><strong>Evaluación correcta:</strong> ${explanation}</span>`;
+            //    } else {
+            //        fb.className = "p-3 rounded-lg bg-red-50 text-red-900 border border-red-200 text-xs font-medium flex items-start gap-2";
+            //        fb.innerHTML = `<span>✗</span> <span><strong>Revisa esta interpretación:</strong> Reflexiona si esta afirmación está directamente contenida en la línea o si requiere información adicional.</span>`;
+            //    }
+            //    this.checkSt4Completion();
+            //},
+
             checkClaim(claimId, selected, correct, explanation) {
                 const cObj = appState.st4.claims[claimId];
                 cObj.attempts++;
+
                 const fb = document.getElementById(`claim-${claimId}-fb`);
                 fb.classList.remove('hidden');
 
+                // Reiniciar visualmente los tres botones
+                ['si', 'no', 'req'].forEach(option => {
+                    const btn = document.getElementById(`claim-${claimId}-${option}`);
+                    if (btn) {
+                        btn.className =
+                            "claim-btn px-3 py-1.5 rounded border border-slate-300 " +
+                            "bg-white font-medium hover:bg-slate-100 " +
+                            "focus:ring-2 focus:ring-brand-500";
+                    }
+                });
+
+                const selectedBtn =
+                    document.getElementById(`claim-${claimId}-${selected}`);
+
                 if (selected === correct) {
                     cObj.ans = selected;
-                    fb.className = "p-3 rounded-lg bg-emerald-50 text-emerald-900 border border-emerald-200 text-xs font-medium flex items-center gap-2";
-                    fb.innerHTML = `<span>✓</span> <span><strong>Evaluación correcta:</strong> ${explanation}</span>`;
+
+                    if (selectedBtn) {
+                        selectedBtn.className =
+                            "claim-btn px-3 py-1.5 rounded border border-emerald-500 " +
+                            "bg-emerald-100 text-emerald-900 font-semibold " +
+                            "ring-2 ring-emerald-300";
+                    }
+
+                    fb.className =
+                        "p-3 rounded-lg bg-emerald-50 text-emerald-900 " +
+                        "border border-emerald-200 text-xs font-medium";
+
+                    fb.innerHTML =
+                        `<span>✓</span> <span><strong>Evaluación correcta:</strong> ${explanation}</span>`;
+
                 } else {
-                    fb.className = "p-3 rounded-lg bg-red-50 text-red-900 border border-red-200 text-xs font-medium flex items-start gap-2";
-                    fb.innerHTML = `<span>✗</span> <span><strong>Revisa esta interpretación:</strong> Reflexiona si esta afirmación está directamente contenida en la línea o si requiere información adicional.</span>`;
+
+                    if (selectedBtn) {
+                        selectedBtn.className =
+                            "claim-btn px-3 py-1.5 rounded border border-red-400 " +
+                            "bg-red-50 text-red-900 font-medium";
+                    }
+
+                    fb.className =
+                        "p-3 rounded-lg bg-red-50 text-red-900 " +
+                        "border border-red-200 text-xs font-medium";
+
+                    fb.innerHTML =
+                        `<span>✗</span> <span><strong>Revisa esta interpretación:</strong> ` +
+                        `Reflexiona si esta afirmación está directamente contenida en la línea ` +
+                        `o si requiere información adicional.</span>`;
                 }
+
                 this.checkSt4Completion();
             },
+
 
             checkCalcReason(val) {
                 appState.st4.calcReason = val;
