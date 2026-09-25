@@ -1062,7 +1062,7 @@
                 const claims = [
                     { id: 'c1', claim: '1. La anotación pertenece a la secuencia de referencia NC_000913.3.', correct: 'si', expl: 'Demostrable directamente mediante el campo seqid.' },
                     { id: 'c2', claim: '2. El gen anotado se denomina thrL.', correct: 'si', expl: 'Demostrable directamente mediante el sub-atributo Name=thrL en la columna attributes.' },
-                    { id: 'c3', claim: '3. El gen codifica una proteína funcional.', correct: 'req', expl: 'Esta línea define únicamente una feature de tipo "gene". Para afirmar que produce una proteína se requiere evidenciar la presencia de CDS, productos o transcriptos relacionados.' },
+                    { id: 'c3', claim: '3. El gen codifica una proteína funcional.', correct: 'req', expl: 'Esta línea define únicamente una feature de tipo gene. Para afirmar que produce una proteína se requiere evidenciar la presencia de CDS, productos o transcriptos relacionados.' },
                     { id: 'c4', claim: '4. La región del gen mide exactamente 66 nucleótidos.', correct: 'si', expl: 'Se deduce directamente calculando (255 - 190 + 1) = 66 nucleótidos inclusivos.' },
                     { id: 'c5', claim: '5. El identificador estable global en bases de datos es gene-b0001.', correct: 'no', expl: 'ID=gene-b0001 es un identificador local interno del archivo GFF3 para establecer jerarquías, no necesariamente un accession público estable.' }
                 ];
