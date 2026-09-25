@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bioinformatics Strategy Lab — LCG UNAM 2026</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#2563eb',
+                            600: '#1d4ed8',
+                            700: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .data-paper {
+            background-color: #faf9f6;
+            background-image: radial-gradient(#e2e8f0 0.8px, transparent 0.8px);
+            background-size: 14px 14px;
+        }
+        .tab-btn[aria-selected="true"] {
+            border-bottom-color: #2563eb;
+            color: #1d4ed8;
+            font-weight: 600;
+            background-color: #f0f7ff;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        .node-connector {
+            position: relative;
+        }
+        .node-connector::after {
+            content: '';
+            position: absolute;
+            bottom: -16px;
+            left: 50%;
+            width: 2px;
+            height: 16px;
+            background-color: #cbd5e1;
+            transform: translateX(-50%);
+        }
+    </style>
+</head>
+<body class="h-full text-slate-800 font-sans flex flex-col antialiased">
+    <!-- Top Navigation Header -->
+    <header class="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+            <div>
+                <div class="flex items-center gap-2">
+                    <span class="bg-blue-600 text-xs font-semibold px-2 py-0.5 rounded text-white tracking-wide uppercase">U1 · Sesión 1</span>
+                    <span class="text-xs text-slate-400">LCG UNAM 2026</span>
+                </div>
+                <h1 class="text-xl font-bold tracking-tight text-white flex items-center gap-2 mt-0.5">
+                    <i class="fa-solid fa-flask-vial text-blue-400"></i> Bioinformatics Strategy Lab
+                </h1>
+                <p class="text-xs text-slate-300">Antes del comando, construye la estrategia</p>
+            </div>
+            
+            <div id="progress-container" class="flex items-center gap-2 bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700 text-xs text-slate-300">
+                <i class="fa-solid fa-list-check text-blue-400"></i>
+                <span>Avance:</span>
+                <span id="stage-progress-text" class="font-bold text-white">Etapa 1 de 6</span>
+            </div>
+        </div>
+
+        <!-- Accessible Navigation Tabs -->
+        <div class="bg-slate-800 border-t border-slate-700/60 overflow-x-auto custom-scrollbar">
+            <div class="max-w-7xl mx-auto px-4 flex gap-1 text-sm font-medium" role="tablist" aria-label="Etapas de la práctica">
+                <button role="tab" id="tab-btn-1" aria-selected="true" aria-controls="tab-panel-1" onclick="switchTab(1)" class="tab-btn px-4 py-2.5 border-b-2 border-transparent text-slate-300 hover:text-white flex items-center gap-2 whitespace-nowrap transition-colors">
+                    <span>1. Reto</span>
+                </button>
+                <button role="tab" id="tab-btn-2" aria-selected="false" aria-controls="tab-panel-2" onclick="switchTab(2)" class="tab-btn px-4 py-2.5 border-b-2 border-transparent text-slate-300 hover:text-white flex items-center gap-2 whitespace-nowrap transition-colors">
+                    <span>2. Datos</span>
+                </button>
+                <button role="tab" id="tab-btn-3" aria-selected="false" aria-controls="tab-panel-3" onclick="switchTab(3)" class="tab-btn px-4 py-2.5 border-b-2 border-transparent text-slate-300 hover:text-white flex items-center gap-2 whitespace-nowrap transition-colors">
+                    <span>3. Evidencia</span>
+                </button>
+                <button role="tab" id="tab-btn-4" aria-selected="false" aria-controls="tab-panel-4" onclick="switchTab(4)" class="tab-btn px-4 py-2.5 border-b-2 border-transparent text-slate-300 hover:text-white flex items-center gap-2 whitespace-nowrap transition-colors">
+                    <span>4. Estrategia</span>
+                </button>
+                <button role="tab" id="tab-btn-5" aria-selected="false" aria-controls="tab-panel-5" onclick="switchTab(5)" class="tab-btn px-4 py-2.5 border-b-2 border-transparent text-slate-300 hover:text-white flex items-center gap-2 whitespace-nowrap transition-colors">
+                    <span>5. Interpretación</span>
+                </button>
+                <button role="tab" id="tab-btn-6" aria-selected="false" aria-controls="tab-panel-6" onclick="switchTab(6)" class="tab-btn px-4 py-2.5 border-b-2 border-transparent text-slate-300 hover:text-white flex items-center gap-2 whitespace-nowrap transition-colors">
+                    <span>6. Dictamen</span>
+                </button>
+                <button role="tab" id="tab-btn-summary" aria-selected="false" aria-controls="tab-panel-summary" onclick="switchTab('summary')" class="tab-btn px-4 py-2.5 border-b-2 border-transparent text-emerald-400 hover:text-emerald-300 flex items-center gap-2 whitespace-nowrap transition-colors ml-auto font-semibold">
+                    <i class="fa-solid fa-chart-pie"></i> 📊 Resumen Final
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ARIA Live Announcements Container -->
+    <div id="aria-announce" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
+
+        <!-- ==========================================
+             STAGE 1: RETO Y PRIMER DICTAMEN
+        ========================================== -->
+        <section id="tab-panel-1" role="tabpanel" aria-labelledby="tab-btn-1" class="space-y-6">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <!-- Intro Banner -->
+                <div class="bg-blue-50/70 border border-blue-200 rounded-xl p-5 mb-6">
+                    <div class="flex items-start gap-3">
+                        <div class="p-2 bg-blue-600 text-white rounded-lg shadow-sm">
+                            <i class="fa-solid fa-compass text-lg"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-base font-bold text-slate-900">Antes del comando, construye la estrategia</h2>
+                            <p class="text-sm text-slate-600 mt-1 leading-relaxed">
+                                Has recibido un pequeño conjunto de datos y una pregunta científica. Tu tarea no es empezar a calcular: primero debes decidir qué necesitas saber, qué evidencia sería suficiente y qué limitaciones tienen los datos.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dataset File Representation -->
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-mono font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
+                            <i class="fa-solid fa-file-code text-blue-600"></i> Archivo de trabajo: <code class="bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded border border-slate-300">pacientes.md</code>
+                        </span>
+                        <span class="text-xs text-slate-400 font-mono">3 registros · 6 columnas</span>
+                    </div>
+
+                    <div class="data-paper border border-slate-300 rounded-xl p-4 shadow-inner overflow-x-auto">
+                        <table class="w-full text-left border-collapse font-mono text-sm">
+                            <thead>
+                                <tr class="border-b-2 border-slate-300 bg-slate-100/80 text-slate-700">
+                                    <th class="p-2.5 font-bold">id</th>
+                                    <th class="p-2.5 font-bold text-right">peso</th>
+                                    <th class="p-2.5 font-bold text-right">altura</th>
+                                    <th class="p-2.5 font-bold text-center">sexo</th>
+                                    <th class="p-2.5 font-bold text-right">edad</th>
+                                    <th class="p-2.5 font-bold">dx</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-200 text-slate-800">
+                                <tr>
+                                    <td class="p-2.5">001</td>
+                                    <td class="p-2.5 text-right">65</td>
+                                    <td class="p-2.5 text-right">170</td>
+                                    <td class="p-2.5 text-center">F</td>
+                                    <td class="p-2.5 text-right">23</td>
+                                    <td class="p-2.5 font-semibold text-blue-700">A23</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2.5">002</td>
+                                    <td class="p-2.5 text-right">78</td>
+                                    <td class="p-2.5 text-right">180</td>
+                                    <td class="p-2.5 text-center">M</td>
+                                    <td class="p-2.5 text-right">45</td>
+                                    <td class="p-2.5 font-semibold text-indigo-700">B15</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2.5">003</td>
+                                    <td class="p-2.5 text-right">70</td>
+                                    <td class="p-2.5 text-right">165</td>
+                                    <td class="p-2.5 text-center">F</td>
+                                    <td class="p-2.5 text-right">38</td>
+                                    <td class="p-2.5 font-semibold text-purple-700">C12</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Central Question Callout -->
+                <div class="mt-6 bg-slate-900 text-white rounded-xl p-5 shadow-sm space-y-2">
+                    <span class="text-xs uppercase font-mono tracking-wider text-blue-400 font-bold">Pregunta Científica Central</span>
+                    <p class="text-base font-semibold leading-snug text-slate-100">
+                        “¿Los datos de <code class="bg-slate-800 text-blue-300 px-1.5 py-0.5 rounded font-mono">pacientes.md</code> son suficientes para evaluar si el índice de masa corporal está relacionado con el diagnóstico registrado en <code class="bg-slate-800 text-blue-300 px-1.5 py-0.5 rounded font-mono">dx</code>?”
+                    </p>
+                </div>
+
+                <!-- Interactive Initial Assessment -->
+                <div class="mt-6 bg-slate-50 border border-slate-200 rounded-xl p-5 space-y-4">
+                    <label class="block font-semibold text-slate-800 text-sm">
+                        Solo con una primera inspección visual, ¿crees que estos datos son suficientes para evaluar la relación entre IMC y <code class="bg-slate-200 px-1 rounded font-mono">dx</code>?
+                    </label>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <button type="button" onclick="selectInitialChoice('Si')" id="btn-init-si" class="py-3 px-4 rounded-xl border-2 border-slate-300 hover:border-blue-500 font-medium text-slate-700 text-sm transition-all flex items-center justify-center gap-2 bg-white">
+                            <i class="fa-solid fa-check text-slate-400"></i> Sí, son suficientes
+                        </button>
+                        <button type="button" onclick="selectInitialChoice('No')" id="btn-init-no" class="py-3 px-4 rounded-xl border-2 border-slate-300 hover:border-blue-500 font-medium text-slate-700 text-sm transition-all flex items-center justify-center gap-2 bg-white">
+                            <i class="fa-solid fa-xmark text-slate-400"></i> No, son insuficientes
+                        </button>
+                        <button type="button" onclick="selectInitialChoice('Todavia_no')" id="btn-init-todavia" class="py-3 px-4 rounded-xl border-2 border-slate-300 hover:border-blue-500 font-medium text-slate-700 text-sm transition-all flex items-center justify-center gap-2 bg-white">
+                            <i class="fa-solid fa-hourglass-half text-slate-400"></i> Todavía no puedo decidir
+                        </button>
+                    </div>
+
+                    <!-- Justification Text Area -->
+                    <div id="init-justification-container" class="space-y-2 pt-2 hidden">
+                        <label for="init-justification-text" class="block text-xs font-semibold text-slate-700">
+                            ¿Por qué elegiste esa respuesta? Expresa brevemente tu razonamiento inicial: <span class="text-red-500">*</span>
+                        </label>
+                        <textarea id="init-justification-text" rows="3" placeholder="Explica tus motivos iniciales antes de auditar formalmente las columnas..." class="w-full text-sm rounded-lg border-slate-300 border p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"></textarea>
+                        
+                        <div class="flex justify-between items-center pt-2">
+                            <span class="text-xs text-slate-500 italic">Esta respuesta se guardará para compararla con tu dictamen científico final.</span>
+                            <button type="button" onclick="submitInitialDictamen()" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs px-5 py-2.5 rounded-lg transition-colors flex items-center gap-2">
+                                Guardar primer dictamen y pasar a Auditoría <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             STAGE 2: AUDITORÍA DE LOS DATOS
+        ========================================== -->
+        <section id="tab-panel-2" role="tabpanel" aria-labelledby="tab-btn-2" class="space-y-6 hidden">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-100 pb-4 mb-4 gap-2">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-blue-600">Actividad 2 · Auditoría Metodológica</span>
+                        <h2 class="text-xl font-bold text-slate-900">¿Qué sabes realmente de estas columnas?</h2>
+                    </div>
+                    <span class="bg-blue-50 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full border border-blue-200">
+                        Haz clic en cada encabezado para inspeccionarlo
+                    </span>
+                </div>
+
+                <p class="text-sm text-slate-600 mb-6">
+                    Tener datos tabulados no implica tener evidencia explicada. Inspecciona cada una de las columnas de <code class="bg-slate-100 px-1 py-0.5 rounded font-mono">pacientes.md</code> y responde las preguntas de control sobre su procedencia.
+                </p>
+
+                <!-- Interactive Dataset Table for Column Inspection -->
+                <div class="data-paper border-2 border-slate-300 rounded-xl p-4 shadow-inner overflow-x-auto mb-6">
+                    <table class="w-full text-left border-collapse font-mono text-sm">
+                        <thead>
+                            <tr class="border-b-2 border-slate-300 bg-slate-100/90 text-slate-700">
+                                <th onclick="inspectColumn('id')" id="col-head-id" class="p-3 font-bold cursor-pointer hover:bg-blue-100 transition-colors rounded-t text-blue-800 border-b-2 border-transparent">
+                                    id <i class="fa-solid fa-magnifying-glass text-xs ml-1 text-slate-400"></i>
+                                </th>
+                                <th onclick="inspectColumn('peso')" id="col-head-peso" class="p-3 font-bold text-right cursor-pointer hover:bg-blue-100 transition-colors rounded-t text-blue-800 border-b-2 border-transparent">
+                                    peso <i class="fa-solid fa-magnifying-glass text-xs ml-1 text-slate-400"></i>
+                                </th>
+                                <th onclick="inspectColumn('altura')" id="col-head-altura" class="p-3 font-bold text-right cursor-pointer hover:bg-blue-100 transition-colors rounded-t text-blue-800 border-b-2 border-transparent">
+                                    altura <i class="fa-solid fa-magnifying-glass text-xs ml-1 text-slate-400"></i>
+                                </th>
+                                <th onclick="inspectColumn('sexo')" id="col-head-sexo" class="p-3 font-bold text-center cursor-pointer hover:bg-blue-100 transition-colors rounded-t text-blue-800 border-b-2 border-transparent">
+                                    sexo <i class="fa-solid fa-magnifying-glass text-xs ml-1 text-slate-400"></i>
+                                </th>
+                                <th onclick="inspectColumn('edad')" id="col-head-edad" class="p-3 font-bold text-right cursor-pointer hover:bg-blue-100 transition-colors rounded-t text-blue-800 border-b-2 border-transparent">
+                                    edad <i class="fa-solid fa-magnifying-glass text-xs ml-1 text-slate-400"></i>
+                                </th>
+                                <th onclick="inspectColumn('dx')" id="col-head-dx" class="p-3 font-bold cursor-pointer hover:bg-blue-100 transition-colors rounded-t text-blue-800 border-b-2 border-transparent">
+                                    dx <i class="fa-solid fa-magnifying-glass text-xs ml-1 text-slate-400"></i>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 text-slate-800">
+                            <tr>
+                                <td class="p-3">001</td>
+                                <td class="p-3 text-right">65</td>
+                                <td class="p-3 text-right">170</td>
+                                <td class="p-3 text-center">F</td>
+                                <td class="p-3 text-right">23</td>
+                                <td class="p-3 font-semibold text-blue-700">A23</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3">002</td>
+                                <td class="p-3 text-right">78</td>
+                                <td class="p-3 text-right">180</td>
+                                <td class="p-3 text-center">M</td>
+                                <td class="p-3 text-right">45</td>
+                                <td class="p-3 font-semibold text-indigo-700">B15</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3">003</td>
+                                <td class="p-3 text-right">70</td>
+                                <td class="p-3 text-right">165</td>
+                                <td class="p-3 text-center">F</td>
+                                <td class="p-3 text-right">38</td>
+                                <td class="p-3 font-semibold text-purple-700">C12</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Column Inspection Detail Sheet (Ficha de Auditoría) -->
+                <div id="column-audit-card" class="bg-slate-50 border border-slate-300 rounded-xl p-5 mb-8 shadow-sm space-y-3">
+                    <div class="flex justify-between items-center border-b border-slate-200 pb-2">
+                        <span class="text-xs font-mono font-bold text-blue-700 uppercase" id="audit-card-title">Ficha de Auditoría: Selecciona una columna</span>
+                        <span id="audit-badge" class="text-xs bg-slate-200 text-slate-700 px-2 py-0.5 rounded font-mono">Columna no seleccionada</span>
+                    </div>
+
+                    <div id="audit-card-body" class="text-xs text-slate-600 space-y-2">
+                        <p class="italic text-slate-500">Haz clic en cualquier columna de la tabla superior (ej. <code class="bg-white px-1 border rounded">peso</code>, <code class="bg-white px-1 border rounded">altura</code> o <code class="bg-white px-1 border rounded">dx</code>) para desplegar su ficha de metadatos.</p>
+                    </div>
+                </div>
+
+                <!-- Specific Guided Interactive Questions -->
+                <div class="space-y-6 border-t border-slate-200 pt-6">
+                    <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                        <i class="fa-solid fa-clipboard-question text-blue-600"></i> Preguntas de Control sobre la Evidencia
+                    </h3>
+
+                    <!-- Question 1: Weight -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 space-y-3" id="q-box-peso">
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-500">1. Column Auditor: <code class="text-slate-800">peso</code></span>
+                        <p class="text-sm font-semibold text-slate-800">
+                            Valores observados: <code class="bg-slate-200 px-1 rounded font-mono text-xs">65</code>, <code class="bg-slate-200 px-1 rounded font-mono text-xs">78</code>, <code class="bg-slate-200 px-1 rounded font-mono text-xs">70</code>. ¿Puedes asumir solamente por los valores que <code class="bg-slate-200 px-1 rounded font-mono text-xs">peso</code> está expresado en kilogramos?
+                        </p>
+                        <div class="flex gap-3">
+                            <button type="button" onclick="answerAuditQuestion('peso_kg', 'Si')" id="btn-audit-peso-si" class="px-4 py-2 text-xs rounded-lg border border-slate-300 font-medium hover:bg-slate-100 bg-white">
+                                Sí, son kilogramos
+                            </button>
+                            <button type="button" onclick="answerAuditQuestion('peso_kg', 'No')" id="btn-audit-peso-no" class="px-4 py-2 text-xs rounded-lg border border-slate-300 font-medium hover:bg-slate-100 bg-white">
+                                No, no se puede asumir
+                            </button>
+                        </div>
+                        <div id="feedback-peso_kg" class="hidden text-xs p-3 rounded-lg mt-2"></div>
+                    </div>
+
+                    <!-- Question 2: Height & Transformation -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 space-y-3" id="q-box-altura">
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-500">2. Column Auditor: <code class="text-slate-800">altura</code></span>
+                        <p class="text-sm font-semibold text-slate-800">
+                            Valores observados: <code class="bg-slate-200 px-1 rounded font-mono text-xs">170</code>, <code class="bg-slate-200 px-1 rounded font-mono text-xs">180</code>, <code class="bg-slate-200 px-1 rounded font-mono text-xs">165</code>. ¿Puedes calcular correctamente el IMC sin confirmar la unidad de <code class="bg-slate-200 px-1 rounded font-mono text-xs">altura</code>?
+                        </p>
+                        <div class="flex gap-3">
+                            <button type="button" onclick="answerAuditQuestion('altura_units', 'Si')" id="btn-audit-altura-si" class="px-4 py-2 text-xs rounded-lg border border-slate-300 font-medium hover:bg-slate-100 bg-white">
+                                Sí, se puede calcular directo
+                            </button>
+                            <button type="button" onclick="answerAuditQuestion('altura_units', 'No')" id="btn-audit-altura-no" class="px-4 py-2 text-xs rounded-lg border border-slate-300 font-medium hover:bg-slate-100 bg-white">
+                                No, falta la unidad
+                            </button>
+                        </div>
+                        <div id="feedback-altura_units" class="hidden text-xs p-3 rounded-lg mt-2"></div>
+
+                        <!-- Nested transformation question -->
+                        <div id="subq-altura-transform" class="hidden pt-3 border-t border-slate-200 space-y-2">
+                            <p class="text-xs font-semibold text-slate-800">
+                                La fórmula del IMC es <code class="bg-slate-200 px-1 font-mono">IMC = peso / (altura)²</code>. Si confirmáramos que los valores de <code class="bg-slate-200 px-1 font-mono">altura</code> están en centímetros, ¿qué transformación operacional exacta se requiere antes de aplicar la fórmula estándar?
+                            </p>
+                            <input type="text" id="input-altura-transform" placeholder="Escribe la conversión necesaria..." onchange="saveAlturaTransform(this.value)" class="w-full text-xs p-2.5 rounded border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none">
+                            <p class="text-[11px] text-slate-500 italic">Ejemplo conceptual: Convertir centímetros a metros dividiendo entre 100.</p>
+                        </div>
+                    </div>
+
+                    <!-- Question 3: Diagnosis Codes -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 space-y-3" id="q-box-dx">
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-500">3. Column Auditor: <code class="text-slate-800">dx</code></span>
+                        <p class="text-sm font-semibold text-slate-800">
+                            Códigos observados: <code class="bg-slate-200 px-1 rounded font-mono text-xs text-blue-700">A23</code>, <code class="bg-slate-200 px-1 rounded font-mono text-xs text-indigo-700">B15</code>, <code class="bg-slate-200 px-1 rounded font-mono text-xs text-purple-700">C12</code>. ¿Sabes qué diagnóstico representa cada código solo con este archivo?
+                        </p>
+                        <div class="flex gap-3">
+                            <button type="button" onclick="answerAuditQuestion('dx_codes', 'Si')" id="btn-audit-dx-si" class="px-4 py-2 text-xs rounded-lg border border-slate-300 font-medium hover:bg-slate-100 bg-white">
+                                Sí, se deducen fácilmente
+                            </button>
+                            <button type="button" onclick="answerAuditQuestion('dx_codes', 'No')" id="btn-audit-dx-no" class="px-4 py-2 text-xs rounded-lg border border-slate-300 font-medium hover:bg-slate-100 bg-white">
+                                No, no tienen diccionario asignado
+                            </button>
+                        </div>
+                        <div id="feedback-dx_codes" class="hidden text-xs p-3 rounded-lg mt-2"></div>
+                    </div>
+
+                    <!-- Question 4: Sample Structure and Size -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 space-y-3" id="q-box-sample">
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-500">4. Sample Size Auditor</span>
+                        <p class="text-sm font-semibold text-slate-800">
+                            Observa el número total de filas y la distribución de <code class="bg-slate-200 px-1 rounded font-mono text-xs">dx</code>: Hay 3 pacientes y 3 códigos distintos. ¿Cuántas observaciones existen por cada valor de diagnóstico?
+                        </p>
+                        <div class="flex items-center gap-3">
+                            <input type="number" id="input-sample-obs" min="0" max="10" placeholder="0" class="w-20 text-xs p-2 rounded border border-slate-300 text-center font-mono font-bold">
+                            <button type="button" onclick="checkSampleObs()" class="bg-slate-800 text-white text-xs px-3 py-2 rounded hover:bg-slate-900 transition-colors">
+                                Registrar respuesta
+                            </button>
+                        </div>
+                        <div id="feedback-sample_obs" class="hidden text-xs p-3 rounded-lg mt-2"></div>
+
+                        <div id="subq-sample-assoc" class="hidden pt-3 border-t border-slate-200 space-y-3">
+                            <p class="text-sm font-semibold text-slate-800">
+                                ¿Comparar tres valores individuales (uno por diagnóstico) equivale a demostrar una asociación biológica/médica entre el IMC y el diagnóstico?
+                            </p>
+                            <div class="flex gap-3">
+                                <button type="button" onclick="answerAuditQuestion('sample_assoc', 'Si')" id="btn-audit-assoc-si" class="px-4 py-2 text-xs rounded-lg border border-slate-300 font-medium hover:bg-slate-100 bg-white">
+                                    Sí, demuestra asociación
+                                </button>
+                                <button type="button" onclick="answerAuditQuestion('sample_assoc', 'No')" id="btn-audit-assoc-no" class="px-4 py-2 text-xs rounded-lg border border-slate-300 font-medium hover:bg-slate-100 bg-white">
+                                    No, son solo casos aislados
+                                </button>
+                            </div>
+                            <div id="feedback-sample_assoc" class="hidden text-xs p-3 rounded-lg mt-2"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dynamic Evidence Traffic Light (Semáforo de Evidencia) -->
+                <div class="mt-8 bg-slate-900 text-slate-100 rounded-xl p-6 border border-slate-800 shadow-md">
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-3 mb-4">
+                        <h3 class="font-bold text-base text-white flex items-center gap-2">
+                            <i class="fa-solid fa-traffic-light text-amber-400"></i> Estado Actual de la Evidencia Auditada
+                        </h3>
+                        <span class="text-xs font-mono text-slate-400">Consolidado automático</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 font-mono text-xs" id="evidence-traffic-light-grid">
+                        <div class="p-3 bg-slate-800/80 rounded border border-slate-700 flex justify-between items-center">
+                            <span>¿Existe variable peso?</span>
+                            <span class="bg-emerald-900/80 text-emerald-300 px-2 py-0.5 rounded font-bold">✓ Confirmado</span>
+                        </div>
+                        <div class="p-3 bg-slate-800/80 rounded border border-slate-700 flex justify-between items-center">
+                            <span>¿Existe variable altura?</span>
+                            <span class="bg-emerald-900/80 text-emerald-300 px-2 py-0.5 rounded font-bold">✓ Confirmado</span>
+                        </div>
+                        <div class="p-3 bg-slate-800/80 rounded border border-slate-700 flex justify-between items-center" id="status-row-units">
+                            <span>¿Conocemos sus unidades exactamente?</span>
+                            <span id="status-badge-units" class="bg-amber-900/80 text-amber-300 px-2 py-0.5 rounded font-bold">? Falta confirmar</span>
+                        </div>
+                        <div class="p-3 bg-slate-800/80 rounded border border-slate-700 flex justify-between items-center">
+                            <span>¿Existe variable dx?</span>
+                            <span class="bg-emerald-900/80 text-emerald-300 px-2 py-0.5 rounded font-bold">✓ Confirmado</span>
+                        </div>
+                        <div class="p-3 bg-slate-800/80 rounded border border-slate-700 flex justify-between items-center" id="status-row-dx">
+                            <span>¿Sabemos qué significa el código dx?</span>
+                            <span id="status-badge-dx" class="bg-amber-900/80 text-amber-300 px-2 py-0.5 rounded font-bold">? Falta confirmar</span>
+                        </div>
+                        <div class="p-3 bg-slate-800/80 rounded border border-slate-700 flex justify-between items-center" id="status-row-sample">
+                            <span>¿Múltiples obs. por diagnóstico?</span>
+                            <span id="status-badge-sample" class="bg-red-900/80 text-red-300 px-2 py-0.5 rounded font-bold">✗ Limitación detectada</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 flex justify-end">
+                    <button id="btn-stage2-next" onclick="switchTab(3)" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-5 py-2.5 rounded-lg transition-colors flex items-center gap-2">
+                        Avanzar a Etapa 3 <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             STAGE 3: CONSTRUIR LA CADENA DE EVIDENCIA
+        ========================================== -->
+        <section id="tab-panel-3" role="tabpanel" aria-labelledby="tab-btn-3" class="space-y-6 hidden">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-blue-600">Actividad 3 · Estrategia Visual</span>
+                        <h2 class="text-xl font-bold text-slate-900">Construir la cadena de evidencia</h2>
+                    </div>
+                    <span class="bg-purple-100 text-purple-800 text-xs font-semibold px-2.5 py-1 rounded-full">
+                        Mapa lógico de razonamiento
+                    </span>
+                </div>
+
+                <p class="text-sm text-slate-600 mb-6">
+                    Antes de seleccionar cualquier software o comando, un análisis riguroso se mapea desde la pregunta inicial hasta las operaciones necesarias. Construye cada rama de la cadena de evidencia.
+                </p>
+
+                <!-- Central Question Anchor Node -->
+                <div class="bg-slate-900 text-white p-4 rounded-xl text-center font-bold text-sm shadow mb-8 border-2 border-blue-500 max-w-2xl mx-auto">
+                    <span class="text-xs text-blue-400 font-mono block uppercase mb-1">PREGUNTA CENTRAL</span>
+                    ¿Los datos de <code class="font-mono text-blue-200">pacientes.md</code> permiten evaluar la relación entre IMC y el diagnóstico en <code class="font-mono text-blue-200">dx</code>?
+                </div>
+
+                <!-- Interactive Evidence Branches Container -->
+                <div class="space-y-8">
+                    
+                    <!-- RAMA A: ¿Puedo obtener IMC? -->
+                    <div class="border-2 border-blue-200 bg-blue-50/30 rounded-xl p-5 space-y-4">
+                        <div class="flex items-center gap-2 text-blue-800 font-bold text-base border-b border-blue-200 pb-2">
+                            <span class="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs">A</span>
+                            <h3>Rama A — ¿Puedo obtener un IMC computable e interpretable?</h3>
+                        </div>
+
+                        <div class="space-y-3">
+                            <label class="block text-xs font-semibold text-slate-700">
+                                Para estudiar una posible relación entre IMC y diagnóstico, ¿qué necesitas establecer en primer lugar?
+                            </label>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+                                <button type="button" onclick="answerBranchA('opt1')" id="btn-brancha-opt1" class="p-3 rounded-lg border border-slate-300 text-left hover:bg-white bg-slate-50 transition-all font-medium text-slate-800">
+                                    • Que puedo calcular un IMC interpretable para cada paciente a partir de metadatos confirmados.
+                                </button>
+                                <button type="button" onclick="answerBranchA('opt2')" id="btn-brancha-opt2" class="p-3 rounded-lg border border-slate-300 text-left hover:bg-white bg-slate-50 transition-all font-medium text-slate-800">
+                                    • Qué comando de Unix o script Awk ejecutar primero.
+                                </button>
+                                <button type="button" onclick="answerBranchA('opt3')" id="btn-brancha-opt3" class="p-3 rounded-lg border border-slate-300 text-left hover:bg-white bg-slate-50 transition-all font-medium text-slate-800">
+                                    • Qué librería de Python o R debo instalar.
+                                </button>
+                                <button type="button" onclick="answerBranchA('opt4')" id="btn-brancha-opt4" class="p-3 rounded-lg border border-slate-300 text-left hover:bg-white bg-slate-50 transition-all font-medium text-slate-800">
+                                    • Qué gráfica se ve más atractiva para el reporte.
+                                </button>
+                            </div>
+                            <div id="feedback-branch-a" class="hidden text-xs p-3 rounded-lg mt-2"></div>
+                        </div>
+
+                        <!-- Rendered Logic Path A -->
+                        <div id="path-a-display" class="hidden pt-3 border-t border-blue-200">
+                            <span class="text-xs font-bold font-mono text-blue-700 block mb-2">Flujo operacional construido para la Rama A:</span>
+                            <div class="flex flex-wrap items-center gap-2 font-mono text-xs text-slate-700">
+                                <span class="bg-white px-2.5 py-1 rounded border border-blue-300 shadow-sm">¿Puedo calcular IMC?</span>
+                                <i class="fa-solid fa-arrow-right text-blue-400"></i>
+                                <span class="bg-white px-2.5 py-1 rounded border border-blue-300 shadow-sm">Necesito peso y altura</span>
+                                <i class="fa-solid fa-arrow-right text-blue-400"></i>
+                                <span class="bg-white px-2.5 py-1 rounded border border-blue-300 shadow-sm">Confirmar unidades en metadatos</span>
+                                <i class="fa-solid fa-arrow-right text-blue-400"></i>
+                                <span class="bg-white px-2.5 py-1 rounded border border-blue-300 shadow-sm">Conversión cm → m</span>
+                                <i class="fa-solid fa-arrow-right text-blue-400"></i>
+                                <span class="bg-white px-2.5 py-1 rounded border border-blue-300 shadow-sm font-bold text-blue-800">IMC = peso / altura²</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RAMA B: ¿Puedo interpretar dx? -->
+                    <div class="border-2 border-indigo-200 bg-indigo-50/30 rounded-xl p-5 space-y-4">
+                        <div class="flex items-center gap-2 text-indigo-800 font-bold text-base border-b border-indigo-200 pb-2">
+                            <span class="w-6 h-6 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs">B</span>
+                            <h3>Rama B — ¿Puedo interpretar el significado del diagnóstico registrado?</h3>
+                        </div>
+
+                        <div class="space-y-3">
+                            <p class="text-xs font-semibold text-slate-700">
+                                Los códigos <code class="bg-white px-1 border rounded font-mono">A23</code>, <code class="bg-white px-1 border rounded font-mono">B15</code>, <code class="bg-white px-1 border rounded font-mono">C12</code> no cuentan con diccionario técnico en <code class="bg-white px-1 border rounded font-mono">pacientes.md</code>. ¿Puedes saltarte esta rama y tratar los códigos directamente como diagnósticos interpretables en tu análisis?
+                            </p>
+                            <div class="flex gap-3">
+                                <button type="button" onclick="answerBranchB('Si')" id="btn-branchb-si" class="px-4 py-2 text-xs rounded-lg border border-slate-300 font-medium hover:bg-white bg-slate-50">
+                                    Sí, se pueden usar como etiquetas biológicas directas
+                                </button>
+                                <button type="button" onclick="answerBranchB('No')" id="btn-branchb-no" class="px-4 py-2 text-xs rounded-lg border border-slate-300 font-medium hover:bg-white bg-slate-50">
+                                    No, requieren documentación y diccionario previo
+                                </button>
+                            </div>
+                            <div id="feedback-branch-b" class="hidden text-xs p-3 rounded-lg mt-2"></div>
+                        </div>
+
+                        <!-- Rendered Logic Path B -->
+                        <div id="path-b-display" class="hidden pt-3 border-t border-indigo-200">
+                            <span class="text-xs font-bold font-mono text-indigo-700 block mb-2">Flujo operacional construido para la Rama B:</span>
+                            <div class="flex flex-wrap items-center gap-2 font-mono text-xs text-slate-700">
+                                <span class="bg-white px-2.5 py-1 rounded border border-indigo-300 shadow-sm">¿Qué significa dx?</span>
+                                <i class="fa-solid fa-arrow-right text-indigo-400"></i>
+                                <span class="bg-white px-2.5 py-1 rounded border border-indigo-300 shadow-sm">Solicitar metadatos de códigos</span>
+                                <i class="fa-solid fa-arrow-right text-indigo-400"></i>
+                                <span class="bg-white px-2.5 py-1 rounded border border-indigo-300 shadow-sm">Mapear A23/B15/C12</span>
+                                <i class="fa-solid fa-arrow-right text-indigo-400"></i>
+                                <span class="bg-white px-2.5 py-1 rounded border border-indigo-300 shadow-sm font-bold text-indigo-800">Significado biológico/médico validado</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RAMA C: ¿Puedo evaluar la asociación? -->
+                    <div class="border-2 border-purple-200 bg-purple-50/30 rounded-xl p-5 space-y-4">
+                        <div class="flex items-center gap-2 text-purple-800 font-bold text-base border-b border-purple-200 pb-2">
+                            <span class="w-6 h-6 rounded-full bg-purple-600 text-white flex items-center justify-center text-xs">C</span>
+                            <h3>Rama C — ¿La estructura de la muestra permite evaluar la relación entre variables?</h3>
+                        </div>
+
+                        <!-- Mathematical vs Biological distinction boxes -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-2">
+                            <div class="p-4 bg-white rounded-xl border border-purple-200 shadow-sm space-y-1">
+                                <span class="text-xs font-bold text-amber-700 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-calculator"></i> Distinción Operacional 1
+                                </span>
+                                <p class="text-xs text-slate-700 font-semibold">
+                                    Calcular un valor numérico de IMC <span class="text-purple-600 font-bold">≠</span> Demostrar una asociación biológica.
+                                </p>
+                            </div>
+
+                            <div class="p-4 bg-white rounded-xl border border-purple-200 shadow-sm space-y-1">
+                                <span class="text-xs font-bold text-amber-700 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-users-slash"></i> Distinción Operacional 2
+                                </span>
+                                <p class="text-xs text-slate-700 font-semibold">
+                                    Observar diferencias entre 3 individuos aislados <span class="text-purple-600 font-bold">≠</span> Demostrar una relación generalizable entre variables.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="pt-2">
+                            <button type="button" onclick="confirmBranchC()" id="btn-branchc-confirm" class="bg-purple-700 hover:bg-purple-800 text-white font-semibold text-xs px-4 py-2.5 rounded-lg transition-colors flex items-center gap-2">
+                                <i class="fa-solid fa-link"></i> Consolidar la cadena de evidencia completa
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex justify-end">
+                    <button id="btn-stage3-next" onclick="switchTab(4)" disabled class="opacity-50 cursor-not-allowed bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-5 py-2.5 rounded-lg transition-colors flex items-center gap-2">
+                        Avanzar a Etapa 4 <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             STAGE 4: DISEÑAR OPERACIONES Y VALIDACIÓN
+        ========================================== -->
+        <section id="tab-panel-4" role="tabpanel" aria-labelledby="tab-btn-4" class="space-y-6 hidden">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-blue-600">Actividad 4 · Análisis Crítico</span>
+                        <h2 class="text-xl font-bold text-slate-900">Actividad: “Detecta el salto metodológico”</h2>
+                    </div>
+                    <span class="bg-amber-100 text-amber-800 text-xs font-semibold px-2.5 py-1 rounded-full">
+                        Auditoría de Estrategia
+                    </span>
+                </div>
+
+                <p class="text-sm text-slate-600 mb-6">
+                    A continuación se presentan dos estrategias propuestas por distintos analistas. Identifica en qué punto cada estrategia comete un <strong>salto metodológico</strong> al priorizar la ejecución de código por encima del entendimiento de los datos.
+                </p>
+
+                <!-- Case Scenario 1 -->
+                <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 mb-6 space-y-4">
+                    <div class="flex justify-between items-center border-b border-slate-200 pb-2">
+                        <span class="text-xs font-mono font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-terminal text-red-500"></i> Caso 1 — El programador apresurado
+                        </span>
+                        <span class="bg-red-100 text-red-800 text-xs px-2 py-0.5 rounded font-mono font-bold">Estrategia propuesta</span>
+                    </div>
+
+                    <blockquote class="italic text-xs text-slate-700 bg-white p-3 rounded border border-slate-200 font-serif leading-relaxed">
+                        “Un investigador descarga <code class="font-mono">pacientes.md</code>, abre un cuaderno de Jupyter en Python y ejecuta de inmediato:
+                        <br><code class="bg-slate-100 text-blue-800 font-mono text-[11px] px-1 py-0.5 rounded block my-1">df['imc'] = df['peso'] / ((df['altura']/100)**2)</code>
+                        A continuación, genera una gráfica de barras de IMC vs <code class="font-mono">dx</code> y concluye en su reporte que el diagnóstico A23 se asocia con menor IMC que el diagnóstico B15.”
+                    </blockquote>
+
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold text-slate-800">
+                            ¿Cuál es el principal salto metodológico de esta propuesta?
+                        </label>
+                        <div class="space-y-2 text-xs">
+                            <button type="button" onclick="answerJumpCase(1, 'optA')" id="btn-case1-optA" class="w-full text-left p-3 rounded-lg border border-slate-300 hover:bg-white bg-slate-100/60 transition-all font-medium">
+                                A) Supuso unidades sin verificar los metadatos, asumió el significado de los códigos dx sin diccionario y pretendió inferir una asociación generalizable a partir de 3 datos aislados.
+                            </button>
+                            <button type="button" onclick="answerJumpCase(1, 'optB')" id="btn-case1-optB" class="w-full text-left p-3 rounded-lg border border-slate-300 hover:bg-white bg-slate-100/60 transition-all font-medium">
+                                B) La fórmula de conversión dividió entre 100 en lugar de 1000.
+                            </button>
+                            <button type="button" onclick="answerJumpCase(1, 'optC')" id="btn-case1-optC" class="w-full text-left p-3 rounded-lg border border-slate-300 hover:bg-white bg-slate-100/60 transition-all font-medium">
+                                C) Debió utilizar un paquete de análisis bioinformático en Linux en lugar de Python.
+                            </button>
+                        </div>
+                        <div id="feedback-case-1" class="hidden text-xs p-3 rounded-lg mt-2"></div>
+                    </div>
+                </div>
+
+                <!-- Case Scenario 2 -->
+                <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 mb-6 space-y-4">
+                    <div class="flex justify-between items-center border-b border-slate-200 pb-2">
+                        <span class="text-xs font-mono font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-robot text-purple-600"></i> Caso 2 — El entusiasta del Machine Learning
+                        </span>
+                        <span class="bg-purple-100 text-purple-800 text-xs px-2 py-0.5 rounded font-mono font-bold">Estrategia propuesta</span>
+                    </div>
+
+                    <blockquote class="italic text-xs text-slate-700 bg-white p-3 rounded border border-slate-200 font-serif leading-relaxed">
+                        “Un estudiante decide instalar <code class="font-mono">scikit-learn</code> para entrenar un modelo de regresión logística con los 3 pacientes, usando la edad, sexo e IMC para predecir la categoría <code class="font-mono">dx</code>.”
+                    </blockquote>
+
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold text-slate-800">
+                            ¿Por qué la elección de esta herramienta es completamente prematura e inadecuada?
+                        </label>
+                        <div class="space-y-2 text-xs">
+                            <button type="button" onclick="answerJumpCase(2, 'optA')" id="btn-case2-optA" class="w-full text-left p-3 rounded-lg border border-slate-300 hover:bg-white bg-slate-100/60 transition-all font-medium">
+                                A) Porque ningún algoritmo de Machine Learning compensa la falta de metadatos, la carencia de diccionario de variables y un tamaño muestral de N=3.
+                            </button>
+                            <button type="button" onclick="answerJumpCase(2, 'optB')" id="btn-case2-optB" class="w-full text-left p-3 rounded-lg border border-slate-300 hover:bg-white bg-slate-100/60 transition-all font-medium">
+                                B) Porque la regresión logística únicamente acepta variables continuas y la edad es un entero.
+                            </button>
+                            <button type="button" onclick="answerJumpCase(2, 'optC')" id="btn-case2-optC" class="w-full text-left p-3 rounded-lg border border-slate-300 hover:bg-white bg-slate-100/60 transition-all font-medium">
+                                C) Porque se debió usar un árbol de decisión en lugar de regresión logística.
+                            </button>
+                        </div>
+                        <div id="feedback-case-2" class="hidden text-xs p-3 rounded-lg mt-2"></div>
+                    </div>
+                </div>
+
+                <div class="mt-6 flex justify-end">
+                    <button id="btn-stage4-next" onclick="switchTab(5)" disabled class="opacity-50 cursor-not-allowed bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-5 py-2.5 rounded-lg transition-colors flex items-center gap-2">
+                        Avanzar a Etapa 5 <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             STAGE 5: EVALUAR QUÉ PERMITEN CONCLUIR LOS DATOS
+        ========================================== -->
+        <section id="tab-panel-5" role="tabpanel" aria-labelledby="tab-btn-5" class="space-y-6 hidden">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-blue-600">Actividad 5 · Alcance de Interpretación</span>
+                        <h2 class="text-xl font-bold text-slate-900">Evaluar qué permiten concluir estos datos</h2>
+                    </div>
+                    <span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2.5 py-1 rounded-full">
+                        Delimitación Científica
+                    </span>
+                </div>
+
+                <p class="text-sm text-slate-600 mb-6">
+                    A partir de la auditoría y la cadena de evidencia construida, selecciona cuáles de las siguientes afirmaciones son <strong>científicamente válidas</strong> para el archivo <code class="bg-slate-100 px-1 py-0.5 rounded font-mono">pacientes.md</code>.
+                </p>
+
+                <!-- Checklist of claims -->
+                <div class="space-y-3 mb-6" id="claims-checklist">
+                    <div class="p-4 rounded-xl border border-slate-200 hover:border-blue-300 transition-all bg-slate-50 flex items-start gap-3">
+                        <input type="checkbox" id="chk-claim-1" onchange="updateClaimsState()" class="mt-1 rounded text-blue-600 focus:ring-blue-500">
+                        <label for="chk-claim-1" class="text-xs text-slate-800 cursor-pointer">
+                            <strong class="block text-sm text-slate-900 mb-0.5">Afirmación A:</strong>
+                            “Se pueden realizar cálculos numéricos hipotéticos si asumimos provisionalmente unidades, pero NO es posible emitir una conclusión biológica/médica sobre la relación entre IMC y diagnóstico.”
+                        </label>
+                    </div>
+
+                    <div class="p-4 rounded-xl border border-slate-200 hover:border-blue-300 transition-all bg-slate-50 flex items-start gap-3">
+                        <input type="checkbox" id="chk-claim-2" onchange="updateClaimsState()" class="mt-1 rounded text-blue-600 focus:ring-blue-500">
+                        <label for="chk-claim-2" class="text-xs text-slate-800 cursor-pointer">
+                            <strong class="block text-sm text-slate-900 mb-0.5">Afirmación B:</strong>
+                            “El paciente 002 padece obesidad mórbida severa producida directamente por la enfermedad B15.”
+                        </label>
+                    </div>
+
+                    <div class="p-4 rounded-xl border border-slate-200 hover:border-blue-300 transition-all bg-slate-50 flex items-start gap-3">
+                        <input type="checkbox" id="chk-claim-3" onchange="updateClaimsState()" class="mt-1 rounded text-blue-600 focus:ring-blue-500">
+                        <label for="chk-claim-3" class="text-xs text-slate-800 cursor-pointer">
+                            <strong class="block text-sm text-slate-900 mb-0.5">Afirmación C:</strong>
+                            “El archivo <code class="bg-white px-1 border rounded font-mono">pacientes.md</code> contiene 3 registros individuales con 6 variables, pero carece de metadatos de unidades y diccionario de diagnóstico.”
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Open Text Reflection for Missing Metadata Request -->
+                <div class="bg-blue-50/60 border border-blue-200 rounded-xl p-5 space-y-3">
+                    <label for="missing-meta-request" class="block font-bold text-slate-800 text-sm">
+                        Si fueras el bioinformático a cargo, ¿qué datos o metadatos específicos solicitarías formalmente al laboratorio proveedor antes de proceder con el análisis? <span class="text-red-500">*</span>
+                    </label>
+                    <textarea id="missing-meta-request" rows="3" placeholder="Ejemplo: Unidades de peso y altura, diccionario de códigos dx, protocolo de muestreo..." class="w-full text-sm p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none"></textarea>
+                </div>
+
+                <div class="mt-6 flex justify-end">
+                    <button id="btn-stage5-next" onclick="switchTab(6)" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-5 py-2.5 rounded-lg transition-colors flex items-center gap-2">
+                        Avanzar a Etapa 6 <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             STAGE 6: DICTAMEN CIENTÍFICO FINAL
+        ========================================== -->
+        <section id="tab-panel-6" role="tabpanel" aria-labelledby="tab-btn-6" class="space-y-6 hidden">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-blue-600">Actividad 6 · Dictamen Científico</span>
+                        <h2 class="text-xl font-bold text-slate-900">Dictamen Científico Final</h2>
+                    </div>
+                    <span class="bg-slate-900 text-white text-xs font-semibold px-2.5 py-1 rounded-full">
+                        Evaluación Final de la Pregunta Central
+                    </span>
+                </div>
+
+                <!-- Re-evaluate Central Question -->
+                <div class="bg-slate-900 text-white rounded-xl p-5 space-y-3 mb-6">
+                    <span class="text-xs uppercase font-mono tracking-wider text-blue-400 font-bold">Pregunta Central Repetida</span>
+                    <p class="text-base font-semibold leading-snug text-slate-100">
+                        “¿Los datos de <code class="bg-slate-800 text-blue-300 px-1.5 py-0.5 rounded font-mono">pacientes.md</code> son suficientes para evaluar si el índice de masa corporal está relacionado con el diagnóstico registrado en <code class="bg-slate-800 text-blue-300 px-1.5 py-0.5 rounded font-mono">dx</code>?”
+                    </p>
+                </div>
+
+                <!-- Final Decision Prompt -->
+                <div class="space-y-4 bg-slate-50 p-5 rounded-xl border border-slate-200 mb-6">
+                    <label class="block font-bold text-slate-800 text-sm">
+                        Emitir dictamen científico definitivo:
+                    </label>
+
+                    <div class="flex gap-4">
+                        <button type="button" onclick="selectFinalChoice('Si')" id="btn-final-si" class="flex-1 py-3 px-4 rounded-xl border-2 border-slate-300 hover:border-blue-500 font-medium text-slate-700 text-sm transition-all flex items-center justify-center gap-2 bg-white">
+                            <i class="fa-solid fa-circle-check text-slate-400"></i> Sí, son suficientes
+                        </button>
+                        <button type="button" onclick="selectFinalChoice('No')" id="btn-final-no" class="flex-1 py-3 px-4 rounded-xl border-2 border-slate-300 hover:border-blue-500 font-medium text-slate-700 text-sm transition-all flex items-center justify-center gap-2 bg-white">
+                            <i class="fa-solid fa-circle-xmark text-slate-400"></i> No, son insuficientes
+                        </button>
+                    </div>
+
+                    <!-- Final Justification Input -->
+                    <div id="final-justification-container" class="space-y-2 pt-2 hidden">
+                        <label for="final-justification-text" class="block text-xs font-semibold text-slate-700">
+                            Justifica científicamente tu dictamen final en dos o tres frases: <span class="text-red-500">*</span>
+                        </label>
+                        <textarea id="final-justification-text" rows="3" placeholder="Redacta la argumentación final basada en unidades, metadatos, diccionario dx y tamaño muestral..." class="w-full text-sm rounded-lg border-slate-300 border p-3 focus:ring-2 focus:ring-blue-500 outline-none"></textarea>
+                    </div>
+                </div>
+
+                <!-- Comparison Card: Stage 1 vs Stage 6 -->
+                <div id="comparison-card" class="hidden bg-blue-50/70 border border-blue-200 rounded-xl p-5 mb-6 space-y-3">
+                    <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-code-compare text-blue-600"></i> Comparativa: Tu evolución de pensamiento
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                        <div class="bg-white p-3 rounded-lg border border-slate-200">
+                            <span class="font-bold text-slate-500 uppercase block mb-1">Dictamen Inicial (Etapa 1)</span>
+                            <div id="compare-init-choice" class="font-bold text-blue-700 mb-1"></div>
+                            <p id="compare-init-text" class="italic text-slate-600 bg-slate-50 p-2 rounded border border-slate-100"></p>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border border-slate-200">
+                            <span class="font-bold text-slate-500 uppercase block mb-1">Dictamen Científico Final (Etapa 6)</span>
+                            <div id="compare-final-choice" class="font-bold text-emerald-700 mb-1"></div>
+                            <p id="compare-final-text" class="italic text-slate-600 bg-slate-50 p-2 rounded border border-slate-100"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Final Core Rule Principle Completion -->
+                <div class="bg-slate-900 text-white p-5 rounded-xl space-y-3">
+                    <label class="block font-bold text-blue-400 text-sm">
+                        Formulación del Principio General
+                    </label>
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 text-sm font-serif italic">
+                        <span class="whitespace-nowrap text-slate-300">“Antes de elegir un software, comando o paquete, un bioinformático debe...</span>
+                        <input type="text" id="core-principle-input" placeholder="escribe el principio central alcanzado..." class="flex-1 text-xs p-2.5 rounded font-sans text-slate-900 focus:ring-2 focus:ring-blue-500 outline-none">
+                        <span class="text-slate-300">.”</span>
+                    </div>
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-slate-200 flex justify-between items-center">
+                    <span class="text-xs text-slate-500">Has completado todas las actividades analíticas de la práctica.</span>
+                    <button onclick="switchTab('summary')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold px-6 py-3 rounded-xl shadow-md transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-chart-pie"></i> Ver Resumen Final y Descargar Reporte
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             FINAL SUMMARY TAB (MANDATORY RESUMEN)
+        ========================================== -->
+        <section id="tab-panel-summary" role="tabpanel" aria-labelledby="tab-btn-summary" class="space-y-6 hidden">
+            <div class="bg-white rounded-xl shadow-md border border-slate-200 p-6 sm:p-8 space-y-8">
+                
+                <!-- Summary Header -->
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-200 pb-6">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-0.5 rounded-full uppercase">Sesión Completada</span>
+                            <span class="text-xs text-slate-500">Estrategia Bioinformática</span>
+                        </div>
+                        <h2 class="text-2xl font-black text-slate-900 mt-1">Resumen Consolidativo de la Práctica</h2>
+                        <p class="text-xs text-slate-600">Registro integral del proceso de razonamiento científico realizado durante el laboratorio.</p>
+                    </div>
+
+                    <!-- Markdown Download Button -->
+                    <button onclick="downloadMarkdownReport()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-file-arrow-down text-base"></i> ⬇ Descargar mis resultados (.md)
+                    </button>
+                </div>
+
+                <!-- Summary Section 1: Initial vs Final Dictamen -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
+                        <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2 border-b border-slate-200 pb-2">
+                            <i class="fa-solid fa-hourglass-start text-blue-600"></i> 1. Dictamen Inicial (Etapa 1)
+                        </h3>
+                        <div id="sum-init-choice" class="text-xs font-bold text-slate-800"></div>
+                        <div class="text-xs text-slate-600">
+                            <span class="font-bold block text-slate-700 mb-1">Razonamiento inicial:</span>
+                            <blockquote id="sum-init-text" class="italic bg-white p-2.5 rounded border border-slate-200"></blockquote>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
+                        <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2 border-b border-slate-200 pb-2">
+                            <i class="fa-solid fa-gavel text-emerald-600"></i> 2. Dictamen Final (Etapa 6)
+                        </h3>
+                        <div id="sum-final-choice" class="text-xs font-bold text-slate-800"></div>
+                        <div class="text-xs text-slate-600">
+                            <span class="font-bold block text-slate-700 mb-1">Argumentación final:</span>
+                            <blockquote id="sum-final-text" class="italic bg-white p-2.5 rounded border border-slate-200"></blockquote>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Summary Section 2: Audit Consolidated Status -->
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
+                    <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2 border-b border-slate-200 pb-2">
+                        <i class="fa-solid fa-list-check text-indigo-600"></i> 3. Estado de Evidencia y Auditoría de Columnas
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-mono">
+                        <div class="p-2.5 bg-white rounded border border-slate-200">
+                            <span class="text-slate-500 block">Unidades de peso/altura:</span>
+                            <span id="sum-audit-units" class="font-bold text-amber-600">Falta confirmar</span>
+                        </div>
+                        <div class="p-2.5 bg-white rounded border border-slate-200">
+                            <span class="text-slate-500 block">Diccionario de dx:</span>
+                            <span id="sum-audit-dx" class="font-bold text-amber-600">Sin catálogo</span>
+                        </div>
+                        <div class="p-2.5 bg-white rounded border border-slate-200">
+                            <span class="text-slate-500 block">Estructura muestral:</span>
+                            <span id="sum-audit-sample" class="font-bold text-red-600">3 observaciones (N=3)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Summary Section 3: Open Reflections -->
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
+                    <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2 border-b border-slate-200 pb-2">
+                        <i class="fa-solid fa-brain text-purple-600"></i> 4. Solicitudes de Metadatos y Principio Final
+                    </h3>
+                    <div class="space-y-3 text-xs">
+                        <div>
+                            <span class="font-bold block text-slate-700 mb-0.5">Metadatos solicitados al laboratorio:</span>
+                            <p id="sum-meta-request" class="bg-white p-2.5 rounded border border-slate-200 italic text-slate-700"></p>
+                        </div>
+                        <div>
+                            <span class="font-bold block text-slate-700 mb-0.5">Principio General formulado:</span>
+                            <p id="sum-core-principle" class="bg-white p-2.5 rounded border border-slate-200 italic text-slate-700 font-serif"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Final Philosophical Footer -->
+                <div class="p-4 rounded-xl bg-slate-900 text-slate-300 text-xs flex items-center gap-3">
+                    <i class="fa-solid fa-graduation-cap text-2xl text-blue-400"></i>
+                    <div>
+                        <span class="font-bold text-white block mb-0.5">Conclusión del Módulo U1 / Sesión 1</span>
+                        Tener columnas en un archivo de texto no garantiza contar con evidencia para responder una pregunta científica. La estrategia de análisis, la validación de unidades y la comprensión de metadatos preceden siempre a la elección del comando o software.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        /* ==========================================================================
+           STATE MANAGEMENT & AUDIT LOGIC
+           ========================================================================== */
+        const appState = {
+            currentStage: 1,
+            stage1: {
+                choice: null, // 'Si', 'No', 'Todavia_no'
+                text: '',
+                submitted: false
+            },
+            stage2: {
+                auditedCols: { id: false, peso: false, altura: false, sexo: false, edad: false, dx: false },
+                answers: {
+                    peso_kg: null,
+                    altura_units: null,
+                    altura_transform: '',
+                    dx_codes: null,
+                    sample_obs: null,
+                    sample_assoc: null
+                },
+                attempts: { peso_kg: 0, altura_units: 0, dx_codes: 0, sample_assoc: 0 },
+                hintsUsed: { peso_kg: false, altura_units: false, dx_codes: false, sample_assoc: false }
+            },
+            stage3: {
+                branchA: null,
+                branchB: null,
+                branchCConfirmed: false
+            },
+            stage4: {
+                case1: null,
+                case2: null
+            },
+            stage5: {
+                claims: { claim1: false, claim2: false, claim3: false },
+                metaRequest: ''
+            },
+            stage6: {
+                finalChoice: null,
+                finalJustification: '',
+                corePrinciple: ''
+            }
+        };
+
+        // Master Column Metadata Dictionary for Stage 2 Inspection Sheet
+        const COLUMN_SPECS = {
+            id: {
+                name: "id (Identificador del sujeto)",
+                observed: "001, 002, 003",
+                represents: "Identificador unívoco local por fila de paciente.",
+                knowUnits: "No aplica (Cadena de texto/código arbitrario).",
+                needConfirm: "Garantizar que no existan duplicados en archivos consolidados."
+            },
+            peso: {
+                name: "peso (Masa corporal)",
+                observed: "65, 78, 70",
+                represents: "Magnitud física presumiblemente asociada a masa corporal.",
+                knowUnits: "NO. ¿Son kilogramos? ¿Libras? ¿Gramos?",
+                needConfirm: "Metadato de unidad de medida exacta registrado en el protocolo."
+            },
+            altura: {
+                name: "altura (Estatura/Talla)",
+                observed: "170, 180, 165",
+                represents: "Magnitud física presumiblemente asociada a la estatura.",
+                knowUnits: "NO. ¿Son centímetros? ¿Pulgadas?",
+                needConfirm: "Unidad exacta de longitud para determinar si requiere conversión previa antes del cálculo del IMC."
+            },
+            sexo: {
+                name: "sexo (Sexo biológico registrado)",
+                observed: "F, M, F",
+                represents: "Categoría binaria registrada en ficha clínica.",
+                knowUnits: "F = Femenino, M = Masculino (según uso estándar).",
+                needConfirm: "Criterios de asignación clínica o genotípica."
+            },
+            edad: {
+                name: "edad (Edad cronológica)",
+                observed: "23, 45, 38",
+                represents: "Tiempo transcurrido desde el nacimiento.",
+                knowUnits: "Presumiblemente años cumplidos.",
+                needConfirm: "Si es edad al momento del diagnóstico o de la toma de muestra."
+            },
+            dx: {
+                name: "dx (Código de diagnóstico)",
+                observed: "A23, B15, C12",
+                represents: "Categoría o diagnóstico atribuido al paciente.",
+                knowUnits: "NO. ¿Qué enfermedad representa A23, B15 o C12?",
+                needConfirm: "Catálogo o diccionario de códigos (CIE-10, SNOMED, etc.)."
+            }
+        };
+
+        window.addEventListener('DOMContentLoaded', () => {
+            // Screen reader setup & initial rendering
+        });
+
+        function announceToScreenReader(text) {
+            const el = document.getElementById('aria-announce');
+            if (el) el.innerText = text;
+        }
+
+        function switchTab(stageId) {
+            // Hide all panels
+            const panels = document.querySelectorAll('[role="tabpanel"]');
+            panels.forEach(p => p.classList.add('hidden'));
+
+            // Deselect tabs
+            const tabs = document.querySelectorAll('[role="tab"]');
+            tabs.forEach(t => {
+                t.setAttribute('aria-selected', 'false');
+                t.classList.remove('bg-blue-50', 'text-blue-600', 'border-blue-600');
+            });
+
+            // Activate target
+            const targetPanel = document.getElementById(`tab-panel-${stageId}`);
+            const targetTab = document.getElementById(`tab-btn-${stageId}`);
+
+            if (targetPanel && targetTab) {
+                targetPanel.classList.remove('hidden');
+                targetTab.setAttribute('aria-selected', 'true');
+
+                const progressText = document.getElementById('stage-progress-text');
+                if (stageId === 'summary') {
+                    progressText.innerText = '📊 Resumen Final';
+                    renderFinalSummary();
+                } else {
+                    progressText.innerText = `Etapa ${stageId} de 6`;
+                    appState.currentStage = stageId;
+                }
+
+                announceToScreenReader(`Navegando a ${targetTab.innerText}`);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        /* ==========================================================================
+           STAGE 1 LOGIC
+           ========================================================================== */
+        function selectInitialChoice(choice) {
+            appState.stage1.choice = choice;
+
+            const btnSi = document.getElementById('btn-init-si');
+            const btnNo = document.getElementById('btn-init-no');
+            const btnTodavia = document.getElementById('btn-init-todavia');
+            const container = document.getElementById('init-justification-container');
+
+            [btnSi, btnNo, btnTodavia].forEach(btn => btn.classList.remove('border-blue-600', 'bg-blue-50', 'text-blue-700'));
+
+            if (choice === 'Si') btnSi.classList.add('border-blue-600', 'bg-blue-50', 'text-blue-700');
+            if (choice === 'No') btnNo.classList.add('border-blue-600', 'bg-blue-50', 'text-blue-700');
+            if (choice === 'Todavia_no') btnTodavia.classList.add('border-blue-600', 'bg-blue-50', 'text-blue-700');
+
+            container.classList.remove('hidden');
+        }
+
+        function submitInitialDictamen() {
+            const text = document.getElementById('init-justification-text').value.trim();
+            if (!text) {
+                alert('Por favor, escribe una breve explicación de tu razonamiento inicial antes de continuar.');
+                return;
+            }
+            appState.stage1.text = text;
+            appState.stage1.submitted = true;
+            switchTab(2);
+        }
+
+        /* ==========================================================================
+           STAGE 2 LOGIC (COLUMN INSPECTION & QUESTION AUDITOR WITH HINTS)
+           ========================================================================== */
+        function inspectColumn(colKey) {
+            appState.stage2.auditedCols[colKey] = true;
+            const spec = COLUMN_SPECS[colKey];
+            if (!spec) return;
+
+            // Highlight selected header
+            ['id','peso','altura','sexo','edad','dx'].forEach(k => {
+                const el = document.getElementById(`col-head-${k}`);
+                if (el) el.classList.remove('bg-blue-200', 'border-blue-600');
+            });
+            const selEl = document.getElementById(`col-head-${colKey}`);
+            if (selEl) selEl.classList.add('bg-blue-200', 'border-blue-600');
+
+            // Populate Card
+            document.getElementById('audit-card-title').innerText = `Ficha de Auditoría: ${spec.name}`;
+            document.getElementById('audit-badge').innerText = `Inspeccionando ${colKey}`;
+
+            const cardBody = document.getElementById('audit-card-body');
+            cardBody.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 bg-white p-3 rounded-lg border border-slate-200">
+                    <div>
+                        <strong class="text-slate-700 block">Valores observados:</strong>
+                        <span class="font-mono text-blue-700">${spec.observed}</span>
+                    </div>
+                    <div>
+                        <strong class="text-slate-700 block">¿Qué creo que representa?</strong>
+                        <span>${spec.represents}</span>
+                    </div>
+                    <div>
+                        <strong class="text-slate-700 block">¿Conozco las unidades/códigos?</strong>
+                        <span class="text-amber-800 font-medium">${spec.knowUnits}</span>
+                    </div>
+                    <div>
+                        <strong class="text-slate-700 block">¿Qué necesito confirmar?</strong>
+                        <span class="text-slate-600">${spec.needConfirm}</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        function answerAuditQuestion(qKey, choice) {
+            appState.stage2.attempts[qKey] = (appState.stage2.attempts[qKey] || 0) + 1;
+            const attemptCount = appState.stage2.attempts[qKey];
+            const feedbackEl = document.getElementById(`feedback-${qKey}`);
+
+            feedbackEl.classList.remove('hidden', 'bg-emerald-50', 'bg-red-50', 'bg-amber-50', 'text-emerald-900', 'text-red-900', 'text-amber-900', 'border', 'border-emerald-200', 'border-red-200', 'border-amber-200');
+
+            // Handle Question Logic & Hints
+            if (qKey === 'peso_kg') {
+                appState.stage2.answers.peso_kg = choice;
+                if (choice === 'No') {
+                    // Correct
+                    feedbackEl.classList.add('bg-emerald-50', 'text-emerald-900', 'border', 'border-emerald-200');
+                    feedbackEl.innerHTML = `
+                        <div class="flex items-start gap-2">
+                            <i class="fa-solid fa-circle-check text-emerald-600 text-sm mt-0.5"></i>
+                            <div>
+                                <strong>✓ Decisión sustentada:</strong> Un valor plausible (ej. 65, 78) NO documenta una unidad de medida. Podrían ser libras o unidades arbitrarias. Debe confirmarse en metadatos.
+                            </div>
+                        </div>
+                    `;
+                    updateTrafficLight();
+                } else {
+                    // Incorrect (Selected 'Si')
+                    appState.stage2.hintsUsed.peso_kg = true;
+                    feedbackEl.classList.add('bg-red-50', 'text-red-900', 'border', 'border-red-200');
+                    feedbackEl.innerHTML = `
+                        <div class="flex items-start gap-2">
+                            <i class="fa-solid fa-lightbulb text-amber-600 text-sm mt-0.5"></i>
+                            <div>
+                                <strong>Pista de Auditoría (Intento ${attemptCount}):</strong> Asumir kilogramos solo porque "parecen" kilogramos introduce sesgos. Un archivo sin metadatos de unidades puede contener datos en libras o escalas relativas. Revisa tu respuesta.
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+
+            if (qKey === 'altura_units') {
+                appState.stage2.answers.altura_units = choice;
+                const subq = document.getElementById('subq-altura-transform');
+                if (choice === 'No') {
+                    feedbackEl.classList.add('bg-emerald-50', 'text-emerald-900', 'border', 'border-emerald-200');
+                    feedbackEl.innerHTML = `
+                        <div class="flex items-start gap-2">
+                            <i class="fa-solid fa-circle-check text-emerald-600 text-sm mt-0.5"></i>
+                            <div>
+                                <strong>✓ Decisión sustentada:</strong> Correcto. Sin confirmar la unidad no se puede saber si el valor se usa directo o requiere escalar de cm a m.
+                            </div>
+                        </div>
+                    `;
+                    subq.classList.remove('hidden');
+                    updateTrafficLight();
+                } else {
+                    appState.stage2.hintsUsed.altura_units = true;
+                    feedbackEl.classList.add('bg-red-50', 'text-red-900', 'border', 'border-red-200');
+                    feedbackEl.innerHTML = `
+                        <div class="flex items-start gap-2">
+                            <i class="fa-solid fa-lightbulb text-amber-600 text-sm mt-0.5"></i>
+                            <div>
+                                <strong>Pista de Auditoría:</strong> La fórmula estándar del IMC exige metros. Si la tabla contiene 170 y lo usas directo en la fórmula, obtendrás un IMC absurdamente pequeño (0.0022).
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+
+            if (qKey === 'dx_codes') {
+                appState.stage2.answers.dx_codes = choice;
+                if (choice === 'No') {
+                    feedbackEl.classList.add('bg-emerald-50', 'text-emerald-900', 'border', 'border-emerald-200');
+                    feedbackEl.innerHTML = `
+                        <div class="flex items-start gap-2">
+                            <i class="fa-solid fa-circle-check text-emerald-600 text-sm mt-0.5"></i>
+                            <div>
+                                <strong>✓ Decisión sustentada:</strong> Correcto. Un código alfanumérico sin catálogo o diccionario asignado es una etiqueta vacía sin significado biológico explícito.
+                            </div>
+                        </div>
+                    `;
+                    updateTrafficLight();
+                } else {
+                    appState.stage2.hintsUsed.dx_codes = true;
+                    feedbackEl.classList.add('bg-red-50', 'text-red-900', 'border', 'border-red-200');
+                    feedbackEl.innerHTML = `
+                        <div class="flex items-start gap-2">
+                            <i class="fa-solid fa-lightbulb text-amber-600 text-sm mt-0.5"></i>
+                            <div>
+                                <strong>Pista de Auditoría:</strong> A23 podría ser brucelosis en CIE-10 o una clave privada de un laboratorio. ¿Dónde está especificado en el archivo?
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+
+            if (qKey === 'sample_assoc') {
+                appState.stage2.answers.sample_assoc = choice;
+                if (choice === 'No') {
+                    feedbackEl.classList.add('bg-emerald-50', 'text-emerald-900', 'border', 'border-emerald-200');
+                    feedbackEl.innerHTML = `
+                        <div class="flex items-start gap-2">
+                            <i class="fa-solid fa-circle-check text-emerald-600 text-sm mt-0.5"></i>
+                            <div>
+                                <strong>✓ Decisión sustentada:</strong> Excelente discernimiento. Observar 3 puntos aislados no constituye muestra suficiente para inferir asociación entre variables.
+                            </div>
+                        </div>
+                    `;
+                    updateTrafficLight();
+                } else {
+                    appState.stage2.hintsUsed.sample_assoc = true;
+                    feedbackEl.classList.add('bg-red-50', 'text-red-900', 'border', 'border-red-200');
+                    feedbackEl.innerHTML = `
+                        <div class="flex items-start gap-2">
+                            <i class="fa-solid fa-lightbulb text-amber-600 text-sm mt-0.5"></i>
+                            <div>
+                                <strong>Pista de Auditoría:</strong> Tres individuos representan 3 casos particulares. No permiten calcular variabilidad, error estándar ni significancia estadística.
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+        }
+
+        function saveAlturaTransform(val) {
+            appState.stage2.answers.altura_transform = val;
+        }
+
+        function checkSampleObs() {
+            const inputVal = parseInt(document.getElementById('input-sample-obs').value, 10);
+            const feedbackEl = document.getElementById('feedback-sample_obs');
+            const subq = document.getElementById('subq-sample-assoc');
+
+            feedbackEl.classList.remove('hidden', 'bg-emerald-50', 'bg-red-50', 'text-emerald-900', 'text-red-900', 'border', 'border-emerald-200', 'border-red-200');
+
+            if (inputVal === 1) {
+                appState.stage2.answers.sample_obs = 1;
+                feedbackEl.classList.add('bg-emerald-50', 'text-emerald-900', 'border', 'border-emerald-200');
+                feedbackEl.innerHTML = '<strong>✓ Correcto:</strong> Hay exactamente 1 observación por cada diagnóstico (A23: 1, B15: 1, C12: 1).';
+                subq.classList.remove('hidden');
+            } else {
+                feedbackEl.classList.add('bg-red-50', 'text-red-900', 'border', 'border-red-200');
+                feedbackEl.innerHTML = '<strong>✗ Conteo incorrecto:</strong> Revisa cuántas filas tienen A23, cuántas B15 y cuántas C12.';
+            }
+        }
+
+        function updateTrafficLight() {
+            const uBadge = document.getElementById('status-badge-units');
+            const dxBadge = document.getElementById('status-badge-dx');
+
+            if (appState.stage2.answers.peso_kg === 'No' && appState.stage2.answers.altura_units === 'No') {
+                uBadge.className = 'bg-amber-900/80 text-amber-300 px-2 py-0.5 rounded font-bold';
+                uBadge.innerText = '? Falta confirmar en metadatos';
+            }
+
+            if (appState.stage2.answers.dx_codes === 'No') {
+                dxBadge.className = 'bg-amber-900/80 text-amber-300 px-2 py-0.5 rounded font-bold';
+                dxBadge.innerText = '? Sin diccionario de catálogo';
+            }
+        }
+
+        /* ==========================================================================
+           STAGE 3 LOGIC (EVIDENCE CHAIN BUILDER)
+           ========================================================================== */
+        function answerBranchA(optKey) {
+            appState.stage3.branchA = optKey;
+            const fb = document.getElementById('feedback-branch-a');
+            const pathDisplay = document.getElementById('path-a-display');
+
+            fb.classList.remove('hidden', 'bg-emerald-50', 'bg-red-50', 'text-emerald-900', 'text-red-900', 'border', 'border-emerald-200', 'border-red-200');
+
+            if (optKey === 'opt1') {
+                fb.classList.add('bg-emerald-50', 'text-emerald-900', 'border', 'border-emerald-200');
+                fb.innerHTML = '<strong>✓ Rama A completada correctamente:</strong> El primer prerrequisito es garantizar que el número que calcularemos sea interpretable.';
+                pathDisplay.classList.remove('hidden');
+            } else {
+                fb.classList.add('bg-red-50', 'text-red-900', 'border', 'border-red-200');
+                fb.innerHTML = '<strong>✗ Salto de herramientas:</strong> Estás eligiendo comandos, librerías o estética antes de definir la validez de los datos.';
+            }
+            checkStage3Completion();
+        }
+
+        function answerBranchB(choice) {
+            appState.stage3.branchB = choice;
+            const fb = document.getElementById('feedback-branch-b');
+            const pathDisplay = document.getElementById('path-b-display');
+
+            fb.classList.remove('hidden', 'bg-emerald-50', 'bg-red-50', 'text-emerald-900', 'text-red-900', 'border', 'border-emerald-200', 'border-red-200');
+
+            if (choice === 'No') {
+                fb.classList.add('bg-emerald-50', 'text-emerald-900', 'border', 'border-emerald-200');
+                fb.innerHTML = '<strong>✓ Rama B completada correctamente:</strong> Puedes manipular etiquetas numéricamente sin conocer su significado, pero no interpretar científicamente el resultado.';
+                pathDisplay.classList.remove('hidden');
+            } else {
+                fb.classList.add('bg-red-50', 'text-red-900', 'border', 'border-red-200');
+                fb.innerHTML = '<strong>✗ Error metodológico:</strong> Usar códigos desconocidos como variables biológicas genera conclusiones ficticias.';
+            }
+            checkStage3Completion();
+        }
+
+        function confirmBranchC() {
+            appState.stage3.branchCConfirmed = true;
+            checkStage3Completion();
+        }
+
+        function checkStage3Completion() {
+            const nextBtn = document.getElementById('btn-stage3-next');
+            if (appState.stage3.branchA === 'opt1' && appState.stage3.branchB === 'No' && appState.stage3.branchCConfirmed) {
+                nextBtn.disabled = false;
+                nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        }
+
+        /* ==========================================================================
+           STAGE 4 LOGIC ("DETECTA EL SALTO METODOLÓGICO")
+           ========================================================================== */
+        function answerJumpCase(caseNum, optKey) {
+            const fb = document.getElementById(`feedback-case-${caseNum}`);
+            fb.classList.remove('hidden', 'bg-emerald-50', 'bg-red-50', 'text-emerald-900', 'text-red-900', 'border', 'border-emerald-200', 'border-red-200');
+
+            if (caseNum === 1) {
+                appState.stage4.case1 = optKey;
+                if (optKey === 'optA') {
+                    fb.classList.add('bg-emerald-50', 'text-emerald-900', 'border', 'border-emerald-200');
+                    fb.innerHTML = '<strong>✓ Salto detectado correctamente:</strong> El analista ejecutó código sin auditar metadatos ni estructura de la muestra.';
+                } else {
+                    fb.classList.add('bg-red-50', 'text-red-900', 'border', 'border-red-200');
+                    fb.innerHTML = '<strong>✗ Revisa la estrategia:</strong> El problema no es el lenguaje de programación ni la sintaxis, sino la falta de auditoría metodológica.';
+                }
+            }
+
+            if (caseNum === 2) {
+                appState.stage4.case2 = optKey;
+                if (optKey === 'optA') {
+                    fb.classList.add('bg-emerald-50', 'text-emerald-900', 'border', 'border-emerald-200');
+                    fb.innerHTML = '<strong>✓ Salto detectado correctamente:</strong> Un modelo complejo o algoritmo no corrige la falta de metadatos ni sostiene conclusiones con N=3.';
+                } else {
+                    fb.classList.add('bg-red-50', 'text-red-900', 'border', 'border-red-200');
+                    fb.innerHTML = '<strong>✗ Revisa la estrategia:</strong> La limitación central es conceptual e informacional, no de sintaxis o tipo de modelo.';
+                }
+            }
+
+            if (appState.stage4.case1 === 'optA' && appState.stage4.case2 === 'optA') {
+                const nextBtn = document.getElementById('btn-stage4-next');
+                nextBtn.disabled = false;
+                nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        }
+
+        /* ==========================================================================
+           STAGE 5 LOGIC (INTERPRETATION SCOPE)
+           ========================================================================== */
+        function updateClaimsState() {
+            appState.stage5.claims.claim1 = document.getElementById('chk-claim-1').checked;
+            appState.stage5.claims.claim2 = document.getElementById('chk-claim-2').checked;
+            appState.stage5.claims.claim3 = document.getElementById('chk-claim-3').checked;
+        }
+
+        /* ==========================================================================
+           STAGE 6 LOGIC (FINAL SCIENTIFIC DICTAMEN)
+           ========================================================================== */
+        function selectFinalChoice(choice) {
+            appState.stage6.finalChoice = choice;
+
+            const btnSi = document.getElementById('btn-final-si');
+            const btnNo = document.getElementById('btn-final-no');
+            const container = document.getElementById('final-justification-container');
+            const compCard = document.getElementById('comparison-card');
+
+            [btnSi, btnNo].forEach(btn => btn.classList.remove('border-blue-600', 'bg-blue-50', 'text-blue-700', 'border-red-600', 'bg-red-50', 'text-red-700'));
+
+            if (choice === 'Si') btnSi.classList.add('border-blue-600', 'bg-blue-50', 'text-blue-700');
+            if (choice === 'No') btnNo.classList.add('border-red-600', 'bg-red-50', 'text-red-700');
+
+            container.classList.remove('hidden');
+            compCard.classList.remove('hidden');
+
+            // Render comparison
+            document.getElementById('compare-init-choice').innerText = appState.stage1.choice ? `Opción: ${appState.stage1.choice}` : 'Sin selección inicial';
+            document.getElementById('compare-init-text').innerText = appState.stage1.text || 'Sin justificación';
+
+            document.getElementById('compare-final-choice').innerText = `Opción: ${choice}`;
+            document.getElementById('compare-final-text').innerText = document.getElementById('final-justification-text').value || 'Escribiendo justificación final...';
+        }
+
+        /* ==========================================================================
+           FINAL SUMMARY & MARKDOWN EXPORT
+           ========================================================================== */
+        function renderFinalSummary() {
+            // Collect Stage 5 & 6 latest inputs
+            appState.stage5.metaRequest = document.getElementById('missing-meta-request').value.trim() || 'Sin solicitud redactada';
+            appState.stage6.finalJustification = document.getElementById('final-justification-text').value.trim() || 'Sin justificación redactada';
+            appState.stage6.corePrinciple = document.getElementById('core-principle-input').value.trim() || 'Sin principio redactado';
+
+            // 1. Initial Dictamen
+            document.getElementById('sum-init-choice').innerText = appState.stage1.choice ? `Elección: ${appState.stage1.choice}` : 'No registrado';
+            document.getElementById('sum-init-text').innerText = appState.stage1.text || 'Sin respuesta';
+
+            // 2. Final Dictamen
+            document.getElementById('sum-final-choice').innerText = appState.stage6.finalChoice ? `Elección: ${appState.stage6.finalChoice}` : 'No registrado';
+            document.getElementById('sum-final-text').innerText = appState.stage6.finalJustification || 'Sin respuesta';
+
+            // 3. Audit Status
+            document.getElementById('sum-audit-units').innerText = (appState.stage2.answers.peso_kg === 'No' && appState.stage2.answers.altura_units === 'No') ? '✓ Auditado: Falta confirmar' : 'Pendiente';
+            document.getElementById('sum-audit-dx').innerText = appState.stage2.answers.dx_codes === 'No' ? '✓ Auditado: Sin catálogo' : 'Pendiente';
+            document.getElementById('sum-audit-sample').innerText = appState.stage2.answers.sample_assoc === 'No' ? '✓ Auditado: Insuficiente (N=3)' : 'Pendiente';
+
+            // 4. Reflections
+            document.getElementById('sum-meta-request').innerText = appState.stage5.metaRequest;
+            document.getElementById('sum-core-principle').innerText = `“Antes de elegir un software, comando o paquete, un bioinformático debe ${appState.stage6.corePrinciple}.”`;
+        }
+
+        function downloadMarkdownReport() {
+            renderFinalSummary(); // Refresh latest state
+
+            const dateStr = new Date().toISOString().split('T')[0];
+
+            let mdContent = `# Bioinformatics Strategy Lab — Reporte de Práctica
+
+**Curso:** Introducción a la Bioinformática — LCG UNAM 2026  
+**Módulo:** Unidad 1 / Sesión 1 — "Diseñar una estrategia antes de elegir herramientas"  
+**Fecha:** ${dateStr}  
+**Archivo auditado:** \`pacientes.md\`
+
+---
+
+## 1. Pregunta Central Evaluada
+
+> *"¿Los datos de \`pacientes.md\` son suficientes para evaluar si el índice de masa corporal está relacionado con el diagnóstico registrado en \`dx\`?"*
+
+---
+
+## 2. Dictamen Inicial (Etapa 1)
+
+* **Elección previa:** ${appState.stage1.choice || 'Sin selección'}
+* **Razonamiento inicial:**  
+  *“${appState.stage1.text || 'Sin justificación'}”*
+
+---
+
+## 3. Auditoría Metodológica de Datos (Etapa 2)
+
+| Columna Auditada | ¿Unidades/Códigos explicados? | Estado de Evidencia |
+|---|:---:|---|
+| **peso** | No (¿kg/lb?) | Reclama metadatos de unidades |
+| **altura** | No (¿cm/m?) | Reclama metadatos y conversión previa |
+| **dx** | No (A23, B15, C12) | Reclama diccionario o catálogo clínico |
+| **Estructura muestral** | N = 3 observaciones | Insuficiente para evaluar asociación |
+
+---
+
+## 4. Cadena de Evidencia y Flujo de Razonamiento (Etapa 3 & 4)
+
+* **Prerrequisito A (IMC):** Requiere confirmación previa de unidades para asegurar que $IMC = peso / (altura)^2$ sea computable e interpretable.
+* **Prerrequisito B (Diagnóstico):** Requiere diccionario de códigos para mapear etiquetas alfanuméricas a categorías biológicas reales.
+* **Prerrequisito C (Asociación):** Distinción validada: *Calcular IMC $\\neq$ Demostrar asociación*, y *Diferencias entre 3 individuos $\\neq$ Relación generalizable*.
+* **Detección de Saltos Metodológicos:**
+  - Caso 1 (Programador apresurado): Auditado correctamente.
+  - Caso 2 (Machine Learning prematuro): Auditado correctamente.
+
+---
+
+## 5. Delimitación e Interpretación (Etapa 5)
+
+* **Solicitud formal de metadatos al laboratorio:**  
+  *“${appState.stage5.metaRequest}”*
+
+---
+
+## 6. Dictamen Científico Final y Evolución (Etapa 6)
+
+* **Dictamen Final Definitivo:** ${appState.stage6.finalChoice || 'No registrado'}
+* **Argumentación final sustentada:**  
+  *“${appState.stage6.finalJustification}”*
+
+* **Principio General Formulado:**  
+  *“Antes de elegir un software, comando o paquete, un bioinformático debe ${appState.stage6.corePrinciple}.”*
+
+---
+
+## 7. Registro de Desempeño y Pistas
+
+* **Preguntas de auditoría intentadas:** ${Object.keys(appState.stage2.attempts).length}
+* **Pistas de orientación requeridas:** ${Object.values(appState.stage2.hintsUsed).filter(Boolean).length}
+`;
+
+            // Trigger Blob File Download
+            const blob = new Blob([mdContent], { type: 'text/markdown;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.setAttribute('href', url);
+            link.setAttribute('download', 'bioinformatics-strategy-lab-reporte.md');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>

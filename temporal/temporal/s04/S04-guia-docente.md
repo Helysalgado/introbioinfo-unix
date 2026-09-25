@@ -9,6 +9,20 @@
 
 ## Análisis pedagógico
 
+### Resumen conceptual de la sesión
+
+**Idea central:** organizar no es solo crear carpetas: es construir una estructura que permite encontrar, conservar, verificar y explicar los archivos del proyecto.
+
+**Historia de la sesión:** S1 inició la documentación; S2 diseñó la organización y describió datos; S3 llevó tres archivos al servidor y verificó su transferencia. S4 convierte ese diseño en `~/proyecto/`, incorpora el archivo local que falta y deja evidencia verificable.
+
+**Qué debió comprender el estudiante en la lectura:** árbol, rutas absolutas/relativas, directorio actual, home frente a espacio institucional, copia/movimiento, integridad, edición con nano y rutina de eliminación segura.
+
+**Términos que necesitan explicación sencilla:** directorio actual (“donde estás parado”), ruta (“dirección”), copia frente a movimiento, checksum (“huella del contenido”) y directorio padre (“un nivel arriba”).
+
+**Conexiones con sesiones anteriores:** protocolo de S1, estructura conceptual/metadatos/bitácora de S2, SSH/SFTP/checksum de S3. En S5 se trabajará dentro de los archivos ya organizados.
+
+**Problemas que organizan la sesión:** ¿dónde estoy?, ¿qué estructura necesito?, ¿qué puedo cambiar?, ¿cómo pruebo que el archivo llegó intacto?, ¿qué evidencia deja mi decisión?
+
 ### Recordar, comprender y hacer
 
 - Recordar: en S3 se transfirieron `pacientes.md`, `pacientes-metadatos.md` y `protocolo.md` al *home*; `bitacora-ia.md` sigue local.
@@ -44,6 +58,16 @@ Dificultades previstas: confundir `~` con el espacio institucional; ejecutar `sc
 
 La secuencia es: recuperar productos anteriores → predecir rutas → comprobar el contexto real → construir/corregir el proyecto → organizar y transferir → verificar integridad → editar y documentar → practicar eliminación segura → salida breve. La Actividad formativa de IA queda después del taller.
 
+## Puente de recuperación de la lectura
+
+**Modelo mental que conviene recuperar:** diseño en papel → archivos en el servidor → estructura verificable → evidencia documentada.
+
+**Preguntas de activación:** ¿qué produjiste en S1–S3?, ¿qué ya está en el servidor?, ¿qué falta?, ¿qué podría salir mal si solo “acomodas” archivos sin verificar?
+
+**Representación visual sugerida:** línea de continuidad S1 → S2 → S3 → S4 y flujo pregunta → estructura → evidencia.
+
+**Número estimado de diapositivas:** 2. **Tiempo estimado:** 5–7 min. **Transición:** “Esto es lo que traemos de la lectura y de sesiones anteriores. Ahora vamos a ponerlo a prueba.”
+
 ## Mapa del taller
 
 | Tiempo | Momento | Qué hacen los estudiantes | Papel del profesor | Recurso principal |
@@ -71,7 +95,7 @@ Situar S4 como el momento de materializar el diseño previo en el servidor.
 Introducción a la Bioinformática · LCG UNAM · 2026. Unidad 2 · Sesión 4. “De archivos sueltos en `~` a un proyecto que otra persona puede entender y verificar.” Aula invertida · Taller práctico de 2 horas.
 
 ### Diseño visual
-Fondo claro, una ruta que evoluciona de `~/` a `~/proyecto/`; usar iconos mínimos de archivo, carpeta y terminal.
+Portada blanca, tipografía Aptos, mucho espacio en blanco y una ruta discreta que evoluciona de `~/` a `~/proyecto/`.
 
 ### Notas para el profesor
 **Objetivo:** recordar que la lectura ocurrió antes; hoy se ejecuta y corrige. **Transición:** “¿Qué llegó de S3 y qué aún falta?” **Tiempo aproximado:** 2 min.
@@ -93,70 +117,73 @@ Una secuencia abierta de cinco verbos con flechas, no tarjetas.
 ### Notas para el profesor
 **Respuesta esperada:** suelen señalar “mover archivos” como fácil; recuperar que un cambio de ruta puede volverlo riesgoso. **Tiempo aproximado:** 2 min.
 
-## Diapositiva 3 — Ruta del taller: pensar → ejecutar → comprobar → corregir
+## Diapositiva 3 — Lo que ya traemos: S1 → S2 → S3 → S4
+
+### Propósito
+Recuperar los productos y conceptos que hacen posible el trabajo de hoy.
+
+### Contenido visible
+S1: protocolo y razonamiento. S2: diseño del proyecto, metadatos y bitácora. S3: archivos en el servidor y checksum. S4: estructura real y evidencia verificable.
+
+### Pregunta o dinámica
+En parejas: “¿qué archivo o evidencia de sesiones anteriores usarás hoy?”
+
+### Diseño visual
+Línea de continuidad con cuatro estaciones y un solo verbo por sesión; usar la paleta de S1–S3.
+
+### Notas para el profesor
+**Dinámica:** recuperación rápida antes de explicar. **Qué observar:** si identifican que `bitacora-ia.md` aún está local. **Transición:** “No empezamos por comandos: empezamos por una historia de datos y evidencia.” **Tiempo aproximado:** 3 min.
+
+## Diapositiva 4 — Idea guía: antes del comando viene el razonamiento
+
+### Propósito
+Organizar el modelo mental que une pregunta, estructura y evidencia.
+
+### Contenido visible
+Pregunta → estructura → acción → evidencia. “Crear una carpeta no demuestra que el proyecto esté organizado; hay que comprobar ubicación, integridad y registro.”
+
+### Pregunta o dinámica
+¿Qué diferencia hay entre “el archivo existe” y “el archivo está donde corresponde y no cambió”?
+
+### Diseño visual
+Flujo simple de cuatro términos con flechas; no usar cuadros repetidos.
+
+### Notas para el profesor
+**Respuesta esperada:** existencia no prueba ubicación ni integridad. **Conexión:** S1 pregunta/evidencia y S3 checksum. **Transición:** “Ahora veamos la ruta del taller y después el reto.” **Tiempo aproximado:** 3 min.
+
+## Diapositiva 5 — Ruta del taller: recuperar → ejecutar → comprobar → corregir
 
 ### Propósito
 Hacer visible el ritmo práctico y cuándo usarán cada recurso.
 
 ### Contenido visible
-Rutas y contexto → construir → organizar/transferir → verificar → editar/documentar → borrar con seguridad. “La bitácora registra evidencia; la terminal produce evidencia.”
+Rutas y contexto → construir → organizar/transferir → verificar → editar/documentar → borrar con seguridad. La bitácora registra evidencia; la terminal produce evidencia.
+
+### Pregunta o dinámica
+Abrir la bitácora, sin intentar completarla todavía. Identificar en qué momento habrá que consultar una salida real de terminal.
 
 ### Diseño visual
-Línea de tiempo horizontal de 120 min con los seis momentos; integrar las pestañas de la bitácora como hitos.
+Línea de tiempo horizontal de 120 min con los seis momentos y las pestañas pertinentes de la bitácora como hitos.
 
 ### Notas para el profesor
-**Dinámica:** pedir que abran la bitácora sin intentar completarla. **Qué observar:** acceso a terminal y diseño de S2. **Tiempo aproximado:** 2 min.
+**Tiempo aproximado:** 2 min.
 
-## Diapositiva 4 — El reto: ordenar sin alterar el dato
+## Diapositiva 6 — Activación · ¿Dónde pondrías cada archivo?
 
 ### Propósito
-Presentar el problema de S4 y el estado inicial/final.
+Convertir el problema de organización en un reto antes de usar comandos.
 
 ### Contenido visible
-Inicio en `~`: `pacientes.md`, `pacientes-metadatos.md`, `protocolo.md`. Falta local: `bitacora-ia.md`. Destino: `~/proyecto/` con `data/source/`, `doc/`, `src/`, `results/`, `data/processed/` y `README.md`.
+Inicio en `~`: `pacientes.md`, `pacientes-metadatos.md`, `protocolo.md`. Falta local: `bitacora-ia.md`. Destino: `data/source/`, `doc/` y raíz del proyecto.
 
 ### Pregunta o dinámica
 En parejas: “¿Dónde pondrías cada archivo y qué evidencia pedirías para confiar en esa decisión?”
 
 ### Diseño visual
-Dos árboles pequeños conectados por flecha; no mostrar aún comandos.
+Árbol inicial y destino final conectados por una flecha; no mostrar aún la secuencia de comandos.
 
 ### Notas para el profesor
-**No revelar todavía:** la secuencia de comandos. **Respuesta esperada:** datos y metadatos en `data/source/`; documentación en `doc/`; README en raíz. **Tiempo aproximado:** 2 min.
-
-## Diapositiva 5 — MP1 · Antes de moverte, ubícate
-
-### Propósito
-Activar el modelo mental de árbol y rutas antes de terminal.
-
-### Contenido visible
-“Estoy aquí” + “quiero llegar aquí” + “¿cuál es el recorrido?” Retos A–F en Bitácora → Árbol y Rutas. Regla: una ruta relativa parte de donde estás, no siempre de `~`.
-
-### Pregunta o dinámica
-Realizar Retos A–F individualmente y explicar uno a una pareja.
-
-### Diseño visual
-Reutilizar la figura local `figura-u2-s04-rutas-home.png` como apoyo, con un círculo discreto en el punto de partida.
-
-### Notas para el profesor
-**Objetivo:** recoger razonamientos, no rapidez. **Qué observar:** uso de `..` y diferencia absoluta/relativa. **Tiempo aproximado:** 10 min.
-
-## Diapositiva 6 — Detective de rutas: ¿qué está mal?
-
-### Propósito
-Provocar un diagnóstico antes de mostrar la corrección.
-
-### Contenido visible
-Estás en `~/proyecto/doc/`. Alguien escribe: `data/source/pacientes.md`. Pregunta: “¿En qué lugar lo buscaría Unix?” Después: “¿Qué tendrías que cambiar?”
-
-### Evidencia o error a revisar
-La búsqueda implícita sería `~/proyecto/doc/data/source/pacientes.md`, que no existe.
-
-### Diseño visual
-Un único árbol con una ruta roja que baja equivocadamente y espacio para que el grupo dibuje la corrección.
-
-### Notas para el profesor
-**No revelar todavía:** `../data/source/pacientes.md`. **Respuesta esperada:** primero subir con `..`. **Cómo corregir o comprobar:** comparar con el árbol o usar `ls -l` después. **Tiempo aproximado:** 2 min.
+**No revelar todavía:** la secuencia de comandos ni la solución cerrada. **Respuesta esperada:** datos y metadatos en `data/source/`; documentación en `doc/`; README en raíz. **Tiempo aproximado:** 2 min.
 
 ## Diapositiva 7 — MP2 · La evidencia inicial: ¿dónde y con quién trabajo?
 
@@ -274,7 +301,7 @@ Tres flechas de colores sobre un mismo árbol; punto de inicio visible en cada u
 ### Notas para el profesor
 **Objetivo:** introducir robustez como llegar al mismo lugar por rutas distintas. **Tiempo aproximado:** 5 min.
 
-## Diapositiva 14 — Copia primero: conserva un punto de regreso
+## Diapositiva 14 — Copia primero; verifica después
 
 ### Propósito
 Guiar la ubicación de los archivos de S3 sin arriesgar el original provisional.
@@ -390,7 +417,7 @@ Una hoja de protocolo que recibe flechas desde árbol, checksum, rutas y termina
 ### Notas para el profesor
 **Transición:** hacer el registro antes de olvidar decisiones. **Tiempo aproximado:** 3 min.
 
-## Diapositiva 21 — MP4 · Borrar seguro empieza antes de `rm`
+## Diapositiva 21 — MP4 · Antes de borrar, detente
 
 ### Propósito
 Practicar una rutina de eliminación segura sin tocar el proyecto real.

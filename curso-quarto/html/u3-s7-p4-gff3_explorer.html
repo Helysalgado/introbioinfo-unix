@@ -485,7 +485,7 @@
                             Coordenadas y Ensamblado de Referencia
                         </h3>
                         <p class="text-xs text-slate-600">
-                            Observa el rango <code class="font-mono bg-white px-1.5 py-0.5 rounded border border-slate-300 text-slate-800 font-bold">190–255</code>. ¿Tienen estas coordenadas un significado biológico absoluto si desconoces el archivo FASTA o la versión del ensamblado?
+                            Observa el rango <code class="font-mono bg-white px-1.5 py-0.5 rounded border border-slate-300 text-slate-800 font-bold">190-255</code>. ¿Tienen estas coordenadas un significado biológico absoluto si desconoces el archivo FASTA o la versión del ensamblado?
                         </p>
                         <div class="space-y-2 text-xs">
                             <label class="flex items-start space-x-2 bg-white p-3 rounded-lg border border-slate-200 cursor-pointer hover:bg-slate-100/80">
@@ -990,7 +990,7 @@
 
                 const questions = [
                     { id: 'q1', title: '1. ¿En qué secuencia de referencia concreta se encuentra esta anotación?', field: 'seqid', correctVal: 'NC_000913.3' },
-                    { id: 'q2', title: '2. ¿Entre qué coordenadas genómicas se localiza exactamente?', field: 'start / end', correctVal: '190–255' },
+                    { id: 'q2', title: '2. ¿Entre qué coordenadas genómicas se localiza exactamente?', field: 'start / end', correctVal: '190-255' },
                     { id: 'q3', title: '3. ¿En qué hebra (strand) se encuentra orientada la feature?', field: 'strand', correctVal: '+' },
                     { id: 'q4', title: '4. ¿Cuál es el nombre (Name) del gen anotado?', field: 'attributes', correctVal: 'thrL' },
                     { id: 'q5', title: '5. ¿Cuál es el identificador interno (ID) de la feature en el archivo?', field: 'attributes', correctVal: 'gene-b0001' }
@@ -1090,7 +1090,7 @@
                         { id: 'card-1', label: 'NC_000913.3' },
                         { id: 'card-2', label: 'thrL' },
                         { id: 'card-3', label: 'gene-b0001 (ID interno)' },
-                        { id: 'card-4', label: 'Rango 190–255' },
+                        { id: 'card-4', label: 'Rango 190-255' },
                         { id: 'card-5', label: 'Longitud de 66 nt' },
                         { id: 'card-6', label: 'Codifica una proteína' },
                         { id: 'card-7', label: 'gene-b0001 es ID estable global' }
@@ -1293,7 +1293,7 @@ NC_000913.3\tRefSeq\tgene\t190\t255\t.\t+\t.\tID=gene-b0001;Name=thrL;locus_tag=
 ## 4. Estación 3 — Interpretación Biológica
 
 1. **Secuencia de referencia:** ${appState.st3.q1.val || 'Sin respuesta'} (Vía \`seqid\`)
-2. **Coordenadas genómicas:** ${appState.st3.q2.val || 'Sin respuesta'} (Vía \`start / end\`)
+2. **Coordenadas genómicas:** ${appState.st3.q2.val || 'Sin respuesta'} (Vía \`start-end\`)
 3. **Hebra (strand):** ${appState.st3.q3.val || 'Sin respuesta'} (Vía \`strand\`)
 4. **Nombre del gen:** ${appState.st3.q4.val || 'Sin respuesta'} (Vía \`attributes\`)
 5. **ID interno de feature:** ${appState.st3.q5.val || 'Sin respuesta'} (Vía \`attributes\`)
