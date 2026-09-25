@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <!-- Chosen Palette: Slate & Bio-Teal (Background: #f8fafc, Primary: #0284c7, Accent: #0d9488, Success: #16a34a, Warning: #d97706, Card: #ffffff) -->
+  <!-- Application Structure Plan: Designed as a 3-part interactive learning portal for Bioinformatics file format selection. Part 1: Interactive Format & Evidence Explorer allowing students to dynamically filter and compare FASTA, GFF3, and GenBank. Part 2: Progressive Scenario Decision Lab featuring 5 interactive biological cases with dynamic hints, multi-step matching, attempt tracking, and dynamic feedback loops. Part 3: Interactive Synthesis, Metric Visualizations, and downloadable PDF/TXT exercise report generator so students and instructors can export detailed progress logs. Why: This non-linear, interactive structure lets students explore file format capabilities before applying reasoning in real-world scenarios, promoting conceptual mastery over rote memorization and providing a portable record of learning. -->
+  <!-- Visualization & Content Choices: 
+  1. Interactive Format Matrix: Styled HTML/Tailwind grid with feature filter buttons.
+  2. Progressive Case Lab: Vanilla JS state-driven UI with single-choice, multi-step matching, and score tracking.
+  3. Interactive Charts: Chart.js Canvas bar chart comparing content coverage across formats, with maintainAspectRatio set to false inside constrained responsive containers.
+  4. Downloadable Exercise Report: Custom JavaScript Blob exporter generating a downloadable text/markdown summary file with timestamp, student name, and itemized results per case.
+  Confirming: NO SVG graphics used. NO Mermaid JS used. -->
+  <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¿Qué archivo necesito? — Bioinformática LCG UNAM</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    .chart-container {
+      position: relative;
+      width: 100%;
+      max-width: 650px;
+      margin-left: auto;
+      margin-right: auto;
+      height: 280px;
+      max-height: 350px;
+    }
+    @media (min-width: 768px) {
+      .chart-container {
+        height: 320px;
+      }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased min-h-screen flex flex-col">
+
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-5xl mx-auto px-4 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="inline-block bg-sky-100 text-sky-800 text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full">
+            LCG UNAM 2026 — Sesión S7
+          </span>
+          <span class="text-slate-400 text-xs">Unidad 3</span>
+        </div>
+        <h1 class="text-xl md:text-2xl font-bold text-slate-900 mt-1">¿Qué archivo necesito?</h1>
+        <p class="text-xs md:text-sm text-slate-600">Laboratorio interactivo: De la pregunta biológica al formato de datos</p>
+      </div>
+
+      <nav aria-label="Navegación principal" class="flex items-center bg-slate-100 p-1 rounded-xl">
+        <button id="nav-tab-matrix" onclick="switchMainTab('matrix')" class="px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors bg-white text-sky-700 shadow-sm">
+          📋 Matriz
+        </button>
+        <button id="nav-tab-lab" onclick="switchMainTab('lab')" class="px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors text-slate-600 hover:text-slate-900">
+          🧪 Casos
+        </button>
+        <button id="nav-tab-summary" onclick="switchMainTab('summary')" class="px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors text-slate-600 hover:text-slate-900">
+          📊 Síntesis & Reporte
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-4 py-6 flex-grow w-full">
+
+    <section id="section-matrix" class="space-y-6">
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <h2 class="text-lg font-bold text-slate-900 mb-2">Explorador de Formatos y Evidencia Biológica</h2>
+        <p class="text-sm text-slate-600 mb-4">
+          Antes de resolver problemas biológicos, examina los tres formatos fundamentales de la sesión. Haz clic en las evidencias para resaltar qué archivos contienen la información necesaria.
+        </p>
+
+        <div class="flex flex-wrap gap-2 mb-6">
+          <button onclick="filterMatrix('all')" id="btn-filter-all" class="px-3 py-1.5 text-xs font-semibold rounded-lg border border-sky-600 bg-sky-50 text-sky-700">
+            Todos los datos
+          </button>
+          <button onclick="filterMatrix('seq')" id="btn-filter-seq" class="px-3 py-1.5 text-xs font-semibold rounded-lg border border-slate-200 bg-white text-slate-700 hover:bg-slate-50">
+            🧬 Solo Secuencias
+          </button>
+          <button onclick="filterMatrix('coord')" id="btn-filter-coord" class="px-3 py-1.5 text-xs font-semibold rounded-lg border border-slate-200 bg-white text-slate-700 hover:bg-slate-50">
+            📍 Solo Coordenadas
+          </button>
+          <button onclick="filterMatrix('meta')" id="btn-filter-meta" class="px-3 py-1.5 text-xs font-semibold rounded-lg border border-slate-200 bg-white text-slate-700 hover:bg-slate-50">
+            📖 Metadatos y Bibliografía
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div id="card-fasta" class="border border-slate-200 rounded-xl p-4 bg-slate-50 transition-all duration-200">
+            <div class="flex justify-between items-start mb-2">
+              <span class="font-mono text-sm font-bold text-sky-700 bg-sky-100 px-2 py-0.5 rounded">FASTA</span>
+              <span class="text-xs bg-slate-200 text-slate-700 px-2 py-0.5 rounded-full font-medium">Liviano</span>
+            </div>
+            <h3 class="font-semibold text-slate-800 text-sm mb-2">Secuencia pura</h3>
+            <ul class="text-xs text-slate-600 space-y-1.5">
+              <li class="flex items-center gap-1.5 text-emerald-700 font-medium">✓ Secuencia (ADN/ARN/Proteína)</li>
+              <li class="flex items-center gap-1.5 text-slate-400">✗ Coordenadas genómicas precisas</li>
+              <li class="flex items-center gap-1.5 text-slate-400">✗ Anotaciones estructuradas</li>
+            </ul>
+          </div>
+
+          <div id="card-gff3" class="border border-slate-200 rounded-xl p-4 bg-slate-50 transition-all duration-200">
+            <div class="flex justify-between items-start mb-2">
+              <span class="font-mono text-sm font-bold text-teal-700 bg-teal-100 px-2 py-0.5 rounded">GFF3</span>
+              <span class="text-xs bg-slate-200 text-slate-700 px-2 py-0.5 rounded-full font-medium">Tabular 9 cols</span>
+            </div>
+            <h3 class="font-semibold text-slate-800 text-sm mb-2">Coordenadas y Features</h3>
+            <ul class="text-xs text-slate-600 space-y-1.5">
+              <li class="flex items-center gap-1.5 text-slate-400">✗ Secuencia integrada completa</li>
+              <li class="flex items-center gap-1.5 text-emerald-700 font-medium">✓ Coordenadas (Start, End, Strand)</li>
+              <li class="flex items-center gap-1.5 text-emerald-700 font-medium">✓ Jerarquía (Gene → mRNA → CDS)</li>
+            </ul>
+          </div>
+
+          <div id="card-genbank" class="border border-slate-200 rounded-xl p-4 bg-slate-50 transition-all duration-200">
+            <div class="flex justify-between items-start mb-2">
+              <span class="font-mono text-sm font-bold text-amber-700 bg-amber-100 px-2 py-0.5 rounded">GenBank</span>
+              <span class="text-xs bg-slate-200 text-slate-700 px-2 py-0.5 rounded-full font-medium">Integrado</span>
+            </div>
+            <h3 class="font-semibold text-slate-800 text-sm mb-2">Registro completo</h3>
+            <ul class="text-xs text-slate-600 space-y-1.5">
+              <li class="flex items-center gap-1.5 text-emerald-700 font-medium">✓ Secuencia nucleotídica / traducida</li>
+              <li class="flex items-center gap-1.5 text-emerald-700 font-medium">✓ Coordenadas y anotaciones</li>
+              <li class="flex items-center gap-1.5 text-emerald-700 font-medium">✓ Metadatos, organismo y autores</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-6 p-4 bg-sky-50 border border-sky-200 rounded-xl flex items-center justify-between">
+          <p class="text-xs text-sky-900 font-medium">
+            ¿Listo para poner a prueba tu criterio biológico?
+          </p>
+          <button onclick="switchMainTab('lab')" class="px-4 py-2 text-xs font-bold text-white bg-sky-600 hover:bg-sky-700 rounded-lg shadow-sm">
+            Iniciar Casos de Práctica →
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section id="section-lab" class="hidden space-y-6">
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
+          <div>
+            <span id="lab-progress-text" class="text-xs font-bold text-sky-700 uppercase tracking-wide">Caso 1 de 5</span>
+            <h2 id="lab-case-tag" class="text-base font-bold text-slate-900">Caso 1 — Localización en el genoma</h2>
+          </div>
+          <span id="attempts-badge" class="text-xs font-medium bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full">
+            Intentos en este caso: 0
+          </span>
+        </div>
+
+        <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden mb-6">
+          <div id="lab-progress-bar" class="bg-sky-600 h-full w-1/5 transition-all duration-300"></div>
+        </div>
+
+        <div id="lab-container">
+        </div>
+      </div>
+    </section>
+
+    <section id="section-summary" class="hidden space-y-6">
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <div class="max-w-3xl">
+          <span class="inline-block bg-teal-100 text-teal-800 text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full mb-2">
+            Síntesis & Registro de Desempeño
+          </span>
+          <h2 class="text-xl font-bold text-slate-900 mb-2">Principios de Elección de Archivos Bioinformáticos</h2>
+          <p class="text-sm text-slate-600 mb-6">
+            El archivo adecuado no se elige por costumbre o disponibilidad, sino por la naturaleza de la evidencia que tu pregunta biológica requiere.
+          </p>
+        </div>
+
+        <!-- Download & Performance Card -->
+        <div class="mb-8 p-5 bg-slate-900 text-white rounded-2xl shadow-md border border-slate-800">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4 pb-4 border-b border-slate-800">
+            <div>
+              <span class="text-xs text-sky-400 font-mono font-semibold uppercase tracking-wider">Reporte de Ejercicio Interactivo</span>
+              <h3 class="text-lg font-bold text-white mt-0.5">Descargar Resultados del Laboratorio</h3>
+              <p class="text-xs text-slate-300">Exporta una constancia de tus respuestas y puntuación alcanzada en esta sesión.</p>
+            </div>
+            <div id="lab-score-pill" class="self-start md:self-auto bg-slate-800 border border-slate-700 px-3 py-1.5 rounded-xl text-center">
+              <span class="text-xs text-slate-400 block">Casos Completados</span>
+              <span id="score-text" class="text-base font-extrabold text-teal-400">0 / 5</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 items-end">
+            <div class="md:col-span-2 space-y-1.5">
+              <label for="student-name" class="block text-xs font-semibold text-slate-300">
+                Nombre del estudiante (para el informe):
+              </label>
+              <input type="text" id="student-name" placeholder="Ej. Ana Lucía Hernández — LCG 2026" class="w-full text-xs px-3 py-2 bg-slate-800 border border-slate-700 text-white rounded-lg focus:outline-none focus:border-sky-500 placeholder-slate-500">
+            </div>
+            <div>
+              <button onclick="downloadResults()" class="w-full px-4 py-2 bg-teal-600 hover:bg-teal-500 text-white text-xs font-bold rounded-lg shadow-sm transition-all flex items-center justify-center gap-2">
+                <span>📥</span> Descargar Resultados (.txt)
+              </button>
+            </div>
+          </div>
+
+          <div id="results-preview-list" class="mt-4 pt-3 border-t border-slate-800/80 text-xs space-y-1 text-slate-300">
+            <!-- Dynamic case summary badges populated by JS -->
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-4">
+            <h3 class="text-sm font-bold text-slate-800 mb-2 flex items-center gap-2">
+              <span>📊</span> Densidad Informativa por Formato
+            </h3>
+            <p class="text-xs text-slate-500 mb-3">
+              Comparativa del tipo de contenido residente en cada archivo estándar.
+            </p>
+            <div class="chart-container">
+              <canvas id="chart-format-density"></canvas>
+            </div>
+          </div>
+
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col justify-between">
+            <div>
+              <h3 class="text-sm font-bold text-slate-800 mb-3 flex items-center gap-2">
+                <span>🔄</span> Algoritmo de Decisión Rápida
+              </h3>
+              <div class="space-y-2 text-xs font-mono text-slate-700 bg-white p-3 rounded-lg border border-slate-200">
+                <div class="p-2 bg-sky-50 rounded border-l-4 border-sky-600">
+                  <strong>¿Solo secuencia pura?</strong><br>
+                  → Usar <code>FASTA</code> (.fasta, .fa)
+                </div>
+                <div class="p-2 bg-teal-50 rounded border-l-4 border-teal-600">
+                  <strong>¿Solo coordenadas/exones/CDS?</strong><br>
+                  → Usar <code>GFF3</code> (.gff3, .gff)
+                </div>
+                <div class="p-2 bg-amber-50 rounded border-l-4 border-amber-600">
+                  <strong>¿Secuencia + Metadatos + Anotación?</strong><br>
+                  → Usar <code>GenBank</code> (.gb, .gbk)
+                </div>
+                <div class="p-2 bg-purple-50 rounded border-l-4 border-purple-600">
+                  <strong>¿Extracción de secuencias anotadas?</strong><br>
+                  → Combinar <code>GFF3</code> + <code>FASTA</code>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4 p-3 bg-emerald-50 border border-emerald-200 rounded-lg">
+              <p class="text-xs text-emerald-900 font-semibold">
+                Regla de Oro: Primero identifica la evidencia requerida; después selecciona la extensión del archivo.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-t border-slate-200 pt-6">
+          <h3 class="text-base font-bold text-slate-900 mb-2">Transición a la práctica con archivos reales (S7)</h3>
+          <p class="text-sm text-slate-600 mb-4">
+            Ahora aplicarás este razonamiento inspeccionando archivos reales en la consola de comandos de tu entorno de trabajo.
+          </p>
+
+          <div class="flex flex-wrap gap-3">
+            <button onclick="switchMainTab('lab'); restartLab();" class="px-4 py-2 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg">
+              ↺ Repetir laboratorio de casos
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="bg-white border-t border-slate-200 py-4 mt-auto">
+    <div class="max-w-5xl mx-auto px-4 text-center text-xs text-slate-500">
+      Licenciatura en Ciencias Genómicas (LCG) UNAM — Sesión S7: Razonamiento de formatos de datos
+    </div>
+  </footer>
+
+  <script>
+    const casesData = [
+      {
+        id: 1,
+        tag: "Caso 1 — Localización en el genoma",
+        title: "Quieres responder: <strong>¿En qué coordenadas del genoma se encuentra un gen específico?</strong>",
+        type: "single-choice",
+        options: [
+          { id: "FASTA", label: "FASTA" },
+          { id: "GFF3", label: "GFF3" },
+          { id: "GenBank", label: "GenBank" }
+        ],
+        correct: "GFF3",
+        hints: {
+          FASTA: "FASTA contiene secuencias, pero no incluye de manera estándar la tabla de coordenadas de los genes. ¿Qué formato tabular de 9 columnas se especializa en límites genómicos?",
+          GenBank: "GenBank contiene coordenadas y metadatos integrados. Sin embargo, para representar primordialmente coordenadas de manera ligera y procesable en herramientas bioinformáticas tabulares, existe un formato específico. ¿Cuál es?"
+        },
+        explanation: "¡Exacto! <strong>GFF3</strong> describe características genómicas (genes, exones, CDS) y sus coordenadas exactas (inicio y fin) en un formato tabular de 9 columnas."
+      },
+      {
+        id: 2,
+        tag: "Caso 2 — Secuencia de una proteína",
+        title: "Quieres recuperar únicamente la secuencia de aminoácidos de una proteína ya identificada para realizar un alineamiento.",
+        type: "single-choice",
+        options: [
+          { id: "FASTA", label: "FASTA" },
+          { id: "GFF3", label: "GFF3" },
+          { id: "GenBank", label: "GenBank" }
+        ],
+        correct: "FASTA",
+        hints: {
+          GFF3: "GFF3 almacena las posiciones y atributos de los genes, pero no guarda las cadenas de secuencias completas. ¿Cuál es el formato estándar de texto plano para cadenas de biopolímeros?",
+          GenBank: "GenBank incluye la secuencia traducida entre sus campos, pero si solo necesitas la cadena limpia para herramientas como BLAST o Clustal, ¿cuál es el formato directo y universal?"
+        },
+        explanation: "¡Correcto! La evidencia principal aquí es la cadena de caracteres. El formato <strong>FASTA</strong> representa directamente secuencias de nucleótidos o proteínas."
+      },
+      {
+        id: 3,
+        tag: "Caso 3 — Consulta integrada",
+        title: "Quieres consultar en un solo registro la secuencia completa, sus anotaciones y los metadatos de la publicación científica asociada.",
+        type: "single-choice",
+        options: [
+          { id: "FASTA", label: "FASTA" },
+          { id: "GFF3", label: "GFF3" },
+          { id: "GenBank", label: "GenBank" }
+        ],
+        correct: "GenBank",
+        hints: {
+          FASTA: "FASTA solo ofrece un encabezado básico sin estructura estandarizada para bibliografía o taxonomía.",
+          GFF3: "GFF3 almacena tablas de coordenadas y atributos, pero habitualmente no almacena la secuencia ni referencias bibliográficas en el mismo archivo."
+        },
+        explanation: "¡Excelente! <strong>GenBank</strong> es un formato estructurado e integrado que almacena metadatos (autores, organismo), la tabla de anotaciones (FEATURES) y la secuencia primaria."
+      },
+      {
+        id: 4,
+        tag: "Caso 4 — Necesidad de múltiples formatos",
+        title: "Quieres extraer del genoma de referencia la secuencia de ADN exacta de todos los CDS anotados.",
+        type: "multi-step",
+        step1: {
+          question: "¿Un solo archivo de coordenadas plano contiene por sí solo toda la evidencia requerida?",
+          options: [
+            { id: "si", label: "Sí, basta un archivo" },
+            { id: "no", label: "No, se requiere más de un archivo" }
+          ],
+          correct: "no",
+          hint: "Piensa en el proceso: necesitas saber DÓNDE están los CDS (coordenadas) y de DÓNDE cortar la secuencia (referencia genómica). ¿Suelen venir juntas en un solo archivo ligero de anotación?"
+        },
+        explanation: "¡Muy bien resuelto! En flujos de trabajo bioinformáticos reales se combinan herramientas y archivos: **GFF3** aporta las coordenadas de corte y **FASTA** aporta la secuencia genómica de referencia."
+      },
+      {
+        id: 5,
+        tag: "Caso 5 — Identificación de errores",
+        title: "Un investigador afirma: <em>«Usaré un archivo FASTA genómico para contar cuántos genes están anotados en este organismo.»</em> ¿Cuál es la falla en este razonamiento?",
+        type: "single-choice",
+        options: [
+          { id: "opt1", label: "El archivo FASTA no puede guardar secuencias de ADN genómico." },
+          { id: "opt2", label: "FASTA guarda secuencias, no la tabla de anotaciones de genes." },
+          { id: "opt3", label: "Para contar genes siempre se requiere un archivo GenBank completo." },
+          { id: "opt4", label: "GFF3 siempre contiene la secuencia completa del cromosoma." }
+        ],
+        correct: "opt2",
+        hints: {
+          opt1: "FASTA sí almacena secuencias de ADN. El error radica en el tipo de evidencia que ofrece.",
+          opt3: "GFF3 es suficiente para contar genes sin necesidad de descargar el registro GenBank completo.",
+          opt4: "GFF3 estándar contiene coordenadas de los genes, no la cadena completa de nucleótidos."
+        },
+        explanation: "¡Exacto! <strong>FASTA representa secuencias, no anotaciones estructuradas.</strong> Para contar genes anotados necesitas un archivo con evidencia de anotación (como GFF3)."
+      }
+    ];
+
+    let currentCaseIndex = 0;
+    let attempts = 0;
+    let caseStats = {}; // Tracks { attempts: number, completed: boolean, userChoice: string } per caseId
+    let chartInstance = null;
+
+    function filterMatrix(category) {
+      const cardFasta = document.getElementById("card-fasta");
+      const cardGff3 = document.getElementById("card-gff3");
+      const cardGenbank = document.getElementById("card-genbank");
+
+      const btnAll = document.getElementById("btn-filter-all");
+      const btnSeq = document.getElementById("btn-filter-seq");
+      const btnCoord = document.getElementById("btn-filter-coord");
+      const btnMeta = document.getElementById("btn-filter-meta");
+
+      [btnAll, btnSeq, btnCoord, btnMeta].forEach(btn => {
+        btn.className = "px-3 py-1.5 text-xs font-semibold rounded-lg border border-slate-200 bg-white text-slate-700 hover:bg-slate-50";
+      });
+
+      [cardFasta, cardGff3, cardGenbank].forEach(card => {
+        card.classList.remove("ring-2", "ring-sky-500", "bg-sky-50/50", "opacity-40");
+      });
+
+      if (category === "all") {
+        btnAll.className = "px-3 py-1.5 text-xs font-semibold rounded-lg border border-sky-600 bg-sky-50 text-sky-700";
+      } else if (category === "seq") {
+        btnSeq.className = "px-3 py-1.5 text-xs font-semibold rounded-lg border border-sky-600 bg-sky-50 text-sky-700";
+        cardFasta.classList.add("ring-2", "ring-sky-500");
+        cardGenbank.classList.add("ring-2", "ring-sky-500");
+        cardGff3.classList.add("opacity-40");
+      } else if (category === "coord") {
+        btnCoord.className = "px-3 py-1.5 text-xs font-semibold rounded-lg border border-sky-600 bg-sky-50 text-sky-700";
+        cardGff3.classList.add("ring-2", "ring-sky-500");
+        cardGenbank.classList.add("ring-2", "ring-sky-500");
+        cardFasta.classList.add("opacity-40");
+      } else if (category === "meta") {
+        btnMeta.className = "px-3 py-1.5 text-xs font-semibold rounded-lg border border-sky-600 bg-sky-50 text-sky-700";
+        cardGenbank.classList.add("ring-2", "ring-sky-500");
+        cardFasta.classList.add("opacity-40");
+        cardGff3.classList.add("opacity-40");
+      }
+    }
+
+    function switchMainTab(tabName) {
+      const secMatrix = document.getElementById("section-matrix");
+      const secLab = document.getElementById("section-lab");
+      const secSummary = document.getElementById("section-summary");
+
+      const navMatrix = document.getElementById("nav-tab-matrix");
+      const navLab = document.getElementById("nav-tab-lab");
+      const navSummary = document.getElementById("nav-tab-summary");
+
+      secMatrix.classList.add("hidden");
+      secLab.classList.add("hidden");
+      secSummary.classList.add("hidden");
+
+      navMatrix.className = "px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors text-slate-600 hover:text-slate-900";
+      navLab.className = "px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors text-slate-600 hover:text-slate-900";
+      navSummary.className = "px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors text-slate-600 hover:text-slate-900";
+
+      if (tabName === "matrix") {
+        secMatrix.classList.remove("hidden");
+        navMatrix.className = "px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors bg-white text-sky-700 shadow-sm";
+      } else if (tabName === "lab") {
+        secLab.classList.remove("hidden");
+        navLab.className = "px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors bg-white text-sky-700 shadow-sm";
+        renderCase();
+      } else if (tabName === "summary") {
+        secSummary.classList.remove("hidden");
+        navSummary.className = "px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors bg-white text-sky-700 shadow-sm";
+        updateSummaryUI();
+        initChart();
+      }
+    }
+
+    function renderCase() {
+      const cData = casesData[currentCaseIndex];
+      attempts = caseStats[cData.id] ? caseStats[cData.id].attempts : 0;
+
+      document.getElementById("lab-progress-text").textContent = `Caso ${currentCaseIndex + 1} de ${casesData.length}`;
+      document.getElementById("lab-case-tag").textContent = cData.tag;
+      document.getElementById("attempts-badge").textContent = `Intentos en este caso: ${attempts}`;
+      document.getElementById("lab-progress-bar").style.width = `${((currentCaseIndex + 1) / casesData.length) * 100}%`;
+
+      const container = document.getElementById("lab-container");
+
+      if (cData.type === "single-choice") {
+        container.innerHTML = `
+          <div class="space-y-4">
+            <h3 class="text-base text-slate-800 font-medium">${cData.title}</h3>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 my-4">
+              ${cData.options.map(opt => `
+                <button onclick="handleSingleChoice('${opt.id}')" id="btn-opt-${opt.id}" class="option-btn border-2 border-slate-200 hover:border-sky-500 hover:bg-sky-50 rounded-xl p-4 text-center font-mono font-bold text-slate-700 transition-all">
+                  ${opt.label}
+                </button>
+              `).join('')}
+            </div>
+
+            <div id="lab-feedback" class="hidden p-4 rounded-xl text-sm" aria-live="polite"></div>
+
+            <div id="lab-actions" class="hidden justify-end mt-4">
+              <button onclick="nextCase()" class="px-5 py-2.5 bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold rounded-xl shadow-sm transition-all flex items-center gap-1">
+                ${currentCaseIndex === casesData.length - 1 ? 'Finalizar y Ver Reporte →' : 'Siguiente caso →'}
+              </button>
+            </div>
+          </div>
+        `;
+      } else if (cData.type === "multi-step") {
+        container.innerHTML = `
+          <div class="space-y-4">
+            <h3 class="text-base text-slate-800 font-medium">${cData.title}</h3>
+            
+            <div id="multi-step-content" class="bg-slate-50 border border-slate-200 p-4 rounded-xl space-y-3">
+              <p class="text-sm font-semibold text-slate-700">${cData.step1.question}</p>
+              <div class="flex gap-3">
+                ${cData.step1.options.map(opt => `
+                  <button onclick="handleStep1('${opt.id}')" id="btn-step1-${opt.id}" class="px-4 py-2 border-2 border-slate-200 bg-white hover:border-sky-500 rounded-lg text-xs font-bold text-slate-700">
+                    ${opt.label}
+                  </button>
+                `).join('')}
+              </div>
+            </div>
+
+            <div id="lab-feedback" class="hidden p-4 rounded-xl text-sm" aria-live="polite"></div>
+
+            <div id="lab-actions" class="hidden justify-end mt-4">
+              <button onclick="nextCase()" class="px-5 py-2.5 bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold rounded-xl shadow-sm transition-all flex items-center gap-1">
+                ${currentCaseIndex === casesData.length - 1 ? 'Finalizar y Ver Reporte →' : 'Siguiente caso →'}
+              </button>
+            </div>
+          </div>
+        `;
+      }
+
+      // If already completed previously, show solved state
+      if (caseStats[cData.id] && caseStats[cData.id].completed) {
+        const feedback = document.getElementById("lab-feedback");
+        const actions = document.getElementById("lab-actions");
+        feedback.className = "p-4 rounded-xl text-sm bg-emerald-50 border border-emerald-200 text-emerald-900";
+        feedback.innerHTML = `<div class="font-bold mb-1">¡Caso ya resuelto anteriormente!</div><p>${cData.explanation}</p>`;
+        feedback.classList.remove("hidden");
+        actions.classList.remove("hidden");
+        actions.classList.add("flex");
+      }
+    }
+
+    function handleSingleChoice(selectedId) {
+      const cData = casesData[currentCaseIndex];
+      const feedback = document.getElementById("lab-feedback");
+      const actions = document.getElementById("lab-actions");
+
+      attempts++;
+      document.getElementById("attempts-badge").textContent = `Intentos en este caso: ${attempts}`;
+
+      if (selectedId === cData.correct) {
+        document.querySelectorAll(".option-btn").forEach(btn => {
+          btn.disabled = true;
+          btn.classList.add("opacity-50");
+        });
+
+        const selectedBtn = document.getElementById(`btn-opt-${selectedId}`);
+        selectedBtn.classList.remove("opacity-50", "border-slate-200");
+        selectedBtn.classList.add("border-emerald-600", "bg-emerald-50", "text-emerald-800");
+
+        feedback.className = "p-4 rounded-xl text-sm bg-emerald-50 border border-emerald-200 text-emerald-900";
+        feedback.innerHTML = `<div class="font-bold mb-1">¡Respuesta Correcta!</div><p>${cData.explanation}</p>`;
+        feedback.classList.remove("hidden");
+        actions.classList.remove("hidden");
+        actions.classList.add("flex");
+
+        caseStats[cData.id] = {
+          completed: true,
+          attempts: attempts,
+          answer: selectedId
+        };
+      } else {
+        caseStats[cData.id] = {
+          completed: false,
+          attempts: attempts,
+          answer: selectedId
+        };
+        
+        const hint = cData.hints[selectedId] || "Revisa el tipo de datos necesario para responder la pregunta.";
+        feedback.className = "p-4 rounded-xl text-sm bg-amber-50 border border-amber-200 text-amber-900";
+        feedback.innerHTML = `<div class="font-bold mb-1">Pista (Intento ${attempts}):</div><p>${hint}</p>`;
+        feedback.classList.remove("hidden");
+      }
+    }
+
+    function handleStep1(selectedId) {
+      const cData = casesData[currentCaseIndex];
+      const feedback = document.getElementById("lab-feedback");
+
+      if (selectedId === cData.step1.correct) {
+        renderStep2Matching();
+      } else {
+        attempts++;
+        document.getElementById("attempts-badge").textContent = `Intentos en este caso: ${attempts}`;
+        feedback.className = "p-4 rounded-xl text-sm bg-amber-50 border border-amber-200 text-amber-900";
+        feedback.innerHTML = `<div class="font-bold mb-1">Pista:</div><p>${cData.step1.hint}</p>`;
+        feedback.classList.remove("hidden");
+      }
+    }
+
+    function renderStep2Matching() {
+      const stepContent = document.getElementById("multi-step-content");
+      stepContent.innerHTML = `
+        <div class="space-y-3">
+          <p class="text-xs font-bold text-sky-800 uppercase tracking-wide">Paso 2 — Asignación de roles de archivo</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="bg-white p-3 rounded-lg border border-slate-200">
+              <label class="block text-xs font-bold text-slate-700 mb-1">Aporte de GFF3:</label>
+              <select id="select-gff3" class="w-full text-xs p-2 border border-slate-300 rounded-md bg-slate-50">
+                <option value="">-- Seleccionar --</option>
+                <option value="coord">Coordenadas exactas de los CDS</option>
+                <option value="seq">Secuencia genómica de referencia</option>
+              </select>
+            </div>
+            <div class="bg-white p-3 rounded-lg border border-slate-200">
+              <label class="block text-xs font-bold text-slate-700 mb-1">Aporte de FASTA:</label>
+              <select id="select-fasta" class="w-full text-xs p-2 border border-slate-300 rounded-md bg-slate-50">
+                <option value="">-- Seleccionar --</option>
+                <option value="coord">Coordenadas exactas de los CDS</option>
+                <option value="seq">Secuencia genómica de referencia</option>
+              </select>
+            </div>
+          </div>
+          <button onclick="verifyMatching()" class="w-full py-2 bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold rounded-lg transition-all">
+            Verificar combinación
+          </button>
+        </div>
+      `;
+    }
+
+    function verifyMatching() {
+      const valGff3 = document.getElementById("select-gff3").value;
+      const valFasta = document.getElementById("select-fasta").value;
+      const feedback = document.getElementById("lab-feedback");
+      const actions = document.getElementById("lab-actions");
+      const cData = casesData[currentCaseIndex];
+
+      attempts++;
+      document.getElementById("attempts-badge").textContent = `Intentos en este caso: ${attempts}`;
+
+      if (valGff3 === "coord" && valFasta === "seq") {
+        feedback.className = "p-4 rounded-xl text-sm bg-emerald-50 border border-emerald-200 text-emerald-900";
+        feedback.innerHTML = `<div class="font-bold mb-1">¡Combinación Perfecta!</div><p>${cData.explanation}</p>`;
+        feedback.classList.remove("hidden");
+        actions.classList.remove("hidden");
+        actions.classList.add("flex");
+
+        caseStats[cData.id] = {
+          completed: true,
+          attempts: attempts,
+          answer: "GFF3(Coordenadas) + FASTA(Secuencia)"
+        };
+      } else {
+        caseStats[cData.id] = {
+          completed: false,
+          attempts: attempts,
+          answer: "Incompleto / Incorrecto"
+        };
+        feedback.className = "p-4 rounded-xl text-sm bg-amber-50 border border-amber-200 text-amber-900";
+        feedback.innerHTML = `<div class="font-bold mb-1">Revisa la asignación:</div><p>Recuerda que GFF3 almacena las posiciones tabulares y FASTA almacena los nucleótidos de referencia.</p>`;
+        feedback.classList.remove("hidden");
+      }
+    }
+
+    function nextCase() {
+      currentCaseIndex++;
+      if (currentCaseIndex < casesData.length) {
+        renderCase();
+      } else {
+        switchMainTab("summary");
+      }
+    }
+
+    function restartLab() {
+      currentCaseIndex = 0;
+      caseStats = {};
+      renderCase();
+    }
+
+    function updateSummaryUI() {
+      let completedCount = 0;
+      casesData.forEach(c => {
+        if (caseStats[c.id] && caseStats[c.id].completed) {
+          completedCount++;
+        }
+      });
+
+      document.getElementById("score-text").textContent = `${completedCount} / ${casesData.length}`;
+
+      const previewList = document.getElementById("results-preview-list");
+      previewList.innerHTML = casesData.map((c, idx) => {
+        const stat = caseStats[c.id];
+        const isDone = stat && stat.completed;
+        const att = stat ? stat.attempts : 0;
+        return `
+          <div class="flex items-center justify-between py-1 border-b border-slate-800/50">
+            <span><strong>Caso ${idx + 1}:</strong> ${c.tag.split("—")[1] || c.tag}</span>
+            <span class="${isDone ? 'text-emerald-400 font-semibold' : 'text-slate-500'}">
+              ${isDone ? `✓ Superado (${att} ${att === 1 ? 'intento' : 'intentos'})` : '○ Pendiente'}
+            </span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function downloadResults() {
+      const studentNameInput = document.getElementById("student-name").value.trim();
+      const studentName = studentNameInput || "Estudiante Anonimo";
+      const now = new Date();
+      const dateStr = now.toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+      let completedCount = 0;
+      let totalAttempts = 0;
+
+      let caseDetailsText = "";
+      casesData.forEach((c, idx) => {
+        const stat = caseStats[c.id];
+        const isDone = stat && stat.completed;
+        const att = stat ? stat.attempts : 0;
+        const ans = stat && stat.answer ? stat.answer : "Sin responder";
+
+        if (isDone) completedCount++;
+        totalAttempts += att;
+
+        caseDetailsText += `
+Caso ${idx + 1}: ${c.tag}
+  - Estado: ${isDone ? 'SUPERADO ✓' : 'NO COMPLETADO ✗'}
+  - Intentos realizados: ${att}
+  - Respuesta/Selección: ${ans}
+`;
+      });
+
+      const reportContent = `===============================================================
+LCG UNAM 2026 — UNIDAD 3 (SESIÓN S7)
+REPORTE DE EJERCICIO INTERACTIVO: ¿QUÉ ARCHIVO NECESITO?
+===============================================================
+
+FECHA DE GENERACIÓN : ${dateStr}
+ESTUDIANTE          : ${studentName}
+PUNTUACIÓN OBTENIDA : ${completedCount} / ${casesData.length} casos superados
+TOTAL DE INTENTOS   : ${totalAttempts}
+
+---------------------------------------------------------------
+DESGLOSE POR CASO DE ESTUDIO:
+---------------------------------------------------------------
+${caseDetailsText}
+---------------------------------------------------------------
+REGLA DE ORO DE SELECCIÓN DE ARCHIVOS:
+"Primero identifica la evidencia requerida; después selecciona la extensión."
+- FASTA    -> Secuencias puras de biopolímeros (ADN, ARN, Proteínas).
+- GFF3     -> Coordenadas genómicas y jerarquías tabulares (Gene -> CDS).
+- GenBank  -> Registros integrados con metadatos, bibliografía y secuencia.
+===============================================================
+Reporte generado automáticamente desde la aplicación interactiva LCG UNAM S7.
+`;
+
+      const blob = new Blob([reportContent], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      const safeFileName = studentName.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+      link.href = url;
+      link.download = `Reporte_S7_Bioinformatica_${safeFileName}.txt`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+
+    function initChart() {
+      if (chartInstance) {
+        chartInstance.destroy();
+      }
+
+      const ctx = document.getElementById("chart-format-density").getContext("2d");
+      chartInstance = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: ["FASTA", "GFF3", "GenBank"],
+          datasets: [
+            {
+              label: "Secuencia",
+              data: [100, 0, 100],
+              backgroundColor: "#0284c7"
+            },
+            {
+              label: "Coordenadas",
+              data: [0, 100, 90],
+              backgroundColor: "#0d9488"
+            },
+            {
+              label: "Metadatos",
+              data: [15, 30, 100],
+              backgroundColor: "#d97706"
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100,
+              ticks: {
+                callback: function(value) {
+                  return value + "%";
+                }
+              }
+            }
+          },
+          plugins: {
+            legend: {
+              position: "bottom",
+              labels: {
+                boxWidth: 12,
+                font: {
+                  size: 11
+                }
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return context.dataset.label + ": " + context.raw + "% de soporte estándar";
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>

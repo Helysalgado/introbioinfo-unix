@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reproducibility Review — S7 Práctica 5</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#2563eb',
+                            600: '#1d4ed8',
+                            700: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .manuscript-paper {
+            background-color: #fcfbf9;
+            background-image: radial-gradient(#e5e7eb 0.75px, transparent 0.75px);
+            background-size: 16px 16px;
+        }
+        .tab-btn[aria-selected="true"] {
+            border-bottom-color: #2563eb;
+            color: #1d4ed8;
+            font-weight: 600;
+            background-color: #f0f7ff;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="h-full text-slate-800 font-sans flex flex-col antialiased">
+    <!-- Navigation / Header -->
+    <header class="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+            <div>
+                <div class="flex items-center gap-2">
+                    <span class="bg-blue-600 text-xs font-semibold px-2 py-0.5 rounded text-white tracking-wide uppercase">S7 · Práctica 5</span>
+                    <span class="text-xs text-slate-400">LCG UNAM 2026</span>
+                </div>
+                <h1 class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                    <i class="fa-solid fa-microscope text-blue-400"></i> Reproducibility Review
+                </h1>
+                <p class="text-xs text-slate-300">¿Aceptarías este análisis como revisor científico?</p>
+            </div>
+            
+            <div id="progress-container" class="flex items-center gap-2 bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700 text-xs text-slate-300">
+                <i class="fa-solid fa-chart-line text-blue-400"></i>
+                <span>Avance de revisión:</span>
+                <span id="stage-progress-text" class="font-bold text-white">Etapa 1 de 6</span>
+            </div>
+        </div>
+
+        <!-- Accessible Tabs -->
+        <div class="bg-slate-800 border-t border-slate-700/60 overflow-x-auto custom-scrollbar">
+            <div class="max-w-7xl mx-auto px-4 flex gap-1 text-sm font-medium" role="tablist" aria-label="Etapas de la revisión">
+                <button role="tab" id="tab-btn-1" aria-selected="true" aria-controls="tab-panel-1" onclick="switchTab(1)" class="tab-btn px-4 py-2.5 border-b-2 border-transparent text-slate-300 hover:text-white flex items-center gap-2 whitespace-nowrap transition-colors">
+                    <span>1. Dictamen</span>
+                </button>
+                <button role="tab" id="tab-btn-2" aria-selected="false" aria-controls="tab-panel-2" onclick="switchTab(2)" class="tab-btn px-4 py-2.5 border-b-2 border-transparent text-slate-300 hover:text-white flex items-center gap-2 whitespace-nowrap transition-colors">
+                    <span>2. Evidencia Faltante</span>
+                </button>
+                <button role="tab" id="tab-btn-3" aria-selected="false" aria-controls="tab-panel-3" onclick="switchTab(3)" class="tab-btn px-4 py-2.5 border-b-2 border-transparent text-slate-300 hover:text-white flex items-center gap-2 whitespace-nowrap transition-colors">
+                    <span>3. Formatos</span>
+                </button>
+                <button role="tab" id="tab-btn-4" aria-selected="false" aria-controls="tab-panel-4" onclick="switchTab(4)" class="tab-btn px-4 py-2.5 border-b-2 border-transparent text-slate-300 hover:text-white flex items-center gap-2 whitespace-nowrap transition-colors">
+                    <span>4. Auditoría</span>
+                </button>
+                <button role="tab" id="tab-btn-5" aria-selected="false" aria-controls="tab-panel-5" onclick="switchTab(5)" class="tab-btn px-4 py-2.5 border-b-2 border-transparent text-slate-300 hover:text-white flex items-center gap-2 whitespace-nowrap transition-colors">
+                    <span>5. Protocolo</span>
+                </button>
+                <button role="tab" id="tab-btn-6" aria-selected="false" aria-controls="tab-panel-6" onclick="switchTab(6)" class="tab-btn px-4 py-2.5 border-b-2 border-transparent text-slate-300 hover:text-white flex items-center gap-2 whitespace-nowrap transition-colors">
+                    <span>6. Reflexión</span>
+                </button>
+                <button role="tab" id="tab-btn-summary" aria-selected="false" aria-controls="tab-panel-summary" onclick="switchTab('summary')" class="tab-btn px-4 py-2.5 border-b-2 border-transparent text-emerald-400 hover:text-emerald-300 flex items-center gap-2 whitespace-nowrap transition-colors ml-auto font-semibold">
+                    <i class="fa-solid fa-clipboard-check"></i> 📊 Resumen Final
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Live Region for ARIA Announcements -->
+    <div id="aria-announce" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
+
+        <!-- ==========================================
+             STAGE 1: EMITIR UN DICTAMEN
+        ========================================== -->
+        <section id="tab-panel-1" role="tabpanel" aria-labelledby="tab-btn-1" class="space-y-6">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-blue-600">Actividad 1</span>
+                        <h2 class="text-xl font-bold text-slate-900">Como revisor de una revista científica</h2>
+                    </div>
+                    <span class="bg-amber-100 text-amber-800 text-xs font-semibold px-2.5 py-1 rounded-full flex items-center gap-1">
+                        <i class="fa-solid fa-file-contract"></i> Manuscrito en revisión
+                    </span>
+                </div>
+
+                <p class="text-sm text-slate-600 mb-6">
+                    Has recibido la sección de métodos de un manuscrito enviado a evaluación por pares. Tu tarea no es juzgar si el estudio es interesante, sino evaluar si otro investigador podría recuperar exactamente los mismos datos y repetir el análisis.
+                </p>
+
+                <!-- Manuscript Card -->
+                <div class="manuscript-paper border-2 border-slate-300 rounded-lg p-6 my-6 shadow-inner relative">
+                    <div class="absolute -top-3 left-4 bg-slate-800 text-white text-xs font-mono px-2 py-0.5 rounded">
+                        MANUSCRITO #2026-BIO-8942 · MÉTODOS
+                    </div>
+                    <blockquote class="italic text-slate-800 text-base leading-relaxed pl-4 border-l-4 border-blue-500 font-serif">
+                        “El análisis se realizó utilizando el genoma de <strong>Escherichia coli</strong>. Las secuencias fueron descargadas en formato FASTA y las anotaciones en formato GFF3.”
+                    </blockquote>
+                </div>
+
+                <!-- Interactive Question -->
+                <div class="bg-slate-50 rounded-xl p-5 border border-slate-200 space-y-4">
+                    <label class="block font-semibold text-slate-800">
+                        ¿Aceptarías esta descripción como suficiente para que otro investigador pueda reproducir el análisis?
+                    </label>
+
+                    <div class="flex gap-4">
+                        <button type="button" onclick="selectDictamenOption('Si')" id="btn-dictamen-si" class="flex-1 py-3 px-4 rounded-lg border-2 border-slate-300 hover:border-blue-500 hover:bg-blue-50/50 font-medium text-slate-700 transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-circle-check text-slate-400"></i> Sí, es suficiente
+                        </button>
+                        <button type="button" onclick="selectDictamenOption('No')" id="btn-dictamen-no" class="flex-1 py-3 px-4 rounded-lg border-2 border-slate-300 hover:border-red-500 hover:bg-red-50/50 font-medium text-slate-700 transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-circle-xmark text-slate-400"></i> No, es insuficiente
+                        </button>
+                    </div>
+
+                    <!-- Justification Input -->
+                    <div id="justification-container" class="space-y-2 pt-2 hidden">
+                        <label for="dictamen-justification" class="block text-sm font-medium text-slate-700">
+                            Justifica tu decisión en una o dos frases: <span class="text-red-500">*</span>
+                        </label>
+                        <textarea id="dictamen-justification" rows="3" placeholder="Explica por qué consideras suficiente o insuficiente esta descripción..." class="w-full rounded-lg border-slate-300 border p-3 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"></textarea>
+                        
+                        <button type="button" onclick="submitDictamen()" class="mt-2 bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm px-5 py-2.5 rounded-lg transition-colors flex items-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i> Enviar dictamen del revisor
+                        </button>
+                    </div>
+
+                    <!-- Hint / Feedback Box -->
+                    <div id="dictamen-feedback" class="hidden rounded-lg p-4 text-sm mt-4"></div>
+                </div>
+
+                <!-- Editorial Decision Badge -->
+                <div id="editorial-badge" class="hidden mt-6 border-t border-slate-200 pt-6">
+                    <div class="p-4 rounded-xl bg-slate-900 text-white flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-red-500/20 text-red-400 flex items-center justify-center text-xl font-bold">
+                                ✗
+                            </div>
+                            <div>
+                                <div class="text-xs text-slate-400 font-mono uppercase tracking-wider">Dictamen oficial registrado</div>
+                                <div class="font-bold text-red-400">Información insuficiente para reproducir el análisis</div>
+                            </div>
+                        </div>
+                        <button onclick="switchTab(2)" class="bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold px-4 py-2 rounded-lg transition-colors flex items-center gap-2">
+                            Avanzar a Etapa 2 <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             STAGE 2: SOLICITAR INFORMACIÓN FALTANTE
+        ========================================== -->
+        <section id="tab-panel-2" role="tabpanel" aria-labelledby="tab-btn-2" class="space-y-6 hidden">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-blue-600">Actividad 2</span>
+                        <h2 class="text-xl font-bold text-slate-900">Solicitar información faltante a los autores</h2>
+                    </div>
+                    <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded-full">
+                        Selecciona al menos 5 elementos
+                    </span>
+                </div>
+
+                <p class="text-sm text-slate-600 mb-6">
+                    Antes de recomendar la aceptación del manuscrito, debes enviar una lista de observaciones a los autores. Selecciona los elementos indispensables de procedencia que solicitarías añadir a la sección de métodos.
+                </p>
+
+                <!-- Category Selection Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6" id="missing-info-grid">
+                    <!-- Cards will be populated by JS -->
+                </div>
+
+                <!-- Dynamic Justifications Area -->
+                <div id="selected-justifications-area" class="space-y-4 hidden bg-slate-50 p-5 rounded-xl border border-slate-200">
+                    <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-pen-to-square text-blue-600"></i> Justifica por qué solicitas cada elemento elegido:
+                    </h3>
+                    <div id="justifications-list" class="space-y-3"></div>
+                </div>
+
+                <!-- Visual Reproducibility Map -->
+                <div class="mt-8 border-t border-slate-200 pt-6">
+                    <h3 class="text-sm font-bold text-slate-800 mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-sitemap text-indigo-600"></i> Mapa de Suficiencia de Datos Reproducibles
+                    </h3>
+                    <div class="bg-slate-900 text-slate-200 p-4 rounded-xl font-mono text-xs overflow-x-auto leading-relaxed">
+                        <div class="text-blue-400 font-bold mb-1">DATOS REPRODUCIBLES NECESARIOS</div>
+                        <div id="reproducibility-tree">
+                            │<br>
+                            <span class="text-slate-500">├── (Selecciona elementos arriba para completar la cadena de evidencia)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 flex justify-between items-center">
+                    <span id="missing-count-badge" class="text-xs text-slate-500">0 / 5 elementos seleccionados</span>
+                    <button id="btn-stage2-next" onclick="switchTab(3)" disabled class="opacity-50 cursor-not-allowed bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-5 py-2.5 rounded-lg transition-colors flex items-center gap-2">
+                        Avanzar a Etapa 3 <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             STAGE 3: EVALUAR QUÉ APORTA CADA FORMATO
+        ========================================== -->
+        <section id="tab-panel-3" role="tabpanel" aria-labelledby="tab-btn-3" class="space-y-6 hidden">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-blue-600">Actividad 3</span>
+                        <h2 class="text-xl font-bold text-slate-900">Evaluando los formatos: FASTA, GFF3 y GenBank</h2>
+                    </div>
+                    <span class="bg-slate-100 text-slate-700 text-xs font-semibold px-2.5 py-1 rounded-full">
+                        Matriz de Evidencia
+                    </span>
+                </div>
+
+                <p class="text-sm text-slate-600 mb-6">
+                    Para solicitar datos de forma precisa, debes entender qué evidencia puede aportar cada formato. Indica para cada necesidad científica cuál o cuáles formatos pueden satisfacerla. <em>(Atención: Varias filas admiten más de una opción correcta).</em>
+                </p>
+
+                <!-- Interactive Matrix Table -->
+                <div class="overflow-x-auto border border-slate-200 rounded-xl mb-6">
+                    <table class="w-full text-left border-collapse text-sm">
+                        <thead>
+                            <tr class="bg-slate-100 border-b border-slate-200 text-slate-700 font-semibold">
+                                <th class="p-3 sm:p-4">Necesidad Científica / Evidencia</th>
+                                <th class="p-3 sm:p-4 text-center w-28 bg-blue-50/50">FASTA</th>
+                                <th class="p-3 sm:p-4 text-center w-28 bg-emerald-50/50">GFF3</th>
+                                <th class="p-3 sm:p-4 text-center w-28 bg-purple-50/50">GenBank</th>
+                            </tr>
+                        </thead>
+                        <tbody id="matrix-tbody" class="divide-y divide-slate-200">
+                            <!-- Rows inserted via JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                    <button type="button" onclick="verifyFormatMatrix()" class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-colors flex items-center gap-2">
+                        <i class="fa-solid fa-spell-check"></i> Verificar respuestas de la matriz
+                    </button>
+                    <button id="btn-stage3-next" onclick="switchTab(4)" disabled class="opacity-50 cursor-not-allowed bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-5 py-2.5 rounded-lg transition-colors flex items-center gap-2">
+                        Avanzar a Etapa 4 <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <!-- Matrix Feedback Modal/Box -->
+                <div id="matrix-feedback" class="hidden mt-6 p-4 rounded-xl text-sm border space-y-3"></div>
+
+                <!-- Format Purpose Synthesis Card -->
+                <div id="format-synthesis" class="hidden mt-6 bg-slate-900 text-white p-5 rounded-xl space-y-3">
+                    <h4 class="font-bold text-sm text-blue-400 flex items-center gap-2">
+                        <i class="fa-solid fa-lightbulb"></i> Síntesis Integradora de Formatos
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-mono">
+                        <div class="bg-slate-800 p-3 rounded border border-slate-700">
+                            <span class="text-blue-300 font-bold block mb-1">FASTA</span>
+                            Representa secuencias primarias limpias (nucleótidos o aminoácidos) con encabezados descriptivos.
+                        </div>
+                        <div class="bg-slate-800 p-3 rounded border border-slate-700">
+                            <span class="text-emerald-300 font-bold block mb-1">GFF3</span>
+                            Estructura tabular altamente estandarizada para coordenadas, rasgos (*features*) y jerarquías.
+                        </div>
+                        <div class="bg-slate-800 p-3 rounded border border-slate-700">
+                            <span class="text-purple-300 font-bold block mb-1">GenBank</span>
+                            Registro plano integrado que une secuencia física, metadatos bibliográficos y anotación completa.
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-300 italic pt-2 border-t border-slate-800">
+                        Los formatos no compiten entre sí: responden a necesidades distintas y frecuentemente se utilizan en conjunto.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             STAGE 4: AUDITAR UN PROTOCOLO
+        ========================================== -->
+        <section id="tab-panel-4" role="tabpanel" aria-labelledby="tab-panel-4" class="space-y-6 hidden">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-blue-600">Actividad 4</span>
+                        <h2 class="text-xl font-bold text-slate-900">Auditar un protocolo ambiguo</h2>
+                    </div>
+                    <span class="bg-amber-100 text-amber-800 text-xs font-semibold px-2.5 py-1 rounded-full">
+                        Auditoría de Manuscrito
+                    </span>
+                </div>
+
+                <p class="text-sm text-slate-600 mb-6">
+                    A continuación se muestra un extracto simplificado de un protocolo recibido. Agrega tus observaciones como revisor anotando los defectos de especificidad encontrados.
+                </p>
+
+                <!-- Two Column Layout: Protocol Left, Annotations Right -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <!-- Left: Protocol Card -->
+                    <div class="lg:col-span-5 bg-slate-50 border-2 border-slate-300 rounded-xl p-5 space-y-4">
+                        <div class="flex justify-between items-center border-b border-slate-200 pb-2">
+                            <span class="text-xs font-mono font-bold text-slate-500">PROTOCOL_DATA_V1.TXT</span>
+                            <span class="bg-red-100 text-red-700 text-xs px-2 py-0.5 rounded font-medium">Ambiguo</span>
+                        </div>
+                        <div class="space-y-3 font-mono text-sm">
+                            <div class="p-2 bg-white rounded border border-slate-200">
+                                <span class="text-xs text-slate-400 block">Organismo:</span>
+                                <span class="font-bold text-slate-800">E. coli</span>
+                            </div>
+                            <div class="p-2 bg-white rounded border border-slate-200">
+                                <span class="text-xs text-slate-400 block">Archivo de Secuencia:</span>
+                                <span class="font-bold text-slate-800">genome.fasta</span>
+                            </div>
+                        </div>
+
+                        <!-- Verification Question -->
+                        <div class="pt-4 border-t border-slate-200 space-y-3">
+                            <label class="block text-xs font-bold text-slate-700">
+                                Pregunta de control de auditoría: Si dos estudiantes independientes reciben únicamente la especificación "E. coli + genome.fasta", ¿es razonable asumir que descargarán exactamente el mismo archivo?
+                            </label>
+                            <div class="flex gap-2">
+                                <button type="button" onclick="answerAuditQuestion('Si')" id="btn-audit-q-si" class="flex-1 py-2 px-3 text-xs rounded border border-slate-300 hover:bg-slate-100 font-medium">Sí</button>
+                                <button type="button" onclick="answerAuditQuestion('No')" id="btn-audit-q-no" class="flex-1 py-2 px-3 text-xs rounded border border-slate-300 hover:bg-slate-100 font-medium">No</button>
+                            </div>
+                            <div id="audit-q-feedback" class="hidden text-xs p-2.5 rounded"></div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Reviewer Annotation Tool -->
+                    <div class="lg:col-span-7 bg-white border border-slate-200 rounded-xl p-5 space-y-4">
+                        <h3 class="font-bold text-slate-900 text-sm flex items-center justify-between">
+                            <span><i class="fa-solid fa-comments text-blue-600"></i> Comentarios de la Auditoría</span>
+                            <span id="audit-tag-count" class="text-xs font-normal text-slate-500">0 anotaciones</span>
+                        </h3>
+
+                        <p class="text-xs text-slate-600">Haz clic en los defectos detectados para agregarlos al reporte de auditoría:</p>
+
+                        <!-- Preset Observation Chips -->
+                        <div class="flex flex-wrap gap-2" id="audit-chips-container">
+                            <!-- Chips inserted via JS -->
+                        </div>
+
+                        <!-- Active Audit Observations List -->
+                        <div class="mt-4 border-t border-slate-100 pt-3">
+                            <h4 class="text-xs font-bold text-slate-700 mb-2">Anotaciones registradas en la revisión:</h4>
+                            <ul id="active-audit-list" class="space-y-2 text-xs text-slate-600">
+                                <li class="italic text-slate-400">No has agregado observaciones. Haz clic en las etiquetas superiores.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 flex justify-end">
+                    <button id="btn-stage4-next" onclick="switchTab(5)" disabled class="opacity-50 cursor-not-allowed bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-5 py-2.5 rounded-lg transition-colors flex items-center gap-2">
+                        Avanzar a Etapa 5 <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             STAGE 5: RECONSTRUIR UN PROTOCOLO REPRODUCIBLE
+        ========================================== -->
+        <section id="tab-panel-5" role="tabpanel" aria-labelledby="tab-btn-5" class="space-y-6 hidden">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-blue-600">Actividad 5 · Desafío de Integración</span>
+                        <h2 class="text-xl font-bold text-slate-900">Reconstruir un protocolo reproducible</h2>
+                    </div>
+                    <span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2.5 py-1 rounded-full">
+                        Constructor Metodológico
+                    </span>
+                </div>
+
+                <p class="text-sm text-slate-600 mb-6">
+                    Ahora asume el rol del autor. Reescribe el texto original ambiguo en un protocolo completo y riguroso rellenando la estructura guiada.
+                </p>
+
+                <!-- Protocol Builder Form Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-slate-50 p-5 rounded-xl border border-slate-200">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Organismo / Cepa / Subcepa <span class="text-red-500">*</span></label>
+                        <input type="text" id="proto-strain" placeholder="Ej. Escherichia coli str. K-12 substr. MG1655" class="w-full text-sm p-2.5 rounded border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Accession del Ensamblado / Versión <span class="text-red-500">*</span></label>
+                        <input type="text" id="proto-assembly" placeholder="Ej. GCF_000005845.2" class="w-full text-sm p-2.5 rounded border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Colección / Base de Datos Fuente <span class="text-red-500">*</span></label>
+                        <select id="proto-collection" class="w-full text-sm p-2.5 rounded border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none">
+                            <option value="">-- Seleccionar colección --</option>
+                            <option value="NCBI RefSeq">NCBI RefSeq</option>
+                            <option value="NCBI GenBank">NCBI GenBank</option>
+                            <option value="Ensemble Genomes">Ensembl Genomes</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Formatos de Archivo Empleados <span class="text-red-500">*</span></label>
+                        <input type="text" id="proto-files" placeholder="Ej. FASTA (.fna) y GFF3 (.gff)" class="w-full text-sm p-2.5 rounded border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Correspondencia Ensamblado ↔ Anotación <span class="text-red-500">*</span></label>
+                        <select id="proto-match" class="w-full text-sm p-2.5 rounded border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none">
+                            <option value="Sí, coordinados con el mismo ensamblado y versión">Sí, corresponden a la misma versión de referencia</option>
+                            <option value="No verificado">No verificado</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Fecha de Descarga / Consulta <span class="text-red-500">*</span></label>
+                        <input type="date" id="proto-date" class="w-full text-sm p-2.5 rounded border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+
+                    <div class="md:col-span-2">
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Redacción Integrada del Párrafo de Métodos</label>
+                        <textarea id="proto-text-preview" rows="3" placeholder="El párrafo en lenguaje natural se compondrá automáticamente o puedes redactarlo libremente aquí..." class="w-full text-sm p-3 rounded border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none"></textarea>
+                    </div>
+                </div>
+
+                <div class="mt-4 flex flex-wrap gap-3 items-center justify-between">
+                    <button type="button" onclick="generateProtocolPreview()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-4 py-2 rounded-lg transition-colors flex items-center gap-2">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> Generar Borrador Integrado
+                    </button>
+
+                    <button type="button" onclick="toggleExampleProtocol()" class="text-blue-600 hover:text-blue-800 text-xs font-medium underline flex items-center gap-1">
+                        <i class="fa-solid fa-eye"></i> Ver ejemplo posible de referencia
+                    </button>
+                </div>
+
+                <!-- Reference Example Disclosure Box -->
+                <div id="example-protocol-box" class="hidden mt-4 p-4 rounded-xl bg-blue-50 border border-blue-200 text-xs text-blue-900 space-y-2">
+                    <span class="font-bold block text-blue-800">Ejemplo de referencia metodológica:</span>
+                    <p class="italic leading-relaxed font-serif">
+                        “El análisis se realizó utilizando el ensamblado RefSeq GCF_000005845.2 de Escherichia coli str. K-12 substr. MG1655. Se emplearon los archivos FASTA correspondientes a la secuencia genómica completa y el archivo GFF3 de anotaciones asociado exactamente al mismo ensamblado y versión. Los datos fueron obtenidos de la colección NCBI RefSeq el 10 de agosto de 2026 para garantizar la reproducibilidad del análisis.”
+                    </p>
+                </div>
+
+                <!-- Automated Reproducibility Checklist -->
+                <div class="mt-6 border-t border-slate-200 pt-4 space-y-3">
+                    <h3 class="text-xs font-bold text-slate-800">Comprobación de Reproducibilidad del Protocolo</h3>
+                    <div id="repro-checklist" class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+                        <!-- Checklist items inserted via JS -->
+                    </div>
+                </div>
+
+                <div class="mt-6 flex justify-end">
+                    <button id="btn-stage5-next" onclick="switchTab(6)" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-5 py-2.5 rounded-lg transition-colors flex items-center gap-2">
+                        Avanzar a Etapa 6 <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             STAGE 6: FORMULAR EL PRINCIPIO
+        ========================================== -->
+        <section id="tab-panel-6" role="tabpanel" aria-labelledby="tab-btn-6" class="space-y-6 hidden">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-blue-600">Actividad 6 · Reflexión</span>
+                        <h2 class="text-xl font-bold text-slate-900">Formular el Principio de Reproducibilidad</h2>
+                    </div>
+                    <span class="bg-purple-100 text-purple-800 text-xs font-semibold px-2.5 py-1 rounded-full">
+                        Síntesis Metacognitiva
+                    </span>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Core Sentence Completion -->
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
+                        <label class="block font-bold text-slate-800 text-sm">
+                            Completa la regla general del científico bioinformático:
+                        </label>
+                        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                            <span class="font-serif italic text-slate-700 whitespace-nowrap">“La reproducibilidad en bioinformática depende de</span>
+                            <input type="text" id="reflection-core-input" placeholder="escribe tu conclusión aquí..." class="flex-1 text-sm p-2.5 rounded border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none">
+                            <span class="font-serif italic text-slate-700">.”</span>
+                        </div>
+
+                        <button type="button" onclick="revealModelReflection()" class="text-xs bg-slate-800 hover:bg-slate-900 text-white px-3 py-1.5 rounded transition-colors mt-2">
+                            Mostrar formulación modelo
+                        </button>
+
+                        <div id="model-reflection-box" class="hidden p-3 rounded bg-purple-50 border border-purple-200 text-xs text-purple-900 mt-2 font-serif italic">
+                            <strong>Formulación modelo:</strong> “La reproducibilidad en bioinformática depende de documentar de manera precisa y unívoca los datos utilizados, incluyendo la cepa exacta, el ensamblado, el accession con su número de versión, la colección fuente y la correspondencia estricta entre archivos de secuencia y anotación.”
+                        </div>
+                    </div>
+
+                    <!-- Second Reflection Question -->
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
+                        <label for="reflection-forget-input" class="block font-bold text-slate-800 text-sm">
+                            ¿Cuál es el dato que más fácilmente olvidarías registrar y por qué podría causar un problema en una investigación futura?
+                        </label>
+                        <textarea id="reflection-forget-input" rows="3" placeholder="Reflexiona sobre los descuidos más comunes en el laboratorio seco..." class="w-full text-sm p-3 rounded border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none"></textarea>
+                    </div>
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-slate-200 flex justify-between items-center">
+                    <span class="text-xs text-slate-500">Has completado las 6 actividades analíticas.</span>
+                    <button onclick="switchTab('summary')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold px-6 py-3 rounded-xl shadow-md transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-clipboard-check"></i> Ver Resumen Final y Descargar Reporte
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             FINAL SUMMARY TAB (SUMMARY & DOWNLOAD)
+        ========================================== -->
+        <section id="tab-panel-summary" role="tabpanel" aria-labelledby="tab-btn-summary" class="space-y-6 hidden">
+            <div class="bg-white rounded-xl shadow-md border border-slate-200 p-6 sm:p-8 space-y-8">
+                
+                <!-- Summary Header -->
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-200 pb-6">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-0.5 rounded-full uppercase">Evaluación Finalizada</span>
+                            <span class="text-xs text-slate-500">Dictamen de Revisión por Pares</span>
+                        </div>
+                        <h2 class="text-2xl font-black text-slate-900 mt-1">Reporte Consolidativo de Reproducibilidad</h2>
+                        <p class="text-xs text-slate-600">Resumen integral del trabajo de auditoría realizado durante la sesión.</p>
+                    </div>
+
+                    <!-- Primary Download Button -->
+                    <button onclick="downloadMarkdownReport()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-file-arrow-down text-base"></i> ⬇ Descargar mis resultados (.md)
+                    </button>
+                </div>
+
+                <!-- Summary Grid Section 1: Dictamen & Missing Info -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Dictamen Summary Box -->
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
+                        <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2 border-b border-slate-200 pb-2">
+                            <i class="fa-solid fa-gavel text-blue-600"></i> 1. Dictamen Emitido
+                        </h3>
+                        <div id="sum-dictamen-status" class="text-sm font-semibold"></div>
+                        <div class="text-xs text-slate-600">
+                            <span class="font-bold block text-slate-700 mb-1">Justificación del Revisor:</span>
+                            <blockquote id="sum-dictamen-text" class="italic bg-white p-3 rounded border border-slate-200"></blockquote>
+                        </div>
+                    </div>
+
+                    <!-- Requested Info Summary Box -->
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
+                        <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2 border-b border-slate-200 pb-2">
+                            <i class="fa-solid fa-list-check text-indigo-600"></i> 2. Solicitud de Información Faltante
+                        </h3>
+                        <ul id="sum-missing-list" class="space-y-1.5 text-xs text-slate-700"></ul>
+                    </div>
+                </div>
+
+                <!-- Summary Section 2: Format Matrix Completed -->
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
+                    <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2 border-b border-slate-200 pb-2">
+                        <i class="fa-solid fa-table-cells text-emerald-600"></i> 3. Evaluador de Formatos (Matriz Resuelta)
+                    </h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-xs text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-200/70 text-slate-800">
+                                    <th class="p-2">Necesidad Científica</th>
+                                    <th class="p-2 text-center">FASTA</th>
+                                    <th class="p-2 text-center">GFF3</th>
+                                    <th class="p-2 text-center">GenBank</th>
+                                </tr>
+                            </thead>
+                            <tbody id="sum-matrix-tbody" class="divide-y divide-slate-200 bg-white"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Summary Section 3: Protocol Reconstructed & Reflections -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Protocol Box -->
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
+                        <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2 border-b border-slate-200 pb-2">
+                            <i class="fa-solid fa-code-commit text-purple-600"></i> 4. Protocolo Reconstruido
+                        </h3>
+                        <div id="sum-protocol-text" class="text-xs font-mono bg-white p-3 rounded border border-slate-200 leading-relaxed"></div>
+                    </div>
+
+                    <!-- Reflections Box -->
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
+                        <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2 border-b border-slate-200 pb-2">
+                            <i class="fa-solid fa-brain text-pink-600"></i> 5. Síntesis y Principio
+                        </h3>
+                        <div class="text-xs space-y-2">
+                            <span class="font-bold block text-slate-700">Principio de reproducibilidad:</span>
+                            <p id="sum-reflection-1" class="bg-white p-2.5 rounded border border-slate-200 italic"></p>
+                            
+                            <span class="font-bold block text-slate-700 mt-2">Dato más vulnerable a descuidos:</span>
+                            <p id="sum-reflection-2" class="bg-white p-2.5 rounded border border-slate-200 italic"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Final Philosophical Note -->
+                <div class="p-4 rounded-xl bg-slate-900 text-slate-300 text-xs flex items-center gap-3">
+                    <i class="fa-solid fa-graduation-cap text-2xl text-blue-400"></i>
+                    <div>
+                        <span class="font-bold text-white block mb-0.5">Integración del Módulo S7</span>
+                        Un nombre de organismo y una extensión de archivo no identifican un conjunto de datos reproducible. La selección rigurosa de formatos y la documentación completa del ensamblado son la base de la ciencia genómica abierta.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        /* ==========================================================================
+           STATE MANAGEMENT & DATA STRUCTURES
+           ========================================================================== */
+        const appState = {
+            currentStage: 1,
+            dictamen: {
+                selectedOption: null,
+                justification: '',
+                submitted: false,
+                firstAttemptCorrect: false,
+                usedHint: false
+            },
+            missingInfo: {
+                selectedItems: [], // array of category keys
+                justifications: {}  // key -> text
+            },
+            formatMatrix: {
+                // key: rowId, value: { fasta: bool, gff3: bool, genbank: bool }
+                userAnswers: {},
+                verified: false,
+                score: 0
+            },
+            audit: {
+                questionAnswered: false,
+                questionChoice: null,
+                selectedChipIds: []
+            },
+            protocolBuilder: {
+                strain: '',
+                assembly: '',
+                collection: '',
+                files: '',
+                match: '',
+                date: '',
+                previewText: ''
+            },
+            reflections: {
+                coreSentence: '',
+                forgetItem: ''
+            }
+        };
+
+        // Static Master Data for Missing Information (Stage 2)
+        const MISSING_INFO_CATEGORIES = [
+            { id: 'organism', label: 'Organismo Completo', desc: 'Nombre binomial completo sin abreviar', req: true },
+            { id: 'strain', label: 'Cepa o Aislamiento', desc: 'Identificador específico de la cepa o substrain', req: true },
+            { id: 'assembly', label: 'Accession del Ensamblado', desc: 'Código único GCA_ / GCF_', req: true },
+            { id: 'version', label: 'Número de Versión', desc: 'Sufijo .1, .2 que indica la versión exacta', req: true },
+            { id: 'collection', label: 'Colección (RefSeq / GenBank)', desc: 'Base de datos y contexto curativo', req: true },
+            { id: 'files', label: 'Archivos Utilizados', desc: 'Representaciones exactas descargadas', req: true },
+            { id: 'date', label: 'Fecha de Consulta/Descarga', desc: 'Marca temporal de la fuente dinámica', req: true },
+            { id: 'match', label: 'Correspondencia FASTA ↔ GFF3', desc: 'Verificación de coincidencia de referencia', req: true }
+        ];
+
+        // Static Master Data for Matrix (Stage 3)
+        const MATRIX_ROWS = [
+            { id: 'seq', label: '1. Obtener la secuencia primaria', fasta: true, gff3: false, genbank: true },
+            { id: 'gene', label: '2. Localizar un gen y sus límites', fasta: false, gff3: true, genbank: true },
+            { id: 'coords', label: '3. Consultar coordenadas exactas y hebra', fasta: false, gff3: true, genbank: true },
+            { id: 'biblio', label: '4. Ver referencias bibliográficas y autores', fasta: false, gff3: false, genbank: true },
+            { id: 'acc', label: '5. Identificar accession versionado de la secuencia', fasta: true, gff3: true, genbank: true }
+        ];
+
+        // Static Master Data for Audit Chips (Stage 4)
+        const AUDIT_CHIPS = [
+            { id: 'c1', label: 'Falta cepa o aislamiento exacto' },
+            { id: 'c2', label: 'Falta accession del ensamblado (GCF_/GCA_)' },
+            { id: 'c3', label: 'Falta número de versión de la secuencia' },
+            { id: 'c4', label: 'Falta especificar colección fuente (RefSeq/GenBank)' },
+            { id: 'c5', label: 'Falta nombre completo/extensión de los archivos' },
+            { id: 'c6', label: 'Falta archivo de anotación correspondiente (GFF3)' },
+            { id: 'c7', label: 'Falta fecha de consulta o descarga' }
+        ];
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initStage2Grid();
+            initStage3Matrix();
+            initStage4Chips();
+            initStage5Checklist();
+            
+            // Set default date to today in Stage 5
+            document.getElementById('proto-date').valueAsDate = new Date();
+        });
+
+        function announceToScreenReader(text) {
+            const el = document.getElementById('aria-announce');
+            if (el) el.innerText = text;
+        }
+
+        function switchTab(stageId) {
+            // Hide all tab panels
+            const panels = document.querySelectorAll('[role="tabpanel"]');
+            panels.forEach(panel => panel.classList.add('hidden'));
+
+            // Deselect all tabs
+            const tabs = document.querySelectorAll('[role="tab"]');
+            tabs.forEach(tab => {
+                tab.setAttribute('aria-selected', 'false');
+                tab.classList.remove('bg-blue-50', 'text-blue-600', 'border-blue-600', 'bg-emerald-50');
+            });
+
+            // Show target panel & select target tab
+            const targetPanel = document.getElementById(`tab-panel-${stageId}`);
+            const targetTab = document.getElementById(`tab-btn-${stageId}`);
+
+            if (targetPanel && targetTab) {
+                targetPanel.classList.remove('hidden');
+                targetTab.setAttribute('aria-selected', 'true');
+                
+                // Update header progress text
+                const progressText = document.getElementById('stage-progress-text');
+                if (stageId === 'summary') {
+                    progressText.innerText = '📊 Resumen Final';
+                    renderFinalSummary();
+                } else {
+                    progressText.innerText = `Etapa ${stageId} de 6`;
+                    appState.currentStage = stageId;
+                }
+
+                announceToScreenReader(`Navegando a ${targetTab.innerText}`);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function selectDictamenOption(option) {
+            appState.dictamen.selectedOption = option;
+
+            const btnSi = document.getElementById('btn-dictamen-si');
+            const btnNo = document.getElementById('btn-dictamen-no');
+            const justificationContainer = document.getElementById('justification-container');
+
+            if (option === 'Si') {
+                btnSi.classList.add('border-blue-500', 'bg-blue-50', 'text-blue-700');
+                btnNo.classList.remove('border-red-500', 'bg-red-50', 'text-red-700');
+            } else {
+                btnNo.classList.add('border-red-500', 'bg-red-50', 'text-red-700');
+                btnSi.classList.remove('border-blue-500', 'bg-blue-50', 'text-blue-700');
+            }
+
+            justificationContainer.classList.remove('hidden');
+        }
+
+        function submitDictamen() {
+            const justificationText = document.getElementById('dictamen-justification').value.trim();
+            const feedbackBox = document.getElementById('dictamen-feedback');
+            const editorialBadge = document.getElementById('editorial-badge');
+
+            if (!justificationText) {
+                alert('Por favor, escribe una breve justificación de tu decisión antes de enviar.');
+                return;
+            }
+
+            appState.dictamen.justification = justificationText;
+            appState.dictamen.submitted = true;
+
+            feedbackBox.classList.remove('hidden', 'bg-green-50', 'bg-red-50', 'text-green-800', 'text-red-800', 'border-green-200', 'border-red-200');
+
+            if (appState.dictamen.selectedOption === 'No') {
+                // Correct decision
+                appState.dictamen.firstAttemptCorrect = true;
+                feedbackBox.classList.add('bg-green-50', 'text-green-800', 'border', 'border-green-200');
+                feedbackBox.innerHTML = `
+                    <div class="flex items-start gap-2">
+                        <i class="fa-solid fa-circle-check text-green-600 text-lg mt-0.5"></i>
+                        <div>
+                            <strong class="block font-bold">✓ Dictamen correctamente sustentado</strong>
+                            Coincides con el criterio editorial. La frase <em>"genoma de E. coli"</em> engloba miles de cepas y ensamblados distintos. Sin un accession versionado, es imposible reproducir la descarga exacta.
+                        </div>
+                    </div>
+                `;
+                editorialBadge.classList.remove('hidden');
+            } else {
+                // Incorrect decision (Selected 'Si')
+                appState.dictamen.usedHint = true;
+                feedbackBox.classList.add('bg-red-50', 'text-red-800', 'border', 'border-red-200');
+                feedbackBox.innerHTML = `
+                    <div class="flex items-start gap-2">
+                        <i class="fa-solid fa-lightbulb text-amber-600 text-lg mt-0.5"></i>
+                        <div>
+                            <strong class="block font-bold">Pista de Revisión Científica:</strong>
+                            <em>E. coli</em> tiene miles de cepas aisladas (K-12, O157:H7, BL21) y múltiples versiones de ensamblado. Si solo te dan la palabra "E. coli" y "FASTA", ¿podrías descargar exactamente el mismo archivo que el autor?
+                            <br><span class="text-xs font-semibold underline mt-1 block">Revisa tu criterio y selecciona "No, es insuficiente" para continuar.</span>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function initStage2Grid() {
+            const grid = document.getElementById('missing-info-grid');
+            grid.innerHTML = '';
+
+            MISSING_INFO_CATEGORIES.forEach(item => {
+                const card = document.createElement('div');
+                card.className = `p-4 rounded-xl border-2 border-slate-200 hover:border-blue-400 cursor-pointer transition-all bg-white flex flex-col justify-between`;
+                card.id = `missing-card-${item.id}`;
+                card.onclick = () => toggleMissingItem(item.id);
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="font-bold text-sm text-slate-800">${item.label}</span>
+                        <input type="checkbox" id="chk-missing-${item.id}" class="rounded text-blue-600 focus:ring-blue-500 pointer-events-none">
+                    </div>
+                    <p class="text-xs text-slate-500">${item.desc}</p>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function toggleMissingItem(id) {
+            const index = appState.missingInfo.selectedItems.indexOf(id);
+            const card = document.getElementById(`missing-card-${id}`);
+            const chk = document.getElementById(`chk-missing-${id}`);
+
+            if (index > -1) {
+                appState.missingInfo.selectedItems.splice(index, 1);
+                delete appState.missingInfo.justifications[id];
+                card.classList.remove('border-blue-500', 'bg-blue-50/40');
+                chk.checked = false;
+            } else {
+                appState.missingInfo.selectedItems.push(id);
+                appState.missingInfo.justifications[id] = getDefaultJustification(id);
+                card.classList.add('border-blue-500', 'bg-blue-50/40');
+                chk.checked = true;
+            }
+
+            updateStage2UI();
+        }
+
+        function getDefaultJustification(id) {
+            const map = {
+                organism: 'Identifica la especie completa sin ambigüedad binaria.',
+                strain: 'Diferentes cepas presentan variaciones genómicas significativas.',
+                assembly: 'Permite recuperar el registro de ensamblado exacto en bases de datos.',
+                version: 'Las versiones modifican coordenadas y parches de secuencia.',
+                collection: 'RefSeq y GenBank difieren en nivel de curación y criterios.',
+                files: 'Define la representación precisa analizada.',
+                date: 'Las bases de datos públicas son dinámicas y se actualizan.',
+                match: 'GFF3 y FASTA deben pertenecer exactamente al mismo ensamblado.'
+            };
+            return map[id] || 'Elemento indispensable de procedencia.';
+        }
+
+        function updateStage2UI() {
+            const count = appState.missingInfo.selectedItems.length;
+            const badge = document.getElementById('missing-count-badge');
+            const nextBtn = document.getElementById('btn-stage2-next');
+            const justContainer = document.getElementById('selected-justifications-area');
+            const justList = document.getElementById('justifications-list');
+            const tree = document.getElementById('reproducibility-tree');
+
+            badge.innerText = `${count} / 5 elementos seleccionados`;
+
+            if (count >= 5) {
+                nextBtn.disabled = false;
+                nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            } else {
+                nextBtn.disabled = true;
+                nextBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            }
+
+            // Render Justifications
+            if (count > 0) {
+                justContainer.classList.remove('hidden');
+                justList.innerHTML = '';
+                appState.missingInfo.selectedItems.forEach(id => {
+                    const item = MISSING_INFO_CATEGORIES.find(c => c.id === id);
+                    const div = document.createElement('div');
+                    div.className = 'text-xs bg-white p-2.5 rounded border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2';
+                    div.innerHTML = `
+                        <span class="font-bold text-slate-800 w-44">${item.label}:</span>
+                        <input type="text" value="${appState.missingInfo.justifications[id]}" onchange="appState.missingInfo.justifications['${id}'] = this.value" class="flex-1 p-1.5 border border-slate-300 rounded text-xs">
+                    `;
+                    justList.appendChild(div);
+                });
+            } else {
+                justContainer.classList.add('hidden');
+            }
+
+            // Update Visual Tree
+            let treeHTML = `│<br>`;
+            appState.missingInfo.selectedItems.forEach((id, idx) => {
+                const item = MISSING_INFO_CATEGORIES.find(c => c.id === id);
+                const isLast = idx === appState.missingInfo.selectedItems.length - 1;
+                treeHTML += `<span class="text-emerald-400">${isLast ? '└──' : '├──'} [DOCUMENTADO] ${item.label}</span><br>`;
+            });
+            tree.innerHTML = treeHTML;
+        }
+
+        function initStage3Matrix() {
+            const tbody = document.getElementById('matrix-tbody');
+            tbody.innerHTML = '';
+
+            MATRIX_ROWS.forEach(row => {
+                appState.formatMatrix.userAnswers[row.id] = { fasta: false, gff3: false, genbank: false };
+
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-50 transition-colors';
+                tr.innerHTML = `
+                    <td class="p-3 sm:p-4 font-medium text-slate-800">${row.label}</td>
+                    <td class="p-3 sm:p-4 text-center bg-blue-50/20">
+                        <input type="checkbox" onchange="toggleMatrixCell('${row.id}', 'fasta', this.checked)" class="w-4 h-4 text-blue-600 rounded">
+                    </td>
+                    <td class="p-3 sm:p-4 text-center bg-emerald-50/20">
+                        <input type="checkbox" onchange="toggleMatrixCell('${row.id}', 'gff3', this.checked)" class="w-4 h-4 text-emerald-600 rounded">
+                    </td>
+                    <td class="p-3 sm:p-4 text-center bg-purple-50/20">
+                        <input type="checkbox" onchange="toggleMatrixCell('${row.id}', 'genbank', this.checked)" class="w-4 h-4 text-purple-600 rounded">
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function toggleMatrixCell(rowId, format, checked) {
+            appState.formatMatrix.userAnswers[rowId][format] = checked;
+        }
+
+        function verifyFormatMatrix() {
+            let correctCount = 0;
+            let totalChecks = MATRIX_ROWS.length * 3;
+
+            MATRIX_ROWS.forEach(row => {
+                const user = appState.formatMatrix.userAnswers[row.id];
+                if (user.fasta === row.fasta) correctCount++;
+                if (user.gff3 === row.gff3) correctCount++;
+                if (user.genbank === row.genbank) correctCount++;
+            });
+
+            appState.formatMatrix.verified = true;
+            appState.formatMatrix.score = Math.round((correctCount / totalChecks) * 100);
+
+            const feedbackBox = document.getElementById('matrix-feedback');
+            const nextBtn = document.getElementById('btn-stage3-next');
+            const synthesis = document.getElementById('format-synthesis');
+
+            feedbackBox.classList.remove('hidden');
+
+            if (correctCount === totalChecks) {
+                feedbackBox.className = 'mt-6 p-4 rounded-xl text-sm border bg-emerald-50 border-emerald-200 text-emerald-900';
+                feedbackBox.innerHTML = `
+                    <div class="flex items-center gap-2 font-bold">
+                        <i class="fa-solid fa-circle-check text-emerald-600"></i> ¡Matriz de Evidencia Perfecta!
+                    </div>
+                    <p class="mt-1 text-xs">Has identificado con total precisión los alcances y limitaciones de FASTA, GFF3 y GenBank.</p>
+                `;
+            } else {
+                feedbackBox.className = 'mt-6 p-4 rounded-xl text-sm border bg-amber-50 border-amber-200 text-amber-900';
+                feedbackBox.innerHTML = `
+                    <div class="flex items-center gap-2 font-bold">
+                        <i class="fa-solid fa-triangle-exclamation text-amber-600"></i> Decisiones revisadas (${correctCount}/${totalChecks} aciertos)
+                    </div>
+                    <p class="mt-1 text-xs">Recuerda: GenBank es un formato integrado que contiene secuencia, coordenadas y referencias. FASTA no almacena coordenadas estructuradas ni bibliografía.</p>
+                `;
+            }
+
+            synthesis.classList.remove('hidden');
+            nextBtn.disabled = false;
+            nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+
+        function initStage4Chips() {
+            const container = document.getElementById('audit-chips-container');
+            container.innerHTML = '';
+
+            AUDIT_CHIPS.forEach(chip => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'text-xs bg-slate-100 hover:bg-red-50 hover:text-red-700 hover:border-red-300 border border-slate-300 text-slate-700 px-3 py-1.5 rounded-full transition-all flex items-center gap-1.5';
+                btn.id = `audit-chip-btn-${chip.id}`;
+                btn.onclick = () => toggleAuditChip(chip);
+                btn.innerHTML = `<i class="fa-solid fa-plus text-[10px]"></i> ${chip.label}`;
+                container.appendChild(btn);
+            });
+        }
+
+        function toggleAuditChip(chip) {
+            const index = appState.audit.selectedChipIds.indexOf(chip.id);
+            const btn = document.getElementById(`audit-chip-btn-${chip.id}`);
+
+            if (index > -1) {
+                appState.audit.selectedChipIds.splice(index, 1);
+                btn.classList.remove('bg-red-100', 'text-red-800', 'border-red-400');
+                btn.querySelector('i').className = 'fa-solid fa-plus text-[10px]';
+            } else {
+                appState.audit.selectedChipIds.push(chip.id);
+                btn.classList.add('bg-red-100', 'text-red-800', 'border-red-400');
+                btn.querySelector('i').className = 'fa-solid fa-check text-[10px]';
+            }
+
+            updateAuditUI();
+        }
+
+        function updateAuditUI() {
+            const list = document.getElementById('active-audit-list');
+            const countSpan = document.getElementById('audit-tag-count');
+            const nextBtn = document.getElementById('btn-stage4-next');
+
+            countSpan.innerText = `${appState.audit.selectedChipIds.length} anotaciones`;
+
+            if (appState.audit.selectedChipIds.length > 0) {
+                list.innerHTML = '';
+                appState.audit.selectedChipIds.forEach(id => {
+                    const chip = AUDIT_CHIPS.find(c => c.id === id);
+                    const li = document.createElement('li');
+                    li.className = 'p-2 bg-red-50 border border-red-200 rounded text-red-900 flex items-center justify-between';
+                    li.innerHTML = `
+                        <span><strong>✗ Observación:</strong> ${chip.label}</span>
+                        <button onclick="toggleAuditChip({id: '${chip.id}'})" class="text-red-500 hover:text-red-700 font-bold ml-2">×</button>
+                    `;
+                    list.appendChild(li);
+                });
+
+                if (appState.audit.questionAnswered) {
+                    nextBtn.disabled = false;
+                    nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                }
+            } else {
+                list.innerHTML = '<li class="italic text-slate-400">No has agregado observaciones. Haz clic en las etiquetas superiores.</li>';
+            }
+        }
+
+        function answerAuditQuestion(ans) {
+            appState.audit.questionAnswered = true;
+            appState.audit.questionChoice = ans;
+
+            const feedback = document.getElementById('audit-q-feedback');
+            const btnSi = document.getElementById('btn-audit-q-si');
+            const btnNo = document.getElementById('btn-audit-q-no');
+
+            feedback.classList.remove('hidden', 'bg-green-100', 'bg-red-100', 'text-green-900', 'text-red-900');
+
+            if (ans === 'No') {
+                btnNo.classList.add('bg-red-600', 'text-white');
+                btnSi.classList.remove('bg-blue-600', 'text-white');
+                feedback.classList.add('bg-green-100', 'text-green-900');
+                feedback.innerHTML = '<strong>✓ Correcto:</strong> El nombre local "genome.fasta" es completamente arbitrario y no garantiza qué cepa o versión contiene.';
+            } else {
+                btnSi.classList.add('bg-blue-600', 'text-white');
+                btnNo.classList.remove('bg-red-600', 'text-white');
+                feedback.classList.add('bg-red-100', 'text-red-900');
+                feedback.innerHTML = '<strong>✗ Criterio incorrecto:</strong> Existen decenas de miles de archivos llamados "genome.fasta". Es imposible asegurar que descargarán exactamente la misma secuencia.';
+            }
+
+            if (appState.audit.selectedChipIds.length > 0) {
+                const nextBtn = document.getElementById('btn-stage4-next');
+                nextBtn.disabled = false;
+                nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        }
+
+        function initStage5Checklist() {
+            const checklist = document.getElementById('repro-checklist');
+            checklist.innerHTML = '';
+
+            const items = [
+                { id: 'c_strain', label: 'Cepa especificada' },
+                { id: 'c_assembly', label: 'Accession registrado' },
+                { id: 'c_collection', label: 'Colección indicada' },
+                { id: 'c_match', label: 'Correspondencia OK' }
+            ];
+
+            items.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'p-2 rounded border bg-slate-100 text-slate-500 border-slate-200 flex items-center gap-1.5';
+                div.id = `chk-item-${item.id}`;
+                div.innerHTML = `<i class="fa-solid fa-clock text-slate-400"></i> ${item.label}`;
+                checklist.appendChild(div);
+            });
+        }
+
+        function generateProtocolPreview() {
+            const strain = document.getElementById('proto-strain').value.trim() || '[Cepa pendiente]';
+            const assembly = document.getElementById('proto-assembly').value.trim() || '[Assembly accession pendiente]';
+            const collection = document.getElementById('proto-collection').value || '[Colección pendiente]';
+            const files = document.getElementById('proto-files').value.trim() || '[Formatos pendientes]';
+            const match = document.getElementById('proto-match').value;
+            const date = document.getElementById('proto-date').value || '[Fecha pendiente]';
+
+            const text = `El análisis genómico se realizó utilizando el ensamblado ${assembly} (${collection}) de ${strain}. Se emplearon los archivos en formato ${files}, verificando que ${match.toLowerCase()}. Datos consultados el ${date}.`;
+
+            document.getElementById('proto-text-preview').value = text;
+            appState.protocolBuilder.previewText = text;
+
+            // Update Checklist
+            updateChecklistStatus('c_strain', strain !== '[Cepa pendiente]');
+            updateChecklistStatus('c_assembly', assembly !== '[Assembly accession pendiente]');
+            updateChecklistStatus('c_collection', collection !== '[Colección pendiente]');
+            updateChecklistStatus('c_match', match.includes('coordinados'));
+        }
+
+        function updateChecklistStatus(id, valid) {
+            const el = document.getElementById(`chk-item-${id}`);
+            if (valid) {
+                el.className = 'p-2 rounded border bg-emerald-50 text-emerald-800 border-emerald-300 font-medium flex items-center gap-1.5';
+                el.querySelector('i').className = 'fa-solid fa-circle-check text-emerald-600';
+            } else {
+                el.className = 'p-2 rounded border bg-slate-100 text-slate-500 border-slate-200 flex items-center gap-1.5';
+                el.querySelector('i').className = 'fa-solid fa-clock text-slate-400';
+            }
+        }
+
+        function toggleExampleProtocol() {
+            const box = document.getElementById('example-protocol-box');
+            box.classList.toggle('hidden');
+        }
+
+        function revealModelReflection() {
+            document.getElementById('model-reflection-box').classList.remove('hidden');
+        }
+
+        function renderFinalSummary() {
+            // Save Stage 6 entries
+            appState.reflections.coreSentence = document.getElementById('reflection-core-input').value.trim() || 'Sin respuesta redactada';
+            appState.reflections.forgetItem = document.getElementById('reflection-forget-input').value.trim() || 'Sin respuesta redactada';
+
+            // 1. Dictamen Status
+            const sumDictamenStatus = document.getElementById('sum-dictamen-status');
+            const sumDictamenText = document.getElementById('sum-dictamen-text');
+
+            if (appState.dictamen.selectedOption === 'No') {
+                sumDictamenStatus.className = 'text-sm font-bold text-red-600';
+                sumDictamenStatus.innerText = '✗ Dictamen: Rechazado para revisión por reproducibilidad insuficiente';
+            } else {
+                sumDictamenStatus.className = 'text-sm font-bold text-amber-600';
+                sumDictamenStatus.innerText = '⚠ Dictamen inicial: Aceptado preliminarmente (Revisado)';
+            }
+            sumDictamenText.innerText = appState.dictamen.justification || 'Sin justificación registrada.';
+
+            // 2. Missing Info List
+            const sumMissingList = document.getElementById('sum-missing-list');
+            sumMissingList.innerHTML = '';
+            if (appState.missingInfo.selectedItems.length > 0) {
+                appState.missingInfo.selectedItems.forEach(id => {
+                    const item = MISSING_INFO_CATEGORIES.find(c => c.id === id);
+                    const li = document.createElement('li');
+                    li.innerHTML = `✓ <strong>${item.label}:</strong> ${appState.missingInfo.justifications[id] || item.desc}`;
+                    sumMissingList.appendChild(li);
+                });
+            } else {
+                sumMissingList.innerHTML = '<li class="italic text-slate-400">No se seleccionaron elementos.</li>';
+            }
+
+            // 3. Matrix
+            const sumMatrixBody = document.getElementById('sum-matrix-tbody');
+            sumMatrixBody.innerHTML = '';
+            MATRIX_ROWS.forEach(row => {
+                const user = appState.formatMatrix.userAnswers[row.id] || {};
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="p-2 font-medium">${row.label}</td>
+                    <td class="p-2 text-center">${user.fasta ? '✓' : '—'}</td>
+                    <td class="p-2 text-center">${user.gff3 ? '✓' : '—'}</td>
+                    <td class="p-2 text-center">${user.genbank ? '✓' : '—'}</td>
+                `;
+                sumMatrixBody.appendChild(tr);
+            });
+
+            // 4. Protocol Text
+            const sumProtocolText = document.getElementById('sum-protocol-text');
+            sumProtocolText.innerText = appState.protocolBuilder.previewText || document.getElementById('proto-text-preview').value || 'Protocolo no generado.';
+
+            // 5. Reflections
+            document.getElementById('sum-reflection-1').innerText = `“La reproducibilidad en bioinformática depende de ${appState.reflections.coreSentence}.”`;
+            document.getElementById('sum-reflection-2').innerText = appState.reflections.forgetItem;
+        }
+
+        function downloadMarkdownReport() {
+            renderFinalSummary(); // Refresh latest state
+
+            const dateStr = new Date().toISOString().split('T')[0];
+
+            let mdContent = `# Reproducibility Review — Resultados de la Práctica
+
+**Curso:** Introducción a la Bioinformática — LCG, UNAM 2026  
+**Módulo:** S7 · De los objetos biológicos a FASTA, GFF3 y GenBank  
+**Actividad:** Práctica 5 — ¿Es suficiente la información para reproducir un análisis?  
+**Fecha de evaluación:** ${dateStr}  
+
+---
+
+## 1. Caso de Estudio Evaluado
+
+> *"El análisis se realizó utilizando el genoma de **Escherichia coli**. Las secuencias fueron descargadas en formato FASTA y las anotaciones en formato GFF3."*
+
+---
+
+## 2. Actividad 1 — Dictamen del Revisor
+
+* **Aceptaría la descripción original:** ${appState.dictamen.selectedOption || 'Sin selección'}
+* **Primer intento correcto:** ${appState.dictamen.firstAttemptCorrect ? 'Sí' : 'No'}
+* **Usó pista de revisión:** ${appState.dictamen.usedHint ? 'Sí' : 'No'}
+* **Justificación redactada:**  
+  *“${appState.dictamen.justification || 'Sin respuesta'}”*
+
+---
+
+## 3. Actividad 2 — Solicitud de Información Faltante
+
+Elementos indispensable de procedencia solicitados a los autores:
+
+`;
+
+            if (appState.missingInfo.selectedItems.length > 0) {
+                appState.missingInfo.selectedItems.forEach(id => {
+                    const item = MISSING_INFO_CATEGORIES.find(c => c.id === id);
+                    const just = appState.missingInfo.justifications[id] || item.desc;
+                    mdContent += `* **${item.label}:** ${just}\n`;
+                });
+            } else {
+                mdContent += `* Sin elementos seleccionados.\n`;
+            }
+
+            mdContent += `
+
+---
+
+## 4. Actividad 3 — Evaluación de Formatos (Matriz de Evidencia)
+
+| Necesidad Científica / Evidencia | FASTA | GFF3 | GenBank |
+|---|:---:|:---:|:---:|
+`;
+
+            MATRIX_ROWS.forEach(row => {
+                const u = appState.formatMatrix.userAnswers[row.id] || {};
+                mdContent += `| ${row.label} | ${u.fasta ? '✓' : '—'} | ${u.gff3 ? '✓' : '—'} | ${u.genbank ? '✓' : '—'} |\n`;
+            });
+
+            mdContent += `
+* **Puntuación de coherencia en matriz:** ${appState.formatMatrix.score}%
+
+---
+
+## 5. Actividad 4 — Auditoría del Protocolo
+
+* **Análisis de caso ('genome.fasta'):** ${appState.audit.questionChoice === 'No' ? 'Reconoció la ambigüedad del archivo local.' : 'Evaluación preliminar.'}
+* **Anotaciones de auditoría registradas:**
+`;
+
+            if (appState.audit.selectedChipIds.length > 0) {
+                appState.audit.selectedChipIds.forEach(id => {
+                    const chip = AUDIT_CHIPS.find(c => c.id === id);
+                    mdContent += `  - ✗ ${chip.label}\n`;
+                });
+            } else {
+                mdContent += `  - Sin anotaciones registradas.\n`;
+            }
+
+            mdContent += `
+
+---
+
+## 6. Actividad 5 — Protocolo Reconstruido Reproducible
+
+\`\`\`text
+${appState.protocolBuilder.previewText || document.getElementById('proto-text-preview').value || 'Sin protocolo generado'}
+\`\`\`
+
+---
+
+## 7. Actividad 6 — Reflexión y Regla General
+
+* **Principio de Reproducibilidad:**  
+  *“La reproducibilidad en bioinformática depende de ${appState.reflections.coreSentence}.”*
+
+* **Dato más vulnerable a omisión en la investigación:**  
+  *“${appState.reflections.forgetItem}”*
+
+---
+
+## 8. Resumen Descriptivo del Desempeño
+
+* **Elementos de procedencia identificados:** ${appState.missingInfo.selectedItems.length}
+* **Pistas de revisión utilizadas:** ${appState.dictamen.usedHint ? 1 : 0}
+* **Protocolo mejorado construido:** ${appState.protocolBuilder.previewText ? 'Sí' : 'En proceso'}
+* **Matriz de formatos completada:** ${appState.formatMatrix.verified ? 'Sí' : 'No'}
+`;
+
+            // Create Blob and Trigger Download
+            const blob = new Blob([mdContent], { type: 'text/markdown;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.setAttribute('href', url);
+            link.setAttribute('download', 'reproducibility-review-resultados.md');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>

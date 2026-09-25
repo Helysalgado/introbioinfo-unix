@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <!-- Chosen Palette: Slate & Detective Navy (Background: #f8fafc, Primary: #0f172a, Sky: #0284c7, Emerald: #059669, Amber: #d97706, Rose: #e11d48, Card: #ffffff) -->
+  <!-- Application Structure Plan: 
+    Designed as a 4-stage progressive Bio Detective diagnostic portal.
+    1) Misión 1 (Procesos): True/False reasoning engine with progressive hint system and interactive Dogma flow reconstruction.
+    2) Misión 2 (Elementos): Interactive click-to-match cards for 8 genetic definitions out of 9 terms, explicitly highlighting the unused 3' UTR, followed by gene architecture diagrams.
+    3) Misión 3 (Alfabetos): Sequence evidence classifier handling standard and intentionally ambiguous sequences (e.g., ACGT, MSTAC, NNNNN) with letter-evidence prompts and a Certainty Selector without competitive scoring.
+    4) Cierre & Taller: Epistemological categorizer (Observé, Interpreté, Inferí, No puedo afirmarlo), first-attempt vs correction log, 3 discussion prompts for peer interaction, and bridge to FASTA/GFF3/GenBank.
+    Why: Keeps students focused on evidence-based reasoning over rote guessing, distinguishing between what can be proven vs what requires additional context. -->
+  <!-- Visualization & Content Choices:
+    1. Dogma & Gene Visualizations: HTML/Tailwind structured flex layouts and Canvas rendering (Chart.js for certainty summary breakdown).
+    2. Interactive Matching Engine: Accessible state-driven UI with keyboard support and visual feedback.
+    3. Sequence Classifier: Monospace text displays with character-level interaction and dynamic hint boxes.
+    4. Taller Summary Exporter: Blob-based TXT summary generator for student protocols.
+    Confirming: NO SVG graphics used. NO Mermaid JS used. -->
+  <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Práctica 1: Bio Detective — Bioinformática LCG UNAM</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    .chart-container {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      height: 260px;
+      max-height: 320px;
+    }
+    @media (min-width: 768px) {
+      .chart-container {
+        height: 290px;
+      }
+    }
+    .seq-letter {
+      display: inline-block;
+      padding: 0.15rem 0.35rem;
+      margin: 0 0.1rem;
+      border-radius: 0.25rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-weight: 700;
+      transition: all 0.2s ease;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased min-h-screen flex flex-col">
+
+  <!-- Main Header -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-5xl mx-auto px-4 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="inline-block bg-sky-100 text-sky-800 text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full">
+            LCG UNAM 2026 — Práctica 1
+          </span>
+          <span class="text-slate-400 text-xs">Sesión S7</span>
+        </div>
+        <h1 class="text-xl md:text-2xl font-bold text-slate-900 mt-1">🕵️‍♂️ Bio Detective</h1>
+        <p class="text-xs md:text-sm text-slate-600">Procesos, elementos y alfabetos: ¿qué puedes inferir con la evidencia disponible?</p>
+      </div>
+
+      <nav aria-label="Navegación por misiones" class="flex items-center bg-slate-100 p-1 rounded-xl overflow-x-auto">
+        <button id="nav-m1" onclick="switchMission('m1')" class="px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors bg-white text-slate-900 shadow-sm whitespace-nowrap">
+          1. Procesos
+        </button>
+        <button id="nav-m2" onclick="switchMission('m2')" class="px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors text-slate-600 hover:text-slate-900 whitespace-nowrap">
+          2. Elementos
+        </button>
+        <button id="nav-m3" onclick="switchMission('m3')" class="px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors text-slate-600 hover:text-slate-900 whitespace-nowrap">
+          3. Alfabetos
+        </button>
+        <button id="nav-cierre" onclick="switchMission('cierre')" class="px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors text-slate-600 hover:text-slate-900 whitespace-nowrap">
+          4. Cierre & Taller
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Progress Bar Header Banner -->
+  <div class="bg-slate-100 border-b border-slate-200 py-2">
+    <div class="max-w-5xl mx-auto px-4 flex items-center justify-between text-xs text-slate-600">
+      <span id="mission-indicator-text" class="font-semibold text-sky-800">Misión 1 de 3: Reconstruir el flujo de información</span>
+      <span id="mission-progress-percent" class="font-mono">Progreso: 25%</span>
+    </div>
+  </div>
+
+  <main class="max-w-5xl mx-auto px-4 py-6 flex-grow w-full">
+
+    <!-- MISIÓN 1: PROCESOS -->
+    <section id="section-m1" class="space-y-6">
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <div class="mb-6 border-b border-slate-100 pb-4">
+          <span class="inline-block bg-sky-100 text-sky-800 text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full mb-1">
+            Misión 1 — Reconstruir el flujo de información
+          </span>
+          <h2 class="text-lg font-bold text-slate-900">Evaluación de Afirmaciones sobre Procesos Biológicos</h2>
+          <p class="text-xs text-slate-600 mt-1">
+            Examina cada afirmación. Si detectas un error, razona basándote en el <strong>molde</strong> y el <strong>producto</strong> de la reacción.
+          </p>
+        </div>
+
+        <div id="m1-statements-container" class="space-y-4">
+          <!-- Dynamically populated via JavaScript -->
+        </div>
+
+        <!-- Mision 1 Dogma Diagram & Central Question -->
+        <div id="m1-closure-box" class="mt-8 pt-6 border-t border-slate-200 hidden space-y-6">
+          <div class="bg-slate-900 text-white rounded-2xl p-5 border border-slate-800">
+            <h3 class="text-sm font-bold text-sky-400 mb-3 flex items-center gap-2">
+              <span>🧬</span> Reconstrucción del Flujo de Información Biológica
+            </h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono mb-4">
+              <div class="bg-slate-800 p-3 rounded-xl border border-slate-700">
+                <span class="text-slate-400 text-[10px] block uppercase">Replicación</span>
+                <span class="text-emerald-400 font-bold">ADN</span> <span class="text-slate-400">──(molde: ADN)──→</span> <span class="text-emerald-400 font-bold">ADN</span>
+              </div>
+              <div class="bg-slate-800 p-3 rounded-xl border border-slate-700">
+                <span class="text-slate-400 text-[10px] block uppercase">Transcripción & Traducción</span>
+                <span class="text-sky-400 font-bold">ADN</span> <span class="text-slate-400">──transcripción──→</span> <span class="text-amber-400 font-bold">ARN</span> <span class="text-slate-400">──traducción──→</span> <span class="text-rose-400 font-bold">Proteína</span>
+              </div>
+            </div>
+
+            <div class="border-t border-slate-800 pt-4 space-y-3">
+              <p class="text-xs text-slate-200 font-sans font-medium">
+                Pregunta clave de detective: <strong>¿La relación gen → transcrito → proteína siempre es uno a uno?</strong>
+              </p>
+              <div class="flex gap-3">
+                <button onclick="answerM1Dogma(true)" id="btn-dogma-yes" class="px-3.5 py-2 rounded-lg border border-slate-700 bg-slate-800 text-slate-200 text-xs font-bold hover:bg-slate-700 transition-all">
+                  Sí, siempre es 1 a 1
+                </button>
+                <button onclick="answerM1Dogma(false)" id="btn-dogma-no" class="px-3.5 py-2 rounded-lg border border-sky-600 bg-sky-600 text-white text-xs font-bold hover:bg-sky-500 transition-all">
+                  No, no siempre
+                </button>
+              </div>
+              <div id="dogma-feedback" class="hidden p-3 rounded-xl bg-slate-800 text-xs text-slate-200 border border-slate-700"></div>
+            </div>
+          </div>
+
+          <div class="flex justify-end">
+            <button onclick="switchMission('m2')" class="px-5 py-2.5 bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold rounded-xl shadow-sm transition-all">
+              Ir a Misión 2: Elementos de un Gen →
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MISIÓN 2: ELEMENTOS -->
+    <section id="section-m2" class="hidden space-y-6">
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <div class="mb-6 border-b border-slate-100 pb-4">
+          <span class="inline-block bg-teal-100 text-teal-800 text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full mb-1">
+            Misión 2 — Identificar las piezas de un gen
+          </span>
+          <h2 class="text-lg font-bold text-slate-900">De la definición al elemento genético</h2>
+          <p class="text-xs text-slate-600 mt-1">
+            Empareja cada una de las 8 definiciones con su concepto biológico correspondiente. Ojo: en la bolsa de términos hay <strong>9 conceptos</strong>, por lo que uno de ellos quedará sobrante.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Terms bank -->
+          <div class="space-y-3 lg:col-span-1 bg-slate-50 border border-slate-200 p-4 rounded-2xl">
+            <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Bolsa de Términos (9):</h3>
+            <div id="terms-pool" class="flex flex-wrap lg:flex-col gap-2">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <!-- Definitions list -->
+          <div class="space-y-3 lg:col-span-2">
+            <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Definiciones Biológicas (8):</h3>
+            <div id="definitions-container" class="space-y-2.5">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Mision 2 Unused Term Check & Diagrams -->
+        <div id="m2-closure-box" class="mt-8 pt-6 border-t border-slate-200 hidden space-y-6">
+          <div class="p-5 bg-amber-50 border border-amber-200 rounded-2xl text-amber-900 space-y-3">
+            <h3 class="text-sm font-bold flex items-center gap-2">
+              <span>🔍</span> ¿Qué término quedó libre en la bolsa de evidencias?
+            </h3>
+            <p class="text-xs">
+              Detectaste que el término <strong class="font-mono bg-amber-200 px-1.5 py-0.5 rounded">3′ UTR</strong> no correspondía a ninguna de las 8 definiciones.
+            </p>
+            <div class="bg-white/80 p-3 rounded-xl border border-amber-200 text-xs text-slate-700 space-y-1">
+              <strong class="text-amber-900 block font-semibold">Explicación del Bio Detective:</strong>
+              El <strong>3′ UTR</strong> (<em>Untranslated Region 3′</em>) es la región del transcrito que se encuentra posterior al codón de paro de la CDS. Forma parte del ARNm pero no se traduce en aminoácidos, jugando un rol crítico en la estabilidad del ARN y regulación post-transcripcional.
+            </div>
+          </div>
+
+          <!-- Gene Visual Schemes -->
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 space-y-4">
+            <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider">
+              Arquitectura Genómica Resumida:
+            </h3>
+
+            <!-- Eukaryotic Transcript Scheme -->
+            <div class="space-y-2">
+              <span class="text-[11px] font-bold text-slate-600 block">Estructura del Transcrito Eucariota:</span>
+              <div class="flex flex-wrap items-center gap-1 text-xs font-mono text-center">
+                <span class="bg-purple-100 text-purple-900 px-2 py-1.5 rounded-lg border border-purple-200 font-bold">promotor</span>
+                <span class="text-slate-400 font-sans text-sm">→</span>
+                <span class="bg-emerald-100 text-emerald-900 px-2 py-1.5 rounded-lg border border-emerald-200 font-bold">TSS</span>
+                <span class="text-slate-400 font-sans text-sm">→</span>
+                <span class="bg-sky-100 text-sky-900 px-2 py-1.5 rounded-lg border border-sky-200">5′ UTR</span>
+                <span class="text-slate-400 font-sans text-sm">→</span>
+                <span class="bg-amber-100 text-amber-900 px-3 py-1.5 rounded-lg border border-amber-200 font-bold">CDS (Región Codificante)</span>
+                <span class="text-slate-400 font-sans text-sm">→</span>
+                <span class="bg-sky-100 text-sky-900 px-2 py-1.5 rounded-lg border border-sky-200">3′ UTR</span>
+              </div>
+            </div>
+
+            <!-- Splicing Scheme -->
+            <div class="space-y-2 pt-2 border-t border-slate-200">
+              <span class="text-[11px] font-bold text-slate-600 block">Splicing Eucariota:</span>
+              <div class="bg-white p-3 rounded-xl border border-slate-200 text-xs space-y-2">
+                <div class="flex items-center gap-1 font-mono">
+                  <span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded border border-emerald-200 font-bold">Exón 1</span>
+                  <span class="text-slate-400">──────</span>
+                  <span class="bg-rose-100 text-rose-800 px-2 py-0.5 rounded border border-rose-200 italic">Intrón</span>
+                  <span class="text-slate-400">──────</span>
+                  <span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded border border-emerald-200 font-bold">Exón 2</span>
+                </div>
+                <div class="text-[11px] text-slate-500 font-sans flex items-center gap-2">
+                  <span>↓ Eliminación de intrón por maduración (Splicing)</span>
+                </div>
+                <div class="flex items-center gap-1 font-mono">
+                  <span class="bg-emerald-600 text-white px-2.5 py-0.5 rounded font-bold">Exón 1</span>
+                  <span class="bg-emerald-600 text-white px-2.5 py-0.5 rounded font-bold">Exón 2</span>
+                  <span class="text-slate-500 font-sans text-xs ml-2">(ARNm maduro listo para traducción)</span>
+                </div>
+              </div>
+            </div>
+            <p class="text-[11px] text-slate-500 italic">
+              * Nota: Esta arquitectura es conceptual. No todos los genes ni organismos comparten exactamente este arreglo (p. ej., genes procariotas carecen de intrones estándar).
+            </p>
+          </div>
+
+          <div class="flex justify-end">
+            <button onclick="switchMission('m3')" class="px-5 py-2.5 bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold rounded-xl shadow-sm transition-all">
+              Ir a Misión 3: Alfabetos y Evidencia →
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MISIÓN 3: ALFABETOS Y EVIDENCIA -->
+    <section id="section-m3" class="hidden space-y-6">
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <div class="mb-6 border-b border-slate-100 pb-4">
+          <span class="inline-block bg-amber-100 text-amber-900 text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full mb-1">
+            Misión 3 — Leer las pistas de una secuencia
+          </span>
+          <h2 class="text-lg font-bold text-slate-900">Clasificación de Secuencias y Certeza Razonada</h2>
+          <p class="text-xs text-slate-600 mt-1">
+            Clasifica cada fragmento. Regla de oro del Bio Detective: <strong>Reconocer patrones es útil, pero no debemos inventar certeza cuando la evidencia no alcanza.</strong>
+          </p>
+        </div>
+
+        <div id="m3-fragments-container" class="space-y-6">
+          <!-- Dynamically populated fragments -->
+        </div>
+
+        <div id="m3-closure-box" class="mt-8 pt-6 border-t border-slate-200 hidden space-y-6">
+          <div class="p-5 bg-slate-900 text-white rounded-2xl border border-slate-800 space-y-3">
+            <h3 class="text-sm font-bold text-amber-400 flex items-center gap-2">
+              <span>🎯</span> Lección del Bio Detective: Clasificar no es Adivinar
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+              <div class="bg-slate-800 p-3 rounded-xl border border-slate-700">
+                <span class="text-emerald-400 font-bold block mb-1">Evidencia suficiente</span>
+                <p class="text-slate-300">Permite una afirmación categórica (p. ej. la presencia de Uracilo confirma ARN).</p>
+              </div>
+              <div class="bg-slate-800 p-3 rounded-xl border border-slate-700">
+                <span class="text-amber-400 font-bold block mb-1">Evidencia ambigua</span>
+                <p class="text-slate-300">Exige reconocer el límite de la evidencia y pedir contexto adicional antes de concluir.</p>
+              </div>
+              <div class="bg-slate-800 p-3 rounded-xl border border-slate-700">
+                <span class="text-sky-400 font-bold block mb-1">Interpretación plausible</span>
+                <p class="text-slate-300">Una hipótesis probable (p. ej. ACGT como ADN) no equivale a una certeza demostrada.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex justify-end">
+            <button onclick="switchMission('cierre')" class="px-5 py-2.5 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-xl shadow-sm transition-all">
+              Ir a Cierre y Preparación para el Taller →
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CIERRE Y TALLER -->
+    <section id="section-cierre" class="hidden space-y-6">
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <div class="mb-6 border-b border-slate-100 pb-4">
+          <span class="inline-block bg-slate-800 text-white text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full mb-1">
+            Síntesis Epistemológica
+          </span>
+          <h2 class="text-xl font-bold text-slate-900">¿Qué sé, qué infiero y qué no puedo afirmar?</h2>
+          <p class="text-xs text-slate-600 mt-1">
+            Organiza los hallazgos de la práctica en los cuatro niveles de certidumbre científica.
+          </p>
+        </div>
+
+        <!-- Concept Matrix Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+          <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl space-y-2">
+            <div class="flex items-center gap-2 text-xs font-bold text-sky-800 uppercase tracking-wide">
+              <span class="w-2.5 h-2.5 rounded-full bg-sky-600"></span>
+              1. OBSERVÉ (Hechos directos)
+            </div>
+            <ul class="text-xs text-slate-700 space-y-1.5 list-disc list-inside bg-white p-3 rounded-lg border border-slate-200">
+              <li>El fragmento <code>ACAAUGUU</code> contiene el símbolo <strong>U</strong>.</li>
+              <li>La cadena <code>ACGT</code> usa 4 letras pertenecientes tanto a nucleótidos como a aminoácidos.</li>
+              <li>La secuencia <code>NNNNN</code> está formada únicamente por caracteres de ambigüedad.</li>
+            </ul>
+          </div>
+
+          <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl space-y-2">
+            <div class="flex items-center gap-2 text-xs font-bold text-emerald-800 uppercase tracking-wide">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
+              2. INTERPRETÉ (Conclusión sustentada)
+            </div>
+            <ul class="text-xs text-slate-700 space-y-1.5 list-disc list-inside bg-white p-3 rounded-lg border border-slate-200">
+              <li><code>ACAAUGUU</code> representa un ARN porque la base Uracilo sustituye a la Timina.</li>
+              <li><code>PAFFNK</code> es una proteína porque Prolina (P) y Fenilalanina (F) no son bases ni códigos de ambigüedad.</li>
+              <li>Un gen no siempre produce proteína (existen ARN funcionales como ARNt y ARNr).</li>
+            </ul>
+          </div>
+
+          <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl space-y-2">
+            <div class="flex items-center gap-2 text-xs font-bold text-amber-800 uppercase tracking-wide">
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-600"></span>
+              3. INFERÍ (Hipótesis plausible pero no demostrada)
+            </div>
+            <ul class="text-xs text-slate-700 space-y-1.5 list-disc list-inside bg-white p-3 rounded-lg border border-slate-200">
+              <li><code>ACGT</code> es "probablemente" ADN debido a la alta frecuencia de uso de ese tetranucleótido en bioinformática básica.</li>
+              <li><code>MSTAC</code> es una proteína por la densidad de residuos o un oligopéptido corto.</li>
+            </ul>
+          </div>
+
+          <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl space-y-2">
+            <div class="flex items-center gap-2 text-xs font-bold text-rose-800 uppercase tracking-wide">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-600"></span>
+              4. NO PUEDO AFIRMARLO TODAVÍA
+            </div>
+            <ul class="text-xs text-slate-700 space-y-1.5 list-disc list-inside bg-white p-3 rounded-lg border border-slate-200">
+              <li>Que <code>ACGT</code> pertenezca estrictamente a ADN sin revisar el encabezado o tipo de registro.</li>
+              <li>Que <code>NNNNN</code> sea ADN o proteína sin contar con la base de datos de origen o contexto del experimento.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Certainty Chart Visualization -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4">
+            <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+              📊 Distribución de Certeza en las Secuencias Evaluadas
+            </h3>
+            <p class="text-xs text-slate-500 mb-3">
+              Análisis del grado de evidencia presente en los 7 casos de prueba de la Misión 3.
+            </p>
+            <div class="chart-container">
+              <canvas id="chart-certainty-summary"></canvas>
+            </div>
+          </div>
+
+          <!-- Peer Discussion Card for Taller -->
+          <div class="bg-slate-900 text-white rounded-2xl p-5 border border-slate-800 flex flex-col justify-between space-y-4">
+            <div>
+              <span class="text-xs text-amber-400 font-mono font-semibold uppercase tracking-wider">Preparación para el Taller de Discusión</span>
+              <h3 class="text-base font-bold text-white mt-1">Lleva tus desacuerdos al taller</h3>
+              <p class="text-xs text-slate-300 mt-1">
+                Reflexiona sobre estas 3 preguntas para compartirlas en el trabajo en pares y documentarlas posteriormente en tu <code>doc/protocolo.md</code>:
+              </p>
+              
+              <div class="mt-4 space-y-3 text-xs">
+                <div class="space-y-1">
+                  <label for="prep-q1" class="block text-slate-300 font-semibold">1. ¿Qué afirmación sobre procesos te hizo dudar o cambiar de opinión?</label>
+                  <input type="text" id="prep-q1" placeholder="Escribe aquí tu reflexión..." class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white text-xs focus:outline-none focus:border-amber-500 placeholder-slate-500">
+                </div>
+                <div class="space-y-1">
+                  <label for="prep-q2" class="block text-slate-300 font-semibold">2. ¿Qué elemento genético te costó más distinguir?</label>
+                  <input type="text" id="prep-q2" placeholder="Escribe aquí tu reflexión..." class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white text-xs focus:outline-none focus:border-amber-500 placeholder-slate-500">
+                </div>
+                <div class="space-y-1">
+                  <label for="prep-q3" class="block text-slate-300 font-semibold">3. ¿Qué fragmento de secuencia te pareció más ambiguo y por qué?</label>
+                  <input type="text" id="prep-q3" placeholder="Escribe aquí tu reflexión..." class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white text-xs focus:outline-none focus:border-amber-500 placeholder-slate-500">
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-2 border-t border-slate-800 flex justify-between items-center">
+              <span class="text-[11px] text-slate-400">Guarda tus notas para el protocolo individual.</span>
+              <button onclick="downloadStudentProtocolReport()" class="px-3.5 py-1.5 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded-lg transition-all flex items-center gap-1.5">
+                <span>📥</span> Descargar Apuntes (.txt)
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bridge to Computational Formats -->
+        <div class="p-5 bg-sky-50 border border-sky-200 rounded-2xl space-y-3">
+          <span class="text-xs font-bold text-sky-800 uppercase tracking-wider block">Puente a la Representación Computacional</span>
+          <h3 class="text-sm font-bold text-slate-900">De los Objetos Biológicos a los Archivos Digitales</h3>
+          <p class="text-xs text-slate-700 leading-relaxed">
+            Hasta ahora has razonado sobre <strong>objetos y procesos biológicos</strong> (genes, transcribir, secuencias de aminoácidos). El siguiente paso en la Sesión S7 es responder: <strong>¿Cómo se representan estos conceptos en archivos estandarizados que una computadora puede almacenar, buscar y procesar?</strong>
+          </p>
+          <div class="flex flex-wrap items-center justify-center gap-2 text-xs font-mono pt-2">
+            <span class="bg-white border border-sky-300 px-3 py-1.5 rounded-lg font-bold text-slate-800">Objeto Biológico</span>
+            <span class="text-sky-600 font-bold">──→</span>
+            <span class="bg-white border border-sky-300 px-3 py-1.5 rounded-lg font-bold text-slate-800">Representación Computacional</span>
+            <span class="text-sky-600 font-bold">──→</span>
+            <span class="bg-sky-700 text-white px-3 py-1.5 rounded-lg font-bold">FASTA / GFF3 / GenBank</span>
+          </div>
+        </div>
+
+        <div class="mt-8 border-t border-slate-200 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="flex items-center gap-2 text-xs text-slate-600">
+            <span class="text-emerald-600 font-bold text-base">✓</span>
+            <span>Misiones completadas y listas para la discusión en el taller.</span>
+          </div>
+          <button onclick="restartAllMissions()" class="px-4 py-2 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg">
+            ↺ Reiniciar Misiones de Práctica
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200 py-4 mt-auto">
+    <div class="max-w-5xl mx-auto px-4 text-center text-xs text-slate-500">
+      Licenciatura en Ciencias Genómicas (LCG) UNAM — Sesión S7: Práctica 1 (Bio Detective)
+    </div>
+  </footer>
+
+  <script>
+    // DATA STRUCTURES FOR MISSION 1: PROCESOS
+    const m1Data = [
+      {
+        id: 1,
+        text: "1. La replicación usa ADN como molde para producir ARN.",
+        correct: false,
+        explanation: "Falso — La replicación sintetiza ADN a partir de un molde de ADN (ADN → ADN). El proceso que usa ADN como molde para producir ARN es la transcripción.",
+        hint: "Piensa en el producto final de la replicación celular. ¿El material genético duplicado para la división celular es ADN o ARN?"
+      },
+      {
+        id: 2,
+        text: "2. La traducción usa un ARNm como molde para producir una proteína.",
+        correct: true,
+        explanation: "Verdadero — Durante la traducción, el ribosoma lee la secuencia de codones del ARNm como molde para ensamblar la cadena polipeptídica de aminoácidos.",
+        hint: "Revisa qué tipo de molécula transporta el mensaje codificado hacia los ribosomas."
+      },
+      {
+        id: 3,
+        text: "3. Todos los genes producen una proteína.",
+        correct: false,
+        explanation: "Falso — Existen genes que codifican para ARN funcionales no traducibles (como ARNt, ARNr, microARNs, snARNs) que cumplen su función directamente como ARN.",
+        hint: "Recuerda las moléculas clave en la traducción como el ARN de transferencia (ARNt) o el ARN ribosomal (ARNr). ¿Provienen de genes?"
+      },
+      {
+        id: 4,
+        text: "4. Un mismo gen puede producir más de un transcrito.",
+        correct: true,
+        explanation: "Verdadero — A través de mecanismos como el splicing alternativo o el uso de promotores alternativos, una sola región genómica puede generar múltiples isoformas de ARN.",
+        hint: "Considera los mecanismos de maduración en eucariotas donde se combinan diferentes exones."
+      },
+      {
+        id: 5,
+        text: "5. La transcripción ocurre después de la traducción.",
+        correct: false,
+        explanation: "Falso — El orden temporal y molecular requiere que primero se transcriba la información del ADN a ARN antes de que dicho ARN pueda ser traducido a proteína.",
+        hint: "Piensa cuál de las dos moléculas (ARN o proteína) necesita ser sintetizada primero."
+      },
+      {
+        id: 6,
+        text: "6. Un operón procariota puede producir varias proteínas a partir de un solo ARN policistrónico.",
+        correct: true,
+        explanation: "Verdadero — Un ARN policistrónico contiene múltiples regiones codificantes (CDS) independientes bajo el control de un mismo promotor, permitiendo traducir varias proteínas.",
+        hint: "Recuerda el caso del operón lac en bacterias, donde un solo ARN codifica para LacZ, LacY y LacA."
+      }
+    ];
+
+    // DATA STRUCTURES FOR MISSION 2: ELEMENTOS
+    const m2Terms = [
+      { id: "promotor", label: "Promotor" },
+      { id: "tss", label: "TSS" },
+      { id: "utr5", label: "5′ UTR" },
+      { id: "cds", label: "CDS" },
+      { id: "intron", label: "Intrón" },
+      { id: "exon", label: "Exón" },
+      { id: "operon", label: "Operón" },
+      { id: "gen", label: "Gen" },
+      { id: "utr3", label: "3′ UTR" } // Unused term!
+    ];
+
+    const m2Definitions = [
+      { id: 1, text: "1. Región donde se organiza el inicio de la transcripción.", correctTerm: "promotor", hint: "Diferencia entre una región organizadora (promotor) y la primera posición física transcrita (TSS)." },
+      { id: 2, text: "2. Primera posición transcrita de un gen.", correctTerm: "tss", hint: "Es el nucleótido exacto (+1) donde la ARN polimerasa comienza a sintetizar." },
+      { id: 3, text: "3. Parte del transcrito, anterior a la región codificante, que no se traduce.", correctTerm: "utr5", hint: "Está en el extremo 5′ del ARN pero antes del codón de inicio AUG." },
+      { id: 4, text: "4. Parte de un transcrito que se traduce en una secuencia de aminoácidos.", correctTerm: "cds", hint: "Es la 'Coding Sequence' que abarca desde el codón de inicio hasta el codón de paro." },
+      { id: 5, text: "5. Segmento que se elimina del transcrito primario durante el splicing.", correctTerm: "intron", hint: "Secuencia 'intermedia' removida durante el procesamiento del pre-ARNm." },
+      { id: 6, text: "6. Segmento que permanece en el ARN maduro después del splicing.", correctTerm: "exon", hint: "Secuencia que 'se expresa' o permanece unida en el transcrito maduro." },
+      { id: 7, text: "7. Conjunto de regiones codificantes procariotas transcritas juntas en un solo ARN.", correctTerm: "operon", hint: "Estructura genética típica en bacterias regulada por un solo promotor." },
+      { id: 8, text: "8. Región de material genético que contribuye a producir un ARN o una proteína funcional.", correctTerm: "gen", hint: "Es la unidad funcional completa del genoma, no solo la región que se traduce." }
+    ];
+
+    // DATA STRUCTURES FOR MISSION 3: ALFABETOS
+    const m3Fragments = [
+      {
+        id: 1,
+        seq: "ACAATGTT",
+        correctType: "ADN",
+        keyLetters: "T",
+        explanation: "Contiene el nucleótido Timina (T) y no contiene Uracilo (U), lo que descarta ARN en este contexto estándar.",
+        ambiguous: false
+      },
+      {
+        id: 2,
+        seq: "ACAAUGUU",
+        correctType: "ARN",
+        keyLetters: "U",
+        explanation: "La presencia explícita de Uracilo (U) confirma que se trata de una cadena de ARN.",
+        ambiguous: false
+      },
+      {
+        id: 3,
+        seq: "PAFFNK",
+        correctType: "Proteína",
+        keyLetters: "P, F",
+        explanation: "Las letras P (Prolina) y F (Fenilalanina) no corresponden a nucleótidos ni a códigos IUPAC de ambigüedad genómica.",
+        ambiguous: false
+      },
+      {
+        id: 4,
+        seq: "ACGT",
+        correctType: "Ambiguo",
+        keyLetters: "A, C, G, T",
+        explanation: "<strong>No se puede determinar sin más contexto.</strong> Aunque A, C, G y T representan las bases del ADN, esas cuatro mismas letras también son códigos de aminoácidos válidos (Alanina, Cisteína, Glicina, Treonina).",
+        ambiguous: true,
+        contextHint: "¿Qué contexto adicional resolvería la ambigüedad? El encabezado del registro, la base de datos de origen (p. ej., GenBank vs UniProt) o la longitud de la secuencia."
+      },
+      {
+        id: 5,
+        seq: "MSTAC",
+        correctType: "Ambiguo",
+        keyLetters: "M, S, T, A, C",
+        explanation: "<strong>No se puede determinar sin más contexto.</strong> Estas letras pueden actuar como un péptido (Metionina, Serina, Treonina, Alanina, Cisteína) o como códigos IUPAC de ambigüedad de nucleótidos (M = A/C, S = G/C).",
+        ambiguous: true,
+        contextHint: "Un análisis de frecuencia o el formato de archivo (FASTA de nucleótidos vs proteína) confirmaría su naturaleza."
+      },
+      {
+        id: 6,
+        seq: "LWTKQ",
+        correctType: "Proteína",
+        keyLetters: "Q, L, W, K",
+        explanation: "La letra Q (Glutamina) y W (Triptófano) no existen como bases ni códigos de ambigüedad en el alfabeto de nucleótidos.",
+        ambiguous: false
+      },
+      {
+        id: 7,
+        seq: "NNNNN",
+        correctType: "Ambiguo",
+        keyLetters: "N",
+        explanation: "<strong>No se puede determinar sin más contexto.</strong> La letra N puede representar una base indeterminada en ADN/ARN o el aminoácido Asparagina en proteínas.",
+        ambiguous: true,
+        contextHint: "Sin un encabezado FASTA o anotación de tipo de molécula, cinco N consecutivas son totalmente ambiguas."
+      }
+    ];
+
+    // STATE VARIABLES
+    let userM1State = {}; // id -> { answer: bool, attempts: int, solved: bool }
+    let userM2State = {}; // defId -> selectedTerm
+    let selectedM2Term = null;
+    let userM3State = {}; // fragId -> { type: str, certainty: str, letter: str, contextReq: bool }
+    let certaintyChartInstance = null;
+
+    // NAVIGATION
+    function switchMission(missId) {
+      const sections = ["m1", "m2", "m3", "cierre"];
+      sections.forEach(s => {
+        document.getElementById(`section-${s}`).classList.add("hidden");
+        const navBtn = document.getElementById(`nav-${s}`);
+        if (navBtn) {
+          navBtn.className = "px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors text-slate-600 hover:text-slate-900 whitespace-nowrap";
+        }
+      });
+
+      document.getElementById(`section-${missId}`).classList.remove("hidden");
+      const activeNav = document.getElementById(`nav-${missId}`);
+      if (activeNav) {
+        activeNav.className = "px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors bg-white text-slate-900 shadow-sm whitespace-nowrap";
+      }
+
+      const indicator = document.getElementById("mission-indicator-text");
+      const progress = document.getElementById("mission-progress-percent");
+
+      if (missId === "m1") {
+        indicator.textContent = "Misión 1 de 3: Reconstruir el flujo de información (Procesos)";
+        progress.textContent = "Progreso: 25%";
+      } else if (missId === "m2") {
+        indicator.textContent = "Misión 2 de 3: Identificar las piezas de un gen (Elementos)";
+        progress.textContent = "Progreso: 50%";
+        renderM2();
+      } else if (missId === "m3") {
+        indicator.textContent = "Misión 3 de 3: Leer las pistas de una secuencia (Alfabetos)";
+        progress.textContent = "Progreso: 75%";
+        renderM3();
+      } else if (missId === "cierre") {
+        indicator.textContent = "Síntesis Epistemológica & Preparación para el Taller";
+        progress.textContent = "Progreso: 100%";
+        initCertaintyChart();
+      }
+    }
+
+    // MISSION 1 LOGIC
+    function renderM1() {
+      const container = document.getElementById("m1-statements-container");
+      container.innerHTML = m1Data.map(st => {
+        const state = userM1State[st.id] || { attempts: 0, solved: false };
+        return `
+          <div id="m1-card-${st.id}" class="p-4 border border-slate-200 rounded-xl bg-slate-50 space-y-3 transition-all">
+            <p class="text-xs md:text-sm font-semibold text-slate-800">${st.text}</p>
+            
+            <div class="flex items-center gap-3">
+              <button onclick="handleM1Answer(${st.id}, true)" ${state.solved ? 'disabled' : ''} class="px-3 py-1.5 rounded-lg border text-xs font-bold transition-all ${state.solved && state.userAnswer === true ? 'bg-slate-900 text-white' : 'bg-white text-slate-700 border-slate-300 hover:border-sky-500'}">
+                Verdadero
+              </button>
+              <button onclick="handleM1Answer(${st.id}, false)" ${state.solved ? 'disabled' : ''} class="px-3 py-1.5 rounded-lg border text-xs font-bold transition-all ${state.solved && state.userAnswer === false ? 'bg-slate-900 text-white' : 'bg-white text-slate-700 border-slate-300 hover:border-sky-500'}">
+                Falso
+              </button>
+              ${state.attempts > 0 ? `<span class="text-[11px] text-slate-500 font-mono">Intentos: ${state.attempts}</span>` : ''}
+            </div>
+
+            <div id="m1-feedback-${st.id}" class="hidden p-3 rounded-lg text-xs space-y-1"></div>
+          </div>
+        `;
+      }).join('');
+
+      checkM1Completion();
+    }
+
+    function handleM1Answer(id, val) {
+      const st = m1Data.find(d => d.id === id);
+      if (!userM1State[id]) userM1State[id] = { attempts: 0, solved: false };
+      userM1State[id].attempts++;
+      userM1State[id].userAnswer = val;
+
+      const fb = document.getElementById(`m1-feedback-${id}`);
+      fb.classList.remove("hidden");
+
+      if (val === st.correct) {
+        userM1State[id].solved = true;
+        fb.className = "p-3 rounded-lg text-xs bg-emerald-50 border border-emerald-200 text-emerald-900 space-y-1";
+        fb.innerHTML = `
+          <div class="font-bold flex items-center gap-1"><span>✅</span> Razonamiento Correcto:</div>
+          <p>${st.explanation}</p>
+        `;
+      } else {
+        fb.className = "p-3 rounded-lg text-xs bg-amber-50 border border-amber-200 text-amber-900 space-y-1";
+        fb.innerHTML = `
+          <div class="font-bold flex items-center gap-1"><span>💡</span> Pista del Detective (Intento ${userM1State[id].attempts}):</div>
+          <p>${st.hint}</p>
+        `;
+      }
+
+      renderM1();
+    }
+
+    function checkM1Completion() {
+      const allSolved = m1Data.every(st => userM1State[st.id] && userM1State[st.id].solved);
+      if (allSolved) {
+        document.getElementById("m1-closure-box").classList.remove("hidden");
+      }
+    }
+
+    function answerM1Dogma(val) {
+      const fb = document.getElementById("dogma-feedback");
+      fb.classList.remove("hidden");
+      if (!val) {
+        fb.className = "p-3 rounded-xl bg-emerald-900/80 border border-emerald-700 text-xs text-emerald-100";
+        fb.innerHTML = "<strong>¡Correcto!</strong> La relación gen → transcrito → proteína <strong>NO siempre es 1 a 1</strong> debido a eventos como splicing alternativo, genes que producen ARN no codificante y operones policistrónicos en procariotas.";
+      } else {
+        fb.className = "p-3 rounded-xl bg-amber-900/80 border border-amber-700 text-xs text-amber-100";
+        fb.innerHTML = "<strong>Pista:</strong> Piensa en el splicing alternativo o en los genes de ARN funcional (como los ARNt). ¿Un solo gen siempre da una sola proteína?";
+      }
+    }
+
+    // MISSION 2 LOGIC
+    function renderM2() {
+      const poolContainer = document.getElementById("terms-pool");
+      poolContainer.innerHTML = m2Terms.map(t => {
+        const isSelected = selectedM2Term === t.id;
+        const isUsed = Object.values(userM2State).includes(t.id);
+        return `
+          <button onclick="selectM2Term('${t.id}')" ${isUsed ? 'disabled' : ''} class="px-3 py-2 rounded-xl text-xs font-mono font-bold transition-all text-left flex items-center justify-between ${isUsed ? 'bg-slate-200 text-slate-400 line-through' : isSelected ? 'bg-teal-600 text-white shadow-sm ring-2 ring-teal-400' : 'bg-white text-slate-800 border border-slate-300 hover:border-teal-500'}">
+            <span>${t.label}</span>
+            ${isUsed ? '<span class="text-[10px] text-slate-400 font-sans ml-1">(asignado)</span>' : ''}
+          </button>
+        `;
+      }).join('');
+
+      const defContainer = document.getElementById("definitions-container");
+      defContainer.innerHTML = m2Definitions.map(def => {
+        const assignedTermId = userM2State[def.id];
+        const assignedTermObj = m2Terms.find(t => t.id === assignedTermId);
+        const isCorrect = assignedTermId === def.correctTerm;
+
+        return `
+          <div class="p-3.5 border rounded-xl bg-slate-50 transition-all flex flex-col md:flex-row md:items-center justify-between gap-3 ${isCorrect ? 'border-emerald-300 bg-emerald-50/50' : assignedTermId ? 'border-amber-300 bg-amber-50/50' : 'border-slate-200'}">
+            <div class="space-y-1">
+              <p class="text-xs font-semibold text-slate-800">${def.text}</p>
+              ${assignedTermId && !isCorrect ? `<p class="text-[11px] text-amber-800">💡 <strong>Pista:</strong> ${def.hint}</p>` : ''}
+            </div>
+
+            <div class="flex items-center gap-2 self-end md:self-auto min-w-[160px] justify-end">
+              ${assignedTermObj ? `
+                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-bold ${isCorrect ? 'bg-emerald-600 text-white' : 'bg-amber-500 text-white'}">
+                  ${assignedTermObj.label}
+                </span>
+                <button onclick="unassignM2Term(${def.id})" class="text-xs text-slate-400 hover:text-rose-600">✕</button>
+              ` : `
+                <button onclick="assignSelectedToDef(${def.id})" ${!selectedM2Term ? 'disabled' : ''} class="px-3 py-1.5 rounded-lg border border-dashed border-teal-500 text-teal-700 bg-white text-xs font-bold hover:bg-teal-50 disabled:opacity-40 transition-all">
+                  ${selectedM2Term ? 'Asignar término' : 'Selecciona término'}
+                </button>
+              `}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      checkM2Completion();
+    }
+
+    function selectM2Term(termId) {
+      selectedM2Term = selectedM2Term === termId ? null : termId;
+      renderM2();
+    }
+
+    function assignSelectedToDef(defId) {
+      if (!selectedM2Term) return;
+      userM2State[defId] = selectedM2Term;
+      selectedM2Term = null;
+      renderM2();
+    }
+
+    function unassignM2Term(defId) {
+      delete userM2State[defId];
+      renderM2();
+    }
+
+    function checkM2Completion() {
+      const correctCount = m2Definitions.filter(d => userM2State[d.id] === d.correctTerm).length;
+      if (correctCount === m2Definitions.length) {
+        document.getElementById("m2-closure-box").classList.remove("hidden");
+      }
+    }
+
+    // MISSION 3 LOGIC
+    function renderM3() {
+      const container = document.getElementById("m3-fragments-container");
+      container.innerHTML = m3Fragments.map(frag => {
+        const st = userM3State[frag.id] || {};
+        return `
+          <div class="p-5 border border-slate-200 rounded-2xl bg-slate-50 space-y-4">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-slate-200 pb-3">
+              <div class="flex items-center gap-3">
+                <span class="text-xs font-bold text-slate-400 font-mono">#0${frag.id}</span>
+                <div class="bg-slate-900 text-amber-300 font-mono text-sm px-3 py-1 rounded-lg tracking-widest font-bold">
+                  ${frag.seq}
+                </div>
+              </div>
+              <span class="text-xs text-slate-500">¿Qué tipo de secuencia es?</span>
+            </div>
+
+            <!-- Classification Choices -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              ${["ADN", "ARN", "Proteína", "Ambiguo"].map(type => `
+                <button onclick="handleM3Classify(${frag.id}, '${type}')" class="px-3 py-2 rounded-xl text-xs font-bold border transition-all ${st.type === type ? 'bg-slate-900 text-white border-slate-900' : 'bg-white text-slate-700 border-slate-300 hover:border-amber-500'}">
+                  ${type === "Ambiguo" ? "No se determina sin más contexto" : type}
+                </button>
+              `).join('')}
+            </div>
+
+            <!-- Evidence Letters Input & Certainty Selector -->
+            ${st.type ? `
+              <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-3">
+                <div class="space-y-1">
+                  <label for="m3-letter-${frag.id}" class="block text-xs font-bold text-slate-700">
+                    ¿Qué letra o letras sustentan tu decisión?
+                  </label>
+                  <input type="text" id="m3-letter-${frag.id}" value="${st.letter || ''}" onchange="saveM3Letter(${frag.id}, this.value)" placeholder="Ej. T, U, P, F..." class="w-full text-xs px-3 py-1.5 border border-slate-300 rounded-lg focus:outline-none focus:border-amber-500">
+                </div>
+
+                <div class="space-y-1">
+                  <span class="block text-xs font-bold text-slate-700">
+                    ¿Con qué nivel de certeza puedes sostenerlo?
+                  </span>
+                  <div class="flex flex-wrap gap-2 text-xs">
+                    ${[
+                      { id: "Alta", label: "La evidencia lo distingue con certeza" },
+                      { id: "Probable", label: "Es probable, pero falta contexto" },
+                      { id: "Incierta", label: "No puedo distinguirlo con esta información" }
+                    ].map(c => `
+                      <button onclick="saveM3Certainty(${frag.id}, '${c.id}')" class="px-2.5 py-1 rounded-lg border transition-all ${st.certainty === c.id ? 'bg-amber-600 text-white border-amber-600 font-bold' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}">
+                        ${c.label}
+                      </button>
+                    `).join('')}
+                  </div>
+                </div>
+
+                <!-- Explanation / Hints -->
+                <div class="p-3 rounded-lg text-xs ${st.type === (frag.ambiguous ? "Ambiguo" : frag.correctType) ? 'bg-emerald-50 text-emerald-900 border border-emerald-200' : 'bg-amber-50 text-amber-900 border border-amber-200'}">
+                  ${frag.ambiguous && st.type !== "Ambiguo" ? `
+                    <div class="font-bold mb-1">⚠️ Reflexión de Detective:</div>
+                    <p>Elegiste <strong>${st.type}</strong>. Es una interpretación plausible, pero... ¿puedes garantizar que esas letras no correspondan al otro alfabeto? <strong>Una interpretación plausible no siempre es una interpretación demostrada.</strong></p>
+                  ` : `
+                    <div class="font-bold mb-1">Diagnóstico Bioinformático:</div>
+                    <p>${frag.explanation}</p>
+                  `}
+                  ${frag.contextHint ? `<p class="mt-1 text-[11px] opacity-80 border-t border-amber-200/50 pt-1">💡 <strong>Evidencia adicional recomendada:</strong> ${frag.contextHint}</p>` : ''}
+                </div>
+              </div>
+            ` : ''}
+          </div>
+        `;
+      }).join('');
+
+      checkM3Completion();
+    }
+
+    function handleM3Classify(fragId, type) {
+      if (!userM3State[fragId]) userM3State[fragId] = {};
+      userM3State[fragId].type = type;
+      renderM3();
+    }
+
+    function saveM3Letter(fragId, letterVal) {
+      if (!userM3State[fragId]) userM3State[fragId] = {};
+      userM3State[fragId].letter = letterVal;
+    }
+
+    function saveM3Certainty(fragId, certVal) {
+      if (!userM3State[fragId]) userM3State[fragId] = {};
+      userM3State[fragId].certainty = certVal;
+      renderM3();
+      if (certaintyChartInstance) updateCertaintyChart();
+    }
+
+    function checkM3Completion() {
+      const answeredCount = Object.keys(userM3State).filter(k => userM3State[k].type && userM3State[k].certainty).length;
+      if (answeredCount >= 4) {
+        document.getElementById("m3-closure-box").classList.remove("hidden");
+      }
+    }
+
+    // CHART.JS CERTAINTY SUMMARY
+    function initCertaintyChart() {
+      if (certaintyChartInstance) certaintyChartInstance.destroy();
+
+      const ctx = document.getElementById("chart-certainty-summary").getContext("2d");
+      
+      let alta = 0, probable = 0, incierta = 0;
+      Object.values(userM3State).forEach(st => {
+        if (st.certainty === "Alta") alta++;
+        else if (st.certainty === "Probable") probable++;
+        else if (st.certainty === "Incierta") incierta++;
+      });
+
+      // Default placeholder if empty
+      if (alta === 0 && probable === 0 && incierta === 0) {
+        alta = 4; probable = 2; incierta = 1;
+      }
+
+      certaintyChartInstance = new Chart(ctx, {
+        type: "doughnut",
+        data: {
+          labels: ["Evidencia Distinguible (Alta)", "Probable con falta de contexto", "Incierta / Ambigua"],
+          datasets: [{
+            data: [alta, probable, incierta],
+            backgroundColor: ["#059669", "#d97706", "#0284c7"]
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: "bottom",
+              labels: {
+                boxWidth: 12,
+                font: { size: 11 }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    function updateCertaintyChart() {
+      if (!certaintyChartInstance) return;
+      let alta = 0, probable = 0, incierta = 0;
+      Object.values(userM3State).forEach(st => {
+        if (st.certainty === "Alta") alta++;
+        else if (st.certainty === "Probable") probable++;
+        else if (st.certainty === "Incierta") incierta++;
+      });
+      certaintyChartInstance.data.datasets[0].data = [alta, probable, incierta];
+      certaintyChartInstance.update();
+    }
+
+    // DOWNLOAD STUDENT PROTOCOL REPORT
+    function downloadStudentProtocolReport() {
+      const q1 = document.getElementById("prep-q1").value || "Sin especificar";
+      const q2 = document.getElementById("prep-q2").value || "Sin especificar";
+      const q3 = document.getElementById("prep-q3").value || "Sin especificar";
+      const now = new Date().toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+      const content = `===============================================================
+LCG UNAM 2026 — UNIDAD 3 (SESIÓN S7)
+REGISTRO DE TRABAJO INDIVIDUAL — PRÁCTICA 1: BIO DETECTIVE
+===============================================================
+
+FECHA DE GENERACIÓN : ${now}
+
+---------------------------------------------------------------
+APUNTES Y DESACUERDOS PARA EL TALLER:
+---------------------------------------------------------------
+1. Afirmación de procesos que generó duda o cambio de opinión:
+   ${q1}
+
+2. Elemento genético más difícil de distinguir:
+   ${q2}
+
+3. Fragmento de secuencia más ambiguo y justificación:
+   ${q3}
+
+---------------------------------------------------------------
+RESUMEN DE REVISIÓN EN INTERACTIVO:
+- Misión 1 (Procesos)       : Completa ✓
+- Misión 2 (Elementos)      : Completa ✓ (Término sobrante: 3' UTR)
+- Misión 3 (Alfabetos)      : Completa ✓
+---------------------------------------------------------------
+REGLA DE ORO DE LA PRÁCTICA:
+"Reconocer patrones es útil, pero no debemos inventar certeza cuando la evidencia no alcanza."
+===============================================================
+Guarda este archivo como referencia para completar doc/protocolo.md.
+`;
+
+      const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "Apuntes_Practica1_Bio_Detective_LCG.txt";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function restartAllMissions() {
+      userM1State = {};
+      userM2State = {};
+      selectedM2Term = null;
+      userM3State = {};
+      document.getElementById("m1-closure-box").classList.add("hidden");
+      document.getElementById("m2-closure-box").classList.add("hidden");
+      document.getElementById("m3-closure-box").classList.add("hidden");
+      renderM1();
+      switchMission("m1");
+    }
+
+    // INITIALIZATION
+    window.addEventListener("DOMContentLoaded", () => {
+      renderM1();
+    });
+  </script>
+</body>
+</html>
